@@ -1,0 +1,930 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proof Index &#8212; A Course in Mathematical Statistics with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'prf-prf';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+
+    <script>
+      DOCUMENTATION_OPTIONS.COLLAPSE_INDEX = true;
+    </script>
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    A Course in Mathematical Statistics with Python
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chapters/introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/prob-spaces.html">2. Probability spaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/rules-of-prob.html">3. Rules of probability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/random-variables.html">4. Random variables, expected values, variances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/examples-of-rvs.html">5. Examples of random variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/theory-to-practice.html">6. Connecting theory to practice: data and samples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/random-vectors.html">7. Random vectors; joint, marginal and conditional distributions; independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/covar-correl.html">8. Covariance and correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/fun-rvs.html">9. Computations with random variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/mgf.html">10. Moment generating functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/cond-exp.html">11. Conditional expected values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/stats-estimators.html">12. Statistics, estimators, and their distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/asymptotic.html">13. The asymptotic theory: the LLN and CLT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/point-est.html">14. Point estimators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/CIs.html">15. Confidence intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/hyp-test.html">16. Hypothesis testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/bib.html">17. Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/jmyers7/stats-book-online" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/jmyers7/stats-book-online/issues/new?title=Issue%20on%20page%20%2Fprf-prf.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+
+   <h1>Proof Index</h1>
+
+   <div class="modindex-jumpbox">
+   <a href="#cap-bern-bin-thm"><strong>bern-bin-thm</strong></a> | 
+   <a href="#cap-definition-0"><strong>definition-0</strong></a> | 
+   <a href="#cap-definition-1"><strong>definition-1</strong></a> | 
+   <a href="#cap-definition-10"><strong>definition-10</strong></a> | 
+   <a href="#cap-definition-11"><strong>definition-11</strong></a> | 
+   <a href="#cap-definition-12"><strong>definition-12</strong></a> | 
+   <a href="#cap-definition-14"><strong>definition-14</strong></a> | 
+   <a href="#cap-definition-15"><strong>definition-15</strong></a> | 
+   <a href="#cap-definition-16"><strong>definition-16</strong></a> | 
+   <a href="#cap-definition-19"><strong>definition-19</strong></a> | 
+   <a href="#cap-definition-2"><strong>definition-2</strong></a> | 
+   <a href="#cap-definition-21"><strong>definition-21</strong></a> | 
+   <a href="#cap-definition-22"><strong>definition-22</strong></a> | 
+   <a href="#cap-definition-23"><strong>definition-23</strong></a> | 
+   <a href="#cap-definition-3"><strong>definition-3</strong></a> | 
+   <a href="#cap-definition-4"><strong>definition-4</strong></a> | 
+   <a href="#cap-definition-5"><strong>definition-5</strong></a> | 
+   <a href="#cap-definition-6"><strong>definition-6</strong></a> | 
+   <a href="#cap-definition-7"><strong>definition-7</strong></a> | 
+   <a href="#cap-definition-8"><strong>definition-8</strong></a> | 
+   <a href="#cap-definition-9"><strong>definition-9</strong></a> | 
+   <a href="#cap-exp-beta-thm"><strong>exp-beta-thm</strong></a> | 
+   <a href="#cap-gam-defn"><strong>gam-defn</strong></a> | 
+   <a href="#cap-gam-exp-thm"><strong>gam-exp-thm</strong></a> | 
+   <a href="#cap-independence-defn"><strong>independence-defn</strong></a> | 
+   <a href="#cap-lotus-thm"><strong>lotus-thm</strong></a> | 
+   <a href="#cap-marg-thm"><strong>marg-thm</strong></a> | 
+   <a href="#cap-marginal-thm"><strong>marginal-thm</strong></a> | 
+   <a href="#cap-prob1-axiom"><strong>prob1-axiom</strong></a> | 
+   <a href="#cap-prob2-axiom"><strong>prob2-axiom</strong></a> | 
+   <a href="#cap-prob3-axiom"><strong>prob3-axiom</strong></a> | 
+   <a href="#cap-random-sample-defn"><strong>random-sample-defn</strong></a> | 
+   <a href="#cap-random-sample-vec-defn"><strong>random-sample-vec-defn</strong></a> | 
+   <a href="#cap-recur-gamma-thm"><strong>recur-gamma-thm</strong></a> | 
+   <a href="#cap-shortcut-var-thm"><strong>shortcut-var-thm</strong></a> | 
+   <a href="#cap-standardization-cor"><strong>standardization-cor</strong></a> | 
+   <a href="#cap-theorem-0"><strong>theorem-0</strong></a> | 
+   <a href="#cap-theorem-1"><strong>theorem-1</strong></a> | 
+   <a href="#cap-theorem-10"><strong>theorem-10</strong></a> | 
+   <a href="#cap-theorem-11"><strong>theorem-11</strong></a> | 
+   <a href="#cap-theorem-12"><strong>theorem-12</strong></a> | 
+   <a href="#cap-theorem-13"><strong>theorem-13</strong></a> | 
+   <a href="#cap-theorem-14"><strong>theorem-14</strong></a> | 
+   <a href="#cap-theorem-15"><strong>theorem-15</strong></a> | 
+   <a href="#cap-theorem-16"><strong>theorem-16</strong></a> | 
+   <a href="#cap-theorem-17"><strong>theorem-17</strong></a> | 
+   <a href="#cap-theorem-18"><strong>theorem-18</strong></a> | 
+   <a href="#cap-theorem-20"><strong>theorem-20</strong></a> | 
+   <a href="#cap-theorem-21"><strong>theorem-21</strong></a> | 
+   <a href="#cap-theorem-24"><strong>theorem-24</strong></a> | 
+   <a href="#cap-theorem-25"><strong>theorem-25</strong></a> | 
+   <a href="#cap-theorem-3"><strong>theorem-3</strong></a> | 
+   <a href="#cap-theorem-5"><strong>theorem-5</strong></a> | 
+   <a href="#cap-theorem-6"><strong>theorem-6</strong></a> | 
+   <a href="#cap-theorem-7"><strong>theorem-7</strong></a> | 
+   <a href="#cap-theorem-8"><strong>theorem-8</strong></a> | 
+   <a href="#cap-theorem-9"><strong>theorem-9</strong></a> | 
+   <a href="#cap-weak-linear-thm"><strong>weak-linear-thm</strong></a>
+   </div>
+
+   <table class="indextable modindextable">
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-bern-bin-thm"><td></td><td>
+       <strong>bern-bin-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/examples-of-rvs.html#bern-bin-thm"><code class="xref">bern-bin-thm</code></a> <em>(chapters/examples-of-rvs)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-0"><td></td><td>
+       <strong>definition-0</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/random-vectors.html#definition-0"><code class="xref">definition-0</code></a> <em>(chapters/random-vectors)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-1"><td></td><td>
+       <strong>definition-1</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/theory-to-practice.html#definition-1"><code class="xref">definition-1</code></a> <em>(chapters/theory-to-practice)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-10"><td></td><td>
+       <strong>definition-10</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/random-vectors.html#definition-10"><code class="xref">definition-10</code></a> <em>(chapters/random-vectors)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-11"><td></td><td>
+       <strong>definition-11</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/random-variables.html#definition-11"><code class="xref">definition-11</code></a> <em>(chapters/random-variables)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-12"><td></td><td>
+       <strong>definition-12</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/prob-spaces.html#definition-12"><code class="xref">definition-12</code></a> <em>(chapters/prob-spaces)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-14"><td></td><td>
+       <strong>definition-14</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/random-vectors.html#definition-14"><code class="xref">definition-14</code></a> <em>(chapters/random-vectors)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-15"><td></td><td>
+       <strong>definition-15</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/random-vectors.html#definition-15"><code class="xref">definition-15</code></a> <em>(chapters/random-vectors)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-16"><td></td><td>
+       <strong>definition-16</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/examples-of-rvs.html#definition-16"><code class="xref">definition-16</code></a> <em>(chapters/examples-of-rvs)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-19"><td></td><td>
+       <strong>definition-19</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/prob-spaces.html#definition-19"><code class="xref">definition-19</code></a> <em>(chapters/prob-spaces)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-2"><td></td><td>
+       <strong>definition-2</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/theory-to-practice.html#definition-2"><code class="xref">definition-2</code></a> <em>(chapters/theory-to-practice)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-21"><td></td><td>
+       <strong>definition-21</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/examples-of-rvs.html#definition-21"><code class="xref">definition-21</code></a> <em>(chapters/examples-of-rvs)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-22"><td></td><td>
+       <strong>definition-22</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/prob-spaces.html#definition-22"><code class="xref">definition-22</code></a> <em>(chapters/prob-spaces)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-23"><td></td><td>
+       <strong>definition-23</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/prob-spaces.html#definition-23"><code class="xref">definition-23</code></a> <em>(chapters/prob-spaces)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-3"><td></td><td>
+       <strong>definition-3</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/theory-to-practice.html#definition-3"><code class="xref">definition-3</code></a> <em>(chapters/theory-to-practice)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-4"><td></td><td>
+       <strong>definition-4</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/theory-to-practice.html#definition-4"><code class="xref">definition-4</code></a> <em>(chapters/theory-to-practice)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-5"><td></td><td>
+       <strong>definition-5</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/theory-to-practice.html#definition-5"><code class="xref">definition-5</code></a> <em>(chapters/theory-to-practice)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-6"><td></td><td>
+       <strong>definition-6</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/prob-spaces.html#definition-6"><code class="xref">definition-6</code></a> <em>(chapters/prob-spaces)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-7"><td></td><td>
+       <strong>definition-7</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/rules-of-prob.html#definition-7"><code class="xref">definition-7</code></a> <em>(chapters/rules-of-prob)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-8"><td></td><td>
+       <strong>definition-8</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/rules-of-prob.html#definition-8"><code class="xref">definition-8</code></a> <em>(chapters/rules-of-prob)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-definition-9"><td></td><td>
+       <strong>definition-9</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/random-vectors.html#definition-9"><code class="xref">definition-9</code></a> <em>(chapters/random-vectors)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-exp-beta-thm"><td></td><td>
+       <strong>exp-beta-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/examples-of-rvs.html#exp-beta-thm"><code class="xref">exp-beta-thm</code></a> <em>(chapters/examples-of-rvs)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-gam-defn"><td></td><td>
+       <strong>gam-defn</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/examples-of-rvs.html#gam-defn"><code class="xref">gam-defn</code></a> <em>(chapters/examples-of-rvs)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-gam-exp-thm"><td></td><td>
+       <strong>gam-exp-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/examples-of-rvs.html#gam-exp-thm"><code class="xref">gam-exp-thm</code></a> <em>(chapters/examples-of-rvs)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-independence-defn"><td></td><td>
+       <strong>independence-defn</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/random-vectors.html#independence-defn"><code class="xref">independence-defn</code></a> <em>(chapters/random-vectors)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-lotus-thm"><td></td><td>
+       <strong>lotus-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/random-variables.html#lotus-thm"><code class="xref">lotus-thm</code></a> <em>(chapters/random-variables)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-marg-thm"><td></td><td>
+       <strong>marg-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/random-vectors.html#marg-thm"><code class="xref">marg-thm</code></a> <em>(chapters/random-vectors)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-marginal-thm"><td></td><td>
+       <strong>marginal-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/random-vectors.html#marginal-thm"><code class="xref">marginal-thm</code></a> <em>(chapters/random-vectors)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-prob1-axiom"><td></td><td>
+       <strong>prob1-axiom</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/prob-spaces.html#prob1-axiom"><code class="xref">prob1-axiom</code></a> <em>(chapters/prob-spaces)</em></td><td>
+       <em>axiom</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-prob2-axiom"><td></td><td>
+       <strong>prob2-axiom</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/prob-spaces.html#prob2-axiom"><code class="xref">prob2-axiom</code></a> <em>(chapters/prob-spaces)</em></td><td>
+       <em>axiom</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-prob3-axiom"><td></td><td>
+       <strong>prob3-axiom</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/prob-spaces.html#prob3-axiom"><code class="xref">prob3-axiom</code></a> <em>(chapters/prob-spaces)</em></td><td>
+       <em>axiom</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-random-sample-defn"><td></td><td>
+       <strong>random-sample-defn</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/theory-to-practice.html#random-sample-defn"><code class="xref">random-sample-defn</code></a> <em>(chapters/theory-to-practice)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-random-sample-vec-defn"><td></td><td>
+       <strong>random-sample-vec-defn</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/random-vectors.html#random-sample-vec-defn"><code class="xref">random-sample-vec-defn</code></a> <em>(chapters/random-vectors)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-recur-gamma-thm"><td></td><td>
+       <strong>recur-gamma-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/examples-of-rvs.html#recur-gamma-thm"><code class="xref">recur-gamma-thm</code></a> <em>(chapters/examples-of-rvs)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-shortcut-var-thm"><td></td><td>
+       <strong>shortcut-var-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/random-variables.html#shortcut-var-thm"><code class="xref">shortcut-var-thm</code></a> <em>(chapters/random-variables)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-standardization-cor"><td></td><td>
+       <strong>standardization-cor</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/examples-of-rvs.html#standardization-cor"><code class="xref">standardization-cor</code></a> <em>(chapters/examples-of-rvs)</em></td><td>
+       <em>corollary</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-0"><td></td><td>
+       <strong>theorem-0</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/rules-of-prob.html#theorem-0"><code class="xref">theorem-0</code></a> <em>(chapters/rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-1"><td></td><td>
+       <strong>theorem-1</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/rules-of-prob.html#theorem-1"><code class="xref">theorem-1</code></a> <em>(chapters/rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-10"><td></td><td>
+       <strong>theorem-10</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/rules-of-prob.html#theorem-10"><code class="xref">theorem-10</code></a> <em>(chapters/rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-11"><td></td><td>
+       <strong>theorem-11</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/rules-of-prob.html#theorem-11"><code class="xref">theorem-11</code></a> <em>(chapters/rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-12"><td></td><td>
+       <strong>theorem-12</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/rules-of-prob.html#theorem-12"><code class="xref">theorem-12</code></a> <em>(chapters/rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-13"><td></td><td>
+       <strong>theorem-13</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/rules-of-prob.html#theorem-13"><code class="xref">theorem-13</code></a> <em>(chapters/rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-14"><td></td><td>
+       <strong>theorem-14</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/prob-spaces.html#theorem-14"><code class="xref">theorem-14</code></a> <em>(chapters/prob-spaces)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-15"><td></td><td>
+       <strong>theorem-15</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/examples-of-rvs.html#theorem-15"><code class="xref">theorem-15</code></a> <em>(chapters/examples-of-rvs)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-16"><td></td><td>
+       <strong>theorem-16</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/prob-spaces.html#theorem-16"><code class="xref">theorem-16</code></a> <em>(chapters/prob-spaces)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-17"><td></td><td>
+       <strong>theorem-17</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/random-vectors.html#theorem-17"><code class="xref">theorem-17</code></a> <em>(chapters/random-vectors)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-18"><td></td><td>
+       <strong>theorem-18</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/random-vectors.html#theorem-18"><code class="xref">theorem-18</code></a> <em>(chapters/random-vectors)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-20"><td></td><td>
+       <strong>theorem-20</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/prob-spaces.html#theorem-20"><code class="xref">theorem-20</code></a> <em>(chapters/prob-spaces)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-21"><td></td><td>
+       <strong>theorem-21</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/prob-spaces.html#theorem-21"><code class="xref">theorem-21</code></a> <em>(chapters/prob-spaces)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-24"><td></td><td>
+       <strong>theorem-24</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/prob-spaces.html#theorem-24"><code class="xref">theorem-24</code></a> <em>(chapters/prob-spaces)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-25"><td></td><td>
+       <strong>theorem-25</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/prob-spaces.html#theorem-25"><code class="xref">theorem-25</code></a> <em>(chapters/prob-spaces)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-3"><td></td><td>
+       <strong>theorem-3</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/rules-of-prob.html#theorem-3"><code class="xref">theorem-3</code></a> <em>(chapters/rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-5"><td></td><td>
+       <strong>theorem-5</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/rules-of-prob.html#theorem-5"><code class="xref">theorem-5</code></a> <em>(chapters/rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-6"><td></td><td>
+       <strong>theorem-6</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/rules-of-prob.html#theorem-6"><code class="xref">theorem-6</code></a> <em>(chapters/rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-7"><td></td><td>
+       <strong>theorem-7</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/random-variables.html#theorem-7"><code class="xref">theorem-7</code></a> <em>(chapters/random-variables)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-8"><td></td><td>
+       <strong>theorem-8</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/examples-of-rvs.html#theorem-8"><code class="xref">theorem-8</code></a> <em>(chapters/examples-of-rvs)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-9"><td></td><td>
+       <strong>theorem-9</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/rules-of-prob.html#theorem-9"><code class="xref">theorem-9</code></a> <em>(chapters/rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-weak-linear-thm"><td></td><td>
+       <strong>weak-linear-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/random-variables.html#weak-linear-thm"><code class="xref">weak-linear-thm</code></a> <em>(chapters/random-variables)</em></td><td>
+       <em>theorem</em></td></tr>
+   </table>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By John Myers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
