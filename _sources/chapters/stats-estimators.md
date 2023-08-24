@@ -10,6 +10,7 @@ kernelspec:
   name: python3
 ---
 
+(stats-estimators)=
 # Statistics, estimators, and their distributions
 
 Coming soon!

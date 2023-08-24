@@ -160,7 +160,7 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preview.html">1. Preview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="prob-spaces.html">2. Probability spaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rules-of-prob.html">3. Rules of probability</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Random variables, expected values, variances</a></li>
@@ -220,50 +220,18 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-
-
-
-<div class="dropdown dropdown-source-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
-    <i class="fab fa-github"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://github.com/jmyers7/stats-book-online" target="_blank"
-   class="btn btn-sm btn-source-repository-button dropdown-item"
+<a href="https://github.com/jmyers7/stats-book-materials" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
    title="Source repository"
-   data-bs-placement="left" data-bs-toggle="tooltip"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
-<span class="btn__text-container">Repository</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://github.com/jmyers7/stats-book-online/issues/new?title=Issue%20on%20page%20%2Fchapters/random-variables.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button dropdown-item"
-   title="Open an issue"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
 
-<span class="btn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="btn__text-container">Open issue</span>
 </a>
-</li>
-      
-  </ul>
-</div>
 
 
 
@@ -370,7 +338,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-variables">4.1. Random variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.1. Random variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-measures-of-random-variables">4.2. Probability measures of random variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-and-continuous-random-variables">4.3. Discrete and continuous random variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-and-quantile-functions">4.4. Distribution and quantile functions</a></li>
@@ -392,9 +360,9 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="random-variables-expected-values-variances">
-<h1><span class="section-number">4. </span>Random variables, expected values, variances<a class="headerlink" href="#random-variables-expected-values-variances" title="Permalink to this heading">#</a></h1>
-<section id="random-variables">
-<h2><span class="section-number">4.1. </span>Random variables<a class="headerlink" href="#random-variables" title="Permalink to this heading">#</a></h2>
+<span id="random-variables"></span><h1><span class="section-number">4. </span>Random variables, expected values, variances<a class="headerlink" href="#random-variables-expected-values-variances" title="Permalink to this heading">#</a></h1>
+<section id="id1">
+<h2><span class="section-number">4.1. </span>Random variables<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <p>I do not think it is too much of a stretch to say that <em>random variables</em> are the objects that most concern practitioners who use probability and statistics in their work. In this section, I want to give a concrete introduction to these gadgets, saving their precise, mathematical definition for a little later.</p>
 <p>As a first example, let’s think about the population that you and I are all members of: The current population <span class="math notranslate nohighlight">\(S\)</span> of the planet Earth. As members of this population, we all have different characteristics, qualities, or features that distinguish us from one another. For example, we all have:</p>
 <ul class="simple">
@@ -1374,8 +1342,8 @@ g(x) = ax+b,
 <p class="admonition-title"><span class="caption-number">Theorem 4.6 </span> (Variance of an Affine Transformation)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable and <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> constants. Then</p>
-<div class="amsmath math notranslate nohighlight" id="equation-14fc809c-169b-415a-810e-ce4d88ba1d42">
-<span class="eqno">(4.18)<a class="headerlink" href="#equation-14fc809c-169b-415a-810e-ce4d88ba1d42" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
+<div class="amsmath math notranslate nohighlight" id="equation-f6f06b21-d972-440a-961c-103e6eef9d14">
+<span class="eqno">(4.18)<a class="headerlink" href="#equation-f6f06b21-d972-440a-961c-103e6eef9d14" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
 V(aX +b) = a^2 V(X).
 \end{equation}\]</div>
 </section>
@@ -1463,7 +1431,7 @@ V(aX+b) &amp;= E\left( (aX+b)^2 \right) - E(aX+b)^2 \\
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-variables">4.1. Random variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.1. Random variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-measures-of-random-variables">4.2. Probability measures of random variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-and-continuous-random-variables">4.3. Discrete and continuous random variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-and-quantile-functions">4.4. Distribution and quantile functions</a></li>

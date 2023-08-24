@@ -10,6 +10,7 @@ kernelspec:
   name: python3
 ---
 
+(asymptotic)=
 # The asymptotic theory: the LLN and CLT
 
 Coming soon!

@@ -11,6 +11,7 @@ kernelspec:
   name: python3
 ---
 
+(prob-spaces)=
 # Probability spaces
 
 ## What is probability?
@@ -1183,7 +1184,7 @@ $$P\big((1,2.75) \big) = \int_1^{2.75} f(s) \ \text{d} s \approx 0.73.$$
 It is very important to remember:
 
 ```{warning}
-The heights of the density curve are* **not** probabilities!
+The heights of the density curve are **not** probabilities!
 ```
 
 I recommend repeating this over and over in your head, like a mantra.

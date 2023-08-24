@@ -10,6 +10,7 @@ kernelspec:
   name: python3
 ---
 
+(random-variables)=
 # Random variables, expected values, variances
 
 ## Random variables

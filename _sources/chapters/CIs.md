@@ -10,6 +10,7 @@ kernelspec:
   name: python3
 ---
 
+(CIs)=
 # Confidence intervals
 
 Coming soon!
