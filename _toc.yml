@@ -3,7 +3,23 @@
 
 format: jb-book
 root: intro
+options:
+  numbered: true
 chapters:
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
+- file: chapters/preview
+- file: chapters/prob-spaces
+- file: chapters/rules-of-prob
+- file: chapters/random-variables
+- file: chapters/examples-of-rvs
+- file: chapters/theory-to-practice
+- file: chapters/random-vectors
+- file: chapters/covar-correl
+- file: chapters/fun-rvs
+- file: chapters/mgf
+- file: chapters/cond-exp
+- file: chapters/stats-estimators
+- file: chapters/asymptotic
+- file: chapters/point-est
+- file: chapters/CIs
+- file: chapters/hyp-test
+- file: chapters/bib

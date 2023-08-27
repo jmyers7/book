@@ -1,0 +1,1433 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>6. Connecting theory to practice: data and samples &#8212; A Course in Mathematical Statistics with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/theory-to-practice';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7. Random vectors; joint, marginal and conditional distributions; independence" href="random-vectors.html" />
+    <link rel="prev" title="5. Examples of random variables" href="examples-of-rvs.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    A Course in Mathematical Statistics with Python
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="preview.html">1. Preview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prob-spaces.html">2. Probability spaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules-of-prob.html">3. Rules of probability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random-variables.html">4. Random variables, expected values, variances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples-of-rvs.html">5. Examples of random variables</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Connecting theory to practice: data and samples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random-vectors.html">7. Random vectors; joint, marginal and conditional distributions; independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="covar-correl.html">8. Covariance and correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fun-rvs.html">9. Computations with random variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mgf.html">10. Moment generating functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cond-exp.html">11. Conditional expected values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">12. Statistics, estimators, and their distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">13. The asymptotic theory: the LLN and CLT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="point-est.html">14. Point estimators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CIs.html">15. Confidence intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">16. Hypothesis testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">17. Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/jmyers7/stats-book-materials" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/theory-to-practice.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Connecting theory to practice: data and samples</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-and-random-samples">6.1. Data and random samples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-models-and-empirical-distributions">6.2. Statistical models and empirical distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histograms">6.3. Histograms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-density-estimation">6.4. Kernel density estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qq-plots">6.5. QQ-plots</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-statistics">6.6. Sample statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#box-plots-and-violin-plots">6.7. Box plots and violin plots</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="connecting-theory-to-practice-data-and-samples">
+<span id="theory-to-practice"></span><h1><span class="section-number">6. </span>Connecting theory to practice: data and samples<a class="headerlink" href="#connecting-theory-to-practice-data-and-samples" title="Permalink to this heading">#</a></h1>
+<section id="data-and-random-samples">
+<h2><span class="section-number">6.1. </span>Data and random samples<a class="headerlink" href="#data-and-random-samples" title="Permalink to this heading">#</a></h2>
+<p>Except for Michelson’s measurements of the speed of light that we glimpsed in the <a class="reference internal" href="preview.html#introduction"><span class="std std-ref">Introduction</span></a>, we have not considered any real-world datasets in this course. Sure, we’ve studied a few toy examples of “real world” scenarios mostly involving coin flips or some strange, contrived die roll scheme, but these are a far cry from the datasets that you might encounter in your career. Indeed, the majority of our effort so far has gone into studying and understanding abstract probability spaces and random variables. In short: We have been focusing on <em>theory</em>. Now, however, it’s time to begin exploring how our theory connects to the <em>real world</em>.</p>
+<p>Our exploration begins with Airbnbs. Suppose we have at hand a sample of daily prices (in USD) for Airbnbs in Austin, Texas, over the last 12 months:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># hide annoying warnings for tight_layout()</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="c1"># set custom style for plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
+
+<span class="c1"># make sure this comes last in the imports!</span>
+<span class="c1"># change the output resolution of figures</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span> 
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">600</span>
+
+<span class="c1"># end import section</span>
+
+<span class="n">sample</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../aux-files/austin_sample.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># pull out the price column to convert &#39;sample&#39; from a dataframe to a series</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span> 
+<span class="n">sample</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0        44.01
+1        32.83
+2       112.50
+3        31.76
+4       104.05
+         ...  
+3967    212.17
+3968    200.25
+3969    382.34
+3970    199.20
+3971    149.58
+Name: price, Length: 3972, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>This is a subset of a larger dataset obtained <a class="reference external" href="http://insideairbnb.com">here</a>. The dataset originally consisted of integer prices, but for pedagogical reasons I want the prices to  more closely resemble a continuous variable. Thus, I added random fractions of a dollar onto each price.</p>
+</aside>
+<p>Though the sample consists of quite a few prices (<span class="math notranslate nohighlight">\(n=3{,}972\)</span> of them, in fact), it does not represent <em>all</em> prices. In fact, there were a little over 14,500 total listings during the time period from which our sample was drawn.</p>
+<p>To fit this into our theoretical framework, we conceptualize the collection of <em>all</em> 14,500 listings as a probability space <span class="math notranslate nohighlight">\(S\)</span>. (I will talk about the associated probability measure below.) Then, we conceptualize the price of a listing as a random variable</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+X: S \to \mathbb{R}
+\end{equation*}\]</div>
+<p>which takes a listing from the population <span class="math notranslate nohighlight">\(S\)</span> as input and spits out its price:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+X(\text{listing}) = \text{price}.
+\end{equation*}\]</div>
+<p>The actual prices in our sample are called <em>observed values</em> of the random variable <span class="math notranslate nohighlight">\(X\)</span> and, as in previous chapters, they are represented with a lowercase <span class="math notranslate nohighlight">\(x\)</span>. We would list the elements in our sample as</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+x_1,x_2, \ldots, x_n,
+\end{equation*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(n=3{,}972\)</span>.</p>
+<p>So far, this discussion is not all that different from ones that we have had before; in fact, I can even use the same cartoon from previous chapters to visualize the action of the random variable <span class="math notranslate nohighlight">\(X\)</span>:</p>
+<a class="reference internal image-reference" href="../_images/airbnb0.svg"><img alt="../_images/airbnb0.svg" class="align-center" src="../_images/airbnb0.svg" width="90%" /></a>
+<p> </p>
+<p>However, what makes our current scenario different from those considered in past chapters is that we have an entire sample of prices at hand, not just a <em>single</em> price. How are we to fit <em>samples</em> and <em>datasets</em> into our theoretical framework?</p>
+<p>The answer is pretty obvious, actually. After all, a collection of <span class="math notranslate nohighlight">\(n\)</span> prices like those in our sample must come from a collection of <span class="math notranslate nohighlight">\(n\)</span> listings, right? This suggests that we should simply duplicate the random variable <span class="math notranslate nohighlight">\(X\)</span> to obtain a <em>sequence</em> of random variables</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+X_1,X_2,\ldots,X_n,
+\end{equation*}\]</div>
+<p>where the random variable <span class="math notranslate nohighlight">\(X_k\)</span> (for <span class="math notranslate nohighlight">\(1\leq k \leq n\)</span>) spits out the price of the <span class="math notranslate nohighlight">\(k\)</span>-th listing. Something like:</p>
+<a class="reference internal image-reference" href="../_images/cartesian.svg"><img alt="../_images/cartesian.svg" class="align-center" src="../_images/cartesian.svg" width="90%" /></a>
+<p> </p>
+<p>To make this work, technically we need to replace the sample space <span class="math notranslate nohighlight">\(S\)</span> with its <span class="math notranslate nohighlight">\(n\)</span>-fold <a href="https://en.wikipedia.org/wiki/Cartesian_product#n-ary_Cartesian_power">cartesian power</a>, but we won’t worry about these details. For us, it’s enough to understand this process at the intuitive level.</p>
+<p>Now, what about probability? Remember, I called the population <span class="math notranslate nohighlight">\(S\)</span> of all listings a <em>probability</em> space, so evidently it must come equipped with a probability measure <span class="math notranslate nohighlight">\(P\)</span>. But here’s the truth:</p>
+<blockquote>
+<div><p>We don’t actually <em>care</em> about <span class="math notranslate nohighlight">\(P\)</span>.</p>
+</div></blockquote>
+<p>Indeed, <span class="math notranslate nohighlight">\(P\)</span> is a purely academic object whose only role in this business is to make the theory under the hood tick along. It’s mostly pure mathematicians like me that spend time worrying about <span class="math notranslate nohighlight">\(P\)</span>, but it is <em>never</em>, <em>ever</em> mentioned or acknowledged in real-world scenarios.</p>
+<p>On the other hand, we do very much(!) care about the probability distributions of the random variables <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n\)</span>. We will be devoting a huge amount of time and effort over the rest of this course trying to figure out the distribution of this or that random variable. In the context of our Airbnb prices, the distributions of the <span class="math notranslate nohighlight">\(X_k\)</span>’s tell us the distribution of prices:</p>
+<a class="reference internal image-reference" href="../_images/airbnb.svg"><img alt="../_images/airbnb.svg" class="align-center" src="../_images/airbnb.svg" width="90%" /></a>
+<p> </p>
+<p>But because each of the random variables <span class="math notranslate nohighlight">\(X_k\)</span> is essentially a “duplicate” of the single ‘price’ random variable <span class="math notranslate nohighlight">\(X\)</span>, they all have the <em>same</em> distribution, in the sense that</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+P(X_1\in A)  = P(X_2\in A) = \cdots = P(X_n\in A)
+\end{equation*}\]</div>
+<p>for all events <span class="math notranslate nohighlight">\(A\subset \mathbb{R}\)</span>. If we draw each of the random variables along with their distributions, we would get:</p>
+<a class="reference internal image-reference" href="../_images/iid.svg"><img alt="../_images/iid.svg" class="align-center" src="../_images/iid.svg" width="100%" /></a>
+<p> </p>
+<p>Notice that all the distributions are the same! This leads us to one of the main definitions in this entire course:</p>
+<div class="proof definition admonition" id="random-sample-defn">
+<p class="admonition-title"><span class="caption-number">Definition 6.1 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n\)</span> be a sequence of random variables, all defined on the same probability space.</p>
+<ul class="simple">
+<li><p>The random variables are called a <em>random sample</em> if they are <em>independent</em> and <em>identically distributed</em> (IID).</p></li>
+</ul>
+<p>Provided that the sequence is a random sample, an <em>observed random sample</em>, or a <em>dataset</em>, is a sequence of real numbers <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> where <span class="math notranslate nohighlight">\(x_k\)</span> is an observed value of <span class="math notranslate nohighlight">\(X_k\)</span>.</p>
+</section>
+</div><p>In regard to the second bullet point, two random variables are said to be <em>independent</em> if the probability of one of the random variables taking a particular value is not influenced or affected by the other random variable taking a particular value. This isn’t a precise definition, and it must be adapted to apply to an entire <em>sequence</em> of random variables, but it is good enough for now. (The precise definition will come in <a class="reference internal" href="random-vectors.html#independence-defn">Definition 7.11</a>.)</p>
+<p>Take care to notice the difference between a <em>random sample</em> (without the modifier) and an <em>observed random sample</em>—the former is an IID sequence of random variables, while the latter is a sequence of real numbers!</p>
+<p>Why have two different types of random samples? Answers:</p>
+<div class="admonition-the-roles-of-random-samples admonition">
+<p class="admonition-title">The roles of random samples</p>
+<ul class="simple">
+<li><p>Observed random samples <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> are the datasets that we work with in the real world. It is obvious why we care about these.</p></li>
+<li><p>We use random samples <span class="math notranslate nohighlight">\(X_1,X_2\ldots,X_n\)</span> when we want to reason theoretically about the observed random samples that we encounter in the real world. For example, suppose that you want to prove that some type of statistical estimator or machine learning algorithm works well for <em>any</em> dataset. Then you <em>must</em> argue using random samples consisting of IID random variables!</p></li>
+</ul>
+</div>
+</section>
+<section id="statistical-models-and-empirical-distributions">
+<h2><span class="section-number">6.2. </span>Statistical models and empirical distributions<a class="headerlink" href="#statistical-models-and-empirical-distributions" title="Permalink to this heading">#</a></h2>
+<p>If <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n\)</span> is a random sample, then by definition the probability distributions of the <span class="math notranslate nohighlight">\(X_k\)</span> are all identical. This will often be written as either</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+X_1,X_2,\ldots,X_n \sim f \quad \text{or} \quad X_1,X_2,\ldots,X_n \sim F,
+\end{equation*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(f\)</span> is the density function of the <span class="math notranslate nohighlight">\(X_k\)</span>’s and <span class="math notranslate nohighlight">\(F\)</span> is their distribution function. These functions are usually unknown. Our goal is then to discover their identity using <em>observed</em> random samples (i.e., datasets!).</p>
+<p>Sometimes, we might have a hunch that the mystery distribution <span class="math notranslate nohighlight">\(F\)</span> comes from a parametrized family of distributions; for example, we might believe that</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+X_1,X_2,\ldots,X_n \sim \mathcal{N}(\mu_0,\sigma_0^2)
+\end{equation*}\]</div>
+<p>for some unknown <em>true</em> parameters <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span>. Then, using data, our goal is to estimate <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span> as accurately as possible. In this scenario:</p>
+<ul class="simple">
+<li><p>The parameters <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span> are often called <em>population parameters</em>.</p></li>
+<li><p>The collection of <em>all</em> normal probability distributions <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\sigma^2)\)</span> is called a <em>statistical model</em> of the data.</p></li>
+<li><p>The true (but unknown) probability distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\mu_0,\sigma_0^2)\)</span> inside the statistical model is called the <em>(true) population distribution</em>.</p></li>
+</ul>
+<p>Since the normal distributions <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\sigma^2)\)</span> depend on a finite number of parameters, we say that the normal statistical model is <em>parametric</em>. However, sometimes we may believe that the data is modeled by a collection of distributions that are <em>not</em> parametrized in any natural way by a finite set of parameters; these latter types of statistical models are called <em>non-parametric</em>.</p>
+<p>At the risk of oversimplification, what I have just describe is, in a nutshell, the entire program of <em>inferential statistics</em>. A major portion of the second half of this course will be devoted to studying clever procedures and algorithms that use datasets to generate quantitative estimates of various population parameters. As a first step in this direction, in this chapter we study <em>empirical distributions</em>. These are the probability distributions of observed datasets. Our interest in datasets hinges on the assumption that they <em>accurately</em> represent the larger population; if so, then their empirical distributions should reasonably match the unknown population distribution.</p>
+<p>Here’s the main definition:</p>
+<div class="proof definition admonition" id="definition-1">
+<p class="admonition-title"><span class="caption-number">Definition 6.2 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n \sim F\)</span> be a random sample from an unknown distribution function <span class="math notranslate nohighlight">\(F\)</span>, and let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> be an <em>observed</em> random sample. Then the <em>empirical distribution</em> of the dataset is the discrete probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with probability mass function</p>
+<div class="math notranslate nohighlight" id="equation-ecdf-eqn">
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-ecdf-eqn" title="Permalink to this equation">#</a></span>\[p(x) = \frac{\text{number of data points $x_k$ that match $x$}}{n}.\]</div>
+<p>The <em>empirical cumulative distribution function</em> (ECDF) of the dataset is the CDF of the empiricical disribution. It is often denoted <span class="math notranslate nohighlight">\(\widehat{F}(x)\)</span>, and it is given by the usual formula</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\widehat{F}(x) = \sum_{y\leq x} p(y) = \frac{\text{number of data points $x_k$ with $x_k \leq x$}}{n}.
+\end{equation*}\]</div>
+</section>
+</div><p>You can think of empirical probabilities as relative frequencies. Indeed, this is essentially the <em>definition</em> described by the formula <a class="reference internal" href="#equation-ecdf-eqn">(6.1)</a>: It says that <span class="math notranslate nohighlight">\(p(x)\)</span> is the relative frequency of the number <span class="math notranslate nohighlight">\(x\)</span> in the dataset.</p>
+<p>It’s time to bring back the Airbnb prices! I have asked the computer to generate their ECDF:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">ecdfplot</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;accumulated probability&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/ea0323e8bd4254f0a4a502e46fae7fddf9e4b8e2854ad229652d27f6cd05a430.png"><img alt="../_images/ea0323e8bd4254f0a4a502e46fae7fddf9e4b8e2854ad229652d27f6cd05a430.png" src="../_images/ea0323e8bd4254f0a4a502e46fae7fddf9e4b8e2854ad229652d27f6cd05a430.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>Remember, the CDFs of discrete distributions are step functions. So why doesn’t <em>this</em> look like a step function? Essentially, the data points are so numerous and packed together so tightly along the <span class="math notranslate nohighlight">\(x\)</span>-axis that we can’t see the steps. But rest assured, if we were to zoom in, we’d see them.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Of course, the true population of prices is not <em>actually</em> a continuous random variable, since prices only go out to the second decimal place. But we’ll still model it as if it is continuous.</p>
+</aside>
+<p>If we are confident that our observed sample of Airbnb prices is reasonably representative of the unknown population of prices, then its ECDF serves as an approximation to the true population CDF. If we assume that the unknown population distribution is continuous, then there is also an unknown population density function floating around out there in the ether waiting to be discovered. Can we use our ECDF to guess what its shape might be?</p>
+<p><em>Absolutely</em>!</p>
+<p>The trick is to remember that density functions are the derivatives of CDFs. So, when we look at our ECDF above, we can try to get a feeling for the shape of the density function by estimating the slopes of the tangent lines to the graph of the ECDF. I realize that the ECDF is technically a step function, and hence all of its tangent lines (which exist) are horizontal; but from our perspective, it <em>looks</em> like a nice smooth-ish curve that has positively sloped tangent lines.</p>
+<p>To aid our sketch of the unknown density function, it might help to superimpose the CDF of a normal distribution on top of our ECDF:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span> <span class="c1"># import a normal random variable from scipy</span>
+
+<span class="n">sorted_sample</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+<span class="n">xbar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span> <span class="c1"># sample mean</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span> <span class="c1"># sample standard deviation</span>
+<span class="n">y_norm</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">xbar</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">sorted_sample</span><span class="p">)</span> <span class="c1"># toss the data into the normal CDF</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">ecdfplot</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sample ECDF&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sorted_sample</span><span class="p">,</span> <span class="n">y_norm</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;normal CDF&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xbar</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sample mean&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;accumulated probability&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/512edee8a1fa94b2a944c8c839f71317e8348d9151dbe0ddbdacd39a8a15783e.png"><img alt="../_images/512edee8a1fa94b2a944c8c839f71317e8348d9151dbe0ddbdacd39a8a15783e.png" src="../_images/512edee8a1fa94b2a944c8c839f71317e8348d9151dbe0ddbdacd39a8a15783e.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>In this figure, I’ve plotted the CDF from a <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\sigma^2)\)</span> distribution, where I’ve used the sample mean and standard deviation for the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> (more on these below).</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>This is essentially just a curve sketching exercise from calculus. We’re using our knowledge of the relationships between a function and its first two derivatives, and what these gadgets tell us about increase/decrease and concavity.</p>
+</aside>
+<p>This is a little of what I can glean from this last figure: If we believed that the true population distribution was normal, the data tells us otherwise. Indeed, the two CDFs have some fairly significant differences. Notice that the ECDF is steeper than the normal CDF right <em>before</em> the red dashed line, and that it also has an inflection point before this line. This tells me that the sample density curve should be peaked slightly to the left of the normal density curve. As we pass over the dashed line, the ECDF is concave downward and hence the sample density curve is decreasing over these <span class="math notranslate nohighlight">\(x\)</span>-values as it drops downward into its tail. But as it begins its descent, the normal CDF is steeper, so the sample density curve should be descending at a quicker rate, putting it underneath the normal density curve. But then, as we get toward the right edge of the figure, the slopes of the ECDF appear to be larger than those of the normal CDF, and so the two density curves should cross again, putting the sample density’s upper tail on top of the normal density’s tail. In fact, if I squint hard enough, it appears that the ECDF might have a second inflection point on the far right of the figure.</p>
+<p>As I will show you below, computers are capable of estimating PDFs from data using something called <em>kernel density estimation</em> (KDE). If I feed the Airbnb data into my computer, it returns the following sketch of the data density curve:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_norm</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">xbar</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">sorted_sample</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;estimated data PDF&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sorted_sample</span><span class="p">,</span> <span class="n">y_norm</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;normal PDF&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">510</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/94682d003545418f8362482738d22d67b3f262afd3a7823ef137c76bbcb054d9.png"><img alt="../_images/94682d003545418f8362482738d22d67b3f262afd3a7823ef137c76bbcb054d9.png" src="../_images/94682d003545418f8362482738d22d67b3f262afd3a7823ef137c76bbcb054d9.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>The estimated data PDF looks pretty strange, due to the fairly drastic fluctuations up and down. Below, when we talk about KDEs in more detail, I will teach you how to smooth out these fluctuations by varying a parameter called <em>bandwidth</em>.</p>
+</section>
+<section id="histograms">
+<h2><span class="section-number">6.3. </span>Histograms<a class="headerlink" href="#histograms" title="Permalink to this heading">#</a></h2>
+<p>In the previous section, we used a plot of the ECDF of the Airbnb prices in order to <em>visualize</em> the empirical distribution. From this plot, we were able to get a sense of the <em>shape</em> of the dataset.</p>
+<p>There are a few more ways that we might attempt to visualize the empirical distribution. Indeed, since the empirical distribution of the Airbnb prices is technically discrete, we might attempt to visualize it using the probability histograms that we saw in <a class="reference internal" href="prob-spaces.html#prob-histo"><span class="std std-numref">Section 2.7</span></a>. However, as we saw in the previous section, the data points in our sample are so numerous and packed so closely together that such a probability histogram would be essentially useless. We would have <span class="math notranslate nohighlight">\(3{,}548\)</span> bars in our histogram, one for each unique price in our dataset!</p>
+<p>But here’s an idea: Suppose we “bin together” nearby prices along the <span class="math notranslate nohighlight">\(x\)</span>-axis <em>before</em> we draw the histogram. In other words, imagine we chop up the <span class="math notranslate nohighlight">\(x\)</span>-axis into smaller subintervals called <em>bins</em>, and then group together nearby data points in these bins:</p>
+<a class="reference internal image-reference" href="../_images/bins1.svg"><img alt="../_images/bins1.svg" class="align-center" src="../_images/bins1.svg" width="100%" /></a>
+<p> </p>
+<p>In the figure on the right, there are seven bins, labeled <span class="math notranslate nohighlight">\(B_1,B_2,\ldots,B_7\)</span>. The number of bins can either be chosen explicitly by us, or we can let the computer choose the “optimal” number of bins based on some rule of thumb. Either way, the number <span class="math notranslate nohighlight">\(m\)</span> of bins need not be <span class="math notranslate nohighlight">\(7\)</span>.</p>
+<p>Now, to draw the “binned” histogram, we put a rectangle on top of each bin:</p>
+<a class="reference internal image-reference" href="../_images/bins.svg"><img alt="../_images/bins.svg" class="align-center" src="../_images/bins.svg" width="70%" /></a>
+<p> </p>
+<p>The heights of the rectangles must satisfy <em>two</em> properties: (1) Their areas must sum to <span class="math notranslate nohighlight">\(1\)</span>, and (2) their heights must be proportional to the number of data points that fall within the bins. For example, you can see that the taller rectangles in the figure contain <em>more</em> data points in their base bins. If <span class="math notranslate nohighlight">\(m\)</span> is the total number of bins and <span class="math notranslate nohighlight">\(n\)</span> is the size of the data set, then to satisfy both these properties, we can choose the <span class="math notranslate nohighlight">\(k\)</span>-th rectangle (for <span class="math notranslate nohighlight">\(k=1,2,\ldots,m\)</span>) to have height</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\frac{\text{number of data points in $k$-th bin}}{n \times (\text{width of $k$-th bin})}.
+\end{equation*}\]</div>
+<p>Of course, computers are capable of plotting these types of histograms. Here is one for our Airbnb prices:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the parameter `ec` stands for edge color. here, I&#39;ve chosen black.</span>
+<span class="c1"># the `density` parameter normalizes each rectangle so that their areas sum to 1.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/869c06fc080cda466cfe2ad0be15a4c9417ee890ff55222dc8bba36a9ee076cd.png"><img alt="../_images/869c06fc080cda466cfe2ad0be15a4c9417ee890ff55222dc8bba36a9ee076cd.png" src="../_images/869c06fc080cda466cfe2ad0be15a4c9417ee890ff55222dc8bba36a9ee076cd.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>Taking a moment to look at this histogram, if you then scroll up and look at the estimated data density curve in the previous section, you’ll notice that they match up pretty well. Thus, both ways of getting a sense of the shape of the data (estimated density curves and histograms) do their jobs adequately.</p>
+<p>Be warned, however, that the shapes of these types of histograms are quite sensitive to the number of bins (hence also the bin width), and making the <em>wrong</em> choice for this number can sometimes hide important features of the data. Here’s a histogram of the Airbnb data with 100 bins:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/92dbbad62735dd6deb0b803aa9348a132ac0d382e18b417df08969b16ed35ba8.png"><img alt="../_images/92dbbad62735dd6deb0b803aa9348a132ac0d382e18b417df08969b16ed35ba8.png" src="../_images/92dbbad62735dd6deb0b803aa9348a132ac0d382e18b417df08969b16ed35ba8.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>Though there are lots more bins here than our first histogram, I can still get a pretty good sense of the shape of the data. When you increase the number of bins, you tend to lose “smoothness” of the histogram.</p>
+<p>At the other extreme, here’s a histogram with three bins:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/06869e610a08d58b5d42f33fae2ccf0fa52d6bf99a9e58921c7e6cda0b35ee2a.png"><img alt="../_images/06869e610a08d58b5d42f33fae2ccf0fa52d6bf99a9e58921c7e6cda0b35ee2a.png" src="../_images/06869e610a08d58b5d42f33fae2ccf0fa52d6bf99a9e58921c7e6cda0b35ee2a.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>This last histogram is not particularly informative. I get a sense that the sample data is skewed toward the right, but that’s about it.</p>
+<p>So, how do you choose the number of bins? First, you might let the computer decide for you, using the default setting. This default setting is often based off of rules of thumb that have been demonstrated to work well for some reason or another. Then, you can play with the number of bins manually, fine-tuning the number until you get a figure that you believe most accurately represents the shape of the data.</p>
+</section>
+<section id="kernel-density-estimation">
+<h2><span class="section-number">6.4. </span>Kernel density estimation<a class="headerlink" href="#kernel-density-estimation" title="Permalink to this heading">#</a></h2>
+<p>Let’s return now to an idea that we met above: Estimating a empirical distribution’s <em>density</em> curve. I mentioned that one way to accomplish this task is to use something called a <em>kernel density estimator</em> (KDE). I will now give a very brief introduction to these estimators.</p>
+<p>Naturally, a kernel density estimation begins by choosing the <em>kernel</em>, which is a function that has a “bell shape,” not unlike the normal density curve. In fact, one can even <em>choose</em> the normal density curve as the kernel, and then one obtains <em>Gaussian KDE</em>. These will be the only types of kernels that we will consider.</p>
+<p>Imagine for simplicity that we have three data points along the <span class="math notranslate nohighlight">\(x\)</span>-axis. The idea is then to place three normal density curves directly over top of the data points. We then <em>sum</em> these curves and divide by <span class="math notranslate nohighlight">\(3\)</span> (to normalize the area under the curve to <span class="math notranslate nohighlight">\(1\)</span>), obtaining a <em>kernel density estimate</em>. The variances (i.e., the spread) of the normal density curves are controlled by a parameter called <em>bandwidth</em>, which is represented by the letter <span class="math notranslate nohighlight">\(h\)</span>. Values <span class="math notranslate nohighlight">\(h&gt;1\)</span> correspond to lower variance, while values <span class="math notranslate nohighlight">\(h&lt;1\)</span> correspond to higher variance. Here are three examples of different values of <span class="math notranslate nohighlight">\(h\)</span>:</p>
+<div class="cell tag_hide-input tag_full-width docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">bandwidths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">bandwidths</span><span class="p">:</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">bandwidths</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="n">norm</span><span class="p">()</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">/</span> <span class="n">h</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="n">norm</span><span class="p">()</span><span class="o">.</span><span class="n">pdf</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">/</span> <span class="n">h</span>
+    <span class="n">y3</span> <span class="o">=</span> <span class="n">norm</span><span class="p">()</span><span class="o">.</span><span class="n">pdf</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">/</span> <span class="n">h</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#486AFB&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#486AFB&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#486AFB&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;density&#39;</span><span class="p">)</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#486AFB&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#486AFB&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#486AFB&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#486AFB&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#486AFB&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;bandwidth $h=</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#486AFB&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#486AFB&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#486AFB&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#486AFB&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#486AFB&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">y1</span> <span class="o">+</span> <span class="n">y2</span> <span class="o">+</span> <span class="n">y3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sum of kernels&#39;</span><span class="p">)</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">y1</span> <span class="o">+</span> <span class="n">y2</span> <span class="o">+</span> <span class="n">y3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sum of kernels&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FD46FC&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/a578cec6b34f2e3a784405ba63c8852a15a7c6f243857befdc5ca876a992c21e.png"><img alt="../_images/a578cec6b34f2e3a784405ba63c8852a15a7c6f243857befdc5ca876a992c21e.png" src="../_images/a578cec6b34f2e3a784405ba63c8852a15a7c6f243857befdc5ca876a992c21e.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>Reading from left to right, here’s what’s going on:</p>
+<ul class="simple">
+<li><p>The plots in the first column display the original three data points.</p></li>
+<li><p>In the second column, you see the normal density curves over top of the data points for three different values of the bandwidth <span class="math notranslate nohighlight">\(h\)</span>.</p></li>
+<li><p>In the third column, I have plotted the <em>sum</em> of the three normal density curves (divided by <span class="math notranslate nohighlight">\(3\)</span>), which are, by definition, the KDEs generated from the data set.</p></li>
+<li><p>In the last column, I have plotted the KDEs on their own.</p></li>
+</ul>
+<p>Now, cover up the middle two columns in the figure. Which of the KDEs do you believe does the best job of conveying the <em>shape</em> of the data? I would say it’s a split decision between <span class="math notranslate nohighlight">\(h=1\)</span> and <span class="math notranslate nohighlight">\(h=0.5\)</span>.</p>
+<p>You’ve seen how to generate a KDE for a small three-sample dataset. The KDE that I generated above for the Airbnb prices follows the exactly same procedure, but instead of three normal density curves, there are now 3,972 of them, one for each data point in the sample! Here are three KDEs for the Airbnb prices, with different bandwidths:</p>
+<div class="cell tag_hide-input tag_full-width docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bandwidths</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">bandwidths</span><span class="p">:</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">bandwidths</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">bw_method</span><span class="o">=</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$price&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;bandwidth $h=</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$price&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/d63768c644f35d7a14534d2b55a109095896a654fca2413fb96bcd1ee41d3da6.png"><img alt="../_images/d63768c644f35d7a14534d2b55a109095896a654fca2413fb96bcd1ee41d3da6.png" src="../_images/d63768c644f35d7a14534d2b55a109095896a654fca2413fb96bcd1ee41d3da6.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>The KDE curve on the left is essentially the original KDE that we saw in the previous section. I mentioned then that it looked pretty strange, due to the repeated fluctuations up and down. Now, by playing with the bandwidth, we see how to smooth out these fluctuations.</p>
+<p>So, we’ve seen that KDEs are supposed to serve as estimates for the density curves of datasets, but they are highly sensitive to the choice of bandwidth <span class="math notranslate nohighlight">\(h\)</span>. How do you choose <span class="math notranslate nohighlight">\(h\)</span>? Just like the ‘number of bins’ parameter for histograms, you are best off first letting the computer decide the bandwidth for you, and then manually fine-tune it (if needed) until you get a KDE that you believe best represents the data.</p>
+</section>
+<section id="qq-plots">
+<h2><span class="section-number">6.5. </span>QQ-plots<a class="headerlink" href="#qq-plots" title="Permalink to this heading">#</a></h2>
+<p>Another convenient way to compare two probability distributions is through visualizations called <em>quantile-quantile plots</em>, or <em>QQ-plots</em>. It takes a bit of practice to learn how to interpret them, however.</p>
+<p>The basic idea is quite simple. A QQ-plot gives us a way to compare the quantiles of two distributions—we expect that if the distributions are similar, then their quantiles should be distributed similarly. One often uses QQ-plots to compare empirical distributions of datasets against normal distributions in order to check if the data is normally distributed. In fact, this will be our exclusive use case for QQ-plots in this course, and my description here will thus be limited to this special case.</p>
+<p>Now, we <em>already</em> have from <a class="reference internal" href="prob-spaces.html#dist-quant"><span class="std std-numref">Section 2.10</span></a> a definition of <em>quantiles</em> that works for any type of distribution. When we use QQ-plots, however, we adopt a <em>different</em> definition for empirical distributions of datasets. To describe it, for convenience, let’s suppose that the points in our dataset are labeled with <span class="math notranslate nohighlight">\(y\)</span>’s instead of <span class="math notranslate nohighlight">\(x\)</span>’s. (You’ll see why this is convenient, in just a moment.) Suppose that we order our dataset in non-decreasing order:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+y_1 \leq y_2 \leq \cdots \leq y_n,
+\end{equation*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the size of the dataset. Notice that some data points might be repeated, which accounts for the “<span class="math notranslate nohighlight">\(\leq\)</span>” sign instead of strict inequality “<span class="math notranslate nohighlight">\(&lt;\)</span>.” Then, to each data point we associate the following fraction:</p>
+<div class="math notranslate nohighlight" id="equation-quant-eqn">
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-quant-eqn" title="Permalink to this equation">#</a></span>\[y_k \leftrightarrow \frac{k-1/2}{n},\]</div>
+<p>for <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>. We are supposed to think of <span class="math notranslate nohighlight">\(y_k\)</span> as being the <span class="math notranslate nohighlight">\((k-1/2)/n\)</span>-quantile, though this does <em>not</em> coincide with our earlier definition of quantile.</p>
+<p>For an example, suppose that <span class="math notranslate nohighlight">\(n=5\)</span> and that all the data points are distinct. Then, if we plot our dataset along an axis along with the labels <a class="reference internal" href="#equation-quant-eqn">(6.2)</a>, we get the following picture:</p>
+<a class="reference internal image-reference" href="../_images/quant.svg"><img alt="../_images/quant.svg" class="align-center" src="../_images/quant.svg" width="80%" /></a>
+<p> </p>
+<p>Thus, if the labels <a class="reference internal" href="#equation-quant-eqn">(6.2)</a> really did mark the <span class="math notranslate nohighlight">\(y_k\)</span>’s as quantiles, then we would expect 10% of the data to fall to the left of <span class="math notranslate nohighlight">\(y_1\)</span> and 10% to the right of <span class="math notranslate nohighlight">\(y_5\)</span>, and 20% of the data to fall between each pair of consecutive data points. But this isn’t actually true, of course. Moreover, if the data points are not all distinct, say <span class="math notranslate nohighlight">\(y_k = y_{k+1}\)</span> for some <span class="math notranslate nohighlight">\(k\)</span>, then the <em>single</em> number <span class="math notranslate nohighlight">\(y_k\)</span> would be assigned two <em>different</em> quantile labels, <span class="math notranslate nohighlight">\((k-1/2)/n\)</span> and <span class="math notranslate nohighlight">\((k+1/2)/n\)</span>! Nevertheless, this is the convention used when construction QQ-plots (though even <em>this</em> convention varies from source to source).</p>
+<p>To construct the QQ-plot, we then compare the “quantiles” <a class="reference internal" href="#equation-quant-eqn">(6.2)</a> of the dataset to the <em>actual</em> quantiles of the standard normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(0,1)\)</span> by first defining</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+x_k = \Phi^{-1} \left( \frac{k-1/2}{n} \right)
+\end{equation*}\]</div>
+<p>for each <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>, where <span class="math notranslate nohighlight">\(\Phi\)</span> is the CDF of the standard normal distribution. In particular, note that <span class="math notranslate nohighlight">\(x_k\)</span> really <em>is</em> the <span class="math notranslate nohighlight">\((k-1/2)/n\)</span>-quantile of <span class="math notranslate nohighlight">\(\mathcal{N}(0,1)\)</span>, according to our earlier definition of <em>quantile</em>. The QQ-plot then consists of the points</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+(x_k,y_k), \quad k=1,2,\ldots,n.
+\end{equation*}\]</div>
+<p>Here, I ask the computer to generate the QQ-plot for the Airbnb prices:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.graphics.gofplots</span> <span class="kn">import</span> <span class="n">qqplot</span>
+
+<span class="n">qqplot</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_k=$normal quantiles&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$y_k=$sample quantiles&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/0cdad7681d70a33a5173fa96ceb498fd0a884d845e2e92875069aa4ef044c30f.png"><img alt="../_images/0cdad7681d70a33a5173fa96ceb498fd0a884d845e2e92875069aa4ef044c30f.png" src="../_images/0cdad7681d70a33a5173fa96ceb498fd0a884d845e2e92875069aa4ef044c30f.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>Ok, great. How do we interpret this thing?</p>
+<blockquote>
+<div><p>Essentially, what we are looking for in a QQ-plot is whether the points fall along some straight line <span class="math notranslate nohighlight">\(y = ax + b\)</span>. If the QQ-plot roughly falls along a line, then the dataset is <em>close</em> to being normally distributed.</p>
+</div></blockquote>
+<p>Why is this true? To explain, suppose that the points in the QQ-plot fell <em>exactly</em> on a straight line, so that</p>
+<div class="math notranslate nohighlight" id="equation-norm-eqn">
+<span class="eqno">(6.3)<a class="headerlink" href="#equation-norm-eqn" title="Permalink to this equation">#</a></span>\[y_k = ax_k + b, \quad k=1,2,\ldots,n,\]</div>
+<p>for some <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> with <span class="math notranslate nohighlight">\(a\neq 0\)</span>. Then, let</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+f(x) = \frac{1}{\sqrt{2\pi}} \exp\left( -\frac{x^2}{2}\right)
+\end{equation*}\]</div>
+<p>be the density of the standard normal distribution, so that <span class="math notranslate nohighlight">\(\Phi(x) = \int_{-\infty}^x f(t) \ \text{d} t\)</span>. Now, if <a class="reference internal" href="#equation-norm-eqn">(6.3)</a> were true, then</p>
+<div class="math notranslate nohighlight" id="equation-trans-eqn">
+<span class="eqno">(6.4)<a class="headerlink" href="#equation-trans-eqn" title="Permalink to this equation">#</a></span>\[\frac{k-1/2}{n} = \Phi\left( \frac{y_k-b}{a} \right) = \int_{-\infty}^{(y_k-b)/a} f(t) \ \text{d} t = \int_{-\infty}^{y_k} \frac{1}{a} f \left( \frac{s-b}{a}\right) \ \text{d} s,\]</div>
+<p>where I made the substitution <span class="math notranslate nohighlight">\(t = (s-b)/a\)</span> in going from the first integral to the second. But notice that the transformed function</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\frac{1}{a} f \left( \frac{x-b}{a}\right) = \frac{1}{a\sqrt{2\pi}} \exp\left[ -\frac{1}{2} \left(\frac{x-b}{a}\right)^2\right]
+\end{equation*}\]</div>
+<p>is the density of <span class="math notranslate nohighlight">\(\mathcal{N}(b,a^2)\)</span>, and so <a class="reference internal" href="#equation-trans-eqn">(6.4)</a> shows that, provided <a class="reference internal" href="#equation-norm-eqn">(6.3)</a> is true, the data point <span class="math notranslate nohighlight">\(y_k\)</span> is the <span class="math notranslate nohighlight">\((k-1/2)/n\)</span>-quantile of <span class="math notranslate nohighlight">\(\mathcal{N}(b,a^2)\)</span>. We conclude:</p>
+<blockquote>
+<div><p>If the QQ-plot falls nearly along the straight line <span class="math notranslate nohighlight">\(y=ax+b\)</span>, then the empirical distribution of the dataset is closely approximated by the normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(b,a^2)\)</span>.</p>
+</div></blockquote>
+<p>Returning to the QQ-plot of the Airbnb prices with this intuition in mind, it does <em>not</em> appear that the dataset is normally distributed, since the plot does not fall along a straight line. But we knew this already, based on our examination of the ECDF, the histogram, and the KDE of the Airbnb prices.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Essentially what I am describing in this chapter is something called graphical <em>exploratory data analysis</em> (EDA), wherein one uses as many visualization schemes as possible to get a feel for the <em>shape</em> of a dataset. When conducting EDA, you want to use as many tools as possible, since any one particular tool often as disadvantages that might be offset by other tools. For example, while a plot of the ECDF and a QQ-plot do not carry effects from arbitrary choices like the number of bins for a histogram or the bandwidth of a KDE, they can also be harder to interpret. So, use <em>everything</em> you have at your disposal!</p>
+</div>
+<p>When the empirical distribution of a dataset is <em>not</em> normally distributed, so that its QQ-plot is curvy, one can sometimes “interpret” the concavity of the plot. But this can be tricky to do, and it’s difficult to write down hard and fast rules that work for <em>all</em> possible QQ-plot shapes. I encourage you to think on your own, however, what the concavity of the QQ-plot of the Airbnb prices means!</p>
+<p>The Airbnb prices are <em>almost</em> continuous, so the QQ-plot of the dataset <em>looks</em> like a nice smooth curve. However, if your dataset is large, consisting of observed values of a discrete variable with a small-ish range, then the QQ-plot might have an unexpected shape with lots of horizontal stretches due to repetitions in the dataset.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>This dataset was obtained from the UCI Machine Learning Repository <a class="reference external" href="http://archive.ics.uci.edu/dataset/352/online+retail">here</a>. It was passed through some light pre-processing, including removal of (extreme) outliers.</p>
+</aside>
+<p>For example, let’s consider a dataset consisting of sales data from an online retail store in the UK. Here’s a description:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../aux-files/online_sales.csv&#39;</span><span class="p">)</span>
+<span class="n">sample_sales</span> <span class="o">=</span> <span class="n">sample_sales</span><span class="p">[</span><span class="s1">&#39;Quantity&#39;</span><span class="p">]</span>
+<span class="n">sample_sales</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    447322.000000
+mean          4.342078
+std           4.426455
+min         -12.000000
+25%           1.000000
+50%           2.000000
+75%           6.000000
+max          23.000000
+Name: Quantity, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>The data consists of observations of the random variable</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+Y = \text{number of items purchased in a given order}.
+\end{equation*}\]</div>
+<p>So, an observed value of <span class="math notranslate nohighlight">\(y=3\)</span> in the dataset means that three items were purchased in the order. From the ‘count,’ ‘max,’ and ‘min’ numbers in the description of the dataset, we see that the dataset contains nearly half a million data points distributed over discrete (integer) values ranging from <span class="math notranslate nohighlight">\(y=-12\)</span> to <span class="math notranslate nohighlight">\(y=23\)</span>. (A negative value means that items were returned to the store.) Therefore, there are going to be <em>lots</em> of repetitions in this dataset.</p>
+<p>Here’s the QQ-plot of this dataset:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qqplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">sample_sales</span><span class="p">),</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;normal quantiles&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;sample quantiles&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/9341ca440f940547943f7c0e17245e36459279f9a4882ea98f5e24b2aaf5154a.png"><img alt="../_images/9341ca440f940547943f7c0e17245e36459279f9a4882ea98f5e24b2aaf5154a.png" src="../_images/9341ca440f940547943f7c0e17245e36459279f9a4882ea98f5e24b2aaf5154a.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>In contrast to the QQ-plot of the Airbnb prices, this QQ-plot appears to be a series of disconnected horizontal lines. The <span class="math notranslate nohighlight">\(y\)</span>-value of a horizontal line corresponds to a value in the dataset that is repeated. But be <em>very</em> careful in interpreting the <em>lengths</em> of the horizontal lines as measures for how <em>often</em> the data points are repeated, as you would with the heights of the bars in a histogram. Indeed, because of the shape of the standard normal CDF (it is nearly flat away from its mean), the lengths of horizontal lines toward the bottom and the top of the QQ-plot are scaled up compared to the lengths of the horizontal lines in the middle of the plot. (I will explain this more precisely in class, with pictures.)</p>
+<p>For example, focus on the horizontal lines in the QQ-plot at <span class="math notranslate nohighlight">\(y=12\)</span> and <span class="math notranslate nohighlight">\(y=20\)</span>. These lines appear to have nearly the same length. But then look at the histogram of the data, which for comparison I’ve plotted behind a normal density curve with <span class="math notranslate nohighlight">\(\mu=\)</span> sample mean and <span class="math notranslate nohighlight">\(\sigma=\)</span> sample standard deviation.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">sample_sales</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scale</span><span class="o">=</span><span class="n">sample_sales</span><span class="o">.</span><span class="n">std</span><span class="p">())</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sample_sales</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;quantity&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/b2c26439320755d2e6fa8905ffdc86ef719c05008fa26955055c7cb7e8361732.png"><img alt="../_images/b2c26439320755d2e6fa8905ffdc86ef719c05008fa26955055c7cb7e8361732.png" src="../_images/b2c26439320755d2e6fa8905ffdc86ef719c05008fa26955055c7cb7e8361732.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>The histogram reveals that there are many, <em>many</em> fewer observations at <span class="math notranslate nohighlight">\(y=20\)</span> compared to <span class="math notranslate nohighlight">\(y=12\)</span>, and yet the corresponding horizontal lines in the QQ-plot appear to have the same length! Again, this discrepancy is due to the shape of normal CDFs which are flat away from their means.</p>
+<p>So, we should not think of the lengths of the horizontal lines in a QQ-plot as a measure of <em>absolute</em> discrepancy compared to a normal distribution. Rather, they are a measure of the <em>relative</em> discrepancy. In other words, their lengths should be proportional to the ratio</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\frac{\text{actual frequency of observed data point}}{\text{frequency of data point as predicted by a normal distribution}}.
+\end{equation*}\]</div>
+<p>This helps resolve the conflict between the equality of the lengths of the horizontal lines at <span class="math notranslate nohighlight">\(y=12\)</span> and <span class="math notranslate nohighlight">\(y=20\)</span>, for the normal distribution predicts that we should see <span class="math notranslate nohighlight">\(y=12\)</span> much more often than <span class="math notranslate nohighlight">\(y=20\)</span>, so that the two relative discrepancies should be nearly equal.</p>
+</section>
+<section id="sample-statistics">
+<h2><span class="section-number">6.6. </span>Sample statistics<a class="headerlink" href="#sample-statistics" title="Permalink to this heading">#</a></h2>
+<p>As I mentioned above, most of what we have done so far falls under the heading of graphical <em>exploratory data analysis</em> (EDA). Now, I want to turn toward <em>numerical</em> EDA.</p>
+<p>Let’s return to a general IID random sample</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+X_1,X_2,\ldots, X_n \sim F,
+\end{equation*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(F\)</span> represents the (true) unknown population distribution function. The population distribution has a mean <span class="math notranslate nohighlight">\(\mu_0\)</span> and a standard deviation <span class="math notranslate nohighlight">\(\sigma_0\)</span>, though these are very often unknown to us. Hence</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+E(X_k) = \mu_0 \quad \text{and} \quad V(X_k) = \sigma_0^2,
+\end{equation*}\]</div>
+<p>for each <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>. Based on an observed random sample</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+x_1,x_2,\ldots, x_n,
+\end{equation*}\]</div>
+<p>how might we estimate the unknown population parameters <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span>?</p>
+<div class="proof definition admonition" id="definition-2">
+<p class="admonition-title"><span class="caption-number">Definition 6.3 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> be an observed random sample (i.e., a dataset). The <em>sample mean</em> is defined to be the number</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\bar{x} = \frac{1}{n} \sum_{k=1}^n x_k,
+\end{equation*}\]</div>
+<p>while the <em>sample variance</em> is defined to be the number</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+s^2 = \frac{1}{n-1} \sum_{k=1}^n (x_k - \bar{x})^2.
+\end{equation*}\]</div>
+<p>The <em>sample standard deviation</em> <span class="math notranslate nohighlight">\(s\)</span> is defined, as usual, as the positive square root of the sample variance, <span class="math notranslate nohighlight">\(s = \sqrt{s^2}\)</span>.</p>
+</section>
+</div><p>The sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> and standard deviation <span class="math notranslate nohighlight">\(s\)</span> are supposed to serve as sample-based estimates for the true population mean <span class="math notranslate nohighlight">\(\mu_0\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma_0\)</span>. If we believe that the dataset is truly representative of the population, then these estimates should be close to their targets.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>By the way, the replacement of <span class="math notranslate nohighlight">\(1/n\)</span> with <span class="math notranslate nohighlight">\(1/(n-1)\)</span> in the sample variance is sometimes called <a class="reference external" href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s correction</a>.</p>
+</aside>
+<p>The definitions of <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\(s^2\)</span> are surely quite natural, <em>except</em> that the sample variance involves division by <span class="math notranslate nohighlight">\(n-1\)</span> instead of the sample size <span class="math notranslate nohighlight">\(n\)</span> like you might have expected. The reason for this is that, if we had a factor of <span class="math notranslate nohighlight">\(1/n\)</span> in <span class="math notranslate nohighlight">\(s^2\)</span> instead of <span class="math notranslate nohighlight">\(1/(n-1)\)</span>, then the value of <span class="math notranslate nohighlight">\(s^2\)</span> would <em>systematically</em> on average underestimate the true value <span class="math notranslate nohighlight">\(\sigma_0^2\)</span> over repeated sampling. This can be demonstrated empirically through computer simulation, and it can also be <em>proved</em> theoretically as we will see later when we study bias of estimators. So for now, we will just take the above definition of <span class="math notranslate nohighlight">\(s^2\)</span> on faith, postponing till a later discussion the explanation regarding <em>why</em> it’s a good estimator.</p>
+<p>Note that the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> <em>is</em> the mean of the empirical distribution of the dataset, the latter understood as a discrete probability distribution on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. If the formula for <span class="math notranslate nohighlight">\(s^2\)</span> had <span class="math notranslate nohighlight">\(1/n\)</span> instead of <span class="math notranslate nohighlight">\(1/(n-1)\)</span>, then <span class="math notranslate nohighlight">\(s^2\)</span> would be the variance of the empirical distribution.</p>
+<p>In previous sections, I used the sample means and variances to plot normal density curves to aid our graphical EDA. Here are those values, for the two datasets that we considered:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xbar_airbnb</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">s_airbnb</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">xbar_UK</span> <span class="o">=</span> <span class="n">sample_sales</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">s_UK</span> <span class="o">=</span> <span class="n">sample_sales</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The sample mean of the Airbnb dataset is </span><span class="si">{</span><span class="n">xbar_airbnb</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The sample standard deviation of the Airbnb dataset is </span><span class="si">{</span><span class="n">s_airbnb</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The sample mean of the online sales dataset is </span><span class="si">{</span><span class="n">xbar_UK</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The sample standard deviation of the online sales dataset is </span><span class="si">{</span><span class="n">s_UK</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The sample mean of the Airbnb dataset is 154.11.
+The sample standard deviation of the Airbnb dataset is 102.48.
+
+The sample mean of the online sales dataset is 4.34.
+The sample standard deviation of the online sales dataset is 4.43.
+</pre></div>
+</div>
+</div>
+</div>
+<p>We may also estimate population quantiles using sample quantiles. Here are the definitions of the latter, which should not be surprising:</p>
+<div class="proof definition admonition" id="definition-3">
+<p class="admonition-title"><span class="caption-number">Definition 6.4 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> be an observed random sample. The <em>sample q-quantile</em> is the <span class="math notranslate nohighlight">\(q\)</span>-quantile of the empirical distribution of the dataset.</p>
+</section>
+</div><p>Here, when I write “<span class="math notranslate nohighlight">\(q\)</span>-quantile,” I am referencing the <em>original</em> definition of “<span class="math notranslate nohighlight">\(q\)</span>-quantile” that we saw back in <a class="reference internal" href="prob-spaces.html#dist-quant"><span class="std std-numref">Section 2.10</span></a>, not the alternate definition we used when discussing QQ-plots.</p>
+<p>As with the sample statistics <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\(s^2\)</span> we saw above, the sample quantiles are supposed to be sample-based estimates for the true population quantiles.</p>
+<p>The 0.25-, 0.5-, and 0.75-quantiles (these are also called the <em>first</em>, <em>second</em>, and <em>third quartiles</em>) of the online sales dataset were actually displayed above when I asked the computer to describe the dataset. Here is that description again:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sales_stats</span> <span class="o">=</span> <span class="n">sample_sales</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="n">sales_stats</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    447322.000000
+mean          4.342078
+std           4.426455
+min         -12.000000
+25%           1.000000
+50%           2.000000
+75%           6.000000
+max          23.000000
+Name: Quantity, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the output, the sample 0.25-quantile is listed as the sample 25th percentile, and likewise for the sample 0.5-quantile (the <em>sample median</em>) and the sample 0.75-quantile. For the Airbnb dataset, we have:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">airbnb_stats</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="n">airbnb_stats</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    3972.000000
+mean      154.114371
+std       102.481302
+min         0.820000
+25%        83.240000
+50%       121.555000
+75%       199.460000
+max       509.790000
+Name: price, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Along with the sample quartiles, you can also see that this method from the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> library conveniently outputs the sample mean and standard deviation, as well as the size of the dataset (the <em>count</em>) and the minimum and maximum sample values.</p>
+<p>The range over which the middle 50% of a sample sits is defined in:</p>
+<div class="proof definition admonition" id="definition-4">
+<p class="admonition-title"><span class="caption-number">Definition 6.5 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> be an observed random sample. The <em>sample interquartile range</em> (<em>sample IQR</em>) is the difference</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+(\text{sample 0.75-quantile}) - (\text{sample 0.25-quantile}).
+\end{equation*}\]</div>
+</section>
+</div><p>So, using the outputs above, we see that the sample IQRs of the Airbnb and online sales datasets are:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iqr_airbnb</span> <span class="o">=</span> <span class="n">airbnb_stats</span><span class="p">[</span><span class="s1">&#39;75%&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">airbnb_stats</span><span class="p">[</span><span class="s1">&#39;25%&#39;</span><span class="p">]</span>
+<span class="n">iqr_UK</span> <span class="o">=</span> <span class="n">sales_stats</span><span class="p">[</span><span class="s1">&#39;75%&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">sales_stats</span><span class="p">[</span><span class="s1">&#39;25%&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The IQR for the Airbnb dataset is </span><span class="si">{</span><span class="n">iqr_airbnb</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The IQR for the online sales dataset is </span><span class="si">{</span><span class="n">iqr_UK</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The IQR for the Airbnb dataset is 116.22.
+The IQR for the online sales dataset is 5.00.
+</pre></div>
+</div>
+</div>
+</div>
+<p>With the definition of <em>sample IQR</em> in hand, we may now define <em>outliers</em>:</p>
+<div class="proof definition admonition" id="definition-5">
+<p class="admonition-title"><span class="caption-number">Definition 6.6 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> be an observed random sample. Then a data point <span class="math notranslate nohighlight">\(x_k\)</span> is called an <em>outlier</em> if it is above an upper threshold value</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+x_k &gt; (\text{sample 0.75-quantile}) + 1.5\times (\text{sample IQR}),
+\end{equation*}\]</div>
+<p>or if it is below a lower threshold value</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+x_k &lt; (\text{sample 0.25-quantile}) - 1.5\times (\text{sample IQR}).
+\end{equation*}\]</div>
+</section>
+</div><p>There’s a very convenient way to <em>visually</em> summarize all these sample statistics (along with outliers) which we will discuss immediately in the next section.</p>
+</section>
+<section id="box-plots-and-violin-plots">
+<h2><span class="section-number">6.7. </span>Box plots and violin plots<a class="headerlink" href="#box-plots-and-violin-plots" title="Permalink to this heading">#</a></h2>
+<p>Let’s first consider the online sales data, along with all the summary sample statistics that we described and computed in the previous section. We may combine all these summarize all this information in something called a <em>box plot</em> (or <em>box and whisker plot</em>):</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">sample_sales</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$quantity&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/d50bbe4eb9bd22c62f0a15b95443286f731ab8441331c9af21fa48f598542775.png"><img alt="../_images/d50bbe4eb9bd22c62f0a15b95443286f731ab8441331c9af21fa48f598542775.png" src="../_images/d50bbe4eb9bd22c62f0a15b95443286f731ab8441331c9af21fa48f598542775.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>The left edge of the central blue box is at <span class="math notranslate nohighlight">\(x=1\)</span>, which as we saw above is the sample 0.25-quantile; likewise, its right edge is at <span class="math notranslate nohighlight">\(x=6\)</span>, which is the sample 0.75-quantile. Therefore, the <em>width</em> of the box is exactly the sample IQR. The box thus represents where the middle 50% of the sample lives. The vertical line through the box is at <span class="math notranslate nohighlight">\(x=2\)</span>, which is the sample 0.5-quantile, or the sample median.</p>
+<p>You notice that the box has “whiskers.” The left whisker extends out to the minimum value in the dataset, <em>or</em> to the threshold value</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+(\text{sample 0.25-quantile}) - 1.5\times (\text{sample IQR})
+\end{equation*}\]</div>
+<p>for determining outliers, whichever is greater. In this case, the whisker extends to the threshold value, and then all the dots to the <em>left</em> of the whisker represent outliers in the lower tail of the distribution.</p>
+<p>Likewise, the right whisker extends out to the maximum value in the dataset, <em>or</em> to the upper threshold value</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+(\text{sample 0.75-quantile}) + 1.5\times (\text{sample IQR})
+\end{equation*}\]</div>
+<p>for determining outliers, whichever is smaller. In this case, the dataset <em>does</em> contain outliers in its upper tail, so the whisker extends to the threshold value, and all the dots to the right are outliers.</p>
+<p>Here’s the box plot for the Airbnb prices:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">sample</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/5294dcee2f78d59bef7bbac907f0b74d879730aa0db6e2fd91119dfe5b4d23c5.png"><img alt="../_images/5294dcee2f78d59bef7bbac907f0b74d879730aa0db6e2fd91119dfe5b4d23c5.png" src="../_images/5294dcee2f78d59bef7bbac907f0b74d879730aa0db6e2fd91119dfe5b4d23c5.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>This time, there are <em>no</em> outliers in the lower tail of the distribution, since the minimum value in the dataset is 82 cents (really?!), which is greater than the lower threshold for determining outliers. However, there are <em>lots</em> of outliers in the upper tail of the distribution, and they are very densely packed together.</p>
+<p>Now, what were to happen if we combined a box plot with one of the tools for graphical EDA that we studied earlier? Something like this:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">sample_sales</span><span class="p">,</span> <span class="n">bw</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$quantity&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/0c1bb0402aa731cdc23b81f900d4b72ca12e062cbf1a562fc57373fc3cdfcb0e.png"><img alt="../_images/0c1bb0402aa731cdc23b81f900d4b72ca12e062cbf1a562fc57373fc3cdfcb0e.png" src="../_images/0c1bb0402aa731cdc23b81f900d4b72ca12e062cbf1a562fc57373fc3cdfcb0e.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>This is a <em>violin plot</em> of our online sales data (the reason for the name is evident). Along the central horizontal line is a box plot—can you see it? The white dot in the box (which is really a flattened rectangle) represents the sample median. You can see the upper whisker in its entirety, but the tip of the lower whisker is not visible. Then, above the central horizontal line is displayed a KDE of the dataset, and its mirror image is displayed below. For comparison, here’s a picture of a KDE of the dataset all on its own:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">sample_sales</span><span class="p">,</span> <span class="n">bw_method</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;quantity&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/2fbd18d3924c599cba4966dacb9357b9c96953f188326968da61bcf6ffb1087d.png"><img alt="../_images/2fbd18d3924c599cba4966dacb9357b9c96953f188326968da61bcf6ffb1087d.png" src="../_images/2fbd18d3924c599cba4966dacb9357b9c96953f188326968da61bcf6ffb1087d.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>So, violin plots are tools belonging to both graphical and numerical EDA since they combined KDEs with box plots. They have advantages over just plain box plots because they are better able to convey a sense of the <em>shape</em> of a dataset. For example, box plots cannot display multiple data modes (multiple peaks in the distribution), whereas KDEs <em>can</em>. We see this in the online sales dataset above, which is bimodal (has two peaks).</p>
+<p>Here’s a violin plot of the Airbnb dataset:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">sample</span><span class="p">,</span> <span class="n">bw</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/dd60a021caff939ef50417754e7f8e78839edc7381cff859182ff6ac3accb123.png"><img alt="../_images/dd60a021caff939ef50417754e7f8e78839edc7381cff859182ff6ac3accb123.png" src="../_images/dd60a021caff939ef50417754e7f8e78839edc7381cff859182ff6ac3accb123.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>We see that a significant portion of the upper tail of the distribution extends beyond the tip of the upper whisker, indicating many large outliers.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="examples-of-rvs.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Examples of random variables</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="random-vectors.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Random vectors; joint, marginal and conditional distributions; independence</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-and-random-samples">6.1. Data and random samples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-models-and-empirical-distributions">6.2. Statistical models and empirical distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histograms">6.3. Histograms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-density-estimation">6.4. Kernel density estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qq-plots">6.5. QQ-plots</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-statistics">6.6. Sample statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#box-plots-and-violin-plots">6.7. Box plots and violin plots</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By John Myers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

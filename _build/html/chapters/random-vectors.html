@@ -1,0 +1,1465 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>7. Random vectors; joint, marginal and conditional distributions; independence &#8212; A Course in Mathematical Statistics with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/random-vectors';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="8. Covariance and correlation" href="covar-correl.html" />
+    <link rel="prev" title="6. Connecting theory to practice: data and samples" href="theory-to-practice.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    A Course in Mathematical Statistics with Python
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="preview.html">1. Preview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prob-spaces.html">2. Probability spaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules-of-prob.html">3. Rules of probability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random-variables.html">4. Random variables, expected values, variances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples-of-rvs.html">5. Examples of random variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theory-to-practice.html">6. Connecting theory to practice: data and samples</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Random vectors; joint, marginal and conditional distributions; independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="covar-correl.html">8. Covariance and correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fun-rvs.html">9. Computations with random variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mgf.html">10. Moment generating functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cond-exp.html">11. Conditional expected values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">12. Statistics, estimators, and their distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">13. The asymptotic theory: the LLN and CLT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="point-est.html">14. Point estimators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CIs.html">15. Confidence intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">16. Hypothesis testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">17. Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/jmyers7/stats-book-materials" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/random-vectors.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Random vectors; joint, marginal and conditional distributions; independence</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">7.1. Motivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensional-random-vectors">7.2. <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vectors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariate-distribution-functions">7.3. Bivariate distribution functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#marginal-distributions">7.4. Marginal distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariate-empirical-distributions">7.5. Bivariate empirical distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-distributions">7.6. Conditional distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-law-of-total-probability-and-bayes-theorem-for-random-variables">7.7. The Law of Total Probability and Bayes’ Theorem for random variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-vectors-in-arbitrary-dimensions">7.8. Random vectors in arbitrary dimensions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#independence">7.9. Independence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-an-untrustworthy-friend">7.10. Case study: an untrustworthy friend</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="random-vectors-joint-marginal-and-conditional-distributions-independence">
+<span id="random-vectors"></span><h1><span class="section-number">7. </span>Random vectors; joint, marginal and conditional distributions; independence<a class="headerlink" href="#random-vectors-joint-marginal-and-conditional-distributions-independence" title="Permalink to this heading">#</a></h1>
+<section id="motivation">
+<span id="id1"></span><h2><span class="section-number">7.1. </span>Motivation<a class="headerlink" href="#motivation" title="Permalink to this heading">#</a></h2>
+<p>Suppose that you are studying the local housing market. You decide to track the variable <span class="math notranslate nohighlight">\(X\)</span>, which is the size of a house in square feet, as well as the variable <span class="math notranslate nohighlight">\(Y\)</span>, which is the selling price of a house in thousands of (US) dollars. You collect data on <span class="math notranslate nohighlight">\(n=2000\)</span> houses (the local market encompasses a <em>large</em> metropolitan area), giving you observed random samples</p>
+<div class="math notranslate nohighlight">
+\[
+x_1,x_2,\ldots,x_n \quad \text{and} \quad y_1,y_2,\ldots,y_n.
+\]</div>
+<p>Thus, for each <span class="math notranslate nohighlight">\(i=1,2,\ldots,n\)</span>, the pair <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> represents the size and selling price of the <span class="math notranslate nohighlight">\(i\)</span>-th house. You then plot the empirical distributions of the two datasets, obtaining:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">multivariate_normal</span>
+
+<span class="c1"># hide annoying warnings for tight_layout()</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="c1"># set custom style for plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
+
+<span class="c1"># make sure this comes last in the imports!</span>
+<span class="c1"># change the output resolution of figures</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span> 
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">600</span>
+
+<span class="c1"># end import section</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># data will be simulated from a multivariate gaussian.</span>
+<span class="c1"># define the parameters</span>
+<span class="n">rho</span> <span class="o">=</span> <span class="mf">0.85</span>
+<span class="n">sigma_1</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">sigma_2</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">175</span><span class="p">])</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="n">sigma_1</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">sigma_1</span> <span class="o">*</span> <span class="n">sigma_2</span><span class="p">],</span>
+    <span class="p">[</span><span class="n">rho</span> <span class="o">*</span> <span class="n">sigma_1</span> <span class="o">*</span> <span class="n">sigma_2</span><span class="p">,</span> <span class="n">sigma_2</span> <span class="o">**</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="c1"># generate the data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># build the plots</span>
+<span class="n">_</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">Y</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$size (ft$^2$)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$y=$price (\$1,000)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;density&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/9f9dac8aec734e0fc4a48137417c2f3f74cc9bad6a3f203c520a96f589a4a8ac.png"><img alt="../_images/9f9dac8aec734e0fc4a48137417c2f3f74cc9bad6a3f203c520a96f589a4a8ac.png" src="../_images/9f9dac8aec734e0fc4a48137417c2f3f74cc9bad6a3f203c520a96f589a4a8ac.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>These are histograms of the two datasets, with KDEs superimposed (we learned about these in the <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-ref">previous chapter</span></a>).</p>
+<p>Whatever information we might glean from these histograms, the information is about the two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> <em>in isolation</em> from each other. But because we expect that the size of a house and its selling price might be (strongly) related, it might be more informative to study <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> <em>in tandem</em> with each other. One way to do this is to plot the points <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> in the <span class="math notranslate nohighlight">\(xy\)</span>-plane, obtaining a visualization called a <em>scatter plot</em>:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">Y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$size (ft$^2$)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$y=$price (\$1,000)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/edd7ad6aa89d7aedc1fa911c341898c48c9b24c9acaba41049ce3db37bbf0ee5.png"><img alt="../_images/edd7ad6aa89d7aedc1fa911c341898c48c9b24c9acaba41049ce3db37bbf0ee5.png" src="../_images/edd7ad6aa89d7aedc1fa911c341898c48c9b24c9acaba41049ce3db37bbf0ee5.png" style="width: 80%;" /></a>
+</figure>
+</div>
+</div>
+<p>This plot confirms exactly what we expected! Since the pattern of points generally follows a positively-sloped line, we may conclude that as the size <span class="math notranslate nohighlight">\(x\)</span> of a house increases, so too does its selling price <span class="math notranslate nohighlight">\(y\)</span>.</p>
+<p>To reiterate:</p>
+<blockquote>
+<div><p>We would not have been able to discover this relation between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> had we studied these two variables in isolation from each other. This suggests that, given <em>any</em> pair of random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, we might obtain valuable information if we study them <em>together</em> as a single object.</p>
+</div></blockquote>
+</section>
+<section id="dimensional-random-vectors">
+<h2><span class="section-number">7.2. </span><span class="math notranslate nohighlight">\(2\)</span>-dimensional random vectors<a class="headerlink" href="#dimensional-random-vectors" title="Permalink to this heading">#</a></h2>
+<p>So, what do you get when you want to combine two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> into a single object? Here’s the answer:</p>
+<div class="proof definition admonition" id="definition-0">
+<p class="admonition-title"><span class="caption-number">Definition 7.1 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(S\)</span> be a probability space. A <em><span class="math notranslate nohighlight">\(2\)</span>-dimensional random vector</em> is a function</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{X} : S \to \mathbb{R}^2.
+\]</div>
+<p>Thus, we may write <span class="math notranslate nohighlight">\(\mathbf{X}(s) = (X_1(s), X_2(s))\)</span> for each sample point <span class="math notranslate nohighlight">\(s\in S\)</span>. When we do so, the functions <span class="math notranslate nohighlight">\(X_1\)</span> and <span class="math notranslate nohighlight">\(X_2\)</span> are ordinary random variables that are called the <em>components</em> of the random vector <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
+</section>
+</div><p>So, a <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vector is nothing but a pair of random variables. That’s it. We will often write a random vector simply as a pair <span class="math notranslate nohighlight">\((X_1,X_2)\)</span>, where <span class="math notranslate nohighlight">\(X_1\)</span> and <span class="math notranslate nohighlight">\(X_2\)</span> are the component random variables. In the example in the previous section, we have the random vector <span class="math notranslate nohighlight">\((X,Y)\)</span> consisting of the size of a house and its selling price.</p>
+<p>What’s the big deal? Simply putting two random variables together into a random vector doesn’t seem like it would lead to anything useful. But do you remember that every random variable <span class="math notranslate nohighlight">\(X\)</span> induces a probability distribution on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>? (If not, look <a class="reference internal" href="random-variables.html#prob-measure-rv"><span class="std std-ref">here</span></a>.) As I will now show you, every random vector does the same, but this time the induced probability distribution is on the plane <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>. This is where things get interesting!</p>
+<div class="proof definition admonition" id="definition-1">
+<p class="admonition-title"><span class="caption-number">Definition 7.2 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\((X,Y):S \to \mathbb{R}^2\)</span> be a <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vector on a probability space <span class="math notranslate nohighlight">\(S\)</span> with probability measure <span class="math notranslate nohighlight">\(P\)</span>. We define the <em>probability measure</em> of <span class="math notranslate nohighlight">\((X,Y)\)</span>, denoted <span class="math notranslate nohighlight">\(P_{(X,Y)}\)</span> or <span class="math notranslate nohighlight">\(P_{XY}\)</span>, via the formula</p>
+<div class="math notranslate nohighlight" id="equation-hard-eqn">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-hard-eqn" title="Permalink to this equation">#</a></span>\[
+P_{XY}(C) = P \left( \{s\in S \mid (X(s),Y(s))\in C\} \right),
+\]</div>
+<p>for all events <span class="math notranslate nohighlight">\(C\subset \mathbb{R}^2\)</span>. The probability measure <span class="math notranslate nohighlight">\(P_{XY}\)</span> is also called the <em>joint distribution</em> or the <em>bivariate distribution</em> of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+</section>
+</div><p>Holy smokes, the equation <a class="reference internal" href="#equation-hard-eqn">(7.1)</a> looks confusing! However, just as we saw back in <a class="reference internal" href="random-variables.html#prob-measure-rv"><span class="std std-numref">Section 4.2</span></a> when we were talking about the probability measure <span class="math notranslate nohighlight">\(P_X\)</span> induced by a single random variable, there is alternate notation for <span class="math notranslate nohighlight">\(P_{XY}\)</span> that may clarify the definition. Indeed, we often write the much more suggestive</p>
+<div class="math notranslate nohighlight" id="equation-wrong2-eqn">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-wrong2-eqn" title="Permalink to this equation">#</a></span>\[
+P((X,Y)\in C)
+\]</div>
+<p>in place of <span class="math notranslate nohighlight">\(P_{XY}(C)\)</span>. If <span class="math notranslate nohighlight">\(C\)</span> happens to be a set of the form <span class="math notranslate nohighlight">\(A\times B\)</span> where <span class="math notranslate nohighlight">\(A,B\subset \mathbb{R}\)</span>, then we will write</p>
+<div class="math notranslate nohighlight" id="equation-wrong-eqn">
+<span class="eqno">(7.3)<a class="headerlink" href="#equation-wrong-eqn" title="Permalink to this equation">#</a></span>\[
+P(X\in A, \ Y\in B) \quad \text{or} \quad P(X\in A \text{ and } Y\in B)
+\]</div>
+<p>in place of <span class="math notranslate nohighlight">\(P_{XY}(A\times B)\)</span>. (The comma is pronounced “and.”) The expressions in <a class="reference internal" href="#equation-wrong2-eqn">(7.2)</a> and <a class="reference internal" href="#equation-wrong-eqn">(7.3)</a> are technically abuses of notation, but they are <em>so</em> much more descriptive and intuitive that we feel OK forgiving the abuse.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 1 on the worksheet.</p>
+</div>
+<p>Before continuing, it might be worth briefly reviewing the definitions of <em>discrete</em> and <em>bivariate continuous probability distributions</em> (see <a class="reference internal" href="prob-spaces.html#discrete-prob"><span class="std std-numref">Section 2.6</span></a> for the first, and <a class="reference internal" href="prob-spaces.html#bivar-cont-prob"><span class="std std-numref">Section 2.11</span></a> for the second). The first types of distributions were defined in terms of the existence of probability mass functions, while the second were defined in terms of the existence of probability density functions. We use these definitions in:</p>
+<div class="proof definition admonition" id="definition-2">
+<p class="admonition-title"><span class="caption-number">Definition 7.3 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\((X,Y)\)</span> be a <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vector.</p>
+<ul>
+<li><p>We shall say <span class="math notranslate nohighlight">\((X,Y)\)</span> is <em>discrete</em>, or that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <em>jointly discrete</em>, if the joint probability distribution <span class="math notranslate nohighlight">\(P_{XY}\)</span> is discrete. In other words, we require that there exists a <em>joint probability mass function</em> <span class="math notranslate nohighlight">\(p(x,y)\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+    P((X,Y)\in C) = \sum_{(x,y)\in C} p(x,y)
+    \]</div>
+<p>for all events <span class="math notranslate nohighlight">\(C \subset \mathbb{R}^2\)</span>.</p>
+</li>
+<li><p>We shall say <span class="math notranslate nohighlight">\((X,Y)\)</span> is <em>continuous</em>, or that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <em>jointly continuous</em>, if the joint probability distribution <span class="math notranslate nohighlight">\(P_{XY}\)</span> is continuous. In other words, we require that there exists a <em>joint probability density function</em> <span class="math notranslate nohighlight">\(f(x,y)\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+    P\left( (X,Y)\in C \right) = \iint_C f(x,y) \ \text{d}x \text{d}y
+    \]</div>
+<p>for all events <span class="math notranslate nohighlight">\(C\subset \mathbb{R}^2\)</span>.</p>
+</li>
+</ul>
+</section>
+</div><p>So, the component random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> of a random vector <span class="math notranslate nohighlight">\((X,Y)\)</span> may be discrete or continuous, and the random vector <span class="math notranslate nohighlight">\((X,Y)\)</span> <em>itself</em> may be discrete or continuous. What are the relations between these properties? Answer:</p>
+<div class="proof theorem admonition" id="theorem-3">
+<p class="admonition-title"><span class="caption-number">Theorem 7.1 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\((X,Y)\)</span> be a <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vector.</p>
+<ol class="arabic simple">
+<li><p>The random vector <span class="math notranslate nohighlight">\((X,Y)\)</span> is discrete if and only if both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are discrete.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\((X,Y)\)</span> is continuous, then <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are both continuous. However, it does <em>not</em> nececessarily follow that if both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are continuous, then so too is <span class="math notranslate nohighlight">\((X,Y)\)</span>.</p></li>
+</ol>
+</section>
+</div><p>Part of this theorem will be proved below in <a class="reference internal" href="#marginal-thm">Theorem 7.3</a>.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>This clever counterexample is borrowed from <span id="id2">[<a class="reference internal" href="bib.html#id6" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>.</p>
+</aside>
+<p>The reason that individual continuity of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> does <em>not</em> imply continuity of <span class="math notranslate nohighlight">\((X,Y)\)</span> can be explained by observing that <em>if</em> <span class="math notranslate nohighlight">\((X,Y)\)</span> were continuous, then the probability that <span class="math notranslate nohighlight">\((X,Y)\)</span> takes values on any given line in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> is <span class="math notranslate nohighlight">\(0\)</span>. Indeed, this is because probabilities of bivariate continuous distributions are volumes under density surfaces, and there is <em>no</em> volume above a line in the plane. But if <span class="math notranslate nohighlight">\(X\)</span> is continuous and <span class="math notranslate nohighlight">\(X=Y\)</span>, then the probability that <span class="math notranslate nohighlight">\((X,Y)\)</span> takes values on the line <span class="math notranslate nohighlight">\(x=y\)</span> is exactly <span class="math notranslate nohighlight">\(1\)</span>. Thus, the random vector <span class="math notranslate nohighlight">\((X,Y)\)</span> cannot be continuous!</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problems 2-4 on the worksheet.</p>
+</div>
+</section>
+<section id="bivariate-distribution-functions">
+<h2><span class="section-number">7.3. </span>Bivariate distribution functions<a class="headerlink" href="#bivariate-distribution-functions" title="Permalink to this heading">#</a></h2>
+<p>We now generalize the cumulative distribution functions from <a class="reference internal" href="random-variables.html#dist-func-rv"><span class="std std-numref">Section 4.4</span></a> to <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vectors.</p>
+<div class="proof definition admonition" id="definition-4">
+<p class="admonition-title"><span class="caption-number">Definition 7.4 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\((X,Y)\)</span> be a <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vector. The <em>distribution function</em> of <span class="math notranslate nohighlight">\((X,Y)\)</span> is the function <span class="math notranslate nohighlight">\(F:\mathbb{R}^2 \to \mathbb{R}\)</span> defined by</p>
+<div class="math notranslate nohighlight">
+\[
+F(x,y) = P(X\leq x, Y\leq y).
+\]</div>
+<p>In particular:</p>
+<ol class="arabic">
+<li><p>If <span class="math notranslate nohighlight">\((X,Y)\)</span> is discrete with probability mass function <span class="math notranslate nohighlight">\(p(x,y)\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+    F(x,y) = \sum_{x^\star\leq x, \ y^\star \leq y} p(x^\star, y^\star).
+    \]</div>
+</li>
+<li><p>If <span class="math notranslate nohighlight">\((X,Y)\)</span> is continuous with probability density function <span class="math notranslate nohighlight">\(f(x,y)\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+    F(x,y) = \int_{-\infty}^y \int_{-\infty}^x f(x^\star, y^\star) \ \text{d}x^\star \text{d} y^\star.
+    \]</div>
+</li>
+</ol>
+</section>
+</div><div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 5 on the worksheet.</p>
+</div>
+</section>
+<section id="marginal-distributions">
+<h2><span class="section-number">7.4. </span>Marginal distributions<a class="headerlink" href="#marginal-distributions" title="Permalink to this heading">#</a></h2>
+<p>If <span class="math notranslate nohighlight">\((X,Y)\)</span> is a <span class="math notranslate nohighlight">\(2\)</span>-dimensinal random vector, then we have the joint distribution <span class="math notranslate nohighlight">\(P_{XY}\)</span> on the plane <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, as well as the individual distributions <span class="math notranslate nohighlight">\(P_X\)</span> and <span class="math notranslate nohighlight">\(P_Y\)</span> induced by <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> on the real line <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. When the random vector <span class="math notranslate nohighlight">\((X,Y)\)</span> is in the mix, the latter two distributions have special names:</p>
+<div class="proof definition admonition" id="definition-5">
+<p class="admonition-title"><span class="caption-number">Definition 7.5 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\((X,Y)\)</span> be a <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vector. Then the distributions <span class="math notranslate nohighlight">\(P_X\)</span> and <span class="math notranslate nohighlight">\(P_Y\)</span> are called the <em>marginal distributions</em> of <span class="math notranslate nohighlight">\((X,Y)\)</span>.</p>
+</section>
+</div><p>So, just to emphasize:</p>
+<blockquote>
+<div><p>Marginal distributions are nothing new—the only thing that is new is the terminology.</p>
+</div></blockquote>
+<p>It turns out that it is rather easy to obtain the marginal distributions from the joint one. This is the content of:</p>
+<div class="proof theorem admonition" id="marg-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 7.2 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\((X,Y)\)</span> be a <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vector with distribution <span class="math notranslate nohighlight">\(P_{XY}\)</span>. Then the marginal distributions <span class="math notranslate nohighlight">\(P_X\)</span> and <span class="math notranslate nohighlight">\(P_Y\)</span> may be obtained via the formulas</p>
+<div class="math notranslate nohighlight">
+\[
+P_X(A) = P_{XY}(A\times \mathbb{R}) \quad \text{and} \quad P_Y(B) = P_{XY}(\mathbb{R} \times B)
+\]</div>
+<p>for all events <span class="math notranslate nohighlight">\(A,B\subset \mathbb{R}\)</span>. In particular:</p>
+<ol class="arabic">
+<li><p>If <span class="math notranslate nohighlight">\((X,Y)\)</span> is discrete with probability mass function <span class="math notranslate nohighlight">\(p(x,y)\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+    P(X\in A) = \sum_{x\in A, \ y\in \mathbb{R}}p(x,y) \quad \text{and} \quad P(Y\in B) = \sum_{y\in B, \ x\in \mathbb{R}} p(x,y).
+    \]</div>
+</li>
+<li><p>If <span class="math notranslate nohighlight">\((X,Y)\)</span> is continuous with probability density function <span class="math notranslate nohighlight">\(f(x,y)\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+    P(X\in A) = \int_A \int_{-\infty}^\infty f(x,y) \ \text{d}x \text{d}y
+    \]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+    P(Y\in B) = \int_B \int_{-\infty}^\infty f(x,y) \ \text{d}y \text{d}x.
+    \]</div>
+</li>
+</ol>
+</section>
+</div><p>An immediate corollary of this result is a description of the marginal probability mass and density functions. We will use this result often:</p>
+<div class="proof theorem admonition" id="marginal-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 7.3 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\((X,Y)\)</span> be a <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vector.</p>
+<ol class="arabic">
+<li><p>If <span class="math notranslate nohighlight">\((X,Y)\)</span> is discrete with probability mass function <span class="math notranslate nohighlight">\(p(x,y)\)</span>, then both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are discrete with probability mass functions given by</p>
+<div class="math notranslate nohighlight">
+\[
+    p_X(x) = \sum_{y\in \mathbb{R}} p(x,y) \quad \text{and} \quad p_Y(y) = \sum_{x\in \mathbb{R}}p(x,y).
+    \]</div>
+</li>
+<li><p>If <span class="math notranslate nohighlight">\((X,Y)\)</span> is continuous with probability density function <span class="math notranslate nohighlight">\(f(x,y)\)</span>, then both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are continuous with probability density functions given by</p>
+<div class="math notranslate nohighlight" id="equation-marg-cont-eqn">
+<span class="eqno">(7.4)<a class="headerlink" href="#equation-marg-cont-eqn" title="Permalink to this equation">#</a></span>\[
+    f_X(x) = \int_{-\infty}^\infty f(x,y) \ \text{d}y \quad \text{and} \quad f_Y(y) = \int_{-\infty}^\infty f(x,y) \ \text{d} x.
+    \]</div>
+</li>
+</ol>
+</section>
+</div><p>Here’s how I remember these formulas:</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<ol class="arabic simple">
+<li><p>To obtain the marginal density <span class="math notranslate nohighlight">\(f_X(x)\)</span> from the joint density <span class="math notranslate nohighlight">\(f(x,y)\)</span>, we “integrate out” the dependence of <span class="math notranslate nohighlight">\(f(x,y)\)</span> on <span class="math notranslate nohighlight">\(y\)</span>. Likewise for obtaining <span class="math notranslate nohighlight">\(f_Y(y)\)</span> from <span class="math notranslate nohighlight">\(f(x,y)\)</span>.</p></li>
+<li><p>To obtain the marginal mass <span class="math notranslate nohighlight">\(p_X(x)\)</span> from the joint mass <span class="math notranslate nohighlight">\(p(x,y)\)</span>, we “sum out” the dependence of <span class="math notranslate nohighlight">\(p(x,y)\)</span> on <span class="math notranslate nohighlight">\(y\)</span>. Likewise for obtaining <span class="math notranslate nohighlight">\(p_Y(y)\)</span> from <span class="math notranslate nohighlight">\(p(x,y)\)</span>.</p></li>
+</ol>
+</div>
+<p>In the continuous case, you should visualize the formulas <a class="reference internal" href="#equation-marg-cont-eqn">(7.4)</a> as integrations over cross-sections of the density surfaces. For example, the following picture is a visualization of the formula for the marginal density function <span class="math notranslate nohighlight">\(f_Y(y)\)</span> evaluated at <span class="math notranslate nohighlight">\(y=5\)</span>:</p>
+<a class="reference internal image-reference" href="../_images/margDensity.svg"><img alt="../_images/margDensity.svg" class="align-center" src="../_images/margDensity.svg" width="70%" /></a>
+<p> </p>
+<p>In the picture, we imagine slicing the graph of the density <span class="math notranslate nohighlight">\(f(x,y)\)</span> with the vertical plane <span class="math notranslate nohighlight">\(y=5\)</span>. (We must imagine this plane extends off infinitely far in each direction.) Where the plane and the density surface intersect, a curve will be traced out on the plane. The area beneath <em>this</em> cross-sectional curve is exactly the value</p>
+<div class="math notranslate nohighlight">
+\[
+f_Y(5) = \int_{-\infty}^\infty f(x,5) \ \text{d}x.
+\]</div>
+<p>This is the visualization for continuous distributions—what might the analogous visualization look like for discrete distributions? Can you sketch the figure on your own?</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problems 6 and 7 on the worksheet.</p>
+</div>
+</section>
+<section id="bivariate-empirical-distributions">
+<h2><span class="section-number">7.5. </span>Bivariate empirical distributions<a class="headerlink" href="#bivariate-empirical-distributions" title="Permalink to this heading">#</a></h2>
+<p>Almost everything that we learned in the <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-ref">previous chapter</span></a> on data and empirical distributions may be applied in the bivariate setting. Essentially, you just need to change all random variables to random vectors, and put either a “joint” or “bivariate” in front of everything. :)</p>
+<p>To illustrate, let’s return to our housing data explored in the <a class="reference internal" href="#motivation"><span class="std std-ref">first section</span></a>. There, we had <em>two</em> observed random samples</p>
+<div class="math notranslate nohighlight">
+\[
+x_1,x_2,\ldots,x_n \quad \text{and} \quad y_1,y_2,\ldots,y_n
+\]</div>
+<p>of the sizes (in square feet) and the selling prices (in thousands of dollars) of a subset of <span class="math notranslate nohighlight">\(n=500\)</span> houses. In the precise language of the <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-ref">previous chapter</span></a>, we would say that these datasets are observations from the IID random samples</p>
+<div class="math notranslate nohighlight">
+\[
+X_1,X_2,\ldots,X_n \quad \text{and} \quad Y_1,Y_2,\ldots,Y_n.
+\]</div>
+<p>Make sure you remember the difference between a random sample and an <em>observed</em> random sample!</p>
+<p>However, the <span class="math notranslate nohighlight">\(i\)</span>-th size <span class="math notranslate nohighlight">\(x_i\)</span> and the <span class="math notranslate nohighlight">\(i\)</span>-th price <span class="math notranslate nohighlight">\(y_i\)</span> naturally go together, since they are both referring to the <span class="math notranslate nohighlight">\(i\)</span>-th house. Therefore, we might instead consider our two observed random samples as a <em>single</em> observed random sample</p>
+<div class="math notranslate nohighlight">
+\[
+(x_1,y_1), (x_2,y_2),\ldots,(x_n,y_n).
+\]</div>
+<p>But what is this new observed random sample an observation of? Answer:</p>
+<div class="proof definition admonition" id="random-sample-vec-defn">
+<p class="admonition-title"><span class="caption-number">Definition 7.6 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\((X_1,Y_1), (X_2,Y_2),\ldots,(X_n,Y_n)\)</span> be a sequence of <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vectors, all defined on the same probability space.</p>
+<ul class="simple">
+<li><p>The random vectors are called a <em>bivariate random sample</em> if they are <em>independent</em> and <em>identically distributed</em> (IID).</p></li>
+</ul>
+<p>Provided that the sequence is a bivariate random sample, an <em>observed bivariate random sample</em>, or a <em>bivariate dataset</em>, is a sequence of pairs of real numbers</p>
+<div class="math notranslate nohighlight">
+\[
+(x_1,y_1), (x_2,y_2),\ldots,(x_n,y_n)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> is an observation of <span class="math notranslate nohighlight">\((X_i,Y_i)\)</span>.</p>
+</section>
+</div><p>To say that <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> is an observed value of the random vector <span class="math notranslate nohighlight">\((X_i,Y_i)\)</span> simply means that it is in the range of the random vector (as a function with codomain <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>). As I remarked in the <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-ref">previous chapter</span></a>, we haven’t officially defined <em>independence</em> yet—that will come in <a class="reference internal" href="#independence-defn">Definition 7.11</a> below.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>An interesting question is raised as to whether the individual independence of the pair of observed univariate random samples is equivalent to independence of the observed bivariate random sample. We will address this in the next chapter.</p>
+</aside>
+<p>Thus, it might be more natural to say that our housing data constitutes an observed bivariate random sample, rather than just two individual observed univariate random samples. These types of random samples—along with their higher-dimensional cousins called <em>multivariate random samples</em>—are quite common in prediction tasks where we aim to predict the <span class="math notranslate nohighlight">\(y_i\)</span>’s based on the <span class="math notranslate nohighlight">\(x_i\)</span>’s. For example, this is the entire gist of <em>supervised machine learning</em>.</p>
+<p>Adapting the definition of empirical distributions of univariate datasets from the <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-ref">previous chapter</span></a> is also easy:</p>
+<div class="proof definition admonition" id="definition-9">
+<p class="admonition-title"><span class="caption-number">Definition 7.7 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\((x_1,y_1),(x_2,y_2),\ldots,(x_n,y_n)\)</span> be an observed bivariate random sample, i.e., a bivariate dataset. The <em>empirical distribution</em> of the dataset is the discrete probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> with joint probability mass function</p>
+<div class="math notranslate nohighlight">
+\[
+p(x,y) = \frac{\text{number of data points $(x_i,y_i)$ that match $(x,y)$}}{n}.
+\]</div>
+</section>
+</div><p>If we assume that our bivariate dataset consists of observations drawn from an IID random sample</p>
+<div class="math notranslate nohighlight">
+\[
+(X_1,Y_1),(X_2,Y_2),\ldots,(X_n,Y_n),
+\]</div>
+<p>then the empirical distribution of the dataset is supposed to serve as an approximation for the <em>true</em> joint distribution of the <span class="math notranslate nohighlight">\((X_i,Y_i)\)</span>’s.</p>
+<p>We saw in the <a class="reference internal" href="#motivation"><span class="std std-ref">first section</span></a> that we may visualize bivariate empirical distributions using scatter plots. Here’s a variation on a scatter plot, which places the marginal empirical distributions in the (where else?) margins of the plot!</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">Y</span><span class="p">,</span> <span class="n">marginal_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;kde&#39;</span> <span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$size (ft$^2$)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$y=$price (\$1,000)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/043e3eee0ecb97d4278e5664a080aaaf86a8edae130b747fb6ca68748432a14d.png"><img alt="../_images/043e3eee0ecb97d4278e5664a080aaaf86a8edae130b747fb6ca68748432a14d.png" src="../_images/043e3eee0ecb97d4278e5664a080aaaf86a8edae130b747fb6ca68748432a14d.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>To be a bit more precise, along the top of the figure we see a histogram (with KDE) of the empirical distribution of the <span class="math notranslate nohighlight">\(x_i\)</span>’s, and along the side we see a histogram (with KDE) of the empirical distribution of the <span class="math notranslate nohighlight">\(y_i\)</span>’s.</p>
+<p>This type of figure makes it very clear how marginal distributions are obtained from joint distributions. For example, take a look at:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># combine the data into a DataFrame</span>
+<span class="n">joint_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span> <span class="p">:</span> <span class="n">X</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span> <span class="p">:</span> <span class="n">Y</span><span class="p">})</span>
+<span class="n">slice_data</span> <span class="o">=</span> <span class="n">joint_data</span><span class="p">[(</span><span class="mi">178</span> <span class="o">&lt;=</span> <span class="n">joint_data</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">joint_data</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">180</span><span class="p">)]</span>
+
+<span class="c1"># instantiate a JointGrid object</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">JointGrid</span><span class="p">()</span>
+
+<span class="c1"># generate the plots</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">joint_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">ax_joint</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">slice_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">ax_joint</span><span class="p">)</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">joint_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">ax_marg_x</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">joint_data</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">ax_marg_y</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+
+<span class="c1"># change one of the bars to magenta</span>
+<span class="k">for</span> <span class="n">bar</span> <span class="ow">in</span> <span class="n">ax2</span><span class="o">.</span><span class="n">patches</span><span class="p">:</span>
+    <span class="n">bar</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">patches</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s1">&#39;#FD46FC&#39;</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">set_axis_labels</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$x=$size (ft$^2$)&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$y=$price (\$1,000)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/f693e7aadc916100af1504823193598d114e4f2f7c0bf9370cea0ab32adccd96.png"><img alt="../_images/f693e7aadc916100af1504823193598d114e4f2f7c0bf9370cea0ab32adccd96.png" src="../_images/f693e7aadc916100af1504823193598d114e4f2f7c0bf9370cea0ab32adccd96.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>Here, I have highlighted one of the histogram bars in the empirical distribution of the <span class="math notranslate nohighlight">\(y_i\)</span>’s. The height of this bar is obtained by counting all the data points in the corresponding highlighted horizontal slice. This is a direct translation of the formula</p>
+<div class="math notranslate nohighlight">
+\[
+p_Y(y) = \sum_{x\in \mathbb{R}} p_{XY}(x,y)
+\]</div>
+<p>for obtaining a marginal PMF <span class="math notranslate nohighlight">\(p_Y(y)\)</span> from a joint PMF <span class="math notranslate nohighlight">\(p_{XY}(x,y)\)</span> by summing over all <span class="math notranslate nohighlight">\(x\)</span>’s with a fixed <span class="math notranslate nohighlight">\(y\)</span>-value.</p>
+<p>What about bivariate versions of KDEs and histograms? Answer:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                             <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+                             <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                             <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">Y</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">Y</span><span class="p">,</span>
+             <span class="n">cbar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span>
+             <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;frequency&#39;</span><span class="p">})</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;bivariate kde&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;bivariate histogram&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$size (ft$^2$)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$size (ft$^2$)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$y=$price (\$1,000)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/4556796b9dc22d75b0faeffd935b12ba9d8f7a03d169c2b20e7ea9689dcbf882.png"><img alt="../_images/4556796b9dc22d75b0faeffd935b12ba9d8f7a03d169c2b20e7ea9689dcbf882.png" src="../_images/4556796b9dc22d75b0faeffd935b12ba9d8f7a03d169c2b20e7ea9689dcbf882.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>Even though the density surface for a bivariate empirical distribution is <em>not</em> a continuous surface, if it <em>were</em>, you can imagine that the curves in the KDE on the left are its contours. In other words, these are the curves over which the density surface has constant height. It appears that the density surface has either a global minimum or global maximum near <span class="math notranslate nohighlight">\((2000,175)\)</span>, but we can’t tell which from the KDE alone because the contours are not labelled.</p>
+<p>On the right-hand side of the figure above, we have a bivariate version of a histogram. While a histogram for a univariate dataset is obtained by subdividing the line <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> into bins, for a bivariate dataset the plane <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> is subdivided into rectangle bins. Then, over each of these rectangular bins we would place a <span class="math notranslate nohighlight">\(3\)</span>-dimensional “bar” whose height is equal (or proportional) to the number of data points that fall in the bin; thus, a histogram for bivariate data should really live in three dimensions (<span class="math notranslate nohighlight">\(xyz\)</span>-space). However, the histogram above shows only the bins in the plane <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, and it displays the heights of the “bars” by color, with darker shades of blue indicating a larger number of data points are contained in the bin. It is evident from this diagram that the global extreme point identified in the KDE is, in fact, a global maximum.</p>
+</section>
+<section id="conditional-distributions">
+<h2><span class="section-number">7.6. </span>Conditional distributions<a class="headerlink" href="#conditional-distributions" title="Permalink to this heading">#</a></h2>
+<p>Given two events <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> in a probability space, we learned <a class="reference internal" href="rules-of-prob.html#cond-prob"><span class="std std-ref">previously</span></a> that the <em>conditional probability of <span class="math notranslate nohighlight">\(A\)</span> given <span class="math notranslate nohighlight">\(B\)</span></em> is defined via the formula</p>
+<div class="math notranslate nohighlight">
+\[
+P(A|B) = \frac{P(A\cap B)}{P(B)},
+\]</div>
+<p>provided that <span class="math notranslate nohighlight">\(P(B) \neq 0\)</span>. The probability on the left is the probability that <span class="math notranslate nohighlight">\(A\)</span> occurs, <em>given</em> that you already know the event <span class="math notranslate nohighlight">\(B\)</span> has occurred. One may view <span class="math notranslate nohighlight">\(P(-|B)\)</span> (the “<span class="math notranslate nohighlight">\(-\)</span>” means “blank”) as a probability measure with sample space <span class="math notranslate nohighlight">\(B\)</span> and where all events are of the form <span class="math notranslate nohighlight">\(A\cap B\)</span>. It is worth repeating this, in slightly simpler language:</p>
+<blockquote>
+<div><p>Passing from plain probabilities to conditional probabilities has the effect of shrinking the sample space to the event that you are “conditioning on.”</p>
+</div></blockquote>
+<p>Let’s see how this might work with the probability measures induced by random variables.</p>
+<p>To get a feel for what we’re going for, let’s return to our housing data</p>
+<div class="math notranslate nohighlight">
+\[
+(x_1,y_1),(x_2,y_2),\ldots,(x_n,y_n)
+\]</div>
+<p>and its bivariate empirical distribution that we studied in the previous section. Suppose that we are interested in studying the (empirical) distribution of sizes <span class="math notranslate nohighlight">\(x\)</span> of houses with fixed sale price <span class="math notranslate nohighlight">\(y=180\)</span>. If we set <span class="math notranslate nohighlight">\(B = \{180\}\)</span>, then this means we want to shrink the range of the <span class="math notranslate nohighlight">\(y\)</span>’s down from all of <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> to the simple event <span class="math notranslate nohighlight">\(B\)</span>. The slice of data points with <span class="math notranslate nohighlight">\(y=180\)</span> are highlighted in the following scatter plot:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># combine the data into a DataFrame</span>
+<span class="n">joint_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;X&#39;</span> <span class="p">:</span> <span class="n">X</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span> <span class="p">:</span> <span class="n">Y</span><span class="p">})</span>
+<span class="n">slice_data</span> <span class="o">=</span> <span class="n">joint_data</span><span class="p">[</span><span class="n">joint_data</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">180</span><span class="p">]</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">Y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">slice_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$size (ft$^2$)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$y=$price (\$1,000)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/1b9c091d71ab3c1a41a6eb2996f80e8b9bb4b6394319fb2a50fde2d4de1ebc0c.png"><img alt="../_images/1b9c091d71ab3c1a41a6eb2996f80e8b9bb4b6394319fb2a50fde2d4de1ebc0c.png" src="../_images/1b9c091d71ab3c1a41a6eb2996f80e8b9bb4b6394319fb2a50fde2d4de1ebc0c.png" style="width: 80%;" /></a>
+</figure>
+</div>
+</div>
+<p>Then, after cutting down the range of <span class="math notranslate nohighlight">\(y\)</span>’s to lie in <span class="math notranslate nohighlight">\(B=\{180\}\)</span>, we wonder what the distribution over the sizes <span class="math notranslate nohighlight">\(x\)</span> looks like. Answer:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># instantiate a JointGrid object</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">JointGrid</span><span class="p">()</span>
+
+<span class="c1"># generate the plots</span>
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">joint_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">ax_joint</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">slice_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">ax_joint</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">slice_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">g</span><span class="o">.</span><span class="n">ax_marg_x</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FD46FC&#39;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">ax_marg_y</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+<span class="n">g</span><span class="o">.</span><span class="n">set_axis_labels</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$x=$size (ft$^2$)&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$y=$price (\$1,000)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/967812149baf6ca0825d25d63ed6f1f54bc3ea096a0cc5a19e4123850757a662.png"><img alt="../_images/967812149baf6ca0825d25d63ed6f1f54bc3ea096a0cc5a19e4123850757a662.png" src="../_images/967812149baf6ca0825d25d63ed6f1f54bc3ea096a0cc5a19e4123850757a662.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>If you haven’t caught on by now, the word <em>empirical</em> usually always means “observed” or “based on a dataset.”</p>
+</aside>
+<p>The histogram along the top of the figure shows the empirical distribution of the <span class="math notranslate nohighlight">\(x\)</span>’s belonging to data points <span class="math notranslate nohighlight">\((x,y)\)</span> with <span class="math notranslate nohighlight">\(y=180\)</span>. If we remember that our original random variables in the <a class="reference internal" href="#motivation"><span class="std std-ref">first section</span></a> were <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, then this empirical distribution is an approximation to the <em>conditional distribution of <span class="math notranslate nohighlight">\(X\)</span> given <span class="math notranslate nohighlight">\(Y=180\)</span>.</em> (The precise definition is below.) So, the histogram along the top of the scatter plot displays an <em>empirical</em> conditional distribution.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>At the most general level, defining <em>conditional distributions</em> is surprisingly very difficult. Have a look at <a class="reference external" href="https://en.wikipedia.org/wiki/Conditional_probability_distribution#Measure-theoretic_formulation">this</a> page if you don’t believe me.</p>
+</aside>
+<p>Alright. We’re ready for the definitions. At this level, it turns out that the easiest way to define conditional distributions is via mass and density functions:</p>
+<div class="proof definition admonition" id="definition-10">
+<p class="admonition-title"><span class="caption-number">Definition 7.8 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be random variables.</p>
+<ul>
+<li><p>Suppose <span class="math notranslate nohighlight">\((X,Y)\)</span> is discrete, so that both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are discrete as well. The <em>conditional probability mass function of <span class="math notranslate nohighlight">\(X\)</span> given <span class="math notranslate nohighlight">\(Y\)</span></em> is the function</p>
+<div class="math notranslate nohighlight">
+\[
+    p_{X|Y}(x|y) = \frac{p_{XY}(x,y)}{p_Y(y)},
+    \]</div>
+<p>defined for all those <span class="math notranslate nohighlight">\(y\)</span> such that <span class="math notranslate nohighlight">\(p_Y(y)\neq 0\)</span>.</p>
+</li>
+<li><p>Suppose <span class="math notranslate nohighlight">\((X,Y)\)</span> is continuous, so that both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are continuous as well. The <em>conditional probability density function of <span class="math notranslate nohighlight">\(X\)</span> given <span class="math notranslate nohighlight">\(Y\)</span></em> is the function</p>
+<div class="math notranslate nohighlight">
+\[
+    f_{X|Y}(x|y) = \frac{f_{XY}(x,y)}{f_Y(y)},
+    \]</div>
+<p>defined for all those <span class="math notranslate nohighlight">\(y\)</span> such that <span class="math notranslate nohighlight">\(f_Y(y)\neq 0\)</span>.</p>
+</li>
+</ul>
+</section>
+</div><p>Let’s get some practice:</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problems 8 and 9 on the worksheet.</p>
+</div>
+<p>Just <em>calling</em> <span class="math notranslate nohighlight">\(p_{X|Y}(x|y)\)</span> a probability mass function does not <em>make</em> it so, and similarly for <span class="math notranslate nohighlight">\(f_{X|Y}(x|y)\)</span>. So, in what sense do these define probability measures?</p>
+<div class="proof theorem admonition" id="theorem-11">
+<p class="admonition-title"><span class="caption-number">Theorem 7.4 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be random variables.</p>
+<ul>
+<li><p>In the case that <span class="math notranslate nohighlight">\((X,Y)\)</span> is discrete, for fixed <span class="math notranslate nohighlight">\(y\)</span> with <span class="math notranslate nohighlight">\(p_Y(y)\neq 0\)</span>, the function <span class="math notranslate nohighlight">\(p_{X|Y}(x|y)\)</span> is a probability mass function in the variable <span class="math notranslate nohighlight">\(x\)</span>. In particular, we have</p>
+<div class="math notranslate nohighlight" id="equation-cond-dist-eqn">
+<span class="eqno">(7.5)<a class="headerlink" href="#equation-cond-dist-eqn" title="Permalink to this equation">#</a></span>\[
+    P(X\in A|Y=y) = \sum_{x\in A} p_{X|Y}(x|y),
+    \]</div>
+<p>for all events <span class="math notranslate nohighlight">\(A\subset \mathbb{R}\)</span>.</p>
+</li>
+<li><p>In the case that <span class="math notranslate nohighlight">\((X,Y)\)</span> is continuous, for fixed <span class="math notranslate nohighlight">\(y\)</span> with <span class="math notranslate nohighlight">\(f_Y(y)\neq 0\)</span>, the function <span class="math notranslate nohighlight">\(f_{X|Y}(x|y)\)</span> is a probability density function in the variable <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
+</ul>
+</section>
+</div><p>Let me show you how the discrete case works, leaving you do adapt the arguments to the continuous case on your own. First, note that <span class="math notranslate nohighlight">\(p_{X|Y}(x|y)\)</span> is nonnegative, as all PMF’s must be. Thus, we need only check that it sums to <span class="math notranslate nohighlight">\(1\)</span> over all <span class="math notranslate nohighlight">\(x\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{x\in \mathbb{R}}p_{X|Y}(x|y) = \frac{1}{p_Y(y)} \sum_{x\in \mathbb{R}}p_{XY}(x,y) = \frac{P(\mathbb{R} \times \{y\})}{p_Y(y)}  = \frac{p_Y(y)}{p_Y(y)} = 1,
+\]</div>
+<p>where I used <a class="reference internal" href="#marg-thm">Theorem 7.2</a> in the second equality. The same type of argument will prove <a class="reference internal" href="#equation-cond-dist-eqn">(7.5)</a>, which I will also let you do on your own.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Notice the absence of an analogous equation to <a class="reference internal" href="#equation-cond-dist-eqn">(7.5)</a> for conditional density functions! This is because the left-hand side of <a class="reference internal" href="#equation-cond-dist-eqn">(7.5)</a> is equal to the ratio</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{P(X\in A, Y=y)}{P(Y=y)}.
+\]</div>
+<p>But <em>both</em> the numerator and denominator of this fraction are <span class="math notranslate nohighlight">\(0\)</span> in the case that <span class="math notranslate nohighlight">\(Y\)</span> is continuous! <em>So what probability does <span class="math notranslate nohighlight">\(f_{X|Y}(x|y)\)</span> compute?</em></p>
+<p>Answering this question precisely is hard—this is part of what I was alluding to in my margin note above. But here’s the rough idea: Suppose that <span class="math notranslate nohighlight">\(\epsilon\)</span> is a small, positive real number. Then the conditional probability</p>
+<div class="math notranslate nohighlight">
+\[
+P(X\in A | y \leq Y \leq y+\epsilon) = \frac{P(X\in A, y\leq Y \leq y+\epsilon)}{P(y\leq Y \leq y+\epsilon)}
+\]</div>
+<p>at least has a <em>chance</em> to be well-defined, since the denominator</p>
+<div class="math notranslate nohighlight">
+\[
+P(y\leq Y \leq y+\epsilon) = \int_y^{y+\epsilon} f_Y(y^\star) \ \text{d}y^\star
+\]</div>
+<p>can be nonzero. But we also have</p>
+<div class="math notranslate nohighlight">
+\[
+P(X\in A, y\leq Y \leq y+\epsilon) = \int_y^{y+\epsilon} \int_A f_{XY}(x, y^\star) \ \text{d}x \text{d}y^\star,
+\]</div>
+<p>and so substituting these last two expressions into the conditional probability gives</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(X\in A | y \leq Y \leq y+\epsilon) &amp;= \frac{\int_y^{y+\epsilon} \int_A f_{XY}(x, y^\star) \ \text{d}x \text{d}y^\star}{\int_y^{y+\epsilon} f_Y(y^\star) \ \text{d}y^\star} \\
+&amp;\approx \frac{\epsilon\int_A f_{XY}(x, y) \ \text{d}x}{\epsilon f_Y(y) \ } \\
+&amp;= \int_A \frac{f_{XY}(x,y)}{f_Y(y)} \ \text{d} x \\
+&amp;= \int_A f_{X|Y}(x|y) \ \text{d} x.
+\end{align*}\]</div>
+<p>The interpretation is this: For fixed <span class="math notranslate nohighlight">\(y\)</span>, integrating the conditional density <span class="math notranslate nohighlight">\(f_{X|Y}(x|y)\)</span> over <span class="math notranslate nohighlight">\(x\in A\)</span> yields the probability that <span class="math notranslate nohighlight">\(X\in A\)</span>, <em>given</em> that <span class="math notranslate nohighlight">\(Y\)</span> is in an “infinitesimal” neighorhood of <span class="math notranslate nohighlight">\(y\)</span>. (This “infinitesimal” neighborhood is represented by <span class="math notranslate nohighlight">\([y,y+\epsilon]\)</span>, when <span class="math notranslate nohighlight">\(\epsilon\)</span> is really small.)</p>
+</div>
+<p>In spite of this warning, we shall <em>still</em> imagine that the conditional density <span class="math notranslate nohighlight">\(f_{X|Y}(x|y)\)</span> is the density of the conditional probability <span class="math notranslate nohighlight">\(P(X\in A | Y=y)\)</span>, though technically the latter is undefined according to the standard definition of conditional probability. You will see this in:</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problems 10 and 11 on the worksheet.</p>
+</div>
+</section>
+<section id="the-law-of-total-probability-and-bayes-theorem-for-random-variables">
+<h2><span class="section-number">7.7. </span>The Law of Total Probability and Bayes’ Theorem for random variables<a class="headerlink" href="#the-law-of-total-probability-and-bayes-theorem-for-random-variables" title="Permalink to this heading">#</a></h2>
+<p>Back in <a class="reference internal" href="rules-of-prob.html#total-prob-bayes"><span class="std std-numref">Section 3.7</span></a>, we studied the Law of Total Probability and Bayes’ Theorem for arbitrary probability measures. In this section, we adapt these results to the probability measures induced by random variables.</p>
+<div class="proof theorem admonition" id="theorem-12">
+<p class="admonition-title"><span class="caption-number">Theorem 7.5 </span> (The Law of Total Probability (for random variables))</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be random variables.</p>
+<ul>
+<li><p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly discrete, then</p>
+<div class="math notranslate nohighlight" id="equation-disc-law-eqn">
+<span class="eqno">(7.6)<a class="headerlink" href="#equation-disc-law-eqn" title="Permalink to this equation">#</a></span>\[
+    p_X(x) = \sum_{y\in \mathbb{R}} p_{X|Y}(x|y) p_Y(y)
+    \]</div>
+<p>for each <span class="math notranslate nohighlight">\(x\in \mathbb{R}\)</span>.</p>
+</li>
+<li><p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly continuous, then</p>
+<div class="math notranslate nohighlight" id="equation-cont-law-eqn">
+<span class="eqno">(7.7)<a class="headerlink" href="#equation-cont-law-eqn" title="Permalink to this equation">#</a></span>\[
+    f_X(x) = \int_{\mathbb{R}} f_{X|Y}(x|y) f_Y(y) \ \text{d}y.
+    \]</div>
+<p>for each <span class="math notranslate nohighlight">\(x\in \mathbb{R}\)</span>.</p>
+</li>
+</ul>
+</section>
+</div><p>Let me show you how to prove <a class="reference internal" href="#equation-cont-law-eqn">(7.7)</a>; I will leave the other equality <a class="reference internal" href="#equation-disc-law-eqn">(7.6)</a> for you to do on your own. We want to prove that the right-hand side of <a class="reference internal" href="#equation-cont-law-eqn">(7.7)</a> is the PDF of <span class="math notranslate nohighlight">\(X\)</span>. So, we integrate it over <span class="math notranslate nohighlight">\([a,b]\)</span> and hope that the probability <span class="math notranslate nohighlight">\(P(a\leq X \leq b)\)</span> pops out. Here are the computations:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\int_a^b \left[\int_{-\infty}^\infty f_{X|Y}(x|y) f_Y(y) \ \text{d}y \right] \ \text{d} x &amp;= \int_a^b \left[\int_{-\infty}^\infty f_{XY}(x,y) \ \text{d}y \right] \ \text{d} x \\
+&amp;= \int_a^b f_X(x) \ \text{d} x \\
+&amp;= P(a\leq X \leq b).
+\end{align*}\]</div>
+<p>In moving from the first line to the second, you’ll notice that I “integrated out” the dependence on <span class="math notranslate nohighlight">\(x\)</span> of the joint PDF, obtaining the marginal PDF of <span class="math notranslate nohighlight">\(X\)</span> as a result. Since indeed the probability <span class="math notranslate nohighlight">\(P(a\leq X \leq b)\)</span> was obtained by integrating the right-hand side of <a class="reference internal" href="#equation-cont-law-eqn">(7.7)</a>, this proves that it is the PDF of <span class="math notranslate nohighlight">\(X\)</span>.</p>
+<div class="proof theorem admonition" id="theorem-13">
+<p class="admonition-title"><span class="caption-number">Theorem 7.6 </span> (Bayes’ Theorem (for random variables))</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be random variables.</p>
+<ul>
+<li><p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly discrete, then</p>
+<div class="math notranslate nohighlight" id="equation-bayes-disc-eqn">
+<span class="eqno">(7.8)<a class="headerlink" href="#equation-bayes-disc-eqn" title="Permalink to this equation">#</a></span>\[
+    p_{X|Y}(x|y) = \frac{p_{Y|X}(y|x) p_X(x)}{p_Y(y)}.
+    \]</div>
+</li>
+<li><p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly continuous, then</p>
+<div class="math notranslate nohighlight" id="equation-bayes-cont-eqn">
+<span class="eqno">(7.9)<a class="headerlink" href="#equation-bayes-cont-eqn" title="Permalink to this equation">#</a></span>\[
+    f_{X|Y}(x|y) = \frac{f_{Y|X}(y|x) f_X(x)}{f_Y(y)}.
+    \]</div>
+</li>
+</ul>
+</section>
+</div><p>The proofs of these two equations follow immediately from the definitions of conditional mass and density functions. In applications, you will often see Bayes’ Theorem combined with the Law of Total Probability, the latter allowing one to compute the denominators in <a class="reference internal" href="#equation-bayes-disc-eqn">(7.8)</a> and <a class="reference internal" href="#equation-bayes-cont-eqn">(7.9)</a>. For example, in the continuous case, we have</p>
+<div class="math notranslate nohighlight">
+\[
+f_{X|Y}(x|y)  = \frac{f_{Y|X}(y|x) f_X(x)}{\int_{\mathbb{R}} f_{Y|X}(y|x^\star) f_X(x^\star) \ \text{d}x^\star}
+\]</div>
+<p>for all <span class="math notranslate nohighlight">\(x,y\)</span>. The advantage gained by writing the denominator like this is that one <em>only</em> needs information about the conditional density <span class="math notranslate nohighlight">\(f_{Y|X}(y|x)\)</span> and the marginal density <span class="math notranslate nohighlight">\(f_X(x)\)</span> in order to compute the other conditional density <span class="math notranslate nohighlight">\(f_{X|Y}(x|y)\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notice that the random vector <span class="math notranslate nohighlight">\((X,Y)\)</span> was required to be either discrete or continuous in both the Law of Total Probability and Bayes’ Theorem. Actually, there are versions of many of the definitions and results in this chapter for “mixed” joint distributions in which one of <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(Y\)</span> is continuous and the other is discrete (as long as an analog of a mass or density function exists). I won’t state these more general results here because it would be incredibly awkward and tedious to cover all possible cases using our limited theory and language. This is a situation where the machinery of measure theory is needed.</p>
+</div>
+<p>In any case, you’ll see an example of one of these “mixed” distributions in the following Problem Prompt in which I introduce you to the canonical example in Bayesian statistics. (See also <a class="reference internal" href="#untrustworthy"><span class="std std-numref">Section 7.10</span></a> below.)</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 12 on the worksheet.</p>
+</div>
+</section>
+<section id="random-vectors-in-arbitrary-dimensions">
+<h2><span class="section-number">7.8. </span>Random vectors in arbitrary dimensions<a class="headerlink" href="#random-vectors-in-arbitrary-dimensions" title="Permalink to this heading">#</a></h2>
+<p>Up till now in this chapter, we have studied pairs of random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, or what is the same thing, <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vectors <span class="math notranslate nohighlight">\((X,Y)\)</span>. But there’s an obvious generalization of these considerations to higher dimensions:</p>
+<div class="proof definition admonition" id="definition-14">
+<p class="admonition-title"><span class="caption-number">Definition 7.9 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(S\)</span> be a probability space and <span class="math notranslate nohighlight">\(n\geq 1\)</span> an integer. An <em><span class="math notranslate nohighlight">\(n\)</span>-dimensional random vector</em> is a function</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{X}: S \to \mathbb{R}^n.
+\]</div>
+<p>Thus, we may write</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{X}(s) = (X_1(s),X_2(s),\ldots,X_n(s))
+\]</div>
+<p>for each sample point <span class="math notranslate nohighlight">\(s\in S\)</span>. When we do so, the functions <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n\)</span> are ordinary random variables that are called the <em>components</em> of the random vector <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
+</section>
+</div><p>So, an <span class="math notranslate nohighlight">\(n\)</span>-dimensional random vector is nothing but a sequence of random variables <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n\)</span>. These vectors are thus <em>immensely important</em>, since they are connected with random samples and datasets as defined back in <a class="reference internal" href="theory-to-practice.html#random-sample-defn">Definition 6.1</a>.</p>
+<p>Random vectors in dimensions <span class="math notranslate nohighlight">\(&gt;2\)</span> induce joint probability distributions, just like their <span class="math notranslate nohighlight">\(2\)</span>-dimensional relatives:</p>
+<div class="proof definition admonition" id="definition-15">
+<p class="admonition-title"><span class="caption-number">Definition 7.10 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\((X_1,X_2,\ldots,X_n):S \to \mathbb{R}^n\)</span> be an <span class="math notranslate nohighlight">\(n\)</span>-dimensional random vector on a probability space <span class="math notranslate nohighlight">\(S\)</span> with probability measure <span class="math notranslate nohighlight">\(P\)</span>. We define the <em>probability measure</em> of the random vector, denoted <span class="math notranslate nohighlight">\(P_{(X_1,X_2,\ldots,X_n)}\)</span> or <span class="math notranslate nohighlight">\(P_{X_1X_2\cdots X_n}\)</span>, via the formula</p>
+<div class="math notranslate nohighlight" id="equation-hard2-eqn">
+<span class="eqno">(7.10)<a class="headerlink" href="#equation-hard2-eqn" title="Permalink to this equation">#</a></span>\[
+P_{X_1X_2\cdots X_n}(C) = P \left( \{s\in S \mid (X_1(s),X_2(s),\ldots,X_n(s))\in C\} \right),
+\]</div>
+<p>for all events <span class="math notranslate nohighlight">\(C\subset \mathbb{R}^n\)</span>. The probability measure <span class="math notranslate nohighlight">\(P_{X_1X_2\cdots X_n}\)</span> is also called the <em>joint distribution</em> of the component random variables <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n\)</span>.</p>
+</section>
+</div><p>The equation <a class="reference internal" href="#equation-hard2-eqn">(7.10)</a> is the <em>precise</em> definition of the joint distribution for <em>any</em> event <span class="math notranslate nohighlight">\(C\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. But if <span class="math notranslate nohighlight">\(C\)</span> happens to be an event of the form</p>
+<div class="math notranslate nohighlight">
+\[
+C = \{ (x_1,x_2,\ldots,x_n) : x_1\in A_1, x_2\in A_2,\ldots, x_n \in A_n\}
+\]</div>
+<p>for some events <span class="math notranslate nohighlight">\(A_1,A_2,\ldots,A_n\subset \mathbb{R}\)</span>, then we shall <em>always</em> write</p>
+<div class="math notranslate nohighlight" id="equation-clock-eqn">
+<span class="eqno">(7.11)<a class="headerlink" href="#equation-clock-eqn" title="Permalink to this equation">#</a></span>\[
+P(X_1\in A_1, X_2\in A_2,\ldots, X_n \in A_n)
+\]</div>
+<p>in place of <span class="math notranslate nohighlight">\(P_{X_1X_2\cdots X_n}(C)\)</span>. Again, this expression <a class="reference internal" href="#equation-clock-eqn">(7.11)</a> is technically an abuse of notation, but it is tolerated because it is so much more descriptive and intuitive.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>If you want to see precise statements of definitions and theorems in dimensions <span class="math notranslate nohighlight">\(&gt;2\)</span>, have a look at Section 3.7 in <span id="id3">[<a class="reference internal" href="bib.html#id6" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>.</p>
+</aside>
+<p>Almost all the definitions and results that we considered above for <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vectors have obvious generalizations to higher-dimensional random vectors. This includes higher-dimensional marginal and conditional distributions, as well as Laws of Total Probability and Bayes’ Theorems. Provided that you understand the <span class="math notranslate nohighlight">\(2\)</span>-dimensional situation well, I am confident that the higher-dimensional case should pose no problem. Therefore, we will content ourselves with working through a few example problems, in place of an exhaustive account of all the definitions and theorems.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problems 13 and 14 on the worksheet.</p>
+</div>
+</section>
+<section id="independence">
+<span id="id4"></span><h2><span class="section-number">7.9. </span>Independence<a class="headerlink" href="#independence" title="Permalink to this heading">#</a></h2>
+<p>Because of its central role in the definitions of random samples and datasets (see <a class="reference internal" href="theory-to-practice.html#random-sample-defn">Definition 6.1</a> and <a class="reference internal" href="#random-sample-vec-defn">Definition 7.6</a>), <em>independence</em> is one of the most important concepts in all probability and statistics. In a somewhat different order compared to previous chapters, I will begin our discussion with the abstract definitions before moving on to an extended example from Bayesian statistics which highlights how independence is used in practice and brings together many of the concepts we have studied in past chapters.</p>
+<p>We already studied a form of <em>independence</em> back in <a class="reference internal" href="rules-of-prob.html#independence-first"><span class="std std-numref">Section 3.5</span></a>, where we saw that two events <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> in a probability space are <em>independent</em> if</p>
+<div class="math notranslate nohighlight" id="equation-ind-fan-eqn">
+<span class="eqno">(7.12)<a class="headerlink" href="#equation-ind-fan-eqn" title="Permalink to this equation">#</a></span>\[
+P(A\cap B) = P(A) P(B).
+\]</div>
+<p>As long as <span class="math notranslate nohighlight">\(P(B)\neq 0\)</span> (if not, then both sides of this last equation are <span class="math notranslate nohighlight">\(0\)</span>), independence is the same as</p>
+<div class="math notranslate nohighlight" id="equation-cond-ind-eqn">
+<span class="eqno">(7.13)<a class="headerlink" href="#equation-cond-ind-eqn" title="Permalink to this equation">#</a></span>\[
+P(A|B) = P(A).
+\]</div>
+<p>This latter equation is telling us that <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are independent provided that the conditional probability of <span class="math notranslate nohighlight">\(A\)</span>, given <span class="math notranslate nohighlight">\(B\)</span>, is just the plain probability of <span class="math notranslate nohighlight">\(A\)</span>. In other words, if <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are independent, then whether <span class="math notranslate nohighlight">\(B\)</span> has occurred has no impact on the probability of <span class="math notranslate nohighlight">\(A\)</span> occurring.</p>
+<p>Our mission in this chapter is to adapt these definitions to the probability measures induced by random variables. The key step is to replace the left-hand side of <a class="reference internal" href="#equation-ind-fan-eqn">(7.12)</a> with a joint probability distribution. We make this replacement in the next defintion, while also generalizing to an arbitrary number of random variables:</p>
+<div class="proof definition admonition" id="independence-defn">
+<p class="admonition-title"><span class="caption-number">Definition 7.11 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X_1,\ldots,X_n\)</span> be random variables, all defined on the same probability space. Then these random variables are said to be <em>independent</em> if</p>
+<div class="math notranslate nohighlight">
+\[
+P(X_1\in A_1,\ldots,X_n \in A_n) = P(X_1\in A_1) \cdots P(X_n\in A_n)
+\]</div>
+<p>for all events <span class="math notranslate nohighlight">\(A_1,\ldots,A_n\subset \mathbb{R}\)</span>. If the variables are not independent, they are called <em>dependent</em>.</p>
+</section>
+</div><p>Notice that no conditions are placed on the random variables <span class="math notranslate nohighlight">\(X_1,\ldots,X_n\)</span> in this definition, like assuming they are discrete or continuous. However, provided that mass or density functions exist, then convenient criteria for independence may be obtained in terms of these functions:</p>
+<div class="proof theorem admonition" id="theorem-17">
+<p class="admonition-title"><span class="caption-number">Theorem 7.7 </span> (Mass/Density Criteria for Independence)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X_1,\ldots,X_n\)</span> be random variables.</p>
+<ul>
+<li><p>Suppose that the random variables are jointly discrete. Then they are independent if and only if</p>
+<div class="math notranslate nohighlight">
+\[
+  p_{X_1\cdots X_n}(x_1,\ldots,x_n) = p_{X_1}(x_1) \cdots p_{X_n}(x_n)
+  \]</div>
+<p>for all <span class="math notranslate nohighlight">\(x_1,\ldots,x_n \in \mathbb{R}\)</span>.</p>
+</li>
+<li><p>Suppose that the random variables are jointly continuous. Then they are independent if and only if</p>
+<div class="math notranslate nohighlight" id="equation-cont-factor-eqn">
+<span class="eqno">(7.14)<a class="headerlink" href="#equation-cont-factor-eqn" title="Permalink to this equation">#</a></span>\[
+  f_{X_1\cdots X_n}(x_1,\ldots,x_n) = f_{X_1}(x_1) \cdots f_{X_n}(x_n)
+  \]</div>
+<p>for all <span class="math notranslate nohighlight">\(x_1,\ldots,x_n \in \mathbb{R}\)</span>.</p>
+</li>
+</ul>
+</section>
+</div><p>Let’s outline a quick proof of <a class="reference internal" href="#equation-cont-factor-eqn">(7.14)</a> in the case that there are only two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. In any case, we have</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(X\in A) P(Y\in B) &amp;= \int_Af_X(x) \ \text{d} x \int_B f_Y(y) \ \text{d}y \\
+&amp;= \int_B \int_A f_X(x) f_Y(y) \ \text{d}x\text{d} y \\
+&amp;= \iint_{A\times B} f_X(x) f_Y(y) \ \text{d} x \text{d}y
+\end{align*}\]</div>
+<p>for all events <span class="math notranslate nohighlight">\(A,B\subset \mathbb{R}\)</span>. Therefore, if <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent, then this shows the joint probability of <span class="math notranslate nohighlight">\(A\times B\)</span> is the integral over the product <span class="math notranslate nohighlight">\(f_X(x)f_Y(y)\)</span>, which is enough to show that the joint density is equal to this product. Conversely, if the joint density factors, then these computations also show that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent.</p>
+<p>It turns out that there is also a characterization of independence in terms of factorizations of joint cumulative distribution functions. This characterization is actually taken as the <em>definition</em> of independence in some references (e.g., <span id="id5">[<a class="reference internal" href="bib.html#id3" title="D. Wackerly, W. Mendenhall, and R. L. Scheaffer. Mathematical statistics with applications. Cengage Learning, 2014.">WMS14</a>]</span>).</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problems 15-18 on the worksheet.</p>
+</div>
+<p>Before moving on to the last section of this chapter, we state a “random variable” version of the equation <a class="reference internal" href="#equation-cond-ind-eqn">(7.13)</a> describing independent events in terms of conditional probabilities.</p>
+<div class="proof theorem admonition" id="theorem-18">
+<p class="admonition-title"><span class="caption-number">Theorem 7.8 </span> (Conditional Criteria for Independence)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables.</p>
+<ul>
+<li><p>Suppose <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly discrete. Then they are independent if and only if</p>
+<div class="math notranslate nohighlight">
+\[
+    p_{X|Y}(x|y)  = p_X(x)
+    \]</div>
+<p>for all values of <span class="math notranslate nohighlight">\(y\)</span> such that <span class="math notranslate nohighlight">\(p_Y(y)&gt;0\)</span> and all <span class="math notranslate nohighlight">\(x\in \mathbb{R}\)</span>.</p>
+</li>
+<li><p>Suppose <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly continuous. Then they are independent if and only if</p>
+<div class="math notranslate nohighlight">
+\[
+    f_{X|Y}(x|y)  = f_X(x)
+    \]</div>
+<p>for all values of <span class="math notranslate nohighlight">\(y\)</span> such that <span class="math notranslate nohighlight">\(f_Y(y)&gt;0\)</span> and all <span class="math notranslate nohighlight">\(x\in \mathbb{R}\)</span>.</p>
+</li>
+</ul>
+</section>
+</div></section>
+<section id="case-study-an-untrustworthy-friend">
+<span id="untrustworthy"></span><h2><span class="section-number">7.10. </span>Case study: an untrustworthy friend<a class="headerlink" href="#case-study-an-untrustworthy-friend" title="Permalink to this heading">#</a></h2>
+<p>My goal in this section is to step through an extended example that illustrates how independence is often used in computations involving real data. The scenario is taken from Bayesian statistics, and is similar to problem 12 on the worksheet. The point is not for you to learn the techniques and philosophy of Bayesian statistics in depth—that would require an entire course of its own. Instead, view this section as an enjoyable excursion into more advanced techniques that you might choose to study later.</p>
+<p>The situation we find ourselves in is this:</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>I am using the letter <span class="math notranslate nohighlight">\(\theta\)</span> for the probability rather than <span class="math notranslate nohighlight">\(p\)</span> because the latter is overloaded in this scenario, as it also represents probability mass functions. Blame the statistical community for using <span class="math notranslate nohighlight">\(p\)</span> for PMFs.</p>
+</aside>
+<div class="admonition-the-canonical-bayesian-coin-flipping-scenario admonition">
+<p class="admonition-title">The Canonical Bayesian Coin-Flipping Scenario</p>
+<p>Our friend suggests that we play a game, betting money on whether a coin flip lands heads or tails. If the coin lands heads, our friend wins; if the coin lands tails, we win.</p>
+<p>However, our friend has proven to be untrustworthy in the past. We suspect that the coin might be unfair, with a probability of <span class="math notranslate nohighlight">\(\theta = 0.75\)</span> of landing heads. So, before we play the game, we collect data and flip the coin ten times and count the number of heads. Depending on our results, how might we alter our prior estimate of <span class="math notranslate nohighlight">\(\theta = 0.75\)</span> for the probability of landing heads?</p>
+</div>
+<p>You might initially wonder why we need any statistical theory at all. Indeed, we might base our assessment of whether the coin favors us or our friend entirely on the proportion of heads that we see in our ten flips: If we see six or more heads, then we might believe <span class="math notranslate nohighlight">\(\theta&gt;0.5\)</span> and that the coin favors our friend, while if we obtain four or less, then <span class="math notranslate nohighlight">\(\theta &lt; 0.5\)</span> and the coin favors us.</p>
+<p>But the crucial point is that our friend has an untrustworthy track record. Since we believe at the outset that <span class="math notranslate nohighlight">\(\theta\)</span> is somewhere around <span class="math notranslate nohighlight">\(0.75\)</span>, seeing four heads is not enough to “offset” this large value and tug it down below <span class="math notranslate nohighlight">\(0.5\)</span>. So, the situation is a bit more complex than it might appear at first glance.</p>
+<p>The goal is to find a <em>systematic</em> and <em>quantitative</em> method for updating our assessment of the likely values of <span class="math notranslate nohighlight">\(\theta\)</span> based on the data. The keys to the computations will be Bayes’ Theorem (as you might have guessed) and <em>independence</em>.</p>
+<p>Let’s begin with our prior estimate <span class="math notranslate nohighlight">\(\theta = 0.75\)</span> for the probability of landing heads. We might go a step further than this single (point) estimate and actually cook up an <em>entire</em> probability distribution for what we believe are the most likely values of <span class="math notranslate nohighlight">\(\theta\)</span>. Perhaps we suppose that <span class="math notranslate nohighlight">\(\theta\)</span> is an observation of a <span class="math notranslate nohighlight">\(\mathcal{B}eta(6,2)\)</span> random variable:</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Notice that I am abusing the notation somewhat by writing <span class="math notranslate nohighlight">\(\theta \sim \mathcal{B}eta(6,2)\)</span>. This is formally incorrect, since <span class="math notranslate nohighlight">\(\theta\)</span> is supposed to be an <em>observed value</em> of the random variable, not the random variable itself.</p>
+</aside>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">beta</span>
+
+<span class="n">Theta</span> <span class="o">=</span> <span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">Theta</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta \sim \mathcal</span><span class="si">{B}</span><span class="s1">eta(6,2)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/814f584250ac74a694b749af32d1c090fcabba463abfd067498d06e2505b873a.png"><img alt="../_images/814f584250ac74a694b749af32d1c090fcabba463abfd067498d06e2505b873a.png" src="../_images/814f584250ac74a694b749af32d1c090fcabba463abfd067498d06e2505b873a.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Of course, there are infinitely many distributions on the interval <span class="math notranslate nohighlight">\((0,1)\)</span> with an expected value of <span class="math notranslate nohighlight">\(0.75\)</span>, so our choice of a <span class="math notranslate nohighlight">\(\mathcal{B}eta(6,2)\)</span> distribution is by no means the only one. Choosing these “prior distributions” can be quite difficult in general, and there are many considerations that go into making a good choice. Our choice of a beta distribution is primarily motivated according to <a class="reference external" href="https://en.wikipedia.org/wiki/Conjugate_prior">these</a> reasons.</p>
+</aside>
+<p>Notice that this distribution favors values of <span class="math notranslate nohighlight">\(\theta\)</span> toward <span class="math notranslate nohighlight">\(1\)</span>, which is consistent with our friend’s untrustworthy track record. Also, if <span class="math notranslate nohighlight">\(\theta\)</span> really does come from a <span class="math notranslate nohighlight">\(\mathcal{B}eta(6,2)\)</span> random variable, then as we learned back in <a class="reference internal" href="examples-of-rvs.html#exp-beta-thm">Theorem 5.12</a>, its expected value is indeed <span class="math notranslate nohighlight">\(6/(6+2) = 0.75\)</span>. Suppose we write</p>
+<div class="math notranslate nohighlight">
+\[
+f(\theta) \propto \theta^5 (1-\theta)
+\]</div>
+<p>for the density function of <span class="math notranslate nohighlight">\(\theta\)</span> drawn from the <span class="math notranslate nohighlight">\(\mathcal{B}eta(6,2)\)</span> distribution.</p>
+<p>Now, suppose that we flip the coin ten times. It is natural to realize the resulting dataset as an observation from an identically distributed random sample</p>
+<div class="math notranslate nohighlight">
+\[
+X_1,X_2,\ldots,X_{10}
+\]</div>
+<p>with <span class="math notranslate nohighlight">\(X_i \sim \mathcal{B}er(\theta)\)</span> for each <span class="math notranslate nohighlight">\(i\)</span> and a value <span class="math notranslate nohighlight">\(x_i=1\)</span> indicating that a head was obtained on the <span class="math notranslate nohighlight">\(i\)</span>-th flip. It is also natural to assume that the flips are independent of each other (conditioned on <span class="math notranslate nohighlight">\(\theta\)</span>). Therefore, the joint mass function of the random sample (conditioned on <span class="math notranslate nohighlight">\(\theta\)</span>) factors as</p>
+<div class="math notranslate nohighlight" id="equation-factor-likelihood-eqn">
+<span class="eqno">(7.15)<a class="headerlink" href="#equation-factor-likelihood-eqn" title="Permalink to this equation">#</a></span>\[
+p(x_1,x_2,\ldots,x_{10}| \theta) = \prod_{i=1}^{10} p(x_i|\theta) = \prod_{i=1}^{10}\theta^{x_i}(1-\theta)^{1-x_i} = \theta^x (1-\theta)^{10-x},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(x = x_1+x_2+\cdots +x_{10}\)</span> is the total number of heads in the dataset.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Recall from the worksheet in the previous chapter that the new “updated” distribution is often called the <em>posterior distribution</em>.</p>
+</aside>
+<p>We now use Bayes’ Theorem to update our prior <span class="math notranslate nohighlight">\(\mathcal{B}eta(6,2)\)</span> distribution for <span class="math notranslate nohighlight">\(\theta\)</span> to a new distribution with density <span class="math notranslate nohighlight">\(f(\theta|x_1,x_2,\ldots,x_{10})\)</span>. Assuming that the values <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_{10}\)</span> are fixed, observed values, here are the computations:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+f(\theta| x_1,\ldots,x_{10}) &amp;= \frac{p(x_1,\ldots,x_{10}|\theta)f(\theta)}{p(x_1,\ldots,x_{10})} \\
+&amp;\propto p(x_1,\ldots,x_{10}|\theta)f(\theta)\\
+&amp;= \theta^x(1-\theta)^{10-x} \theta^5 (1-\theta) \\
+&amp;= \theta^{(x+6)-1} ( 1-\theta)^{(12-x)-1}.
+\end{align*}\]</div>
+<p>Thus, the “updated” distribution must be of the form <span class="math notranslate nohighlight">\(\mathcal{B}eta(x+6,12-x)\)</span>, where <span class="math notranslate nohighlight">\(x\)</span> is the number of heads in the dataset with <span class="math notranslate nohighlight">\(0\leq x \leq 10\)</span>. Let’s plot these eleven distributions:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
+
+<span class="n">color</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;#486afb&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#4579ff&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#4788ff&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#4f95ff&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#5ba2ff&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#6aafff&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#7bbbff&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#8ec7ff&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#a2d2ff&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#b6ddff&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;#cce8ff&#39;</span>
+<span class="p">]</span>
+
+<span class="n">default_cycler</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">prop_cycle</span><span class="o">=</span><span class="n">default_cycler</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">Theta_posterior</span> <span class="o">=</span> <span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">x</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">12</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">Theta_posterior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">rf</span><span class="s1">&#39;$x=</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/ce8099b10241d30ae2cc1f0f44a5be6a7020e1ec626eac04b1b2fdcf5629b248.png"><img alt="../_images/ce8099b10241d30ae2cc1f0f44a5be6a7020e1ec626eac04b1b2fdcf5629b248.png" src="../_images/ce8099b10241d30ae2cc1f0f44a5be6a7020e1ec626eac04b1b2fdcf5629b248.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>Here’s what you should notice: For larger values of <span class="math notranslate nohighlight">\(x\)</span>, the distributions are shifted toward higher values of <span class="math notranslate nohighlight">\(\theta\)</span>, which reflects the fact that many heads suggests <span class="math notranslate nohighlight">\(\theta\)</span> is close to <span class="math notranslate nohighlight">\(1\)</span>. In the other direction, smaller values of <span class="math notranslate nohighlight">\(x\)</span> shift the distributions toward <span class="math notranslate nohighlight">\(0\)</span>.</p>
+<p>In particular, for <span class="math notranslate nohighlight">\(x=3\)</span> we obtain an “updated” distribution of <span class="math notranslate nohighlight">\(\mathcal{B}eta(9,9)\)</span>, which has the symmetric density curve in the figure. The expected value for this distribution is exactly <span class="math notranslate nohighlight">\(0.5\)</span>, so we would need to see 3 heads in our dataset to conclude that the coin has a good chance of being fair (at least according to the “posterior mean”). But if we see four or more heads (<span class="math notranslate nohighlight">\(x\geq 4\)</span>), then our computations still support the conclusion that our friend is untrustworthy since the distributions in this range have expected values <span class="math notranslate nohighlight">\(&gt;0.5\)</span>. In the other direction, if we see two or fewer heads (<span class="math notranslate nohighlight">\(x\leq 2\)</span>), then we might believe that the coin favors us.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is worth addressing this point again: Why do we need to see <em>three</em> heads to conclude that the coin might be fair, and not <em>five</em> heads?</p>
+<p>Remember, we believe that our friend is untrustworthy. If we believed that <span class="math notranslate nohighlight">\(\theta=0.75\)</span>, then seeing five heads is not enough evidence to convince us that <span class="math notranslate nohighlight">\(\theta\)</span> is, in reality, near <span class="math notranslate nohighlight">\(0.5\)</span>. We would need to see <em>even fewer</em> heads to overcome (or offset) the prior estimate of <span class="math notranslate nohighlight">\(\theta=0.75\)</span>.</p>
+</div>
+<p>Actually, my description here is slightly at odds with a strict interpretation of Bayesian philosophy, since a true Bayesian would never assume that the parameter <span class="math notranslate nohighlight">\(\theta\)</span> has a fixed valued, only that it has a prior probability distribution. My description has shades of <a class="reference internal" href="hyp-test.html#hyp-test"><span class="std std-ref">hypothesis testing</span></a>.</p>
+<p>Notice that independence of the coin flips was <em>absolutely crucial</em> for the computations to go through. Without assuming independence, we would not have been able to factor the joint mass function (conditioned on <span class="math notranslate nohighlight">\(\theta\)</span>) as in <a class="reference internal" href="#equation-factor-likelihood-eqn">(7.15)</a>, which would have made our application of Bayes’ Theorem much more difficult. This joint mass function is actually known as the <em>likelihood function</em> <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span> of the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, and we will see these same computations appear again when we study <a class="reference internal" href="point-est.html#point-est"><span class="std std-ref"><em>maximum likelihood estimation</em></span></a> (<em>MLE</em>).</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="theory-to-practice.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Connecting theory to practice: data and samples</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="covar-correl.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Covariance and correlation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">7.1. Motivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensional-random-vectors">7.2. <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vectors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariate-distribution-functions">7.3. Bivariate distribution functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#marginal-distributions">7.4. Marginal distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bivariate-empirical-distributions">7.5. Bivariate empirical distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-distributions">7.6. Conditional distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-law-of-total-probability-and-bayes-theorem-for-random-variables">7.7. The Law of Total Probability and Bayes’ Theorem for random variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-vectors-in-arbitrary-dimensions">7.8. Random vectors in arbitrary dimensions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#independence">7.9. Independence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-an-untrustworthy-friend">7.10. Case study: an untrustworthy friend</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By John Myers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
