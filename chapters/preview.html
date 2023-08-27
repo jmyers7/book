@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>1. Preview &#8212; A Course in Mathematical Statistics with Python</title>
   
@@ -632,6 +632,7 @@ document.write(`
     <span class="n">replicates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">boot_sample</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">replicates</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;sampling distribution for the estimator&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;speeds&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -641,7 +642,7 @@ document.write(`
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/0cfe3787c279f30709ec766643d93741375dcf2cbb9301655787c66855b468f8.png"><img alt="../_images/0cfe3787c279f30709ec766643d93741375dcf2cbb9301655787c66855b468f8.png" src="../_images/0cfe3787c279f30709ec766643d93741375dcf2cbb9301655787c66855b468f8.png" style="width: 80%;" /></a>
+<a class="reference internal image-reference" href="../_images/e92924a666b6e3fc7fd7718fd85f45a8df1ef2ffc1d158ef8fb12875d6a17acd.png"><img alt="../_images/e92924a666b6e3fc7fd7718fd85f45a8df1ef2ffc1d158ef8fb12875d6a17acd.png" src="../_images/e92924a666b6e3fc7fd7718fd85f45a8df1ef2ffc1d158ef8fb12875d6a17acd.png" style="width: 80%;" /></a>
 </figure>
 </div>
 </div>
@@ -679,6 +680,7 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">replicates</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;sampling distribution for the estimator w/95</span><span class="si">%-c</span><span class="s1">i&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;speeds&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">ci</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
@@ -690,7 +692,7 @@ document.write(`
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/4101b13b583a5bd870b10f708286ad8cbb4044f2356e16d82326a1e16bb74a72.png"><img alt="../_images/4101b13b583a5bd870b10f708286ad8cbb4044f2356e16d82326a1e16bb74a72.png" src="../_images/4101b13b583a5bd870b10f708286ad8cbb4044f2356e16d82326a1e16bb74a72.png" style="width: 80%;" /></a>
+<a class="reference internal image-reference" href="../_images/96fde16caed6336f3c9bc15004e4e3b0c4ddbf6d685a506b5745c3cb0a61a084.png"><img alt="../_images/96fde16caed6336f3c9bc15004e4e3b0c4ddbf6d685a506b5745c3cb0a61a084.png" src="../_images/96fde16caed6336f3c9bc15004e4e3b0c4ddbf6d685a506b5745c3cb0a61a084.png" style="width: 80%;" /></a>
 </figure>
 </div>
 </div>

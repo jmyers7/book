@@ -298,6 +298,7 @@ for i in range(k):
     replicates.append(boot_sample.mean())
 
 sns.histplot(data=replicates, kde=True, stat='density')
+plt.title(r'sampling distribution for the estimator')
 plt.xlabel('speeds')
 plt.ylabel('probability density')
 plt.tight_layout()
@@ -330,6 +331,7 @@ If we put vertical lines on our probability density plot representing the endpoi
 :       width: 80%
 
 sns.histplot(data=replicates, kde=True, stat='density')
+plt.title('sampling distribution for the estimator w/95%-ci')
 plt.xlabel('speeds')
 plt.ylabel('probability density')
 plt.axvline(x=ci[0], color='red', linestyle='--')
