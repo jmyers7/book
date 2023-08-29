@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>8. Covariance and correlation &#8212; A Course in Mathematical Statistics with Python</title>
   
@@ -62,6 +62,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/covar-correl';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -313,7 +315,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -329,6 +333,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance">8.1. Covariance</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -340,7 +352,151 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="covariance-and-correlation">
 <h1><span class="section-number">8. </span>Covariance and correlation<a class="headerlink" href="#covariance-and-correlation" title="Permalink to this heading">#</a></h1>
-<p>Coming soon!</p>
+<section id="covariance">
+<h2><span class="section-number">8.1. </span>Covariance<a class="headerlink" href="#covariance" title="Permalink to this heading">#</a></h2>
+<p>If two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <em>not</em> <a class="reference internal" href="random-vectors.html#independence"><span class="std std-ref">independent</span></a>, then they are called (naturally) <em>dependent</em>. Our goal in this chapter is to study a particular type of dependence between random variables.</p>
+<p>To illustrate, let’s recall the dataset from the <a class="reference internal" href="random-vectors.html#motivation"><span class="std std-ref">beginning</span></a> of the previous chapter consisting of pairs</p>
+<div class="math notranslate nohighlight">
+\[
+(x_1,y_1),(x_2,y_2),\ldots,(x_{2000},y_{2000}),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_i\)</span> is the size of the <span class="math notranslate nohighlight">\(i\)</span>-th house (in ft<span class="math notranslate nohighlight">\(^2\)</span>) and <span class="math notranslate nohighlight">\(y_i\)</span> is the selling price (in $1k). We saw that a scatter plot of the data is:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">multivariate_normal</span>
+
+<span class="c1"># hide annoying warnings for tight_layout()</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="c1"># set custom style for plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
+
+<span class="c1"># make sure this comes last in the imports!</span>
+<span class="c1"># change the output resolution and size of figures</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span> 
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">600</span>
+
+<span class="c1"># end import section</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># data will be simulated from a multivariate gaussian.</span>
+<span class="c1"># define the parameters</span>
+<span class="n">rho</span> <span class="o">=</span> <span class="mf">0.85</span>
+<span class="n">sigma_1</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">sigma_2</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">175</span><span class="p">])</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="n">sigma_1</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">sigma_1</span> <span class="o">*</span> <span class="n">sigma_2</span><span class="p">],</span>
+    <span class="p">[</span><span class="n">rho</span> <span class="o">*</span> <span class="n">sigma_1</span> <span class="o">*</span> <span class="n">sigma_2</span><span class="p">,</span> <span class="n">sigma_2</span> <span class="o">**</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="c1"># generate the data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># build the plots</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">Y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x=$size (ft$^2$)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y=$price (\$1,000)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/edd7ad6aa89d7aedc1fa911c341898c48c9b24c9acaba41049ce3db37bbf0ee5.png"><img alt="../_images/edd7ad6aa89d7aedc1fa911c341898c48c9b24c9acaba41049ce3db37bbf0ee5.png" src="../_images/edd7ad6aa89d7aedc1fa911c341898c48c9b24c9acaba41049ce3db37bbf0ee5.png" style="width: 80%;" /></a>
+</figure>
+</div>
+</div>
+<p>From the plot, we see there is <em>clearly</em> a dependence between the <span class="math notranslate nohighlight">\(x_i\)</span>’s and <span class="math notranslate nohighlight">\(y_i\)</span>’s. Indeed, when one value is large, the other tends to be large also. Another way to say this is that the <span class="math notranslate nohighlight">\((x_i,y_i)\)</span>’s tend to cluster along a straight line of positive slope:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">Y</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span> <span class="p">:</span> <span class="s1">&#39;#FD46FC&#39;</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x=$size (ft$^2$)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y=$price (\$1,000)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/a766ff007a6edb973ba4ac0e481e2ba61d7ad03bb3a5db3a1dd206ef966abed4.png"><img alt="../_images/a766ff007a6edb973ba4ac0e481e2ba61d7ad03bb3a5db3a1dd206ef966abed4.png" src="../_images/a766ff007a6edb973ba4ac0e481e2ba61d7ad03bb3a5db3a1dd206ef966abed4.png" style="width: 80%;" /></a>
+</figure>
+</div>
+</div>
+<p>This <em>linear</em> type of dependence between two random variables is the topic of focus in this chapter.</p>
+<p>Our first goal is to cook up some way to <em>quantify</em> this type of linear dependence. To do this, we will leverage the type of observation made above regarding the housing dataset:</p>
+<ol class="arabic simple">
+<li><p>If the observed values of two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> cluster along a line of <em>positive</em> slope, then paired <span class="math notranslate nohighlight">\(x\)</span>’s and <span class="math notranslate nohighlight">\(y\)</span>’s tend to be large (and small) at the same time.</p></li>
+<li><p>If the observed values of two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> cluster along a line of <em>negative</em> slope, then large values of <span class="math notranslate nohighlight">\(x\)</span> tend to be paired with small values of <span class="math notranslate nohighlight">\(y\)</span> (and vice versa).</p></li>
+</ol>
+<p>Now, in order to make something of these observations, it is convenient to “center” the dataset by subtracting off the means:</p>
+<div class="math notranslate nohighlight">
+\[
+X \xrightarrow{\text{replace with}} X - \mu_X \quad \text{and} \quad Y \xrightarrow{\text{replace with}} Y - \mu_Y.
+\]</div>
+<p>Notice that</p>
+<div class="math notranslate nohighlight">
+\[
+E(X - \mu_X) = E(X) - E(\mu_X) = =0
+\]</div>
+<p>and similarly <span class="math notranslate nohighlight">\(E(Y-\mu_Y) = 0\)</span>, so that when we carry out these replacements, we get random variables with mean <span class="math notranslate nohighlight">\(0\)</span>. In the housing dataset, if we center the data by subtracting the means and then plot, we get this:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="n">Y</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">Y</span><span class="p">),</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span> <span class="p">:</span> <span class="s1">&#39;#FD46FC&#39;</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x=$shifted size (ft$^2$)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y=$shifted price (\$1,000)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/84dc9555a5e078c4e4da850175341d927e864b480ad27e154990ba04c866503b.png"><img alt="../_images/84dc9555a5e078c4e4da850175341d927e864b480ad27e154990ba04c866503b.png" src="../_images/84dc9555a5e078c4e4da850175341d927e864b480ad27e154990ba04c866503b.png" style="width: 80%;" /></a>
+</figure>
+</div>
+</div>
+<p>The reason that we “center” the data is because it allows us to conveniently rephrase our observations above in terms of signs:</p>
+<ol class="arabic simple">
+<li><p>If the observed values of two <strong>centered</strong> random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> cluster along a line of <em>positive</em> slope, then paired <span class="math notranslate nohighlight">\(x\)</span>’s and <span class="math notranslate nohighlight">\(y\)</span>’s tend to have the same sign.</p></li>
+<li><p>If the observed values of two <strong>centered</strong> random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> cluster along a line of <em>negative</em> slope, then paired <span class="math notranslate nohighlight">\(x\)</span>’s and <span class="math notranslate nohighlight">\(y\)</span>’s tend to have opposite signs.</p></li>
+</ol>
+<p>Now, consider the following:</p>
+<div class="proof definition admonition" id="definition-0">
+<p class="admonition-title"><span class="caption-number">Definition 8.1 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables with expectations <span class="math notranslate nohighlight">\(\mu_X = E(X)\)</span> and <span class="math notranslate nohighlight">\(\mu_Y = E(Y)\)</span>. The <em>covariance</em> of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, denoted <span class="math notranslate nohighlight">\(\operatorname{Cov}(X,Y)\)</span>, is defined via the equation</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{Cov}(X,Y) = E \left[ (X-\mu_X)(Y-\mu_Y) \right].
+\]</div>
+</section>
+</div><p>More to come later!</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -401,6 +557,20 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance">8.1. Covariance</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
