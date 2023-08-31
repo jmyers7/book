@@ -312,7 +312,7 @@ And there we have it! As I will begin to show you in this chapter and throughout
 
 
 
-
+(set-theory)=
 ## A crash course in set theory
 
 The first task that we set out for ourselves is to recast the three (informally stated) axioms of probability into the language of set theory. Thus, it will be useful to conduct a quick review of the highlights of the theory, for those who might have had no prior exposure or for those who simply need a refresher.
