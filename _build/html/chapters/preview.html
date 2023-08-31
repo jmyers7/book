@@ -168,15 +168,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="theory-to-practice.html">6. Connecting theory to practice: data and samples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random-vectors.html">7. Random vectors; joint, marginal and conditional distributions; independence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="covar-correl.html">8. Covariance and correlation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fun-rvs.html">9. Computations with random variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mgf.html">10. Moment generating functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cond-exp.html">11. Conditional expected values</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">12. Statistics, estimators, and their distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">13. The asymptotic theory: the LLN and CLT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="point-est.html">14. Point estimators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CIs.html">15. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">16. Hypothesis testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bib.html">17. Bibliography</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="fun-rvs.html">10. Computations with random variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mgf.html">11. Moment generating functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cond-exp.html">12. Conditional expected values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">13. Statistics, estimators, and their distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">14. The asymptotic theory: the LLN and CLT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="point-est.html">15. Point estimators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CIs.html">16. Confidence intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">17. Hypothesis testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">18. Bibliography</a></li>
 </ul>
 
     </div>
@@ -356,7 +357,7 @@ document.write(`
 <span id="introduction"></span><h1><span class="section-number">1. </span>Preview<a class="headerlink" href="#preview" title="Permalink to this heading">#</a></h1>
 <p>Most textbooks in mathematical statistics spend a considerable amount of time in the early chapters developing a theoretical foundation in probability theory before moving on to applications. As you can see from the menu to the left, this book is not an exception. While this order of topics is based on logical necessity, it might also give readers the false impression that mathematical statistics is just another abstract mathematical theory with little connection to their real-world interests.</p>
 <p>One of my goals in writing this book is to connect the theory to applications as early as possible, beginning in earnest in <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-numref">Chapter 6</span></a>. The first few <a class="reference external" href="https://github.com/jmyers7/stats-book-materials">programming assignments</a> in the Jupyter notebooks are also useful in this respect, giving the reader <em>something</em> hands-on and tangible to do in the early chapters while we’re studying obscure probability distributions and integrating one contrived density function after another.</p>
-<p>But still, the reader may have <em>no idea</em> where the book is headed! This brief “Preview” chapter is intended to give the reader some indication of our direction and goal, by describing <em>inferential statistics</em> and <em>statistical estimators</em>, topics that we will cover beginning in <a class="reference internal" href="stats-estimators.html#stats-estimators"><span class="std std-numref">Chapter 12</span></a> and continuing through the end of the book. The reader should understand that the theory in the first part of the book is built to serve as a foundation for the tools and techniques in these latter chapters.</p>
+<p>But still, the reader may have <em>no idea</em> where the book is headed! This brief “Preview” chapter is intended to give the reader some indication of our direction and goal, by describing <em>inferential statistics</em> and <em>statistical estimators</em>, topics that we will cover beginning in <a class="reference internal" href="stats-estimators.html#stats-estimators"><span class="std std-numref">Chapter 13</span></a> and continuing through the end of the book. The reader should understand that the theory in the first part of the book is built to serve as a foundation for the tools and techniques in these latter chapters.</p>
 <p>So, this initial chapter offers the opportunity to survey some beautiful concepts and ideas without getting sidetracked into technical theory. I will introduce several big-picture ideas and some key terminology. The reader should not be nervous or anxious about understanding everything in this chapter <em>in depth</em>, and should rest assured that we will cover all the concepts in much more detail later. Remember, this is only a preview!</p>
 <section id="the-goal-of-inferential-statistics">
 <h2><span class="section-number">1.1. </span>The goal of inferential statistics<a class="headerlink" href="#the-goal-of-inferential-statistics" title="Permalink to this heading">#</a></h2>
@@ -407,7 +408,7 @@ document.write(`
 </div></blockquote>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>We will discuss samples and datasets beginning in <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-numref">Chapter 6</span></a>, while our treatment of inference will begin properly in <a class="reference internal" href="stats-estimators.html#stats-estimators"><span class="std std-numref">Chapter 12</span></a>.</p>
+<p>We will discuss samples and datasets beginning in <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-numref">Chapter 6</span></a>, while our treatment of inference will begin properly in <a class="reference internal" href="stats-estimators.html#stats-estimators"><span class="std std-numref">Chapter 13</span></a>.</p>
 </aside>
 <p>The process of collecting data is called <em>sampling</em>, which passes from the population to the sample. You should then conceptualize <em>inference</em> as a process that goes in the opposite direction:</p>
 <a class="reference internal image-reference" href="../_images/inferential.svg"><img alt="../_images/inferential.svg" class="align-center" src="../_images/inferential.svg" width="70%" /></a>
@@ -599,7 +600,7 @@ document.write(`
 \]</div>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>It is helpful to think of the <em>variability</em> of an estimator as a measure of <a class="reference external" href="https://en.wikipedia.org/wiki/Accuracy_and_precision"><em>precision</em></a>; this will be the focus of our current discussion. The <em>accuracy</em> of an estimator is then measured by something called <em>bias</em>. We will dicuss both these concepts in much more detail in <a class="reference internal" href="point-est.html#point-est"><span class="std std-numref">Chapter 14</span></a>.</p>
+<p>It is helpful to think of the <em>variability</em> of an estimator as a measure of <a class="reference external" href="https://en.wikipedia.org/wiki/Accuracy_and_precision"><em>precision</em></a>; this will be the focus of our current discussion. The <em>accuracy</em> of an estimator is then measured by something called <em>bias</em>. We will dicuss both these concepts in much more detail in <a class="reference internal" href="point-est.html#point-est"><span class="std std-numref">Chapter 15</span></a>.</p>
 </aside>
 <p>which we will take as our official estimate for the “true” speed of light. But how confident are we in the quality of our estimator? We might imagine that if Michelson were to take all the measurements again, obtaining another 100-sample dataset, then the estimate <span class="math notranslate nohighlight">\(\bar{x}\)</span> would be <em>different</em>. This variation might be due to systematic deficiencies in Michelson’s measuring apparatus and experimental setup (i.e., bad data collection), it might be due to plain random error, but it might <em>also</em> be due to a bad choice of estimator on our part. In general, all of these factors conspire together to affect the variability of our estimates, and it can be difficult to isolate and assign blame to any one <em>specific</em> factor over the others. So, when we talk about the “quality” of our estimator in terms of variability, one needs to remember that this variability comes from many sources.</p>
 <p>Keeping these caveats and cautions in mind, let me make the central point:</p>
@@ -611,7 +612,7 @@ document.write(`
 <p>Here’s what we do: Imagine that it is somehow possible to repeat Michelson’s procedure an infinite number of times, producing an infinite collection of 100-sample datasets under the exact same conditions as the original procedure. Of course, this is purely a thought exercise, because it isn’t <em>actually</em> possible to repeat a process an infinite number of times. Nevertheless, as we go along, we imagine computing the means of each of the new datasets; these means will <em>not</em> all be the same due to the variability that I mentioned above. In the “limit,” we obtain a distribution of mean values that looks roughly something like this:</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>The bar plot is a <em>probability histogram</em> of the <em>sampling distribution</em> for our estimator; the latter objects will be studied in <a class="reference internal" href="stats-estimators.html#stats-estimators"><span class="std std-numref">Chapter 12</span></a>. The smooth curve is a <em>kernel density estimate</em> (<em>KDE</em>) for the sampling distribution; these will be studied in <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-numref">Chapter 6</span></a>.</p>
+<p>The bar plot is a <em>probability histogram</em> of the <em>sampling distribution</em> for our estimator; the latter objects will be studied in <a class="reference internal" href="stats-estimators.html#stats-estimators"><span class="std std-numref">Chapter 13</span></a>. The smooth curve is a <em>kernel density estimate</em> (<em>KDE</em>) for the sampling distribution; these will be studied in <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-numref">Chapter 6</span></a>.</p>
 </aside>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -649,7 +650,7 @@ document.write(`
 <p>Along the horizontal axis we see speeds, as with the plot we saw previously. However, along the vertical axis we now see “probability density” instead of count values. This just means that areas under the curve (which are <span class="math notranslate nohighlight">\(\approx\)</span> the areas of the rectangles) represent probability. Intervals of speeds along the horizontal axis that lie underneath large amounts of area represent values that are more likely to be outputs of our estimator; for example, according to the figure, it is <em>much</em> more likely for our estimator to output a value in the interval <span class="math notranslate nohighlight">\([845,855]\)</span> compared to the interval <span class="math notranslate nohighlight">\([820,830]\)</span>.</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>This interval is an example of a <em>95%-confidence interval</em>. These will be studied in <a class="reference internal" href="CIs.html#cis"><span class="std std-numref">Chapter 15</span></a>.</p>
+<p>This interval is an example of a <em>95%-confidence interval</em>. These will be studied in <a class="reference internal" href="CIs.html#cis"><span class="std std-numref">Chapter 16</span></a>.</p>
 </aside>
 <p>Now, a <em>specific</em> measure of the variability of our estimator is the interval of values over which 95% of the probability (<span class="math notranslate nohighlight">\(=\)</span> area!) sits. It is possible to have a computer find this interval for us:</p>
 <div class="cell tag_hide-input docutils container">
@@ -698,13 +699,13 @@ document.write(`
 </div>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>Does this mean that we may conclude with 95% probability that the “true” speed of light is in the interval between the two vertical lines? I encourage you to think <em>very carefully</em> about this question. We will discuss the answer later in <a class="reference internal" href="CIs.html#cis"><span class="std std-numref">Chapter 15</span></a>.</p>
+<p>Does this mean that we may conclude with 95% probability that the “true” speed of light is in the interval between the two vertical lines? I encourage you to think <em>very carefully</em> about this question. We will discuss the answer later in <a class="reference internal" href="CIs.html#cis"><span class="std std-numref">Chapter 16</span></a>.</p>
 </aside>
 <p>Since 95% of the probability (<span class="math notranslate nohighlight">\(=\)</span> area!) sits over the interval between the two vertical lines, if we feed a 100-sample dataset into our estimator, we expect it to output values in that interval with 95% probability. The length of this interval is about 30 km/s, and since we are dealing with numbers on the order of 300,000 km/s, that length is 1 part in 10,000 relative to the order of magnitude of the data. We would need an experimental physicist to contextualize these numbers for us, but it seems (in my completely uninformed opinion) like that’s a pretty small error! (Remember, it was 1897!) This leads us to:</p>
 <blockquote>
 <div><p>The variability in our estimator is relatively small-ish, which is evidence for a high-ish level of confidence in our estimator.</p>
 </div></blockquote>
-<p>We can’t <em>decisively</em> conclude that our estimator is a good one just from this analysis alone; after all, there might be other metrics for “goodness” that paint a dimmer picture. We will discuss these matters in much more detail later in <a class="reference internal" href="point-est.html#point-est"><span class="std std-numref">Chapter 14</span></a>; this discussion is only meant as a preview, and also to indicate how probability theory fits in with the program of inferential statistics.</p>
+<p>We can’t <em>decisively</em> conclude that our estimator is a good one just from this analysis alone; after all, there might be other metrics for “goodness” that paint a dimmer picture. We will discuss these matters in much more detail later in <a class="reference internal" href="point-est.html#point-est"><span class="std std-numref">Chapter 15</span></a>; this discussion is only meant as a preview, and also to indicate how probability theory fits in with the program of inferential statistics.</p>
 </section>
 <section id="summary">
 <h2><span class="section-number">1.3. </span>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
@@ -716,7 +717,7 @@ document.write(`
 <ul class="simple">
 <li><p>Then, one conducts a statistical and probabilistic analysis to describe the variability (i.e., precision), the bias (i.e., accuracy) and other properties of the estimator. These metrics serve as measures for our “confidence” in an estimator’s outputs and allow us to compare one estimator to another.</p></li>
 </ul>
-<p>As we will see in <a class="reference internal" href="point-est.html#point-est"><span class="std std-numref">Chapter 14</span></a>, there is an extensive theory built around the statistical analysis of an estimator, and that our analysis in the speed of light example is only the beginning of the story.</p>
+<p>As we will see in <a class="reference internal" href="point-est.html#point-est"><span class="std std-numref">Chapter 15</span></a>, there is an extensive theory built around the statistical analysis of an estimator, and that our analysis in the speed of light example is only the beginning of the story.</p>
 </section>
 </section>
 

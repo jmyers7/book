@@ -1,109 +1,33 @@
 Traceback (most recent call last):
-  File "/Users/johnmyers/opt/anaconda3/envs/python-2023-09/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+  File "/Users/johnmyers/opt/anaconda3/envs/python-2023-08-v2/lib/python3.11/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
     executenb(
-  File "/Users/johnmyers/opt/anaconda3/envs/python-2023-09/lib/python3.10/site-packages/nbclient/client.py", line 1305, in execute
+  File "/Users/johnmyers/opt/anaconda3/envs/python-2023-08-v2/lib/python3.11/site-packages/nbclient/client.py", line 1305, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
-  File "/Users/johnmyers/opt/anaconda3/envs/python-2023-09/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 166, in wrapped
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/johnmyers/opt/anaconda3/envs/python-2023-08-v2/lib/python3.11/site-packages/jupyter_core/utils/__init__.py", line 166, in wrapped
     return loop.run_until_complete(inner)
-  File "/Users/johnmyers/opt/anaconda3/envs/python-2023-09/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/johnmyers/opt/anaconda3/envs/python-2023-08-v2/lib/python3.11/asyncio/base_events.py", line 653, in run_until_complete
     return future.result()
-  File "/Users/johnmyers/opt/anaconda3/envs/python-2023-09/lib/python3.10/site-packages/nbclient/client.py", line 705, in async_execute
+           ^^^^^^^^^^^^^^^
+  File "/Users/johnmyers/opt/anaconda3/envs/python-2023-08-v2/lib/python3.11/site-packages/nbclient/client.py", line 705, in async_execute
     await self.async_execute_cell(
-  File "/Users/johnmyers/opt/anaconda3/envs/python-2023-09/lib/python3.10/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+  File "/Users/johnmyers/opt/anaconda3/envs/python-2023-08-v2/lib/python3.11/site-packages/nbclient/client.py", line 1058, in async_execute_cell
     await self._check_raise_for_error(cell, cell_index, exec_reply)
-  File "/Users/johnmyers/opt/anaconda3/envs/python-2023-09/lib/python3.10/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+  File "/Users/johnmyers/opt/anaconda3/envs/python-2023-08-v2/lib/python3.11/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy.stats import multivariate_normal
-
-# hide annoying warnings for tight_layout()
-import warnings
-warnings.filterwarnings("ignore")
-
-# set custom style for plots
-plt.style.use('./aux-files/custom_style_light.mplstyle')
-
-# make sure this comes last in the imports!
-# change the output resolution and size of figures
-import matplotlib as mpl 
-mpl.rcParams['figure.dpi'] = 600
-
-# end import section
-
-np.random.seed(42)
-
-# data will be simulated from a multivariate gaussian.
-# define the parameters
-rho = 0.85
-sigma_1 = 200
-sigma_2 = 20
-mu = np.array([2000, 175])
-sigma = np.array([
-    [sigma_1 ** 2, rho * sigma_1 * sigma_2],
-    [rho * sigma_1 * sigma_2, sigma_2 ** 2]
-])
-
-# generate the data
-data = multivariate_normal(mean=mu, cov=sigma).rvs(size=2000)
-X = np.round(data[:, 0])
-Y = np.round(data[:, 1])
-
-# build the plots
-sns.scatterplot(x=X, y=Y)
-plt.xlabel('$x=$size (ft$^2$)')
-plt.ylabel('$y=$price (\$1,000)')
+sns.regplot(x=X - np.mean(X), y=Y - np.mean(Y), ci=None, scatter_kws={'alpha' : 0.3},, line_kws={'color' : '#FD46FC'})
+plt.xlabel('$x=$shifted size (ft$^2$)')
+plt.ylabel('$y=$shifted price (\$1,000)')
 plt.tight_layout()
 ------------------
 
 
-[0;31m---------------------------------------------------------------------------[0m
-[0;31mFileNotFoundError[0m                         Traceback (most recent call last)
-File [0;32m~/opt/anaconda3/envs/python-2023-09/lib/python3.10/site-packages/matplotlib/style/core.py:166[0m, in [0;36muse[0;34m(style)[0m
-[1;32m    165[0m [38;5;28;01mtry[39;00m:
-[0;32m--> 166[0m     style [38;5;241m=[39m [43m_rc_params_in_file[49m[43m([49m[43mstyle[49m[43m)[49m
-[1;32m    167[0m [38;5;28;01mexcept[39;00m [38;5;167;01mIOError[39;00m [38;5;28;01mas[39;00m err:
+[0;36m  Cell [0;32mIn[5], line 1[0;36m[0m
+[0;31m    sns.regplot(x=X - np.mean(X), y=Y - np.mean(Y), ci=None, scatter_kws={'alpha' : 0.3},, line_kws={'color' : '#FD46FC'})[0m
+[0m                                                                                         ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
 
-File [0;32m~/opt/anaconda3/envs/python-2023-09/lib/python3.10/site-packages/matplotlib/__init__.py:854[0m, in [0;36m_rc_params_in_file[0;34m(fname, transform, fail_on_error)[0m
-[1;32m    853[0m rc_temp [38;5;241m=[39m {}
-[0;32m--> 854[0m [38;5;28;01mwith[39;00m _open_file_or_url(fname) [38;5;28;01mas[39;00m fd:
-[1;32m    855[0m     [38;5;28;01mtry[39;00m:
-
-File [0;32m~/opt/anaconda3/envs/python-2023-09/lib/python3.10/contextlib.py:135[0m, in [0;36m_GeneratorContextManager.__enter__[0;34m(self)[0m
-[1;32m    134[0m [38;5;28;01mtry[39;00m:
-[0;32m--> 135[0m     [38;5;28;01mreturn[39;00m [38;5;28;43mnext[39;49m[43m([49m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mgen[49m[43m)[49m
-[1;32m    136[0m [38;5;28;01mexcept[39;00m [38;5;167;01mStopIteration[39;00m:
-
-File [0;32m~/opt/anaconda3/envs/python-2023-09/lib/python3.10/site-packages/matplotlib/__init__.py:831[0m, in [0;36m_open_file_or_url[0;34m(fname)[0m
-[1;32m    830[0m fname [38;5;241m=[39m os[38;5;241m.[39mpath[38;5;241m.[39mexpanduser(fname)
-[0;32m--> 831[0m [38;5;28;01mwith[39;00m [38;5;28;43mopen[39;49m[43m([49m[43mfname[49m[43m,[49m[43m [49m[43mencoding[49m[38;5;241;43m=[39;49m[38;5;124;43m'[39;49m[38;5;124;43mutf-8[39;49m[38;5;124;43m'[39;49m[43m)[49m [38;5;28;01mas[39;00m f:
-[1;32m    832[0m     [38;5;28;01myield[39;00m f
-
-[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: './aux-files/custom_style_light.mplstyle'
-
-The above exception was the direct cause of the following exception:
-
-[0;31mOSError[0m                                   Traceback (most recent call last)
-Cell [0;32mIn[1], line 11[0m
-[1;32m      8[0m warnings[38;5;241m.[39mfilterwarnings([38;5;124m"[39m[38;5;124mignore[39m[38;5;124m"[39m)
-[1;32m     10[0m [38;5;66;03m# set custom style for plots[39;00m
-[0;32m---> 11[0m [43mplt[49m[38;5;241;43m.[39;49m[43mstyle[49m[38;5;241;43m.[39;49m[43muse[49m[43m([49m[38;5;124;43m'[39;49m[38;5;124;43m./aux-files/custom_style_light.mplstyle[39;49m[38;5;124;43m'[39;49m[43m)[49m
-[1;32m     13[0m [38;5;66;03m# make sure this comes last in the imports![39;00m
-[1;32m     14[0m [38;5;66;03m# change the output resolution and size of figures[39;00m
-[1;32m     15[0m [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m [38;5;28;01mas[39;00m [38;5;21;01mmpl[39;00m 
-
-File [0;32m~/opt/anaconda3/envs/python-2023-09/lib/python3.10/site-packages/matplotlib/style/core.py:168[0m, in [0;36muse[0;34m(style)[0m
-[1;32m    166[0m         style [38;5;241m=[39m _rc_params_in_file(style)
-[1;32m    167[0m     [38;5;28;01mexcept[39;00m [38;5;167;01mIOError[39;00m [38;5;28;01mas[39;00m err:
-[0;32m--> 168[0m         [38;5;28;01mraise[39;00m [38;5;167;01mIOError[39;00m(
-[1;32m    169[0m             [38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00mstyle[38;5;132;01m!r}[39;00m[38;5;124m is not a valid package style, path of style [39m[38;5;124m"[39m
-[1;32m    170[0m             [38;5;124mf[39m[38;5;124m"[39m[38;5;124mfile, URL of style file, or library style name (library [39m[38;5;124m"[39m
-[1;32m    171[0m             [38;5;124mf[39m[38;5;124m"[39m[38;5;124mstyles are listed in `style.available`)[39m[38;5;124m"[39m) [38;5;28;01mfrom[39;00m [38;5;21;01merr[39;00m
-[1;32m    172[0m filtered [38;5;241m=[39m {}
-[1;32m    173[0m [38;5;28;01mfor[39;00m k [38;5;129;01min[39;00m style:  [38;5;66;03m# don't trigger RcParams.__getitem__('backend')[39;00m
-
-[0;31mOSError[0m: './aux-files/custom_style_light.mplstyle' is not a valid package style, path of style file, URL of style file, or library style name (library styles are listed in `style.available`)
 
