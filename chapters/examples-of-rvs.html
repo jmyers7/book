@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>5. Examples of random variables &#8212; A Course in Mathematical Statistics with Python</title>
   
@@ -587,7 +587,7 @@ P(X=x) = m p^x(1-p)^{n-x},
 E(X) = np \quad \text{and} \quad V(X) = np (1-p). 
 \]</div>
 </section>
-</div><p>One can derive these expressions directly from the definitions of expectations and variances, but the computations are a little tedious; see Section 3.4 in <span id="id1">[<a class="reference internal" href="bib.html#id3" title="D. Wackerly, W. Mendenhall, and R. L. Scheaffer. Mathematical statistics with applications. Cengage Learning, 2014.">WMS14</a>]</span>, for example. But they may also be obtained with a little more ease by using gadgets called <em>moment generating functions</em>, which we will explore <a class="reference internal" href="mgf.html#mgf"><span class="std std-ref">later</span></a>. Thus, we will postpone the derivations till then.</p>
+</div><p>One can derive these expressions directly from the definitions of expectations and variances, but the computations are a little tedious; see Section 3.4 in <span id="id1">[<a class="reference internal" href="bib.html#id4" title="D. Wackerly, W. Mendenhall, and R. L. Scheaffer. Mathematical statistics with applications. Cengage Learning, 2014.">WMS14</a>]</span>, for example. But they may also be obtained with a little more ease by using gadgets called <em>moment generating functions</em>, which we will explore <a class="reference internal" href="mgf.html#mgf"><span class="std std-ref">later</span></a>. Thus, we will postpone the derivations till then.</p>
 <p>From <a class="reference internal" href="#equation-bin-exp-eqn">(5.5)</a>, you can see that <span class="math notranslate nohighlight">\(E(X)\)</span> is jointly proportional to <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(p\)</span>, so that increasing one (while holding the other fixed) increases the mean. The variance <span class="math notranslate nohighlight">\(V(X)\)</span> is <em>also</em> proportional to <span class="math notranslate nohighlight">\(n\)</span>, so that increasing <span class="math notranslate nohighlight">\(n\)</span> (while holding <span class="math notranslate nohighlight">\(p\)</span> fixed) also increases the spread of the distribution. These are confirmations of what we saw in the probability histograms above.</p>
 <p>Before moving on to the Problem Prompt, I want to give a useful result that we will use in a later section: Under certain circumstances, Bernoulli random variables may be used to “build” binomial random variables. These “certain circumstances” reach a bit beyond the theory that we currently know, since they refer to <a class="reference internal" href="random-vectors.html#independence"><span class="std std-ref"><em>independence</em></span></a> of random variables, which is a topic we haven’t discussed yet. This latter concept, in turn, relies upon <a class="reference internal" href="random-vectors.html#random-vectors"><span class="std std-ref"><em>joint distributions</em></span></a>, which we also haven’t talked about yet. Nevertheless, these concepts are used so lightly that I believe the gist of the proof remains intelligible.</p>
 <p>This being said, if you want to skip the proof and take the result on faith, that’s fine with me. Just be aware that <em>independence</em> of random variables will return in full force a little later on. In fact, this will be our first encounter with a so-called <em>independent and identically distributed</em> (IID) sequence of random variables, which will be <em>very</em> important in <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-ref">future sections</span></a>.</p>
@@ -733,7 +733,7 @@ P(X=x) = p (1-p)^{x-1},
 E(X) = \frac{1}{p} \quad \text{and} \quad V(X) = \frac{1-p}{p^2}. 
 \]</div>
 </section>
-</div><p>We will not prove these formulas here. See, for example, Theorem 3.8 in <span id="id2">[<a class="reference internal" href="bib.html#id3" title="D. Wackerly, W. Mendenhall, and R. L. Scheaffer. Mathematical statistics with applications. Cengage Learning, 2014.">WMS14</a>]</span>.</p>
+</div><p>We will not prove these formulas here. See, for example, Theorem 3.8 in <span id="id2">[<a class="reference internal" href="bib.html#id4" title="D. Wackerly, W. Mendenhall, and R. L. Scheaffer. Mathematical statistics with applications. Cengage Learning, 2014.">WMS14</a>]</span>.</p>
 <p>Notice that our intuition outlined above regarding the effect of <span class="math notranslate nohighlight">\(p\)</span> on the shape of the distributions is confirmed by these formulas: Increasing <span class="math notranslate nohighlight">\(p\)</span> decreases both the mean and the variance of <span class="math notranslate nohighlight">\(Y\)</span>.</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
@@ -810,25 +810,25 @@ p(x) = \frac{\binom{n}{x}\binom{M-n}{N-x}}{\binom{M}{N}}.
 <p>Be aware that the pattern <span class="math notranslate nohighlight">\((M,n,N)\)</span> and choice of letters for the parameters of hypergeometric distributions is <strong>not</strong> standardized accross all references. The parameters I have chosen here matches the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.hypergeom.html">SciPy implementation</a> of hypergeometric random variables.</p>
 <p>Here are some of the other parameter choices for the references mentioned in the bibliography:</p>
 <ul>
-<li><p><span id="id3">DeGroot and Schervish [<a class="reference internal" href="bib.html#id6" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span> use parameters <span class="math notranslate nohighlight">\((A,B,n)\)</span>. To translate to our parameters, take</p>
+<li><p><span id="id3">DeGroot and Schervish [<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span> use parameters <span class="math notranslate nohighlight">\((A,B,n)\)</span>. To translate to our parameters, take</p>
 <div class="math notranslate nohighlight">
 \[
     (M,n,N) = (A+B, A, n).
     \]</div>
 </li>
-<li><p><span id="id4">Dekking, Kraaikamp, Lopuhaä, and Meester [<a class="reference internal" href="bib.html#id2" title="F. M. Dekking, C. Kraaikamp, H. P. Lopuhaä, and L. E. Meester. A modern introduction to probability and statistics. Springer Texts in Statistics. Springer-Verlag London, Ltd., London, 2005.">DKLopuhaaM05</a>]</span> use parameters <span class="math notranslate nohighlight">\((m,N,r)\)</span>. To translate to our parameters, take</p>
+<li><p><span id="id4">Dekking, Kraaikamp, Lopuhaä, and Meester [<a class="reference internal" href="bib.html#id3" title="F. M. Dekking, C. Kraaikamp, H. P. Lopuhaä, and L. E. Meester. A modern introduction to probability and statistics. Springer Texts in Statistics. Springer-Verlag London, Ltd., London, 2005.">DKLopuhaaM05</a>]</span> use parameters <span class="math notranslate nohighlight">\((m,N,r)\)</span>. To translate to our parameters, take</p>
 <div class="math notranslate nohighlight">
 \[
     (M,n,N) = (N, m, r).
     \]</div>
 </li>
-<li><p><span id="id5">Devore, Berk, and Carlton [<a class="reference internal" href="bib.html#id5" title="J. L. Devore, K. N. Berk, and M. A. Carlton. Modern mathematical statistics with applications. Springer Texts in Statistics. Springer, Cham, third edition, 2021.">DBC21</a>]</span> use parameters <span class="math notranslate nohighlight">\((n, M,N)\)</span>. To translate to our parameters, take</p>
+<li><p><span id="id5">Devore, Berk, and Carlton [<a class="reference internal" href="bib.html#id6" title="J. L. Devore, K. N. Berk, and M. A. Carlton. Modern mathematical statistics with applications. Springer Texts in Statistics. Springer, Cham, third edition, 2021.">DBC21</a>]</span> use parameters <span class="math notranslate nohighlight">\((n, M,N)\)</span>. To translate to our parameters, take</p>
 <div class="math notranslate nohighlight">
 \[
     (M,n,N) = (N, M, n).
     \]</div>
 </li>
-<li><p><span id="id6">Wackerly, Mendenhall, and Scheaffer [<a class="reference internal" href="bib.html#id3" title="D. Wackerly, W. Mendenhall, and R. L. Scheaffer. Mathematical statistics with applications. Cengage Learning, 2014.">WMS14</a>]</span> use parameters <span class="math notranslate nohighlight">\((r, N, n)\)</span>. To translate to our parameters, take</p>
+<li><p><span id="id6">Wackerly, Mendenhall, and Scheaffer [<a class="reference internal" href="bib.html#id4" title="D. Wackerly, W. Mendenhall, and R. L. Scheaffer. Mathematical statistics with applications. Cengage Learning, 2014.">WMS14</a>]</span> use parameters <span class="math notranslate nohighlight">\((r, N, n)\)</span>. To translate to our parameters, take</p>
 <div class="math notranslate nohighlight">
 \[
     (M,n,N) = (N,r,n).
@@ -958,7 +958,7 @@ p(x) = \frac{\mu^x}{x!}e^{-\mu}.
 <p>The archetypical scenarios for Bernoulli, binomial, and geometric random variables involved coin flips, which model different types of repeated scenario with binary and independent outcomes. The archetypical scenario for hypergeometric variables involved selecting balls from an urn. The justifications that each of these scenarios could be modeled by the claimed distributions relied essentially on basic combinatorics. But, as you are about to see, the justification that our archetypical Poisson scenario really <em>can</em> be modeled by a Poisson random variable is of a very different flavor.</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>My description of this particular scenario, as well as the continuations below (<a class="reference internal" href="#exp-scenario"><span class="std std-ref">here</span></a> and <a class="reference internal" href="#gamma-scenario"><span class="std std-ref">here</span></a>) follows the extremely well-written Chapter 12 in <span id="id7">[<a class="reference internal" href="bib.html#id2" title="F. M. Dekking, C. Kraaikamp, H. P. Lopuhaä, and L. E. Meester. A modern introduction to probability and statistics. Springer Texts in Statistics. Springer-Verlag London, Ltd., London, 2005.">DKLopuhaaM05</a>]</span>.</p>
+<p>My description of this particular scenario, as well as the continuations below (<a class="reference internal" href="#exp-scenario"><span class="std std-ref">here</span></a> and <a class="reference internal" href="#gamma-scenario"><span class="std std-ref">here</span></a>) follows the extremely well-written Chapter 12 in <span id="id7">[<a class="reference internal" href="bib.html#id3" title="F. M. Dekking, C. Kraaikamp, H. P. Lopuhaä, and L. E. Meester. A modern introduction to probability and statistics. Springer Texts in Statistics. Springer-Verlag London, Ltd., London, 2005.">DKLopuhaaM05</a>]</span>.</p>
 </aside>
 <div class="admonition-an-archetypical-poisson-scenario admonition" id="poisson-scenario">
 <p class="admonition-title">An archetypical Poisson scenario</p>
@@ -1578,7 +1578,7 @@ f(x) \propto x^{\alpha-1} (1-x)^{\beta-1},
 E(X) = \frac{\alpha}{\alpha+\beta} \quad \text{and} \quad V(X) = \frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}.
 \]</div>
 </section>
-</div><p>These formulas may be derived using computations very similar to those for deriving the means and variances of gamma variables in <a class="reference internal" href="#gam-exp-thm">Theorem 5.11</a>. I suggest that you try to derive them on your own; if you have trouble, take a look at Theorem 5.8.3 in <span id="id8">[<a class="reference internal" href="bib.html#id6" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span></p>
+</div><p>These formulas may be derived using computations very similar to those for deriving the means and variances of gamma variables in <a class="reference internal" href="#gam-exp-thm">Theorem 5.11</a>. I suggest that you try to derive them on your own; if you have trouble, take a look at Theorem 5.8.3 in <span id="id8">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span></p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problems 16- on the worksheet.</p>

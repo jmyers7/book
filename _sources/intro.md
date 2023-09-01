@@ -71,6 +71,7 @@ Besides the text itself, much of the intellectual effort in this endeavor has be
 * {cite:ts}`DeGrootSchervish2014`,
 * {cite:ts}`Dekking2005`,
 * {cite:ts}`Devore2021`,
+* {cite:ts}`Rice2006`,
 * {cite:ts}`Wackerly2014`, and
 * {cite:ts}`Wasserman2004`.
 

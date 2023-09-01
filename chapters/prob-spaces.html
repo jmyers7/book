@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>2. Probability spaces &#8212; A Course in Mathematical Statistics with Python</title>
   
@@ -634,7 +634,7 @@ P(\text{$4$ or odd}) = P(4) + P(\text{odd}).
 <p>And there we have it! As I will begin to show you in this chapter and throughout the rest of this course, these three axioms of probability may be used to develop a very sophisticated and powerful mathematical theory for computing probabilities. But as I mentioned at the beginning of this section, this <em>axiomatic framework</em> does not solve the problem of <em>interpreting</em> probabilities, of course. When one applies the theory to real-world scenarios, the difficult question of exactly what probability <em>means</em> still remains to be argued over.</p>
 </section>
 <section id="a-crash-course-in-set-theory">
-<h2><span class="section-number">2.3. </span>A crash course in set theory<a class="headerlink" href="#a-crash-course-in-set-theory" title="Permalink to this heading">#</a></h2>
+<span id="set-theory"></span><h2><span class="section-number">2.3. </span>A crash course in set theory<a class="headerlink" href="#a-crash-course-in-set-theory" title="Permalink to this heading">#</a></h2>
 <p>The first task that we set out for ourselves is to recast the three (informally stated) axioms of probability into the language of set theory. Thus, it will be useful to conduct a quick review of the highlights of the theory, for those who might have had no prior exposure or for those who simply need a refresher.</p>
 <p>First:</p>
 <div class="proof definition admonition" id="definition-3">
@@ -814,52 +814,51 @@ A = \{a, b,c\},
 </div></blockquote>
 <p>So, our goal in this section is to take these three axioms and turn them into precise mathematics written in the language of set theory.</p>
 <p>To cut straight to the chase, the three axioms will be distilled and encoded in a mathematical gadget called a <em>probability measure</em>, which makes up one part of the following type of object:</p>
+<aside class="margin sidebar">
+<p class="sidebar-title">Looking beyond…</p>
+<p>Technically, this definition of an <em>event</em> is <em>almost</em> correct. There’s actually something that needs to be <a class="reference external" href="https://en.wikipedia.org/wiki/%CE%A3-algebra">added</a> in the case of a “non-discrete” probability space that restricts which subsets are allowed to be <em>events</em>. But we don’t worry about that stuff at this level.</p>
+</aside>
 <div class="proof definition admonition" id="definition-5">
 <p class="admonition-title"><span class="caption-number">Definition 2.3 </span></p>
 <section class="definition-content" id="proof-content">
 <p>A <em>probability space</em> consists of three things:</p>
 <ol class="arabic simple">
-<li><p>A set <span class="math notranslate nohighlight">\(S\)</span> called the <em>sample space</em>.</p></li>
-<li><p>A collection of subsets of <span class="math notranslate nohighlight">\(S\)</span>, called <em>events</em>.</p></li>
-<li><p>A <em>probability measure</em> <span class="math notranslate nohighlight">\(P\)</span>.</p></li>
+<li><p>A set <span class="math notranslate nohighlight">\(S\)</span> called the <em>sample space</em>.</p>
+<ul class="simple">
+<li><p>A sample space <span class="math notranslate nohighlight">\(S\)</span> often consists of all possible outcomes of a process or experiment, or it is the population under study (as defined back in <a class="reference internal" href="preview.html#population-def">Definition 1.1</a>).</p></li>
+<li><p>The elements of <span class="math notranslate nohighlight">\(S\)</span> are called <em>sample points</em> or <em>outcomes</em>.</p></li>
+</ul>
+</li>
+<li><p>A collection of subsets of <span class="math notranslate nohighlight">\(S\)</span>, called <em>events</em>.</p>
+<ul class="simple">
+<li><p>So, an event in a sample space is nothing but a subset of the sample space.</p></li>
+<li><p>An event containing just one sample point is called a <em>simple event</em>. All other events are called <em>compound events</em>.</p></li>
+</ul>
+</li>
+<li><p>A <em>probability measure</em> <span class="math notranslate nohighlight">\(P\)</span>.</p>
+<ul class="simple">
+<li><p>Briefly, a probability measure is a function that assigns probabilities to events. (The precise definition is given in <a class="reference internal" href="#prob-measure-def">Definition 2.4</a> below.)</p></li>
+</ul>
+</li>
 </ol>
 </section>
-</div><p>Of course, we don’t yet know what any of these words mean!</p>
-<ul class="simple">
-<li><p>What is a <em>sample space</em>?!</p></li>
-<li><p>What is an <em>event</em>?!?</p></li>
-<li><p>What is a <em>probability measure</em>!?!!?!?!</p></li>
-</ul>
-<p>But don’t worry! Over the rest of this section, I will walk you through each of these three pieces and explain them in detail.</p>
-<p>Let’s begin with a <em>sample space</em> <span class="math notranslate nohighlight">\(S\)</span>. You should imagine that <span class="math notranslate nohighlight">\(S\)</span> is the set of <em>all</em> outcomes of some process. We will go through several examples in:</p>
+</div><p>This is the picture that I have in mind when I think of probability spaces:</p>
+<a class="reference internal image-reference" href="../_images/probSpaceSum.svg"><img alt="../_images/probSpaceSum.svg" class="align-center" src="../_images/probSpaceSum.svg" width="80%" /></a>
+<p> </p>
+<p>In the picture, we have a sample space <span class="math notranslate nohighlight">\(S\)</span>, along with two events <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>. The event <span class="math notranslate nohighlight">\(A\)</span> is a <em>compound event</em> because it consists of multiple outcomes (or sample points), while the event <span class="math notranslate nohighlight">\(B\)</span> is <em>simple</em> because it consists of a single outcome (or sample point). We see the probability measure <span class="math notranslate nohighlight">\(P\)</span> represented as a function which outputs the probabilities <span class="math notranslate nohighlight">\(P(A)\)</span> and <span class="math notranslate nohighlight">\(P(B)\)</span> of the events <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>.</p>
+<p>As I mentioned, a sample space <span class="math notranslate nohighlight">\(S\)</span> often consists of <em>all</em> outcomes of some process or experiment, or it is the population under study. Let’s go through a few examples in:</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problem 3 on the worksheet.</p>
 </div>
 <p>Even though all the sample spaces that we listed in our solution to this problem correspond to the outcomes of some real-world process, scenario, or experiment, an abstract sample space <span class="math notranslate nohighlight">\(S\)</span> just has to be a <em>set</em>. It doesn’t <em>actually</em> have to correspond to anything real. Remember, we are working in the abstract, mathematical realm!</p>
-<p>Let’s now move on to the second piece of a probability space: <em>Events</em>.</p>
-<div class="proof definition admonition" id="definition-6">
-<p class="admonition-title"><span class="caption-number">Definition 2.4 </span></p>
-<section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(S\)</span> be a sample space.</p>
-<ul class="simple">
-<li><p>The elements of <span class="math notranslate nohighlight">\(S\)</span> are called <em>sample points</em>.</p></li>
-<li><p>Subsets of <span class="math notranslate nohighlight">\(S\)</span> are called <em>events</em>.</p></li>
-<li><p>An event containing just one sample point is called a <em>simple event</em>. All other events are called <em>compound events</em>.</p></li>
-</ul>
-</section>
-</div><aside class="margin sidebar">
-<p class="sidebar-title">Looking beyond…</p>
-<p>Technically, this definition of an <em>event</em> is <em>almost</em> correct. There’s actually something that needs to be <a class="reference external" href="https://en.wikipedia.org/wiki/%CE%A3-algebra">added</a> in the case of a “non-discrete” probability space that restricts which subsets are allowed to be <em>events</em>. But we don’t worry about that stuff at this level.</p>
-</aside>
-<p>If we conceptualize a sample space <span class="math notranslate nohighlight">\(S\)</span> as consisting of all possible outcomes of some process, then a sample point in <span class="math notranslate nohighlight">\(S\)</span> is the same thing as an <em>outcome</em>. So, a <em>simple event</em> consists of just <em>one</em> possible outcome, while <em>compound events</em> consist of multiple outcomes.</p>
 <p>Let’s go through some examples of events in:</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problems 4-6 on the worksheet.</p>
 </div>
-<p>Before we move on to talk about the third ingredient in a probability space, let me add one more important thing about events:</p>
-<div class="proof theorem admonition" id="theorem-7">
+<p>Before we move on to talk about the third ingredient in a probability space, let me add one important thing about events:</p>
+<div class="proof theorem admonition" id="theorem-6">
 <p class="admonition-title"><span class="caption-number">Theorem 2.1 </span> (Properties of Events)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(S\)</span> be a sample space.</p>
@@ -879,8 +878,8 @@ A = \{a, b,c\},
 </section>
 </div><p>These properties are essentially here for logical consistency and won’t play a giant role in our course. In deeper treatments of probability theory they become much more important, and they are connected with the technicality I mentioned above regarding what subsets are allowed to be <em>events</em> in a “non-discrete” probability space.</p>
 <p>Onward to the third (and final!) ingredient of a probability space!</p>
-<div class="proof definition admonition" id="definition-8">
-<p class="admonition-title"><span class="caption-number">Definition 2.5 </span></p>
+<div class="proof definition admonition" id="prob-measure-def">
+<p class="admonition-title"><span class="caption-number">Definition 2.4 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(S\)</span> be a sample space. A <em>probability measure</em> <span class="math notranslate nohighlight">\(P\)</span> (also called a <em>probability distribution</em>) is a function that to each event <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(S\)</span> assigns a number <span class="math notranslate nohighlight">\(P(A)\)</span>, called the <em>probability of <span class="math notranslate nohighlight">\(A\)</span></em>, subject to the following axioms:</p>
 <ol class="arabic">
@@ -896,7 +895,7 @@ A = \{a, b,c\},
 </section>
 </div><p>Now, even though it might not be clear at first glance, these defining axioms of a probability measure are actually the embryonic set-theoretic forms of our three probability axioms! It takes a bit of work to coax our axioms out of them, but trust me, they’re there.</p>
 <p>In fact, not only do our three probability axioms flow from them, but a few other nice properties of probability too:</p>
-<div class="proof theorem admonition" id="theorem-9">
+<div class="proof theorem admonition" id="theorem-8">
 <p class="admonition-title"><span class="caption-number">Theorem 2.2 </span> (Properties of Probability Measures)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> be a probability measure on a sample space <span class="math notranslate nohighlight">\(S\)</span>.</p>
@@ -944,8 +943,8 @@ P: \{\text{all events}\} \to [0,1].
 <span id="discrete-prob"></span><h2><span class="section-number">2.6. </span>Discrete and uniform probability measures<a class="headerlink" href="#discrete-and-uniform-probability-measures" title="Permalink to this heading">#</a></h2>
 <p>So, let’s begin filling up our probabilistic toolkit!</p>
 <p>The first types of probability measures that we shall study are the <em>discrete</em> ones. To define them, first we need a definition:</p>
-<div class="proof definition admonition" id="definition-10">
-<p class="admonition-title"><span class="caption-number">Definition 2.6 </span></p>
+<div class="proof definition admonition" id="definition-9">
+<p class="admonition-title"><span class="caption-number">Definition 2.5 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(S\)</span> be any set and <span class="math notranslate nohighlight">\(p:S\to \mathbb{R}\)</span> a function.</p>
 <ol class="arabic">
@@ -957,8 +956,8 @@ P: \{\text{all events}\} \to [0,1].
 </ol>
 </section>
 </div><p>But wait a minute! What does “countably infinite” mean?</p>
-<div class="proof definition admonition" id="definition-11">
-<p class="admonition-title"><span class="caption-number">Definition 2.7 </span> (sort of)</p>
+<div class="proof definition admonition" id="definition-10">
+<p class="admonition-title"><span class="caption-number">Definition 2.6 </span> (sort of)</p>
 <section class="definition-content" id="proof-content">
 <p>A set <span class="math notranslate nohighlight">\(A\)</span> is <em>countably infinite</em> if, given an infinite amount of time, I could count the elements of <span class="math notranslate nohighlight">\(A\)</span> one at a time, counting one element per second.</p>
 </section>
@@ -973,8 +972,8 @@ P: \{\text{all events}\} \to [0,1].
 <p> </p>
 <p>Indeed, if we are counting the numbers in <span class="math notranslate nohighlight">\([0,1]\)</span> from left to right, we would be tempted to choose <span class="math notranslate nohighlight">\(0\)</span> as the first number—but what would the second number be? And, even if you managed to think of a good candidate for the second number, you’d never be able to count all numbers in <span class="math notranslate nohighlight">\([0,1]\)</span>, one at a time, one per second, <em>even if you had an infinite amount of time</em>. There are actually rigorous mathematical proofs of this!</p>
 <p>We are now ready to define <em>discrete probability measures</em>:</p>
-<div class="proof definition admonition" id="definition-12">
-<p class="admonition-title"><span class="caption-number">Definition 2.8 </span></p>
+<div class="proof definition admonition" id="definition-11">
+<p class="admonition-title"><span class="caption-number">Definition 2.7 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> be a probability measure on a sample space <span class="math notranslate nohighlight">\(S\)</span>. We shall say <span class="math notranslate nohighlight">\(P\)</span> is <em>discrete</em> if every subset <span class="math notranslate nohighlight">\(A\subset S\)</span> is an event and there is a function <span class="math notranslate nohighlight">\(p:S\to \mathbb{R}\)</span> with discrete support such that</p>
 <div class="math notranslate nohighlight" id="equation-disc-eqn">
@@ -992,7 +991,7 @@ P: \{\text{all events}\} \to [0,1].
 <p>Do problems 7 and 8 on the worksheet.</p>
 </div>
 <p>Now, I want to state some properties of probability functions:</p>
-<div class="proof theorem admonition" id="theorem-13">
+<div class="proof theorem admonition" id="theorem-12">
 <p class="admonition-title"><span class="caption-number">Theorem 2.3 </span> (Properties of Probability Mass Functions)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(p(s)\)</span> be the probability mass function of a discrete probability measure <span class="math notranslate nohighlight">\(P\)</span>. Then:</p>
@@ -1007,7 +1006,7 @@ P: \{\text{all events}\} \to [0,1].
 <p>But this cannot happen, and thus we must have <span class="math notranslate nohighlight">\(p(s) \geq 0\)</span> for all <span class="math notranslate nohighlight">\(s\in S\)</span>. To see why (2) is true, observe that it follows immediately from <a class="reference internal" href="#equation-disc-eqn">(2.2)</a> and the fact <span class="math notranslate nohighlight">\(P(S)=1\)</span>.</p>
 <p>You might be concerned that I did not mention explicitly that <span class="math notranslate nohighlight">\(p(s) \leq 1\)</span> (for all <span class="math notranslate nohighlight">\(s\in S\)</span>). But this inequality is actually a <em>consequence</em> of (1) and (2). Do you see why?</p>
 <p>The two properties of probability functions identified above are very important, because they essentially characterize <em>all</em> functions that can serve as probability functions for <em>some</em> discrete probability measure. This is the content of the following important result that we will use over and over:</p>
-<div class="proof theorem admonition" id="theorem-14">
+<div class="proof theorem admonition" id="theorem-13">
 <p class="admonition-title"><span class="caption-number">Theorem 2.4 </span> (Discrete Probability Construction Lemma)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(S\)</span> be a set and <span class="math notranslate nohighlight">\(p:S \to \mathbb{R}\)</span> a function with discrete support. If</p>
@@ -1032,8 +1031,8 @@ P: \{\text{all events}\} \to [0,1].
 <p> </p>
 <p>Not so bad, right? The Discrete Probability Construction Lemma might look intimidating, but it’s really quite simple. And it’s precisely this simplicity afforded by the Construction Lemma that makes discrete probability spaces so easy to work with, compared to more complicated probability spaces that we will encounter later.</p>
 <p>There are <em>even simpler</em> versions of discrete probability measures!</p>
-<div class="proof definition admonition" id="definition-15">
-<p class="admonition-title"><span class="caption-number">Definition 2.9 </span></p>
+<div class="proof definition admonition" id="definition-14">
+<p class="admonition-title"><span class="caption-number">Definition 2.8 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> be a discrete probability measure on a sample space <span class="math notranslate nohighlight">\(S\)</span> with probability mass function <span class="math notranslate nohighlight">\(p(s)\)</span>. Then <span class="math notranslate nohighlight">\(P\)</span> is called a <em>uniform probability measure</em> if the support of <span class="math notranslate nohighlight">\(p(s)\)</span> has finite cardinality <span class="math notranslate nohighlight">\(n&gt;0\)</span>, and if</p>
 <div class="math notranslate nohighlight">
@@ -1154,9 +1153,9 @@ P: \{\text{all events}\} \to [0,1].
 <span class="eqno">(2.3)<a class="headerlink" href="#equation-sum-eqn" title="Permalink to this equation">#</a></span>\[\sum_{s\in \mathbb{R}} p(s) =1.\]</div>
 <p>But if we attempt to “smear” the probability off the discrete support of <span class="math notranslate nohighlight">\(p(s)\)</span> and onto a continuum, however, we run into the following mathematical fact:</p>
 <blockquote>
-<div><p>If the support of a function <span class="math notranslate nohighlight">\(p:\mathbb{R} \to [0,\infty)\)</span> is <strong>NOT</strong> discrete, then it is <strong>IMPOSSIBLE</strong> for the equation <a class="reference internal" href="random-variables.html#equation-sum-eqn">(4.3)</a> to hold.</p>
+<div><p>If the support of a function <span class="math notranslate nohighlight">\(p:\mathbb{R} \to [0,\infty)\)</span> is <strong>NOT</strong> discrete, then it is <strong>IMPOSSIBLE</strong> for the equation <a class="reference internal" href="#equation-sum-eqn">(2.3)</a> to hold.</p>
 </div></blockquote>
-<p>This <a class="reference external" href="https://math.stackexchange.com/questions/20661/the-sum-of-an-uncountable-number-of-positive-numbers">amazing fact</a> is due to the fundamental difference between countably infinite sets and uncountably infinite sets. Essentially, if the support of <span class="math notranslate nohighlight">\(p(s)\)</span> is uncountably infinite, then there are <em>so many</em> numbers in the sum <a class="reference internal" href="random-variables.html#equation-sum-eqn">(4.3)</a> that it is impossible for them to add up to <span class="math notranslate nohighlight">\(1\)</span> (or any other finite number), no matter how small they all are.</p>
+<p>This <a class="reference external" href="https://math.stackexchange.com/questions/20661/the-sum-of-an-uncountable-number-of-positive-numbers">amazing fact</a> is due to the fundamental difference between countably infinite sets and uncountably infinite sets. Essentially, if the support of <span class="math notranslate nohighlight">\(p(s)\)</span> is uncountably infinite, then there are <em>so many</em> numbers in the sum <a class="reference internal" href="#equation-sum-eqn">(2.3)</a> that it is impossible for them to add up to <span class="math notranslate nohighlight">\(1\)</span> (or any other finite number), no matter how small they all are.</p>
 <p>This fact puts us in a real pickle if we want to “smear out” the probability onto the entire real line <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. It says, basically, that we have to give up on the possibility of having a meaningful probability function <span class="math notranslate nohighlight">\(p(s)\)</span>!</p>
 <p>It turns out the way forward is to also give up on talking about probability at individual points of <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> (these probabilities will all end up being <span class="math notranslate nohighlight">\(0\)</span>), and to only talk about probabilities <em>over intervals</em>. Accordingly, a <em>probability density function</em>, denoted <span class="math notranslate nohighlight">\(f(s)\)</span>, replaces the doomed probability mass function <span class="math notranslate nohighlight">\(p(s)\)</span>. Even though everything is unitless, you should imagine that <span class="math notranslate nohighlight">\(f(s)\)</span> really is an honest density function:</p>
 <div class="math notranslate nohighlight">
@@ -1169,7 +1168,7 @@ P: \{\text{all events}\} \to [0,1].
 \[P(\{a\}) = P\big([a,a]  \big) = \int_a^a f(s) \ \text{d} s = 0,\]</div>
 <p>which shows—as I mentioned above—that the probability of an individual sample point is <span class="math notranslate nohighlight">\(0\)</span>.</p>
 <p>This discussion leads us to:</p>
-<div class="proof theorem admonition" id="theorem-16">
+<div class="proof theorem admonition" id="theorem-15">
 <p class="admonition-title"><span class="caption-number">Theorem 2.5 </span></p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> be a probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. We shall say <span class="math notranslate nohighlight">\(P\)</span> is <em>continuous</em> if there is a function <span class="math notranslate nohighlight">\(f:\mathbb{R} \to \mathbb{R}\)</span> such that</p>
@@ -1197,7 +1196,7 @@ P: \{\text{all events}\} \to [0,1].
 <p>Do problems 12 and 13 on the worksheet.</p>
 </div>
 <p>It turns out that probability density functions have similar properties compared to probability mass functions:</p>
-<div class="proof theorem admonition" id="theorem-17">
+<div class="proof theorem admonition" id="theorem-16">
 <p class="admonition-title"><span class="caption-number">Theorem 2.6 </span> (Properties of Probability Density Functions (univariate version))</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(f(s)\)</span> be the probability density function of a continuous probability measure <span class="math notranslate nohighlight">\(P\)</span> on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. Then:</p>
@@ -1207,7 +1206,7 @@ P: \{\text{all events}\} \to [0,1].
 </ol>
 </section>
 </div><p>Conversely, any function <span class="math notranslate nohighlight">\(f\)</span> with these two properties defines a unique continuous probability measure:</p>
-<div class="proof theorem admonition" id="theorem-18">
+<div class="proof theorem admonition" id="theorem-17">
 <p class="admonition-title"><span class="caption-number">Theorem 2.7 </span> (Continuous Probability Construction Lemma (univariate version))</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(f:\mathbb{R} \to \mathbb{R}\)</span> be a function such that</p>
@@ -1341,8 +1340,8 @@ P: \{\text{all events}\} \to [0,1].
 <section id="distribution-and-quantile-functions">
 <span id="dist-quant"></span><h2><span class="section-number">2.10. </span>Distribution and quantile functions<a class="headerlink" href="#distribution-and-quantile-functions" title="Permalink to this heading">#</a></h2>
 <p>We have seen that discrete probability measures have their probability mass functions, while continuous probability measures (on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>) have their probability density functions. In this section, we study a type of function called a <em>distribution function</em> that may be associated with <em>any</em> probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, whether the measure is discrete, continuous, or neither.</p>
-<div class="proof definition admonition" id="definition-19">
-<p class="admonition-title"><span class="caption-number">Definition 2.10 </span></p>
+<div class="proof definition admonition" id="definition-18">
+<p class="admonition-title"><span class="caption-number">Definition 2.9 </span></p>
 <section class="definition-content" id="proof-content">
 <p>A <em>distribution function</em> of a probability measure <span class="math notranslate nohighlight">\(P\)</span> on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> is the function <span class="math notranslate nohighlight">\(F:\mathbb{R} \to \mathbb{R}\)</span> such that</p>
 <div class="math notranslate nohighlight">
@@ -1542,7 +1541,7 @@ P: \{\text{all events}\} \to [0,1].
 </div>
 </div>
 <p>In contrast to the distribution function above, notice that this one is <em>continuous</em>. So, we have noted that the <em>discrete</em> probability measure above has a distribution function which is a step function, while the <em>continuous</em> probability measure above has a distribution function which is itself continuous. These are <em>not</em> coincidences! In fact:</p>
-<div class="proof theorem admonition" id="theorem-20">
+<div class="proof theorem admonition" id="theorem-19">
 <p class="admonition-title"><span class="caption-number">Theorem 2.8 </span> (Properties of Distribution Functions)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(F(s)\)</span> be the distribution function of a probability measure <span class="math notranslate nohighlight">\(P\)</span> on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. Then:</p>
@@ -1582,7 +1581,7 @@ P: \{\text{all events}\} \to [0,1].
 <p>Time for some practice with distribution functions. Do problems 15 and 16 on the worksheet.</p>
 </div>
 <p>It turns out that there is a very tight connection between distribution functions of continuous probability measures on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> and density functions. This connection is expressed in:</p>
-<div class="proof theorem admonition" id="theorem-21">
+<div class="proof theorem admonition" id="theorem-20">
 <p class="admonition-title"><span class="caption-number">Theorem 2.9 </span> (The Fundamental Theorem of Calculus (probability version))</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(F(s)\)</span> be the distribution function of a probability measure <span class="math notranslate nohighlight">\(P\)</span> on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. If <span class="math notranslate nohighlight">\(F(s)\)</span> is continuous, then:</p>
@@ -1611,8 +1610,8 @@ P: \{\text{all events}\} \to [0,1].
 <p>Do problem 17 on the worksheet.</p>
 </div>
 <p>Having studied distribution functions, we now study their (almost) inverses:</p>
-<div class="proof definition admonition" id="definition-22">
-<p class="admonition-title"><span class="caption-number">Definition 2.11 </span></p>
+<div class="proof definition admonition" id="definition-21">
+<p class="admonition-title"><span class="caption-number">Definition 2.10 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> be a probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with distribution function <span class="math notranslate nohighlight">\(F:\mathbb{R} \to [0,1]\)</span>. The <em>quantile function</em> <span class="math notranslate nohighlight">\(Q: [0,1] \to \mathbb{R}\)</span> is defined so that</p>
 <div class="math notranslate nohighlight">
@@ -1793,8 +1792,8 @@ P: \{\text{all events}\} \to [0,1].
 <span id="bivar-cont-prob"></span><h2><span class="section-number">2.11. </span>Bivariate continuous probability measures<a class="headerlink" href="#bivariate-continuous-probability-measures" title="Permalink to this heading">#</a></h2>
 <p>Having studied continuous probability measures on the real line <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, it is now not too much of a leap to imagine the definition of a continuous probability measure on the plane <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>. As a matter of terminology, continuous probability measures on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> are called <em>univariate</em> or <em>single-variable</em>, while continuous probability measures on <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> are called <em>bivariate</em> or <em>two-variable</em>.</p>
 <p>Here’s the definition:</p>
-<div class="proof definition admonition" id="definition-23">
-<p class="admonition-title"><span class="caption-number">Definition 2.12 </span></p>
+<div class="proof definition admonition" id="definition-22">
+<p class="admonition-title"><span class="caption-number">Definition 2.11 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> be a probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>. We shall say <span class="math notranslate nohighlight">\(P\)</span> is <em>continuous</em> if there is a function <span class="math notranslate nohighlight">\(f:\mathbb{R}^2 \to \mathbb{R}\)</span> such that</p>
 <div class="math notranslate nohighlight">
@@ -1807,7 +1806,7 @@ P: \{\text{all events}\} \to [0,1].
 <p>Do problems 20 and 21 on the worksheet.</p>
 </div>
 <p>We have the following list of properties of bivariate density functions. This is now the <em>third</em> version of this same list of properties!</p>
-<div class="proof theorem admonition" id="theorem-24">
+<div class="proof theorem admonition" id="theorem-23">
 <p class="admonition-title"><span class="caption-number">Theorem 2.10 </span> (Properties of Probability Density Functions (bivariate version))</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(f(s,t)\)</span> be the probability density function of a continuous probability measure <span class="math notranslate nohighlight">\(P\)</span> on <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>. Then:</p>
@@ -1817,7 +1816,7 @@ P: \{\text{all events}\} \to [0,1].
 </ol>
 </section>
 </div><p>And we also have a <em>third</em> version of the Probability Construction Lemma. (Are you detecting the pattern yet…?)</p>
-<div class="proof theorem admonition" id="theorem-25">
+<div class="proof theorem admonition" id="theorem-24">
 <p class="admonition-title"><span class="caption-number">Theorem 2.11 </span> (Continuous Probability Construction Lemma (bivariate version))</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(f:\mathbb{R}^2 \to \mathbb{R}\)</span> be a function such that</p>
