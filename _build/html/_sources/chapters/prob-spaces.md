@@ -607,7 +607,7 @@ This is the picture that I have in mind when I think of probability spaces:
 
 In the picture, we have a sample space $S$, along with two events $A$ and $B$. The event $A$ is a _compound event_ because it consists of multiple outcomes (or sample points), while the event $B$ is _simple_ because it consists of a single outcome (or sample point). We see the probability measure $P$ represented as a function which outputs the probabilities $P(A)$ and $P(B)$ of the events $A$ and $B$.
 
-As I mentioned, a sample space $S$ often consist of _all_ outcomes of some process or experiment, or it isthe populations under study. Let's go through a few examples in:
+As I mentioned, a sample space $S$ often consists of _all_ outcomes of some process or experiment, or it is the population under study. Let's go through a few examples in:
 
 ```{admonition} Problem Prompt
 Do problem 3 on the worksheet.
