@@ -78,6 +78,7 @@ The characteristic that each of these examples share is the goal of making an in
 Thus, a *population* in probability and statistics need not consist of a population of _people_, as it often does in everyday language.
 
 ```{prf:definition}
+:label: population-def
 
 The *population* in a given scenario is the collection of all items or objects under consideration.
 ```

@@ -571,28 +571,43 @@ So, our goal in this section is to take these three axioms and turn them into pr
 
 To cut straight to the chase, the three axioms will be distilled and encoded in a mathematical gadget called a _probability measure_, which makes up one part of the following type of object:
 
+```{margin} Looking beyond...
+
+Technically, this definition of an _event_ is _almost_ correct. There's actually something that needs to be [added](https://en.wikipedia.org/wiki/%CE%A3-algebra) in the case of a "non-discrete" probability space that restricts which subsets are allowed to be _events_. But we don't worry about that stuff at this level.
+```
+
 ```{prf:definition}
 
 A _probability space_ consists of three things:
 
 1. A set $S$ called the _sample space_.
+    
+    * A sample space $S$ often consists of all possible outcomes of a process or experiment, or it is the population under study (as defined back in {prf:ref}`population-def`).
+    
+    * The elements of $S$ are called _sample points_ or _outcomes_.
 
 2. A collection of subsets of $S$, called _events_.
 
+    * So, an event in a sample space is nothing but a subset of the sample space.
+    
+    * An event containing just one sample point is called a _simple event_. All other events are called _compound events_.
+
 3. A _probability measure_ $P$.
+
+    * Briefly, a probability measure is a function that assigns probabilities to events. (The precise definition is given in {prf:ref}`prob-measure-def` below.)
 ```
 
-Of course, we don't yet know what any of these words mean!
+This is the picture that I have in mind when I think of probability spaces:
 
-* What is a _sample space_?!
+```{image} ../img/probSpaceSum.svg
+:width: 80%
+:align: center
+```
+&nbsp;
 
-* What is an _event_?!?
+In the picture, we have a sample space $S$, along with two events $A$ and $B$. The event $A$ is a _compound event_ because it consists of multiple outcomes (or sample points), while the event $B$ is _simple_ because it consists of a single outcome (or sample point). We see the probability measure $P$ represented as a function which outputs the probabilities $P(A)$ and $P(B)$ of the events $A$ and $B$.
 
-* What is a _probability measure_!?!!?!?!
-
-But don't worry! Over the rest of this section, I will walk you through each of these three pieces and explain them in detail.
-
-Let's begin with a _sample space_ $S$. You should imagine that $S$ is the set of _all_ outcomes of some process. We will go through several examples in:
+As I mentioned, a sample space $S$ often consist of _all_ outcomes of some process or experiment, or it isthe populations under study. Let's go through a few examples in:
 
 ```{admonition} Problem Prompt
 Do problem 3 on the worksheet.
@@ -600,32 +615,13 @@ Do problem 3 on the worksheet.
 
 Even though all the sample spaces that we listed in our solution to this problem correspond to the outcomes of some real-world process, scenario, or experiment, an abstract sample space $S$ just has to be a _set_. It doesn't _actually_ have to correspond to anything real. Remember, we are working in the abstract, mathematical realm!
 
-Let's now move on to the second piece of a probability space: _Events_.
-
-```{prf:definition}
-Let $S$ be a sample space.
-
-* The elements of $S$ are called _sample points_.
-
-* Subsets of $S$ are called _events_.
-
-* An event containing just one sample point is called a _simple event_. All other events are called _compound events_.
-```
-
-```{margin} Looking beyond...
-
-Technically, this definition of an _event_ is _almost_ correct. There's actually something that needs to be [added](https://en.wikipedia.org/wiki/%CE%A3-algebra) in the case of a "non-discrete" probability space that restricts which subsets are allowed to be _events_. But we don't worry about that stuff at this level.
-```
-
-If we conceptualize a sample space $S$ as consisting of all possible outcomes of some process, then a sample point in $S$ is the same thing as an _outcome_. So, a _simple event_ consists of just _one_ possible outcome, while _compound events_ consist of multiple outcomes.
-
 Let's go through some examples of events in:
 
 ```{admonition} Problem Prompt
 Do problems 4-6 on the worksheet.
 ```
 
-Before we move on to talk about the third ingredient in a probability space, let me add one more important thing about events:
+Before we move on to talk about the third ingredient in a probability space, let me add one important thing about events:
 
 ````{prf:theorem} Properties of Events
 
@@ -657,6 +653,8 @@ These properties are essentially here for logical consistency and won't play a g
 Onward to the third (and final!) ingredient of a probability space!
 
 ```{prf:definition}
+:label: prob-measure-def
+
 Let $S$ be a sample space. A _probability measure_ $P$ (also called a _probability distribution_) is a function that to each event $A$ in $S$ assigns a number $P(A)$, called the _probability of $A$_, subject to the following axioms:
 
 1. $P(A) \geq 0$ for all events $A$.
