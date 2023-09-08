@@ -84,7 +84,7 @@ to obtain the associated $y$-values, and then produce a scatter plot:
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from scipy.stats import multivariate_normal, norm
+from scipy.stats import multivariate_normal, norm, rv_continuous
 
 # hide annoying warnings for tight_layout()
 import warnings
@@ -144,7 +144,7 @@ ax[1].set_xlabel('$x$')
 plt.tight_layout()
 ```
 
-The "noisy" functional relationship is draw in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function $y=h(x)$ for reference. Instead of lying directly on the graph of $y=h(x)$, the data is instead clustered along the graph.
+The "noisy" functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function $y=h(x)$ for reference. Instead of lying directly on the graph of $y=h(x)$, the data is clustered along the graph.
 
 The goal in this chapter is to study "noisy" _linear_ dependencies between random variables; relationships that look like these:
 
@@ -304,5 +304,139 @@ Now, armed with this formula, let's do some problems:
 
 ```{admonition} Problem Prompt
 
-Do problems 1- on the worksheet.
+Do problems 1 and 2 on the worksheet.
 ```
+
+After completing these two worksheet problems, it is worth taking a look at simulated random draws from the distributions. Tne density in problem 1 was
+
+$$
+f(x,y) = \begin{cases}
+2xy + 0.5 & : 0 \leq x, y \leq 1, \\
+0 & : \text{otherwise},
+\end{cases}
+$$
+
+while the density in problem 2 was
+
+$$
+f(x,y) = \begin{cases}
+3x & : 0 \leq y\leq x \leq 1, \\
+0 & : \text{otherwise}.
+\end{cases}
+$$
+
+If we simulate 8,000 random draws from these densities, center the distributions by subtacting their means, and then generate scatter plots, we get:
+
+```{code-cell} ipython3
+:tags: [hide-input, full-width]
+:mystnb:
+:   figure:
+:       align: center
+:   image:
+:       width: 100%
+
+# For problem 1, define the conditional distribution by subclassing
+# `rv_continuous` from SciPy. The conditional density is
+# symmetric in x and y, so we only need one implementation
+# using "generic" variables `u` and `v`.
+def conditional_density(u, v):
+    return (2 * u * v + 1 / 2) / (v + 1 / 2)
+class ConditionalRV(rv_continuous):
+    def __init__(self, v, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.v = v
+    def _pdf(self, u):
+        return conditional_density(u, self.v)
+
+# For problem 2, the conditional densities are *not*
+# symmetric in `x` and `y`, so we need to define two
+# conditional distributions.
+def conditional_density_YX(y, x):
+    return 1 / x
+def conditional_density_XY(x, y):
+    return (2 * x) / (1 - y**2)
+class ConditionalRV_XY(rv_continuous):
+    def __init__(self, y, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.y = y
+    def _pdf(self, x):
+        return conditional_density_XY(x, self.y)
+class ConditionalRV_YX(rv_continuous):
+    def __init__(self, x, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.x = x
+    def _pdf(self, y):
+        return conditional_density_YX(y, self.x)
+
+y_list_prob1 = [0.5]
+x_list_prob1 = []
+y_list_prob2 = [0.5]
+x_list_prob2 = []
+n = 10000
+
+# Gibbs sampling loop.
+np.random.seed(42)
+for i in range(n):
+    current_y = y_list_prob1[i]
+    conditional_rv = ConditionalRV(a=0, b=1, v=current_y)
+    sampled_x = conditional_rv.rvs()
+    conditional_rv = ConditionalRV(a=0, b=1, v=sampled_x)
+    sampled_y = conditional_rv.rvs()
+    y_list_prob1.append(sampled_y)
+    x_list_prob1.append(sampled_x)
+
+    current_y = y_list_prob2[i]
+    conditional_rv_XY = ConditionalRV_XY(a=current_y, b=1, y=current_y)
+    sampled_x = conditional_rv_XY.rvs()
+    conditional_rv_YX = ConditionalRV_YX(a=0, b=sampled_x, x=sampled_x)
+    sampled_y = conditional_rv_YX.rvs()
+    y_list_prob2.append(sampled_y)
+    x_list_prob2.append(sampled_x)
+
+# Ditch initial values, discard burn-ins.
+_ = y_list_prob1.pop(0)
+x_list_prob1 = x_list_prob1[2000:]
+y_list_prob1 = y_list_prob1[2000:]
+_ = y_list_prob2.pop(0)
+x_list_prob2 = x_list_prob2[2000:]
+y_list_prob2 = y_list_prob2[2000:]
+
+# Scatter plot for the centered distributions.
+_, axes = plt.subplots(ncols=2, figsize=(10, 5))
+
+sns.scatterplot(x=x_list_prob1 - np.mean(x_list_prob1),
+                y=y_list_prob1 - np.mean(y_list_prob1),
+                alpha=0.5,
+                ax=axes[0])
+sns.scatterplot(x=x_list_prob2 - np.mean(x_list_prob2),
+                y=y_list_prob2 - np.mean(y_list_prob2),
+                alpha=0.5,
+                ax=axes[1])
+axes[0].set_xlabel('x')
+axes[0].set_ylabel('y')
+axes[0].set_xlim(-0.7, 0.7)
+axes[0].set_ylim(-0.7, 0.7)
+axes[0].axhline(0, color='black', linewidth=0.5)
+axes[0].axvline(0, color='black', linewidth=0.5)
+axes[0].set_title('simulated distribution for problem 1')
+axes[1].set_xlabel('x')
+axes[1].set_ylabel('y')
+axes[1].set_xlim(-0.7, 0.7)
+axes[1].set_ylim(-0.7, 0.7)
+axes[1].axhline(0, color='black', linewidth=0.5)
+axes[1].axvline(0, color='black', linewidth=0.5)
+axes[1].set_title('simulated distribution for problem 2')
+plt.tight_layout()
+```
+
+Our value for the covariance in problem 1 was approximately $0.007$, while our value for the covariance in problem 2 was $\approx 0.019$. Does it make sense to you that both of these covariances are _positive_, given that you now know (roughly) what the distributions look like? My analysis would go something like this:
+
+* In both problems, there _appears_ to be (ever so slightly) more datapoints in the first and third quadrants in the scatter plots where the products
+
+  $$
+  (x-\mu_X) (x-\mu_Y)
+  $$
+
+  are positive, compared to the second and fourth quadrants where these products are negative. Thus, the fact that the covariances are positive makes sense.
+
+These datasets definitely do not appear to be clustered along a line, which is what many of us picture in our minds when we think of two random variables with positive covariance. This might have more to do with the strangely shaped supports of the densities; a square in the first case, a triangle in the second. In any case, these examples at least drive home the point that we need to be very careful with "interpreting" the covariance; sometimes the shapes traced out by variables with non-zero covariance do not quite match our intuitions.
