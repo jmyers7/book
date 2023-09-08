@@ -1054,7 +1054,7 @@ which shows---as I mentioned above---that the probability of an individual sampl
 
 This discussion leads us to:
 
-```{prf:theorem}
+```{prf:definition}
 Let $P$ be a probability measure on $\mathbb{R}$. We shall say $P$ is *continuous* if there is a function $f:\mathbb{R} \to \mathbb{R}$ such that
 
 $$P\big( A \big) = \int_A f(s) \ \text{d} s $$ (cont-eqn)

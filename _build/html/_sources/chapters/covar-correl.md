@@ -12,9 +12,13 @@ kernelspec:
 
 # Covariance and correlation
 
+**THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!**
+
+
+
 ## Dependence of random variables
 
-If two random variables $X$ and $Y$ are _not_ [independent](independence), then they are called (naturally) _dependent_. Though our goal in this chapter is to study a _particular type_ of dependence between random variables, I think it will benefit us by first discussing dependence in general.
+If two random variables $X$ and $Y$ are _not_ [independent](independence), then (naturally) they are called _dependent_. Though our goal in this chapter is to study a _particular type_ of dependence between random variables, I think it will benefit us by first discussing dependence in general.
 
 A natural source of examples of dependent random variables are those which are *functionally* dependent in the sense of the following theorem:
 
@@ -168,7 +172,7 @@ for i, m in enumerate(m):
     ax[i].set_ylabel('$y$')
 ```
 
-We have _seen_ scatter plots like this before! Indeed, recall the dataset from the [beginning](motivation) of the previous chapter consisting of pairs
+We have already seen scatter plots like this before! Indeed, recall the dataset from the [beginning](motivation) of the previous chapter consisting of pairs
 
 $$
 (x_1,y_1),(x_2,y_2),\ldots,(x_{2000},y_{2000}),
@@ -211,7 +215,7 @@ plt.tight_layout()
 The line in this plot that the data clusters along is called the _least-squares line_. We will study these later in the book.
 ```
 
-Thus, there appears to be a "noisy" linear dependence between the size of a house $X$ and its selling price $Y$. Moreover, the line that the data naturally clusters along has positive slope, which indicates that as the size of a house increases, its selling price tends to increase as well.
+There appears to be a "noisy" linear dependence between the size of a house $X$ and its selling price $Y$. Moreover, the line that the data naturally clusters along has positive slope, which indicates that as the size of a house increases, its selling price tends to increase as well.
 
 In particular, our goal in this chapter is to uncover ways to _quantify_ or _measure_ the strength of "noisy" linear dependencies between random variables. We will discover that there are two such measures: _Covariance_ and _correlation_.
 
@@ -266,7 +270,7 @@ The reason that we "center" the data is because it allows us to conveniently rep
 > 1. If the observed values of two **centered** random variables $X$ and $Y$ cluster along a line of _positive_ slope, then $x$ and $y$ in a data point $(x,y)$ tend to have the same sign, i.e., $xy>0$.
 > 2. If the observed values of two **centered** random variables $X$ and $Y$ cluster along a line of _negative_ slope, then $x$ and $y$ in a data point $(x,y)$ tend to have opposite signs, i.e., $xy < 0$.
 
-Now, consider the following:
+Essentially, the next definition takes the average value of the product $xy$, as $x$ ranges over observed values of a **centered** random variable $X$ and $y$ ranges over observed values of a second **centered** random variable $Y$. If this average value is positive, it suggests a (noisy) linear dependence with positive slope; if it is negative, it suggests a (noisy) linear dependence with negative slope. A larger average (in either direction---positive or negative) tends to indicate a *stronger* dependency. If the random variables are not centered, then we subtract off their means before computing the product and taking its average value.
 
 ```{prf:definition}
 
@@ -277,4 +281,28 @@ $$
 $$
 ```
 
-More coming soon!
+Before we look at examples, it will be convenient to state and prove the following:
+
+```{prf:theorem} Shortcut Formula for Covariance
+
+Let $X$ and $Y$ be two random variables. Then
+
+$$
+\operatorname{Cov}(X,Y) = E(XY) - E(X) E(Y).
+$$
+```
+
+The proof is a triviality, given all the properties that we already know about expectations:
+
+\begin{align*}
+\operatorname{Cov}(X,Y) &= E\left(XY - \mu_Y X - \mu_X Y + \mu_X \mu_Y \right) \\
+&= E(XY) - 2\mu_X\mu_Y + \mu_X\mu_Y \\
+&= E(XY) - E(X) E(Y).
+\end{align*}
+
+Now, armed with this formula, let's do some problems:
+
+```{admonition} Problem Prompt
+
+Do problems 1- on the worksheet.
+```

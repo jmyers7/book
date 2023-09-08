@@ -353,9 +353,10 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="covariance-and-correlation">
 <h1><span class="section-number">8. </span>Covariance and correlation<a class="headerlink" href="#covariance-and-correlation" title="Permalink to this heading">#</a></h1>
+<p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
 <section id="dependence-of-random-variables">
 <h2><span class="section-number">8.1. </span>Dependence of random variables<a class="headerlink" href="#dependence-of-random-variables" title="Permalink to this heading">#</a></h2>
-<p>If two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <em>not</em> <a class="reference internal" href="random-vectors.html#independence"><span class="std std-ref">independent</span></a>, then they are called (naturally) <em>dependent</em>. Though our goal in this chapter is to study a <em>particular type</em> of dependence between random variables, I think it will benefit us by first discussing dependence in general.</p>
+<p>If two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <em>not</em> <a class="reference internal" href="random-vectors.html#independence"><span class="std std-ref">independent</span></a>, then (naturally) they are called <em>dependent</em>. Though our goal in this chapter is to study a <em>particular type</em> of dependence between random variables, I think it will benefit us by first discussing dependence in general.</p>
 <p>A natural source of examples of dependent random variables are those which are <em>functionally</em> dependent in the sense of the following theorem:</p>
 <div class="proof theorem admonition" id="theorem-0">
 <p class="admonition-title"><span class="caption-number">Theorem 8.1 </span> (Functional dependence <span class="math notranslate nohighlight">\(\Rightarrow\)</span> dependence)</p>
@@ -515,7 +516,7 @@ h(x) = x(x-1)(x-2)
 </figure>
 </div>
 </div>
-<p>We have <em>seen</em> scatter plots like this before! Indeed, recall the dataset from the <a class="reference internal" href="random-vectors.html#motivation"><span class="std std-ref">beginning</span></a> of the previous chapter consisting of pairs</p>
+<p>We have already seen scatter plots like this before! Indeed, recall the dataset from the <a class="reference internal" href="random-vectors.html#motivation"><span class="std std-ref">beginning</span></a> of the previous chapter consisting of pairs</p>
 <div class="math notranslate nohighlight">
 \[
 (x_1,y_1),(x_2,y_2),\ldots,(x_{2000},y_{2000}),
@@ -562,7 +563,7 @@ h(x) = x(x-1)(x-2)
 <p class="sidebar-title"></p>
 <p>The line in this plot that the data clusters along is called the <em>least-squares line</em>. We will study these later in the book.</p>
 </aside>
-<p>Thus, there appears to be a “noisy” linear dependence between the size of a house <span class="math notranslate nohighlight">\(X\)</span> and its selling price <span class="math notranslate nohighlight">\(Y\)</span>. Moreover, the line that the data naturally clusters along has positive slope, which indicates that as the size of a house increases, its selling price tends to increase as well.</p>
+<p>There appears to be a “noisy” linear dependence between the size of a house <span class="math notranslate nohighlight">\(X\)</span> and its selling price <span class="math notranslate nohighlight">\(Y\)</span>. Moreover, the line that the data naturally clusters along has positive slope, which indicates that as the size of a house increases, its selling price tends to increase as well.</p>
 <p>In particular, our goal in this chapter is to uncover ways to <em>quantify</em> or <em>measure</em> the strength of “noisy” linear dependencies between random variables. We will discover that there are two such measures: <em>Covariance</em> and <em>correlation</em>.</p>
 </section>
 <section id="covariance">
@@ -614,7 +615,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 <li><p>If the observed values of two <strong>centered</strong> random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> cluster along a line of <em>negative</em> slope, then <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> in a data point <span class="math notranslate nohighlight">\((x,y)\)</span> tend to have opposite signs, i.e., <span class="math notranslate nohighlight">\(xy &lt; 0\)</span>.</p></li>
 </ol>
 </div></blockquote>
-<p>Now, consider the following:</p>
+<p>Essentially, the next definition takes the average value of the product <span class="math notranslate nohighlight">\(xy\)</span>, as <span class="math notranslate nohighlight">\(x\)</span> ranges over observed values of a <strong>centered</strong> random variable <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(y\)</span> ranges over observed values of a second <strong>centered</strong> random variable <span class="math notranslate nohighlight">\(Y\)</span>. If this average value is positive, it suggests a (noisy) linear dependence with positive slope; if it is negative, it suggests a (noisy) linear dependence with negative slope. A larger average (in either direction—positive or negative) tends to indicate a <em>stronger</em> dependency. If the random variables are not centered, then we subtract off their means before computing the product and taking its average value.</p>
 <div class="proof definition admonition" id="definition-1">
 <p class="admonition-title"><span class="caption-number">Definition 8.1 </span></p>
 <section class="definition-content" id="proof-content">
@@ -624,7 +625,28 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 \operatorname{Cov}(X,Y) = E \left[ (X-\mu_X)(Y-\mu_Y) \right].
 \]</div>
 </section>
-</div><p>More coming soon!</p>
+</div><p>Before we look at examples, it will be convenient to state and prove the following:</p>
+<div class="proof theorem admonition" id="theorem-2">
+<p class="admonition-title"><span class="caption-number">Theorem 8.2 </span> (Shortcut Formula for Covariance)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables. Then</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{Cov}(X,Y) = E(XY) - E(X) E(Y).
+\]</div>
+</section>
+</div><p>The proof is a triviality, given all the properties that we already know about expectations:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\operatorname{Cov}(X,Y) &amp;= E\left(XY - \mu_Y X - \mu_X Y + \mu_X \mu_Y \right) \\
+&amp;= E(XY) - 2\mu_X\mu_Y + \mu_X\mu_Y \\
+&amp;= E(XY) - E(X) E(Y).
+\end{align*}\]</div>
+<p>Now, armed with this formula, let’s do some problems:</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problems 1- on the worksheet.</p>
+</div>
 </section>
 </section>
 
