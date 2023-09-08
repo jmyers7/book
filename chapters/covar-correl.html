@@ -410,7 +410,7 @@ h(x) = x(x-1)(x-2)
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">multivariate_normal</span><span class="p">,</span> <span class="n">norm</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">multivariate_normal</span><span class="p">,</span> <span class="n">norm</span><span class="p">,</span> <span class="n">rv_continuous</span>
 
 <span class="c1"># hide annoying warnings for tight_layout()</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -483,7 +483,7 @@ h(x) = x(x-1)(x-2)
 </figure>
 </div>
 </div>
-<p>The “noisy” functional relationship is draw in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span> for reference. Instead of lying directly on the graph of <span class="math notranslate nohighlight">\(y=h(x)\)</span>, the data is instead clustered along the graph.</p>
+<p>The “noisy” functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span> for reference. Instead of lying directly on the graph of <span class="math notranslate nohighlight">\(y=h(x)\)</span>, the data is clustered along the graph.</p>
 <p>The goal in this chapter is to study “noisy” <em>linear</em> dependencies between random variables; relationships that look like these:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -645,8 +645,145 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 <p>Now, armed with this formula, let’s do some problems:</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
-<p>Do problems 1- on the worksheet.</p>
+<p>Do problems 1 and 2 on the worksheet.</p>
 </div>
+<p>After completing these two worksheet problems, it is worth taking a look at simulated random draws from the distributions. Tne density in problem 1 was</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+f(x,y) = \begin{cases}
+2xy + 0.5 &amp; : 0 \leq x, y \leq 1, \\
+0 &amp; : \text{otherwise},
+\end{cases}
+\end{split}\]</div>
+<p>while the density in problem 2 was</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+f(x,y) = \begin{cases}
+3x &amp; : 0 \leq y\leq x \leq 1, \\
+0 &amp; : \text{otherwise}.
+\end{cases}
+\end{split}\]</div>
+<p>If we simulate 8,000 random draws from these densities, center the distributions by subtacting their means, and then generate scatter plots, we get:</p>
+<div class="cell tag_hide-input tag_full-width docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># For problem 1, define the conditional distribution by subclassing</span>
+<span class="c1"># `rv_continuous` from SciPy. The conditional density is</span>
+<span class="c1"># symmetric in x and y, so we only need one implementation</span>
+<span class="c1"># using &quot;generic&quot; variables `u` and `v`.</span>
+<span class="k">def</span> <span class="nf">conditional_density</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">u</span> <span class="o">*</span> <span class="n">v</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ConditionalRV</span><span class="p">(</span><span class="n">rv_continuous</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">v</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="k">def</span> <span class="nf">_pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">conditional_density</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+
+<span class="c1"># For problem 2, the conditional densities are *not*</span>
+<span class="c1"># symmetric in `x` and `y`, so we need to define two</span>
+<span class="c1"># conditional distributions.</span>
+<span class="k">def</span> <span class="nf">conditional_density_YX</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">x</span>
+<span class="k">def</span> <span class="nf">conditional_density_XY</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ConditionalRV_XY</span><span class="p">(</span><span class="n">rv_continuous</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="k">def</span> <span class="nf">_pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">conditional_density_XY</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ConditionalRV_YX</span><span class="p">(</span><span class="n">rv_continuous</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="k">def</span> <span class="nf">_pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">conditional_density_YX</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">y_list_prob1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">]</span>
+<span class="n">x_list_prob1</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">y_list_prob2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">]</span>
+<span class="n">x_list_prob2</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10000</span>
+
+<span class="c1"># Gibbs sampling loop.</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">current_y</span> <span class="o">=</span> <span class="n">y_list_prob1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">conditional_rv</span> <span class="o">=</span> <span class="n">ConditionalRV</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="n">current_y</span><span class="p">)</span>
+    <span class="n">sampled_x</span> <span class="o">=</span> <span class="n">conditional_rv</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span>
+    <span class="n">conditional_rv</span> <span class="o">=</span> <span class="n">ConditionalRV</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="n">sampled_x</span><span class="p">)</span>
+    <span class="n">sampled_y</span> <span class="o">=</span> <span class="n">conditional_rv</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span>
+    <span class="n">y_list_prob1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sampled_y</span><span class="p">)</span>
+    <span class="n">x_list_prob1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sampled_x</span><span class="p">)</span>
+
+    <span class="n">current_y</span> <span class="o">=</span> <span class="n">y_list_prob2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">conditional_rv_XY</span> <span class="o">=</span> <span class="n">ConditionalRV_XY</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">current_y</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">current_y</span><span class="p">)</span>
+    <span class="n">sampled_x</span> <span class="o">=</span> <span class="n">conditional_rv_XY</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span>
+    <span class="n">conditional_rv_YX</span> <span class="o">=</span> <span class="n">ConditionalRV_YX</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">sampled_x</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">sampled_x</span><span class="p">)</span>
+    <span class="n">sampled_y</span> <span class="o">=</span> <span class="n">conditional_rv_YX</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span>
+    <span class="n">y_list_prob2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sampled_y</span><span class="p">)</span>
+    <span class="n">x_list_prob2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sampled_x</span><span class="p">)</span>
+
+<span class="c1"># Ditch initial values, discard burn-ins.</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">y_list_prob1</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x_list_prob1</span> <span class="o">=</span> <span class="n">x_list_prob1</span><span class="p">[</span><span class="mi">2000</span><span class="p">:]</span>
+<span class="n">y_list_prob1</span> <span class="o">=</span> <span class="n">y_list_prob1</span><span class="p">[</span><span class="mi">2000</span><span class="p">:]</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">y_list_prob2</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x_list_prob2</span> <span class="o">=</span> <span class="n">x_list_prob2</span><span class="p">[</span><span class="mi">2000</span><span class="p">:]</span>
+<span class="n">y_list_prob2</span> <span class="o">=</span> <span class="n">y_list_prob2</span><span class="p">[</span><span class="mi">2000</span><span class="p">:]</span>
+
+<span class="c1"># Scatter plot for the centered distributions.</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_list_prob1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x_list_prob1</span><span class="p">),</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">y_list_prob1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_list_prob1</span><span class="p">),</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_list_prob2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x_list_prob2</span><span class="p">),</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">y_list_prob2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_list_prob2</span><span class="p">),</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;simulated distribution for problem 1&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;simulated distribution for problem 2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/6756108a1e3c860ce1ac4b371e08b10d4e1d6cdc5be108f81b8e27896714dde1.png"><img alt="../_images/6756108a1e3c860ce1ac4b371e08b10d4e1d6cdc5be108f81b8e27896714dde1.png" src="../_images/6756108a1e3c860ce1ac4b371e08b10d4e1d6cdc5be108f81b8e27896714dde1.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>Our value for the covariance in problem 1 was approximately <span class="math notranslate nohighlight">\(0.007\)</span>, while our value for the covariance in problem 2 was <span class="math notranslate nohighlight">\(\approx 0.019\)</span>. Does it make sense to you that both of these covariances are <em>positive</em>, given that you now know (roughly) what the distributions look like? My analysis would go something like this:</p>
+<ul>
+<li><p>In both problems, there <em>appears</em> to be (ever so slightly) more datapoints in the first and third quadrants in the scatter plots where the products</p>
+<div class="math notranslate nohighlight">
+\[
+  (x-\mu_X) (x-\mu_Y)
+  \]</div>
+<p>are positive, compared to the second and fourth quadrants where these products are negative. Thus, the fact that the covariances are positive makes sense.</p>
+</li>
+</ul>
+<p>These datasets definitely do not appear to be clustered along a line, which is what many of us picture in our minds when we think of two random variables with positive covariance. This might have more to do with the strangely shaped supports of the densities; a square in the first case, a triangle in the second. In any case, these examples at least drive home the point that we need to be very careful with “interpreting” the covariance; sometimes the shapes traced out by variables with non-zero covariance do not quite match our intuitions.</p>
 </section>
 </section>
 
