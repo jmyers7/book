@@ -1168,9 +1168,9 @@ P: \{\text{all events}\} \to [0,1].
 \[P(\{a\}) = P\big([a,a]  \big) = \int_a^a f(s) \ \text{d} s = 0,\]</div>
 <p>which shows—as I mentioned above—that the probability of an individual sample point is <span class="math notranslate nohighlight">\(0\)</span>.</p>
 <p>This discussion leads us to:</p>
-<div class="proof theorem admonition" id="theorem-15">
-<p class="admonition-title"><span class="caption-number">Theorem 2.5 </span></p>
-<section class="theorem-content" id="proof-content">
+<div class="proof definition admonition" id="definition-15">
+<p class="admonition-title"><span class="caption-number">Definition 2.9 </span></p>
+<section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> be a probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. We shall say <span class="math notranslate nohighlight">\(P\)</span> is <em>continuous</em> if there is a function <span class="math notranslate nohighlight">\(f:\mathbb{R} \to \mathbb{R}\)</span> such that</p>
 <div class="math notranslate nohighlight" id="equation-cont-eqn">
 <span class="eqno">(2.4)<a class="headerlink" href="#equation-cont-eqn" title="Permalink to this equation">#</a></span>\[P\big( A \big) = \int_A f(s) \ \text{d} s \]</div>
@@ -1197,7 +1197,7 @@ P: \{\text{all events}\} \to [0,1].
 </div>
 <p>It turns out that probability density functions have similar properties compared to probability mass functions:</p>
 <div class="proof theorem admonition" id="theorem-16">
-<p class="admonition-title"><span class="caption-number">Theorem 2.6 </span> (Properties of Probability Density Functions (univariate version))</p>
+<p class="admonition-title"><span class="caption-number">Theorem 2.5 </span> (Properties of Probability Density Functions (univariate version))</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(f(s)\)</span> be the probability density function of a continuous probability measure <span class="math notranslate nohighlight">\(P\)</span> on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. Then:</p>
 <ol class="arabic simple">
@@ -1207,7 +1207,7 @@ P: \{\text{all events}\} \to [0,1].
 </section>
 </div><p>Conversely, any function <span class="math notranslate nohighlight">\(f\)</span> with these two properties defines a unique continuous probability measure:</p>
 <div class="proof theorem admonition" id="theorem-17">
-<p class="admonition-title"><span class="caption-number">Theorem 2.7 </span> (Continuous Probability Construction Lemma (univariate version))</p>
+<p class="admonition-title"><span class="caption-number">Theorem 2.6 </span> (Continuous Probability Construction Lemma (univariate version))</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(f:\mathbb{R} \to \mathbb{R}\)</span> be a function such that</p>
 <ol class="arabic simple">
@@ -1341,7 +1341,7 @@ P: \{\text{all events}\} \to [0,1].
 <span id="dist-quant"></span><h2><span class="section-number">2.10. </span>Distribution and quantile functions<a class="headerlink" href="#distribution-and-quantile-functions" title="Permalink to this heading">#</a></h2>
 <p>We have seen that discrete probability measures have their probability mass functions, while continuous probability measures (on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>) have their probability density functions. In this section, we study a type of function called a <em>distribution function</em> that may be associated with <em>any</em> probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, whether the measure is discrete, continuous, or neither.</p>
 <div class="proof definition admonition" id="definition-18">
-<p class="admonition-title"><span class="caption-number">Definition 2.9 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 2.10 </span></p>
 <section class="definition-content" id="proof-content">
 <p>A <em>distribution function</em> of a probability measure <span class="math notranslate nohighlight">\(P\)</span> on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> is the function <span class="math notranslate nohighlight">\(F:\mathbb{R} \to \mathbb{R}\)</span> such that</p>
 <div class="math notranslate nohighlight">
@@ -1542,7 +1542,7 @@ P: \{\text{all events}\} \to [0,1].
 </div>
 <p>In contrast to the distribution function above, notice that this one is <em>continuous</em>. So, we have noted that the <em>discrete</em> probability measure above has a distribution function which is a step function, while the <em>continuous</em> probability measure above has a distribution function which is itself continuous. These are <em>not</em> coincidences! In fact:</p>
 <div class="proof theorem admonition" id="theorem-19">
-<p class="admonition-title"><span class="caption-number">Theorem 2.8 </span> (Properties of Distribution Functions)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 2.7 </span> (Properties of Distribution Functions)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(F(s)\)</span> be the distribution function of a probability measure <span class="math notranslate nohighlight">\(P\)</span> on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. Then:</p>
 <ol class="arabic simple">
@@ -1582,7 +1582,7 @@ P: \{\text{all events}\} \to [0,1].
 </div>
 <p>It turns out that there is a very tight connection between distribution functions of continuous probability measures on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> and density functions. This connection is expressed in:</p>
 <div class="proof theorem admonition" id="theorem-20">
-<p class="admonition-title"><span class="caption-number">Theorem 2.9 </span> (The Fundamental Theorem of Calculus (probability version))</p>
+<p class="admonition-title"><span class="caption-number">Theorem 2.8 </span> (The Fundamental Theorem of Calculus (probability version))</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(F(s)\)</span> be the distribution function of a probability measure <span class="math notranslate nohighlight">\(P\)</span> on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. If <span class="math notranslate nohighlight">\(F(s)\)</span> is continuous, then:</p>
 <ol class="arabic">
@@ -1611,7 +1611,7 @@ P: \{\text{all events}\} \to [0,1].
 </div>
 <p>Having studied distribution functions, we now study their (almost) inverses:</p>
 <div class="proof definition admonition" id="definition-21">
-<p class="admonition-title"><span class="caption-number">Definition 2.10 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 2.11 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> be a probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with distribution function <span class="math notranslate nohighlight">\(F:\mathbb{R} \to [0,1]\)</span>. The <em>quantile function</em> <span class="math notranslate nohighlight">\(Q: [0,1] \to \mathbb{R}\)</span> is defined so that</p>
 <div class="math notranslate nohighlight">
@@ -1793,7 +1793,7 @@ P: \{\text{all events}\} \to [0,1].
 <p>Having studied continuous probability measures on the real line <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, it is now not too much of a leap to imagine the definition of a continuous probability measure on the plane <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>. As a matter of terminology, continuous probability measures on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> are called <em>univariate</em> or <em>single-variable</em>, while continuous probability measures on <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> are called <em>bivariate</em> or <em>two-variable</em>.</p>
 <p>Here’s the definition:</p>
 <div class="proof definition admonition" id="definition-22">
-<p class="admonition-title"><span class="caption-number">Definition 2.11 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 2.12 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> be a probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>. We shall say <span class="math notranslate nohighlight">\(P\)</span> is <em>continuous</em> if there is a function <span class="math notranslate nohighlight">\(f:\mathbb{R}^2 \to \mathbb{R}\)</span> such that</p>
 <div class="math notranslate nohighlight">
@@ -1807,7 +1807,7 @@ P: \{\text{all events}\} \to [0,1].
 </div>
 <p>We have the following list of properties of bivariate density functions. This is now the <em>third</em> version of this same list of properties!</p>
 <div class="proof theorem admonition" id="theorem-23">
-<p class="admonition-title"><span class="caption-number">Theorem 2.10 </span> (Properties of Probability Density Functions (bivariate version))</p>
+<p class="admonition-title"><span class="caption-number">Theorem 2.9 </span> (Properties of Probability Density Functions (bivariate version))</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(f(s,t)\)</span> be the probability density function of a continuous probability measure <span class="math notranslate nohighlight">\(P\)</span> on <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>. Then:</p>
 <ol class="arabic simple">
@@ -1817,7 +1817,7 @@ P: \{\text{all events}\} \to [0,1].
 </section>
 </div><p>And we also have a <em>third</em> version of the Probability Construction Lemma. (Are you detecting the pattern yet…?)</p>
 <div class="proof theorem admonition" id="theorem-24">
-<p class="admonition-title"><span class="caption-number">Theorem 2.11 </span> (Continuous Probability Construction Lemma (bivariate version))</p>
+<p class="admonition-title"><span class="caption-number">Theorem 2.10 </span> (Continuous Probability Construction Lemma (bivariate version))</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(f:\mathbb{R}^2 \to \mathbb{R}\)</span> be a function such that</p>
 <ol class="arabic simple">
