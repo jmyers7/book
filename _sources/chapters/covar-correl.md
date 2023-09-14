@@ -307,7 +307,7 @@ Now, armed with this formula, let's do some problems:
 Do problems 1 and 2 on the worksheet.
 ```
 
-After completing these two worksheet problems, it is worth taking a look at simulated random draws from the distributions. Tne density in problem 1 was
+After completing these two worksheet problems, it is worth taking a look at simulated random draws from the distributions. The density in problem 1 was
 
 $$
 f(x,y) = \begin{cases}
@@ -439,4 +439,43 @@ Our value for the covariance in problem 1 was approximately $0.007$, while our v
 
   are positive, compared to the second and fourth quadrants where these products are negative. Thus, the fact that the covariances are positive makes sense.
 
-These datasets definitely do not appear to be clustered along a line, which is what many of us picture in our minds when we think of two random variables with positive covariance. This might have more to do with the strangely shaped supports of the densities; a square in the first case, a triangle in the second. In any case, these examples at least drive home the point that we need to be very careful with "interpreting" the covariance; sometimes the shapes traced out by variables with non-zero covariance do not quite match our intuitions.
+These datasets definitely do not appear to be clustered along a line, which is what many of us might picture in our minds when we think of two random variables with positive covariance. This might have more to do with the strangely shaped supports of the densities; a square in the first case, a triangle in the second. In any case, these examples at least tell us that we need to take care when "interpreting" the covariance, since sometimes the shapes traced out by variables with non-zero covariance do not quite match our intuitions.
+
+A few very useful properties of covariance are listed in the following:
+
+```{prf:theorem} Properties of Covariance
+
+Let $X$, $Y$, and $Z$ be random variables, and $a$, $b$, and $c$ fixed numbers. Then:
+
+1. _Symmetry_. We have
+
+    $$
+    \operatorname{Cov}(X,Y) = \operatorname{Cov}(Y,X).
+    $$
+
+2. _Linearity_. We have
+    
+    $$
+    \operatorname{Cov}(aX+bY+c,Z) = a\operatorname{Cov}(X,Z) + b \operatorname{Cov}(Y,Z).
+    $$
+
+```
+
+I suggest that you prove these two properties on your own. The symmetry property follows immediately from the definition of covariance, while linearity follows from the definition and linearity of expectations. Together, these two properties also imply that covariances are linear in their second arguments as well as their first, in the sense that
+
+$$
+\operatorname{Cov}(Z,aX+bY+c) = a\operatorname{Cov}(Z,X) + b \operatorname{Cov}(Z,Y).
+$$
+
+So, covariances are not just linear operations---they are _bilinear_!
+
+
+
+While the signs of covariances are significant, their precise numerical values may be less so. One reason for this is that covariances are unbounded, in the sense that they may take any value from $-\infty$ to $+\infty$. They are also senstive to the scales on which the variables are measured. For example, in the housing dataset that we considered in the previous section, suppose that $Z$ represents the size of a house measured in _hundereds_ of square feet; then $X$ and $Z$ are related via the equation $Z = X/100$. But then, as we will show below, we have
+
+$$
+\operatorname{Cov}(Z,Y) = \frac{1}{100} \operatorname{Cov}(X,Y),
+$$
+
+so the covariance between $X$ and $Y$ is _different_ from the covariance between $Z$ and $Y$. The fact that covariances are unbounded and sensitive to scale means that the precise values of covariances can be hard to interpret.
+
