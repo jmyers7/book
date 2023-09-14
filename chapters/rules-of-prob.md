@@ -507,7 +507,61 @@ Indeed, this version of the Law of Total Probability is the special case of the 
 Do problem 10 on the worksheet.
 ```
 
-Finally, our last result is following very important theorem:
+Finally, to motivate the last result in this chapter, let's consider the following real-world scenario: 
+
+```{admonition} The Canonical Example of Bayes' Theorem
+Suppose that a test has been devised to detect a certain disease. Moreover, suppose that:
+
+* The disease affects $0.1\%$ of the population.
+* The test does not produce any false negatives.
+* The test produces false positives at a rate of $5\%$.
+
+Given that a randomly selected individual tests positive for the disease, what is the probability that they have it?
+```
+
+In order to answer this question, we first need to set up a probability space that models the scenario. As a sample space $S$, we would take the population of people under consideration. We assume that the probability measure $P$ is uniform over the population. Then, the two events in $S$ that we are concerned with are the events $D$ and $T$, where $D$ consists of those people that have the disease and $T$ consists of those people who tested positive.
+
+Our first goal is to take the three statements in bullet points and turn them into probability statements involving the events $D$ and $T$. Since the probability measure $P$ is uniform, the percentages given in the problem statements _are_ probabilities. So, to say that the disease affects only $0.1\%$ of the population means that
+
+$$
+P(D) = 0.001.
+$$
+
+The test produces a false negative when it says that a person does _not_ have the disease when they actually _do_ have the disease. The problem statement tells us that this _never_ happens, so we have $P(T^c | D) = 0$, which is equivalent to
+
+```{margin}
+The probability $P(T|D)$ is sometimes called the _true positive rate_ or the _recall_ of the test, while the probability $P(D|T)$ is sometimes called the _precision_ of the test.
+```
+
+$$
+P(T | D) = 1.
+$$
+
+The test produces a false positive when it says that a person _has_ the disease when they actually do _not_ have the disease. This happens at a rate of $5\%$, so we have
+
+$$
+P(T|D^c) = 0.05.
+$$
+
+Finally, the goal of the problem is to compute the conditional probability $P(D|T)$.
+
+It is helpful to conceptualize a _causal_ relationship between the two events $D$ and $T$, or a "direction of influence." It is certainly the case that the presence of the disease influences the outcome of the test, while it is difficult to imagine that the outcome of the test could influence whether or not a person has the disease. Thus, the direction of influence flows from $D$ to $T$, which we might depict graphically as:
+
+&nbsp;
+
+```{image} ../img/bayes.svg
+:width: 35%
+:align: center
+```
+&nbsp;
+
+This problem involves reasoning about the events $D$ and $T$. Reasoning that _begins_ with $D$ and flows downward toward $T$ in the direction of influence is sometimes called _causal reasoning_; in the other direction, reasoning that _begins_ with $T$ and flows upward toward $D$ in the opposite direction of influence is sometimes called _evidential reasoning_. In this language:
+
+* The event $T$ is called the _evidence_ and is said to be _observed_. The event $D$ is called _hidden_ or _latent_.
+* Determining the conditional probability $P(T|D)$ is part of causal reasoning, since it begins with $D$ as a _given_.
+* Determining the conditional probability $P(D|T)$ is part of evidential reasoning, since it begins with $T$ (the evidence!) as a _given_.
+
+Now, the problem statement gives us $P(T|D)=1$ and asks us to compute $P(D|T)$. Thus, we need a tool that allows us to reverse causal reasoning and turn it into evidential reasoning. This tool is precisely Bayes' Theorem!
 
 ```{prf:theorem} Bayes' Theorem
 
@@ -516,7 +570,13 @@ Let $A$ and $B$ be two events in a sample space $S$ with $P(B)>0$. Then
 $$ P(A| B) = \frac{P(B|A)P(A)}{P(B)}.$$
 ```
 
-Bayes' Theorem allows you to switch the order of conditioning: If you want to compute $P(A|B)$ but you only know $P(B|A)$, then Bayes' Theorem allows you to find the former, provided that you know $P(A)$ and $P(B)$.
+The proof of Bayes' Theorem is a complete triviality and follows immediately from the definitions. The real value of the theorem derives not from it being a "difficult" theorem, but rather from the fact that it allows us to reverse the direction of conditioning and to thereby reverse causal reasoning to evidential reasoning (and vice versa). Applying Bayes' Theorem to our situation, we would write:
+
+$$
+P(D| T) = \frac{P(T|D)P(D)}{P(T)}.
+$$
+
+Thus, to compute $P(D|T)$, we just need to compute the three probabilities on the right-hand side. We will do precisely this in the next problem. You will probably find the answer surprising.
 
 ```{admonition} Problem Prompt
 Do problem 11 on the worksheet.

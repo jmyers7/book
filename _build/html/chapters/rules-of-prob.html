@@ -626,7 +626,49 @@ document.write(`
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problem 10 on the worksheet.</p>
 </div>
-<p>Finally, our last result is following very important theorem:</p>
+<p>Finally, to motivate the last result in this chapter, let’s consider the following real-world scenario:</p>
+<div class="admonition-the-canonical-example-of-bayes-theorem admonition">
+<p class="admonition-title">The Canonical Example of Bayes’ Theorem</p>
+<p>Suppose that a test has been devised to detect a certain disease. Moreover, suppose that:</p>
+<ul class="simple">
+<li><p>The disease affects <span class="math notranslate nohighlight">\(0.1\%\)</span> of the population.</p></li>
+<li><p>The test does not produce any false negatives.</p></li>
+<li><p>The test produces false positives at a rate of <span class="math notranslate nohighlight">\(5\%\)</span>.</p></li>
+</ul>
+<p>Given that a randomly selected individual tests positive for the disease, what is the probability that they have it?</p>
+</div>
+<p>In order to answer this question, we first need to set up a probability space that models the scenario. As a sample space <span class="math notranslate nohighlight">\(S\)</span>, we would take the population of people under consideration. We assume that the probability measure <span class="math notranslate nohighlight">\(P\)</span> is uniform over the population. Then, the two events in <span class="math notranslate nohighlight">\(S\)</span> that we are concerned with are the events <span class="math notranslate nohighlight">\(D\)</span> and <span class="math notranslate nohighlight">\(T\)</span>, where <span class="math notranslate nohighlight">\(D\)</span> consists of those people that have the disease and <span class="math notranslate nohighlight">\(T\)</span> consists of those people who tested positive.</p>
+<p>Our first goal is to take the three statements in bullet points and turn them into probability statements involving the events <span class="math notranslate nohighlight">\(D\)</span> and <span class="math notranslate nohighlight">\(T\)</span>. Since the probability measure <span class="math notranslate nohighlight">\(P\)</span> is uniform, the percentages given in the problem statements <em>are</em> probabilities. So, to say that the disease affects only <span class="math notranslate nohighlight">\(0.1\%\)</span> of the population means that</p>
+<div class="math notranslate nohighlight">
+\[
+P(D) = 0.001.
+\]</div>
+<p>The test produces a false negative when it says that a person does <em>not</em> have the disease when they actually <em>do</em> have the disease. The problem statement tells us that this <em>never</em> happens, so we have <span class="math notranslate nohighlight">\(P(T^c | D) = 0\)</span>, which is equivalent to</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>The probability <span class="math notranslate nohighlight">\(P(T|D)\)</span> is sometimes called the <em>true positive rate</em> or the <em>recall</em> of the test, while the probability <span class="math notranslate nohighlight">\(P(D|T)\)</span> is sometimes called the <em>precision</em> of the test.</p>
+</aside>
+<div class="math notranslate nohighlight">
+\[
+P(T | D) = 1.
+\]</div>
+<p>The test produces a false positive when it says that a person <em>has</em> the disease when they actually do <em>not</em> have the disease. This happens at a rate of <span class="math notranslate nohighlight">\(5\%\)</span>, so we have</p>
+<div class="math notranslate nohighlight">
+\[
+P(T|D^c) = 0.05.
+\]</div>
+<p>Finally, the goal of the problem is to compute the conditional probability <span class="math notranslate nohighlight">\(P(D|T)\)</span>.</p>
+<p>It is helpful to conceptualize a <em>causal</em> relationship between the two events <span class="math notranslate nohighlight">\(D\)</span> and <span class="math notranslate nohighlight">\(T\)</span>, or a “direction of influence.” It is certainly the case that the presence of the disease influences the outcome of the test, while it is difficult to imagine that the outcome of the test could influence whether or not a person has the disease. Thus, the direction of influence flows from <span class="math notranslate nohighlight">\(D\)</span> to <span class="math notranslate nohighlight">\(T\)</span>, which we might depict graphically as:</p>
+<p> </p>
+<a class="reference internal image-reference" href="../_images/bayes.svg"><img alt="../_images/bayes.svg" class="align-center" src="../_images/bayes.svg" width="35%" /></a>
+<p> </p>
+<p>This problem involves reasoning about the events <span class="math notranslate nohighlight">\(D\)</span> and <span class="math notranslate nohighlight">\(T\)</span>. Reasoning that <em>begins</em> with <span class="math notranslate nohighlight">\(D\)</span> and flows downward toward <span class="math notranslate nohighlight">\(T\)</span> in the direction of influence is sometimes called <em>causal reasoning</em>; in the other direction, reasoning that <em>begins</em> with <span class="math notranslate nohighlight">\(T\)</span> and flows upward toward <span class="math notranslate nohighlight">\(D\)</span> in the opposite direction of influence is sometimes called <em>evidential reasoning</em>. In this language:</p>
+<ul class="simple">
+<li><p>The event <span class="math notranslate nohighlight">\(T\)</span> is called the <em>evidence</em> and is said to be <em>observed</em>. The event <span class="math notranslate nohighlight">\(D\)</span> is called <em>hidden</em> or <em>latent</em>.</p></li>
+<li><p>Determining the conditional probability <span class="math notranslate nohighlight">\(P(T|D)\)</span> is part of causal reasoning, since it begins with <span class="math notranslate nohighlight">\(D\)</span> as a <em>given</em>.</p></li>
+<li><p>Determining the conditional probability <span class="math notranslate nohighlight">\(P(D|T)\)</span> is part of evidential reasoning, since it begins with <span class="math notranslate nohighlight">\(T\)</span> (the evidence!) as a <em>given</em>.</p></li>
+</ul>
+<p>Now, the problem statement gives us <span class="math notranslate nohighlight">\(P(T|D)=1\)</span> and asks us to compute <span class="math notranslate nohighlight">\(P(D|T)\)</span>. Thus, we need a tool that allows us to reverse causal reasoning and turn it into evidential reasoning. This tool is precisely Bayes’ Theorem!</p>
 <div class="proof theorem admonition" id="theorem-13">
 <p class="admonition-title"><span class="caption-number">Theorem 3.10 </span> (Bayes’ Theorem)</p>
 <section class="theorem-content" id="proof-content">
@@ -634,7 +676,12 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[ P(A| B) = \frac{P(B|A)P(A)}{P(B)}.\]</div>
 </section>
-</div><p>Bayes’ Theorem allows you to switch the order of conditioning: If you want to compute <span class="math notranslate nohighlight">\(P(A|B)\)</span> but you only know <span class="math notranslate nohighlight">\(P(B|A)\)</span>, then Bayes’ Theorem allows you to find the former, provided that you know <span class="math notranslate nohighlight">\(P(A)\)</span> and <span class="math notranslate nohighlight">\(P(B)\)</span>.</p>
+</div><p>The proof of Bayes’ Theorem is a complete triviality and follows immediately from the definitions. The real value of the theorem derives not from it being a “difficult” theorem, but rather from the fact that it allows us to reverse the direction of conditioning and to thereby reverse causal reasoning to evidential reasoning (and vice versa). Applying Bayes’ Theorem to our situation, we would write:</p>
+<div class="math notranslate nohighlight">
+\[
+P(D| T) = \frac{P(T|D)P(D)}{P(T)}.
+\]</div>
+<p>Thus, to compute <span class="math notranslate nohighlight">\(P(D|T)\)</span>, we just need to compute the three probabilities on the right-hand side. We will do precisely this in the next problem. You will probably find the answer surprising.</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problem 11 on the worksheet.</p>

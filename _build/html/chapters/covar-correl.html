@@ -647,7 +647,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problems 1 and 2 on the worksheet.</p>
 </div>
-<p>After completing these two worksheet problems, it is worth taking a look at simulated random draws from the distributions. Tne density in problem 1 was</p>
+<p>After completing these two worksheet problems, it is worth taking a look at simulated random draws from the distributions. The density in problem 1 was</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 f(x,y) = \begin{cases}
@@ -783,7 +783,39 @@ f(x,y) = \begin{cases}
 <p>are positive, compared to the second and fourth quadrants where these products are negative. Thus, the fact that the covariances are positive makes sense.</p>
 </li>
 </ul>
-<p>These datasets definitely do not appear to be clustered along a line, which is what many of us picture in our minds when we think of two random variables with positive covariance. This might have more to do with the strangely shaped supports of the densities; a square in the first case, a triangle in the second. In any case, these examples at least drive home the point that we need to be very careful with “interpreting” the covariance; sometimes the shapes traced out by variables with non-zero covariance do not quite match our intuitions.</p>
+<p>These datasets definitely do not appear to be clustered along a line, which is what many of us might picture in our minds when we think of two random variables with positive covariance. This might have more to do with the strangely shaped supports of the densities; a square in the first case, a triangle in the second. In any case, these examples at least tell us that we need to take care when “interpreting” the covariance, since sometimes the shapes traced out by variables with non-zero covariance do not quite match our intuitions.</p>
+<p>A few very useful properties of covariance are listed in the following:</p>
+<div class="proof theorem admonition" id="theorem-3">
+<p class="admonition-title"><span class="caption-number">Theorem 8.3 </span> (Properties of Covariance)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>, and <span class="math notranslate nohighlight">\(Z\)</span> be random variables, and <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span>, and <span class="math notranslate nohighlight">\(c\)</span> fixed numbers. Then:</p>
+<ol class="arabic">
+<li><p><em>Symmetry</em>. We have</p>
+<div class="math notranslate nohighlight">
+\[
+    \operatorname{Cov}(X,Y) = \operatorname{Cov}(Y,X).
+    \]</div>
+</li>
+<li><p><em>Linearity</em>. We have</p>
+<div class="math notranslate nohighlight">
+\[
+    \operatorname{Cov}(aX+bY+c,Z) = a\operatorname{Cov}(X,Z) + b \operatorname{Cov}(Y,Z).
+    \]</div>
+</li>
+</ol>
+</section>
+</div><p>I suggest that you prove these two properties on your own. The symmetry property follows immediately from the definition of covariance, while linearity follows from the definition and linearity of expectations. Together, these two properties also imply that covariances are linear in their second arguments as well as their first, in the sense that</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{Cov}(Z,aX+bY+c) = a\operatorname{Cov}(Z,X) + b \operatorname{Cov}(Z,Y).
+\]</div>
+<p>So, covariances are not just linear operations—they are <em>bilinear</em>!</p>
+<p>While the signs of covariances are significant, their precise numerical values may be less so. One reason for this is that covariances are unbounded, in the sense that they may take any value from <span class="math notranslate nohighlight">\(-\infty\)</span> to <span class="math notranslate nohighlight">\(+\infty\)</span>. They are also senstive to the scales on which the variables are measured. For example, in the housing dataset that we considered in the previous section, suppose that <span class="math notranslate nohighlight">\(Z\)</span> represents the size of a house measured in <em>hundereds</em> of square feet; then <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> are related via the equation <span class="math notranslate nohighlight">\(Z = X/100\)</span>. But then, as we will show below, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{Cov}(Z,Y) = \frac{1}{100} \operatorname{Cov}(X,Y),
+\]</div>
+<p>so the covariance between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> is <em>different</em> from the covariance between <span class="math notranslate nohighlight">\(Z\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. The fact that covariances are unbounded and sensitive to scale means that the precise values of covariances can be hard to interpret.</p>
 </section>
 </section>
 
