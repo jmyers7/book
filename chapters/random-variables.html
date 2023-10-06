@@ -494,7 +494,7 @@ P_X(\{40\}) &amp;= 8/32 = 0.25, \\
 P_X(\{45\}) &amp;= 12/32 \approx 0.38, \\
 P_X(\{50\}) &amp;= 5/32 \approx 0.16.
 \end{align*}\]</div>
-<p>The equation <a class="reference internal" href="prob-spaces.html#equation-inv-eqn">(2.6)</a> is the fundamental bridge that relates the two probability measures <span class="math notranslate nohighlight">\(P\)</span> (on <span class="math notranslate nohighlight">\(S\)</span>) and <span class="math notranslate nohighlight">\(P_X\)</span> (on <span class="math notranslate nohighlight">\(\mathbb{R})\)</span>, so make sure that you understand it! (It will reappear below in the abstract definitions.)</p>
+<p>The equation <a class="reference internal" href="#equation-inv-eqn">(4.1)</a> is the fundamental bridge that relates the two probability measures <span class="math notranslate nohighlight">\(P\)</span> (on <span class="math notranslate nohighlight">\(S\)</span>) and <span class="math notranslate nohighlight">\(P_X\)</span> (on <span class="math notranslate nohighlight">\(\mathbb{R})\)</span>, so make sure that you understand it! (It will reappear below in the abstract definitions.)</p>
 <p>The probability measure <span class="math notranslate nohighlight">\(P\)</span> lives on the original probability space <span class="math notranslate nohighlight">\(S\)</span>, so we can’t really <em>visualize</em> it since <span class="math notranslate nohighlight">\(S\)</span> doesn’t have a nice linear structure like <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. However, the probability measure <span class="math notranslate nohighlight">\(P_X\)</span> lives on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, so we <em>can</em> visualize <em>it</em> using a probability histogram:</p>
 <a class="reference internal image-reference" href="../_images/discretedist.svg"><img alt="../_images/discretedist.svg" class="align-center" src="../_images/discretedist.svg" width="90%" /></a>
 <p> </p>
@@ -508,7 +508,7 @@ P_X(\{50\}) &amp;= 5/32 \approx 0.16.
 <span class="eqno">(4.2)<a class="headerlink" href="#equation-inv2-eqn" title="Permalink to this equation">#</a></span>\[P_X(A) = P \big( \{ s\in S : X(s) \in A\} \big),\]</div>
 <p>for all events <span class="math notranslate nohighlight">\(A\subset \mathbb{R}\)</span>.</p>
 </section>
-</div><p>The defining equation <a class="reference internal" href="#equation-inv2-eqn">(4.2)</a> might look confusing and intimidating, but notice that it just encapsulates the idea behind equation <a class="reference internal" href="prob-spaces.html#equation-inv-eqn">(2.6)</a> that we explored above. Indeed, in our example from above, <span class="math notranslate nohighlight">\(X\)</span> was the ‘annual income’ variable. If we let <span class="math notranslate nohighlight">\(A\)</span> be the simple event <span class="math notranslate nohighlight">\(\{x\}\)</span>, then the left-hand side of <a class="reference internal" href="#equation-inv2-eqn">(4.2)</a> is precisely <span class="math notranslate nohighlight">\(P_X(\{x\})\)</span>, just like in <a class="reference internal" href="prob-spaces.html#equation-inv-eqn">(2.6)</a>. On the other side, notice that the set</p>
+</div><p>The defining equation <a class="reference internal" href="#equation-inv2-eqn">(4.2)</a> might look confusing and intimidating, but notice that it just encapsulates the idea behind equation <a class="reference internal" href="#equation-inv-eqn">(4.1)</a> that we explored above. Indeed, in our example from above, <span class="math notranslate nohighlight">\(X\)</span> was the ‘annual income’ variable. If we let <span class="math notranslate nohighlight">\(A\)</span> be the simple event <span class="math notranslate nohighlight">\(\{x\}\)</span>, then the left-hand side of <a class="reference internal" href="#equation-inv2-eqn">(4.2)</a> is precisely <span class="math notranslate nohighlight">\(P_X(\{x\})\)</span>, just like in <a class="reference internal" href="#equation-inv-eqn">(4.1)</a>. On the other side, notice that the set</p>
 <div class="math notranslate nohighlight">
 \[\{ s\in S : X(s) \in \{x\}\}\]</div>
 <p>may be rewritten as</p>
@@ -517,7 +517,7 @@ P_X(\{50\}) &amp;= 5/32 \approx 0.16.
 <p>since the only way that <span class="math notranslate nohighlight">\(X(s) \in \{x\}\)</span> is if <span class="math notranslate nohighlight">\(X(s) = x\)</span>. But the equation <span class="math notranslate nohighlight">\(X(s) = x\)</span> simply says that the annual income of person <span class="math notranslate nohighlight">\(s\)</span> is <span class="math notranslate nohighlight">\(x\)</span>, and hence</p>
 <div class="math notranslate nohighlight">
 \[\{ s\in S : X(s) =x\} = \{\text{people with annual income $x$}\}.\]</div>
-<p>Thus, as I said above, the equation <a class="reference internal" href="#equation-inv2-eqn">(4.2)</a> really is just a generalization of the idea behind <a class="reference internal" href="prob-spaces.html#equation-inv-eqn">(2.6)</a>.</p>
+<p>Thus, as I said above, the equation <a class="reference internal" href="#equation-inv2-eqn">(4.2)</a> really is just a generalization of the idea behind <a class="reference internal" href="#equation-inv-eqn">(4.1)</a>.</p>
 <div class="admonition-alternate-notation admonition">
 <p class="admonition-title">Alternate notation</p>
 <p>In the <em>mathematical</em> theory of probability, the notation <span class="math notranslate nohighlight">\(P_X\)</span> is very common for the probability measure induced by <span class="math notranslate nohighlight">\(X\)</span>. However, in elementary statistics it is much more common to write</p>
@@ -550,14 +550,14 @@ P_X(\{50\}) &amp;= 5/32 \approx 0.16.
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X:S\to \mathbb{R}\)</span> be a random variable.</p>
 <ol class="arabic">
-<li><p>We shall say <span class="math notranslate nohighlight">\(X\)</span> is <em>discrete</em> if there exists a probability mass function <span class="math notranslate nohighlight">\(p:\mathbb{R} \to \mathbb{R}\)</span> such that</p>
+<li><p>We shall say <span class="math notranslate nohighlight">\(X\)</span> is <em>discrete</em> if there exists a function <span class="math notranslate nohighlight">\(p:\mathbb{R} \to \mathbb{R}\)</span> such that</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
     P(X\in A) = \sum_{x\in A} p(x)
     \end{equation*}\]</div>
 <p>for all events <span class="math notranslate nohighlight">\(A\subset \mathbb{R}\)</span>. In this case, <span class="math notranslate nohighlight">\(p(x)\)</span> is called the <em>probability mass function of <span class="math notranslate nohighlight">\(X\)</span></em>.</p>
 </li>
-<li><p>We shall say <span class="math notranslate nohighlight">\(X\)</span> is <em>continuous</em> if there exists a probability density function <span class="math notranslate nohighlight">\(f:\mathbb{R} \to \mathbb{R}\)</span> such that</p>
+<li><p>We shall say <span class="math notranslate nohighlight">\(X\)</span> is <em>continuous</em> if there exists a function <span class="math notranslate nohighlight">\(f:\mathbb{R} \to \mathbb{R}\)</span> such that</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
     P(A) = \int_A f(x) \ \text{d} x
@@ -881,7 +881,7 @@ X: S \to \mathbb{R}, \quad X = \text{ largest of two numbers}.
 <p class="sidebar-title">Looking beyond…</p>
 <p>Though I have only defined expected values of discrete and continuous random variables, technically <em>all</em> random variables have expected values (though there may be convergence issues). However, in order to even <a href="https://en.wikipedia.org/wiki/Expected_value#Arbitrary_real-valued_random_variables"><em>define</em></a> these expected values, we would need the theory of Lebesgue integration that I mentioned above.</p>
 </aside>
-<p>Now, the sum <span class="math notranslate nohighlight">\(\sum_{x\in \mathbb{R}}\)</span> in <a class="reference internal" href="prob-spaces.html#equation-sum-eqn">(2.3)</a> simply means that we are adding up all terms of the form <span class="math notranslate nohighlight">\(x\cdot p(x)\)</span>, as <span class="math notranslate nohighlight">\(x\)</span> ranges over all real numbers in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. But remember, the random variable <span class="math notranslate nohighlight">\(X\)</span> is assumed to be <em>discrete</em>, so there are actually either only finitely many <span class="math notranslate nohighlight">\(p(x)\)</span>’s that are nonzero—in which case the sum is actually finite—or there are a countable infinity that are nonzero—in which case the sum is of the form <span class="math notranslate nohighlight">\(\sum_{n=1}^\infty\)</span>. In the latter case, there is the possibility that the expected value <span class="math notranslate nohighlight">\(E(X)\)</span> doesn’t exist, because the infinite series doesn’t converge. However, at this level, except for a few special cases, we won’t worry about such things. We shall <em>always</em> assume in this class that the infinite series converge and all our expected values exist. Even more, we shall assume that the series converge <em>absolutely</em>, which you might(?) remember means that the series of absolute values</p>
+<p>Now, the sum <span class="math notranslate nohighlight">\(\sum_{x\in \mathbb{R}}\)</span> in <a class="reference internal" href="#equation-sum-eqn">(4.3)</a> simply means that we are adding up all terms of the form <span class="math notranslate nohighlight">\(x\cdot p(x)\)</span>, as <span class="math notranslate nohighlight">\(x\)</span> ranges over all real numbers in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. But remember, the random variable <span class="math notranslate nohighlight">\(X\)</span> is assumed to be <em>discrete</em>, so there are actually either only finitely many <span class="math notranslate nohighlight">\(p(x)\)</span>’s that are nonzero—in which case the sum is actually finite—or there are a countable infinity that are nonzero—in which case the sum is of the form <span class="math notranslate nohighlight">\(\sum_{n=1}^\infty\)</span>. In the latter case, there is the possibility that the expected value <span class="math notranslate nohighlight">\(E(X)\)</span> doesn’t exist, because the infinite series doesn’t converge. However, at this level, except for a few special cases, we won’t worry about such things. We shall <em>always</em> assume in this class that the infinite series converge and all our expected values exist. Even more, we shall assume that the series converge <em>absolutely</em>, which you might(?) remember means that the series of absolute values</p>
 <div class="math notranslate nohighlight">
 \[
 \sum_{x\in \mathbb{R}} |x\cdot p(x)| = \sum_{x\in \mathbb{R}} |x|\cdot p(x)
@@ -1342,8 +1342,8 @@ g(x) = ax+b,
 <p class="admonition-title"><span class="caption-number">Theorem 4.6 </span> (Variance of an Affine Transformation)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable and <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> constants. Then</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f6f06b21-d972-440a-961c-103e6eef9d14">
-<span class="eqno">(4.18)<a class="headerlink" href="#equation-f6f06b21-d972-440a-961c-103e6eef9d14" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
+<div class="amsmath math notranslate nohighlight" id="equation-f231fdc3-fac6-48fb-b45c-98f6c4f11665">
+<span class="eqno">(4.18)<a class="headerlink" href="#equation-f231fdc3-fac6-48fb-b45c-98f6c4f11665" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
 V(aX +b) = a^2 V(X).
 \end{equation}\]</div>
 </section>
