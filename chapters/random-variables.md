@@ -305,7 +305,7 @@ Two types of random variables will be the ones that are most frequently encounte
 
 Let $X:S\to \mathbb{R}$ be a random variable.
 
-1. We shall say $X$ is *discrete* if there exists a probability mass function $p:\mathbb{R} \to \mathbb{R}$ such that
+1. We shall say $X$ is *discrete* if there exists a function $p:\mathbb{R} \to \mathbb{R}$ such that
     
     \begin{equation*}
     P(X\in A) = \sum_{x\in A} p(x)
@@ -313,7 +313,7 @@ Let $X:S\to \mathbb{R}$ be a random variable.
     
     for all events $A\subset \mathbb{R}$. In this case, $p(x)$ is called the *probability mass function of $X$*.
 
-2. We shall say $X$ is *continuous* if there exists a probability density function $f:\mathbb{R} \to \mathbb{R}$ such that
+2. We shall say $X$ is *continuous* if there exists a function $f:\mathbb{R} \to \mathbb{R}$ such that
 
     \begin{equation*}
     P(A) = \int_A f(x) \ \text{d} x
