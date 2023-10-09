@@ -316,7 +316,7 @@ Let $X:S\to \mathbb{R}$ be a random variable.
 2. We shall say $X$ is *continuous* if there exists a function $f:\mathbb{R} \to \mathbb{R}$ such that
 
     \begin{equation*}
-    P(A) = \int_A f(x) \ \text{d} x
+    P(X\in A) = \int_A f(x) \ \text{d} x
     \end{equation*}
 
     for all events $A\subset \mathbb{R}$. In this case, $f(x)$ is called the *probability density function of $X$*.
