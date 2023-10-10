@@ -372,19 +372,20 @@ document.write(`
 <hr class="docutils" />
 <p>In this chapter, (most of) the descriptions of the families of probability distributions will follow the same pattern:</p>
 <ol class="arabic simple">
-<li><p>I will begin by defining the distributions in abstract, purely mathematical terms. This includes a description of the parameters of the distributions and the range of the random variable, as well as formulas for the probability mass and density functions.</p></li>
+<li><p>I will begin by defining the distributions in abstract, purely mathematical terms. This includes a description of the parameters of the distributions as well as formulas for the probability mass and density functions.</p></li>
 <li><p>I will show you several plots of probability mass and density functions, to help convey how different parameter settings affect the shapes of the distributions.</p></li>
 <li><p>I will describe an archetypical real-world scenario in which the family of distributions naturally arises. These scenarios will help explain the abstract definitions.</p></li>
 <li><p>I will give you formulas for the expectations and variances.</p></li>
 <li><p>Interspersed between the first four steps are various comments, remarks, and miscellaneous facts, as well as Problem Prompts pointing to the worksheet.</p></li>
 </ol>
 <p>As you read through the sections below, you will notice that the probability spaces <span class="math notranslate nohighlight">\(S\)</span> that serve as the domains of random variables <span class="math notranslate nohighlight">\(X:S\to \mathbb{R}\)</span> have all but disappeared. They haven’t completely gone away, of course, since whenever we talk about random variables they are there lurking in the background. But this is typical of a course at this level—the probability spaces recede, and random variables take their place as the main objects of study.</p>
-<p>Just two more items before we begin:</p>
+<p>Just three more items before we begin:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ol class="arabic simple">
 <li><p>All the distributions below will be defined via their probability mass and density functions. However, I will <em>not</em> prove that these alleged mass and density functions actually <em>are</em> valid mass and density functions by showing they sum and integrate to <span class="math notranslate nohighlight">\(1\)</span>, are non-negative, <em>etc</em>. I will leave these tasks to the reader to carry out on their own, or to look up in appropriate references.</p></li>
-<li><p>Though the list of distributions in this chapter is long, it is not exhaustive! We will meet other types of distributions later. And beyond this course, there are lots and <em>lots</em> more distributions out there—take a look at all the distributions <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#probability-distributions">implemented</a> in SciPy, for example!</p></li>
+<li><p>Though the list of distributions in this chapter is long, it is not exhaustive! We will meet other types of distributions later, like the <span class="math notranslate nohighlight">\(\chi^2\)</span>, <span class="math notranslate nohighlight">\(t\)</span>, and <span class="math notranslate nohighlight">\(F\)</span> distributions. And beyond this course, there are lots and <em>lots</em> more distributions out there—take a look at all the distributions <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#probability-distributions">implemented</a> in SciPy, for example!</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(X:S\to \mathbb{R}\)</span> is either a discrete or continuous random variable with mass function <span class="math notranslate nohighlight">\(p(x)\)</span> or density function <span class="math notranslate nohighlight">\(f(x)\)</span>, then we shall define the <em>support</em> of <span class="math notranslate nohighlight">\(X\)</span> to be the support of either <span class="math notranslate nohighlight">\(p(x)\)</span> or <span class="math notranslate nohighlight">\(f(x)\)</span> (whichever is applicable). This is technically an incorrect usage of terminology, since the support of <span class="math notranslate nohighlight">\(X\)</span> is already defined as the (closure of the) set of those sample points <span class="math notranslate nohighlight">\(s\in S\)</span> such that <span class="math notranslate nohighlight">\(X(s)\neq 0\)</span>. However, this usage coincides with common usage in the statistical literature.</p></li>
 </ol>
 </div>
 <section id="bernoulli-distributions">
@@ -398,11 +399,12 @@ document.write(`
 <span class="eqno">(5.1)<a class="headerlink" href="#equation-dist-eqn" title="Permalink to this equation">#</a></span>\[
 X \sim \mathcal{B}er(p),
 \]</div>
-<p>if it has range <span class="math notranslate nohighlight">\(\{0,1\}\)</span> and its probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> is given by</p>
+<p>if its probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> is given by</p>
 <div class="math notranslate nohighlight" id="equation-bern-eqn">
 <span class="eqno">(5.2)<a class="headerlink" href="#equation-bern-eqn" title="Permalink to this equation">#</a></span>\[
 p(x) = p^x(1-p)^{1-x}.
 \]</div>
+<p>with support <span class="math notranslate nohighlight">\(\{0,1\}\)</span>.</p>
 </section>
 </div><p>First, notice that the single letter “<span class="math notranslate nohighlight">\(p\)</span>” means <em>different</em> things on the two sides of the equation <a class="reference internal" href="#equation-bern-eqn">(5.2)</a>! On the left, it stands for the name of the probability mass function, while on the right, it stands for the parameter. Now, I’m just as tolerant of abuses and misuses of notation as the next guy, but this one seems pretty terrible to me. Nevertheless, because many books and references use this notation, I feel compelled to use it as well. That’s how these horrible choices in notation—always hallowed by tradition—gain inertia of their own! And we’re powerless to stop them!</p>
 <p>The notation <a class="reference internal" href="#equation-dist-eqn">(5.1)</a> is shorthand for: “The random variable <span class="math notranslate nohighlight">\(X\)</span> has a Bernoulli distribution with parameter <span class="math notranslate nohighlight">\(p\)</span>.” The symbol “<span class="math notranslate nohighlight">\(\sim\)</span>” simply means “is distributed as.” The “thing” <span class="math notranslate nohighlight">\(\mathcal{B}er(p)\)</span> doesn’t really have any sort of existence of its own outside this notation, though sometimes people treat it as if it were the probability mass function, or the distribution function, or whatever. In any case, this is incredibly helpful notation and can be used in many ways to shorten the amount that we need to write.</p>
@@ -506,11 +508,12 @@ V(X) = E(X^2) - E(X)^2 = 0^2 \cdot (1-p) + 1^2 \cdot p - p^2 = p (1-p).
 \[
 Y \sim \mathcal{B}in(n,p),
 \]</div>
-<p>if it has range <span class="math notranslate nohighlight">\(\{0,1,\ldots,n\}\)</span> and its probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> is given by</p>
+<p>if its probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-p(x) = \binom{n}{x}p^x (1-p)^{n-x}.
+p(x) = \binom{n}{x}p^x (1-p)^{n-x}
 \]</div>
+<p>with support <span class="math notranslate nohighlight">\(\{0,1,\ldots,n\}\)</span>.</p>
 </section>
 </div><p>Notice that these distributions require <em>two</em> parameters to describe them. Notice also that a random variable <span class="math notranslate nohighlight">\(X \sim \mathcal{B}in(1,p)\)</span> is nothing but a Bernoulli random variable! Thus, technically, the class of binomial random variables includes the class of Bernoulli ones.</p>
 <p>Here are some probability histograms, for various settings of the parameters:</p>
@@ -554,7 +557,7 @@ p(x) = \binom{n}{x}p^x (1-p)^{n-x}.
 </figure>
 </div>
 </div>
-<p>Increasing the <span class="math notranslate nohighlight">\(n\)</span> parameter increases the size of the range of <span class="math notranslate nohighlight">\(X\sim \mathcal{B}in(n,p)\)</span>, which generally spreads out the distribution (increases its variance). Larger values of <span class="math notranslate nohighlight">\(p\)</span> tend to push the mean of <span class="math notranslate nohighlight">\(X\)</span> toward the larger numbers in its range. Both <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(p\)</span> are called <em>shape parameters</em> of the binomial distributions.</p>
+<p>Increasing the <span class="math notranslate nohighlight">\(n\)</span> parameter increases the size of the support of <span class="math notranslate nohighlight">\(X\sim \mathcal{B}in(n,p)\)</span>, which generally spreads out the distribution (increases its variance). Larger values of <span class="math notranslate nohighlight">\(p\)</span> tend to push the mean of <span class="math notranslate nohighlight">\(X\)</span> toward the larger numbers in its support. Both <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(p\)</span> are called <em>shape parameters</em> of the binomial distributions.</p>
 <div class="admonition-an-archetypical-binomial-scenario admonition">
 <p class="admonition-title">An archetypical binomial scenario</p>
 <p><strong>Q</strong>: Suppose that a coin is flipped <span class="math notranslate nohighlight">\(n\)</span> times and that each flip is independent of the others. Suppose further that we allow for the possibility that the coin is <em>loaded</em>, so that it lands heads with probability <span class="math notranslate nohighlight">\(p\)</span> (which may not be <span class="math notranslate nohighlight">\(0.5\)</span>!). If <span class="math notranslate nohighlight">\(X\)</span> is the number of heads obtained, what is the distribution of the random variable <span class="math notranslate nohighlight">\(X\)</span>?</p>
@@ -646,7 +649,7 @@ P(X=x) = \binom{n}{y} p^x (1-p)^{n-x},
 </section>
 <section id="geometric-distributions">
 <h2><span class="section-number">5.3. </span>Geometric distributions<a class="headerlink" href="#geometric-distributions" title="Permalink to this heading">#</a></h2>
-<p>The ranges of Bernoulli and binomial random variables are finite. Now, we turn our attention toward a class of random variables with countably infinite ranges:</p>
+<p>The supports of Bernoulli and binomial random variables are finite. Now, we turn our attention toward a class of random variables with countably infinite supports:</p>
 <div class="proof definition admonition" id="definition-5">
 <p class="admonition-title"><span class="caption-number">Definition 5.3 </span></p>
 <section class="definition-content" id="proof-content">
@@ -655,11 +658,12 @@ P(X=x) = \binom{n}{y} p^x (1-p)^{n-x},
 \[
 X \sim \mathcal{G}eo(p),
 \]</div>
-<p>if it has range <span class="math notranslate nohighlight">\(\{1,2,\ldots\}\)</span> and its probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> is given by</p>
+<p>if its probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
 p(x) = p (1-p)^{x-1}.
 \]</div>
+<p>with support <span class="math notranslate nohighlight">\(\{1,2,\ldots\}\)</span>.</p>
 </section>
 </div><p>So, we’re back to distributions that are parametrized by a single parameter. For different settings of <span class="math notranslate nohighlight">\(p\)</span>, here are some probability histograms:</p>
 <div class="cell tag_hide-input docutils container">
@@ -747,19 +751,19 @@ E(X) = \frac{1}{p} \quad \text{and} \quad V(X) = \frac{1-p}{p^2}.
 <p class="admonition-title"><span class="caption-number">Definition 5.4 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(M\geq 0\)</span> be an integer, and let <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(N\)</span> be integers with <span class="math notranslate nohighlight">\(0\leq n,N\leq M\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>hypergeometric distribution</em> with parameters <span class="math notranslate nohighlight">\(M\)</span>, <span class="math notranslate nohighlight">\(n\)</span>, and <span class="math notranslate nohighlight">\(N\)</span>, denoted</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f4b9f0c9-0dfa-41f6-a46e-0412b692ed09">
-<span class="eqno">(5.7)<a class="headerlink" href="#equation-f4b9f0c9-0dfa-41f6-a46e-0412b692ed09" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
+<div class="amsmath math notranslate nohighlight" id="equation-932176c0-b0a0-4bab-999c-e81a79f84aa6">
+<span class="eqno">(5.7)<a class="headerlink" href="#equation-932176c0-b0a0-4bab-999c-e81a79f84aa6" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
 Y \sim \mathcal{HG}eo(M,n,N),
 \end{equation}\]</div>
-<p>if it has range all <span class="math notranslate nohighlight">\(x\)</span> such that</p>
-<div class="math notranslate nohighlight" id="equation-range-eqn">
-<span class="eqno">(5.8)<a class="headerlink" href="#equation-range-eqn" title="Permalink to this equation">#</a></span>\[
-0 \leq x \leq n \quad \text{and} \quad 0 \leq N-x \leq M-n
-\]</div>
-<p>and its probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> is given by</p>
+<p>if its probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
 p(x) = \frac{\binom{n}{x}\binom{M-n}{N-x}}{\binom{M}{N}}.
+\]</div>
+<p>with support all <span class="math notranslate nohighlight">\(x\)</span> such that</p>
+<div class="math notranslate nohighlight" id="equation-range-eqn">
+<span class="eqno">(5.8)<a class="headerlink" href="#equation-range-eqn" title="Permalink to this equation">#</a></span>\[
+0 \leq x \leq n \quad \text{and} \quad 0 \leq N-x \leq M-n.
 \]</div>
 </section>
 </div><p>These distributions have quite curious names—what exactly does <em>hypergeometric</em> mean? <a href="https://stats.stackexchange.com/a/90611">Here’s</a> an enlightening explanation.</p>
@@ -870,7 +874,7 @@ k = \binom{n}{x} \binom{M-n}{N-x}.
 P(X=x) = \frac{\binom{n}{x} \binom{M-n}{N-x}}{\binom{M}{N}},
 \]</div>
 <p>which is exactly what we wanted to show.</p>
-<p>With this new knowledge, notice that the range <a class="reference internal" href="#equation-range-eqn">(5.8)</a> now makes complete sense, since</p>
+<p>With this new knowledge, notice that the support <a class="reference internal" href="#equation-range-eqn">(5.8)</a> now makes complete sense, since</p>
 <div class="math notranslate nohighlight">
 \[
 0 \leq x \leq n
@@ -909,11 +913,12 @@ E(X) = \frac{Nn}{M} \quad \text{and} \quad V(X) = \left(\frac{M-N}{M-1}\right) \
 \[
 X \sim \mathcal{P}ois(\mu),
 \]</div>
-<p>if it has range <span class="math notranslate nohighlight">\(\{0,1,2,\ldots\}\)</span> and its probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> is given by</p>
+<p>if its probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-p(x) = \frac{\mu^x}{x!}e^{-\mu}.
+p(x) = \frac{\mu^x}{x!}e^{-\mu}
 \]</div>
+<p>with support <span class="math notranslate nohighlight">\(\{0,1,2,\ldots\}\)</span>.</p>
 </section>
 </div><p>In some references, the parameter <span class="math notranslate nohighlight">\(\mu\)</span> is called <span class="math notranslate nohighlight">\(\lambda\)</span> instead. But this clashes with the usage of <span class="math notranslate nohighlight">\(\lambda\)</span> as a “rate” or “intensity” parameter for <em>Poisson processes</em>, which we will talk about <a class="reference internal" href="#exp-scenario"><span class="std std-ref">below</span></a>. In any case, no matter what you call it, the effect of the parameter on the shape of the distributions is clear:</p>
 <div class="cell tag_hide-input docutils container">
@@ -962,10 +967,16 @@ p(x) = \frac{\mu^x}{x!}e^{-\mu}.
 </aside>
 <div class="admonition-an-archetypical-poisson-scenario admonition" id="poisson-scenario">
 <p class="admonition-title">An archetypical Poisson scenario</p>
-<p><strong>Q</strong>: Over a span of <span class="math notranslate nohighlight">\(t\)</span> hours, let <span class="math notranslate nohighlight">\(X\)</span> denote the number of emails that arrive in your inbox. Assuming that the emails arrive at random and independently of each other, and that the mean rate at which they arrive is <span class="math notranslate nohighlight">\(\lambda\)</span> (measured in emails per hour), what is the distribution of the random variable <span class="math notranslate nohighlight">\(X\)</span>?</p>
+<p><strong>Q</strong>: Over a span of <span class="math notranslate nohighlight">\(t\)</span> hours, let <span class="math notranslate nohighlight">\(X\)</span> denote the number of emails that arrive in your inbox. Assuming that the emails arrive at random and independently of each other, and that the mean rate at which they arrive is <span class="math notranslate nohighlight">\(\lambda\)</span> (measured in units of reciprocal hours, or hour<span class="math notranslate nohighlight">\(^{-1}\)</span>), what is the distribution of the random variable <span class="math notranslate nohighlight">\(X\)</span>?</p>
 <p><strong>A</strong>: <span class="math notranslate nohighlight">\(X\sim \mathcal{P}ois(\lambda t)\)</span>.</p>
 </div>
-<p>To explain, we begin by first deriving an <em>approximation</em> for the distribution of <span class="math notranslate nohighlight">\(X\)</span>. To do this, we imagine that the time interval begins at time <span class="math notranslate nohighlight">\(=0\)</span> and we visualize the arrivals of emails as marks along the interval <span class="math notranslate nohighlight">\([0,t]\)</span>:</p>
+<p>Before proving that <span class="math notranslate nohighlight">\(X\)</span> has the claimed distribution, it is worth commenting on the units of the rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span>. Indeed, you might have expected its units to be</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\text{email}}{\text{hour}} \quad \text{rather than} \quad \frac{1}{\text{hour}}.
+\]</div>
+<p>In fact, in a textbook problem, the rate <em>would</em> often be given with the former units, rather than the latter. But as you will see below, this is inconsistent with the fact that <span class="math notranslate nohighlight">\(X\)</span> models <a class="reference external" href="https://en.wikipedia.org/wiki/Count_data"><em>counting data</em></a> which are <a class="reference external" href="https://en.wikipedia.org/wiki/Dimensionless_quantity#Integers">dimensionless quantities</a>.</p>
+<p>Now, to show that <span class="math notranslate nohighlight">\(X\)</span> has a Poisson distribution, we begin by first deriving an <em>approximation</em> for the distribution of <span class="math notranslate nohighlight">\(X\)</span>. To do this, we imagine that the time interval begins at time <span class="math notranslate nohighlight">\(=0\)</span> and we visualize the arrivals of emails as marks along the interval <span class="math notranslate nohighlight">\([0,t]\)</span>:</p>
 <a class="reference internal image-reference" href="../_images/pois1.svg"><img alt="../_images/pois1.svg" class="align-center" src="../_images/pois1.svg" width="70%" /></a>
 <p> </p>
 <p>The trick now is to chop the time interval <span class="math notranslate nohighlight">\([0,t]\)</span> into small enough subintervals that no more than one email arrives in any given subinterval:</p>
@@ -975,7 +986,11 @@ p(x) = \frac{\mu^x}{x!}e^{-\mu}.
 <a class="reference internal image-reference" href="../_images/pois3.svg"><img alt="../_images/pois3.svg" class="align-center" src="../_images/pois3.svg" width="70%" /></a>
 <p> </p>
 <p>Now, we let <span class="math notranslate nohighlight">\(Y_k\)</span> be the number of emails that arrive in the <span class="math notranslate nohighlight">\(k\)</span>-th subinterval, for each <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>. By construction, we have that <span class="math notranslate nohighlight">\(Y_k=0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>, and thus each <span class="math notranslate nohighlight">\(Y_k\)</span> is a Bernoulli random variable, parametrized by some parameter <span class="math notranslate nohighlight">\(p_k\)</span>. But what is <span class="math notranslate nohighlight">\(p_k\)</span>?</p>
-<p>To answer this, recall that we are told the mean rate at which the emails arrive is <span class="math notranslate nohighlight">\(\lambda\)</span>. Thus, since the length of each of the subintervals is <span class="math notranslate nohighlight">\(\Delta t\)</span>, we would expect, on average, that exactly</p>
+<p>To answer this, recall that we are told the mean rate at which the emails arrive is <span class="math notranslate nohighlight">\(\lambda\)</span> (measured in reciprocal hours). Therefore, since the length of each of the subintervals is <span class="math notranslate nohighlight">\(\Delta t\)</span>, we would expect, on average, that exactly</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Notice that in order for the product <span class="math notranslate nohighlight">\(\lambda \cdot \Delta t\)</span> to represent a probability, which is a dimensionless quantity, the rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span> must be measured in reciprocal hours!</p>
+</aside>
 <div class="math notranslate nohighlight">
 \[
 \lambda \cdot \Delta t = \frac{\lambda t}{n}
@@ -1073,11 +1088,12 @@ V(X) = E(X^2) - \mu^2 = \mu,
 \[
 X \sim \mathcal{N}(\mu,\sigma^2),
 \]</div>
-<p>if it has range all of <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> and its probability density function <span class="math notranslate nohighlight">\(f(x)\)</span> is given by</p>
+<p>if its probability density function <span class="math notranslate nohighlight">\(f(x)\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-f(x) = \frac{1}{\sigma \sqrt{2\pi}} \exp \left[ - \frac{1}{2} \left( \frac{x-\mu}{\sigma} \right)^2 \right].
+f(x) = \frac{1}{\sigma \sqrt{2\pi}} \exp \left[ - \frac{1}{2} \left( \frac{x-\mu}{\sigma} \right)^2 \right]
 \]</div>
+<p>with support <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>.</p>
 <p>If <span class="math notranslate nohighlight">\(\mu=0\)</span> and <span class="math notranslate nohighlight">\(\sigma=1\)</span>, then <span class="math notranslate nohighlight">\(X\)</span> is called a <em>standard normal variable</em> (or <em>standard Gaussian variable</em>) and is often represented as <span class="math notranslate nohighlight">\(Z\)</span>.</p>
 </section>
 </div><p>As the choice of letters suggest, the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> turn out to be the mean and standard deviation of <span class="math notranslate nohighlight">\(X\)</span>. The graphs of normal density curves are the familiar “bell curves,” and altering <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> have exactly the effect that you would expect:</p>
@@ -1214,11 +1230,12 @@ E(X) = \mu \quad \text{and} \quad V(X) = \sigma^2.
 \[
 X \sim \mathcal{E}xp(\lambda),
 \]</div>
-<p>if it has range the open interval <span class="math notranslate nohighlight">\((0,\infty)\)</span> and its probability density function <span class="math notranslate nohighlight">\(f(x)\)</span> is given by</p>
+<p>if its probability density function <span class="math notranslate nohighlight">\(f(x)\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-f(x) = \lambda e^{-\lambda x}.
+f(x) = \lambda e^{-\lambda x}
 \]</div>
+<p>with support <span class="math notranslate nohighlight">\((0,\infty)\)</span>.</p>
 </section>
 </div><p>The effect of the parameter is clear on the graph of the density function:</p>
 <div class="cell tag_hide-input docutils container">
@@ -1262,10 +1279,10 @@ f(x) = \lambda e^{-\lambda x}.
 </div>
 </div>
 <p>If you examined the Python code that I wrote to produce these figures, you’ll notice that <span class="math notranslate nohighlight">\(\lambda\)</span> is <em>not</em> a shape parameter in SciPy’s implementation of an exponential variable. Rather, SciPy uses the reciprocal <span class="math notranslate nohighlight">\(\beta = 1/\lambda\)</span> as a <code class="docutils literal notranslate"><span class="pre">scale</span></code> parameter.</p>
-<p>The parameter <span class="math notranslate nohighlight">\(\lambda\)</span> is often referred to as a <em>rate</em> or <em>intensity parameter</em>. The reasoning for this name is made clear in the archetypical scenario that I am about to describe (a special type of <a class="reference external" href="https://en.wikipedia.org/wiki/Poisson_point_process">Poisson process</a>). But first, if you do not recall the gist of the archetypical Poisson scenario described <a class="reference internal" href="#poisson-scenario"><span class="std std-ref">above</span></a>, it would be worth reviewing it now.</p>
+<p>The parameter <span class="math notranslate nohighlight">\(\lambda\)</span> is often referred to as a <em>rate</em> or <em>intensity parameter</em>. The reason for this name is made clear in the following archetypical scenario which is a continuation of the archetypical Poisson scenario described <a class="reference internal" href="#poisson-scenario"><span class="std std-ref">above</span></a>.</p>
 <div class="admonition-an-archetypical-exponential-scenario-email-scenario-continued admonition" id="exp-scenario">
 <p class="admonition-title">An archetypical exponential scenario (email scenario continued)</p>
-<p><strong>Q</strong>: Let <span class="math notranslate nohighlight">\(T_1,T_2,\ldots\)</span> be the arrival times of the emails in your inbox, and suppose that they arrive at a mean rate of <span class="math notranslate nohighlight">\(\lambda\)</span> emails per hour. We set <span class="math notranslate nohighlight">\(I_1 = T_1\)</span>, the time of <em>first arrival</em>, and for each <span class="math notranslate nohighlight">\(k=2,3,\ldots\)</span> the differences</p>
+<p><strong>Q</strong>: Let <span class="math notranslate nohighlight">\(T_1,T_2,\ldots\)</span> be the arrival times of the emails in your inbox, and suppose that they arrive at a mean rate <span class="math notranslate nohighlight">\(\lambda\)</span> (measured in reciprocal hours). We set <span class="math notranslate nohighlight">\(I_1 = T_1\)</span>, the time of <em>first arrival</em>, and for each <span class="math notranslate nohighlight">\(k=2,3,\ldots\)</span> the differences</p>
 <div class="math notranslate nohighlight">
 \[
 I_k = T_k - T_{k-1}
@@ -1274,7 +1291,12 @@ I_k = T_k - T_{k-1}
 <p>What are the distributions of the random variables <span class="math notranslate nohighlight">\(I_1,I_2,\ldots\)</span>?</p>
 <p><strong>A</strong>: <span class="math notranslate nohighlight">\(I_k\sim \mathcal{E}xp(\lambda)\)</span> for all <span class="math notranslate nohighlight">\(k=1,2,\ldots\)</span>.</p>
 </div>
-<p>We shall first show that <span class="math notranslate nohighlight">\(I_1 \sim \mathcal{E}xp(\lambda)\)</span> by proving that it has the CDF of an <span class="math notranslate nohighlight">\(\mathcal{E}xp(\lambda)\)</span> distribution: <span class="math notranslate nohighlight">\(F(t) = \int_0^t \lambda e^{-\lambda x} \ \text{d}x = 1 - e^{-\lambda t}\)</span>. But notice that</p>
+<p>We shall first show that <span class="math notranslate nohighlight">\(I_1 \sim \mathcal{E}xp(\lambda)\)</span> by proving that it has the CDF of an <span class="math notranslate nohighlight">\(\mathcal{E}xp(\lambda)\)</span> distribution:</p>
+<div class="math notranslate nohighlight" id="equation-cdf-exp-eqn">
+<span class="eqno">(5.11)<a class="headerlink" href="#equation-cdf-exp-eqn" title="Permalink to this equation">#</a></span>\[
+F(t) = \int_0^t \lambda e^{-\lambda x} \ \text{d}x = 1 - e^{-\lambda t}.
+\]</div>
+<p>To do this, notice that</p>
 <div class="math notranslate nohighlight">
 \[
 P(I_1 \leq t) = 1 - P(I_1 &gt; t) = 1 - P\left( \text{no emails arrive in $[0,t]$} \right).
@@ -1289,27 +1311,30 @@ P\left( \text{no emails arrive in $[0,t]$} \right) = \frac{(\lambda t)^0}{0!}e^{
 \[
 P(I_1 \leq t) = 1- e^{-\lambda t} = F(t),
 \]</div>
-<p>from which it follows that <span class="math notranslate nohighlight">\(I_1 \sim \mathcal{E}xp(\lambda)\)</span> since it has the correct CDF.</p>
-<p>We now show that <span class="math notranslate nohighlight">\(I_2 \sim \mathcal{E}xp(\lambda)\)</span> via the same method by proving that it has the correct CDF. To do this, we note that for <span class="math notranslate nohighlight">\(0 &lt;s \leq t\)</span>, we have</p>
+<p>from which it follows that <span class="math notranslate nohighlight">\(I_1 \sim \mathcal{E}xp(\lambda)\)</span>.</p>
+<p>We now show that <span class="math notranslate nohighlight">\(I_k\sim \mathcal{E}xp(\lambda)\)</span> (for all <span class="math notranslate nohighlight">\(k\geq 2\)</span>) via the same method as above by proving it has CDF given by <a class="reference internal" href="#equation-cdf-exp-eqn">(5.11)</a>. To do this, note that</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
-P(T_2 &gt;t | T_1 &lt; s ) &amp;= P\left( \text{no emails arrive in $[s,s+t]$} | T_1 &lt; s \right) \\
-&amp;= P\left( \text{no emails arrive in $[s,s+t]$} \right) \\
-&amp;= e^{-\lambda t}.
+P(I_k &gt;t | T_{k-1} = s ) &amp;= P\left( \text{no emails arrive in $(s,s+t]$} \mid T_{k-1} = s \right) \\
+&amp;= P\left( \text{no emails arrive in $(s,s+t]$} \right) \\
+&amp;= e^{-\lambda t}
 \end{align*}\]</div>
-<p>The second equality follows from independence of the arrival times <span class="math notranslate nohighlight">\(T_1,T_2,\ldots\)</span>; indeed, the specific time at which the first email arrives in the interval <span class="math notranslate nohighlight">\([0,s]\)</span> should have no bearing on whether any emails arrive in the time interval <span class="math notranslate nohighlight">\([s,s+t]\)</span>. The third equality follows from the fact (again) that the number of emails that arrive in a time interval of length <span class="math notranslate nohighlight">\(t\)</span> is a <span class="math notranslate nohighlight">\(\mathcal{P}ois(\lambda t)\)</span> random variable. But the same independence considerations tell us that</p>
+<p>for <span class="math notranslate nohighlight">\(s,t&gt; 0\)</span>. The second equality follows from independence of the arrival times <span class="math notranslate nohighlight">\(T_1,T_2,\ldots\)</span>; indeed, the arrival time of an email should have no influence on whether an email arrives in a subsequent time interval. The third equality follows from the fact (again) that the number of emails that arrive in a time interval of length <span class="math notranslate nohighlight">\(t\)</span> is a <span class="math notranslate nohighlight">\(\mathcal{P}ois(\lambda t)\)</span> random variable. But independence considerations also suggest that</p>
 <div class="math notranslate nohighlight">
 \[
-P(T_2 &gt;t) = P(T_2 &gt;t | T_1 &lt; s )
+P(I_k &gt;t) = P(I_k &gt;t | T_{k-1} &lt; s )
 \]</div>
-<p>for all <span class="math notranslate nohighlight">\(s\leq t\)</span>, and hence</p>
+<p>and hence</p>
 <div class="math notranslate nohighlight">
 \[
-P(T_2 \leq t) = 1- P(T_2&gt;t) = 1 - e^{-\lambda t} = F(t)
+P(I_k \leq t) = 1- P(I_k&gt;t) = 1 - e^{-\lambda t} = F(t)
 \]</div>
-<p>for all <span class="math notranslate nohighlight">\(t&gt;0\)</span>. Thus, <span class="math notranslate nohighlight">\(I_2 \sim \mathcal{E}xp(\lambda)\)</span>.</p>
-<p>Similar arguments will prove that <span class="math notranslate nohighlight">\(I_k \sim \mathcal{E}xp(\lambda)\)</span> for all <span class="math notranslate nohighlight">\(k\geq 3\)</span>; I will leave it to you to fill in the details.</p>
+<p>for all <span class="math notranslate nohighlight">\(t&gt;0\)</span>. Thus, <span class="math notranslate nohighlight">\(I_k \sim \mathcal{E}xp(\lambda)\)</span>, which completes the (plausibility) proof.</p>
 <p>Now, before moving onto some example problems, let’s state the means and variances of exponential variables:</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>If <span class="math notranslate nohighlight">\(I_k\)</span> denotes the <span class="math notranslate nohighlight">\(k\)</span>-th arrival time in our archetypical exponential scenario, then in order for the equation <span class="math notranslate nohighlight">\(E(I_k) = 1/\lambda\)</span> to be dimensionally correct, the rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span> <em>must</em> be measured in reciprocal hours.</p>
+</aside>
 <div class="proof theorem admonition" id="theorem-17">
 <p class="admonition-title"><span class="caption-number">Theorem 5.9 </span> (Expectations and variances of exponential variables)</p>
 <section class="theorem-content" id="proof-content">
@@ -1330,7 +1355,7 @@ E(X) = \frac{1}{\lambda} \quad \text{and} \quad V(X) = \frac{1}{\lambda^2}.
 <p>Normal distributions are symmetric about their means and therefore cannot model datasets that are <em>skew</em> (i.e., non-symmetric). It is therefore of interest to have in one’s toolkit a family of skew distributions; such a family is described in this section.</p>
 <p>These distributions derive their name from the <a class="reference external" href="https://en.wikipedia.org/wiki/Gamma_function">gamma functions</a></p>
 <div class="math notranslate nohighlight" id="equation-gam-func-eqn">
-<span class="eqno">(5.11)<a class="headerlink" href="#equation-gam-func-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(5.12)<a class="headerlink" href="#equation-gam-func-eqn" title="Permalink to this equation">#</a></span>\[
 \Gamma(\alpha) \stackrel{\text{def}}{=} \int_0^\infty x^{\alpha-1} e^{-x} \ \text{d} x \quad (\alpha&gt;0)
 \]</div>
 <p>that appear in their PDFs.</p>
@@ -1340,26 +1365,27 @@ E(X) = \frac{1}{\lambda} \quad \text{and} \quad V(X) = \frac{1}{\lambda^2}.
 <p>Let <span class="math notranslate nohighlight">\(\alpha,\beta&gt;0\)</span> be real numbers. A continuous random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>gamma distribution</em> with parameters <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>, denoted</p>
 <div class="math notranslate nohighlight">
 \[
-X \sim \Gamma(\alpha,\beta),
+X \sim \mathcal{G}am(\alpha,\beta),
 \]</div>
-<p>if it has range the open interval <span class="math notranslate nohighlight">\((0,\infty)\)</span> and its probability density function <span class="math notranslate nohighlight">\(f(x)\)</span> is given by</p>
+<p>if its probability density function <span class="math notranslate nohighlight">\(f(x)\)</span> is given by</p>
 <div class="math notranslate nohighlight" id="equation-gamma-pdf-eqn">
-<span class="eqno">(5.12)<a class="headerlink" href="#equation-gamma-pdf-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(5.13)<a class="headerlink" href="#equation-gamma-pdf-eqn" title="Permalink to this equation">#</a></span>\[
 f(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}.
 \]</div>
+<p>with support <span class="math notranslate nohighlight">\((0,\infty)\)</span>.</p>
 </section>
-</div><p>How should one understand the formula <a class="reference internal" href="#equation-gamma-pdf-eqn">(5.12)</a> for the PDFs of gamma distributions, given that it involves the somewhat intimidating gamma function <a class="reference internal" href="#equation-gam-func-eqn">(5.11)</a>? Here’s my advice: Don’t worry about the leading factor <span class="math notranslate nohighlight">\(\beta^\alpha/\Gamma(\alpha)\)</span> in <a class="reference internal" href="#equation-gamma-pdf-eqn">(5.12)</a>, and only pay attention to the “important” factor <span class="math notranslate nohighlight">\(x^{\alpha-1}e^{-\beta x}\)</span>. This advice is justified based on the observation that the factor <span class="math notranslate nohighlight">\(\beta^\alpha/\Gamma(\alpha)\)</span> does <em>not</em> involve the variable <span class="math notranslate nohighlight">\(x\)</span>, and is therefore a constant. In fact, it is quite common to see the PDF of a gamma distribution represented as</p>
+</div><p>How should one understand the formula <a class="reference internal" href="#equation-gamma-pdf-eqn">(5.13)</a> for the PDFs of gamma distributions, given that it involves the somewhat intimidating gamma function <a class="reference internal" href="#equation-gam-func-eqn">(5.12)</a>? Here’s my advice: Don’t worry about the leading factor <span class="math notranslate nohighlight">\(\beta^\alpha/\Gamma(\alpha)\)</span> in <a class="reference internal" href="#equation-gamma-pdf-eqn">(5.13)</a>, and only pay attention to the “important” factor <span class="math notranslate nohighlight">\(x^{\alpha-1}e^{-\beta x}\)</span>. This advice is justified based on the observation that the factor <span class="math notranslate nohighlight">\(\beta^\alpha/\Gamma(\alpha)\)</span> does <em>not</em> involve the variable <span class="math notranslate nohighlight">\(x\)</span>, and is therefore a constant. In fact, it is quite common to see the PDF of a gamma distribution represented as</p>
 <div class="math notranslate nohighlight" id="equation-prop-gam-eqn">
-<span class="eqno">(5.13)<a class="headerlink" href="#equation-prop-gam-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(5.14)<a class="headerlink" href="#equation-prop-gam-eqn" title="Permalink to this equation">#</a></span>\[
 f(x) \propto x^{\alpha-1} e^{-\beta x},
 \]</div>
-<p>where the symbol “<span class="math notranslate nohighlight">\(\propto\)</span>” means “proportional to.” By writing <a class="reference internal" href="#equation-prop-gam-eqn">(5.13)</a>, we are signaling that the only important part of the PDF is the factor <span class="math notranslate nohighlight">\(x^{\alpha-1} e^{-\beta x}\)</span>.</p>
+<p>where the symbol “<span class="math notranslate nohighlight">\(\propto\)</span>” means “proportional to.” By writing <a class="reference internal" href="#equation-prop-gam-eqn">(5.14)</a>, we are signaling that the only important part of the PDF is the factor <span class="math notranslate nohighlight">\(x^{\alpha-1} e^{-\beta x}\)</span>.</p>
 <p>One should understand the factor <span class="math notranslate nohighlight">\(\beta^\alpha/\Gamma(\alpha)\)</span> as a normalization factor then ensures that the PDF integrates to <span class="math notranslate nohighlight">\(1\)</span>. Indeed, note that</p>
 <div class="math notranslate nohighlight">
 \[
 \int_{0}^\infty x^{\alpha-1} e^{-\beta x} \ \text{d}x = \frac{1}{\beta^\alpha} \int_0^\infty u^{\alpha-1} e^{-u} \ \text{d}u = \frac{\Gamma(\alpha)}{\beta^\alpha},
 \]</div>
-<p>where we’ve made the substitution <span class="math notranslate nohighlight">\(u=\beta x\)</span> in the first equality. Thus, if we want the expression <span class="math notranslate nohighlight">\(x^{\alpha-1} e^{-\beta x}\)</span> to integate to <span class="math notranslate nohighlight">\(1\)</span> over the range <span class="math notranslate nohighlight">\((0,\infty)\)</span>, then we had better multiply it by the normalizing factor <span class="math notranslate nohighlight">\(\beta^\alpha / \Gamma(\alpha)\)</span>.</p>
+<p>where we’ve made the substitution <span class="math notranslate nohighlight">\(u=\beta x\)</span> in the first equality. Thus, if we want the expression <span class="math notranslate nohighlight">\(x^{\alpha-1} e^{-\beta x}\)</span> to integate to <span class="math notranslate nohighlight">\(1\)</span> over the support <span class="math notranslate nohighlight">\((0,\infty)\)</span>, then we had better multiply it by the normalizing factor <span class="math notranslate nohighlight">\(\beta^\alpha / \Gamma(\alpha)\)</span>.</p>
 <p>The PDFs look like the following, for various settings of the parameters.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1387,7 +1413,7 @@ f(x) \propto x^{\alpha-1} e^{-\beta x},
         <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s1">$, $\beta=</span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PDF of a random variable $X\sim \Gamma(\alpha,\beta)$&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PDF of a random variable $X\sim \mathcal</span><span class="si">{G}</span><span class="s1">am(\alpha,\beta)$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1395,7 +1421,7 @@ f(x) \propto x^{\alpha-1} e^{-\beta x},
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/eb21e9d5524436824bc6a49c5349d51eddbdec73841465a94c2cee413663dde8.png"><img alt="../_images/eb21e9d5524436824bc6a49c5349d51eddbdec73841465a94c2cee413663dde8.png" src="../_images/eb21e9d5524436824bc6a49c5349d51eddbdec73841465a94c2cee413663dde8.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/3e3e1f147731fee2a2e8e6b9206efec340e91612ec459185623ee5dfe18c52ca.png"><img alt="../_images/3e3e1f147731fee2a2e8e6b9206efec340e91612ec459185623ee5dfe18c52ca.png" src="../_images/3e3e1f147731fee2a2e8e6b9206efec340e91612ec459185623ee5dfe18c52ca.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
@@ -1404,20 +1430,20 @@ f(x) \propto x^{\alpha-1} e^{-\beta x},
 <p>I have decided to present the exponential distributions <em>first</em>, and <em>then</em> the gamma distributions. This might seem a bit backwards since the former are actually special types of the latter. Indeed, by comparing PDFs, we see that</p>
 <div class="math notranslate nohighlight">
 \[
-\mathcal{E}xp(\lambda) = \Gamma(1,\lambda).
+\mathcal{E}xp(\lambda) = \mathcal{G}am(1,\lambda).
 \]</div>
 <p>However, I wanted us to be familiar with exponential variables so that the following scenario makes sense. (It would be worth reviewing the <a class="reference internal" href="#poisson-scenario"><span class="std std-ref">Poisson</span></a> and <a class="reference internal" href="#exp-scenario"><span class="std std-ref">exponential scenarios</span></a> before proceeding!)</p>
 <div class="admonition-an-archetypical-gamma-scenario-email-scenario-continued-again admonition" id="gamma-scenario">
 <p class="admonition-title">An archetypical gamma scenario (email scenario continued, again)</p>
-<p><strong>Q</strong>: Remember that <span class="math notranslate nohighlight">\(T_k\)</span> (for <span class="math notranslate nohighlight">\(k=1,2,\ldots\)</span>) denotes the (random) arrival time of the <span class="math notranslate nohighlight">\(k\)</span>-th email in your inbox, and that the mean rate at which they arrive is <span class="math notranslate nohighlight">\(\lambda\)</span> emails per hour. What are the distributions of the random variables <span class="math notranslate nohighlight">\(T_k\)</span>?</p>
-<p><strong>A</strong>: We have <span class="math notranslate nohighlight">\(T_k \sim \Gamma(k,\lambda)\)</span> for all <span class="math notranslate nohighlight">\(k=1,2,\ldots\)</span>.</p>
+<p><strong>Q</strong>: Remember that <span class="math notranslate nohighlight">\(T_k\)</span> (for <span class="math notranslate nohighlight">\(k=1,2,\ldots\)</span>) denotes the (random) arrival time of the <span class="math notranslate nohighlight">\(k\)</span>-th email in your inbox, and that the mean rate at which they arrive is <span class="math notranslate nohighlight">\(\lambda\)</span> (measured in reciprocal hours). What are the distributions of the random variables <span class="math notranslate nohighlight">\(T_k\)</span>?</p>
+<p><strong>A</strong>: We have <span class="math notranslate nohighlight">\(T_k \sim \mathcal{G}am(k,\lambda)\)</span> for all <span class="math notranslate nohighlight">\(k=1,2,\ldots\)</span>.</p>
 </div>
 <p>The justification follows from the fact that</p>
 <div class="math notranslate nohighlight">
 \[
 T_k = T_1 + (T_2 - T_1) + \cdots + (T_k - T_{k-1}) = I_1 + I_2 + \cdots + I_k,
 \]</div>
-<p>and that the <span class="math notranslate nohighlight">\(I_k\)</span>’s are independent <span class="math notranslate nohighlight">\(\mathcal{E}xp(\lambda)\)</span> random variables. Now, as we will see <a class="reference internal" href="mgf.html#mgf"><span class="std std-ref">later</span></a>, it is a general fact that the sum of <span class="math notranslate nohighlight">\(k\)</span> independent <span class="math notranslate nohighlight">\(\mathcal{E}xp(\lambda)\)</span> variables is a <span class="math notranslate nohighlight">\(\Gamma(k,\lambda)\)</span> variable. The desired result then follows.</p>
+<p>and that the <span class="math notranslate nohighlight">\(I_k\)</span>’s are independent <span class="math notranslate nohighlight">\(\mathcal{E}xp(\lambda)\)</span> random variables. As we will see <a class="reference internal" href="mgf.html#mgf"><span class="std std-ref">later</span></a>, it is a general fact that the sum of <span class="math notranslate nohighlight">\(k\)</span> independent <span class="math notranslate nohighlight">\(\mathcal{E}xp(\lambda)\)</span> variables is a <span class="math notranslate nohighlight">\(\mathcal{G}am(k,\lambda)\)</span> variable, which implies the desired result.</p>
 <p>It is instructive to inspect the densities of the first few <span class="math notranslate nohighlight">\(T_k\)</span>’s:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1451,13 +1477,13 @@ T_k = T_1 + (T_2 - T_1) + \cdots + (T_k - T_{k-1}) = I_1 + I_2 + \cdots + I_k,
 </div>
 </div>
 <p>Notice that the majority of the “mass” of the distributions move further to the right as <span class="math notranslate nohighlight">\(k\)</span> increases. This makes sense, as we would expect that the mean arrival time of the <span class="math notranslate nohighlight">\((k+1)\)</span>-st email is greater than the mean arrival time of the <span class="math notranslate nohighlight">\(k\)</span>-th one.</p>
-<p>To make this idea precise, it would be helpful to have a formula for the mean of a gamma variable. To derive such a formula, we will need the following convenient property of the gamma functions <a class="reference internal" href="#equation-gam-func-eqn">(5.11)</a>:</p>
+<p>To make this idea precise, it would be helpful to have a formula for the mean of a gamma variable. To derive such a formula, we will need the following convenient property of the gamma functions <a class="reference internal" href="#equation-gam-func-eqn">(5.12)</a>:</p>
 <div class="proof theorem admonition" id="recur-gamma-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 5.10 </span></p>
 <section class="theorem-content" id="proof-content">
 <p>If <span class="math notranslate nohighlight">\(\alpha&gt;1\)</span>, then <span class="math notranslate nohighlight">\(\Gamma(\alpha) = (\alpha-1)\Gamma(\alpha-1)\)</span>.</p>
 </section>
-</div><p>The proof is an integration by parts applied to the definition <a class="reference internal" href="#equation-gam-func-eqn">(5.11)</a> with <span class="math notranslate nohighlight">\(u = x^{\alpha-1}\)</span> and <span class="math notranslate nohighlight">\(dv = e^{-x} \ \text{d}x\)</span>. Then:</p>
+</div><p>The proof is an integration by parts applied to the definition <a class="reference internal" href="#equation-gam-func-eqn">(5.12)</a> with <span class="math notranslate nohighlight">\(u = x^{\alpha-1}\)</span> and <span class="math notranslate nohighlight">\(dv = e^{-x} \ \text{d}x\)</span>. Then:</p>
 <div class="math notranslate nohighlight">
 \[
 \Gamma(\alpha) = -x^{\alpha-1}e^{-x} \big|_0^{\infty} + (\alpha-1) \int_0^{\infty} x^{\alpha-2}e^{-x} \ \text{d}x = (\alpha-1)\Gamma(\alpha-1).
@@ -1466,7 +1492,7 @@ T_k = T_1 + (T_2 - T_1) + \cdots + (T_k - T_{k-1}) = I_1 + I_2 + \cdots + I_k,
 <div class="proof theorem admonition" id="gam-exp-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 5.11 </span> (Expectations and variances of gamma variables)</p>
 <section class="theorem-content" id="proof-content">
-<p>If <span class="math notranslate nohighlight">\(X\sim \Gamma(\alpha,\beta)\)</span>, then</p>
+<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{G}am(\alpha,\beta)\)</span>, then</p>
 <div class="math notranslate nohighlight">
 \[
 E(X) = \frac{\alpha}{\beta} \quad \text{and} \quad V(X) = \frac{\alpha}{\beta^2}.
@@ -1500,7 +1526,7 @@ V(X) = E(X^2) - E(X)^2 = \frac{(\alpha-1)\alpha}{\beta^2} - \frac{\alpha^2}{\bet
 </section>
 <section id="beta-distributions">
 <h2><span class="section-number">5.9. </span>Beta distributions<a class="headerlink" href="#beta-distributions" title="Permalink to this heading">#</a></h2>
-<p>All the continuous random variables studied so far have unbounded ranges. However, the next type of random variables have their ranges inside the open interval <span class="math notranslate nohighlight">\((0,1)\)</span> which makes them particularly useful for modeling proportions and probabilities. They are parametrized by <span class="math notranslate nohighlight">\(\alpha\)</span>’s and <span class="math notranslate nohighlight">\(\beta\)</span>’s just like the gamma variables, and they also have gamma functions in their PDF’s.</p>
+<p>All the continuous random variables studied so far have unbounded supports. However, the next type of random variables have their supports inside the open interval <span class="math notranslate nohighlight">\((0,1)\)</span> which makes them particularly useful for modeling proportions and probabilities. They are parametrized by <span class="math notranslate nohighlight">\(\alpha\)</span>’s and <span class="math notranslate nohighlight">\(\beta\)</span>’s just like the gamma variables, and they also have gamma functions in their PDF’s.</p>
 <div class="proof definition admonition" id="definition-21">
 <p class="admonition-title"><span class="caption-number">Definition 5.10 </span></p>
 <section class="definition-content" id="proof-content">
@@ -1509,11 +1535,12 @@ V(X) = E(X^2) - E(X)^2 = \frac{(\alpha-1)\alpha}{\beta^2} - \frac{\alpha^2}{\bet
 \[
 X \sim \mathcal{B}eta(\alpha,\beta),
 \]</div>
-<p>if it has range the open interval <span class="math notranslate nohighlight">\((0,1)\)</span> and its probability density function <span class="math notranslate nohighlight">\(f(x)\)</span> is given by</p>
+<p>if its probability density function <span class="math notranslate nohighlight">\(f(x)\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
 f(x) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1} (1-x)^{\beta-1}.
 \]</div>
+<p>with support <span class="math notranslate nohighlight">\((0,1)\)</span>.</p>
 </section>
 </div><aside class="margin sidebar">
 <p class="sidebar-title"></p>
