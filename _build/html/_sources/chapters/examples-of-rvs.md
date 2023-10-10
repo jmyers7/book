@@ -37,7 +37,7 @@ So, if you're confronted with a real-world scenario, and you decide to model it 
 
 In this chapter, (most of) the descriptions of the families of probability distributions will follow the same pattern:
 
-1. I will begin by defining the distributions in abstract, purely mathematical terms. This includes a description of the parameters of the distributions and the range of the random variable, as well as formulas for the probability mass and density functions.
+1. I will begin by defining the distributions in abstract, purely mathematical terms. This includes a description of the parameters of the distributions as well as formulas for the probability mass and density functions.
 
 2. I will show you several plots of probability mass and density functions, to help convey how different parameter settings affect the shapes of the distributions.
 
@@ -49,13 +49,15 @@ In this chapter, (most of) the descriptions of the families of probability distr
 
 As you read through the sections below, you will notice that the probability spaces $S$ that serve as the domains of random variables $X:S\to \mathbb{R}$ have all but disappeared. They haven't completely gone away, of course, since whenever we talk about random variables they are there lurking in the background. But this is typical of a course at this level---the probability spaces recede, and random variables take their place as the main objects of study.
 
-Just two more items before we begin:
+Just three more items before we begin:
 
 ```{note}
 1. All the distributions below will be defined via their probability mass and density functions. However, I will _not_ prove that these alleged mass and density functions actually _are_ valid mass and density functions by showing they sum and integrate to $1$, are non-negative, *etc*. I will leave these tasks to the reader to carry out on their own, or to look up in appropriate references.
 
-2. Though the list of distributions in this chapter is long, it is not exhaustive! We will meet other types of distributions later. And beyond this course, there are lots and _lots_ more distributions out there---take a look at all the distributions [implemented](https://docs.scipy.org/doc/scipy/reference/stats.html#probability-distributions) in SciPy, for example!
+2. Though the list of distributions in this chapter is long, it is not exhaustive! We will meet other types of distributions later, like the $\chi^2$, $t$, and $F$ distributions. And beyond this course, there are lots and _lots_ more distributions out there---take a look at all the distributions [implemented](https://docs.scipy.org/doc/scipy/reference/stats.html#probability-distributions) in SciPy, for example!
 
+
+3. If $X:S\to \mathbb{R}$ is either a discrete or continuous random variable with mass function $p(x)$ or density function $f(x)$, then we shall define the _support_ of $X$ to be the support of either $p(x)$ or $f(x)$ (whichever is applicable). This is technically an incorrect usage of terminology, since the support of $X$ is already defined as the (closure of the) set of those sample points $s\in S$ such that $X(s)\neq 0$. However, this usage coincides with common usage in the statistical literature.
 ```
 
 
@@ -79,11 +81,13 @@ $$
 X \sim \mathcal{B}er(p),
 $$ (dist-eqn)
 
-if it has range $\{0,1\}$ and its probability mass function $p(x)$ is given by
+if its probability mass function $p(x)$ is given by
 
 $$
 p(x) = p^x(1-p)^{1-x}.
 $$ (bern-eqn)
+
+with support $\{0,1\}$.
 ```
 
 First, notice that the single letter "$p$" means *different* things on the two sides of the equation {eq}`bern-eqn`! On the left, it stands for the name of the probability mass function, while on the right, it stands for the parameter. Now, I'm just as tolerant of abuses and misuses of notation as the next guy, but this one seems pretty terrible to me. Nevertheless, because many books and references use this notation, I feel compelled to use it as well. That's how these horrible choices in notation---always hallowed by tradition---gain inertia of their own! And we're powerless to stop them!
@@ -205,11 +209,13 @@ $$
 Y \sim \mathcal{B}in(n,p),
 $$
 
-if it has range $\{0,1,\ldots,n\}$ and its probability mass function $p(x)$ is given by
+if its probability mass function $p(x)$ is given by
 
 $$
-p(x) = \binom{n}{x}p^x (1-p)^{n-x}.
+p(x) = \binom{n}{x}p^x (1-p)^{n-x}
 $$
+
+with support $\{0,1,\ldots,n\}$.
 ```
 
 Notice that these distributions require *two* parameters to describe them. Notice also that a random variable $X \sim \mathcal{B}in(1,p)$ is nothing but a Bernoulli random variable! Thus, technically, the class of binomial random variables includes the class of Bernoulli ones.
@@ -249,7 +255,7 @@ fig.suptitle(r'PMF of a random variable $X\sim \mathcal{B}in(n,p)$')
 plt.tight_layout()
 ```
 
-Increasing the $n$ parameter increases the size of the range of $X\sim \mathcal{B}in(n,p)$, which generally spreads out the distribution (increases its variance). Larger values of $p$ tend to push the mean of $X$ toward the larger numbers in its range. Both $n$ and $p$ are called _shape parameters_ of the binomial distributions.
+Increasing the $n$ parameter increases the size of the support of $X\sim \mathcal{B}in(n,p)$, which generally spreads out the distribution (increases its variance). Larger values of $p$ tend to push the mean of $X$ toward the larger numbers in its support. Both $n$ and $p$ are called _shape parameters_ of the binomial distributions.
 
 ```{admonition} An archetypical binomial scenario
 
@@ -377,7 +383,7 @@ Do problems 1 and 2 on the worksheet.
 
 ## Geometric distributions
 
-The ranges of Bernoulli and binomial random variables are finite. Now, we turn our attention toward a class of random variables with countably infinite ranges:
+The supports of Bernoulli and binomial random variables are finite. Now, we turn our attention toward a class of random variables with countably infinite supports:
 
 ```{prf:definition}
 
@@ -387,11 +393,13 @@ $$
 X \sim \mathcal{G}eo(p),
 $$
 
-if it has range $\{1,2,\ldots\}$ and its probability mass function $p(x)$ is given by
+if its probability mass function $p(x)$ is given by
 
 $$
 p(x) = p (1-p)^{x-1}.
 $$
+
+with support $\{1,2,\ldots\}$.
 ```
 
 So, we're back to distributions that are parametrized by a single parameter. For different settings of $p$, here are some probability histograms:
@@ -500,17 +508,17 @@ Let $M\geq 0$ be an integer, and let $n$ and $N$ be integers with $0\leq n,N\leq
 Y \sim \mathcal{HG}eo(M,n,N),
 \end{equation}
 
-if it has range all $x$ such that
-
-$$
-0 \leq x \leq n \quad \text{and} \quad 0 \leq N-x \leq M-n
-$$ (range-eqn)
-
-and its probability mass function $p(x)$ is given by
+if its probability mass function $p(x)$ is given by
 
 $$
 p(x) = \frac{\binom{n}{x}\binom{M-n}{N-x}}{\binom{M}{N}}.
 $$
+
+with support all $x$ such that
+
+$$
+0 \leq x \leq n \quad \text{and} \quad 0 \leq N-x \leq M-n.
+$$ (range-eqn)
 ```
 
 These distributions have quite curious names---what exactly does *hypergeometric* mean? <a href="https://stats.stackexchange.com/a/90611">Here's</a> an enlightening explanation.
@@ -626,7 +634,7 @@ $$
 
 which is exactly what we wanted to show.
 
-With this new knowledge, notice that the range {eq}`range-eqn` now makes complete sense, since
+With this new knowledge, notice that the support {eq}`range-eqn` now makes complete sense, since
 
 $$
 0 \leq x \leq n
@@ -684,11 +692,13 @@ $$
 X \sim \mathcal{P}ois(\mu),
 $$
 
-if it has range $\{0,1,2,\ldots\}$ and its probability mass function $p(x)$ is given by
+if its probability mass function $p(x)$ is given by
 
 $$
-p(x) = \frac{\mu^x}{x!}e^{-\mu}.
+p(x) = \frac{\mu^x}{x!}e^{-\mu}
 $$
+
+with support $\{0,1,2,\ldots\}$.
 ```
 
 In some references, the parameter $\mu$ is called $\lambda$ instead. But this clashes with the usage of $\lambda$ as a "rate" or "intensity" parameter for _Poisson processes_, which we will talk about [below](exp-scenario). In any case, no matter what you call it, the effect of the parameter on the shape of the distributions is clear:
@@ -735,12 +745,20 @@ My description of this particular scenario, as well as the continuations below (
 ```{admonition} An archetypical Poisson scenario
 :name: poisson-scenario
 
-**Q**: Over a span of $t$ hours, let $X$ denote the number of emails that arrive in your inbox. Assuming that the emails arrive at random and independently of each other, and that the mean rate at which they arrive is $\lambda$ (measured in emails per hour), what is the distribution of the random variable $X$?
+**Q**: Over a span of $t$ hours, let $X$ denote the number of emails that arrive in your inbox. Assuming that the emails arrive at random and independently of each other, and that the mean rate at which they arrive is $\lambda$ (measured in units of reciprocal hours, or hour$^{-1}$), what is the distribution of the random variable $X$?
 
 **A**: $X\sim \mathcal{P}ois(\lambda t)$.
 ```
 
-To explain, we begin by first deriving an *approximation* for the distribution of $X$. To do this, we imagine that the time interval begins at time $=0$ and we visualize the arrivals of emails as marks along the interval $[0,t]$:
+Before proving that $X$ has the claimed distribution, it is worth commenting on the units of the rate parameter $\lambda$. Indeed, you might have expected its units to be
+
+$$
+\frac{\text{email}}{\text{hour}} \quad \text{rather than} \quad \frac{1}{\text{hour}}.
+$$
+
+In fact, in a textbook problem, the rate _would_ often be given with the former units, rather than the latter. But as you will see below, this is inconsistent with the fact that $X$ models [_counting data_](https://en.wikipedia.org/wiki/Count_data) which are [dimensionless quantities](https://en.wikipedia.org/wiki/Dimensionless_quantity#Integers).
+
+Now, to show that $X$ has a Poisson distribution, we begin by first deriving an *approximation* for the distribution of $X$. To do this, we imagine that the time interval begins at time $=0$ and we visualize the arrivals of emails as marks along the interval $[0,t]$:
 
 ```{image} ../img/pois1.svg
 :width: 70%
@@ -766,7 +784,12 @@ Suppose that there are $n$ subintervals, each of equal length $\Delta t = t/n$:
 
 Now, we let $Y_k$ be the number of emails that arrive in the $k$-th subinterval, for each $k=1,2,\ldots,n$. By construction, we have that $Y_k=0$ or $1$, and thus each $Y_k$ is a Bernoulli random variable, parametrized by some parameter $p_k$. But what is $p_k$?
 
-To answer this, recall that we are told the mean rate at which the emails arrive is $\lambda$. Thus, since the length of each of the subintervals is $\Delta t$, we would expect, on average, that exactly
+To answer this, recall that we are told the mean rate at which the emails arrive is $\lambda$ (measured in reciprocal hours). Therefore, since the length of each of the subintervals is $\Delta t$, we would expect, on average, that exactly
+
+```{margin}
+
+Notice that in order for the product $\lambda \cdot \Delta t$ to represent a probability, which is a dimensionless quantity, the rate parameter $\lambda$ must be measured in reciprocal hours!
+```
 
 $$
 \lambda \cdot \Delta t = \frac{\lambda t}{n}
@@ -901,11 +924,13 @@ $$
 X \sim \mathcal{N}(\mu,\sigma^2),
 $$
 
-if it has range all of $\mathbb{R}$ and its probability density function $f(x)$ is given by
+if its probability density function $f(x)$ is given by
 
 $$
-f(x) = \frac{1}{\sigma \sqrt{2\pi}} \exp \left[ - \frac{1}{2} \left( \frac{x-\mu}{\sigma} \right)^2 \right].
+f(x) = \frac{1}{\sigma \sqrt{2\pi}} \exp \left[ - \frac{1}{2} \left( \frac{x-\mu}{\sigma} \right)^2 \right]
 $$
+
+with support $\mathbb{R}$.
 
 If $\mu=0$ and $\sigma=1$, then $X$ is called a _standard normal variable_ (or _standard Gaussian variable_) and is often represented as $Z$.
 ```
@@ -1053,11 +1078,13 @@ $$
 X \sim \mathcal{E}xp(\lambda),
 $$
 
-if it has range the open interval $(0,\infty)$ and its probability density function $f(x)$ is given by
+if its probability density function $f(x)$ is given by
 
 $$
-f(x) = \lambda e^{-\lambda x}.
+f(x) = \lambda e^{-\lambda x}
 $$
+
+with support $(0,\infty)$.
 ```
 
 The effect of the parameter is clear on the graph of the density function:
@@ -1097,12 +1124,12 @@ plt.tight_layout()
 
 If you examined the Python code that I wrote to produce these figures, you'll notice that $\lambda$ is _not_ a shape parameter in SciPy's implementation of an exponential variable. Rather, SciPy uses the reciprocal $\beta = 1/\lambda$ as a `scale` parameter.
 
-The parameter $\lambda$ is often referred to as a _rate_ or _intensity parameter_. The reasoning for this name is made clear in the archetypical scenario that I am about to describe (a special type of [Poisson process](https://en.wikipedia.org/wiki/Poisson_point_process)). But first, if you do not recall the gist of the archetypical Poisson scenario described [above](poisson-scenario), it would be worth reviewing it now.
+The parameter $\lambda$ is often referred to as a _rate_ or _intensity parameter_. The reason for this name is made clear in the following archetypical scenario which is a continuation of the archetypical Poisson scenario described [above](poisson-scenario).
 
 ```{admonition} An archetypical exponential scenario (email scenario continued)
 :name: exp-scenario
 
-**Q**: Let $T_1,T_2,\ldots$ be the arrival times of the emails in your inbox, and suppose that they arrive at a mean rate of $\lambda$ emails per hour. We set $I_1 = T_1$, the time of _first arrival_, and for each $k=2,3,\ldots$ the differences
+**Q**: Let $T_1,T_2,\ldots$ be the arrival times of the emails in your inbox, and suppose that they arrive at a mean rate $\lambda$ (measured in reciprocal hours). We set $I_1 = T_1$, the time of _first arrival_, and for each $k=2,3,\ldots$ the differences
 
 $$
 I_k = T_k - T_{k-1}
@@ -1115,7 +1142,13 @@ What are the distributions of the random variables $I_1,I_2,\ldots$?
 **A**: $I_k\sim \mathcal{E}xp(\lambda)$ for all $k=1,2,\ldots$.
 ```
 
-We shall first show that $I_1 \sim \mathcal{E}xp(\lambda)$ by proving that it has the CDF of an $\mathcal{E}xp(\lambda)$ distribution: $F(t) = \int_0^t \lambda e^{-\lambda x} \ \text{d}x = 1 - e^{-\lambda t}$. But notice that
+We shall first show that $I_1 \sim \mathcal{E}xp(\lambda)$ by proving that it has the CDF of an $\mathcal{E}xp(\lambda)$ distribution:
+
+$$
+F(t) = \int_0^t \lambda e^{-\lambda x} \ \text{d}x = 1 - e^{-\lambda t}.
+$$ (cdf-exp-eqn)
+
+To do this, notice that
 
 $$
 P(I_1 \leq t) = 1 - P(I_1 > t) = 1 - P\left( \text{no emails arrive in $[0,t]$} \right).
@@ -1133,33 +1166,36 @@ $$
 P(I_1 \leq t) = 1- e^{-\lambda t} = F(t),
 $$
 
-from which it follows that $I_1 \sim \mathcal{E}xp(\lambda)$ since it has the correct CDF.
+from which it follows that $I_1 \sim \mathcal{E}xp(\lambda)$.
 
-We now show that $I_2 \sim \mathcal{E}xp(\lambda)$ via the same method by proving that it has the correct CDF. To do this, we note that for $0 <s \leq t$, we have
+We now show that $I_k\sim \mathcal{E}xp(\lambda)$ (for all $k\geq 2$) via the same method as above by proving it has CDF given by {eq}`cdf-exp-eqn`. To do this, note that
 
 \begin{align*}
-P(T_2 >t | T_1 < s ) &= P\left( \text{no emails arrive in $[s,s+t]$} | T_1 < s \right) \\
-&= P\left( \text{no emails arrive in $[s,s+t]$} \right) \\
-&= e^{-\lambda t}.
+P(I_k >t | T_{k-1} = s ) &= P\left( \text{no emails arrive in $(s,s+t]$} \mid T_{k-1} = s \right) \\
+&= P\left( \text{no emails arrive in $(s,s+t]$} \right) \\
+&= e^{-\lambda t}
 \end{align*}
 
-The second equality follows from independence of the arrival times $T_1,T_2,\ldots$; indeed, the specific time at which the first email arrives in the interval $[0,s]$ should have no bearing on whether any emails arrive in the time interval $[s,s+t]$. The third equality follows from the fact (again) that the number of emails that arrive in a time interval of length $t$ is a $\mathcal{P}ois(\lambda t)$ random variable. But the same independence considerations tell us that
+for $s,t> 0$. The second equality follows from independence of the arrival times $T_1,T_2,\ldots$; indeed, the arrival time of an email should have no influence on whether an email arrives in a subsequent time interval. The third equality follows from the fact (again) that the number of emails that arrive in a time interval of length $t$ is a $\mathcal{P}ois(\lambda t)$ random variable. But independence considerations also suggest that
 
 $$
-P(T_2 >t) = P(T_2 >t | T_1 < s )
+P(I_k >t) = P(I_k >t | T_{k-1} < s )
 $$
 
-for all $s\leq t$, and hence
+and hence
 
 $$
-P(T_2 \leq t) = 1- P(T_2>t) = 1 - e^{-\lambda t} = F(t)
+P(I_k \leq t) = 1- P(I_k>t) = 1 - e^{-\lambda t} = F(t)
 $$
 
-for all $t>0$. Thus, $I_2 \sim \mathcal{E}xp(\lambda)$.
-
-Similar arguments will prove that $I_k \sim \mathcal{E}xp(\lambda)$ for all $k\geq 3$; I will leave it to you to fill in the details.
+for all $t>0$. Thus, $I_k \sim \mathcal{E}xp(\lambda)$, which completes the (plausibility) proof.
 
 Now, before moving onto some example problems, let's state the means and variances of exponential variables:
+
+```{margin}
+
+If $I_k$ denotes the $k$-th arrival time in our archetypical exponential scenario, then in order for the equation $E(I_k) = 1/\lambda$ to be dimensionally correct, the rate parameter $\lambda$ _must_ be measured in reciprocal hours.
+```
 
 ```{prf:theorem} Expectations and variances of exponential variables
 
@@ -1212,14 +1248,16 @@ that appear in their PDFs.
 Let $\alpha,\beta>0$ be real numbers. A continuous random variable $X$ is said to have a *gamma distribution* with parameters $\alpha$ and $\beta$, denoted
 
 $$
-X \sim \Gamma(\alpha,\beta),
+X \sim \mathcal{G}am(\alpha,\beta),
 $$
 
-if it has range the open interval $(0,\infty)$ and its probability density function $f(x)$ is given by
+if its probability density function $f(x)$ is given by
 
 $$
 f(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}.
 $$ (gamma-pdf-eqn)
+
+with support $(0,\infty)$.
 ```
 
 How should one understand the formula {eq}`gamma-pdf-eqn` for the PDFs of gamma distributions, given that it involves the somewhat intimidating gamma function {eq}`gam-func-eqn`? Here's my advice: Don't worry about the leading factor $\beta^\alpha/\Gamma(\alpha)$ in {eq}`gamma-pdf-eqn`, and only pay attention to the "important" factor $x^{\alpha-1}e^{-\beta x}$. This advice is justified based on the observation that the factor $\beta^\alpha/\Gamma(\alpha)$ does _not_ involve the variable $x$, and is therefore a constant. In fact, it is quite common to see the PDF of a gamma distribution represented as
@@ -1236,7 +1274,7 @@ $$
 \int_{0}^\infty x^{\alpha-1} e^{-\beta x} \ \text{d}x = \frac{1}{\beta^\alpha} \int_0^\infty u^{\alpha-1} e^{-u} \ \text{d}u = \frac{\Gamma(\alpha)}{\beta^\alpha},
 $$
 
-where we've made the substitution $u=\beta x$ in the first equality. Thus, if we want the expression $x^{\alpha-1} e^{-\beta x}$ to integate to $1$ over the range $(0,\infty)$, then we had better multiply it by the normalizing factor $\beta^\alpha / \Gamma(\alpha)$.
+where we've made the substitution $u=\beta x$ in the first equality. Thus, if we want the expression $x^{\alpha-1} e^{-\beta x}$ to integate to $1$ over the support $(0,\infty)$, then we had better multiply it by the normalizing factor $\beta^\alpha / \Gamma(\alpha)$.
 
 The PDFs look like the following, for various settings of the parameters.
 
@@ -1267,7 +1305,7 @@ for i in range(2):
         axes[i,j].set_xlabel(rf'$\alpha={alpha}$, $\beta={b}$')
 
 fig.set_size_inches(7, 5)
-fig.suptitle(r'PDF of a random variable $X\sim \Gamma(\alpha,\beta)$')
+fig.suptitle(r'PDF of a random variable $X\sim \mathcal{G}am(\alpha,\beta)$')
 plt.tight_layout()
 ```
 
@@ -1278,7 +1316,7 @@ If you inspect the Python code that I wrote to produce these figures, you'll not
 I have decided to present the exponential distributions _first_, and _then_ the gamma distributions. This might seem a bit backwards since the former are actually special types of the latter. Indeed, by comparing PDFs, we see that
 
 $$
-\mathcal{E}xp(\lambda) = \Gamma(1,\lambda).
+\mathcal{E}xp(\lambda) = \mathcal{G}am(1,\lambda).
 $$
 
 However, I wanted us to be familiar with exponential variables so that the following scenario makes sense. (It would be worth reviewing the [Poisson](poisson-scenario) and [exponential scenarios](exp-scenario) before proceeding!)
@@ -1286,9 +1324,9 @@ However, I wanted us to be familiar with exponential variables so that the follo
 ```{admonition} An archetypical gamma scenario (email scenario continued, again)
 :name: gamma-scenario
 
-**Q**: Remember that $T_k$ (for $k=1,2,\ldots$) denotes the (random) arrival time of the $k$-th email in your inbox, and that the mean rate at which they arrive is $\lambda$ emails per hour. What are the distributions of the random variables $T_k$?
+**Q**: Remember that $T_k$ (for $k=1,2,\ldots$) denotes the (random) arrival time of the $k$-th email in your inbox, and that the mean rate at which they arrive is $\lambda$ (measured in reciprocal hours). What are the distributions of the random variables $T_k$?
 
-**A**: We have $T_k \sim \Gamma(k,\lambda)$ for all $k=1,2,\ldots$.
+**A**: We have $T_k \sim \mathcal{G}am(k,\lambda)$ for all $k=1,2,\ldots$.
 ```
 
 The justification follows from the fact that
@@ -1297,7 +1335,7 @@ $$
 T_k = T_1 + (T_2 - T_1) + \cdots + (T_k - T_{k-1}) = I_1 + I_2 + \cdots + I_k,
 $$
 
-and that the $I_k$'s are independent $\mathcal{E}xp(\lambda)$ random variables. Now, as we will see [later](mgf), it is a general fact that the sum of $k$ independent $\mathcal{E}xp(\lambda)$ variables is a $\Gamma(k,\lambda)$ variable. The desired result then follows.
+and that the $I_k$'s are independent $\mathcal{E}xp(\lambda)$ random variables. As we will see [later](mgf), it is a general fact that the sum of $k$ independent $\mathcal{E}xp(\lambda)$ variables is a $\mathcal{G}am(k,\lambda)$ variable, which implies the desired result.
 
 It is instructive to inspect the densities of the first few $T_k$'s:
 
@@ -1346,7 +1384,7 @@ Now:
 ```{prf:theorem} Expectations and variances of gamma variables
 :label: gam-exp-thm
 
-If $X\sim \Gamma(\alpha,\beta)$, then
+If $X\sim \mathcal{G}am(\alpha,\beta)$, then
 
 $$
 E(X) = \frac{\alpha}{\beta} \quad \text{and} \quad V(X) = \frac{\alpha}{\beta^2}.
@@ -1395,7 +1433,7 @@ Do problem 15 on the worksheet.
 
 ## Beta distributions
 
-All the continuous random variables studied so far have unbounded ranges. However, the next type of random variables have their ranges inside the open interval $(0,1)$ which makes them particularly useful for modeling proportions and probabilities. They are parametrized by $\alpha$'s and $\beta$'s just like the gamma variables, and they also have gamma functions in their PDF's.
+All the continuous random variables studied so far have unbounded supports. However, the next type of random variables have their supports inside the open interval $(0,1)$ which makes them particularly useful for modeling proportions and probabilities. They are parametrized by $\alpha$'s and $\beta$'s just like the gamma variables, and they also have gamma functions in their PDF's.
 
 ```{prf:definition}
 
@@ -1405,11 +1443,13 @@ $$
 X \sim \mathcal{B}eta(\alpha,\beta),
 $$
 
-if it has range the open interval $(0,1)$ and its probability density function $f(x)$ is given by
+if its probability density function $f(x)$ is given by
 
 $$
 f(x) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1} (1-x)^{\beta-1}.
 $$
+
+with support $(0,1)$.
 ```
 
 ```{margin}
