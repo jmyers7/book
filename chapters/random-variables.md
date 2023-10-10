@@ -489,7 +489,7 @@ $$
 
 But this is wrong!
 
-Don't believe me? Let's have the computer randomly draw two balls and record the value of $X$. Then, let's have the computer place the balls back into the urn, and then repeat the procedure, recording another (possibly different) value of $Y$. Each time the computer draws a pair of balls we will call a *trial*. Let's have the computer complete, say, $n=10$ trials, and then have it compute the mean of the $n=10$ values of $X$. This produces a mean value of $X$ over $n=10$ trials.
+Don't believe me? Let's have the computer randomly draw two balls and record the value of $X$. Then, let's have the computer place the balls back into the urn, and then repeat the procedure, recording another (possibly different) value of $X$. Each time the computer draws a pair of balls we will call a *trial*. Let's have the computer complete, say, $n=10$ trials, and then have it compute the mean of the $n=10$ values of $X$. This produces a mean value of $X$ over $n=10$ trials.
 
 But why stop with a mean value of $X$ over only $n=10$ trials? Why not let $n$ get bigger? What's the mean value of $X$ over $n=50$ trials, $n=100$ trials, or even $n=200$ trials? Answer:
 

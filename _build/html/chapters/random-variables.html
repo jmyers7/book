@@ -171,7 +171,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="fun-rvs.html">9. Computations with random variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mgf.html">10. Moment generating functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cond-exp.html">11. Conditional expected values</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">12. Statistics, estimators, and their distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">12. Models, estimators, and statistics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="asymptotic.html">13. The asymptotic theory: the LLN and CLT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="point-est.html">14. Point estimators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CIs.html">15. Confidence intervals</a></li>
@@ -694,7 +694,7 @@ X: S \to \mathbb{R}, \quad X = \text{ largest of two numbers}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/3516e36cdda8c6f679bab659568088f96fe80bc2b004e66eba2f0edea8377428.png"><img alt="../_images/3516e36cdda8c6f679bab659568088f96fe80bc2b004e66eba2f0edea8377428.png" src="../_images/3516e36cdda8c6f679bab659568088f96fe80bc2b004e66eba2f0edea8377428.png" style="width: 70%;" /></a>
+<a class="reference internal image-reference" href="../_images/8f39acd11661e57fb4155502f709a959ad81547bc5885045601003e7e949b14e.png"><img alt="../_images/8f39acd11661e57fb4155502f709a959ad81547bc5885045601003e7e949b14e.png" src="../_images/8f39acd11661e57fb4155502f709a959ad81547bc5885045601003e7e949b14e.png" style="width: 70%;" /></a>
 </figure>
 </div>
 </div>
@@ -704,7 +704,7 @@ X: S \to \mathbb{R}, \quad X = \text{ largest of two numbers}.
 \frac{2+3+4+5}{4} = 3.5.
 \]</div>
 <p>But this is wrong!</p>
-<p>Don’t believe me? Let’s have the computer randomly draw two balls and record the value of <span class="math notranslate nohighlight">\(X\)</span>. Then, let’s have the computer place the balls back into the urn, and then repeat the procedure, recording another (possibly different) value of <span class="math notranslate nohighlight">\(Y\)</span>. Each time the computer draws a pair of balls we will call a <em>trial</em>. Let’s have the computer complete, say, <span class="math notranslate nohighlight">\(n=10\)</span> trials, and then have it compute the mean of the <span class="math notranslate nohighlight">\(n=10\)</span> values of <span class="math notranslate nohighlight">\(X\)</span>. This produces a mean value of <span class="math notranslate nohighlight">\(X\)</span> over <span class="math notranslate nohighlight">\(n=10\)</span> trials.</p>
+<p>Don’t believe me? Let’s have the computer randomly draw two balls and record the value of <span class="math notranslate nohighlight">\(X\)</span>. Then, let’s have the computer place the balls back into the urn, and then repeat the procedure, recording another (possibly different) value of <span class="math notranslate nohighlight">\(X\)</span>. Each time the computer draws a pair of balls we will call a <em>trial</em>. Let’s have the computer complete, say, <span class="math notranslate nohighlight">\(n=10\)</span> trials, and then have it compute the mean of the <span class="math notranslate nohighlight">\(n=10\)</span> values of <span class="math notranslate nohighlight">\(X\)</span>. This produces a mean value of <span class="math notranslate nohighlight">\(X\)</span> over <span class="math notranslate nohighlight">\(n=10\)</span> trials.</p>
 <p>But why stop with a mean value of <span class="math notranslate nohighlight">\(X\)</span> over only <span class="math notranslate nohighlight">\(n=10\)</span> trials? Why not let <span class="math notranslate nohighlight">\(n\)</span> get bigger? What’s the mean value of <span class="math notranslate nohighlight">\(X\)</span> over <span class="math notranslate nohighlight">\(n=50\)</span> trials, <span class="math notranslate nohighlight">\(n=100\)</span> trials, or even <span class="math notranslate nohighlight">\(n=200\)</span> trials? Answer:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -734,7 +734,7 @@ X: S \to \mathbb{R}, \quad X = \text{ largest of two numbers}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/bb8e732cd2a0dfb31cc7fcf5bf024c2a2c71f5b4e5ba8b8139322f9532fb18bb.png"><img alt="../_images/bb8e732cd2a0dfb31cc7fcf5bf024c2a2c71f5b4e5ba8b8139322f9532fb18bb.png" src="../_images/bb8e732cd2a0dfb31cc7fcf5bf024c2a2c71f5b4e5ba8b8139322f9532fb18bb.png" style="width: 70%;" /></a>
+<a class="reference internal image-reference" href="../_images/b6e8ff2ad1620b26d4e76ca4383b59422a32debafb630c9ad34962fb07751f88.png"><img alt="../_images/b6e8ff2ad1620b26d4e76ca4383b59422a32debafb630c9ad34962fb07751f88.png" src="../_images/b6e8ff2ad1620b26d4e76ca4383b59422a32debafb630c9ad34962fb07751f88.png" style="width: 70%;" /></a>
 </figure>
 </div>
 </div>
@@ -770,7 +770,7 @@ X: S \to \mathbb{R}, \quad X = \text{ largest of two numbers}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/3516e36cdda8c6f679bab659568088f96fe80bc2b004e66eba2f0edea8377428.png"><img alt="../_images/3516e36cdda8c6f679bab659568088f96fe80bc2b004e66eba2f0edea8377428.png" src="../_images/3516e36cdda8c6f679bab659568088f96fe80bc2b004e66eba2f0edea8377428.png" style="width: 70%;" /></a>
+<a class="reference internal image-reference" href="../_images/8f39acd11661e57fb4155502f709a959ad81547bc5885045601003e7e949b14e.png"><img alt="../_images/8f39acd11661e57fb4155502f709a959ad81547bc5885045601003e7e949b14e.png" src="../_images/8f39acd11661e57fb4155502f709a959ad81547bc5885045601003e7e949b14e.png" style="width: 70%;" /></a>
 </figure>
 </div>
 </div>
@@ -798,7 +798,7 @@ X: S \to \mathbb{R}, \quad X = \text{ largest of two numbers}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/f48025589a7e50fab26af4f016168491e67f86cb379e4f06f9ed54428ca2042b.png"><img alt="../_images/f48025589a7e50fab26af4f016168491e67f86cb379e4f06f9ed54428ca2042b.png" src="../_images/f48025589a7e50fab26af4f016168491e67f86cb379e4f06f9ed54428ca2042b.png" style="width: 70%;" /></a>
+<a class="reference internal image-reference" href="../_images/8ee7ca3dcdd890c7c68f4f1925d74204c74f885704e415a41d79d25e05e6fa5c.png"><img alt="../_images/8ee7ca3dcdd890c7c68f4f1925d74204c74f885704e415a41d79d25e05e6fa5c.png" src="../_images/8ee7ca3dcdd890c7c68f4f1925d74204c74f885704e415a41d79d25e05e6fa5c.png" style="width: 70%;" /></a>
 </figure>
 </div>
 </div>
@@ -850,7 +850,7 @@ X: S \to \mathbb{R}, \quad X = \text{ largest of two numbers}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/35441d3c13631b55a714a01d6bff20ff85c79a56605ca64e7f5a7e0840839dc7.png"><img alt="../_images/35441d3c13631b55a714a01d6bff20ff85c79a56605ca64e7f5a7e0840839dc7.png" src="../_images/35441d3c13631b55a714a01d6bff20ff85c79a56605ca64e7f5a7e0840839dc7.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/b965fc18362448bb6b58ee85b30846133c7a66776e0dd03a09aa81a0738732b2.png"><img alt="../_images/b965fc18362448bb6b58ee85b30846133c7a66776e0dd03a09aa81a0738732b2.png" src="../_images/b965fc18362448bb6b58ee85b30846133c7a66776e0dd03a09aa81a0738732b2.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
@@ -1258,7 +1258,7 @@ P(c=x) = \begin{cases} 1 &amp; : x = c, \\ 0 &amp; : x\neq c. \end{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/f6300c78c95931c95b1f99bf99e7371b496210f6776c10cf664715888112352a.png"><img alt="../_images/f6300c78c95931c95b1f99bf99e7371b496210f6776c10cf664715888112352a.png" src="../_images/f6300c78c95931c95b1f99bf99e7371b496210f6776c10cf664715888112352a.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/29d47ec865b027abe31a0fa05224fe903659b925d337d3e45d72adc83aa64946.png"><img alt="../_images/29d47ec865b027abe31a0fa05224fe903659b925d337d3e45d72adc83aa64946.png" src="../_images/29d47ec865b027abe31a0fa05224fe903659b925d337d3e45d72adc83aa64946.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
@@ -1342,8 +1342,8 @@ g(x) = ax+b,
 <p class="admonition-title"><span class="caption-number">Theorem 4.6 </span> (Variance of an Affine Transformation)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable and <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> constants. Then</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8abc3078-9adc-4b9d-a4fa-02e60f9c9234">
-<span class="eqno">(4.18)<a class="headerlink" href="#equation-8abc3078-9adc-4b9d-a4fa-02e60f9c9234" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
+<div class="amsmath math notranslate nohighlight" id="equation-94ab430b-da9e-4452-99bd-2248e8f59861">
+<span class="eqno">(4.18)<a class="headerlink" href="#equation-94ab430b-da9e-4452-99bd-2248e8f59861" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
 V(aX +b) = a^2 V(X).
 \end{equation}\]</div>
 </section>
