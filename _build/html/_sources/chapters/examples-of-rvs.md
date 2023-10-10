@@ -1523,7 +1523,7 @@ These formulas may be derived using computations very similar to those for deriv
 
 ```{admonition} Problem Prompt
 
-Do problems 16- on the worksheet.
+Do problem 16 on the worksheet.
 ```
 
 
