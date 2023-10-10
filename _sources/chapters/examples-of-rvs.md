@@ -764,12 +764,12 @@ Suppose that there are $n$ subintervals, each of equal length $\Delta t = t/n$:
 ```
 &nbsp;
 
-Now, we let $Y_k$ be the number of emails that arrive in the $k$-th subinterval, for each $k=1,2,\ldots,n$. By construction, we have that $Y_k=0$ or $1$, and thus each $Y_k$ is a Bernoulli random variable, parametrized by $p_k$. But what is the parameter $p_k$?
+Now, we let $Y_k$ be the number of emails that arrive in the $k$-th subinterval, for each $k=1,2,\ldots,n$. By construction, we have that $Y_k=0$ or $1$, and thus each $Y_k$ is a Bernoulli random variable, parametrized by some parameter $p_k$. But what is $p_k$?
 
 To answer this, recall that we are told the mean rate at which the emails arrive is $\lambda$. Thus, since the length of each of the subintervals is $\Delta t$, we would expect, on average, that exactly
 
 $$
-\lambda \cdot \Delta t = \frac{\lambda t}{n}.
+\lambda \cdot \Delta t = \frac{\lambda t}{n}
 $$
 
 emails arrive in the $k$-th subinterval. But we know that $E(Y_k) = p_k$ because $Y_k$ is Bernoulli, and this implies that $p_k = \lambda t/n$. Thus $Y_k \sim \mathcal{B}er(\lambda t/n)$, for each $k=1,2,\ldots,n$.
@@ -1108,7 +1108,9 @@ $$
 I_k = T_k - T_{k-1}
 $$
 
-are called *interarrival times*. What are the distributions of the random variables $I_1,I_2,\ldots$?
+are called *interarrival times*.
+
+What are the distributions of the random variables $I_1,I_2,\ldots$?
 
 **A**: $I_k\sim \mathcal{E}xp(\lambda)$ for all $k=1,2,\ldots$.
 ```
@@ -1141,7 +1143,7 @@ P(T_2 >t | T_1 < s ) &= P\left( \text{no emails arrive in $[s,s+t]$} | T_1 < s \
 &= e^{-\lambda t}.
 \end{align*}
 
-The second equality follows from independence of the arrival times $X_1,X_2,\ldots$; indeed, the specific time at which the first email arrives in the interval $[0,s]$ should have no bearing on whether any emails arrive in the time interval $[s,s+t]$. The third equality follows from the fact (again) that the number of emails that arrive in a time interval of length $t$ is a $\mathcal{P}ois(\lambda t)$ random variable. But the same independence considerations tell us that
+The second equality follows from independence of the arrival times $T_1,T_2,\ldots$; indeed, the specific time at which the first email arrives in the interval $[0,s]$ should have no bearing on whether any emails arrive in the time interval $[s,s+t]$. The third equality follows from the fact (again) that the number of emails that arrive in a time interval of length $t$ is a $\mathcal{P}ois(\lambda t)$ random variable. But the same independence considerations tell us that
 
 $$
 P(T_2 >t) = P(T_2 >t | T_1 < s )

@@ -11,6 +11,6 @@ kernelspec:
 ---
 
 (stats-estimators)=
-# Statistics, estimators, and their distributions
+# Models, estimators, and statistics
 
 Coming soon!
