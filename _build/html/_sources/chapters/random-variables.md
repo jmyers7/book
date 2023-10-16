@@ -867,22 +867,22 @@ However, if you weren't paying close attention and were mindlessly and unconscio
 
 $$
 E(g(X)) = \sum_{x\in \mathbb{R}} g(x)\cdot P(X=x).
-$$ (wrong-eqn)
+$$ (wrong1-eqn)
 
 It could happen, right?
 
-But you *need* to notice that it is *not* obvious that the expression on the right-hand side of {eq}`wrong-eqn` correctly computes the expected value $E(Y) = E(g(X))$. For one, notice that the sum in {eq}`wrong-eqn` iterates over all $x\in \mathbb{R}$, and that these values are inserted into $g$ to obtain $y=g(x)$. But there is no reason to believe that you obtain *all* values of $y\in \mathbb{R}$ in this way, and yet this is what the *correct* formula {eq}`right-eqn` demands.
+But you *need* to notice that it is *not* obvious that the expression on the right-hand side of {eq}`wrong1-eqn` correctly computes the expected value $E(Y) = E(g(X))$. For one, notice that the sum in {eq}`wrong1-eqn` iterates over all $x\in \mathbb{R}$, and that these values are inserted into $g$ to obtain $y=g(x)$. But there is no reason to believe that you obtain *all* values of $y\in \mathbb{R}$ in this way, and yet this is what the *correct* formula {eq}`right-eqn` demands.
 
-So, you see there is no *obvious* reason why the two formulas {eq}`right-eqn` and {eq}`wrong-eqn` should be the same. And yet, if you mistakenly compute $E(Y) =E(g(X))$ using {eq}`wrong-eqn` and then return later in a panic to re-do your computations using {eq}`right-eqn`, you'll find that they were *right* the entire time! This is because these two formulas secretly *are* the same, but exactly *why* they are equal is not obvious.
+So, you see there is no *obvious* reason why the two formulas {eq}`right-eqn` and {eq}`wrong1-eqn` should be the same. And yet, if you mistakenly compute $E(Y) =E(g(X))$ using {eq}`wrong1-eqn` and then return later in a panic to re-do your computations using {eq}`right-eqn`, you'll find that they were *right* the entire time! This is because these two formulas secretly *are* the same, but exactly *why* they are equal is not obvious.
 
 ```{margin}
 And by the way: Though I am a mathematician by training and get annoyed rather easily with sloppy mathematical rigor, I did *not* <a href="https://en.wikipedia.org/wiki/Law_of_the_unconscious_statistician">make up</a> this name. :)
 ```
 
-The fact that the formula {eq}`wrong-eqn` correctly computes the expected value $E(Y) = E(g(X))$ is called the "Law of the Unconscious Statistician," named in honor of all those unconscious statisticians who believe the formulas {eq}`right-eqn` and {eq}`wrong-eqn`are **obviously** the same thing!
+The fact that the formula {eq}`wrong1-eqn` correctly computes the expected value $E(Y) = E(g(X))$ is called the "Law of the Unconscious Statistician," named in honor of all those unconscious statisticians who believe the formulas {eq}`right-eqn` and {eq}`wrong1-eqn`are **obviously** the same thing!
 
 
-Now, let me begin to explain *why* {eq}`wrong-eqn` correctly computes the expected value by drawing a few pictures. First, remember that $Y=g(X)$ is a real-valued function on $S$ like any other, so I would picture it like this:
+Now, let me begin to explain *why* {eq}`wrong1-eqn` correctly computes the expected value by drawing a few pictures. First, remember that $Y=g(X)$ is a real-valued function on $S$ like any other, so I would picture it like this:
 
 ```{image} ../img/trans0.svg
 :width: 75%
