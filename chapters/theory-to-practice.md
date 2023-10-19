@@ -216,6 +216,7 @@ Here's the main definition:
 
 ````{prf:definition}
 :label: emp-dist-defn
+
 Let $X_1,X_2,\ldots,X_n \sim F$ be a random sample from an unknown distribution function $F$, and let $x_1,x_2,\ldots,x_n$ be an _observed_ random sample. Then the *empirical distribution* of the dataset is the discrete probability measure on $\mathbb{R}$ with probability mass function
 
 ```{math}
