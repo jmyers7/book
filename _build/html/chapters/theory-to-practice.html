@@ -344,8 +344,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-models-and-empirical-distributions">6.2. Probabilistic models and empirical distributions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histograms">6.3. Histograms</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-density-estimation">6.4. Kernel density estimation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qq-plots">6.5. QQ-plots</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-statistics">6.6. Sample statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-statistics">6.5. Empirical statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qq-plots">6.6. QQ-plots</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#box-plots-and-violin-plots">6.7. Box plots and violin plots</a></li>
 </ul>
             </nav>
@@ -362,7 +362,7 @@ document.write(`
 <span id="theory-to-practice"></span><h1><span class="section-number">6. </span>Connecting theory to practice: data and samples<a class="headerlink" href="#connecting-theory-to-practice-data-and-samples" title="Permalink to this heading">#</a></h1>
 <section id="data-and-random-samples">
 <h2><span class="section-number">6.1. </span>Data and random samples<a class="headerlink" href="#data-and-random-samples" title="Permalink to this heading">#</a></h2>
-<p>This chapter is a continuation of the ideas presented in the third programming assignment (see the course Github <a class="reference external" href="https://github.com/jmyers7/stats-book-materials">repo</a>) where we began exploring how the concepts that we have been studying over the past few chapters apply to <em>real-world</em> datasets. In that assignment, we learned about <em>empirical distributions</em> of datasets and associated empirical quantities like means, variances, and quantiles.</p>
+<p>This chapter is a continuation of the ideas presented in the third programming assignment (see the course <a class="reference external" href="https://github.com/jmyers7/stats-book-materials">Github repo</a>) where we began exploring how the concepts that we have been studying over the past few chapters apply to <em>real-world</em> datasets. In that assignment, we learned about <em>empirical distributions</em> of datasets and associated empirical quantities like means, variances, and quantiles.</p>
 <p>Our exploration in the third programming assignment centered on the <em>Ames housing dataset</em>. In this chapter, we will explore a dataset related to Airbnbs. In particular, we have at hand a sample of daily prices (in USD) for Airbnbs in Austin, Texas, over the last 12 months:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -799,29 +799,163 @@ X_1,X_2,\ldots,X_n \sim \mathcal{N}(\mu_0,\sigma_0^2)
 </div>
 <p>So, we’ve seen that KDEs are supposed to serve as estimates for the density curves of datasets, but they are highly sensitive to the choice of bandwidth <span class="math notranslate nohighlight">\(h\)</span>. How do you choose <span class="math notranslate nohighlight">\(h\)</span>? Just like the ‘number of bins’ parameter for histograms, you are best off first letting the computer decide the bandwidth for you, and then manually fine-tune it (if needed) until you get a KDE that you believe best represents the data.</p>
 </section>
+<section id="empirical-statistics">
+<h2><span class="section-number">6.5. </span>Empirical statistics<a class="headerlink" href="#empirical-statistics" title="Permalink to this heading">#</a></h2>
+<p>Before we continue discussing more ways to <em>visualize</em> datasets, we need to discuss numerical summaries of datasets. This section is essentially a recapitulation of what you learned in the third programming assignment (see the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials">Github repo</a>) with a few new things thrown in at the end.</p>
+<p>Let’s begin our discussion by returning to a general IID random sample</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+X_1,X_2,\ldots, X_n \sim F,
+\end{equation*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(F\)</span> represents the (unknown) distribution function corresponding to a probabilistic model. Suppose that the model distribution has a mean <span class="math notranslate nohighlight">\(\mu_0\)</span> and a standard deviation <span class="math notranslate nohighlight">\(\sigma_0\)</span>, so that</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+E(X_k) = \mu_0 \quad \text{and} \quad V(X_k) = \sigma_0^2,
+\end{equation*}\]</div>
+<p>for each <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>. Based on an observed random sample</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+x_1,x_2,\ldots, x_n,
+\end{equation*}\]</div>
+<p>how might we estimate the unknown population parameters <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span>?</p>
+<div class="proof definition admonition" id="definition-2">
+<p class="admonition-title"><span class="caption-number">Definition 6.3 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> be an observed random sample (i.e., a dataset). The <em>empirical mean</em> is defined to be the number</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\bar{x} = \frac{1}{n} \sum_{k=1}^n x_k,
+\end{equation*}\]</div>
+<p>while the <em>empirical variance</em> is defined to be the number</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+s^2 = \frac{1}{n-1} \sum_{k=1}^n (x_k - \bar{x})^2.
+\end{equation*}\]</div>
+<p>The <em>empirical standard deviation</em> <span class="math notranslate nohighlight">\(s\)</span> is defined, as usual, as the positive square root of the empirical variance, <span class="math notranslate nohighlight">\(s = \sqrt{s^2}\)</span>.</p>
+</section>
+</div><p>The empirical mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> and standard deviation <span class="math notranslate nohighlight">\(s\)</span> are supposed to serve as data-based estimates for the true population mean <span class="math notranslate nohighlight">\(\mu_0\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma_0\)</span>. If we believe that the dataset is truly representative of the population, then these estimates should be close to their targets.</p>
+<p>I should mention that the empirical quantities we just defined are often called the <em>sample mean</em>, <em>sample variance</em>, and <em>sample standard deviation</em>. However, as we will see later, our empirical quantities turn out to be observed values of certain <em>estimators</em> that are (also) called the <em>sample mean</em>, <em>sample variance</em>, and <em>sample standard deviation</em>. Since I believe that it is important—at least at first—to distinguish between an <strong>estimate</strong> and an <strong>estimator</strong>, I have decided to refer to <span class="math notranslate nohighlight">\(\bar{x}\)</span>, <span class="math notranslate nohighlight">\(s^2\)</span>, and <span class="math notranslate nohighlight">\(s\)</span> as <em>empirical quantities</em> rather than <em>sample quantities</em>. In later chapters, however, I will not be so careful, and will refer to <span class="math notranslate nohighlight">\(\bar{x}\)</span>, <span class="math notranslate nohighlight">\(s^2\)</span>, and <span class="math notranslate nohighlight">\(s\)</span> as <em>sample quantities</em>.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>By the way, the replacement of <span class="math notranslate nohighlight">\(1/n\)</span> with <span class="math notranslate nohighlight">\(1/(n-1)\)</span> in the empirical variance is sometimes called <a class="reference external" href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s correction</a>.</p>
+</aside>
+<p>The definitions of <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\(s^2\)</span> are surely quite natural, <em>except</em> that the empirical variance involves division by <span class="math notranslate nohighlight">\(n-1\)</span> instead of the sample size <span class="math notranslate nohighlight">\(n\)</span> like you might have expected. The reason for this is that, if we had a factor of <span class="math notranslate nohighlight">\(1/n\)</span> in <span class="math notranslate nohighlight">\(s^2\)</span> instead of <span class="math notranslate nohighlight">\(1/(n-1)\)</span>, then the value of <span class="math notranslate nohighlight">\(s^2\)</span> would <em>systematically</em> (on average) underestimate the true value <span class="math notranslate nohighlight">\(\sigma_0^2\)</span> over repeated sampling. This can be demonstrated empirically through computer simulation, and it can also be <em>proved</em> theoretically as we will see later when we study bias of estimators. So for now, we will just take the above definition of <span class="math notranslate nohighlight">\(s^2\)</span> on faith, postponing till a later discussion the explanation regarding <em>why</em> it’s a good estimator.</p>
+<p>Though the empirical quantities <span class="math notranslate nohighlight">\(\bar{x}\)</span>, <span class="math notranslate nohighlight">\(s^2\)</span>, and <span class="math notranslate nohighlight">\(s\)</span> all have definitions that closely mimic their population-level counterparts <span class="math notranslate nohighlight">\(\mu\)</span>, <span class="math notranslate nohighlight">\(\sigma^2\)</span>, and <span class="math notranslate nohighlight">\(\sigma\)</span>, the definition of the <em>empirical quantiles</em> of a dataset is a bit further removed from the definition of quantiles that we learned back in <a class="reference internal" href="random-variables.html#random-variables"><span class="std std-numref">Chapter 4</span></a>. Here is the definition:</p>
+<div class="proof definition admonition" id="emp-quantile-defn">
+<p class="admonition-title"><span class="caption-number">Definition 6.4 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> be an observed random sample, written in non-decreasing order:</p>
+<div class="math notranslate nohighlight" id="equation-listing-eqn">
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-listing-eqn" title="Permalink to this equation">#</a></span>\[x_1 \leq x_2 \leq \cdots \leq x_n.\]</div>
+<p>For each <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>, the datapoint <span class="math notranslate nohighlight">\(x_k\)</span> is called the <em>empirical <span class="math notranslate nohighlight">\(q\)</span>-quantile</em> where</p>
+<div class="math notranslate nohighlight" id="equation-quantile-eqn">
+<span class="eqno">(6.3)<a class="headerlink" href="#equation-quantile-eqn" title="Permalink to this equation">#</a></span>\[q  = \frac{k-1}{n-1}.\]</div>
+</section>
+</div><p>This definition appeared in the third programming assignment, where I mentioned that the intuition for the formula <a class="reference internal" href="#equation-quantile-eqn">(6.3)</a> for <span class="math notranslate nohighlight">\(q\)</span> is that it is precisely the proportion of data points (excluding) <span class="math notranslate nohighlight">\(x_k\)</span> that fall to the <em>left</em> of <span class="math notranslate nohighlight">\(x_k\)</span> in the listing <a class="reference internal" href="#equation-listing-eqn">(6.2)</a>. I also explained in that assignment how one goes about computing the empirical <span class="math notranslate nohighlight">\(q\)</span>-quantile where <span class="math notranslate nohighlight">\(q\)</span> is a number (between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>, inclusive) that is <em>not</em> of the form <a class="reference internal" href="#equation-quantile-eqn">(6.3)</a>: The default method in the Pandas library is linear interpolation.</p>
+<p>The empirical 0.25-, 0.5-, and 0.75-quantiles are called the <em>first</em>, <em>second</em>, and <em>third quartiles</em>. For the Airbnb dataset, these are listed in the following printout on the lines labeled <span class="math notranslate nohighlight">\(25\%\)</span>, <span class="math notranslate nohighlight">\(50\%\)</span> and <span class="math notranslate nohighlight">\(75\%\)</span>:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">airbnb_stats</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="n">airbnb_stats</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    3972.000000
+mean      154.114371
+std       102.481302
+min         0.820000
+25%        83.240000
+50%       121.555000
+75%       199.460000
+max       509.790000
+Name: price, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Along with the empirical quartiles, you can also see that this method from the Pandas library conveniently outputs the empirical mean and standard deviation, as well as the size of the dataset (the <em>count</em>) and the minimum and maximum sample values.</p>
+<p>The range over which the middle 50% of a dataset sits is defined in:</p>
+<div class="proof definition admonition" id="definition-4">
+<p class="admonition-title"><span class="caption-number">Definition 6.5 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> be an observed random sample. The <em>empirical interquartile range</em> (<em>empirical IQR</em>) is the difference</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+(\text{empirical 0.75-quantile}) - (\text{empirical 0.25-quantile}).
+\end{equation*}\]</div>
+</section>
+</div><p>So, using the outputs above, we see that the empirical IQR of the Airbnb dataset is:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iqr_airbnb</span> <span class="o">=</span> <span class="n">airbnb_stats</span><span class="p">[</span><span class="s1">&#39;75%&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">airbnb_stats</span><span class="p">[</span><span class="s1">&#39;25%&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The IQR for the Airbnb dataset is </span><span class="si">{</span><span class="n">iqr_airbnb</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The IQR for the Airbnb dataset is 116.22.
+</pre></div>
+</div>
+</div>
+</div>
+<p>With the definition of <em>empirical IQR</em> in hand, we may now define <em>outliers</em>:</p>
+<div class="proof definition admonition" id="definition-5">
+<p class="admonition-title"><span class="caption-number">Definition 6.6 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> be an observed random sample. Then a data point <span class="math notranslate nohighlight">\(x_k\)</span> is called an <em>outlier</em> if it is above an upper threshold value</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+x_k &gt; (\text{empirical 0.75-quantile}) + 1.5\times (\text{empirical IQR}),
+\end{equation*}\]</div>
+<p>or if it is below a lower threshold value</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+x_k &lt; (\text{empirical 0.25-quantile}) - 1.5\times (\text{empirical IQR}).
+\end{equation*}\]</div>
+</section>
+</div><p>There’s a very convenient way to <em>visually</em> summarize all these empirical statistics (along with outliers) which we will discuss in the last section of this chapter.</p>
+</section>
 <section id="qq-plots">
-<h2><span class="section-number">6.5. </span>QQ-plots<a class="headerlink" href="#qq-plots" title="Permalink to this heading">#</a></h2>
-<p>Another convenient way to compare two probability distributions is through visualizations called <em>quantile-quantile plots</em>, or <em>QQ-plots</em>.</p>
-<p>The basic idea is quite simple. A QQ-plot gives us a way to compare the quantiles of two distributions—we expect that if the distributions are similar, then their quantiles should be distributed similarly. One often uses QQ-plots to compare empirical distributions of datasets against normal distributions in order to check if the data is normally distributed. In fact, this will be our exclusive use case for QQ-plots in this course, and my description here will thus be limited to this special case.</p>
-<p>Now, we <em>already</em> have from <a class="reference internal" href="prob-spaces.html#dist-quant"><span class="std std-numref">Section 2.10</span></a> a definition of <em>quantiles</em> that works for any type of distribution. When we use QQ-plots, however, we adopt a <em>different</em> definition for empirical distributions of datasets. To describe it, for convenience, let’s suppose that the points in our dataset are labeled with <span class="math notranslate nohighlight">\(y\)</span>’s instead of <span class="math notranslate nohighlight">\(x\)</span>’s. (You’ll see why this is convenient, in just a moment.) Suppose that we order our dataset in non-decreasing order:</p>
+<h2><span class="section-number">6.6. </span>QQ-plots<a class="headerlink" href="#qq-plots" title="Permalink to this heading">#</a></h2>
+<p>We learned in the third programming assignment (see the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials">Github repo</a>) how to produce a plot of the empirical quantiles of a dataset. In this section, we will learn how to produce a plot that compares these empirical quantiles to the quantiles of a normal distribution. This new type of plot, called a <em>(normal) quantile-quantile plot</em> or <em>(normal) QQ-plot</em>, is useful for checking whether the empirical distribution of a dataset follows a normal distribution.</p>
+<p>Though the basic idea behind a QQ-plot is quite simple, it demands that we slightly alter the definition of <em>empirical quantiles</em> given in the previous section. Indeed, according to that definition, the minimum and maximum values in a dataset are the <span class="math notranslate nohighlight">\(0\)</span>- and <span class="math notranslate nohighlight">\(1\)</span>-quantiles, respectively. But we will run into trouble if we are going to compare these to the quantiles of a normal distribution, since normal distributions do not have <span class="math notranslate nohighlight">\(0\)</span>- and <span class="math notranslate nohighlight">\(1\)</span>-quantiles.</p>
+<p>To help explain, for convenience, let’s suppose that the points in our dataset are labeled with <span class="math notranslate nohighlight">\(y\)</span>’s instead of <span class="math notranslate nohighlight">\(x\)</span>’s. (You’ll see why this is convenient, in just a moment.) Suppose that we put our dataset in non-decreasing order,</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 y_1 \leq y_2 \leq \cdots \leq y_n,
 \end{equation*}\]</div>
-<p>where <span class="math notranslate nohighlight">\(n\)</span> is the size of the dataset. Notice that some data points might be repeated, which accounts for the “<span class="math notranslate nohighlight">\(\leq\)</span>” sign instead of strict inequality “<span class="math notranslate nohighlight">\(&lt;\)</span>.” Then, to each data point we associate the following fraction:</p>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the size of the dataset. Then, instead of identifying quantiles through the association</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+y_k \leftrightarrow \frac{k-1}{n-1}
+\end{equation*}\]</div>
+<p>as we did in <a class="reference internal" href="#emp-quantile-defn">Definition 6.4</a>, we instead make the association</p>
 <div class="math notranslate nohighlight" id="equation-quant-eqn">
-<span class="eqno">(6.2)<a class="headerlink" href="#equation-quant-eqn" title="Permalink to this equation">#</a></span>\[y_k \leftrightarrow \frac{k-1/2}{n},\]</div>
-<p>for <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>. We are supposed to think of <span class="math notranslate nohighlight">\(y_k\)</span> as being the <span class="math notranslate nohighlight">\((k-1/2)/n\)</span>-quantile, though this does <em>not</em> coincide with our earlier definition of quantile.</p>
-<p>For an example, suppose that <span class="math notranslate nohighlight">\(n=5\)</span> and that all the data points are distinct. Then, if we plot our dataset along an axis along with the labels <a class="reference internal" href="#equation-quant-eqn">(6.2)</a>, we get the following picture:</p>
+<span class="eqno">(6.4)<a class="headerlink" href="#equation-quant-eqn" title="Permalink to this equation">#</a></span>\[y_k \leftrightarrow \frac{k-1/2}{n},\]</div>
+<p>for <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>. For a specific example, suppose that <span class="math notranslate nohighlight">\(n=5\)</span> and that all the data points are distinct. Then, if we plot our dataset along an axis along with the labels <a class="reference internal" href="#equation-quant-eqn">(6.4)</a>, we get the following picture:</p>
 <a class="reference internal image-reference" href="../_images/quant.svg"><img alt="../_images/quant.svg" class="align-center" src="../_images/quant.svg" width="80%" /></a>
 <p> </p>
-<p>Thus, if the labels <a class="reference internal" href="#equation-quant-eqn">(6.2)</a> really did mark the <span class="math notranslate nohighlight">\(y_k\)</span>’s as quantiles, then we would expect 10% of the data to fall to the left of <span class="math notranslate nohighlight">\(y_1\)</span> and 10% to the right of <span class="math notranslate nohighlight">\(y_5\)</span>, and 20% of the data to fall between each pair of consecutive data points. But this isn’t actually true, of course. Moreover, if the data points are not all distinct, say <span class="math notranslate nohighlight">\(y_k = y_{k+1}\)</span> for some <span class="math notranslate nohighlight">\(k\)</span>, then the <em>single</em> number <span class="math notranslate nohighlight">\(y_k\)</span> would be assigned two <em>different</em> quantile labels, <span class="math notranslate nohighlight">\((k-1/2)/n\)</span> and <span class="math notranslate nohighlight">\((k+1/2)/n\)</span>! Nevertheless, this is the convention used when construction QQ-plots (though even <em>this</em> convention varies from source to source).</p>
-<p>To construct the QQ-plot, we then compare the “quantiles” <a class="reference internal" href="#equation-quant-eqn">(6.2)</a> of the dataset to the <em>actual</em> quantiles of the standard normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(0,1)\)</span> by first defining</p>
+<p>Notice that the minimum and maximum values are no longer the <span class="math notranslate nohighlight">\(0\)</span>- and <span class="math notranslate nohighlight">\(1\)</span>-quantiles, but instead the <span class="math notranslate nohighlight">\(0.1\)</span>- and <span class="math notranslate nohighlight">\(0.9\)</span>-quantiles.</p>
+<p>Now, to construct the QQ-plot, we compare these (new) empirical quantiles to the <em>actual</em> quantiles of the standard normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(0,1)\)</span> by first defining</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 x_k = \Phi^{-1} \left( \frac{k-1/2}{n} \right)
 \end{equation*}\]</div>
-<p>for each <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>, where <span class="math notranslate nohighlight">\(\Phi\)</span> is the CDF of the standard normal distribution. In particular, note that <span class="math notranslate nohighlight">\(x_k\)</span> really <em>is</em> the <span class="math notranslate nohighlight">\((k-1/2)/n\)</span>-quantile of <span class="math notranslate nohighlight">\(\mathcal{N}(0,1)\)</span>, according to our earlier definition of <em>quantile</em>. The QQ-plot then consists of the points</p>
+<p>for each <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>, where <span class="math notranslate nohighlight">\(\Phi\)</span> is the CDF of the standard normal distribution. In particular, note that <span class="math notranslate nohighlight">\(x_k\)</span> really <em>is</em> the <span class="math notranslate nohighlight">\((k-1/2)/n\)</span>-quantile of <span class="math notranslate nohighlight">\(\mathcal{N}(0,1)\)</span>, according to our earlier definition of <em>quantile</em> in <a class="reference internal" href="random-variables.html#random-variables"><span class="std std-numref">Chapter 4</span></a>. The QQ-plot then consists of the points</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 (x_k,y_k), \quad k=1,2,\ldots,n.
@@ -838,7 +972,7 @@ x_k = \Phi^{-1} \left( \frac{k-1/2}{n} \right)
 
 <span class="n">qqplot</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_k=$normal quantiles&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$y_k=$sample quantiles&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$y_k=$empirical quantiles&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -846,7 +980,7 @@ x_k = \Phi^{-1} \left( \frac{k-1/2}{n} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/f19b479a2024a93be6795f9c993e460df594ec10a0b32b8c0809ea42eded7e0d.png"><img alt="../_images/f19b479a2024a93be6795f9c993e460df594ec10a0b32b8c0809ea42eded7e0d.png" src="../_images/f19b479a2024a93be6795f9c993e460df594ec10a0b32b8c0809ea42eded7e0d.png" style="width: 70%;" /></a>
+<a class="reference internal image-reference" href="../_images/2e766e91d602b415b2e0361671e9e765a85d20b574e05d91245868dce5cd7c15.png"><img alt="../_images/2e766e91d602b415b2e0361671e9e765a85d20b574e05d91245868dce5cd7c15.png" src="../_images/2e766e91d602b415b2e0361671e9e765a85d20b574e05d91245868dce5cd7c15.png" style="width: 70%;" /></a>
 </figure>
 </div>
 </div>
@@ -856,21 +990,21 @@ x_k = \Phi^{-1} \left( \frac{k-1/2}{n} \right)
 </div></blockquote>
 <p>Why is this true? To explain, suppose that the points in the QQ-plot fell <em>exactly</em> on a straight line, so that</p>
 <div class="math notranslate nohighlight" id="equation-norm-eqn">
-<span class="eqno">(6.3)<a class="headerlink" href="#equation-norm-eqn" title="Permalink to this equation">#</a></span>\[y_k = ax_k + b, \quad k=1,2,\ldots,n,\]</div>
+<span class="eqno">(6.5)<a class="headerlink" href="#equation-norm-eqn" title="Permalink to this equation">#</a></span>\[y_k = ax_k + b, \quad k=1,2,\ldots,n,\]</div>
 <p>for some <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> with <span class="math notranslate nohighlight">\(a\neq 0\)</span>. Then, let</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 f(x) = \frac{1}{\sqrt{2\pi}} \exp\left( -\frac{x^2}{2}\right)
 \end{equation*}\]</div>
-<p>be the density of the standard normal distribution, so that <span class="math notranslate nohighlight">\(\Phi(x) = \int_{-\infty}^x f(t) \ \text{d} t\)</span>. Now, if <a class="reference internal" href="#equation-norm-eqn">(6.3)</a> were true, then</p>
+<p>be the density of the standard normal distribution, so that <span class="math notranslate nohighlight">\(\Phi(x) = \int_{-\infty}^x f(t) \ \text{d} t\)</span>. Now, if <a class="reference internal" href="#equation-norm-eqn">(6.5)</a> were true, then</p>
 <div class="math notranslate nohighlight" id="equation-trans-eqn">
-<span class="eqno">(6.4)<a class="headerlink" href="#equation-trans-eqn" title="Permalink to this equation">#</a></span>\[\frac{k-1/2}{n} = \Phi\left( \frac{y_k-b}{a} \right) = \int_{-\infty}^{(y_k-b)/a} f(t) \ \text{d} t = \int_{-\infty}^{y_k} \frac{1}{a} f \left( \frac{s-b}{a}\right) \ \text{d} s,\]</div>
+<span class="eqno">(6.6)<a class="headerlink" href="#equation-trans-eqn" title="Permalink to this equation">#</a></span>\[\frac{k-1/2}{n} = \Phi\left( \frac{y_k-b}{a} \right) = \int_{-\infty}^{(y_k-b)/a} f(t) \ \text{d} t = \int_{-\infty}^{y_k} \frac{1}{a} f \left( \frac{s-b}{a}\right) \ \text{d} s,\]</div>
 <p>where I made the substitution <span class="math notranslate nohighlight">\(t = (s-b)/a\)</span> in going from the first integral to the second. But notice that the transformed function</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 \frac{1}{a} f \left( \frac{x-b}{a}\right) = \frac{1}{a\sqrt{2\pi}} \exp\left[ -\frac{1}{2} \left(\frac{x-b}{a}\right)^2\right]
 \end{equation*}\]</div>
-<p>is the density of <span class="math notranslate nohighlight">\(\mathcal{N}(b,a^2)\)</span>, and so <a class="reference internal" href="#equation-trans-eqn">(6.4)</a> shows that, provided <a class="reference internal" href="#equation-norm-eqn">(6.3)</a> is true, the data point <span class="math notranslate nohighlight">\(y_k\)</span> is the <span class="math notranslate nohighlight">\((k-1/2)/n\)</span>-quantile of <span class="math notranslate nohighlight">\(\mathcal{N}(b,a^2)\)</span>. We conclude:</p>
+<p>is the density of <span class="math notranslate nohighlight">\(\mathcal{N}(b,a^2)\)</span>, and so <a class="reference internal" href="#equation-trans-eqn">(6.6)</a> shows that, provided <a class="reference internal" href="#equation-norm-eqn">(6.5)</a> is true, the data point <span class="math notranslate nohighlight">\(y_k\)</span> is the <span class="math notranslate nohighlight">\((k-1/2)/n\)</span>-quantile of <span class="math notranslate nohighlight">\(\mathcal{N}(b,a^2)\)</span>. We conclude:</p>
 <blockquote>
 <div><p>If the QQ-plot falls nearly along the straight line <span class="math notranslate nohighlight">\(y=ax+b\)</span>, then the empirical distribution of the dataset is closely approximated by the normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(b,a^2)\)</span>.</p>
 </div></blockquote>
@@ -943,7 +1077,7 @@ Y = \text{number of items purchased in a given order}.
 </div>
 </div>
 <p>In contrast to the QQ-plot of the Airbnb prices, this QQ-plot appears to be a series of disconnected horizontal lines. The <span class="math notranslate nohighlight">\(y\)</span>-value of a horizontal line corresponds to a value in the dataset that is repeated. But be <em>very</em> careful in interpreting the <em>lengths</em> of the horizontal lines as measures for how <em>often</em> the data points are repeated, as you would with the heights of the bars in a histogram. Indeed, because of the shape of the standard normal CDF (it is nearly flat away from its mean), the lengths of horizontal lines toward the bottom and the top of the QQ-plot are scaled up compared to the lengths of the horizontal lines in the middle of the plot. (I will explain this more precisely in class, with pictures.)</p>
-<p>For example, focus on the horizontal lines in the QQ-plot at <span class="math notranslate nohighlight">\(y=12\)</span> and <span class="math notranslate nohighlight">\(y=20\)</span>. These lines appear to have nearly the same length. But then look at the histogram of the data, which for comparison I’ve plotted behind a normal density curve with <span class="math notranslate nohighlight">\(\mu=\)</span> sample mean and <span class="math notranslate nohighlight">\(\sigma=\)</span> sample standard deviation.</p>
+<p>For example, focus on the horizontal lines in the QQ-plot at <span class="math notranslate nohighlight">\(y=12\)</span> and <span class="math notranslate nohighlight">\(y=20\)</span>. These lines appear to have nearly the same length. But then look at the histogram of the data, which for comparison I’ve plotted behind a normal density curve with <span class="math notranslate nohighlight">\(\mu=\)</span> empirical mean and <span class="math notranslate nohighlight">\(\sigma=\)</span> empirical standard deviation.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -977,198 +1111,9 @@ Y = \text{number of items purchased in a given order}.
 \end{equation*}\]</div>
 <p>This helps resolve the conflict between the equality of the lengths of the horizontal lines at <span class="math notranslate nohighlight">\(y=12\)</span> and <span class="math notranslate nohighlight">\(y=20\)</span>, for the normal distribution predicts that we should see <span class="math notranslate nohighlight">\(y=12\)</span> much more often than <span class="math notranslate nohighlight">\(y=20\)</span>, so that the two relative discrepancies should be nearly equal.</p>
 </section>
-<section id="sample-statistics">
-<h2><span class="section-number">6.6. </span>Sample statistics<a class="headerlink" href="#sample-statistics" title="Permalink to this heading">#</a></h2>
-<p>As I mentioned above, most of what we have done so far falls under the heading of graphical <em>exploratory data analysis</em> (EDA). Now, I want to turn toward <em>numerical</em> EDA.</p>
-<p>Let’s return to a general IID random sample</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{equation*}
-X_1,X_2,\ldots, X_n \sim F,
-\end{equation*}\]</div>
-<p>where <span class="math notranslate nohighlight">\(F\)</span> represents the (true) unknown population distribution function. The population distribution has a mean <span class="math notranslate nohighlight">\(\mu_0\)</span> and a standard deviation <span class="math notranslate nohighlight">\(\sigma_0\)</span>, though these are very often unknown to us. Hence</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{equation*}
-E(X_k) = \mu_0 \quad \text{and} \quad V(X_k) = \sigma_0^2,
-\end{equation*}\]</div>
-<p>for each <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>. Based on an observed random sample</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{equation*}
-x_1,x_2,\ldots, x_n,
-\end{equation*}\]</div>
-<p>how might we estimate the unknown population parameters <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span>?</p>
-<div class="proof definition admonition" id="definition-2">
-<p class="admonition-title"><span class="caption-number">Definition 6.3 </span></p>
-<section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> be an observed random sample (i.e., a dataset). The <em>sample mean</em> is defined to be the number</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{equation*}
-\bar{x} = \frac{1}{n} \sum_{k=1}^n x_k,
-\end{equation*}\]</div>
-<p>while the <em>sample variance</em> is defined to be the number</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{equation*}
-s^2 = \frac{1}{n-1} \sum_{k=1}^n (x_k - \bar{x})^2.
-\end{equation*}\]</div>
-<p>The <em>sample standard deviation</em> <span class="math notranslate nohighlight">\(s\)</span> is defined, as usual, as the positive square root of the sample variance, <span class="math notranslate nohighlight">\(s = \sqrt{s^2}\)</span>.</p>
-</section>
-</div><p>The sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> and standard deviation <span class="math notranslate nohighlight">\(s\)</span> are supposed to serve as sample-based estimates for the true population mean <span class="math notranslate nohighlight">\(\mu_0\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma_0\)</span>. If we believe that the dataset is truly representative of the population, then these estimates should be close to their targets.</p>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<p>By the way, the replacement of <span class="math notranslate nohighlight">\(1/n\)</span> with <span class="math notranslate nohighlight">\(1/(n-1)\)</span> in the sample variance is sometimes called <a class="reference external" href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s correction</a>.</p>
-</aside>
-<p>The definitions of <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\(s^2\)</span> are surely quite natural, <em>except</em> that the sample variance involves division by <span class="math notranslate nohighlight">\(n-1\)</span> instead of the sample size <span class="math notranslate nohighlight">\(n\)</span> like you might have expected. The reason for this is that, if we had a factor of <span class="math notranslate nohighlight">\(1/n\)</span> in <span class="math notranslate nohighlight">\(s^2\)</span> instead of <span class="math notranslate nohighlight">\(1/(n-1)\)</span>, then the value of <span class="math notranslate nohighlight">\(s^2\)</span> would <em>systematically</em> on average underestimate the true value <span class="math notranslate nohighlight">\(\sigma_0^2\)</span> over repeated sampling. This can be demonstrated empirically through computer simulation, and it can also be <em>proved</em> theoretically as we will see later when we study bias of estimators. So for now, we will just take the above definition of <span class="math notranslate nohighlight">\(s^2\)</span> on faith, postponing till a later discussion the explanation regarding <em>why</em> it’s a good estimator.</p>
-<p>Note that the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> <em>is</em> the mean of the empirical distribution of the dataset, the latter understood as a discrete probability distribution on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. If the formula for <span class="math notranslate nohighlight">\(s^2\)</span> had <span class="math notranslate nohighlight">\(1/n\)</span> instead of <span class="math notranslate nohighlight">\(1/(n-1)\)</span>, then <span class="math notranslate nohighlight">\(s^2\)</span> would be the variance of the empirical distribution.</p>
-<p>In previous sections, I used the sample means and variances to plot normal density curves to aid our graphical EDA. Here are those values, for the two datasets that we considered:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xbar_airbnb</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">s_airbnb</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-<span class="n">xbar_UK</span> <span class="o">=</span> <span class="n">sample_sales</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">s_UK</span> <span class="o">=</span> <span class="n">sample_sales</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The sample mean of the Airbnb dataset is </span><span class="si">{</span><span class="n">xbar_airbnb</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The sample standard deviation of the Airbnb dataset is </span><span class="si">{</span><span class="n">s_airbnb</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The sample mean of the online sales dataset is </span><span class="si">{</span><span class="n">xbar_UK</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The sample standard deviation of the online sales dataset is </span><span class="si">{</span><span class="n">s_UK</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The sample mean of the Airbnb dataset is 154.11.
-The sample standard deviation of the Airbnb dataset is 102.48.
-
-The sample mean of the online sales dataset is 4.34.
-The sample standard deviation of the online sales dataset is 4.43.
-</pre></div>
-</div>
-</div>
-</div>
-<p>We may also estimate population quantiles using sample quantiles. Here are the definitions of the latter, which should not be surprising:</p>
-<div class="proof definition admonition" id="definition-3">
-<p class="admonition-title"><span class="caption-number">Definition 6.4 </span></p>
-<section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> be an observed random sample. The <em>sample q-quantile</em> is the <span class="math notranslate nohighlight">\(q\)</span>-quantile of the empirical distribution of the dataset.</p>
-</section>
-</div><p>Here, when I write “<span class="math notranslate nohighlight">\(q\)</span>-quantile,” I am referencing the <em>original</em> definition of “<span class="math notranslate nohighlight">\(q\)</span>-quantile” that we saw back in <a class="reference internal" href="prob-spaces.html#dist-quant"><span class="std std-numref">Section 2.10</span></a>, not the alternate definition we used when discussing QQ-plots.</p>
-<p>As with the sample statistics <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\(s^2\)</span> we saw above, the sample quantiles are supposed to be sample-based estimates for the true population quantiles.</p>
-<p>The 0.25-, 0.5-, and 0.75-quantiles (these are also called the <em>first</em>, <em>second</em>, and <em>third quartiles</em>) of the online sales dataset were actually displayed above when I asked the computer to describe the dataset. Here is that description again:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sales_stats</span> <span class="o">=</span> <span class="n">sample_sales</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-<span class="n">sales_stats</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    447322.000000
-mean          4.342078
-std           4.426455
-min         -12.000000
-25%           1.000000
-50%           2.000000
-75%           6.000000
-max          23.000000
-Name: Quantity, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>In the output, the sample 0.25-quantile is listed as the sample 25th percentile, and likewise for the sample 0.5-quantile (the <em>sample median</em>) and the sample 0.75-quantile. For the Airbnb dataset, we have:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">airbnb_stats</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-<span class="n">airbnb_stats</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    3972.000000
-mean      154.114371
-std       102.481302
-min         0.820000
-25%        83.240000
-50%       121.555000
-75%       199.460000
-max       509.790000
-Name: price, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>Along with the sample quartiles, you can also see that this method from the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> library conveniently outputs the sample mean and standard deviation, as well as the size of the dataset (the <em>count</em>) and the minimum and maximum sample values.</p>
-<p>The range over which the middle 50% of a sample sits is defined in:</p>
-<div class="proof definition admonition" id="definition-4">
-<p class="admonition-title"><span class="caption-number">Definition 6.5 </span></p>
-<section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> be an observed random sample. The <em>sample interquartile range</em> (<em>sample IQR</em>) is the difference</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{equation*}
-(\text{sample 0.75-quantile}) - (\text{sample 0.25-quantile}).
-\end{equation*}\]</div>
-</section>
-</div><p>So, using the outputs above, we see that the sample IQRs of the Airbnb and online sales datasets are:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iqr_airbnb</span> <span class="o">=</span> <span class="n">airbnb_stats</span><span class="p">[</span><span class="s1">&#39;75%&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">airbnb_stats</span><span class="p">[</span><span class="s1">&#39;25%&#39;</span><span class="p">]</span>
-<span class="n">iqr_UK</span> <span class="o">=</span> <span class="n">sales_stats</span><span class="p">[</span><span class="s1">&#39;75%&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">sales_stats</span><span class="p">[</span><span class="s1">&#39;25%&#39;</span><span class="p">]</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The IQR for the Airbnb dataset is </span><span class="si">{</span><span class="n">iqr_airbnb</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The IQR for the online sales dataset is </span><span class="si">{</span><span class="n">iqr_UK</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The IQR for the Airbnb dataset is 116.22.
-The IQR for the online sales dataset is 5.00.
-</pre></div>
-</div>
-</div>
-</div>
-<p>With the definition of <em>sample IQR</em> in hand, we may now define <em>outliers</em>:</p>
-<div class="proof definition admonition" id="definition-5">
-<p class="admonition-title"><span class="caption-number">Definition 6.6 </span></p>
-<section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> be an observed random sample. Then a data point <span class="math notranslate nohighlight">\(x_k\)</span> is called an <em>outlier</em> if it is above an upper threshold value</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{equation*}
-x_k &gt; (\text{sample 0.75-quantile}) + 1.5\times (\text{sample IQR}),
-\end{equation*}\]</div>
-<p>or if it is below a lower threshold value</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{equation*}
-x_k &lt; (\text{sample 0.25-quantile}) - 1.5\times (\text{sample IQR}).
-\end{equation*}\]</div>
-</section>
-</div><p>There’s a very convenient way to <em>visually</em> summarize all these sample statistics (along with outliers) which we will discuss immediately in the next section.</p>
-</section>
 <section id="box-plots-and-violin-plots">
 <h2><span class="section-number">6.7. </span>Box plots and violin plots<a class="headerlink" href="#box-plots-and-violin-plots" title="Permalink to this heading">#</a></h2>
-<p>Let’s first consider the online sales data, along with all the summary sample statistics that we described and computed in the previous section. We may combine all these summarize all this information in something called a <em>box plot</em> (or <em>box and whisker plot</em>):</p>
+<p>We finish the chapter with a discussion of two more methods to visualize datasets and empirical distributions. To begin, let’s first consider the online sales data along with all the empirical statistics that we described and computed in the previous sections. We may combine all this information in something called a <em>box plot</em> (or <em>box and whisker plot</em>):</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1190,17 +1135,17 @@ x_k &lt; (\text{sample 0.25-quantile}) - 1.5\times (\text{sample IQR}).
 </figure>
 </div>
 </div>
-<p>The left edge of the central blue box is at <span class="math notranslate nohighlight">\(x=1\)</span>, which as we saw above is the sample 0.25-quantile; likewise, its right edge is at <span class="math notranslate nohighlight">\(x=6\)</span>, which is the sample 0.75-quantile. Therefore, the <em>width</em> of the box is exactly the sample IQR. The box thus represents where the middle 50% of the sample lives. The vertical line through the box is at <span class="math notranslate nohighlight">\(x=2\)</span>, which is the sample 0.5-quantile, or the sample median.</p>
-<p>You notice that the box has “whiskers.” The left whisker extends out to the minimum value in the dataset, <em>or</em> to the threshold value</p>
+<p>The left edge of the blue box is at <span class="math notranslate nohighlight">\(x=1\)</span>, which is the empirical <span class="math notranslate nohighlight">\(0.25\)</span>-quantile or first quartile; likewise, its right edge is at <span class="math notranslate nohighlight">\(x=6\)</span>, which is the empirical 0.75-quantile or third quartile. Therefore, the <em>width</em> of the box is exactly the empirical IQR. The box thus represents where the middle 50% of the dataset lives. The vertical line through the box is at <span class="math notranslate nohighlight">\(x=2\)</span>, which is the empirical 0.5-quantile or the empirical median.</p>
+<p>You notice that the box has “whiskers.” The left whisker either extends out to the minimum value in the dataset <em>or</em> to the threshold value</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
-(\text{sample 0.25-quantile}) - 1.5\times (\text{sample IQR})
+(\text{empirical 0.25-quantile}) - 1.5\times (\text{empirical IQR})
 \end{equation*}\]</div>
 <p>for determining outliers, whichever is greater. In this case, the whisker extends to the threshold value, and then all the dots to the <em>left</em> of the whisker represent outliers in the lower tail of the distribution.</p>
-<p>Likewise, the right whisker extends out to the maximum value in the dataset, <em>or</em> to the upper threshold value</p>
+<p>Likewise, the right whisker either extends out to the maximum value in the dataset <em>or</em> to the upper threshold value</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
-(\text{sample 0.75-quantile}) + 1.5\times (\text{sample IQR})
+(\text{empirical 0.75-quantile}) + 1.5\times (\text{empirical IQR})
 \end{equation*}\]</div>
 <p>for determining outliers, whichever is smaller. In this case, the dataset <em>does</em> contain outliers in its upper tail, so the whisker extends to the threshold value, and all the dots to the right are outliers.</p>
 <p>Here’s the box plot for the Airbnb prices:</p>
@@ -1226,7 +1171,7 @@ x_k &lt; (\text{sample 0.25-quantile}) - 1.5\times (\text{sample IQR}).
 </div>
 </div>
 <p>This time, there are <em>no</em> outliers in the lower tail of the distribution, since the minimum value in the dataset is 82 cents (really?!), which is greater than the lower threshold for determining outliers. However, there are <em>lots</em> of outliers in the upper tail of the distribution, and they are very densely packed together.</p>
-<p>Now, what were to happen if we combined a box plot with one of the tools for graphical EDA that we studied earlier? Something like this:</p>
+<p>Now, what were to happen if we combined a box plot with one of the tools for graphical EDA that we studied earlier? We’d get something like this:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1234,7 +1179,7 @@ x_k &lt; (\text{sample 0.25-quantile}) - 1.5\times (\text{sample IQR}).
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">sample_sales</span><span class="p">,</span> <span class="n">bw</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">sample_sales</span><span class="p">,</span> <span class="n">bw</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x=$quantity&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -1248,7 +1193,7 @@ x_k &lt; (\text{sample 0.25-quantile}) - 1.5\times (\text{sample IQR}).
 </figure>
 </div>
 </div>
-<p>This is a <em>violin plot</em> of our online sales data (the reason for the name is evident). Along the central horizontal line is a box plot—can you see it? The white dot in the box (which is really a flattened rectangle) represents the sample median. You can see the upper whisker in its entirety, but the tip of the lower whisker is not visible. Then, above the central horizontal line is displayed a KDE of the dataset, and its mirror image is displayed below. For comparison, here’s a picture of a KDE of the dataset all on its own:</p>
+<p>This is a <em>violin plot</em> of our online sales data (the reason for the name is evident). Along the central horizontal line is a box plot—can you see it? The white dot in the box (which is really a flattened rectangle) represents the empirical median. You can see the upper whisker in its entirety, but the tip of the lower whisker is not visible. Then, above the central horizontal line is displayed a KDE of the dataset, and its mirror image is displayed below. For comparison, here’s a picture of a KDE of the dataset all on its own:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1271,7 +1216,7 @@ x_k &lt; (\text{sample 0.25-quantile}) - 1.5\times (\text{sample IQR}).
 </figure>
 </div>
 </div>
-<p>So, violin plots are tools belonging to both graphical and numerical EDA since they combined KDEs with box plots. They have advantages over just plain box plots because they are better able to convey a sense of the <em>shape</em> of a dataset. For example, box plots cannot display multiple data modes (multiple peaks in the distribution), whereas KDEs <em>can</em>. We see this in the online sales dataset above, which is bimodal (has two peaks).</p>
+<p>So, violin plots are tools belonging to both graphical and numerical EDA since they combine KDEs with box plots. They have advantages over just plain box plots because they are better able to convey a sense of the <em>shape</em> of a dataset. For example, box plots cannot display multiple data modes (multiple peaks in the distribution), whereas KDEs <em>can</em>. We see this in the online sales dataset above, which is bimodal (has two peaks).</p>
 <p>Here’s a violin plot of the Airbnb dataset:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1369,8 +1314,8 @@ x_k &lt; (\text{sample 0.25-quantile}) - 1.5\times (\text{sample IQR}).
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-models-and-empirical-distributions">6.2. Probabilistic models and empirical distributions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histograms">6.3. Histograms</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-density-estimation">6.4. Kernel density estimation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qq-plots">6.5. QQ-plots</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-statistics">6.6. Sample statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-statistics">6.5. Empirical statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qq-plots">6.6. QQ-plots</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#box-plots-and-violin-plots">6.7. Box plots and violin plots</a></li>
 </ul>
   </nav></div>

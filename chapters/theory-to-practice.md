@@ -15,7 +15,7 @@ kernelspec:
 
 ## Data and random samples
 
-This chapter is a continuation of the ideas presented in the third programming assignment (see the course Github [repo](https://github.com/jmyers7/stats-book-materials)) where we began exploring how the concepts that we have been studying over the past few chapters apply to _real-world_ datasets. In that assignment, we learned about _empirical distributions_ of datasets and associated empirical quantities like means, variances, and quantiles.
+This chapter is a continuation of the ideas presented in the third programming assignment (see the course [Github repo](https://github.com/jmyers7/stats-book-materials)) where we began exploring how the concepts that we have been studying over the past few chapters apply to _real-world_ datasets. In that assignment, we learned about _empirical distributions_ of datasets and associated empirical quantities like means, variances, and quantiles.
 
 Our exploration in the third programming assignment centered on the _Ames housing dataset_. In this chapter, we will explore a dataset related to Airbnbs. In particular, we have at hand a sample of daily prices (in USD) for Airbnbs in Austin, Texas, over the last 12 months:
 
@@ -556,6 +556,148 @@ So, we've seen that KDEs are supposed to serve as estimates for the density curv
 
 
 
+## Empirical statistics
+
+Before we continue discussing more ways to _visualize_ datasets, we need to discuss numerical summaries of datasets. This section is essentially a recapitulation of what you learned in the third programming assignment (see the [Github repo](https://github.com/jmyers7/stats-book-materials)) with a few new things thrown in at the end.
+
+Let's begin our discussion by returning to a general IID random sample
+
+\begin{equation*}
+X_1,X_2,\ldots, X_n \sim F,
+\end{equation*}
+
+where $F$ represents the (unknown) distribution function corresponding to a probabilistic model. Suppose that the model distribution has a mean $\mu_0$ and a standard deviation $\sigma_0$, so that
+
+\begin{equation*}
+E(X_k) = \mu_0 \quad \text{and} \quad V(X_k) = \sigma_0^2,
+\end{equation*}
+
+for each $k=1,2,\ldots,n$. Based on an observed random sample
+
+\begin{equation*}
+x_1,x_2,\ldots, x_n,
+\end{equation*}
+
+how might we estimate the unknown population parameters $\mu_0$ and $\sigma_0$?
+
+```{prf:definition}
+Let $x_1,x_2,\ldots,x_n$ be an observed random sample (i.e., a dataset). The *empirical mean* is defined to be the number
+
+\begin{equation*}
+\bar{x} = \frac{1}{n} \sum_{k=1}^n x_k,
+\end{equation*}
+
+while the *empirical variance* is defined to be the number
+
+\begin{equation*}
+s^2 = \frac{1}{n-1} \sum_{k=1}^n (x_k - \bar{x})^2.
+\end{equation*}
+
+The *empirical standard deviation* $s$ is defined, as usual, as the positive square root of the empirical variance, $s = \sqrt{s^2}$.
+```
+
+The empirical mean $\bar{x}$ and standard deviation $s$ are supposed to serve as data-based estimates for the true population mean $\mu_0$ and standard deviation $\sigma_0$. If we believe that the dataset is truly representative of the population, then these estimates should be close to their targets.
+
+I should mention that the empirical quantities we just defined are often called the _sample mean_, _sample variance_, and _sample standard deviation_. However, as we will see later, our empirical quantities turn out to be observed values of certain _estimators_ that are (also) called the _sample mean_, _sample variance_, and _sample standard deviation_. Since I believe that it is important---at least at first---to distinguish between an **estimate** and an **estimator**, I have decided to refer to $\bar{x}$, $s^2$, and $s$ as _empirical quantities_ rather than _sample quantities_. In later chapters, however, I will not be so careful, and will refer to $\bar{x}$, $s^2$, and $s$ as _sample quantities_.
+
+```{margin}
+By the way, the replacement of $1/n$ with $1/(n-1)$ in the empirical variance is sometimes called [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction).
+```
+The definitions of $\bar{x}$ and $s^2$ are surely quite natural, _except_ that the empirical variance involves division by $n-1$ instead of the sample size $n$ like you might have expected. The reason for this is that, if we had a factor of $1/n$ in $s^2$ instead of $1/(n-1)$, then the value of $s^2$ would _systematically_ (on average) underestimate the true value $\sigma_0^2$ over repeated sampling. This can be demonstrated empirically through computer simulation, and it can also be _proved_ theoretically as we will see later when we study bias of estimators. So for now, we will just take the above definition of $s^2$ on faith, postponing till a later discussion the explanation regarding _why_ it's a good estimator.
+
+Though the empirical quantities $\bar{x}$, $s^2$, and $s$ all have definitions that closely mimic their population-level counterparts $\mu$, $\sigma^2$, and $\sigma$, the definition of the _empirical quantiles_ of a dataset is a bit further removed from the definition of quantiles that we learned back in {numref}`Chapter %s <random-variables>`. Here is the definition:
+
+````{prf:definition}
+:label: emp-quantile-defn
+Let $x_1,x_2,\ldots,x_n$ be an observed random sample, written in non-decreasing order:
+
+```{math}
+:label: listing-eqn
+x_1 \leq x_2 \leq \cdots \leq x_n.
+```
+
+For each $k=1,2,\ldots,n$, the datapoint $x_k$ is called the _empirical $q$-quantile_ where
+
+```{math}
+:label: quantile-eqn
+q  = \frac{k-1}{n-1}.
+```
+````
+
+This definition appeared in the third programming assignment, where I mentioned that the intuition for the formula {eq}`quantile-eqn` for $q$ is that it is precisely the proportion of data points (excluding) $x_k$ that fall to the _left_ of $x_k$ in the listing {eq}`listing-eqn`. I also explained in that assignment how one goes about computing the empirical $q$-quantile where $q$ is a number (between $0$ and $1$, inclusive) that is _not_ of the form {eq}`quantile-eqn`: The default method in the Pandas library is linear interpolation.
+
+The empirical 0.25-, 0.5-, and 0.75-quantiles are called the _first_, _second_, and _third quartiles_. For the Airbnb dataset, these are listed in the following printout on the lines labeled $25\%$, $50\%$ and $75\%$:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+
+airbnb_stats = sample.describe()
+airbnb_stats
+```
+
+Along with the empirical quartiles, you can also see that this method from the Pandas library conveniently outputs the empirical mean and standard deviation, as well as the size of the dataset (the _count_) and the minimum and maximum sample values.
+
+The range over which the middle 50% of a dataset sits is defined in:
+
+```{prf:definition}
+
+Let $x_1,x_2,\ldots,x_n$ be an observed random sample. The _empirical interquartile range_ (_empirical IQR_) is the difference
+
+\begin{equation*}
+(\text{empirical 0.75-quantile}) - (\text{empirical 0.25-quantile}).
+\end{equation*}
+```
+
+So, using the outputs above, we see that the empirical IQR of the Airbnb dataset is:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+
+iqr_airbnb = airbnb_stats['75%'] - airbnb_stats['25%']
+
+print(f'The IQR for the Airbnb dataset is {iqr_airbnb:.2f}.')
+
+```
+
+With the definition of _empirical IQR_ in hand, we may now define _outliers_:
+
+```{prf:definition}
+Let $x_1,x_2,\ldots,x_n$ be an observed random sample. Then a data point $x_k$ is called an _outlier_ if it is above an upper threshold value
+
+\begin{equation*}
+x_k > (\text{empirical 0.75-quantile}) + 1.5\times (\text{empirical IQR}),
+\end{equation*}
+
+or if it is below a lower threshold value
+
+\begin{equation*}
+x_k < (\text{empirical 0.25-quantile}) - 1.5\times (\text{empirical IQR}).
+\end{equation*}
+```
+
+There's a very convenient way to _visually_ summarize all these empirical statistics (along with outliers) which we will discuss in the last section of this chapter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -571,26 +713,30 @@ So, we've seen that KDEs are supposed to serve as estimates for the density curv
 
 ## QQ-plots
 
-Another convenient way to compare two probability distributions is through visualizations called _quantile-quantile plots_, or _QQ-plots_.
+We learned in the third programming assignment (see the [Github repo](https://github.com/jmyers7/stats-book-materials)) how to produce a plot of the empirical quantiles of a dataset. In this section, we will learn how to produce a plot that compares these empirical quantiles to the quantiles of a normal distribution. This new type of plot, called a _(normal) quantile-quantile plot_ or _(normal) QQ-plot_, is useful for checking whether the empirical distribution of a dataset follows a normal distribution.
 
-The basic idea is quite simple. A QQ-plot gives us a way to compare the quantiles of two distributions---we expect that if the distributions are similar, then their quantiles should be distributed similarly. One often uses QQ-plots to compare empirical distributions of datasets against normal distributions in order to check if the data is normally distributed. In fact, this will be our exclusive use case for QQ-plots in this course, and my description here will thus be limited to this special case.
+Though the basic idea behind a QQ-plot is quite simple, it demands that we slightly alter the definition of _empirical quantiles_ given in the previous section. Indeed, according to that definition, the minimum and maximum values in a dataset are the $0$- and $1$-quantiles, respectively. But we will run into trouble if we are going to compare these to the quantiles of a normal distribution, since normal distributions do not have $0$- and $1$-quantiles.
 
-Now, we _already_ have from {numref}`dist-quant` a definition of _quantiles_ that works for any type of distribution. When we use QQ-plots, however, we adopt a _different_ definition for empirical distributions of datasets. To describe it, for convenience, let's suppose that the points in our dataset are labeled with $y$'s instead of $x$'s. (You'll see why this is convenient, in just a moment.) Suppose that we order our dataset in non-decreasing order:
+To help explain, for convenience, let's suppose that the points in our dataset are labeled with $y$'s instead of $x$'s. (You'll see why this is convenient, in just a moment.) Suppose that we put our dataset in non-decreasing order,
 
 \begin{equation*}
 y_1 \leq y_2 \leq \cdots \leq y_n,
 \end{equation*}
 
-where $n$ is the size of the dataset. Notice that some data points might be repeated, which accounts for the "$\leq$" sign instead of strict inequality "$<$." Then, to each data point we associate the following fraction:
+where $n$ is the size of the dataset. Then, instead of identifying quantiles through the association
+
+\begin{equation*}
+y_k \leftrightarrow \frac{k-1}{n-1}
+\end{equation*}
+
+as we did in {prf:ref}`emp-quantile-defn`, we instead make the association
 
 ```{math}
 :label: quant-eqn
 y_k \leftrightarrow \frac{k-1/2}{n},
 ```
 
-for $k=1,2,\ldots,n$. We are supposed to think of $y_k$ as being the $(k-1/2)/n$-quantile, though this does _not_ coincide with our earlier definition of quantile.
-
-For an example, suppose that $n=5$ and that all the data points are distinct. Then, if we plot our dataset along an axis along with the labels {eq}`quant-eqn`, we get the following picture:
+for $k=1,2,\ldots,n$. For a specific example, suppose that $n=5$ and that all the data points are distinct. Then, if we plot our dataset along an axis along with the labels {eq}`quant-eqn`, we get the following picture:
 
 ```{image} ../img/quant.svg 
 :width: 80%
@@ -598,15 +744,15 @@ For an example, suppose that $n=5$ and that all the data points are distinct. Th
 ```
 &nbsp;
 
-Thus, if the labels {eq}`quant-eqn` really did mark the $y_k$'s as quantiles, then we would expect 10% of the data to fall to the left of $y_1$ and 10% to the right of $y_5$, and 20% of the data to fall between each pair of consecutive data points. But this isn't actually true, of course. Moreover, if the data points are not all distinct, say $y_k = y_{k+1}$ for some $k$, then the _single_ number $y_k$ would be assigned two _different_ quantile labels, $(k-1/2)/n$ and $(k+1/2)/n$! Nevertheless, this is the convention used when construction QQ-plots (though even _this_ convention varies from source to source).
+Notice that the minimum and maximum values are no longer the $0$- and $1$-quantiles, but instead the $0.1$- and $0.9$-quantiles.
 
-To construct the QQ-plot, we then compare the "quantiles" {eq}`quant-eqn` of the dataset to the _actual_ quantiles of the standard normal distribution $\mathcal{N}(0,1)$ by first defining
+Now, to construct the QQ-plot, we compare these (new) empirical quantiles to the _actual_ quantiles of the standard normal distribution $\mathcal{N}(0,1)$ by first defining
 
 \begin{equation*}
 x_k = \Phi^{-1} \left( \frac{k-1/2}{n} \right)
 \end{equation*}
 
-for each $k=1,2,\ldots,n$, where $\Phi$ is the CDF of the standard normal distribution. In particular, note that $x_k$ really _is_ the $(k-1/2)/n$-quantile of $\mathcal{N}(0,1)$, according to our earlier definition of _quantile_. The QQ-plot then consists of the points
+for each $k=1,2,\ldots,n$, where $\Phi$ is the CDF of the standard normal distribution. In particular, note that $x_k$ really _is_ the $(k-1/2)/n$-quantile of $\mathcal{N}(0,1)$, according to our earlier definition of _quantile_ in {numref}`Chapter %s <random-variables>`. The QQ-plot then consists of the points
 
 \begin{equation*}
 (x_k,y_k), \quad k=1,2,\ldots,n.
@@ -626,7 +772,7 @@ from statsmodels.graphics.gofplots import qqplot
 
 qqplot(sample, a=1/2, alpha=0.25)
 plt.xlabel(r'$x_k=$normal quantiles')
-plt.ylabel(r'$y_k=$sample quantiles')
+plt.ylabel(r'$y_k=$empirical quantiles')
 plt.tight_layout()
 ```
 
@@ -714,7 +860,7 @@ plt.tight_layout()
 
 In contrast to the QQ-plot of the Airbnb prices, this QQ-plot appears to be a series of disconnected horizontal lines. The $y$-value of a horizontal line corresponds to a value in the dataset that is repeated. But be _very_ careful in interpreting the _lengths_ of the horizontal lines as measures for how _often_ the data points are repeated, as you would with the heights of the bars in a histogram. Indeed, because of the shape of the standard normal CDF (it is nearly flat away from its mean), the lengths of horizontal lines toward the bottom and the top of the QQ-plot are scaled up compared to the lengths of the horizontal lines in the middle of the plot. (I will explain this more precisely in class, with pictures.)
 
-For example, focus on the horizontal lines in the QQ-plot at $y=12$ and $y=20$. These lines appear to have nearly the same length. But then look at the histogram of the data, which for comparison I've plotted behind a normal density curve with $\mu=$ sample mean and $\sigma=$ sample standard deviation.
+For example, focus on the horizontal lines in the QQ-plot at $y=12$ and $y=20$. These lines appear to have nearly the same length. But then look at the histogram of the data, which for comparison I've plotted behind a normal density curve with $\mu=$ empirical mean and $\sigma=$ empirical standard deviation.
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -767,143 +913,7 @@ This helps resolve the conflict between the equality of the lengths of the horiz
 
 
 
-## Sample statistics
 
-As I mentioned above, most of what we have done so far falls under the heading of graphical _exploratory data analysis_ (EDA). Now, I want to turn toward _numerical_ EDA.
-
-Let's return to a general IID random sample
-
-\begin{equation*}
-X_1,X_2,\ldots, X_n \sim F,
-\end{equation*}
-
-where $F$ represents the (true) unknown population distribution function. The population distribution has a mean $\mu_0$ and a standard deviation $\sigma_0$, though these are very often unknown to us. Hence
-
-\begin{equation*}
-E(X_k) = \mu_0 \quad \text{and} \quad V(X_k) = \sigma_0^2,
-\end{equation*}
-
-for each $k=1,2,\ldots,n$. Based on an observed random sample
-
-\begin{equation*}
-x_1,x_2,\ldots, x_n,
-\end{equation*}
-
-how might we estimate the unknown population parameters $\mu_0$ and $\sigma_0$?
-
-```{prf:definition}
-Let $x_1,x_2,\ldots,x_n$ be an observed random sample (i.e., a dataset). The *sample mean* is defined to be the number
-
-\begin{equation*}
-\bar{x} = \frac{1}{n} \sum_{k=1}^n x_k,
-\end{equation*}
-
-while the *sample variance* is defined to be the number
-
-\begin{equation*}
-s^2 = \frac{1}{n-1} \sum_{k=1}^n (x_k - \bar{x})^2.
-\end{equation*}
-
-The *sample standard deviation* $s$ is defined, as usual, as the positive square root of the sample variance, $s = \sqrt{s^2}$.
-```
-
-The sample mean $\bar{x}$ and standard deviation $s$ are supposed to serve as sample-based estimates for the true population mean $\mu_0$ and standard deviation $\sigma_0$. If we believe that the dataset is truly representative of the population, then these estimates should be close to their targets.
-
-```{margin}
-By the way, the replacement of $1/n$ with $1/(n-1)$ in the sample variance is sometimes called [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction).
-```
-The definitions of $\bar{x}$ and $s^2$ are surely quite natural, _except_ that the sample variance involves division by $n-1$ instead of the sample size $n$ like you might have expected. The reason for this is that, if we had a factor of $1/n$ in $s^2$ instead of $1/(n-1)$, then the value of $s^2$ would _systematically_ on average underestimate the true value $\sigma_0^2$ over repeated sampling. This can be demonstrated empirically through computer simulation, and it can also be _proved_ theoretically as we will see later when we study bias of estimators. So for now, we will just take the above definition of $s^2$ on faith, postponing till a later discussion the explanation regarding _why_ it's a good estimator.
-
-Note that the sample mean $\bar{x}$ _is_ the mean of the empirical distribution of the dataset, the latter understood as a discrete probability distribution on $\mathbb{R}$. If the formula for $s^2$ had $1/n$ instead of $1/(n-1)$, then $s^2$ would be the variance of the empirical distribution.
-
-In previous sections, I used the sample means and variances to plot normal density curves to aid our graphical EDA. Here are those values, for the two datasets that we considered:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-
-xbar_airbnb = sample.mean()
-s_airbnb = sample.std()
-xbar_UK = sample_sales.mean()
-s_UK = sample_sales.std()
-
-print(f'The sample mean of the Airbnb dataset is {xbar_airbnb:.2f}.')
-print(f'The sample standard deviation of the Airbnb dataset is {s_airbnb:.2f}.\n')
-
-print(f'The sample mean of the online sales dataset is {xbar_UK:.2f}.')
-print(f'The sample standard deviation of the online sales dataset is {s_UK:.2f}.')
-```
-
-We may also estimate population quantiles using sample quantiles. Here are the definitions of the latter, which should not be surprising:
-
-```{prf:definition}
-Let $x_1,x_2,\ldots,x_n$ be an observed random sample. The _sample q-quantile_ is the $q$-quantile of the empirical distribution of the dataset.
-```
-
-Here, when I write "$q$-quantile," I am referencing the _original_ definition of "$q$-quantile" that we saw back in {numref}`dist-quant`, not the alternate definition we used when discussing QQ-plots.
-
-As with the sample statistics $\bar{x}$ and $s^2$ we saw above, the sample quantiles are supposed to be sample-based estimates for the true population quantiles.
-
-The 0.25-, 0.5-, and 0.75-quantiles (these are also called the _first_, _second_, and _third quartiles_) of the online sales dataset were actually displayed above when I asked the computer to describe the dataset. Here is that description again:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-
-sales_stats = sample_sales.describe()
-sales_stats
-```
-
-In the output, the sample 0.25-quantile is listed as the sample 25th percentile, and likewise for the sample 0.5-quantile (the _sample median_) and the sample 0.75-quantile. For the Airbnb dataset, we have:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-
-airbnb_stats = sample.describe()
-airbnb_stats
-```
-
-Along with the sample quartiles, you can also see that this method from the `pandas` library conveniently outputs the sample mean and standard deviation, as well as the size of the dataset (the _count_) and the minimum and maximum sample values.
-
-The range over which the middle 50% of a sample sits is defined in:
-
-```{prf:definition}
-
-Let $x_1,x_2,\ldots,x_n$ be an observed random sample. The _sample interquartile range_ (_sample IQR_) is the difference
-
-\begin{equation*}
-(\text{sample 0.75-quantile}) - (\text{sample 0.25-quantile}).
-\end{equation*}
-```
-
-So, using the outputs above, we see that the sample IQRs of the Airbnb and online sales datasets are:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-
-iqr_airbnb = airbnb_stats['75%'] - airbnb_stats['25%']
-iqr_UK = sales_stats['75%'] - sales_stats['25%']
-
-print(f'The IQR for the Airbnb dataset is {iqr_airbnb:.2f}.')
-print(f'The IQR for the online sales dataset is {iqr_UK:.2f}.')
-
-```
-
-With the definition of _sample IQR_ in hand, we may now define _outliers_:
-
-```{prf:definition}
-Let $x_1,x_2,\ldots,x_n$ be an observed random sample. Then a data point $x_k$ is called an _outlier_ if it is above an upper threshold value
-
-\begin{equation*}
-x_k > (\text{sample 0.75-quantile}) + 1.5\times (\text{sample IQR}),
-\end{equation*}
-
-or if it is below a lower threshold value
-
-\begin{equation*}
-x_k < (\text{sample 0.25-quantile}) - 1.5\times (\text{sample IQR}).
-\end{equation*}
-```
-
-There's a very convenient way to _visually_ summarize all these sample statistics (along with outliers) which we will discuss immediately in the next section.
 
 
 
@@ -931,7 +941,7 @@ There's a very convenient way to _visually_ summarize all these sample statistic
 
 ## Box plots and violin plots
 
-Let's first consider the online sales data, along with all the summary sample statistics that we described and computed in the previous section. We may combine all these summarize all this information in something called a _box plot_ (or _box and whisker plot_):
+We finish the chapter with a discussion of two more methods to visualize datasets and empirical distributions. To begin, let's first consider the online sales data along with all the empirical statistics that we described and computed in the previous sections. We may combine all this information in something called a _box plot_ (or _box and whisker plot_):
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -947,20 +957,20 @@ plt.gcf().set_size_inches(10, 2)
 plt.tight_layout()
 ```
 
-The left edge of the central blue box is at $x=1$, which as we saw above is the sample 0.25-quantile; likewise, its right edge is at $x=6$, which is the sample 0.75-quantile. Therefore, the _width_ of the box is exactly the sample IQR. The box thus represents where the middle 50% of the sample lives. The vertical line through the box is at $x=2$, which is the sample 0.5-quantile, or the sample median.
+The left edge of the blue box is at $x=1$, which is the empirical $0.25$-quantile or first quartile; likewise, its right edge is at $x=6$, which is the empirical 0.75-quantile or third quartile. Therefore, the _width_ of the box is exactly the empirical IQR. The box thus represents where the middle 50% of the dataset lives. The vertical line through the box is at $x=2$, which is the empirical 0.5-quantile or the empirical median.
 
-You notice that the box has "whiskers." The left whisker extends out to the minimum value in the dataset, _or_ to the threshold value
+You notice that the box has "whiskers." The left whisker either extends out to the minimum value in the dataset _or_ to the threshold value
 
 \begin{equation*}
-(\text{sample 0.25-quantile}) - 1.5\times (\text{sample IQR})
+(\text{empirical 0.25-quantile}) - 1.5\times (\text{empirical IQR})
 \end{equation*}
 
 for determining outliers, whichever is greater. In this case, the whisker extends to the threshold value, and then all the dots to the _left_ of the whisker represent outliers in the lower tail of the distribution.
 
-Likewise, the right whisker extends out to the maximum value in the dataset, _or_ to the upper threshold value
+Likewise, the right whisker either extends out to the maximum value in the dataset _or_ to the upper threshold value
 
 \begin{equation*}
-(\text{sample 0.75-quantile}) + 1.5\times (\text{sample IQR})
+(\text{empirical 0.75-quantile}) + 1.5\times (\text{empirical IQR})
 \end{equation*}
 
 for determining outliers, whichever is smaller. In this case, the dataset _does_ contain outliers in its upper tail, so the whisker extends to the threshold value, and all the dots to the right are outliers.
@@ -983,7 +993,7 @@ plt.tight_layout()
 
 This time, there are _no_ outliers in the lower tail of the distribution, since the minimum value in the dataset is 82 cents (really?!), which is greater than the lower threshold for determining outliers. However, there are _lots_ of outliers in the upper tail of the distribution, and they are very densely packed together.
 
-Now, what were to happen if we combined a box plot with one of the tools for graphical EDA that we studied earlier? Something like this:
+Now, what were to happen if we combined a box plot with one of the tools for graphical EDA that we studied earlier? We'd get something like this:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -993,13 +1003,13 @@ Now, what were to happen if we combined a box plot with one of the tools for gra
 :   image:
 :       width: 100%
 
-sns.violinplot(x=sample_sales, bw=0.3)
+sns.violinplot(x=sample_sales, bw=0.3, width=0.8)
 plt.xlabel(r'$x=$quantity')
 plt.gcf().set_size_inches(10, 3)
 plt.tight_layout()
 ```
 
-This is a _violin plot_ of our online sales data (the reason for the name is evident). Along the central horizontal line is a box plot---can you see it? The white dot in the box (which is really a flattened rectangle) represents the sample median. You can see the upper whisker in its entirety, but the tip of the lower whisker is not visible. Then, above the central horizontal line is displayed a KDE of the dataset, and its mirror image is displayed below. For comparison, here's a picture of a KDE of the dataset all on its own:
+This is a _violin plot_ of our online sales data (the reason for the name is evident). Along the central horizontal line is a box plot---can you see it? The white dot in the box (which is really a flattened rectangle) represents the empirical median. You can see the upper whisker in its entirety, but the tip of the lower whisker is not visible. Then, above the central horizontal line is displayed a KDE of the dataset, and its mirror image is displayed below. For comparison, here's a picture of a KDE of the dataset all on its own:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1016,7 +1026,7 @@ plt.ylabel('probability density')
 plt.tight_layout()
 ```
 
-So, violin plots are tools belonging to both graphical and numerical EDA since they combined KDEs with box plots. They have advantages over just plain box plots because they are better able to convey a sense of the _shape_ of a dataset. For example, box plots cannot display multiple data modes (multiple peaks in the distribution), whereas KDEs _can_. We see this in the online sales dataset above, which is bimodal (has two peaks).
+So, violin plots are tools belonging to both graphical and numerical EDA since they combine KDEs with box plots. They have advantages over just plain box plots because they are better able to convey a sense of the _shape_ of a dataset. For example, box plots cannot display multiple data modes (multiple peaks in the distribution), whereas KDEs _can_. We see this in the online sales dataset above, which is bimodal (has two peaks).
 
 Here's a violin plot of the Airbnb dataset:
 
