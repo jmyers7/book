@@ -75,34 +75,32 @@ Our first family of distributions are certainly the simplest. But don't let thei
 
 ```{prf:definition}
 
-Let $p$ be a real number with $0\leq p \leq 1$. A discrete random variable $X$ is said to have a *Bernoulli distribution* with parameter $p$, denoted
+Let $p$ be a real number with $0\leq p \leq 1$. A discrete random variable $X$ is said to have a *Bernoulli distribution* with parameter $\theta$, denoted
 
 $$
-X \sim \mathcal{B}er(p),
+X \sim \mathcal{B}er(\theta),
 $$ (dist-eqn)
 
-if its probability mass function $p(x)$ is given by
+if its probability mass function is given by
 
 $$
-p(x) = p^x(1-p)^{1-x}.
+p(x;\theta) = \theta^x(1-\theta)^{1-x}.
 $$ (bern-eqn)
 
 with support $\{0,1\}$.
 ```
 
-First, notice that the single letter "$p$" means *different* things on the two sides of the equation {eq}`bern-eqn`! On the left, it stands for the name of the probability mass function, while on the right, it stands for the parameter. Now, I'm just as tolerant of abuses and misuses of notation as the next guy, but this one seems pretty terrible to me. Nevertheless, because many books and references use this notation, I feel compelled to use it as well. That's how these horrible choices in notation---always hallowed by tradition---gain inertia of their own! And we're powerless to stop them!
-
-The notation {eq}`dist-eqn` is shorthand for: "The random variable $X$ has a Bernoulli distribution with parameter $p$." The symbol "$\sim$" simply means "is distributed as." The "thing" $\mathcal{B}er(p)$ doesn't really have any sort of existence of its own outside this notation, though sometimes people treat it as if it were the probability mass function, or the distribution function, or whatever. In any case, this is incredibly helpful notation and can be used in many ways to shorten the amount that we need to write.
+The notation {eq}`dist-eqn` is shorthand for: "The random variable $X$ has a Bernoulli distribution with parameter $\theta$." The symbol "$\sim$" simply means "is distributed as." The "thing" $\mathcal{B}er(\theta)$ doesn't really have any sort of existence of its own outside this notation, though sometimes people treat it as if it were the probability mass function, or the distribution function, or whatever. In any case, this is incredibly helpful notation and can be used in many ways to shorten the amount that we need to write.
 
 The outputs of a Bernoulli random variable consist of just two values, $0$ and $1$. For that reason, Bernoulli random variables might also be called *binary* random variables.
 
 Since $x$ can be only $0$ or $1$, this means that the formula {eq}`bern-eqn` for the probability mass function could equally be re-written as
 
 $$
-p(x) = \begin{cases} p & : x=1, \\ 1-p & : x=0.\end{cases}
+p(x;\theta) = \begin{cases} \theta & : x=1, \\ 1-\theta & : x=0.\end{cases}
 $$ (bern2-eqn)
 
-Therefore, a random variable $X\sim \mathcal{B}er(p)$ outputs the value $1$ with probability $p$, and the value $0$ with probability $1-p$. Using this fact, I bet you would have no problem drawing probability histograms for various settings for $p$. Here's what you would get:
+Therefore, a random variable $X\sim \mathcal{B}er(\theta)$ outputs the value $1$ with probability $\theta$, and the value $0$ with probability $1-\theta$. Using this fact, I bet you would have no problem drawing probability histograms for various settings for $\theta$. Here's what you would get:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -142,50 +140,50 @@ for i in range(2):
         axes[i,j].set_ylim(ymin=0, ymax=1)
         axes[i,j].set_xticks(xvals)
         axes[i,j].set_ylabel('probability')
-        axes[i,j].set_xlabel(rf'$p={p}$')
+        axes[i,j].set_xlabel(rf'$\theta={p}$')
 
 fig.set_size_inches(7, 5)
-fig.suptitle(r'PMF of a random variable $X\sim \mathcal{B}er(p)$')
+fig.suptitle(r'PMF of a random variable $X\sim \mathcal{B}er(\theta)$')
 plt.tight_layout()
 ```
 
-Notice that different values of the parameter $p$ fundamentally alter the _shape_ of the distribution. For this reason, the parameter $p$ is often called the _shape parameter_ for Bernoulli distributions.
+Notice that different values of the parameter $\theta$ fundamentally alter the _shape_ of the distribution. For this reason, the parameter $\theta$ is often called the _shape parameter_ for Bernoulli distributions.
 
 In what sort of real-world scenario would Bernoulli random variables naturally occur? Here's one:
 
 ```{admonition} An archetypical Bernoulli scenario  
 
-**Q**: Suppose that a coin is flipped once and $X$ is the number of heads obtained. Suppose further that we allow for the possibility that the coin is *loaded*, so that it lands heads with probability $p$ (which may not be $0.5$!). What is the distribution of the random variable $X$?
+**Q**: Suppose that a coin is flipped once and $X$ is the number of heads obtained. Suppose further that we allow for the possibility that the coin is *loaded*, so that it lands heads with probability $\theta$ (which may not be $0.5$!). What is the distribution of the random variable $X$?
 
-**A**: $X\sim \mathcal{B}er(p)$.
+**A**: $X\sim \mathcal{B}er(\theta)$.
 ```
 
-It's pretty obvious that $X$ is distributed as a Bernoulli random variable, right? After all, since $X$ is the number of heads obtained after *one* flip, there are only two options: $0$ or $1$. Moreover, they are *telling us* that $X=1$ occurs with probability $p$, and therefore $X=0$ must occur with whatever probability is "left over," which is exactly $1-p$. So, the probability function of $X$ must be {eq}`bern2-eqn`, which means $X\sim \mathcal{B}er(p)$ by definition.
+It's pretty obvious that $X$ is distributed as a Bernoulli random variable, right? After all, since $X$ is the number of heads obtained after *one* flip, there are only two options: $0$ or $1$. Moreover, they are *telling us* that $X=1$ occurs with probability $\theta$, and therefore $X=0$ must occur with whatever probability is "left over," which is exactly $1-\theta$. So, the probability function of $X$ must be {eq}`bern2-eqn`, which means $X\sim \mathcal{B}er(\theta)$ by definition.
 
 Clearly, any scenario which results in a binary outcome with fixed probabilities may be modeled using a Bernoulli random variable. We will explore a few such scenarios in the worksheet problems when we get to the Problem Prompt below. But first, let's state the expectations and variances of Bernoulli variables:
 
 ```{prf:theorem} Expectations and variances of Bernoulli variables
 
-If $X\sim \mathcal{B}er(p)$, then
+If $X\sim \mathcal{B}er(\theta)$, then
 
 $$
-E(X) = p \quad \text{and} \quad V(X) = p (1-p). 
+E(X) = \theta \quad \text{and} \quad V(X) = \theta (1-\theta). 
 $$
 ```
 
 The proofs of these equalities are mere trivialities: For the expectation, we have
 
 $$
-E(X) = 0\cdot(1-p) + 1\cdot p = p,
+E(X) = 0\cdot(1-\theta) + 1\cdot \theta = \theta,
 $$
 
 while for the variance we have
 
 $$
-V(X) = E(X^2) - E(X)^2 = 0^2 \cdot (1-p) + 1^2 \cdot p - p^2 = p (1-p).
+V(X) = E(X^2) - E(X)^2 = 0^2 \cdot (1-\theta) + 1^2 \cdot \theta - \theta^2 = \theta (1-\theta).
 $$
 
-Notice, in particular, that the mean of a variable $X\sim \mathcal{B}er(p)$ is the parameter $p$. So, it is accurate to say that Bernoulli random variables are parametrized by their means. We will see that this is *also* true for a few other families of random variables besides the Bernoulli random variables.
+Notice, in particular, that the mean of a variable $X\sim \mathcal{B}er(\theta)$ is the parameter $\theta$. So, it is accurate to say that Bernoulli random variables are parametrized by their means. We will see that this is *also* true for a few other families of random variables besides the Bernoulli random variables.
 
 
 
@@ -203,22 +201,22 @@ Next come distributions whose probability mass functions look a lot like the pro
 
 ```{prf:definition}
 
-Let $n\geq 0$ be an integer and let $p$ be a real number with $0\leq p \leq 1$. A discrete random variable $X$ is said to have a *binomial distribution* with parameters $n$ and $p$, denoted
+Let $n\geq 0$ be an integer and let $\theta$ be a real number with $0\leq \theta \leq 1$. A discrete random variable $X$ is said to have a *binomial distribution* with parameters $n$ and $\theta$, denoted
 
 $$
-Y \sim \mathcal{B}in(n,p),
+Y \sim \mathcal{B}in(n,\theta),
 $$
 
-if its probability mass function $p(x)$ is given by
+if its probability mass function is given by
 
 $$
-p(x) = \binom{n}{x}p^x (1-p)^{n-x}
+p(x;n,\theta) = \binom{n}{x}\theta^x (1-\theta)^{n-x}
 $$
 
 with support $\{0,1,\ldots,n\}$.
 ```
 
-Notice that these distributions require *two* parameters to describe them. Notice also that a random variable $X \sim \mathcal{B}in(1,p)$ is nothing but a Bernoulli random variable! Thus, technically, the class of binomial random variables includes the class of Bernoulli ones.
+Notice that these distributions require *two* parameters to describe them. Notice also that a random variable $X \sim \mathcal{B}in(1,\theta)$ is nothing but a Bernoulli random variable! Thus, technically, the class of binomial random variables includes the class of Bernoulli ones.
 
 Here are some probability histograms, for various settings of the parameters:
 
@@ -248,20 +246,20 @@ for i in range(2):
         axes[i,j].set_ylim(ymin=0, ymax=0.5)
         axes[i,j].set_xticks(xvals)
         axes[i,j].set_ylabel('probability')
-        axes[i,j].set_xlabel(rf'$n={n}$, $p={p}$')
+        axes[i,j].set_xlabel(rf'$n={n}$, $\theta={p}$')
 
 fig.set_size_inches(7, 5)
-fig.suptitle(r'PMF of a random variable $X\sim \mathcal{B}in(n,p)$')
+fig.suptitle(r'PMF of a random variable $X\sim \mathcal{B}in(n,\theta)$')
 plt.tight_layout()
 ```
 
-Increasing the $n$ parameter increases the size of the support of $X\sim \mathcal{B}in(n,p)$, which generally spreads out the distribution (increases its variance). Larger values of $p$ tend to push the mean of $X$ toward the larger numbers in its support. Both $n$ and $p$ are called _shape parameters_ of the binomial distributions.
+Increasing the $n$ parameter increases the size of the support of $X\sim \mathcal{B}in(n,\theta)$, which generally spreads out the distribution (increases its variance). Larger values of $\theta$ tend to push the mean of $X$ toward the larger numbers in its support. Both $n$ and $\theta$ are called _shape parameters_ of the binomial distributions.
 
 ```{admonition} An archetypical binomial scenario
 
-**Q**: Suppose that a coin is flipped $n$ times and that each flip is independent of the others. Suppose further that we allow for the possibility that the coin is *loaded*, so that it lands heads with probability $p$ (which may not be $0.5$!). If $X$ is the number of heads obtained, what is the distribution of the random variable $X$?
+**Q**: Suppose that a coin is flipped $n$ times and that each flip is independent of the others. Suppose further that we allow for the possibility that the coin is *loaded*, so that it lands heads with probability $\theta$ (which may not be $0.5$!). If $X$ is the number of heads obtained, what is the distribution of the random variable $X$?
 
-**A**: $X\sim \mathcal{B}in(n,p)$.
+**A**: $X\sim \mathcal{B}in(n,\theta)$.
 ```
 
 The sample space $S$ on which $X$ is defined consists of all $n$-tuples of the form
@@ -273,13 +271,13 @@ $$ (tuple-eqn)
 which represent the result after flipping the coin $n$ times. If there are $x$ heads in this $n$-tuple, then the probability of obtaining this particular sequence is
 
 $$
-P(\text{the particular sequence above}) = p^x(1-p)^{n-x}.
+P(\text{the particular sequence above}) = \theta^x(1-\theta)^{n-x}.
 $$
 
-Indeed, this follows from the Product Rule for Probability, since the flips are independent of each other, and we obtain $H$ with probability $p$ and $T$ with probability $1-p$. It follows that
+Indeed, this follows from the Product Rule for Probability, since the flips are independent of each other, and we obtain $H$ with probability $\theta$ and $T$ with probability $1-\theta$. It follows that
 
 $$
-P(X=x) = m p^x(1-p)^{n-x},
+P(X=x) = m \theta^x(1-\theta)^{n-x},
 $$
 
 where $m$ is the total number of $n$-tuples {eq}`tuple-eqn` with $x$ heads. To compute $m$, we simply note that an $n$-tuple {eq}`tuple-eqn` with $x$ heads is uniquely specified by the (left-to-right) positions of the $H$'s. For example, in {eq}`tuple-eqn`, an $H$ occupies positions $1$, $3$, $4$, and so on. So, to specify an $n$-tuple, from all possible $n$ positions we need to choose $x$ of them for the $H$'s. But there are exactly $\binom{n}{x}$ many ways to make these choices, and hence $m = \binom{n}{x}$, which is what we wanted to prove. Thus, $X$ is indeed a $\mathcal{B}in(n,p)$ random variable.
@@ -290,16 +288,16 @@ Let's now give the expectations and variances of binomial variables:
 
 ```{prf:theorem} Expectations and variances of binomial variables
 
-If $X\sim \mathcal{B}in(n,p)$, then
+If $X\sim \mathcal{B}in(n,\theta)$, then
 
 $$
-E(X) = np \quad \text{and} \quad V(X) = np (1-p). 
+E(X) = n\theta \quad \text{and} \quad V(X) = n\theta (1-\theta). 
 $$ (bin-exp-eqn)
 ```
 
-One can derive these expressions directly from the definitions of expectations and variances, but the computations are a little tedious; see Section 3.4 in {cite}`Wackerly2014`, for example. But they may also be obtained with a little more ease by using gadgets called *moment generating functions*, which we will explore [later](mgf). Thus, we will postpone the derivations till then.
+One can derive these expressions directly from the definitions of expectations and variances, but the computations are a little tedious; see Section 3.4 in {cite}`Wackerly2014`, for example. But they may also be obtained with a little more ease by using gadgets called *moment generating functions*, which we will explore [later](mgf). Thus, we will postpone the derivations until then.
 
-From {eq}`bin-exp-eqn`, you can see that $E(X)$ is jointly proportional to $n$ and $p$, so that increasing one (while holding the other fixed) increases the mean. The variance $V(X)$ is *also* proportional to $n$, so that increasing $n$ (while holding $p$ fixed) also increases the spread of the distribution. These are confirmations of what we saw in the probability histograms above. 
+From {eq}`bin-exp-eqn`, you can see that $E(X)$ is jointly proportional to $n$ and $\theta$, so that increasing one (while holding the other fixed) increases the mean. The variance $V(X)$ is *also* proportional to $n$, so that increasing $n$ (while holding $\theta$ fixed) also increases the spread of the distribution. These are confirmations of what we saw in the probability histograms above. 
 
 Before moving on to the Problem Prompt, I want to give a useful result that we will use in a later section: Under certain circumstances, Bernoulli random variables may be used to "build" binomial random variables. These "certain circumstances" reach a bit beyond the theory that we currently know, since they refer to [*independence*](independence) of random variables, which is a topic we haven't discussed yet. This latter concept, in turn, relies upon [*joint distributions*](random-vectors), which we also haven't talked about yet. Nevertheless, these concepts are used so lightly that I believe the gist of the proof remains intelligible.
 
@@ -308,19 +306,19 @@ This being said, if you want to skip the proof and take the result on faith, tha
 ```{prf:theorem} Binomial variables as sums of Bernoulli variables
 :label: bern-bin-thm
 
-Let $Y_1,Y_2,\ldots,Y_n$ be a sequence of independent Bernoulli variables, all with the same distribution $\mathcal{B}er(p)$. Then the random variable
+Let $Y_1,Y_2,\ldots,Y_n$ be a sequence of independent Bernoulli variables, all with the same distribution $\mathcal{B}er(\theta)$. Then the random variable
 
 $$
 X = Y_1 + Y_2 + \cdots + Y_n
 $$
 
-is a $\mathcal{B}in(n,p)$ random variable.
+is a $\mathcal{B}in(n,\theta)$ random variable.
 ```
 
-To prove that $X \sim \mathcal{B}in(n,p)$, we need to prove that
+To prove that $X \sim \mathcal{B}in(n,\theta)$, we need to prove that
 
 $$
-P(X=x) = \binom{n}{x} p^x (1-p)^{n-x}, \quad \text{for } x=0,1,\ldots,n.
+P(X=x) = \binom{n}{x} \theta^x (1-\theta)^{n-x}, \quad \text{for } x=0,1,\ldots,n.
 $$
 
 However, we have
@@ -348,17 +346,17 @@ $$
 P(Y_1=y_1, Y_2=y_2, \ldots , Y_n = y_n) = P(Y_1=y_1)P(Y_2=y_2) \cdots P(Y_n=y_n).
 $$
 
-But each $Y_k\sim \mathcal{B}er(p)$, so that, returning to $P(X=x)$, we get:
+But each $Y_k\sim \mathcal{B}er(\theta)$, so that, returning to $P(X=x)$, we get:
 
 \begin{align*}
-P(X=x) &= \sum_{y_1+\cdots + y_n=x} p^{y_1}(1-p)^{1-y_1} p^{y_2}(1-p)^{1-y_2} \cdots p^{y_n} (1-p)^{1-y_n} \\
-&= \sum_{y_1+\cdots + y_n=x} p^x(1-p)^{n-x}.
+P(X=x) &= \sum_{y_1+\cdots + y_n=x} \theta^{y_1}(1-\theta)^{1-y_1} \theta^{y_2}(1-\theta)^{1-y_2} \cdots \theta^{y_n} (1-\theta)^{1-y_n} \\
+&= \sum_{y_1+\cdots + y_n=x} \theta^x(1-\theta)^{n-x}.
 \end{align*}
 
 But, given an integer $x$ with $0\leq x\leq n$, how many ways can we write $x=y_1+\cdots + y_n$ where each $y_k$ is either $0$ or $1$? Exactly $\binom{n}{x}$ many ways! Thus, we have
 
 $$
-P(X=x) = \binom{n}{y} p^x (1-p)^{n-x},
+P(X=x) = \binom{n}{y} \theta^x (1-\theta)^{n-x},
 $$
 
 as desired.
@@ -387,22 +385,22 @@ The supports of Bernoulli and binomial random variables are finite. Now, we turn
 
 ```{prf:definition}
 
-Let $p$ be a real number with $0\leq p \leq 1$. A discrete random variable $X$ is said to have a *geometric distribution* with parameter $p$, denoted
+Let $\theta$ be a real number with $0\leq \theta \leq 1$. A discrete random variable $X$ is said to have a *geometric distribution* with parameter $\theta$, denoted
 
 $$
-X \sim \mathcal{G}eo(p),
+X \sim \mathcal{G}eo(\theta),
 $$
 
-if its probability mass function $p(x)$ is given by
+if its probability mass function is given by
 
 $$
-p(x) = p (1-p)^{x-1}.
+p(x;\theta) = \theta (1-\theta)^{x-1}.
 $$
 
 with support $\{1,2,\ldots\}$.
 ```
 
-So, we're back to distributions that are parametrized by a single parameter. For different settings of $p$, here are some probability histograms:
+So, we're back to distributions that are parametrized by a single parameter. For different settings of $\theta$, here are some probability histograms:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -429,22 +427,22 @@ for i in range(2):
         axes[i,j].set_ylim(ymin=0, ymax=0.9)
         axes[i,j].set_xticks(xvals)
         axes[i,j].set_ylabel('probability')
-        axes[i,j].set_xlabel(rf'$p={p}$')
+        axes[i,j].set_xlabel(rf'$\theta={p}$')
 
 fig.set_size_inches(7, 5)
-fig.suptitle(r'PMF of a random variable $X\sim \mathcal{G}eo(p)$')
+fig.suptitle(r'PMF of a random variable $X\sim \mathcal{G}eo(\theta)$')
 plt.tight_layout()
 ```
 
-It appears that increasing $p$ decreases both the mean and the variance of the distribution. This will be confirmed below when we uncover formulas for $E(X)$ and $V(X)$ when $X\sim \mathcal{G}eo(p)$. The parameter $p$ is the _shape parameter_ of the geometric distributions.
+It appears that increasing $\theta$ decreases both the mean and the variance of the distribution. This will be confirmed below when we uncover formulas for $E(X)$ and $V(X)$ when $X\sim \mathcal{G}eo(\theta)$. The parameter $\theta$ is the _shape parameter_ of the geometric distributions.
 
 Just like the scenarios for Bernoulli and binomial random variables in the previous two sections, our archetypical scenario for a geometric random variable will also involve coin flips. But pay close attention, because the random variable *doesn't* count the number of heads any longer!
 
 ```{admonition} An archetypical geometric scenario
 
-**Q**: Suppose that a coin is flipped until heads is obtained. Suppose further that each flip is independent of the others, and that we allow for the possibility that the coin is *loaded*, so that it lands heads with probability $p$ (which may not be $0.5$!). If $X$ is the number of flips it takes to obtain a head, what is the distribution of the random variable $X$?
+**Q**: Suppose that a coin is flipped until heads is obtained. Suppose further that each flip is independent of the others, and that we allow for the possibility that the coin is *loaded*, so that it lands heads with probability $\theta$ (which may not be $0.5$!). If $X$ is the number of flips it takes to obtain a head, what is the distribution of the random variable $X$?
 
-**A**: $X\sim \mathcal{G}eo(p)$.
+**A**: $X\sim \mathcal{G}eo(\theta)$.
 ```
 
 The sample space $S$ on which $X$ is defined consists of all sequences of the form
@@ -457,22 +455,22 @@ The sample space $S$ on which $X$ is defined consists of all sequences of the fo
 &\textit{etc}.
 \end{align*}
 
-The probability to obtain the first sequence is $p$; by independence, the probability to obtain the second is $p(1-p)$; the probability for the third is $p(1-p)^2$; and the probability for the fourth is $p(1-p)^3$. Do you see the pattern? If $x$ is the number of flips it takes to obtain a head, then we clearly have
+The probability to obtain the first sequence is $\theta$; by independence, the probability to obtain the second is $\theta(1-\theta)$; the probability for the third is $\theta(1-\theta)^2$; and the probability for the fourth is $\theta(1-\theta)^3$. Do you see the pattern? If $x$ is the number of flips it takes to obtain a head, then we clearly have
 
 $$
-P(X=x) = p (1-p)^{x-1},
+P(X=x) = \theta (1-\theta)^{x-1},
 $$
 
-so that $X\sim \mathcal{G}eo(p)$.
+so that $X\sim \mathcal{G}eo(\theta)$.
 
 Like Bernoulli and binomial random variables, geometric random variables do not *only* apply in scenarios that involve coin flips. Indeed, the coin flips in our archetypical scenario can represent the binary outcomes of any scenario, as long as they are independent (when performed one after another) and have fixed probabilities.
 
 ```{prf:theorem} Expectations and variances of geometric variables
 
-If $X\sim \mathcal{G}eo(p)$, then
+If $X\sim \mathcal{G}eo(\theta)$, then
 
 $$
-E(X) = \frac{1}{p} \quad \text{and} \quad V(X) = \frac{1-p}{p^2}. 
+E(X) = \frac{1}{\theta} \quad \text{and} \quad V(X) = \frac{1-\theta}{\theta^2}. 
 $$
 ```
 
@@ -508,10 +506,10 @@ Let $M\geq 0$ be an integer, and let $n$ and $N$ be integers with $0\leq n,N\leq
 Y \sim \mathcal{HG}eo(M,n,N),
 \end{equation}
 
-if its probability mass function $p(x)$ is given by
+if its probability mass function is given by
 
 $$
-p(x) = \frac{\binom{n}{x}\binom{M-n}{N-x}}{\binom{M}{N}}.
+p(x; M,n,N) = \frac{\binom{n}{x}\binom{M-n}{N-x}}{\binom{M}{N}}.
 $$
 
 with support all $x$ such that
@@ -692,10 +690,10 @@ $$
 X \sim \mathcal{P}ois(\mu),
 $$
 
-if its probability mass function $p(x)$ is given by
+if its probability mass function is given by
 
 $$
-p(x) = \frac{\mu^x}{x!}e^{-\mu}
+p(x;\mu) = \frac{\mu^x}{x!}e^{-\mu}
 $$
 
 with support $\{0,1,2,\ldots\}$.
@@ -782,7 +780,7 @@ Suppose that there are $n$ subintervals, each of equal length $\Delta t = t/n$:
 ```
 &nbsp;
 
-Now, we let $Y_k$ be the number of emails that arrive in the $k$-th subinterval, for each $k=1,2,\ldots,n$. By construction, we have that $Y_k=0$ or $1$, and thus each $Y_k$ is a Bernoulli random variable, parametrized by some parameter $p_k$. But what is $p_k$?
+Now, we let $Y_k$ be the number of emails that arrive in the $k$-th subinterval, for each $k=1,2,\ldots,n$. By construction, we have that $Y_k=0$ or $1$, and thus each $Y_k$ is a Bernoulli random variable, parametrized by some parameter $\theta_k$. But what is $\theta_k$?
 
 To answer this, recall that we are told the mean rate at which the emails arrive is $\lambda$ (measured in reciprocal hours). Therefore, since the length of each of the subintervals is $\Delta t$, we would expect, on average, that exactly
 
@@ -795,7 +793,7 @@ $$
 \lambda \cdot \Delta t = \frac{\lambda t}{n}
 $$
 
-emails arrive in the $k$-th subinterval. But we know that $E(Y_k) = p_k$ because $Y_k$ is Bernoulli, and this implies that $p_k = \lambda t/n$. Thus $Y_k \sim \mathcal{B}er(\lambda t/n)$, for each $k=1,2,\ldots,n$.
+emails arrive in the $k$-th subinterval. But we know that $E(Y_k) = \theta_k$ because $Y_k$ is Bernoulli, and this implies that $\theta_k = \lambda t/n$. Thus $Y_k \sim \mathcal{B}er(\lambda t/n)$, for each $k=1,2,\ldots,n$.
 
 We now bring this all back to $X$. As long as $n$ is large enough (so that $\Delta t$ is small), we should have
 
@@ -924,10 +922,10 @@ $$
 X \sim \mathcal{N}(\mu,\sigma^2),
 $$
 
-if its probability density function $f(x)$ is given by
+if its probability density function is given by
 
 $$
-f(x) = \frac{1}{\sigma \sqrt{2\pi}} \exp \left[ - \frac{1}{2} \left( \frac{x-\mu}{\sigma} \right)^2 \right]
+f(x;\mu,\sigma) = \frac{1}{\sigma \sqrt{2\pi}} \exp \left[ - \frac{1}{2} \left( \frac{x-\mu}{\sigma} \right)^2 \right]
 $$
 
 with support $\mathbb{R}$.
@@ -1078,10 +1076,10 @@ $$
 X \sim \mathcal{E}xp(\lambda),
 $$
 
-if its probability density function $f(x)$ is given by
+if its probability density function is given by
 
 $$
-f(x) = \lambda e^{-\lambda x}
+f(x;\lambda) = \lambda e^{-\lambda x}
 $$
 
 with support $(0,\infty)$.
@@ -1251,10 +1249,10 @@ $$
 X \sim \mathcal{G}am(\alpha,\beta),
 $$
 
-if its probability density function $f(x)$ is given by
+if its probability density function is given by
 
 $$
-f(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}.
+f(x;\alpha,\beta) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}.
 $$ (gamma-pdf-eqn)
 
 with support $(0,\infty)$.
@@ -1263,7 +1261,7 @@ with support $(0,\infty)$.
 How should one understand the formula {eq}`gamma-pdf-eqn` for the PDFs of gamma distributions, given that it involves the somewhat intimidating gamma function {eq}`gam-func-eqn`? Here's my advice: Don't worry about the leading factor $\beta^\alpha/\Gamma(\alpha)$ in {eq}`gamma-pdf-eqn`, and only pay attention to the "important" factor $x^{\alpha-1}e^{-\beta x}$. This advice is justified based on the observation that the factor $\beta^\alpha/\Gamma(\alpha)$ does _not_ involve the variable $x$, and is therefore a constant. In fact, it is quite common to see the PDF of a gamma distribution represented as
 
 $$
-f(x) \propto x^{\alpha-1} e^{-\beta x},
+f(x;\alpha,\beta) \propto x^{\alpha-1} e^{-\beta x},
 $$ (prop-gam-eqn)
 
 where the symbol "$\propto$" means "proportional to." By writing {eq}`prop-gam-eqn`, we are signaling that the only important part of the PDF is the factor $x^{\alpha-1} e^{-\beta x}$.
@@ -1443,10 +1441,10 @@ $$
 X \sim \mathcal{B}eta(\alpha,\beta),
 $$
 
-if its probability density function $f(x)$ is given by
+if its probability density function is given by
 
 $$
-f(x) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1} (1-x)^{\beta-1}.
+f(x;\alpha,\beta) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1} (1-x)^{\beta-1}.
 $$
 
 with support $(0,1)$.
@@ -1460,12 +1458,12 @@ It is perhaps unfortunate that the random variable _itself_ is called a _beta va
 Just like the densities of gamma variables, the leading factor $\Gamma(\alpha+\beta)/(\Gamma(\alpha)\Gamma(\beta))$ is only there to ensure that the PDF integrates to $1$. Notice that it is independent of the variable $x$, and thus we may write
 
 $$
-f(x) \propto x^{\alpha-1} (1-x)^{\beta-1},
+f(x;\alpha,\beta) \propto x^{\alpha-1} (1-x)^{\beta-1},
 $$
 
 highlighting only the "important" part of the density.
 
-For $\alpha,\beta>1$, notice that the density function $f(x)$ has zeros at $x=0$ and $1$. Moreover, if $\alpha$ and $\beta$ are integers greater than $1$, then the powers $\alpha-1$ and $\beta-1$ in $f(x)$ play the role of _multiplicities_ of these zeros. Thus, holding one of $\alpha$ or $\beta$ fixed while increasing the other one has the effect of "flattening" the density curve toward the zero whose multiplicity is increasing. You can see this "flattening" effect by comparing the plots vertically in the first two rows of the following figure; the last two rows show the density curves for fractional values of $\alpha$ and $\beta$, and for values less than $1$.
+For $\alpha,\beta>1$, notice that the density function $f(x;\alpha,\beta)$ has zeros at $x=0$ and $1$. Moreover, if $\alpha$ and $\beta$ are integers greater than $1$, then the powers $\alpha-1$ and $\beta-1$ in $f(x;\alpha,\beta)$ play the role of _multiplicities_ of these zeros. Thus, holding one of $\alpha$ or $\beta$ fixed while increasing the other one has the effect of "flattening" the density curve toward the zero whose multiplicity is increasing. You can see this "flattening" effect by comparing the plots vertically in the first two rows of the following figure; the last two rows show the density curves for fractional values of $\alpha$ and $\beta$, and for values less than $1$.
 
 ```{code-cell} ipython3
 :tags: [hide-input]
