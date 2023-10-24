@@ -26,9 +26,7 @@ The intended audience is upper-level undergraduate students majoring in mathemat
 
 * On the mathematical side, I assume that the reader has completed the calculus sequence typical at most US universities, up to and including multivariable calculus. Some basic matrix algebra will be required here and there, but not enough to justify an entire course in linear algebra as a prerequisite.  
 
-* On the programming side, I assume that the reader knows only the basics of Python and writing code in Jupyter notebooks. Nothing advanced is needed---just a familiarity with the fundamental data structures in the language, as well as basic logic, control flow, and functions. The big libraries (e.g., NumPy, Pandas, Matplotlib, Seaborn, SciPy, _etc_.) will be introduced throughout the course.
-
-My choice of the Python language is more a matter of my own background rather than commentary on any of the other popular statistical programming languages (e.g., R). I am a theoretical mathematician with a developing interest in machine learning, and Python is one of the standard languages in the latter discipline. For those students who might use statistical machine learning in their careers, I can only hope that this course will have been worthwhile.
+* On the programming side, I assume that the reader knows only the basics of Python and writing code in Jupyter notebooks. Nothing advanced is needed---just a familiarity with the fundamental data structures in the language, as well as basic logic, control flow, and functions. The big libraries (e.g., NumPy, Pandas, Matplotlib, Seaborn, SciPy, Statsmodels, _etc_.) will be introduced throughout the course.
 
 ## How to use this book
 
