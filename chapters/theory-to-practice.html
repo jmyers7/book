@@ -341,7 +341,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-and-random-samples">6.1. Data and random samples</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-models-and-empirical-distributions">6.2. Statistical models and empirical distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-models-and-empirical-distributions">6.2. Probabilistic models and empirical distributions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histograms">6.3. Histograms</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-density-estimation">6.4. Kernel density estimation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qq-plots">6.5. QQ-plots</a></li>
@@ -362,8 +362,8 @@ document.write(`
 <span id="theory-to-practice"></span><h1><span class="section-number">6. </span>Connecting theory to practice: data and samples<a class="headerlink" href="#connecting-theory-to-practice-data-and-samples" title="Permalink to this heading">#</a></h1>
 <section id="data-and-random-samples">
 <h2><span class="section-number">6.1. </span>Data and random samples<a class="headerlink" href="#data-and-random-samples" title="Permalink to this heading">#</a></h2>
-<p>Except for Michelson’s measurements of the speed of light that we glimpsed in the <a class="reference internal" href="preview.html#introduction"><span class="std std-ref">Introduction</span></a>, we have not considered any real-world datasets in this course. Sure, we’ve studied a few toy examples of “real world” scenarios mostly involving coin flips or some strange, contrived die roll scheme, but these are a far cry from the datasets that you might encounter in your career. Indeed, the majority of our effort so far has gone into studying and understanding abstract probability spaces and random variables. In short: We have been focusing on <em>theory</em>. Now, however, it’s time to begin exploring how our theory connects to the <em>real world</em>.</p>
-<p>Our exploration begins with Airbnbs. Suppose we have at hand a sample of daily prices (in USD) for Airbnbs in Austin, Texas, over the last 12 months:</p>
+<p>This chapter is a continuation of the ideas presented in the third programming assignment (see the course Github <a class="reference external" href="https://github.com/jmyers7/stats-book-materials">repo</a>) where we began exploring how the concepts that we have been studying over the past few chapters apply to <em>real-world</em> datasets. In that assignment, we learned about <em>empirical distributions</em> of datasets and associated empirical quantities like means, variances, and quantiles.</p>
+<p>Our exploration in the third programming assignment centered on the <em>Ames housing dataset</em>. In this chapter, we will explore a dataset related to Airbnbs. In particular, we have at hand a sample of daily prices (in USD) for Airbnbs in Austin, Texas, over the last 12 months:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -476,7 +476,7 @@ P(X_1\in A)  = P(X_2\in A) = \cdots = P(X_n\in A)
 </ul>
 <p>Provided that the sequence is a random sample, an <em>observed random sample</em>, or a <em>dataset</em>, is a sequence of real numbers <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> where <span class="math notranslate nohighlight">\(x_k\)</span> is an observed value of <span class="math notranslate nohighlight">\(X_k\)</span>.</p>
 </section>
-</div><p>In regard to the second bullet point, two random variables are said to be <em>independent</em> if the probability of one of the random variables taking a particular value is not influenced or affected by the other random variable taking a particular value. This isn’t a precise definition, and it must be adapted to apply to an entire <em>sequence</em> of random variables, but it is good enough for now. (The precise definition will come in <a class="reference internal" href="random-vectors.html#independence-defn">Definition 7.11</a>.)</p>
+</div><p>Two random variables are said to be <em>independent</em> if the probability of one of the random variables taking a particular value is not influenced or affected by the other random variable taking a particular value. This isn’t a precise definition, and it must be adapted to apply to an entire <em>sequence</em> of random variables, but it is good enough for now. (The precise definition will come in <a class="reference internal" href="random-vectors.html#independence-defn">Definition 7.11</a>.)</p>
 <p>Take care to notice the difference between a <em>random sample</em> (without the modifier) and an <em>observed random sample</em>—the former is an IID sequence of random variables, while the latter is a sequence of real numbers!</p>
 <p>Why have two different types of random samples? Answers:</p>
 <div class="admonition-the-roles-of-random-samples admonition">
@@ -487,27 +487,21 @@ P(X_1\in A)  = P(X_2\in A) = \cdots = P(X_n\in A)
 </ul>
 </div>
 </section>
-<section id="statistical-models-and-empirical-distributions">
-<h2><span class="section-number">6.2. </span>Statistical models and empirical distributions<a class="headerlink" href="#statistical-models-and-empirical-distributions" title="Permalink to this heading">#</a></h2>
+<section id="probabilistic-models-and-empirical-distributions">
+<h2><span class="section-number">6.2. </span>Probabilistic models and empirical distributions<a class="headerlink" href="#probabilistic-models-and-empirical-distributions" title="Permalink to this heading">#</a></h2>
 <p>If <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n\)</span> is a random sample, then by definition the probability distributions of the <span class="math notranslate nohighlight">\(X_k\)</span> are all identical. This will often be written as either</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 X_1,X_2,\ldots,X_n \sim f \quad \text{or} \quad X_1,X_2,\ldots,X_n \sim F,
 \end{equation*}\]</div>
-<p>where <span class="math notranslate nohighlight">\(f\)</span> is the density function of the <span class="math notranslate nohighlight">\(X_k\)</span>’s and <span class="math notranslate nohighlight">\(F\)</span> is their distribution function. These functions are usually unknown. Our goal is then to discover their identity using <em>observed</em> random samples (i.e., datasets!).</p>
-<p>Sometimes, we might have a hunch that the mystery distribution <span class="math notranslate nohighlight">\(F\)</span> comes from a parametrized family of distributions; for example, we might believe that</p>
+<p>where <span class="math notranslate nohighlight">\(f\)</span> is the density function of the <span class="math notranslate nohighlight">\(X_k\)</span>’s and <span class="math notranslate nohighlight">\(F\)</span> is their distribution function. A particular choice of <span class="math notranslate nohighlight">\(f\)</span> or <span class="math notranslate nohighlight">\(F\)</span> is called a <em>probabilistic model</em>. Often, an analyst doesn’t choose a <em>specific</em> <span class="math notranslate nohighlight">\(f\)</span> or <span class="math notranslate nohighlight">\(F\)</span>, but rather chooses a <em>family</em> from which these functions are drawn. For example, an analyst might choose the model from the Gaussian family of distributions, so that</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 X_1,X_2,\ldots,X_n \sim \mathcal{N}(\mu_0,\sigma_0^2)
 \end{equation*}\]</div>
-<p>for some unknown <em>true</em> parameters <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span>. Then, using data, our goal is to estimate <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span> as accurately as possible. In this scenario:</p>
-<ul class="simple">
-<li><p>The parameters <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span> are often called <em>population parameters</em>.</p></li>
-<li><p>The collection of <em>all</em> normal probability distributions <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\sigma^2)\)</span> is called a <em>statistical model</em> of the data.</p></li>
-<li><p>The true (but unknown) probability distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\mu_0,\sigma_0^2)\)</span> inside the statistical model is called the <em>(true) population distribution</em>.</p></li>
-</ul>
-<p>Since the normal distributions <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\sigma^2)\)</span> depend on a finite number of parameters, we say that the normal statistical model is <em>parametric</em>. However, sometimes we may believe that the data is modeled by a collection of distributions that are <em>not</em> parametrized in any natural way by a finite set of parameters; these latter types of statistical models are called <em>non-parametric</em>.</p>
-<p>At the risk of oversimplification, what I have just describe is, in a nutshell, the entire program of <em>inferential statistics</em>. A major portion of the second half of this course will be devoted to studying clever procedures and algorithms that use datasets to generate quantitative estimates of various population parameters. As a first step in this direction, in this chapter we study <em>empirical distributions</em>. These are the probability distributions of observed datasets. Our interest in datasets hinges on the assumption that they <em>accurately</em> represent the larger population; if so, then their empirical distributions should reasonably match the unknown population distribution.</p>
+<p>where <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span> are unknown parameters. Then, the goal is to use data to estimate <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span> as accurately as possible. In this scenario the parameters <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span> are called <em>population parameters</em> or <em>model parameters</em>.</p>
+<p>Since the normal distributions <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\sigma^2)\)</span> depend on a finite number of parameters, we say that the normal probabilistic model is <em>parametric</em>. However, sometimes we may believe that the data is modeled by a collection of distributions that are <em>not</em> parametrized in any natural way by a finite set of parameters; these latter types of statistical models are called <em>non-parametric</em>.</p>
+<p>At the risk of oversimplification, what I have just describe is, in a nutshell, the entire program of <em>inferential statistics</em>. A major portion of the second half of this course will be devoted to studying clever procedures and algorithms that use datasets to generate estimates of various population and model parameters. As a first step in this direction, in this chapter we study <em>empirical distributions</em>. These are the probability distributions of observed datasets. Our interest in datasets hinges on the assumption that they <em>accurately</em> represent the larger population; if so, then their empirical distributions should reasonably match the unknown population distribution.</p>
 <p>Here’s the main definition:</p>
 <div class="proof definition admonition" id="emp-dist-defn">
 <p class="admonition-title"><span class="caption-number">Definition 6.2 </span></p>
@@ -584,7 +578,7 @@ X_1,X_2,\ldots,X_n \sim \mathcal{N}(\mu_0,\sigma_0^2)
 </figure>
 </div>
 </div>
-<p>In this figure, I’ve plotted the CDF from a <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\sigma^2)\)</span> distribution, where I’ve used the sample mean and standard deviation for the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> (more on these below).</p>
+<p>In this figure, I’ve plotted the CDF from a <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\sigma^2)\)</span> distribution, where I’ve used the empirical mean and standard deviation for the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> (more on these below).</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>This is essentially just a curve sketching exercise from calculus. We’re using our knowledge of the relationships between a function and its first two derivatives, and what these gadgets tell us about increase/decrease and concavity.</p>
@@ -803,12 +797,11 @@ X_1,X_2,\ldots,X_n \sim \mathcal{N}(\mu_0,\sigma_0^2)
 </figure>
 </div>
 </div>
-<p>The KDE curve on the left is essentially the original KDE that we saw in the previous section. I mentioned then that it looked pretty strange, due to the repeated fluctuations up and down. Now, by playing with the bandwidth, we see how to smooth out these fluctuations.</p>
 <p>So, we’ve seen that KDEs are supposed to serve as estimates for the density curves of datasets, but they are highly sensitive to the choice of bandwidth <span class="math notranslate nohighlight">\(h\)</span>. How do you choose <span class="math notranslate nohighlight">\(h\)</span>? Just like the ‘number of bins’ parameter for histograms, you are best off first letting the computer decide the bandwidth for you, and then manually fine-tune it (if needed) until you get a KDE that you believe best represents the data.</p>
 </section>
 <section id="qq-plots">
 <h2><span class="section-number">6.5. </span>QQ-plots<a class="headerlink" href="#qq-plots" title="Permalink to this heading">#</a></h2>
-<p>Another convenient way to compare two probability distributions is through visualizations called <em>quantile-quantile plots</em>, or <em>QQ-plots</em>. It takes a bit of practice to learn how to interpret them, however.</p>
+<p>Another convenient way to compare two probability distributions is through visualizations called <em>quantile-quantile plots</em>, or <em>QQ-plots</em>.</p>
 <p>The basic idea is quite simple. A QQ-plot gives us a way to compare the quantiles of two distributions—we expect that if the distributions are similar, then their quantiles should be distributed similarly. One often uses QQ-plots to compare empirical distributions of datasets against normal distributions in order to check if the data is normally distributed. In fact, this will be our exclusive use case for QQ-plots in this course, and my description here will thus be limited to this special case.</p>
 <p>Now, we <em>already</em> have from <a class="reference internal" href="prob-spaces.html#dist-quant"><span class="std std-numref">Section 2.10</span></a> a definition of <em>quantiles</em> that works for any type of distribution. When we use QQ-plots, however, we adopt a <em>different</em> definition for empirical distributions of datasets. To describe it, for convenience, let’s suppose that the points in our dataset are labeled with <span class="math notranslate nohighlight">\(y\)</span>’s instead of <span class="math notranslate nohighlight">\(x\)</span>’s. (You’ll see why this is convenient, in just a moment.) Suppose that we order our dataset in non-decreasing order:</p>
 <div class="amsmath math notranslate nohighlight">
@@ -1373,7 +1366,7 @@ x_k &lt; (\text{sample 0.25-quantile}) - 1.5\times (\text{sample IQR}).
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-and-random-samples">6.1. Data and random samples</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-models-and-empirical-distributions">6.2. Statistical models and empirical distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-models-and-empirical-distributions">6.2. Probabilistic models and empirical distributions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#histograms">6.3. Histograms</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-density-estimation">6.4. Kernel density estimation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#qq-plots">6.5. QQ-plots</a></li>

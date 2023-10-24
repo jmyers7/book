@@ -15,9 +15,9 @@ kernelspec:
 
 ## Data and random samples
 
-Except for Michelson's measurements of the speed of light that we glimpsed in the [Introduction](introduction), we have not considered any real-world datasets in this course. Sure, we've studied a few toy examples of "real world" scenarios mostly involving coin flips or some strange, contrived die roll scheme, but these are a far cry from the datasets that you might encounter in your career. Indeed, the majority of our effort so far has gone into studying and understanding abstract probability spaces and random variables. In short: We have been focusing on *theory*. Now, however, it's time to begin exploring how our theory connects to the *real world*.
+This chapter is a continuation of the ideas presented in the third programming assignment (see the course Github [repo](https://github.com/jmyers7/stats-book-materials)) where we began exploring how the concepts that we have been studying over the past few chapters apply to _real-world_ datasets. In that assignment, we learned about _empirical distributions_ of datasets and associated empirical quantities like means, variances, and quantiles.
 
-Our exploration begins with Airbnbs. Suppose we have at hand a sample of daily prices (in USD) for Airbnbs in Austin, Texas, over the last 12 months:
+Our exploration in the third programming assignment centered on the _Ames housing dataset_. In this chapter, we will explore a dataset related to Airbnbs. In particular, we have at hand a sample of daily prices (in USD) for Airbnbs in Austin, Texas, over the last 12 months:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -140,7 +140,7 @@ Let $X_1,X_2,\ldots,X_n$ be a sequence of random variables, all defined on the s
 Provided that the sequence is a random sample, an *observed random sample*, or a *dataset*, is a sequence of real numbers $x_1,x_2,\ldots,x_n$ where $x_k$ is an observed value of $X_k$.
 ```
 
-In regard to the second bullet point, two random variables are said to be *independent* if the probability of one of the random variables taking a particular value is not influenced or affected by the other random variable taking a particular value. This isn't a precise definition, and it must be adapted to apply to an entire *sequence* of random variables, but it is good enough for now. (The precise definition will come in {prf:ref}`independence-defn`.)
+Two random variables are said to be *independent* if the probability of one of the random variables taking a particular value is not influenced or affected by the other random variable taking a particular value. This isn't a precise definition, and it must be adapted to apply to an entire *sequence* of random variables, but it is good enough for now. (The precise definition will come in {prf:ref}`independence-defn`.)
 
 Take care to notice the difference between a *random sample* (without the modifier) and an *observed random sample*---the former is an IID sequence of random variables, while the latter is a sequence of real numbers!
 
@@ -184,7 +184,7 @@ Why have two different types of random samples? Answers:
 
 
 
-## Statistical models and empirical distributions
+## Probabilistic models and empirical distributions
 
 If $X_1,X_2,\ldots,X_n$ is a random sample, then by definition the probability distributions of the $X_k$ are all identical. This will often be written as either
 
@@ -192,25 +192,17 @@ If $X_1,X_2,\ldots,X_n$ is a random sample, then by definition the probability d
 X_1,X_2,\ldots,X_n \sim f \quad \text{or} \quad X_1,X_2,\ldots,X_n \sim F,
 \end{equation*}
 
-where $f$ is the density function of the $X_k$'s and $F$ is their distribution function. These functions are usually unknown. Our goal is then to discover their identity using _observed_ random samples (i.e., datasets!).
-
-Sometimes, we might have a hunch that the mystery distribution $F$ comes from a parametrized family of distributions; for example, we might believe that
+where $f$ is the density function of the $X_k$'s and $F$ is their distribution function. A particular choice of $f$ or $F$ is called a _probabilistic model_. Often, an analyst doesn't choose a _specific_ $f$ or $F$, but rather chooses a _family_ from which these functions are drawn. For example, an analyst might choose the model from the Gaussian family of distributions, so that
 
 \begin{equation*}
 X_1,X_2,\ldots,X_n \sim \mathcal{N}(\mu_0,\sigma_0^2)
 \end{equation*}
 
-for some unknown _true_ parameters $\mu_0$ and $\sigma_0$. Then, using data, our goal is to estimate $\mu_0$ and $\sigma_0$ as accurately as possible. In this scenario:
+where $\mu_0$ and $\sigma_0$ are unknown parameters. Then, the goal is to use data to estimate $\mu_0$ and $\sigma_0$ as accurately as possible. In this scenario the parameters $\mu_0$ and $\sigma_0$ are called *population parameters* or *model parameters*.
 
-* The parameters $\mu_0$ and $\sigma_0$ are often called *population parameters*.
+Since the normal distributions $\mathcal{N}(\mu,\sigma^2)$ depend on a finite number of parameters, we say that the normal probabilistic model is _parametric_. However, sometimes we may believe that the data is modeled by a collection of distributions that are _not_ parametrized in any natural way by a finite set of parameters; these latter types of statistical models are called _non-parametric_.
 
-* The collection of _all_ normal probability distributions $\mathcal{N}(\mu,\sigma^2)$ is called a *statistical model* of the data.
-
-* The true (but unknown) probability distribution $\mathcal{N}(\mu_0,\sigma_0^2)$ inside the statistical model is called the *(true) population distribution*.
-
-Since the normal distributions $\mathcal{N}(\mu,\sigma^2)$ depend on a finite number of parameters, we say that the normal statistical model is _parametric_. However, sometimes we may believe that the data is modeled by a collection of distributions that are _not_ parametrized in any natural way by a finite set of parameters; these latter types of statistical models are called _non-parametric_.
-
-At the risk of oversimplification, what I have just describe is, in a nutshell, the entire program of _inferential statistics_. A major portion of the second half of this course will be devoted to studying clever procedures and algorithms that use datasets to generate quantitative estimates of various population parameters. As a first step in this direction, in this chapter we study *empirical distributions*. These are the probability distributions of observed datasets. Our interest in datasets hinges on the assumption that they _accurately_ represent the larger population; if so, then their empirical distributions should reasonably match the unknown population distribution.
+At the risk of oversimplification, what I have just describe is, in a nutshell, the entire program of _inferential statistics_. A major portion of the second half of this course will be devoted to studying clever procedures and algorithms that use datasets to generate estimates of various population and model parameters. As a first step in this direction, in this chapter we study *empirical distributions*. These are the probability distributions of observed datasets. Our interest in datasets hinges on the assumption that they _accurately_ represent the larger population; if so, then their empirical distributions should reasonably match the unknown population distribution.
 
 Here's the main definition:
 
@@ -288,7 +280,7 @@ plt.legend()
 plt.tight_layout()
 ```
 
-In this figure, I've plotted the CDF from a $\mathcal{N}(\mu,\sigma^2)$ distribution, where I've used the sample mean and standard deviation for the parameters $\mu$ and $\sigma$ (more on these below).
+In this figure, I've plotted the CDF from a $\mathcal{N}(\mu,\sigma^2)$ distribution, where I've used the empirical mean and standard deviation for the parameters $\mu$ and $\sigma$ (more on these below).
 
 ```{margin}
 This is essentially just a curve sketching exercise from calculus. We're using our knowledge of the relationships between a function and its first two derivatives, and what these gadgets tell us about increase/decrease and concavity.
@@ -544,8 +536,6 @@ axes[0].set_ylabel('probability density')
 plt.tight_layout()
 ```
 
-The KDE curve on the left is essentially the original KDE that we saw in the previous section. I mentioned then that it looked pretty strange, due to the repeated fluctuations up and down. Now, by playing with the bandwidth, we see how to smooth out these fluctuations.
-
 So, we've seen that KDEs are supposed to serve as estimates for the density curves of datasets, but they are highly sensitive to the choice of bandwidth $h$. How do you choose $h$? Just like the 'number of bins' parameter for histograms, you are best off first letting the computer decide the bandwidth for you, and then manually fine-tune it (if needed) until you get a KDE that you believe best represents the data.
 
 
@@ -581,7 +571,7 @@ So, we've seen that KDEs are supposed to serve as estimates for the density curv
 
 ## QQ-plots
 
-Another convenient way to compare two probability distributions is through visualizations called _quantile-quantile plots_, or _QQ-plots_. It takes a bit of practice to learn how to interpret them, however.
+Another convenient way to compare two probability distributions is through visualizations called _quantile-quantile plots_, or _QQ-plots_.
 
 The basic idea is quite simple. A QQ-plot gives us a way to compare the quantiles of two distributions---we expect that if the distributions are similar, then their quantiles should be distributed similarly. One often uses QQ-plots to compare empirical distributions of datasets against normal distributions in order to check if the data is normally distributed. In fact, this will be our exclusive use case for QQ-plots in this course, and my description here will thus be limited to this special case.
 
