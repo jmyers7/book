@@ -396,27 +396,26 @@ document.write(`
 <div class="proof definition admonition" id="definition-0">
 <p class="admonition-title"><span class="caption-number">Definition 5.1 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(p\)</span> be a real number with <span class="math notranslate nohighlight">\(0\leq p \leq 1\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>Bernoulli distribution</em> with parameter <span class="math notranslate nohighlight">\(p\)</span>, denoted</p>
+<p>Let <span class="math notranslate nohighlight">\(p\)</span> be a real number with <span class="math notranslate nohighlight">\(0\leq p \leq 1\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>Bernoulli distribution</em> with parameter <span class="math notranslate nohighlight">\(\theta\)</span>, denoted</p>
 <div class="math notranslate nohighlight" id="equation-dist-eqn">
 <span class="eqno">(5.1)<a class="headerlink" href="#equation-dist-eqn" title="Permalink to this equation">#</a></span>\[
-X \sim \mathcal{B}er(p),
+X \sim \mathcal{B}er(\theta),
 \]</div>
-<p>if its probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> is given by</p>
+<p>if its probability mass function is given by</p>
 <div class="math notranslate nohighlight" id="equation-bern-eqn">
 <span class="eqno">(5.2)<a class="headerlink" href="#equation-bern-eqn" title="Permalink to this equation">#</a></span>\[
-p(x) = p^x(1-p)^{1-x}.
+p(x;\theta) = \theta^x(1-\theta)^{1-x}.
 \]</div>
 <p>with support <span class="math notranslate nohighlight">\(\{0,1\}\)</span>.</p>
 </section>
-</div><p>First, notice that the single letter “<span class="math notranslate nohighlight">\(p\)</span>” means <em>different</em> things on the two sides of the equation <a class="reference internal" href="#equation-bern-eqn">(5.2)</a>! On the left, it stands for the name of the probability mass function, while on the right, it stands for the parameter. Now, I’m just as tolerant of abuses and misuses of notation as the next guy, but this one seems pretty terrible to me. Nevertheless, because many books and references use this notation, I feel compelled to use it as well. That’s how these horrible choices in notation—always hallowed by tradition—gain inertia of their own! And we’re powerless to stop them!</p>
-<p>The notation <a class="reference internal" href="#equation-dist-eqn">(5.1)</a> is shorthand for: “The random variable <span class="math notranslate nohighlight">\(X\)</span> has a Bernoulli distribution with parameter <span class="math notranslate nohighlight">\(p\)</span>.” The symbol “<span class="math notranslate nohighlight">\(\sim\)</span>” simply means “is distributed as.” The “thing” <span class="math notranslate nohighlight">\(\mathcal{B}er(p)\)</span> doesn’t really have any sort of existence of its own outside this notation, though sometimes people treat it as if it were the probability mass function, or the distribution function, or whatever. In any case, this is incredibly helpful notation and can be used in many ways to shorten the amount that we need to write.</p>
+</div><p>The notation <a class="reference internal" href="#equation-dist-eqn">(5.1)</a> is shorthand for: “The random variable <span class="math notranslate nohighlight">\(X\)</span> has a Bernoulli distribution with parameter <span class="math notranslate nohighlight">\(\theta\)</span>.” The symbol “<span class="math notranslate nohighlight">\(\sim\)</span>” simply means “is distributed as.” The “thing” <span class="math notranslate nohighlight">\(\mathcal{B}er(\theta)\)</span> doesn’t really have any sort of existence of its own outside this notation, though sometimes people treat it as if it were the probability mass function, or the distribution function, or whatever. In any case, this is incredibly helpful notation and can be used in many ways to shorten the amount that we need to write.</p>
 <p>The outputs of a Bernoulli random variable consist of just two values, <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. For that reason, Bernoulli random variables might also be called <em>binary</em> random variables.</p>
 <p>Since <span class="math notranslate nohighlight">\(x\)</span> can be only <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>, this means that the formula <a class="reference internal" href="#equation-bern-eqn">(5.2)</a> for the probability mass function could equally be re-written as</p>
 <div class="math notranslate nohighlight" id="equation-bern2-eqn">
 <span class="eqno">(5.3)<a class="headerlink" href="#equation-bern2-eqn" title="Permalink to this equation">#</a></span>\[\begin{split}
-p(x) = \begin{cases} p &amp; : x=1, \\ 1-p &amp; : x=0.\end{cases}
+p(x;\theta) = \begin{cases} \theta &amp; : x=1, \\ 1-\theta &amp; : x=0.\end{cases}
 \end{split}\]</div>
-<p>Therefore, a random variable <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(p)\)</span> outputs the value <span class="math notranslate nohighlight">\(1\)</span> with probability <span class="math notranslate nohighlight">\(p\)</span>, and the value <span class="math notranslate nohighlight">\(0\)</span> with probability <span class="math notranslate nohighlight">\(1-p\)</span>. Using this fact, I bet you would have no problem drawing probability histograms for various settings for <span class="math notranslate nohighlight">\(p\)</span>. Here’s what you would get:</p>
+<p>Therefore, a random variable <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(\theta)\)</span> outputs the value <span class="math notranslate nohighlight">\(1\)</span> with probability <span class="math notranslate nohighlight">\(\theta\)</span>, and the value <span class="math notranslate nohighlight">\(0\)</span> with probability <span class="math notranslate nohighlight">\(1-\theta\)</span>. Using this fact, I bet you would have no problem drawing probability histograms for various settings for <span class="math notranslate nohighlight">\(\theta\)</span>. Here’s what you would get:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -454,10 +453,10 @@ p(x) = \begin{cases} p &amp; : x=1, \\ 1-p &amp; : x=0.\end{cases}
         <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xvals</span><span class="p">)</span>
         <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
-        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;$p=</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;$\theta=</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PMF of a random variable $X\sim \mathcal</span><span class="si">{B}</span><span class="s1">er(p)$&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PMF of a random variable $X\sim \mathcal</span><span class="si">{B}</span><span class="s1">er(\theta)$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -465,39 +464,39 @@ p(x) = \begin{cases} p &amp; : x=1, \\ 1-p &amp; : x=0.\end{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/451a4aa19869f66a2a27c7a60c0b1f85e60b107f8ef0709c6b028c4f6afd1b04.png"><img alt="../_images/451a4aa19869f66a2a27c7a60c0b1f85e60b107f8ef0709c6b028c4f6afd1b04.png" src="../_images/451a4aa19869f66a2a27c7a60c0b1f85e60b107f8ef0709c6b028c4f6afd1b04.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/045e716b45680d9a6d87e36a7004c3b0ed73ad187a51fd7d3a3e620f6bcb9f92.png"><img alt="../_images/045e716b45680d9a6d87e36a7004c3b0ed73ad187a51fd7d3a3e620f6bcb9f92.png" src="../_images/045e716b45680d9a6d87e36a7004c3b0ed73ad187a51fd7d3a3e620f6bcb9f92.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
-<p>Notice that different values of the parameter <span class="math notranslate nohighlight">\(p\)</span> fundamentally alter the <em>shape</em> of the distribution. For this reason, the parameter <span class="math notranslate nohighlight">\(p\)</span> is often called the <em>shape parameter</em> for Bernoulli distributions.</p>
+<p>Notice that different values of the parameter <span class="math notranslate nohighlight">\(\theta\)</span> fundamentally alter the <em>shape</em> of the distribution. For this reason, the parameter <span class="math notranslate nohighlight">\(\theta\)</span> is often called the <em>shape parameter</em> for Bernoulli distributions.</p>
 <p>In what sort of real-world scenario would Bernoulli random variables naturally occur? Here’s one:</p>
 <div class="admonition-an-archetypical-bernoulli-scenario admonition">
 <p class="admonition-title">An archetypical Bernoulli scenario  </p>
-<p><strong>Q</strong>: Suppose that a coin is flipped once and <span class="math notranslate nohighlight">\(X\)</span> is the number of heads obtained. Suppose further that we allow for the possibility that the coin is <em>loaded</em>, so that it lands heads with probability <span class="math notranslate nohighlight">\(p\)</span> (which may not be <span class="math notranslate nohighlight">\(0.5\)</span>!). What is the distribution of the random variable <span class="math notranslate nohighlight">\(X\)</span>?</p>
-<p><strong>A</strong>: <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(p)\)</span>.</p>
+<p><strong>Q</strong>: Suppose that a coin is flipped once and <span class="math notranslate nohighlight">\(X\)</span> is the number of heads obtained. Suppose further that we allow for the possibility that the coin is <em>loaded</em>, so that it lands heads with probability <span class="math notranslate nohighlight">\(\theta\)</span> (which may not be <span class="math notranslate nohighlight">\(0.5\)</span>!). What is the distribution of the random variable <span class="math notranslate nohighlight">\(X\)</span>?</p>
+<p><strong>A</strong>: <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(\theta)\)</span>.</p>
 </div>
-<p>It’s pretty obvious that <span class="math notranslate nohighlight">\(X\)</span> is distributed as a Bernoulli random variable, right? After all, since <span class="math notranslate nohighlight">\(X\)</span> is the number of heads obtained after <em>one</em> flip, there are only two options: <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>. Moreover, they are <em>telling us</em> that <span class="math notranslate nohighlight">\(X=1\)</span> occurs with probability <span class="math notranslate nohighlight">\(p\)</span>, and therefore <span class="math notranslate nohighlight">\(X=0\)</span> must occur with whatever probability is “left over,” which is exactly <span class="math notranslate nohighlight">\(1-p\)</span>. So, the probability function of <span class="math notranslate nohighlight">\(X\)</span> must be <a class="reference internal" href="#equation-bern2-eqn">(5.3)</a>, which means <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(p)\)</span> by definition.</p>
+<p>It’s pretty obvious that <span class="math notranslate nohighlight">\(X\)</span> is distributed as a Bernoulli random variable, right? After all, since <span class="math notranslate nohighlight">\(X\)</span> is the number of heads obtained after <em>one</em> flip, there are only two options: <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>. Moreover, they are <em>telling us</em> that <span class="math notranslate nohighlight">\(X=1\)</span> occurs with probability <span class="math notranslate nohighlight">\(\theta\)</span>, and therefore <span class="math notranslate nohighlight">\(X=0\)</span> must occur with whatever probability is “left over,” which is exactly <span class="math notranslate nohighlight">\(1-\theta\)</span>. So, the probability function of <span class="math notranslate nohighlight">\(X\)</span> must be <a class="reference internal" href="#equation-bern2-eqn">(5.3)</a>, which means <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(\theta)\)</span> by definition.</p>
 <p>Clearly, any scenario which results in a binary outcome with fixed probabilities may be modeled using a Bernoulli random variable. We will explore a few such scenarios in the worksheet problems when we get to the Problem Prompt below. But first, let’s state the expectations and variances of Bernoulli variables:</p>
 <div class="proof theorem admonition" id="theorem-1">
 <p class="admonition-title"><span class="caption-number">Theorem 5.1 </span> (Expectations and variances of Bernoulli variables)</p>
 <section class="theorem-content" id="proof-content">
-<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(p)\)</span>, then</p>
+<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(\theta)\)</span>, then</p>
 <div class="math notranslate nohighlight">
 \[
-E(X) = p \quad \text{and} \quad V(X) = p (1-p). 
+E(X) = \theta \quad \text{and} \quad V(X) = \theta (1-\theta). 
 \]</div>
 </section>
 </div><p>The proofs of these equalities are mere trivialities: For the expectation, we have</p>
 <div class="math notranslate nohighlight">
 \[
-E(X) = 0\cdot(1-p) + 1\cdot p = p,
+E(X) = 0\cdot(1-\theta) + 1\cdot \theta = \theta,
 \]</div>
 <p>while for the variance we have</p>
 <div class="math notranslate nohighlight">
 \[
-V(X) = E(X^2) - E(X)^2 = 0^2 \cdot (1-p) + 1^2 \cdot p - p^2 = p (1-p).
+V(X) = E(X^2) - E(X)^2 = 0^2 \cdot (1-\theta) + 1^2 \cdot \theta - \theta^2 = \theta (1-\theta).
 \]</div>
-<p>Notice, in particular, that the mean of a variable <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(p)\)</span> is the parameter <span class="math notranslate nohighlight">\(p\)</span>. So, it is accurate to say that Bernoulli random variables are parametrized by their means. We will see that this is <em>also</em> true for a few other families of random variables besides the Bernoulli random variables.</p>
+<p>Notice, in particular, that the mean of a variable <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(\theta)\)</span> is the parameter <span class="math notranslate nohighlight">\(\theta\)</span>. So, it is accurate to say that Bernoulli random variables are parametrized by their means. We will see that this is <em>also</em> true for a few other families of random variables besides the Bernoulli random variables.</p>
 </section>
 <section id="binomial-distributions">
 <h2><span class="section-number">5.2. </span>Binomial distributions<a class="headerlink" href="#binomial-distributions" title="Permalink to this heading">#</a></h2>
@@ -505,19 +504,19 @@ V(X) = E(X^2) - E(X)^2 = 0^2 \cdot (1-p) + 1^2 \cdot p - p^2 = p (1-p).
 <div class="proof definition admonition" id="definition-2">
 <p class="admonition-title"><span class="caption-number">Definition 5.2 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(n\geq 0\)</span> be an integer and let <span class="math notranslate nohighlight">\(p\)</span> be a real number with <span class="math notranslate nohighlight">\(0\leq p \leq 1\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>binomial distribution</em> with parameters <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(p\)</span>, denoted</p>
+<p>Let <span class="math notranslate nohighlight">\(n\geq 0\)</span> be an integer and let <span class="math notranslate nohighlight">\(\theta\)</span> be a real number with <span class="math notranslate nohighlight">\(0\leq \theta \leq 1\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>binomial distribution</em> with parameters <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span>, denoted</p>
 <div class="math notranslate nohighlight">
 \[
-Y \sim \mathcal{B}in(n,p),
+Y \sim \mathcal{B}in(n,\theta),
 \]</div>
-<p>if its probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> is given by</p>
+<p>if its probability mass function is given by</p>
 <div class="math notranslate nohighlight">
 \[
-p(x) = \binom{n}{x}p^x (1-p)^{n-x}
+p(x;n,\theta) = \binom{n}{x}\theta^x (1-\theta)^{n-x}
 \]</div>
 <p>with support <span class="math notranslate nohighlight">\(\{0,1,\ldots,n\}\)</span>.</p>
 </section>
-</div><p>Notice that these distributions require <em>two</em> parameters to describe them. Notice also that a random variable <span class="math notranslate nohighlight">\(X \sim \mathcal{B}in(1,p)\)</span> is nothing but a Bernoulli random variable! Thus, technically, the class of binomial random variables includes the class of Bernoulli ones.</p>
+</div><p>Notice that these distributions require <em>two</em> parameters to describe them. Notice also that a random variable <span class="math notranslate nohighlight">\(X \sim \mathcal{B}in(1,\theta)\)</span> is nothing but a Bernoulli random variable! Thus, technically, the class of binomial random variables includes the class of Bernoulli ones.</p>
 <p>Here are some probability histograms, for various settings of the parameters:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -544,10 +543,10 @@ p(x) = \binom{n}{x}p^x (1-p)^{n-x}
         <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
         <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xvals</span><span class="p">)</span>
         <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
-        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;$n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">$, $p=</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;$n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">$, $\theta=</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PMF of a random variable $X\sim \mathcal</span><span class="si">{B}</span><span class="s1">in(n,p)$&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PMF of a random variable $X\sim \mathcal</span><span class="si">{B}</span><span class="s1">in(n,\theta)$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -555,15 +554,15 @@ p(x) = \binom{n}{x}p^x (1-p)^{n-x}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/5dc611a2e1e9e1d7c01518a305d334c810a7ca83be116dd5b799a262df4b66ab.png"><img alt="../_images/5dc611a2e1e9e1d7c01518a305d334c810a7ca83be116dd5b799a262df4b66ab.png" src="../_images/5dc611a2e1e9e1d7c01518a305d334c810a7ca83be116dd5b799a262df4b66ab.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/b3c433b6b7f4e6c01936bbbb4720f96756a63780b93fcfd17c1d4dec9c580c0b.png"><img alt="../_images/b3c433b6b7f4e6c01936bbbb4720f96756a63780b93fcfd17c1d4dec9c580c0b.png" src="../_images/b3c433b6b7f4e6c01936bbbb4720f96756a63780b93fcfd17c1d4dec9c580c0b.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
-<p>Increasing the <span class="math notranslate nohighlight">\(n\)</span> parameter increases the size of the support of <span class="math notranslate nohighlight">\(X\sim \mathcal{B}in(n,p)\)</span>, which generally spreads out the distribution (increases its variance). Larger values of <span class="math notranslate nohighlight">\(p\)</span> tend to push the mean of <span class="math notranslate nohighlight">\(X\)</span> toward the larger numbers in its support. Both <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(p\)</span> are called <em>shape parameters</em> of the binomial distributions.</p>
+<p>Increasing the <span class="math notranslate nohighlight">\(n\)</span> parameter increases the size of the support of <span class="math notranslate nohighlight">\(X\sim \mathcal{B}in(n,\theta)\)</span>, which generally spreads out the distribution (increases its variance). Larger values of <span class="math notranslate nohighlight">\(\theta\)</span> tend to push the mean of <span class="math notranslate nohighlight">\(X\)</span> toward the larger numbers in its support. Both <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span> are called <em>shape parameters</em> of the binomial distributions.</p>
 <div class="admonition-an-archetypical-binomial-scenario admonition">
 <p class="admonition-title">An archetypical binomial scenario</p>
-<p><strong>Q</strong>: Suppose that a coin is flipped <span class="math notranslate nohighlight">\(n\)</span> times and that each flip is independent of the others. Suppose further that we allow for the possibility that the coin is <em>loaded</em>, so that it lands heads with probability <span class="math notranslate nohighlight">\(p\)</span> (which may not be <span class="math notranslate nohighlight">\(0.5\)</span>!). If <span class="math notranslate nohighlight">\(X\)</span> is the number of heads obtained, what is the distribution of the random variable <span class="math notranslate nohighlight">\(X\)</span>?</p>
-<p><strong>A</strong>: <span class="math notranslate nohighlight">\(X\sim \mathcal{B}in(n,p)\)</span>.</p>
+<p><strong>Q</strong>: Suppose that a coin is flipped <span class="math notranslate nohighlight">\(n\)</span> times and that each flip is independent of the others. Suppose further that we allow for the possibility that the coin is <em>loaded</em>, so that it lands heads with probability <span class="math notranslate nohighlight">\(\theta\)</span> (which may not be <span class="math notranslate nohighlight">\(0.5\)</span>!). If <span class="math notranslate nohighlight">\(X\)</span> is the number of heads obtained, what is the distribution of the random variable <span class="math notranslate nohighlight">\(X\)</span>?</p>
+<p><strong>A</strong>: <span class="math notranslate nohighlight">\(X\sim \mathcal{B}in(n,\theta)\)</span>.</p>
 </div>
 <p>The sample space <span class="math notranslate nohighlight">\(S\)</span> on which <span class="math notranslate nohighlight">\(X\)</span> is defined consists of all <span class="math notranslate nohighlight">\(n\)</span>-tuples of the form</p>
 <div class="math notranslate nohighlight" id="equation-tuple-eqn">
@@ -573,12 +572,12 @@ p(x) = \binom{n}{x}p^x (1-p)^{n-x}
 <p>which represent the result after flipping the coin <span class="math notranslate nohighlight">\(n\)</span> times. If there are <span class="math notranslate nohighlight">\(x\)</span> heads in this <span class="math notranslate nohighlight">\(n\)</span>-tuple, then the probability of obtaining this particular sequence is</p>
 <div class="math notranslate nohighlight">
 \[
-P(\text{the particular sequence above}) = p^x(1-p)^{n-x}.
+P(\text{the particular sequence above}) = \theta^x(1-\theta)^{n-x}.
 \]</div>
-<p>Indeed, this follows from the Product Rule for Probability, since the flips are independent of each other, and we obtain <span class="math notranslate nohighlight">\(H\)</span> with probability <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(T\)</span> with probability <span class="math notranslate nohighlight">\(1-p\)</span>. It follows that</p>
+<p>Indeed, this follows from the Product Rule for Probability, since the flips are independent of each other, and we obtain <span class="math notranslate nohighlight">\(H\)</span> with probability <span class="math notranslate nohighlight">\(\theta\)</span> and <span class="math notranslate nohighlight">\(T\)</span> with probability <span class="math notranslate nohighlight">\(1-\theta\)</span>. It follows that</p>
 <div class="math notranslate nohighlight">
 \[
-P(X=x) = m p^x(1-p)^{n-x},
+P(X=x) = m \theta^x(1-\theta)^{n-x},
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(m\)</span> is the total number of <span class="math notranslate nohighlight">\(n\)</span>-tuples <a class="reference internal" href="#equation-tuple-eqn">(5.4)</a> with <span class="math notranslate nohighlight">\(x\)</span> heads. To compute <span class="math notranslate nohighlight">\(m\)</span>, we simply note that an <span class="math notranslate nohighlight">\(n\)</span>-tuple <a class="reference internal" href="#equation-tuple-eqn">(5.4)</a> with <span class="math notranslate nohighlight">\(x\)</span> heads is uniquely specified by the (left-to-right) positions of the <span class="math notranslate nohighlight">\(H\)</span>’s. For example, in <a class="reference internal" href="#equation-tuple-eqn">(5.4)</a>, an <span class="math notranslate nohighlight">\(H\)</span> occupies positions <span class="math notranslate nohighlight">\(1\)</span>, <span class="math notranslate nohighlight">\(3\)</span>, <span class="math notranslate nohighlight">\(4\)</span>, and so on. So, to specify an <span class="math notranslate nohighlight">\(n\)</span>-tuple, from all possible <span class="math notranslate nohighlight">\(n\)</span> positions we need to choose <span class="math notranslate nohighlight">\(x\)</span> of them for the <span class="math notranslate nohighlight">\(H\)</span>’s. But there are exactly <span class="math notranslate nohighlight">\(\binom{n}{x}\)</span> many ways to make these choices, and hence <span class="math notranslate nohighlight">\(m = \binom{n}{x}\)</span>, which is what we wanted to prove. Thus, <span class="math notranslate nohighlight">\(X\)</span> is indeed a <span class="math notranslate nohighlight">\(\mathcal{B}in(n,p)\)</span> random variable.</p>
 <p>Beyond just flipping coins, binomial random variables may be used to model any scenario which consists of a finite sequence of repetitions of some scenario with independent binary outcomes with fixed probabilities. Such scenarios are even called <em>binomial experiments</em> in many textbooks. We will explore additional scenarios in the Problem Prompt below.</p>
@@ -586,30 +585,30 @@ P(X=x) = m p^x(1-p)^{n-x},
 <div class="proof theorem admonition" id="theorem-3">
 <p class="admonition-title"><span class="caption-number">Theorem 5.2 </span> (Expectations and variances of binomial variables)</p>
 <section class="theorem-content" id="proof-content">
-<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{B}in(n,p)\)</span>, then</p>
+<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{B}in(n,\theta)\)</span>, then</p>
 <div class="math notranslate nohighlight" id="equation-bin-exp-eqn">
 <span class="eqno">(5.5)<a class="headerlink" href="#equation-bin-exp-eqn" title="Permalink to this equation">#</a></span>\[
-E(X) = np \quad \text{and} \quad V(X) = np (1-p). 
+E(X) = n\theta \quad \text{and} \quad V(X) = n\theta (1-\theta). 
 \]</div>
 </section>
-</div><p>One can derive these expressions directly from the definitions of expectations and variances, but the computations are a little tedious; see Section 3.4 in <span id="id1">[<a class="reference internal" href="bib.html#id4" title="D. Wackerly, W. Mendenhall, and R. L. Scheaffer. Mathematical statistics with applications. Cengage Learning, 2014.">WMS14</a>]</span>, for example. But they may also be obtained with a little more ease by using gadgets called <em>moment generating functions</em>, which we will explore <a class="reference internal" href="mgf.html#mgf"><span class="std std-ref">later</span></a>. Thus, we will postpone the derivations till then.</p>
-<p>From <a class="reference internal" href="#equation-bin-exp-eqn">(5.5)</a>, you can see that <span class="math notranslate nohighlight">\(E(X)\)</span> is jointly proportional to <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(p\)</span>, so that increasing one (while holding the other fixed) increases the mean. The variance <span class="math notranslate nohighlight">\(V(X)\)</span> is <em>also</em> proportional to <span class="math notranslate nohighlight">\(n\)</span>, so that increasing <span class="math notranslate nohighlight">\(n\)</span> (while holding <span class="math notranslate nohighlight">\(p\)</span> fixed) also increases the spread of the distribution. These are confirmations of what we saw in the probability histograms above.</p>
+</div><p>One can derive these expressions directly from the definitions of expectations and variances, but the computations are a little tedious; see Section 3.4 in <span id="id1">[<a class="reference internal" href="bib.html#id4" title="D. Wackerly, W. Mendenhall, and R. L. Scheaffer. Mathematical statistics with applications. Cengage Learning, 2014.">WMS14</a>]</span>, for example. But they may also be obtained with a little more ease by using gadgets called <em>moment generating functions</em>, which we will explore <a class="reference internal" href="mgf.html#mgf"><span class="std std-ref">later</span></a>. Thus, we will postpone the derivations until then.</p>
+<p>From <a class="reference internal" href="#equation-bin-exp-eqn">(5.5)</a>, you can see that <span class="math notranslate nohighlight">\(E(X)\)</span> is jointly proportional to <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span>, so that increasing one (while holding the other fixed) increases the mean. The variance <span class="math notranslate nohighlight">\(V(X)\)</span> is <em>also</em> proportional to <span class="math notranslate nohighlight">\(n\)</span>, so that increasing <span class="math notranslate nohighlight">\(n\)</span> (while holding <span class="math notranslate nohighlight">\(\theta\)</span> fixed) also increases the spread of the distribution. These are confirmations of what we saw in the probability histograms above.</p>
 <p>Before moving on to the Problem Prompt, I want to give a useful result that we will use in a later section: Under certain circumstances, Bernoulli random variables may be used to “build” binomial random variables. These “certain circumstances” reach a bit beyond the theory that we currently know, since they refer to <a class="reference internal" href="random-vectors.html#independence"><span class="std std-ref"><em>independence</em></span></a> of random variables, which is a topic we haven’t discussed yet. This latter concept, in turn, relies upon <a class="reference internal" href="random-vectors.html#random-vectors"><span class="std std-ref"><em>joint distributions</em></span></a>, which we also haven’t talked about yet. Nevertheless, these concepts are used so lightly that I believe the gist of the proof remains intelligible.</p>
 <p>This being said, if you want to skip the proof and take the result on faith, that’s fine with me. Just be aware that <em>independence</em> of random variables will return in full force a little later on. In fact, this will be our first encounter with a so-called <em>independent and identically distributed</em> (IID) sequence of random variables, which will be <em>very</em> important in <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-ref">future sections</span></a>.</p>
 <div class="proof theorem admonition" id="bern-bin-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 5.3 </span> (Binomial variables as sums of Bernoulli variables)</p>
 <section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(Y_1,Y_2,\ldots,Y_n\)</span> be a sequence of independent Bernoulli variables, all with the same distribution <span class="math notranslate nohighlight">\(\mathcal{B}er(p)\)</span>. Then the random variable</p>
+<p>Let <span class="math notranslate nohighlight">\(Y_1,Y_2,\ldots,Y_n\)</span> be a sequence of independent Bernoulli variables, all with the same distribution <span class="math notranslate nohighlight">\(\mathcal{B}er(\theta)\)</span>. Then the random variable</p>
 <div class="math notranslate nohighlight">
 \[
 X = Y_1 + Y_2 + \cdots + Y_n
 \]</div>
-<p>is a <span class="math notranslate nohighlight">\(\mathcal{B}in(n,p)\)</span> random variable.</p>
+<p>is a <span class="math notranslate nohighlight">\(\mathcal{B}in(n,\theta)\)</span> random variable.</p>
 </section>
-</div><p>To prove that <span class="math notranslate nohighlight">\(X \sim \mathcal{B}in(n,p)\)</span>, we need to prove that</p>
+</div><p>To prove that <span class="math notranslate nohighlight">\(X \sim \mathcal{B}in(n,\theta)\)</span>, we need to prove that</p>
 <div class="math notranslate nohighlight">
 \[
-P(X=x) = \binom{n}{x} p^x (1-p)^{n-x}, \quad \text{for } x=0,1,\ldots,n.
+P(X=x) = \binom{n}{x} \theta^x (1-\theta)^{n-x}, \quad \text{for } x=0,1,\ldots,n.
 \]</div>
 <p>However, we have</p>
 <div class="amsmath math notranslate nohighlight">
@@ -632,16 +631,16 @@ Y_1 = y_1, \quad \textbf{and} \quad Y_2 = y_2, \quad \textbf{and} \quad \textit{
 \[
 P(Y_1=y_1, Y_2=y_2, \ldots , Y_n = y_n) = P(Y_1=y_1)P(Y_2=y_2) \cdots P(Y_n=y_n).
 \]</div>
-<p>But each <span class="math notranslate nohighlight">\(Y_k\sim \mathcal{B}er(p)\)</span>, so that, returning to <span class="math notranslate nohighlight">\(P(X=x)\)</span>, we get:</p>
+<p>But each <span class="math notranslate nohighlight">\(Y_k\sim \mathcal{B}er(\theta)\)</span>, so that, returning to <span class="math notranslate nohighlight">\(P(X=x)\)</span>, we get:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
-P(X=x) &amp;= \sum_{y_1+\cdots + y_n=x} p^{y_1}(1-p)^{1-y_1} p^{y_2}(1-p)^{1-y_2} \cdots p^{y_n} (1-p)^{1-y_n} \\
-&amp;= \sum_{y_1+\cdots + y_n=x} p^x(1-p)^{n-x}.
+P(X=x) &amp;= \sum_{y_1+\cdots + y_n=x} \theta^{y_1}(1-\theta)^{1-y_1} \theta^{y_2}(1-\theta)^{1-y_2} \cdots \theta^{y_n} (1-\theta)^{1-y_n} \\
+&amp;= \sum_{y_1+\cdots + y_n=x} \theta^x(1-\theta)^{n-x}.
 \end{align*}\]</div>
 <p>But, given an integer <span class="math notranslate nohighlight">\(x\)</span> with <span class="math notranslate nohighlight">\(0\leq x\leq n\)</span>, how many ways can we write <span class="math notranslate nohighlight">\(x=y_1+\cdots + y_n\)</span> where each <span class="math notranslate nohighlight">\(y_k\)</span> is either <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>? Exactly <span class="math notranslate nohighlight">\(\binom{n}{x}\)</span> many ways! Thus, we have</p>
 <div class="math notranslate nohighlight">
 \[
-P(X=x) = \binom{n}{y} p^x (1-p)^{n-x},
+P(X=x) = \binom{n}{y} \theta^x (1-\theta)^{n-x},
 \]</div>
 <p>as desired.</p>
 <div class="admonition-problem-prompt admonition">
@@ -655,19 +654,19 @@ P(X=x) = \binom{n}{y} p^x (1-p)^{n-x},
 <div class="proof definition admonition" id="definition-5">
 <p class="admonition-title"><span class="caption-number">Definition 5.3 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(p\)</span> be a real number with <span class="math notranslate nohighlight">\(0\leq p \leq 1\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>geometric distribution</em> with parameter <span class="math notranslate nohighlight">\(p\)</span>, denoted</p>
+<p>Let <span class="math notranslate nohighlight">\(\theta\)</span> be a real number with <span class="math notranslate nohighlight">\(0\leq \theta \leq 1\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>geometric distribution</em> with parameter <span class="math notranslate nohighlight">\(\theta\)</span>, denoted</p>
 <div class="math notranslate nohighlight">
 \[
-X \sim \mathcal{G}eo(p),
+X \sim \mathcal{G}eo(\theta),
 \]</div>
-<p>if its probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> is given by</p>
+<p>if its probability mass function is given by</p>
 <div class="math notranslate nohighlight">
 \[
-p(x) = p (1-p)^{x-1}.
+p(x;\theta) = \theta (1-\theta)^{x-1}.
 \]</div>
 <p>with support <span class="math notranslate nohighlight">\(\{1,2,\ldots\}\)</span>.</p>
 </section>
-</div><p>So, we’re back to distributions that are parametrized by a single parameter. For different settings of <span class="math notranslate nohighlight">\(p\)</span>, here are some probability histograms:</p>
+</div><p>So, we’re back to distributions that are parametrized by a single parameter. For different settings of <span class="math notranslate nohighlight">\(\theta\)</span>, here are some probability histograms:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -692,10 +691,10 @@ p(x) = p (1-p)^{x-1}.
         <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
         <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xvals</span><span class="p">)</span>
         <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
-        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;$p=</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;$\theta=</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PMF of a random variable $X\sim \mathcal</span><span class="si">{G}</span><span class="s1">eo(p)$&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PMF of a random variable $X\sim \mathcal</span><span class="si">{G}</span><span class="s1">eo(\theta)$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -703,16 +702,16 @@ p(x) = p (1-p)^{x-1}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/5852ea4fb02ebd981de120d4fba9a19b4efe8f7b40e89b19a723156c5db2001b.png"><img alt="../_images/5852ea4fb02ebd981de120d4fba9a19b4efe8f7b40e89b19a723156c5db2001b.png" src="../_images/5852ea4fb02ebd981de120d4fba9a19b4efe8f7b40e89b19a723156c5db2001b.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/743318e066f2492272ca5cdfd7a92e290b1b88abc3ef8b304c8a86d112478aae.png"><img alt="../_images/743318e066f2492272ca5cdfd7a92e290b1b88abc3ef8b304c8a86d112478aae.png" src="../_images/743318e066f2492272ca5cdfd7a92e290b1b88abc3ef8b304c8a86d112478aae.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
-<p>It appears that increasing <span class="math notranslate nohighlight">\(p\)</span> decreases both the mean and the variance of the distribution. This will be confirmed below when we uncover formulas for <span class="math notranslate nohighlight">\(E(X)\)</span> and <span class="math notranslate nohighlight">\(V(X)\)</span> when <span class="math notranslate nohighlight">\(X\sim \mathcal{G}eo(p)\)</span>. The parameter <span class="math notranslate nohighlight">\(p\)</span> is the <em>shape parameter</em> of the geometric distributions.</p>
+<p>It appears that increasing <span class="math notranslate nohighlight">\(\theta\)</span> decreases both the mean and the variance of the distribution. This will be confirmed below when we uncover formulas for <span class="math notranslate nohighlight">\(E(X)\)</span> and <span class="math notranslate nohighlight">\(V(X)\)</span> when <span class="math notranslate nohighlight">\(X\sim \mathcal{G}eo(\theta)\)</span>. The parameter <span class="math notranslate nohighlight">\(\theta\)</span> is the <em>shape parameter</em> of the geometric distributions.</p>
 <p>Just like the scenarios for Bernoulli and binomial random variables in the previous two sections, our archetypical scenario for a geometric random variable will also involve coin flips. But pay close attention, because the random variable <em>doesn’t</em> count the number of heads any longer!</p>
 <div class="admonition-an-archetypical-geometric-scenario admonition">
 <p class="admonition-title">An archetypical geometric scenario</p>
-<p><strong>Q</strong>: Suppose that a coin is flipped until heads is obtained. Suppose further that each flip is independent of the others, and that we allow for the possibility that the coin is <em>loaded</em>, so that it lands heads with probability <span class="math notranslate nohighlight">\(p\)</span> (which may not be <span class="math notranslate nohighlight">\(0.5\)</span>!). If <span class="math notranslate nohighlight">\(X\)</span> is the number of flips it takes to obtain a head, what is the distribution of the random variable <span class="math notranslate nohighlight">\(X\)</span>?</p>
-<p><strong>A</strong>: <span class="math notranslate nohighlight">\(X\sim \mathcal{G}eo(p)\)</span>.</p>
+<p><strong>Q</strong>: Suppose that a coin is flipped until heads is obtained. Suppose further that each flip is independent of the others, and that we allow for the possibility that the coin is <em>loaded</em>, so that it lands heads with probability <span class="math notranslate nohighlight">\(\theta\)</span> (which may not be <span class="math notranslate nohighlight">\(0.5\)</span>!). If <span class="math notranslate nohighlight">\(X\)</span> is the number of flips it takes to obtain a head, what is the distribution of the random variable <span class="math notranslate nohighlight">\(X\)</span>?</p>
+<p><strong>A</strong>: <span class="math notranslate nohighlight">\(X\sim \mathcal{G}eo(\theta)\)</span>.</p>
 </div>
 <p>The sample space <span class="math notranslate nohighlight">\(S\)</span> on which <span class="math notranslate nohighlight">\(X\)</span> is defined consists of all sequences of the form</p>
 <div class="amsmath math notranslate nohighlight">
@@ -723,20 +722,20 @@ p(x) = p (1-p)^{x-1}.
 &amp;(T,T,T,H), \\
 &amp;\textit{etc}.
 \end{align*}\]</div>
-<p>The probability to obtain the first sequence is <span class="math notranslate nohighlight">\(p\)</span>; by independence, the probability to obtain the second is <span class="math notranslate nohighlight">\(p(1-p)\)</span>; the probability for the third is <span class="math notranslate nohighlight">\(p(1-p)^2\)</span>; and the probability for the fourth is <span class="math notranslate nohighlight">\(p(1-p)^3\)</span>. Do you see the pattern? If <span class="math notranslate nohighlight">\(x\)</span> is the number of flips it takes to obtain a head, then we clearly have</p>
+<p>The probability to obtain the first sequence is <span class="math notranslate nohighlight">\(\theta\)</span>; by independence, the probability to obtain the second is <span class="math notranslate nohighlight">\(\theta(1-\theta)\)</span>; the probability for the third is <span class="math notranslate nohighlight">\(\theta(1-\theta)^2\)</span>; and the probability for the fourth is <span class="math notranslate nohighlight">\(\theta(1-\theta)^3\)</span>. Do you see the pattern? If <span class="math notranslate nohighlight">\(x\)</span> is the number of flips it takes to obtain a head, then we clearly have</p>
 <div class="math notranslate nohighlight">
 \[
-P(X=x) = p (1-p)^{x-1},
+P(X=x) = \theta (1-\theta)^{x-1},
 \]</div>
-<p>so that <span class="math notranslate nohighlight">\(X\sim \mathcal{G}eo(p)\)</span>.</p>
+<p>so that <span class="math notranslate nohighlight">\(X\sim \mathcal{G}eo(\theta)\)</span>.</p>
 <p>Like Bernoulli and binomial random variables, geometric random variables do not <em>only</em> apply in scenarios that involve coin flips. Indeed, the coin flips in our archetypical scenario can represent the binary outcomes of any scenario, as long as they are independent (when performed one after another) and have fixed probabilities.</p>
 <div class="proof theorem admonition" id="theorem-6">
 <p class="admonition-title"><span class="caption-number">Theorem 5.4 </span> (Expectations and variances of geometric variables)</p>
 <section class="theorem-content" id="proof-content">
-<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{G}eo(p)\)</span>, then</p>
+<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{G}eo(\theta)\)</span>, then</p>
 <div class="math notranslate nohighlight">
 \[
-E(X) = \frac{1}{p} \quad \text{and} \quad V(X) = \frac{1-p}{p^2}. 
+E(X) = \frac{1}{\theta} \quad \text{and} \quad V(X) = \frac{1-\theta}{\theta^2}. 
 \]</div>
 </section>
 </div><p>We will not prove these formulas here. See, for example, Theorem 3.8 in <span id="id2">[<a class="reference internal" href="bib.html#id4" title="D. Wackerly, W. Mendenhall, and R. L. Scheaffer. Mathematical statistics with applications. Cengage Learning, 2014.">WMS14</a>]</span>.</p>
@@ -753,14 +752,14 @@ E(X) = \frac{1}{p} \quad \text{and} \quad V(X) = \frac{1-p}{p^2}.
 <p class="admonition-title"><span class="caption-number">Definition 5.4 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(M\geq 0\)</span> be an integer, and let <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(N\)</span> be integers with <span class="math notranslate nohighlight">\(0\leq n,N\leq M\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>hypergeometric distribution</em> with parameters <span class="math notranslate nohighlight">\(M\)</span>, <span class="math notranslate nohighlight">\(n\)</span>, and <span class="math notranslate nohighlight">\(N\)</span>, denoted</p>
-<div class="amsmath math notranslate nohighlight" id="equation-48868f76-2398-41a2-aef4-22561ad6fa1a">
-<span class="eqno">(5.7)<a class="headerlink" href="#equation-48868f76-2398-41a2-aef4-22561ad6fa1a" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
+<div class="amsmath math notranslate nohighlight" id="equation-d924f835-3b15-44e8-b851-88c0734c51b3">
+<span class="eqno">(5.7)<a class="headerlink" href="#equation-d924f835-3b15-44e8-b851-88c0734c51b3" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
 Y \sim \mathcal{HG}eo(M,n,N),
 \end{equation}\]</div>
-<p>if its probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> is given by</p>
+<p>if its probability mass function is given by</p>
 <div class="math notranslate nohighlight">
 \[
-p(x) = \frac{\binom{n}{x}\binom{M-n}{N-x}}{\binom{M}{N}}.
+p(x; M,n,N) = \frac{\binom{n}{x}\binom{M-n}{N-x}}{\binom{M}{N}}.
 \]</div>
 <p>with support all <span class="math notranslate nohighlight">\(x\)</span> such that</p>
 <div class="math notranslate nohighlight" id="equation-range-eqn">
@@ -915,10 +914,10 @@ E(X) = \frac{Nn}{M} \quad \text{and} \quad V(X) = \left(\frac{M-N}{M-1}\right) \
 \[
 X \sim \mathcal{P}ois(\mu),
 \]</div>
-<p>if its probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span> is given by</p>
+<p>if its probability mass function is given by</p>
 <div class="math notranslate nohighlight">
 \[
-p(x) = \frac{\mu^x}{x!}e^{-\mu}
+p(x;\mu) = \frac{\mu^x}{x!}e^{-\mu}
 \]</div>
 <p>with support <span class="math notranslate nohighlight">\(\{0,1,2,\ldots\}\)</span>.</p>
 </section>
@@ -987,7 +986,7 @@ p(x) = \frac{\mu^x}{x!}e^{-\mu}
 <p>Suppose that there are <span class="math notranslate nohighlight">\(n\)</span> subintervals, each of equal length <span class="math notranslate nohighlight">\(\Delta t = t/n\)</span>:</p>
 <a class="reference internal image-reference" href="../_images/pois3.svg"><img alt="../_images/pois3.svg" class="align-center" src="../_images/pois3.svg" width="70%" /></a>
 <p> </p>
-<p>Now, we let <span class="math notranslate nohighlight">\(Y_k\)</span> be the number of emails that arrive in the <span class="math notranslate nohighlight">\(k\)</span>-th subinterval, for each <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>. By construction, we have that <span class="math notranslate nohighlight">\(Y_k=0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>, and thus each <span class="math notranslate nohighlight">\(Y_k\)</span> is a Bernoulli random variable, parametrized by some parameter <span class="math notranslate nohighlight">\(p_k\)</span>. But what is <span class="math notranslate nohighlight">\(p_k\)</span>?</p>
+<p>Now, we let <span class="math notranslate nohighlight">\(Y_k\)</span> be the number of emails that arrive in the <span class="math notranslate nohighlight">\(k\)</span>-th subinterval, for each <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>. By construction, we have that <span class="math notranslate nohighlight">\(Y_k=0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>, and thus each <span class="math notranslate nohighlight">\(Y_k\)</span> is a Bernoulli random variable, parametrized by some parameter <span class="math notranslate nohighlight">\(\theta_k\)</span>. But what is <span class="math notranslate nohighlight">\(\theta_k\)</span>?</p>
 <p>To answer this, recall that we are told the mean rate at which the emails arrive is <span class="math notranslate nohighlight">\(\lambda\)</span> (measured in reciprocal hours). Therefore, since the length of each of the subintervals is <span class="math notranslate nohighlight">\(\Delta t\)</span>, we would expect, on average, that exactly</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
@@ -997,7 +996,7 @@ p(x) = \frac{\mu^x}{x!}e^{-\mu}
 \[
 \lambda \cdot \Delta t = \frac{\lambda t}{n}
 \]</div>
-<p>emails arrive in the <span class="math notranslate nohighlight">\(k\)</span>-th subinterval. But we know that <span class="math notranslate nohighlight">\(E(Y_k) = p_k\)</span> because <span class="math notranslate nohighlight">\(Y_k\)</span> is Bernoulli, and this implies that <span class="math notranslate nohighlight">\(p_k = \lambda t/n\)</span>. Thus <span class="math notranslate nohighlight">\(Y_k \sim \mathcal{B}er(\lambda t/n)\)</span>, for each <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>.</p>
+<p>emails arrive in the <span class="math notranslate nohighlight">\(k\)</span>-th subinterval. But we know that <span class="math notranslate nohighlight">\(E(Y_k) = \theta_k\)</span> because <span class="math notranslate nohighlight">\(Y_k\)</span> is Bernoulli, and this implies that <span class="math notranslate nohighlight">\(\theta_k = \lambda t/n\)</span>. Thus <span class="math notranslate nohighlight">\(Y_k \sim \mathcal{B}er(\lambda t/n)\)</span>, for each <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>.</p>
 <p>We now bring this all back to <span class="math notranslate nohighlight">\(X\)</span>. As long as <span class="math notranslate nohighlight">\(n\)</span> is large enough (so that <span class="math notranslate nohighlight">\(\Delta t\)</span> is small), we should have</p>
 <div class="math notranslate nohighlight" id="equation-approx-eqn">
 <span class="eqno">(5.10)<a class="headerlink" href="#equation-approx-eqn" title="Permalink to this equation">#</a></span>\[
@@ -1090,10 +1089,10 @@ V(X) = E(X^2) - \mu^2 = \mu,
 \[
 X \sim \mathcal{N}(\mu,\sigma^2),
 \]</div>
-<p>if its probability density function <span class="math notranslate nohighlight">\(f(x)\)</span> is given by</p>
+<p>if its probability density function is given by</p>
 <div class="math notranslate nohighlight">
 \[
-f(x) = \frac{1}{\sigma \sqrt{2\pi}} \exp \left[ - \frac{1}{2} \left( \frac{x-\mu}{\sigma} \right)^2 \right]
+f(x;\mu,\sigma) = \frac{1}{\sigma \sqrt{2\pi}} \exp \left[ - \frac{1}{2} \left( \frac{x-\mu}{\sigma} \right)^2 \right]
 \]</div>
 <p>with support <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>.</p>
 <p>If <span class="math notranslate nohighlight">\(\mu=0\)</span> and <span class="math notranslate nohighlight">\(\sigma=1\)</span>, then <span class="math notranslate nohighlight">\(X\)</span> is called a <em>standard normal variable</em> (or <em>standard Gaussian variable</em>) and is often represented as <span class="math notranslate nohighlight">\(Z\)</span>.</p>
@@ -1232,10 +1231,10 @@ E(X) = \mu \quad \text{and} \quad V(X) = \sigma^2.
 \[
 X \sim \mathcal{E}xp(\lambda),
 \]</div>
-<p>if its probability density function <span class="math notranslate nohighlight">\(f(x)\)</span> is given by</p>
+<p>if its probability density function is given by</p>
 <div class="math notranslate nohighlight">
 \[
-f(x) = \lambda e^{-\lambda x}
+f(x;\lambda) = \lambda e^{-\lambda x}
 \]</div>
 <p>with support <span class="math notranslate nohighlight">\((0,\infty)\)</span>.</p>
 </section>
@@ -1369,17 +1368,17 @@ E(X) = \frac{1}{\lambda} \quad \text{and} \quad V(X) = \frac{1}{\lambda^2}.
 \[
 X \sim \mathcal{G}am(\alpha,\beta),
 \]</div>
-<p>if its probability density function <span class="math notranslate nohighlight">\(f(x)\)</span> is given by</p>
+<p>if its probability density function is given by</p>
 <div class="math notranslate nohighlight" id="equation-gamma-pdf-eqn">
 <span class="eqno">(5.13)<a class="headerlink" href="#equation-gamma-pdf-eqn" title="Permalink to this equation">#</a></span>\[
-f(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}.
+f(x;\alpha,\beta) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}.
 \]</div>
 <p>with support <span class="math notranslate nohighlight">\((0,\infty)\)</span>.</p>
 </section>
 </div><p>How should one understand the formula <a class="reference internal" href="#equation-gamma-pdf-eqn">(5.13)</a> for the PDFs of gamma distributions, given that it involves the somewhat intimidating gamma function <a class="reference internal" href="#equation-gam-func-eqn">(5.12)</a>? Here’s my advice: Don’t worry about the leading factor <span class="math notranslate nohighlight">\(\beta^\alpha/\Gamma(\alpha)\)</span> in <a class="reference internal" href="#equation-gamma-pdf-eqn">(5.13)</a>, and only pay attention to the “important” factor <span class="math notranslate nohighlight">\(x^{\alpha-1}e^{-\beta x}\)</span>. This advice is justified based on the observation that the factor <span class="math notranslate nohighlight">\(\beta^\alpha/\Gamma(\alpha)\)</span> does <em>not</em> involve the variable <span class="math notranslate nohighlight">\(x\)</span>, and is therefore a constant. In fact, it is quite common to see the PDF of a gamma distribution represented as</p>
 <div class="math notranslate nohighlight" id="equation-prop-gam-eqn">
 <span class="eqno">(5.14)<a class="headerlink" href="#equation-prop-gam-eqn" title="Permalink to this equation">#</a></span>\[
-f(x) \propto x^{\alpha-1} e^{-\beta x},
+f(x;\alpha,\beta) \propto x^{\alpha-1} e^{-\beta x},
 \]</div>
 <p>where the symbol “<span class="math notranslate nohighlight">\(\propto\)</span>” means “proportional to.” By writing <a class="reference internal" href="#equation-prop-gam-eqn">(5.14)</a>, we are signaling that the only important part of the PDF is the factor <span class="math notranslate nohighlight">\(x^{\alpha-1} e^{-\beta x}\)</span>.</p>
 <p>One should understand the factor <span class="math notranslate nohighlight">\(\beta^\alpha/\Gamma(\alpha)\)</span> as a normalization factor then ensures that the PDF integrates to <span class="math notranslate nohighlight">\(1\)</span>. Indeed, note that</p>
@@ -1537,10 +1536,10 @@ V(X) = E(X^2) - E(X)^2 = \frac{(\alpha-1)\alpha}{\beta^2} - \frac{\alpha^2}{\bet
 \[
 X \sim \mathcal{B}eta(\alpha,\beta),
 \]</div>
-<p>if its probability density function <span class="math notranslate nohighlight">\(f(x)\)</span> is given by</p>
+<p>if its probability density function is given by</p>
 <div class="math notranslate nohighlight">
 \[
-f(x) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1} (1-x)^{\beta-1}.
+f(x;\alpha,\beta) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1} (1-x)^{\beta-1}.
 \]</div>
 <p>with support <span class="math notranslate nohighlight">\((0,1)\)</span>.</p>
 </section>
@@ -1551,10 +1550,10 @@ f(x) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1} (1-
 <p>Just like the densities of gamma variables, the leading factor <span class="math notranslate nohighlight">\(\Gamma(\alpha+\beta)/(\Gamma(\alpha)\Gamma(\beta))\)</span> is only there to ensure that the PDF integrates to <span class="math notranslate nohighlight">\(1\)</span>. Notice that it is independent of the variable <span class="math notranslate nohighlight">\(x\)</span>, and thus we may write</p>
 <div class="math notranslate nohighlight">
 \[
-f(x) \propto x^{\alpha-1} (1-x)^{\beta-1},
+f(x;\alpha,\beta) \propto x^{\alpha-1} (1-x)^{\beta-1},
 \]</div>
 <p>highlighting only the “important” part of the density.</p>
-<p>For <span class="math notranslate nohighlight">\(\alpha,\beta&gt;1\)</span>, notice that the density function <span class="math notranslate nohighlight">\(f(x)\)</span> has zeros at <span class="math notranslate nohighlight">\(x=0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. Moreover, if <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are integers greater than <span class="math notranslate nohighlight">\(1\)</span>, then the powers <span class="math notranslate nohighlight">\(\alpha-1\)</span> and <span class="math notranslate nohighlight">\(\beta-1\)</span> in <span class="math notranslate nohighlight">\(f(x)\)</span> play the role of <em>multiplicities</em> of these zeros. Thus, holding one of <span class="math notranslate nohighlight">\(\alpha\)</span> or <span class="math notranslate nohighlight">\(\beta\)</span> fixed while increasing the other one has the effect of “flattening” the density curve toward the zero whose multiplicity is increasing. You can see this “flattening” effect by comparing the plots vertically in the first two rows of the following figure; the last two rows show the density curves for fractional values of <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>, and for values less than <span class="math notranslate nohighlight">\(1\)</span>.</p>
+<p>For <span class="math notranslate nohighlight">\(\alpha,\beta&gt;1\)</span>, notice that the density function <span class="math notranslate nohighlight">\(f(x;\alpha,\beta)\)</span> has zeros at <span class="math notranslate nohighlight">\(x=0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. Moreover, if <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are integers greater than <span class="math notranslate nohighlight">\(1\)</span>, then the powers <span class="math notranslate nohighlight">\(\alpha-1\)</span> and <span class="math notranslate nohighlight">\(\beta-1\)</span> in <span class="math notranslate nohighlight">\(f(x;\alpha,\beta)\)</span> play the role of <em>multiplicities</em> of these zeros. Thus, holding one of <span class="math notranslate nohighlight">\(\alpha\)</span> or <span class="math notranslate nohighlight">\(\beta\)</span> fixed while increasing the other one has the effect of “flattening” the density curve toward the zero whose multiplicity is increasing. You can see this “flattening” effect by comparing the plots vertically in the first two rows of the following figure; the last two rows show the density curves for fractional values of <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>, and for values less than <span class="math notranslate nohighlight">\(1\)</span>.</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
