@@ -10,7 +10,7 @@ kernelspec:
   name: python3
 ---
 
-(stats-estimators)=
-# Statistics and estimators
+(lin-reg)=
+# Linear regression
 
 Coming soon!

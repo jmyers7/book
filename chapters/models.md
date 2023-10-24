@@ -10,7 +10,7 @@ kernelspec:
   name: python3
 ---
 
-(point-est)=
-# Point estimators
+(prob-models)=
+# Probabilistic models
 
 Coming soon!
