@@ -171,12 +171,14 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="fun-rvs.html">9. Computations with random variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mgf.html">10. Moment generating functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cond-exp.html">11. Conditional expected values</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">12. Models, estimators, and statistics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">13. The asymptotic theory: the LLN and CLT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="point-est.html">14. Point estimators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CIs.html">15. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">16. Hypothesis testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bib.html">17. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">12. Probabilistic models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">13. Statistics and estimators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">14. The asymptotic theory: the LLN and CLT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more-samp-dist.html">15. More sampling distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CIs.html">16. Confidence intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">17. Hypothesis testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lin-reg.html">18. Linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">19. Bibliography</a></li>
 </ul>
 
     </div>
@@ -1328,7 +1330,7 @@ f(\theta| x_1,\ldots,x_{10}) &amp;= \frac{p(x_1,\ldots,x_{10}|\theta)f(\theta)}{
 <p>Remember, we believe that our friend is untrustworthy. If we believed that <span class="math notranslate nohighlight">\(\theta=0.75\)</span>, then seeing five heads is not enough evidence to convince us that <span class="math notranslate nohighlight">\(\theta\)</span> is, in reality, near <span class="math notranslate nohighlight">\(0.5\)</span>. We would need to see <em>even fewer</em> heads to overcome (or offset) the prior estimate of <span class="math notranslate nohighlight">\(\theta=0.75\)</span>.</p>
 </div>
 <p>Actually, my description here is slightly at odds with a strict interpretation of Bayesian philosophy, since a true Bayesian would never assume that the parameter <span class="math notranslate nohighlight">\(\theta\)</span> has a fixed valued, only that it has a prior probability distribution. My description has shades of <a class="reference internal" href="hyp-test.html#hyp-test"><span class="std std-ref">hypothesis testing</span></a>.</p>
-<p>Notice that independence of the coin flips was <em>absolutely crucial</em> for the computations to go through. Without assuming independence, we would not have been able to factor the joint mass function (conditioned on <span class="math notranslate nohighlight">\(\theta\)</span>) as in <a class="reference internal" href="#equation-factor-likelihood-eqn">(7.15)</a>, which would have made our application of Bayes’ Theorem much more difficult. This joint mass function is actually known as the <em>likelihood function</em> <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span> of the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, and we will see these same computations appear again when we study <a class="reference internal" href="point-est.html#point-est"><span class="std std-ref"><em>maximum likelihood estimation</em></span></a> (<em>MLE</em>).</p>
+<p>Notice that independence of the coin flips was <em>absolutely crucial</em> for the computations to go through. Without assuming independence, we would not have been able to factor the joint mass function (conditioned on <span class="math notranslate nohighlight">\(\theta\)</span>) as in <a class="reference internal" href="#equation-factor-likelihood-eqn">(7.15)</a>, which would have made our application of Bayes’ Theorem much more difficult. This joint mass function is actually known as the <em>likelihood function</em> <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span> of the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, and we will see these same computations appear again when we study <span class="xref myst"><em>maximum likelihood estimation</em></span> (<em>MLE</em>).</p>
 </section>
 </section>
 
