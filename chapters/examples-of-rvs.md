@@ -75,7 +75,7 @@ Our first family of distributions are certainly the simplest. But don't let thei
 
 ```{prf:definition}
 
-Let $p$ be a real number with $0\leq p \leq 1$. A discrete random variable $X$ is said to have a *Bernoulli distribution* with parameter $\theta$, denoted
+Let $\theta$ be a real number with $0\leq \theta \leq 1$. A discrete random variable $X$ is said to have a *Bernoulli distribution* with parameter $\theta$, denoted
 
 $$
 X \sim \mathcal{B}er(\theta),
