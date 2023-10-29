@@ -10,7 +10,6 @@ kernelspec:
   name: python3
 ---
 
-(fun-rvs)=
-# Computations with random variables
+# Optimization
 
 Coming soon!

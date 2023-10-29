@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>10. Computations with random variables &#8212; A Course in Mathematical Statistics with Python</title>
+    <title>10. More probability theory &#8212; A Course in Mathematical Statistics with Python</title>
   
   
   
@@ -62,10 +62,10 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/fun-rvs';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/more-prob';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="11. Moment generating functions" href="mgf.html" />
+    <link rel="next" title="11. Optimization" href="optim.html" />
     <link rel="prev" title="9. Examples of random vectors" href="examples-of-random-vecs.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -167,17 +167,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="random-vectors.html">7. Random vectors; joint, marginal and conditional distributions; independence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="covar-correl.html">8. Covariance and correlation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples-of-random-vecs.html">9. Examples of random vectors</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">10. Computations with random variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mgf.html">11. Moment generating functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cond-exp.html">12. Conditional expected values</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models.html">13. Probabilistic models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">14. Statistics and estimators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">15. The asymptotic theory: the LLN and CLT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="more-samp-dist.html">16. More sampling distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CIs.html">17. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">18. Hypothesis testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lin-reg.html">19. Linear regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bib.html">20. Bibliography</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">10. More probability theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">11. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">12. Probabilistic models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">13. Statistics and estimators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">14. The asymptotic theory: the LLN and CLT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more-samp-dist.html">15. More sampling distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CIs.html">16. Confidence intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">17. Hypothesis testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lin-reg.html">18. Linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">19. Bibliography</a></li>
 </ul>
 
     </div>
@@ -247,7 +246,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/chapters/fun-rvs.md" target="_blank"
+      <li><a href="../_sources/chapters/more-prob.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -316,7 +315,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -327,11 +328,21 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Computations with random variables</h1>
+    <h1>More probability theory</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-random-variables">10.1. Computations with random variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moment-generating-functions">10.2. Moment generating functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-expected-values">10.3. Conditional expected values</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -341,9 +352,18 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="computations-with-random-variables">
-<span id="fun-rvs"></span><h1><span class="section-number">10. </span>Computations with random variables<a class="headerlink" href="#computations-with-random-variables" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="more-probability-theory">
+<h1><span class="section-number">10. </span>More probability theory<a class="headerlink" href="#more-probability-theory" title="Permalink to this heading">#</a></h1>
 <p>Coming soon!</p>
+<section id="computations-with-random-variables">
+<span id="fun-rvs"></span><h2><span class="section-number">10.1. </span>Computations with random variables<a class="headerlink" href="#computations-with-random-variables" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="moment-generating-functions">
+<span id="mgf"></span><h2><span class="section-number">10.2. </span>Moment generating functions<a class="headerlink" href="#moment-generating-functions" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="conditional-expected-values">
+<h2><span class="section-number">10.3. </span>Conditional expected values<a class="headerlink" href="#conditional-expected-values" title="Permalink to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -387,11 +407,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="mgf.html"
+       href="optim.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">11. </span>Moment generating functions</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>Optimization</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -404,6 +424,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-random-variables">10.1. Computations with random variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moment-generating-functions">10.2. Moment generating functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-expected-values">10.3. Conditional expected values</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
