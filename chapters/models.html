@@ -62,6 +62,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/models';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -314,7 +316,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -330,6 +334,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directed-acyclic-graphs">11.1. Directed acyclic graphs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-and-dags">11.2. Probability and DAGs</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -341,7 +354,49 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="probabilistic-models">
 <span id="prob-models"></span><h1><span class="section-number">11. </span>Probabilistic models<a class="headerlink" href="#probabilistic-models" title="Permalink to this heading">#</a></h1>
-<p>Coming soon!</p>
+<p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
+<section id="directed-acyclic-graphs">
+<h2><span class="section-number">11.1. </span>Directed acyclic graphs<a class="headerlink" href="#directed-acyclic-graphs" title="Permalink to this heading">#</a></h2>
+<p>At the most basic level, a <em>directed graph</em> <span class="math notranslate nohighlight">\(G\)</span> consists of two sets <span class="math notranslate nohighlight">\(V\)</span> and <span class="math notranslate nohighlight">\(E\)</span> of <em>vertices</em> and <em>edges</em>. The vertices are visualized as nodes, and the edges are arrows that run between the nodes. For example, consider the following graph:</p>
+<a class="reference internal image-reference" href="../_images/graph-01.svg"><img alt="../_images/graph-01.svg" class="align-center" src="../_images/graph-01.svg" width="90%" /></a>
+<p> </p>
+<p>This graph consists of five vertices and five edges:</p>
+<div class="math notranslate nohighlight">
+\[
+V = \{v_1,v_2,v_3,v_4,v_5\}, \quad E = \{e_1,e_2,e_3,e_4,e_5\}.
+\]</div>
+<p>Notice that this graph is <em>acyclic</em>, which means that beginning at any given node, there is no (directed) path along the edges that returns to the original node. Thus, our graph <span class="math notranslate nohighlight">\(G\)</span> is an example of a <em>directed acyclic graph</em>, or <em>DAG</em> for short.</p>
+<p>If there is a directed edge <span class="math notranslate nohighlight">\(v_i \to v_j\)</span> from a node <span class="math notranslate nohighlight">\(v_i\)</span> to a node <span class="math notranslate nohighlight">\(v_j\)</span>, then <span class="math notranslate nohighlight">\(v_i\)</span> is said to be a <em>parent</em> of <span class="math notranslate nohighlight">\(v_j\)</span> and <span class="math notranslate nohighlight">\(v_j\)</span> is called a <em>child</em> of <span class="math notranslate nohighlight">\(v_i\)</span>. For example, in our graph <span class="math notranslate nohighlight">\(G\)</span> above, the set of parents of <span class="math notranslate nohighlight">\(v_4\)</span> is <span class="math notranslate nohighlight">\(\{v_1,v_2\}\)</span>, while the set of children of <span class="math notranslate nohighlight">\(v_4\)</span> is <span class="math notranslate nohighlight">\(\{v_5\}\)</span>.</p>
+<p>More generally, if there exists a directed path from <span class="math notranslate nohighlight">\(v_i\)</span> to <span class="math notranslate nohighlight">\(v_j\)</span> of any length, say</p>
+<div class="math notranslate nohighlight">
+\[
+v_i \to \cdots \to v_j,
+\]</div>
+<p>then <span class="math notranslate nohighlight">\(v_j\)</span> is called a <em>descendant</em> of <span class="math notranslate nohighlight">\(v_i\)</span>. Thus, <span class="math notranslate nohighlight">\(v_j\)</span> is a child of <span class="math notranslate nohighlight">\(v_i\)</span> if there exists a directed path of length <span class="math notranslate nohighlight">\(1\)</span>. In our graph above, the node <span class="math notranslate nohighlight">\(v_5\)</span> is a descendant of <span class="math notranslate nohighlight">\(v_2\)</span> which is not a child.</p>
+</section>
+<section id="probability-and-dags">
+<h2><span class="section-number">11.2. </span>Probability and DAGs<a class="headerlink" href="#probability-and-dags" title="Permalink to this heading">#</a></h2>
+<p>The vertex set of a graph can be any set whatsoever; in particular, we can take the vertex set of a DAG to be a set of random variables <span class="math notranslate nohighlight">\(V = \{X_1,\ldots,X_n\}\)</span>. In our running example from the previous section, we might imagine that our graph has vertex set consisting of five random variables:</p>
+<a class="reference internal image-reference" href="../_images/graph-02.svg"><img alt="../_images/graph-02.svg" class="align-center" src="../_images/graph-02.svg" width="90%" /></a>
+<p> </p>
+<p>I have omitted the edge labels for clarity, which I will continue to do in what follows.</p>
+<div class="proof definition admonition" id="definition-0">
+<p class="admonition-title"><span class="caption-number">Definition 11.1 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(V = \{X_1,\ldots,X_n\}\)</span> be a collection of random variables, <span class="math notranslate nohighlight">\(G\)</span> a graph with vertex set <span class="math notranslate nohighlight">\(V\)</span>, and <span class="math notranslate nohighlight">\(p(x_1,\ldots,x_n)\)</span> the joint probability function. We shall say that <span class="math notranslate nohighlight">\(G\)</span> <em>represents</em> the joint probability distribution, or that <span class="math notranslate nohighlight">\(p\)</span> <em>factors over <span class="math notranslate nohighlight">\(G\)</span></em>, if</p>
+<div class="math notranslate nohighlight">
+\[
+p(x_1,\ldots,x_n) = \prod_{i=1}^n p(x_i | \text{parents of $x_i$}).
+\]</div>
+</section>
+</div><p>Note that I am intentionally confusing an observed value <span class="math notranslate nohighlight">\(x_i\)</span> of a random variable <span class="math notranslate nohighlight">\(X_i\)</span> with the random variable itself, so that the “parents of <span class="math notranslate nohighlight">\(x_i\)</span>” actually makes sense.</p>
+<p>In our running example, the graph <span class="math notranslate nohighlight">\(G\)</span> represents the joint probability distribution provided that</p>
+<div class="math notranslate nohighlight">
+\[
+p(x_1,x_2,x_3,x_4,x_5) = p(x_1|x_2)p(x_2)p(x_3|x_2)p(x_4|x_1,x_2)p(x_5|x_4).
+\]</div>
+<p>Notice that the random variable <span class="math notranslate nohighlight">\(X_2\)</span> has no parents in <span class="math notranslate nohighlight">\(G\)</span>, so that the marginal probability function <span class="math notranslate nohighlight">\(p(x_2)\)</span> serves in place of a conditional distribution.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -402,6 +457,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directed-acyclic-graphs">11.1. Directed acyclic graphs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-and-dags">11.2. Probability and DAGs</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
