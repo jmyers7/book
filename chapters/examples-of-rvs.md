@@ -204,7 +204,7 @@ Next come distributions whose probability mass functions look a lot like the pro
 Let $n\geq 0$ be an integer and let $\theta$ be a real number with $0\leq \theta \leq 1$. A discrete random variable $X$ is said to have a *binomial distribution* with parameters $n$ and $\theta$, denoted
 
 $$
-Y \sim \mathcal{B}in(n,\theta),
+X \sim \mathcal{B}in(n,\theta),
 $$
 
 if its probability mass function is given by
