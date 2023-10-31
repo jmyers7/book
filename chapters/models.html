@@ -339,8 +339,39 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directed-acyclic-graphs">11.1. Directed acyclic graphs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-and-dags">11.2. Probability and DAGs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-examples">11.1. First examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#head-to-tail-nodes">11.1.1. Head-to-tail nodes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tail-to-tail-nodes">11.1.2. Tail-to-tail nodes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#head-to-head-nodes">11.1.3. Head-to-head nodes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dags-and-pgms">11.2. DAGs and PGMs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#independence-and-d-separation">11.3. Independence and <span class="math notranslate nohighlight">\(d\)</span>-separation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#more-examples">11.4. More examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression">11.4.1. Linear regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">11.4.2. Logistic regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-models">11.4.3. Markov models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-mixture-models">11.4.4. Gaussian mixture models</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-based-optimization">11.5. Gradient-based optimization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vanilla-gradient-descent">11.5.1. Vanilla gradient descent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-gradient-descent-sgd">11.5.2. Stochastic gradient descent (SGD)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-estimation-mle">11.6. Maximum likelihood estimation (MLE)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basics">11.6.1. The basics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-linear-regression">11.6.2. MLE for linear regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-logistic-regression">11.6.3. MLE for logistic regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-markov-models">11.6.4. MLE for Markov models</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-maximization-em">11.7. Expectation maximization (EM)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vanilla-em">11.7.1. Vanilla EM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-em">11.7.2. Monte Carlo EM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#em-for-gaussian-mixture-models">11.7.3. EM for Gaussian mixture models</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -355,8 +386,20 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="probabilistic-models">
 <span id="prob-models"></span><h1><span class="section-number">11. </span>Probabilistic models<a class="headerlink" href="#probabilistic-models" title="Permalink to this heading">#</a></h1>
 <p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
-<section id="directed-acyclic-graphs">
-<h2><span class="section-number">11.1. </span>Directed acyclic graphs<a class="headerlink" href="#directed-acyclic-graphs" title="Permalink to this heading">#</a></h2>
+<section id="first-examples">
+<h2><span class="section-number">11.1. </span>First examples<a class="headerlink" href="#first-examples" title="Permalink to this heading">#</a></h2>
+<section id="head-to-tail-nodes">
+<h3><span class="section-number">11.1.1. </span>Head-to-tail nodes<a class="headerlink" href="#head-to-tail-nodes" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="tail-to-tail-nodes">
+<h3><span class="section-number">11.1.2. </span>Tail-to-tail nodes<a class="headerlink" href="#tail-to-tail-nodes" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="head-to-head-nodes">
+<h3><span class="section-number">11.1.3. </span>Head-to-head nodes<a class="headerlink" href="#head-to-head-nodes" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="dags-and-pgms">
+<h2><span class="section-number">11.2. </span>DAGs and PGMs<a class="headerlink" href="#dags-and-pgms" title="Permalink to this heading">#</a></h2>
 <p>At the most basic level, a <em>directed graph</em> <span class="math notranslate nohighlight">\(G\)</span> consists of two sets <span class="math notranslate nohighlight">\(V\)</span> and <span class="math notranslate nohighlight">\(E\)</span> of <em>vertices</em> and <em>edges</em>. The vertices are visualized as nodes, and the edges are arrows that run between the nodes. For example, consider the following graph:</p>
 <a class="reference internal image-reference" href="../_images/graph-01.svg"><img alt="../_images/graph-01.svg" class="align-center" src="../_images/graph-01.svg" width="90%" /></a>
 <p> </p>
@@ -373,9 +416,6 @@ V = \{v_1,v_2,v_3,v_4,v_5\}, \quad E = \{e_1,e_2,e_3,e_4,e_5\}.
 v_i \to \cdots \to v_j,
 \]</div>
 <p>then <span class="math notranslate nohighlight">\(v_j\)</span> is called a <em>descendant</em> of <span class="math notranslate nohighlight">\(v_i\)</span>. Thus, <span class="math notranslate nohighlight">\(v_j\)</span> is a child of <span class="math notranslate nohighlight">\(v_i\)</span> if there exists a directed path of length <span class="math notranslate nohighlight">\(1\)</span>. In our graph above, the node <span class="math notranslate nohighlight">\(v_5\)</span> is a descendant of <span class="math notranslate nohighlight">\(v_2\)</span> which is not a child.</p>
-</section>
-<section id="probability-and-dags">
-<h2><span class="section-number">11.2. </span>Probability and DAGs<a class="headerlink" href="#probability-and-dags" title="Permalink to this heading">#</a></h2>
 <p>The vertex set of a graph can be any set whatsoever; in particular, we can take the vertex set of a DAG to be a set of random variables <span class="math notranslate nohighlight">\(V = \{X_1,\ldots,X_n\}\)</span>. In our running example from the previous section, we might imagine that our graph has vertex set consisting of five random variables:</p>
 <a class="reference internal image-reference" href="../_images/graph-02.svg"><img alt="../_images/graph-02.svg" class="align-center" src="../_images/graph-02.svg" width="90%" /></a>
 <p> </p>
@@ -396,6 +436,60 @@ p(x_1,\ldots,x_n) = \prod_{i=1}^n p(x_i | \text{parents of $x_i$}).
 p(x_1,x_2,x_3,x_4,x_5) = p(x_1|x_2)p(x_2)p(x_3|x_2)p(x_4|x_1,x_2)p(x_5|x_4).
 \]</div>
 <p>Notice that the random variable <span class="math notranslate nohighlight">\(X_2\)</span> has no parents in <span class="math notranslate nohighlight">\(G\)</span>, so that the marginal probability function <span class="math notranslate nohighlight">\(p(x_2)\)</span> serves in place of a conditional distribution.</p>
+</section>
+<section id="independence-and-d-separation">
+<h2><span class="section-number">11.3. </span>Independence and <span class="math notranslate nohighlight">\(d\)</span>-separation<a class="headerlink" href="#independence-and-d-separation" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="more-examples">
+<h2><span class="section-number">11.4. </span>More examples<a class="headerlink" href="#more-examples" title="Permalink to this heading">#</a></h2>
+<section id="linear-regression">
+<h3><span class="section-number">11.4.1. </span>Linear regression<a class="headerlink" href="#linear-regression" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="logistic-regression">
+<h3><span class="section-number">11.4.2. </span>Logistic regression<a class="headerlink" href="#logistic-regression" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="markov-models">
+<h3><span class="section-number">11.4.3. </span>Markov models<a class="headerlink" href="#markov-models" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="gaussian-mixture-models">
+<h3><span class="section-number">11.4.4. </span>Gaussian mixture models<a class="headerlink" href="#gaussian-mixture-models" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="gradient-based-optimization">
+<h2><span class="section-number">11.5. </span>Gradient-based optimization<a class="headerlink" href="#gradient-based-optimization" title="Permalink to this heading">#</a></h2>
+<section id="vanilla-gradient-descent">
+<h3><span class="section-number">11.5.1. </span>Vanilla gradient descent<a class="headerlink" href="#vanilla-gradient-descent" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="stochastic-gradient-descent-sgd">
+<h3><span class="section-number">11.5.2. </span>Stochastic gradient descent (SGD)<a class="headerlink" href="#stochastic-gradient-descent-sgd" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="maximum-likelihood-estimation-mle">
+<h2><span class="section-number">11.6. </span>Maximum likelihood estimation (MLE)<a class="headerlink" href="#maximum-likelihood-estimation-mle" title="Permalink to this heading">#</a></h2>
+<section id="the-basics">
+<h3><span class="section-number">11.6.1. </span>The basics<a class="headerlink" href="#the-basics" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="mle-for-linear-regression">
+<h3><span class="section-number">11.6.2. </span>MLE for linear regression<a class="headerlink" href="#mle-for-linear-regression" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="mle-for-logistic-regression">
+<h3><span class="section-number">11.6.3. </span>MLE for logistic regression<a class="headerlink" href="#mle-for-logistic-regression" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="mle-for-markov-models">
+<h3><span class="section-number">11.6.4. </span>MLE for Markov models<a class="headerlink" href="#mle-for-markov-models" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="expectation-maximization-em">
+<h2><span class="section-number">11.7. </span>Expectation maximization (EM)<a class="headerlink" href="#expectation-maximization-em" title="Permalink to this heading">#</a></h2>
+<section id="vanilla-em">
+<h3><span class="section-number">11.7.1. </span>Vanilla EM<a class="headerlink" href="#vanilla-em" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="monte-carlo-em">
+<h3><span class="section-number">11.7.2. </span>Monte Carlo EM<a class="headerlink" href="#monte-carlo-em" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="em-for-gaussian-mixture-models">
+<h3><span class="section-number">11.7.3. </span>EM for Gaussian mixture models<a class="headerlink" href="#em-for-gaussian-mixture-models" title="Permalink to this heading">#</a></h3>
+</section>
 </section>
 </section>
 
@@ -466,8 +560,39 @@ p(x_1,x_2,x_3,x_4,x_5) = p(x_1|x_2)p(x_2)p(x_3|x_2)p(x_4|x_1,x_2)p(x_5|x_4).
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directed-acyclic-graphs">11.1. Directed acyclic graphs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-and-dags">11.2. Probability and DAGs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-examples">11.1. First examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#head-to-tail-nodes">11.1.1. Head-to-tail nodes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tail-to-tail-nodes">11.1.2. Tail-to-tail nodes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#head-to-head-nodes">11.1.3. Head-to-head nodes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dags-and-pgms">11.2. DAGs and PGMs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#independence-and-d-separation">11.3. Independence and <span class="math notranslate nohighlight">\(d\)</span>-separation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#more-examples">11.4. More examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression">11.4.1. Linear regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">11.4.2. Logistic regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-models">11.4.3. Markov models</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-mixture-models">11.4.4. Gaussian mixture models</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-based-optimization">11.5. Gradient-based optimization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vanilla-gradient-descent">11.5.1. Vanilla gradient descent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-gradient-descent-sgd">11.5.2. Stochastic gradient descent (SGD)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-estimation-mle">11.6. Maximum likelihood estimation (MLE)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-basics">11.6.1. The basics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-linear-regression">11.6.2. MLE for linear regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-logistic-regression">11.6.3. MLE for logistic regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-markov-models">11.6.4. MLE for Markov models</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-maximization-em">11.7. Expectation maximization (EM)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vanilla-em">11.7.1. Vanilla EM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-em">11.7.2. Monte Carlo EM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#em-for-gaussian-mixture-models">11.7.3. EM for Gaussian mixture models</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
