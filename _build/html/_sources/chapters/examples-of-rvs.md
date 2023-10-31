@@ -970,10 +970,10 @@ Notice that the parameters of the distribution in the upper-left are $(\mu,\sigm
 
 ```{prf:theorem} Affine transformations of normal variables
 
-Let $X\sim \mathcal{N}(\mu,\sigma^2)$ and $a$ and $b$ be two constants with $a\neq 0$. Then $Y = aX+b$ is a normal random variable with $\mu_Y = a\mu + b$ and $\sigma_Y = a\sigma$.
+Let $X\sim \mathcal{N}(\mu,\sigma^2)$ and $a$ and $b$ be two constants with $a\neq 0$. Then $Y = aX+b$ is a normal random variable with $\mu_Y = a\mu + b$ and $\sigma_Y = |a|\sigma$.
 ```
 
-The proof is a special case of a general result for affine transformations that we will study [later](fun-rvs), but the computations are simple enough that we can describe them now. The idea is to compute the probability $P(u \leq Y \leq v)$ for real numbers $u<v$, and to show that $Y$ has the desired PDF. So, we compute
+The proof is a special case of a general result for affine transformations that we will study [later](fun-rvs), but the computations are simple enough that we can describe them now. The idea is to compute the probability $P(u \leq Y \leq v)$ for real numbers $u<v$, and to show that $Y$ has the desired PDF. We will to this in the special case that $a>0$. So, we compute
 
 \begin{align*}
 P(u \leq Y \leq v) &= P\left((u-b)/a \leq X \leq (v-b)/a\right) \\
