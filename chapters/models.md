@@ -15,7 +15,17 @@ kernelspec:
 
 **THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!**
 
-## Directed acyclic graphs
+## First examples
+
+### Head-to-tail nodes
+
+### Tail-to-tail nodes
+
+### Head-to-head nodes
+
+
+
+## DAGs and PGMs
 
 At the most basic level, a _directed graph_ $G$ consists of two sets $V$ and $E$ of _vertices_ and _edges_. The vertices are visualized as nodes, and the edges are arrows that run between the nodes. For example, consider the following graph:
 
@@ -43,15 +53,6 @@ $$
 
 then $v_j$ is called a _descendant_ of $v_i$. Thus, $v_j$ is a child of $v_i$ if there exists a directed path of length $1$. In our graph above, the node $v_5$ is a descendant of $v_2$ which is not a child.
 
-
-
-
-
-
-
-
-
-## Probability and DAGs
 
 The vertex set of a graph can be any set whatsoever; in particular, we can take the vertex set of a DAG to be a set of random variables $V = \{X_1,\ldots,X_n\}$. In our running example from the previous section, we might imagine that our graph has vertex set consisting of five random variables:
 
@@ -83,3 +84,40 @@ p(x_1,x_2,x_3,x_4,x_5) = p(x_1|x_2)p(x_2)p(x_3|x_2)p(x_4|x_1,x_2)p(x_5|x_4).
 $$
 
 Notice that the random variable $X_2$ has no parents in $G$, so that the marginal probability function $p(x_2)$ serves in place of a conditional distribution.
+
+
+## Independence and $d$-separation
+
+## More examples
+
+### Linear regression
+
+### Logistic regression
+
+### Markov models
+
+### Gaussian mixture models
+
+## Gradient-based optimization
+
+### Vanilla gradient descent
+
+### Stochastic gradient descent (SGD)
+
+## Maximum likelihood estimation (MLE)
+
+### The basics
+
+### MLE for linear regression
+
+### MLE for logistic regression
+
+### MLE for Markov models
+
+## Expectation maximization (EM)
+
+### Vanilla EM
+
+### Monte Carlo EM
+
+### EM for Gaussian mixture models
