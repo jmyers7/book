@@ -118,6 +118,6 @@ Notice that the random variable $X_2$ has no parents in $G$, so that the margina
 
 ### Vanilla EM
 
-### Monte Carlo EM
+### Monte Carlo EM (MCEM)
 
 ### EM for Gaussian mixture models
