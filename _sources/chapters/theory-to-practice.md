@@ -15,9 +15,9 @@ kernelspec:
 
 ## Data and random samples
 
-This chapter is a continuation of the ideas presented in the third programming assignment (see the course [Github repo](https://github.com/jmyers7/stats-book-materials)) where we began exploring how the concepts that we have been studying over the past few chapters apply to _real-world_ datasets. In that assignment, we learned about _empirical distributions_ of datasets and associated empirical quantities like means, variances, and quantiles.
+This chapter is a continuation of the ideas presented in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments) where we began exploring how the concepts that we have been studying over the past few chapters apply to _real-world_ datasets. In that assignment, we learned about _empirical distributions_ of datasets and associated empirical quantities like means, variances, and quantiles.
 
-Our exploration in the third programming assignment centered on the _Ames housing dataset_. In this chapter, we will explore a dataset related to Airbnbs. In particular, we have at hand a sample of daily prices (in USD) for Airbnbs in Austin, Texas, over the last 12 months:
+Our exploration in the third programming assignment centered on the _Ames housing dataset_. In this chapter, we will explore a dataset related to Airbnbs. In particular, we have at hand a sample of listing prices (in USD) for Airbnbs in Austin, Texas, over the last 12 months:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -52,7 +52,7 @@ sample
 This is a subset of a larger dataset obtained [here](http://insideairbnb.com). The dataset originally consisted of integer prices, but for pedagogical reasons I want the prices to  more closely resemble a continuous variable. Thus, I added random fractions of a dollar onto each price.
 ```
 
-Though the sample consists of quite a few prices ($n=3{,}972$ of them, in fact), it does not represent _all_ prices. In fact, there were a little over 14,500 total listings during the time period from which our sample was drawn.
+Though the sample consists of quite a few prices ($m=3{,}972$ of them, in fact), it does not represent _all_ prices. In fact, there were a little over 14,500 total listings during the time period from which our sample was drawn.
 
 To fit this into our theoretical framework, we conceptualize the collection of *all* 14,500 listings as a probability space $S$. (I will talk about the associated probability measure below.) Then, we conceptualize the price of a listing as a random variable
 
@@ -66,13 +66,18 @@ which takes a listing from the population $S$ as input and spits out its price:
 X(\text{listing}) = \text{price}.
 \end{equation*}
 
+```{margin}
+
+Why am I writing the sample points with parenthesized superscripts $x^{(i)}$ rather than with subscripts $x_i$? This is because later the observations in our samples may consist of _vectors_, and we will use subscripts to index the components of vectors. So, the notation in this chapter is chosen with future applications in mind.
+```
+
 The actual prices in our sample are called *observed values* of the random variable $X$ and, as in previous chapters, they are represented with a lowercase $x$. We would list the elements in our sample as
 
 \begin{equation*}
-x_1,x_2, \ldots, x_n,
+x^{(1)},x^{(2)}, \ldots, x^{(m)} \in \mathbb{R}
 \end{equation*}
 
-where $n=3{,}972$.
+where $m=3{,}972$.
 
 So far, this discussion is not all that different from ones that we have had before; in fact, I can even use the same cartoon from previous chapters to visualize the action of the random variable $X$:
 
@@ -84,13 +89,13 @@ So far, this discussion is not all that different from ones that we have had bef
 
 However, what makes our current scenario different from those considered in past chapters is that we have an entire sample of prices at hand, not just a *single* price. How are we to fit *samples* and *datasets* into our theoretical framework?
 
-The answer is pretty obvious, actually. After all, a collection of $n$ prices like those in our sample must come from a collection of $n$ listings, right? This suggests that we should simply duplicate the random variable $X$ to obtain a *sequence* of random variables
+The answer is pretty obvious, actually. After all, a collection of $m$ prices like those in our sample must come from a collection of $m$ listings, right? This suggests that we should simply duplicate the random variable $X$ to obtain a *sequence* of random variables
 
 \begin{equation*}
-X_1,X_2,\ldots,X_n,
+X^{(1)},X^{(2)},\ldots,X^{(m)},
 \end{equation*}
 
-where the random variable $X_k$ (for $1\leq k \leq n$) spits out the price of the $k$-th listing. Something like:
+where the random variable $X^{(i)}$ (for $1\leq i \leq m$) spits out the price of the $i$-th listing. Something like:
 
 ```{image} ../img/cartesian.svg
 :width: 90%
@@ -98,7 +103,7 @@ where the random variable $X_k$ (for $1\leq k \leq n$) spits out the price of th
 ```
 &nbsp;
 
-To make this work, technically we need to replace the sample space $S$ with its $n$-fold <a href="https://en.wikipedia.org/wiki/Cartesian_product#n-ary_Cartesian_power">cartesian power</a>, but we won't worry about these details. For us, it's enough to understand this process at the intuitive level.
+To make this work, technically we need to replace the sample space $S$ with its $m$-fold <a href="https://en.wikipedia.org/wiki/Cartesian_product#n-ary_Cartesian_power">cartesian power</a>, but we won't worry about these details. For us, it's enough to understand this process at the intuitive level.
 
 Now, what about probability? Remember, I called the population $S$ of all listings a *probability* space, so evidently it must come equipped with a probability measure $P$. But here's the truth:
 
@@ -106,7 +111,7 @@ Now, what about probability? Remember, I called the population $S$ of all listin
 
 Indeed, $P$ is a purely academic object whose only role in this business is to make the theory under the hood tick along. It's mostly pure mathematicians like me that spend time worrying about $P$, but it is *never*, *ever* mentioned or acknowledged in real-world scenarios.
 
-On the other hand, we do very much(!) care about the probability distributions of the random variables $X_1,X_2,\ldots,X_n$. We will be devoting a huge amount of time and effort over the rest of this course trying to figure out the distribution of this or that random variable. In the context of our Airbnb prices, the distributions of the $X_k$'s tell us the distribution of prices:
+On the other hand, we do very much(!) care about the probability distributions of the random variables $X^{(1)},X^{(2)},\ldots,X^{(m)}$. We will be devoting a huge amount of time and effort over the rest of this course trying to figure out the distribution of this or that random variable. In the context of our Airbnb prices, the distributions of the $X^{(i)}$'s tell us the distribution of prices:
 
 ```{image} ../img/airbnb.svg
 :width: 90%
@@ -114,10 +119,10 @@ On the other hand, we do very much(!) care about the probability distributions o
 ```
 &nbsp;
 
-But because each of the random variables $X_k$ is essentially a "duplicate" of the single 'price' random variable $X$, they all have the *same* distribution, in the sense that
+But because each of the random variables $X^{(i)}$ is essentially a "duplicate" of the single 'price' random variable $X$, they all have the *same* distribution, in the sense that
 
 \begin{equation*}
-P(X_1\in A)  = P(X_2\in A) = \cdots = P(X_n\in A)
+P(X^{(1)}\in A)  = P(X^{(2)}\in A) = \cdots = P(X^{(m)}\in A)
 \end{equation*}
 
 for all events $A\subset \mathbb{R}$. If we draw each of the random variables along with their distributions, we would get:
@@ -133,11 +138,11 @@ Notice that all the distributions are the same! This leads us to one of the main
 ```{prf:definition}
 :label: random-sample-defn
 
-Let $X_1,X_2,\ldots,X_n$ be a sequence of random variables, all defined on the same probability space.
+Let $X^{(1)},X^{(2)},\ldots,X^{(m)}$ be a sequence of random variables, all defined on the same probability space.
 
 * The random variables are called a *random sample* if they are *independent* and *identically distributed* (IID).
 
-Provided that the sequence is a random sample, an *observed random sample*, or a *dataset*, is a sequence of real numbers $x_1,x_2,\ldots,x_n$ where $x_k$ is an observed value of $X_k$.
+Provided that the sequence is a random sample, an *observed random sample*, or a *dataset*, is a sequence of real numbers $x^{(1)},x^{(2)},\ldots,x^{(m)}$ where $x^{(i)}$ is an observed value of $X^{(i)}$.
 ```
 
 Two random variables are said to be *independent* if the probability of one of the random variables taking a particular value is not influenced or affected by the other random variable taking a particular value. This isn't a precise definition, and it must be adapted to apply to an entire *sequence* of random variables, but it is good enough for now. (The precise definition will come in {prf:ref}`independence-defn`.)
@@ -148,9 +153,9 @@ Why have two different types of random samples? Answers:
 
 ```{admonition} The roles of random samples
 
-* Observed random samples $x_1,x_2,\ldots,x_n$ are the datasets that we work with in the real world. It is obvious why we care about these.
+* Observed random samples $x^{(1)},x^{(2)},\ldots,x^{(m)}$ are the datasets that we work with in the real world. It is therefore obvious why we care about these.
 
-* We use random samples $X_1,X_2\ldots,X_n$ when we want to reason theoretically about the observed random samples that we encounter in the real world. For example, suppose that you want to prove that some type of statistical estimator or machine learning algorithm works well for *any* dataset. Then you *must* argue using random samples consisting of IID random variables!
+* We use random samples $X^{(1)},X^{(2)}\ldots,X^{(m)}$ when we want to reason theoretically about the observed random samples that we encounter in the real world. For example, suppose that you want to prove that some type of statistical estimator or machine learning algorithm works well for *any* dataset. Then you *must* argue using random samples consisting of IID random variables!
 ```
 
 
@@ -186,40 +191,42 @@ Why have two different types of random samples? Answers:
 
 ## Probabilistic models and empirical distributions
 
-If $X_1,X_2,\ldots,X_n$ is a random sample, then by definition the probability distributions of the $X_k$ are all identical. This will often be written as either
+If $X^{(1)},X^{(2)},\ldots,X^{(m)}$ is a random sample, then by definition the probability distributions of the $X^{(i)}$ are all identical. This will often be written as either
 
 \begin{equation*}
-X_1,X_2,\ldots,X_n \sim f \quad \text{or} \quad X_1,X_2,\ldots,X_n \sim F,
+X^{(1)},X^{(2)},\ldots,X^{(m)} \sim f \quad \text{or} \quad X^{(1)},X^{(2)},\ldots,X^{(m)} \sim F,
 \end{equation*}
 
-where $f$ is the density function of the $X_k$'s and $F$ is their distribution function. A particular choice of $f$ or $F$ is called a _probabilistic model_. Often, an analyst doesn't choose a _specific_ $f$ or $F$, but rather chooses a _family_ from which these functions are drawn. For example, an analyst might choose the model from the Gaussian family of distributions, so that
+where $f$ is the density function of the $X^{(i)}$'s and $F$ is their distribution function. A particular choice of $f$ or $F$ is called a _probabilistic model_. Often, an analyst doesn't choose a _specific_ $f$ or $F$, but rather chooses a _family_ from which these functions are drawn. For example, an analyst might choose the model from the Gaussian family of distributions, so that
 
 \begin{equation*}
-X_1,X_2,\ldots,X_n \sim \mathcal{N}(\mu_0,\sigma_0^2)
+X^{(1)},X^{(2)},\ldots,X^{(m)} \sim \mathcal{N}(\mu_0,\sigma_0^2)
 \end{equation*}
 
-where $\mu_0$ and $\sigma_0$ are unknown parameters. Then, the goal is to use data to estimate $\mu_0$ and $\sigma_0$ as accurately as possible. In this scenario the parameters $\mu_0$ and $\sigma_0$ are called *population parameters* or *model parameters*.
+where $\mu_0$ and $\sigma_0$ are unknown parameters. Then, the goal is to use data to estimate $\mu_0$ and $\sigma_0$ as accurately as possible. In this scenario the parameters $\mu_0$ and $\sigma_0$ are called *model parameters* (or sometimes _population parameters_).
 
 Since the normal distributions $\mathcal{N}(\mu,\sigma^2)$ depend on a finite number of parameters, we say that the normal probabilistic model is _parametric_. However, sometimes we may believe that the data is modeled by a collection of distributions that are _not_ parametrized in any natural way by a finite set of parameters; these latter types of statistical models are called _non-parametric_.
 
-At the risk of oversimplification, what I have just describe is, in a nutshell, the entire program of _inferential statistics_. A major portion of the second half of this course will be devoted to studying clever procedures and algorithms that use datasets to generate estimates of various population and model parameters. As a first step in this direction, in this chapter we study *empirical distributions*. These are the probability distributions of observed datasets. Our interest in datasets hinges on the assumption that they _accurately_ represent the larger population; if so, then their empirical distributions should reasonably match the unknown population distribution.
+At the risk of oversimplification, what I have just describe is, in a nutshell, the entire program of _inferential statistics_. A major portion of the second half of this course will be devoted to studying clever procedures and algorithms that use datasets to generate estimates of model parameters. In particular, we will study probabilistic models in exhaustive detail in {numref}`Chapter %s <prob-models>`.
+
+As a first step in this direction, in this chapter we study *empirical distributions*. These are the probability distributions of observed datasets. Our interest in datasets hinges on the assumption that they _accurately_ represent the larger population; if so, then their empirical distributions should reasonably match the unknown population distribution.
 
 Here's the main definition:
 
 ````{prf:definition}
 :label: emp-dist-defn
 
-Let $X_1,X_2,\ldots,X_n \sim F$ be a random sample from an unknown distribution function $F$, and let $x_1,x_2,\ldots,x_n$ be an _observed_ random sample. Then the *empirical distribution* of the dataset is the discrete probability measure on $\mathbb{R}$ with probability mass function
+Let $X^{(1)},X^{(2)},\ldots,X^{(m)} \sim F$ be a random sample from an unknown distribution function $F$, and let $x^{(1)},x^{(2)},\ldots,x^{(m)}$ be an _observed_ random sample. Then the *empirical distribution* of the dataset is the discrete probability measure on $\mathbb{R}$ with probability mass function
 
 ```{math}
 :label: ECDF-eqn
-p(x) = \frac{\text{number of data points $x_k$ that match $x$}}{n}.
+p(x) = \frac{\text{number of data points $x^{(i)}$ that match $x$}}{m}.
 ```
 
 The *empirical cumulative distribution function* (ECDF) of the dataset is the CDF of the empiricical disribution. It is often denoted $\widehat{F}(x)$, and it is given by the usual formula
 
 \begin{equation*}
-\widehat{F}(x) = \sum_{y\leq x} p(y) = \frac{\text{number of data points $x_k$ with $x_k \leq x$}}{n}.
+\widehat{F}(x) = \sum_{y\leq x} p(y) = \frac{\text{number of data points $x^{(i)}$ with $x^{(i)} \leq x$}}{m}.
 \end{equation*}
 ````
 
@@ -288,7 +295,7 @@ This is essentially just a curve sketching exercise from calculus. We're using o
 
 This is a little of what I can glean from this last figure: If we believed that the true population distribution was normal, the data tells us otherwise. Indeed, the two CDFs have some fairly significant differences. Notice that the ECDF is steeper than the normal CDF right _before_ the red dashed line, and that it also has an inflection point before this line. This tells me that the sample density curve should be peaked slightly to the left of the normal density curve. As we pass over the dashed line, the ECDF is concave downward and hence the sample density curve is decreasing over these $x$-values as it drops downward into its tail. But as it begins its descent, the normal CDF is steeper, so the sample density curve should be descending at a quicker rate, putting it underneath the normal density curve. But then, as we get toward the right edge of the figure, the slopes of the ECDF appear to be larger than those of the normal CDF, and so the two density curves should cross again, putting the sample density's upper tail on top of the normal density's tail. In fact, if I squint hard enough, it appears that the ECDF might have a second inflection point on the far right of the figure.
 
-As I will show you below, computers are capable of estimating PDFs from data using something called _kernel density estimation_ (KDE). If I feed the Airbnb data into my computer, it returns the following sketch of the data density curve:
+As I will show you below, computers are capable of estimating PDFs from data using something called _kernel density estimation_ (KDE). If I feed the Airbnb data into my computer, it returns the following sketch of the data density curve using KDE:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -309,7 +316,7 @@ plt.legend()
 plt.tight_layout()
 ```
 
-The estimated data PDF looks pretty strange, due to the fairly drastic fluctuations up and down. Below, when we talk about KDEs in more detail, I will teach you how to smooth out these fluctuations by varying a parameter called *bandwidth*.
+Notice that this plot confirms most of what we thought the data density curve would look like, based on our comparison of the ECDF to the normal CDF. The shape of the estimated data PDF is influenced not only by the actual dataset, but also by a parameter of the KDE process called *bandwidth*. We will explore this in further detail below.
 
 
 
@@ -341,7 +348,7 @@ The estimated data PDF looks pretty strange, due to the fairly drastic fluctuati
 
 In the previous section, we used a plot of the ECDF of the Airbnb prices in order to _visualize_ the empirical distribution. From this plot, we were able to get a sense of the _shape_ of the dataset.
 
-There are a few more ways that we might attempt to visualize the empirical distribution. Indeed, since the empirical distribution of the Airbnb prices is technically discrete, we might attempt to visualize it using the probability histograms that we saw in {numref}`prob-histo`. However, as we saw in the previous section, the data points in our sample are so numerous and packed so closely together that such a probability histogram would be essentially useless. We would have $3{,}548$ bars in our histogram, one for each unique price in our dataset!
+There are a few more ways that we might attempt to visualize the empirical distribution. Indeed, since the empirical distribution of the Airbnb prices is technically discrete, we might attempt to visualize it using the probability histograms that we saw in {numref}`prob-histo` and implemented in the [thrid programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments). However, as we saw in the previous section, the data points in our sample are so numerous and packed so closely together that such a probability histogram would be essentially useless. We would have $3{,}548$ bars in our histogram, one for each unique price in our dataset!
 
 But here's an idea: Suppose we "bin together" nearby prices along the $x$-axis _before_ we draw the histogram. In other words, imagine we chop up the $x$-axis into smaller subintervals called _bins_, and then group together nearby data points in these bins:
 
@@ -351,7 +358,7 @@ But here's an idea: Suppose we "bin together" nearby prices along the $x$-axis _
 ```
 &nbsp;
 
-In the figure on the right, there are seven bins, labeled $B_1,B_2,\ldots,B_7$. The number of bins can either be chosen explicitly by us, or we can let the computer choose the "optimal" number of bins based on some rule of thumb. Either way, the number $m$ of bins need not be $7$.
+In the figure on the right, there are seven bins, labeled $B_1,B_2,\ldots,B_7$. The number of bins can either be chosen explicitly by us, or we can let the computer choose the "optimal" number of bins based on some rule of thumb. Either way, the number $k$ of bins need not be $7$.
 
 Now, to draw the "binned" histogram, we put a rectangle on top of each bin:
 
@@ -361,10 +368,10 @@ Now, to draw the "binned" histogram, we put a rectangle on top of each bin:
 ```
 &nbsp;
 
-The heights of the rectangles must satisfy _two_ properties: (1) Their areas must sum to $1$, and (2) their heights must be proportional to the number of data points that fall within the bins. For example, you can see that the taller rectangles in the figure contain _more_ data points in their base bins. If $m$ is the total number of bins and $n$ is the size of the data set, then to satisfy both these properties, we can choose the $k$-th rectangle (for $k=1,2,\ldots,m$) to have height
+The heights of the rectangles must satisfy _two_ properties: (1) Their areas must sum to $1$, and (2) their heights must be proportional to the number of data points that fall within the bins. For example, you can see that the taller rectangles in the figure contain _more_ data points in their base bins. If $k$ is the total number of bins and $m$ is the size of the data set, then to satisfy both these properties, we can choose the $j$-th rectangle (for $j=1,2,\ldots,k$) to have height
 
 \begin{equation*}
-\frac{\text{number of data points in $k$-th bin}}{n \times (\text{width of $k$-th bin})}.
+\frac{\text{number of data points in $j$-th bin}}{m \times (\text{width of $j$-th bin})}.
 \end{equation*}
 
 Of course, computers are capable of plotting these types of histograms. Here is one for our Airbnb prices:
@@ -453,7 +460,7 @@ Let's return now to an idea that we met above: Estimating a empirical distributi
 
 Naturally, a kernel density estimation begins by choosing the _kernel_, which is a function that has a "bell shape," not unlike the normal density curve. In fact, one can even _choose_ the normal density curve as the kernel, and then one obtains _Gaussian KDE_. These will be the only types of kernels that we will consider.
 
-Imagine for simplicity that we have three data points along the $x$-axis. The idea is then to place three normal density curves directly over top of the data points. We then _sum_ these curves and divide by $3$ (to normalize the area under the curve to $1$), obtaining a _kernel density estimate_. The variances (i.e., the spread) of the normal density curves are controlled by a parameter called _bandwidth_, which is represented by the letter $h$. Values $h>1$ correspond to lower variance, while values $h<1$ correspond to higher variance. Here are three examples of different values of $h$:
+Imagine for simplicity that we have three data points along the $x$-axis. The idea is then to place three kernels (i.e., normal density curves) directly over top of the data points. We then _sum_ the kernels and divide by $3$ (to normalize the area under the curve to $1$), obtaining a _kernel density estimate_. The width of the kernel is controlled by a parameter called _bandwidth_, denoted $h$, which coincides with the standard deviation of the normal distribution in the case of Gaussian KDE. So, large values of $h$ correspond to wide kernels, and smaller values correspond to narrower kernels. Here are three examples of Gaussian KDE with different values of $h$:
 
 ```{code-cell} ipython3
 :tags: [hide-input, full-width]
@@ -465,7 +472,7 @@ Imagine for simplicity that we have three data points along the $x$-axis. The id
 
 x = np.linspace(-4, 6, 200)
 fig, axes = plt.subplots(3, 4, sharey=True, sharex=True, figsize=(10, 5))
-bandwidths = [1, 0.5, 1.5]
+bandwidths = [0.5, 1, 1.5]
 
 for h in bandwidths:
     idx = bandwidths.index(h)
@@ -558,7 +565,7 @@ So, we've seen that KDEs are supposed to serve as estimates for the density curv
 
 ## Empirical statistics
 
-Before we continue discussing more ways to _visualize_ datasets, we need to discuss numerical summaries of datasets. This section is essentially a recapitulation of what you learned in the third programming assignment (see the [Github repo](https://github.com/jmyers7/stats-book-materials)) with a few new things thrown in at the end.
+Before we continue discussing more ways to _visualize_ datasets, we need to discuss numerical summaries of datasets. This section is essentially a recapitulation of what you learned in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments) with a few new things thrown in at the end.
 
 Let's begin our discussion by returning to a general IID random sample
 

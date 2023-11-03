@@ -361,8 +361,8 @@ document.write(`
 <span id="theory-to-practice"></span><h1><span class="section-number">6. </span>Connecting theory to practice: data and samples<a class="headerlink" href="#connecting-theory-to-practice-data-and-samples" title="Permalink to this heading">#</a></h1>
 <section id="data-and-random-samples">
 <h2><span class="section-number">6.1. </span>Data and random samples<a class="headerlink" href="#data-and-random-samples" title="Permalink to this heading">#</a></h2>
-<p>This chapter is a continuation of the ideas presented in the third programming assignment (see the course <a class="reference external" href="https://github.com/jmyers7/stats-book-materials">Github repo</a>) where we began exploring how the concepts that we have been studying over the past few chapters apply to <em>real-world</em> datasets. In that assignment, we learned about <em>empirical distributions</em> of datasets and associated empirical quantities like means, variances, and quantiles.</p>
-<p>Our exploration in the third programming assignment centered on the <em>Ames housing dataset</em>. In this chapter, we will explore a dataset related to Airbnbs. In particular, we have at hand a sample of daily prices (in USD) for Airbnbs in Austin, Texas, over the last 12 months:</p>
+<p>This chapter is a continuation of the ideas presented in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> where we began exploring how the concepts that we have been studying over the past few chapters apply to <em>real-world</em> datasets. In that assignment, we learned about <em>empirical distributions</em> of datasets and associated empirical quantities like means, variances, and quantiles.</p>
+<p>Our exploration in the third programming assignment centered on the <em>Ames housing dataset</em>. In this chapter, we will explore a dataset related to Airbnbs. In particular, we have at hand a sample of listing prices (in USD) for Airbnbs in Austin, Texas, over the last 12 months:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -419,7 +419,7 @@ Name: price, Length: 3972, dtype: float64
 <p class="sidebar-title"></p>
 <p>This is a subset of a larger dataset obtained <a class="reference external" href="http://insideairbnb.com">here</a>. The dataset originally consisted of integer prices, but for pedagogical reasons I want the prices to  more closely resemble a continuous variable. Thus, I added random fractions of a dollar onto each price.</p>
 </aside>
-<p>Though the sample consists of quite a few prices (<span class="math notranslate nohighlight">\(n=3{,}972\)</span> of them, in fact), it does not represent <em>all</em> prices. In fact, there were a little over 14,500 total listings during the time period from which our sample was drawn.</p>
+<p>Though the sample consists of quite a few prices (<span class="math notranslate nohighlight">\(m=3{,}972\)</span> of them, in fact), it does not represent <em>all</em> prices. In fact, there were a little over 14,500 total listings during the time period from which our sample was drawn.</p>
 <p>To fit this into our theoretical framework, we conceptualize the collection of <em>all</em> 14,500 listings as a probability space <span class="math notranslate nohighlight">\(S\)</span>. (I will talk about the associated probability measure below.) Then, we conceptualize the price of a listing as a random variable</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
@@ -430,37 +430,41 @@ X: S \to \mathbb{R}
 \[\begin{equation*}
 X(\text{listing}) = \text{price}.
 \end{equation*}\]</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Why am I writing the sample points with parenthesized superscripts <span class="math notranslate nohighlight">\(x^{(i)}\)</span> rather than with subscripts <span class="math notranslate nohighlight">\(x_i\)</span>? This is because later the observations in our samples may consist of <em>vectors</em>, and we will use subscripts to index the components of vectors. So, the notation in this chapter is chosen with future applications in mind.</p>
+</aside>
 <p>The actual prices in our sample are called <em>observed values</em> of the random variable <span class="math notranslate nohighlight">\(X\)</span> and, as in previous chapters, they are represented with a lowercase <span class="math notranslate nohighlight">\(x\)</span>. We would list the elements in our sample as</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
-x_1,x_2, \ldots, x_n,
+x^{(1)},x^{(2)}, \ldots, x^{(m)} \in \mathbb{R}
 \end{equation*}\]</div>
-<p>where <span class="math notranslate nohighlight">\(n=3{,}972\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(m=3{,}972\)</span>.</p>
 <p>So far, this discussion is not all that different from ones that we have had before; in fact, I can even use the same cartoon from previous chapters to visualize the action of the random variable <span class="math notranslate nohighlight">\(X\)</span>:</p>
 <a class="reference internal image-reference" href="../_images/airbnb0.svg"><img alt="../_images/airbnb0.svg" class="align-center" src="../_images/airbnb0.svg" width="90%" /></a>
 <p> </p>
 <p>However, what makes our current scenario different from those considered in past chapters is that we have an entire sample of prices at hand, not just a <em>single</em> price. How are we to fit <em>samples</em> and <em>datasets</em> into our theoretical framework?</p>
-<p>The answer is pretty obvious, actually. After all, a collection of <span class="math notranslate nohighlight">\(n\)</span> prices like those in our sample must come from a collection of <span class="math notranslate nohighlight">\(n\)</span> listings, right? This suggests that we should simply duplicate the random variable <span class="math notranslate nohighlight">\(X\)</span> to obtain a <em>sequence</em> of random variables</p>
+<p>The answer is pretty obvious, actually. After all, a collection of <span class="math notranslate nohighlight">\(m\)</span> prices like those in our sample must come from a collection of <span class="math notranslate nohighlight">\(m\)</span> listings, right? This suggests that we should simply duplicate the random variable <span class="math notranslate nohighlight">\(X\)</span> to obtain a <em>sequence</em> of random variables</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
-X_1,X_2,\ldots,X_n,
+X^{(1)},X^{(2)},\ldots,X^{(m)},
 \end{equation*}\]</div>
-<p>where the random variable <span class="math notranslate nohighlight">\(X_k\)</span> (for <span class="math notranslate nohighlight">\(1\leq k \leq n\)</span>) spits out the price of the <span class="math notranslate nohighlight">\(k\)</span>-th listing. Something like:</p>
+<p>where the random variable <span class="math notranslate nohighlight">\(X^{(i)}\)</span> (for <span class="math notranslate nohighlight">\(1\leq i \leq m\)</span>) spits out the price of the <span class="math notranslate nohighlight">\(i\)</span>-th listing. Something like:</p>
 <a class="reference internal image-reference" href="../_images/cartesian.svg"><img alt="../_images/cartesian.svg" class="align-center" src="../_images/cartesian.svg" width="90%" /></a>
 <p> </p>
-<p>To make this work, technically we need to replace the sample space <span class="math notranslate nohighlight">\(S\)</span> with its <span class="math notranslate nohighlight">\(n\)</span>-fold <a href="https://en.wikipedia.org/wiki/Cartesian_product#n-ary_Cartesian_power">cartesian power</a>, but we won’t worry about these details. For us, it’s enough to understand this process at the intuitive level.</p>
+<p>To make this work, technically we need to replace the sample space <span class="math notranslate nohighlight">\(S\)</span> with its <span class="math notranslate nohighlight">\(m\)</span>-fold <a href="https://en.wikipedia.org/wiki/Cartesian_product#n-ary_Cartesian_power">cartesian power</a>, but we won’t worry about these details. For us, it’s enough to understand this process at the intuitive level.</p>
 <p>Now, what about probability? Remember, I called the population <span class="math notranslate nohighlight">\(S\)</span> of all listings a <em>probability</em> space, so evidently it must come equipped with a probability measure <span class="math notranslate nohighlight">\(P\)</span>. But here’s the truth:</p>
 <blockquote>
 <div><p>We don’t actually <em>care</em> about <span class="math notranslate nohighlight">\(P\)</span>.</p>
 </div></blockquote>
 <p>Indeed, <span class="math notranslate nohighlight">\(P\)</span> is a purely academic object whose only role in this business is to make the theory under the hood tick along. It’s mostly pure mathematicians like me that spend time worrying about <span class="math notranslate nohighlight">\(P\)</span>, but it is <em>never</em>, <em>ever</em> mentioned or acknowledged in real-world scenarios.</p>
-<p>On the other hand, we do very much(!) care about the probability distributions of the random variables <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n\)</span>. We will be devoting a huge amount of time and effort over the rest of this course trying to figure out the distribution of this or that random variable. In the context of our Airbnb prices, the distributions of the <span class="math notranslate nohighlight">\(X_k\)</span>’s tell us the distribution of prices:</p>
+<p>On the other hand, we do very much(!) care about the probability distributions of the random variables <span class="math notranslate nohighlight">\(X^{(1)},X^{(2)},\ldots,X^{(m)}\)</span>. We will be devoting a huge amount of time and effort over the rest of this course trying to figure out the distribution of this or that random variable. In the context of our Airbnb prices, the distributions of the <span class="math notranslate nohighlight">\(X^{(i)}\)</span>’s tell us the distribution of prices:</p>
 <a class="reference internal image-reference" href="../_images/airbnb.svg"><img alt="../_images/airbnb.svg" class="align-center" src="../_images/airbnb.svg" width="90%" /></a>
 <p> </p>
-<p>But because each of the random variables <span class="math notranslate nohighlight">\(X_k\)</span> is essentially a “duplicate” of the single ‘price’ random variable <span class="math notranslate nohighlight">\(X\)</span>, they all have the <em>same</em> distribution, in the sense that</p>
+<p>But because each of the random variables <span class="math notranslate nohighlight">\(X^{(i)}\)</span> is essentially a “duplicate” of the single ‘price’ random variable <span class="math notranslate nohighlight">\(X\)</span>, they all have the <em>same</em> distribution, in the sense that</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
-P(X_1\in A)  = P(X_2\in A) = \cdots = P(X_n\in A)
+P(X^{(1)}\in A)  = P(X^{(2)}\in A) = \cdots = P(X^{(m)}\in A)
 \end{equation*}\]</div>
 <p>for all events <span class="math notranslate nohighlight">\(A\subset \mathbb{R}\)</span>. If we draw each of the random variables along with their distributions, we would get:</p>
 <a class="reference internal image-reference" href="../_images/iid.svg"><img alt="../_images/iid.svg" class="align-center" src="../_images/iid.svg" width="100%" /></a>
@@ -469,11 +473,11 @@ P(X_1\in A)  = P(X_2\in A) = \cdots = P(X_n\in A)
 <div class="proof definition admonition" id="random-sample-defn">
 <p class="admonition-title"><span class="caption-number">Definition 6.1 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n\)</span> be a sequence of random variables, all defined on the same probability space.</p>
+<p>Let <span class="math notranslate nohighlight">\(X^{(1)},X^{(2)},\ldots,X^{(m)}\)</span> be a sequence of random variables, all defined on the same probability space.</p>
 <ul class="simple">
 <li><p>The random variables are called a <em>random sample</em> if they are <em>independent</em> and <em>identically distributed</em> (IID).</p></li>
 </ul>
-<p>Provided that the sequence is a random sample, an <em>observed random sample</em>, or a <em>dataset</em>, is a sequence of real numbers <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> where <span class="math notranslate nohighlight">\(x_k\)</span> is an observed value of <span class="math notranslate nohighlight">\(X_k\)</span>.</p>
+<p>Provided that the sequence is a random sample, an <em>observed random sample</em>, or a <em>dataset</em>, is a sequence of real numbers <span class="math notranslate nohighlight">\(x^{(1)},x^{(2)},\ldots,x^{(m)}\)</span> where <span class="math notranslate nohighlight">\(x^{(i)}\)</span> is an observed value of <span class="math notranslate nohighlight">\(X^{(i)}\)</span>.</p>
 </section>
 </div><p>Two random variables are said to be <em>independent</em> if the probability of one of the random variables taking a particular value is not influenced or affected by the other random variable taking a particular value. This isn’t a precise definition, and it must be adapted to apply to an entire <em>sequence</em> of random variables, but it is good enough for now. (The precise definition will come in <a class="reference internal" href="random-vectors.html#independence-defn">Definition 7.11</a>.)</p>
 <p>Take care to notice the difference between a <em>random sample</em> (without the modifier) and an <em>observed random sample</em>—the former is an IID sequence of random variables, while the latter is a sequence of real numbers!</p>
@@ -481,37 +485,38 @@ P(X_1\in A)  = P(X_2\in A) = \cdots = P(X_n\in A)
 <div class="admonition-the-roles-of-random-samples admonition">
 <p class="admonition-title">The roles of random samples</p>
 <ul class="simple">
-<li><p>Observed random samples <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> are the datasets that we work with in the real world. It is obvious why we care about these.</p></li>
-<li><p>We use random samples <span class="math notranslate nohighlight">\(X_1,X_2\ldots,X_n\)</span> when we want to reason theoretically about the observed random samples that we encounter in the real world. For example, suppose that you want to prove that some type of statistical estimator or machine learning algorithm works well for <em>any</em> dataset. Then you <em>must</em> argue using random samples consisting of IID random variables!</p></li>
+<li><p>Observed random samples <span class="math notranslate nohighlight">\(x^{(1)},x^{(2)},\ldots,x^{(m)}\)</span> are the datasets that we work with in the real world. It is therefore obvious why we care about these.</p></li>
+<li><p>We use random samples <span class="math notranslate nohighlight">\(X^{(1)},X^{(2)}\ldots,X^{(m)}\)</span> when we want to reason theoretically about the observed random samples that we encounter in the real world. For example, suppose that you want to prove that some type of statistical estimator or machine learning algorithm works well for <em>any</em> dataset. Then you <em>must</em> argue using random samples consisting of IID random variables!</p></li>
 </ul>
 </div>
 </section>
 <section id="probabilistic-models-and-empirical-distributions">
 <h2><span class="section-number">6.2. </span>Probabilistic models and empirical distributions<a class="headerlink" href="#probabilistic-models-and-empirical-distributions" title="Permalink to this heading">#</a></h2>
-<p>If <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n\)</span> is a random sample, then by definition the probability distributions of the <span class="math notranslate nohighlight">\(X_k\)</span> are all identical. This will often be written as either</p>
+<p>If <span class="math notranslate nohighlight">\(X^{(1)},X^{(2)},\ldots,X^{(m)}\)</span> is a random sample, then by definition the probability distributions of the <span class="math notranslate nohighlight">\(X^{(i)}\)</span> are all identical. This will often be written as either</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
-X_1,X_2,\ldots,X_n \sim f \quad \text{or} \quad X_1,X_2,\ldots,X_n \sim F,
+X^{(1)},X^{(2)},\ldots,X^{(m)} \sim f \quad \text{or} \quad X^{(1)},X^{(2)},\ldots,X^{(m)} \sim F,
 \end{equation*}\]</div>
-<p>where <span class="math notranslate nohighlight">\(f\)</span> is the density function of the <span class="math notranslate nohighlight">\(X_k\)</span>’s and <span class="math notranslate nohighlight">\(F\)</span> is their distribution function. A particular choice of <span class="math notranslate nohighlight">\(f\)</span> or <span class="math notranslate nohighlight">\(F\)</span> is called a <em>probabilistic model</em>. Often, an analyst doesn’t choose a <em>specific</em> <span class="math notranslate nohighlight">\(f\)</span> or <span class="math notranslate nohighlight">\(F\)</span>, but rather chooses a <em>family</em> from which these functions are drawn. For example, an analyst might choose the model from the Gaussian family of distributions, so that</p>
+<p>where <span class="math notranslate nohighlight">\(f\)</span> is the density function of the <span class="math notranslate nohighlight">\(X^{(i)}\)</span>’s and <span class="math notranslate nohighlight">\(F\)</span> is their distribution function. A particular choice of <span class="math notranslate nohighlight">\(f\)</span> or <span class="math notranslate nohighlight">\(F\)</span> is called a <em>probabilistic model</em>. Often, an analyst doesn’t choose a <em>specific</em> <span class="math notranslate nohighlight">\(f\)</span> or <span class="math notranslate nohighlight">\(F\)</span>, but rather chooses a <em>family</em> from which these functions are drawn. For example, an analyst might choose the model from the Gaussian family of distributions, so that</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
-X_1,X_2,\ldots,X_n \sim \mathcal{N}(\mu_0,\sigma_0^2)
+X^{(1)},X^{(2)},\ldots,X^{(m)} \sim \mathcal{N}(\mu_0,\sigma_0^2)
 \end{equation*}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span> are unknown parameters. Then, the goal is to use data to estimate <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span> as accurately as possible. In this scenario the parameters <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span> are called <em>population parameters</em> or <em>model parameters</em>.</p>
+<p>where <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span> are unknown parameters. Then, the goal is to use data to estimate <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span> as accurately as possible. In this scenario the parameters <span class="math notranslate nohighlight">\(\mu_0\)</span> and <span class="math notranslate nohighlight">\(\sigma_0\)</span> are called <em>model parameters</em> (or sometimes <em>population parameters</em>).</p>
 <p>Since the normal distributions <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\sigma^2)\)</span> depend on a finite number of parameters, we say that the normal probabilistic model is <em>parametric</em>. However, sometimes we may believe that the data is modeled by a collection of distributions that are <em>not</em> parametrized in any natural way by a finite set of parameters; these latter types of statistical models are called <em>non-parametric</em>.</p>
-<p>At the risk of oversimplification, what I have just describe is, in a nutshell, the entire program of <em>inferential statistics</em>. A major portion of the second half of this course will be devoted to studying clever procedures and algorithms that use datasets to generate estimates of various population and model parameters. As a first step in this direction, in this chapter we study <em>empirical distributions</em>. These are the probability distributions of observed datasets. Our interest in datasets hinges on the assumption that they <em>accurately</em> represent the larger population; if so, then their empirical distributions should reasonably match the unknown population distribution.</p>
+<p>At the risk of oversimplification, what I have just describe is, in a nutshell, the entire program of <em>inferential statistics</em>. A major portion of the second half of this course will be devoted to studying clever procedures and algorithms that use datasets to generate estimates of model parameters. In particular, we will study probabilistic models in exhaustive detail in <a class="reference internal" href="models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>.</p>
+<p>As a first step in this direction, in this chapter we study <em>empirical distributions</em>. These are the probability distributions of observed datasets. Our interest in datasets hinges on the assumption that they <em>accurately</em> represent the larger population; if so, then their empirical distributions should reasonably match the unknown population distribution.</p>
 <p>Here’s the main definition:</p>
 <div class="proof definition admonition" id="emp-dist-defn">
 <p class="admonition-title"><span class="caption-number">Definition 6.2 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n \sim F\)</span> be a random sample from an unknown distribution function <span class="math notranslate nohighlight">\(F\)</span>, and let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_n\)</span> be an <em>observed</em> random sample. Then the <em>empirical distribution</em> of the dataset is the discrete probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with probability mass function</p>
+<p>Let <span class="math notranslate nohighlight">\(X^{(1)},X^{(2)},\ldots,X^{(m)} \sim F\)</span> be a random sample from an unknown distribution function <span class="math notranslate nohighlight">\(F\)</span>, and let <span class="math notranslate nohighlight">\(x^{(1)},x^{(2)},\ldots,x^{(m)}\)</span> be an <em>observed</em> random sample. Then the <em>empirical distribution</em> of the dataset is the discrete probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with probability mass function</p>
 <div class="math notranslate nohighlight" id="equation-ecdf-eqn">
-<span class="eqno">(6.1)<a class="headerlink" href="#equation-ecdf-eqn" title="Permalink to this equation">#</a></span>\[p(x) = \frac{\text{number of data points $x_k$ that match $x$}}{n}.\]</div>
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-ecdf-eqn" title="Permalink to this equation">#</a></span>\[p(x) = \frac{\text{number of data points $x^{(i)}$ that match $x$}}{m}.\]</div>
 <p>The <em>empirical cumulative distribution function</em> (ECDF) of the dataset is the CDF of the empiricical disribution. It is often denoted <span class="math notranslate nohighlight">\(\widehat{F}(x)\)</span>, and it is given by the usual formula</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
-\widehat{F}(x) = \sum_{y\leq x} p(y) = \frac{\text{number of data points $x_k$ with $x_k \leq x$}}{n}.
+\widehat{F}(x) = \sum_{y\leq x} p(y) = \frac{\text{number of data points $x^{(i)}$ with $x^{(i)} \leq x$}}{m}.
 \end{equation*}\]</div>
 </section>
 </div><p>You can think of empirical probabilities as relative frequencies. Indeed, this is essentially the <em>definition</em> described by the formula <a class="reference internal" href="#equation-ecdf-eqn">(6.1)</a>: It says that <span class="math notranslate nohighlight">\(p(x)\)</span> is the relative frequency of the number <span class="math notranslate nohighlight">\(x\)</span> in the dataset.</p>
@@ -583,7 +588,7 @@ X_1,X_2,\ldots,X_n \sim \mathcal{N}(\mu_0,\sigma_0^2)
 <p>This is essentially just a curve sketching exercise from calculus. We’re using our knowledge of the relationships between a function and its first two derivatives, and what these gadgets tell us about increase/decrease and concavity.</p>
 </aside>
 <p>This is a little of what I can glean from this last figure: If we believed that the true population distribution was normal, the data tells us otherwise. Indeed, the two CDFs have some fairly significant differences. Notice that the ECDF is steeper than the normal CDF right <em>before</em> the red dashed line, and that it also has an inflection point before this line. This tells me that the sample density curve should be peaked slightly to the left of the normal density curve. As we pass over the dashed line, the ECDF is concave downward and hence the sample density curve is decreasing over these <span class="math notranslate nohighlight">\(x\)</span>-values as it drops downward into its tail. But as it begins its descent, the normal CDF is steeper, so the sample density curve should be descending at a quicker rate, putting it underneath the normal density curve. But then, as we get toward the right edge of the figure, the slopes of the ECDF appear to be larger than those of the normal CDF, and so the two density curves should cross again, putting the sample density’s upper tail on top of the normal density’s tail. In fact, if I squint hard enough, it appears that the ECDF might have a second inflection point on the far right of the figure.</p>
-<p>As I will show you below, computers are capable of estimating PDFs from data using something called <em>kernel density estimation</em> (KDE). If I feed the Airbnb data into my computer, it returns the following sketch of the data density curve:</p>
+<p>As I will show you below, computers are capable of estimating PDFs from data using something called <em>kernel density estimation</em> (KDE). If I feed the Airbnb data into my computer, it returns the following sketch of the data density curve using KDE:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -610,23 +615,23 @@ X_1,X_2,\ldots,X_n \sim \mathcal{N}(\mu_0,\sigma_0^2)
 </figure>
 </div>
 </div>
-<p>The estimated data PDF looks pretty strange, due to the fairly drastic fluctuations up and down. Below, when we talk about KDEs in more detail, I will teach you how to smooth out these fluctuations by varying a parameter called <em>bandwidth</em>.</p>
+<p>Notice that this plot confirms most of what we thought the data density curve would look like, based on our comparison of the ECDF to the normal CDF. The shape of the estimated data PDF is influenced not only by the actual dataset, but also by a parameter of the KDE process called <em>bandwidth</em>. We will explore this in further detail below.</p>
 </section>
 <section id="histograms">
 <h2><span class="section-number">6.3. </span>Histograms<a class="headerlink" href="#histograms" title="Permalink to this heading">#</a></h2>
 <p>In the previous section, we used a plot of the ECDF of the Airbnb prices in order to <em>visualize</em> the empirical distribution. From this plot, we were able to get a sense of the <em>shape</em> of the dataset.</p>
-<p>There are a few more ways that we might attempt to visualize the empirical distribution. Indeed, since the empirical distribution of the Airbnb prices is technically discrete, we might attempt to visualize it using the probability histograms that we saw in <a class="reference internal" href="prob-spaces.html#prob-histo"><span class="std std-numref">Section 2.7</span></a>. However, as we saw in the previous section, the data points in our sample are so numerous and packed so closely together that such a probability histogram would be essentially useless. We would have <span class="math notranslate nohighlight">\(3{,}548\)</span> bars in our histogram, one for each unique price in our dataset!</p>
+<p>There are a few more ways that we might attempt to visualize the empirical distribution. Indeed, since the empirical distribution of the Airbnb prices is technically discrete, we might attempt to visualize it using the probability histograms that we saw in <a class="reference internal" href="prob-spaces.html#prob-histo"><span class="std std-numref">Section 2.7</span></a> and implemented in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">thrid programming assignment</a>. However, as we saw in the previous section, the data points in our sample are so numerous and packed so closely together that such a probability histogram would be essentially useless. We would have <span class="math notranslate nohighlight">\(3{,}548\)</span> bars in our histogram, one for each unique price in our dataset!</p>
 <p>But here’s an idea: Suppose we “bin together” nearby prices along the <span class="math notranslate nohighlight">\(x\)</span>-axis <em>before</em> we draw the histogram. In other words, imagine we chop up the <span class="math notranslate nohighlight">\(x\)</span>-axis into smaller subintervals called <em>bins</em>, and then group together nearby data points in these bins:</p>
 <a class="reference internal image-reference" href="../_images/bins1.svg"><img alt="../_images/bins1.svg" class="align-center" src="../_images/bins1.svg" width="100%" /></a>
 <p> </p>
-<p>In the figure on the right, there are seven bins, labeled <span class="math notranslate nohighlight">\(B_1,B_2,\ldots,B_7\)</span>. The number of bins can either be chosen explicitly by us, or we can let the computer choose the “optimal” number of bins based on some rule of thumb. Either way, the number <span class="math notranslate nohighlight">\(m\)</span> of bins need not be <span class="math notranslate nohighlight">\(7\)</span>.</p>
+<p>In the figure on the right, there are seven bins, labeled <span class="math notranslate nohighlight">\(B_1,B_2,\ldots,B_7\)</span>. The number of bins can either be chosen explicitly by us, or we can let the computer choose the “optimal” number of bins based on some rule of thumb. Either way, the number <span class="math notranslate nohighlight">\(k\)</span> of bins need not be <span class="math notranslate nohighlight">\(7\)</span>.</p>
 <p>Now, to draw the “binned” histogram, we put a rectangle on top of each bin:</p>
 <a class="reference internal image-reference" href="../_images/bins.svg"><img alt="../_images/bins.svg" class="align-center" src="../_images/bins.svg" width="70%" /></a>
 <p> </p>
-<p>The heights of the rectangles must satisfy <em>two</em> properties: (1) Their areas must sum to <span class="math notranslate nohighlight">\(1\)</span>, and (2) their heights must be proportional to the number of data points that fall within the bins. For example, you can see that the taller rectangles in the figure contain <em>more</em> data points in their base bins. If <span class="math notranslate nohighlight">\(m\)</span> is the total number of bins and <span class="math notranslate nohighlight">\(n\)</span> is the size of the data set, then to satisfy both these properties, we can choose the <span class="math notranslate nohighlight">\(k\)</span>-th rectangle (for <span class="math notranslate nohighlight">\(k=1,2,\ldots,m\)</span>) to have height</p>
+<p>The heights of the rectangles must satisfy <em>two</em> properties: (1) Their areas must sum to <span class="math notranslate nohighlight">\(1\)</span>, and (2) their heights must be proportional to the number of data points that fall within the bins. For example, you can see that the taller rectangles in the figure contain <em>more</em> data points in their base bins. If <span class="math notranslate nohighlight">\(k\)</span> is the total number of bins and <span class="math notranslate nohighlight">\(m\)</span> is the size of the data set, then to satisfy both these properties, we can choose the <span class="math notranslate nohighlight">\(j\)</span>-th rectangle (for <span class="math notranslate nohighlight">\(j=1,2,\ldots,k\)</span>) to have height</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
-\frac{\text{number of data points in $k$-th bin}}{n \times (\text{width of $k$-th bin})}.
+\frac{\text{number of data points in $j$-th bin}}{m \times (\text{width of $j$-th bin})}.
 \end{equation*}\]</div>
 <p>Of course, computers are capable of plotting these types of histograms. Here is one for our Airbnb prices:</p>
 <div class="cell tag_hide-input docutils container">
@@ -705,7 +710,7 @@ X_1,X_2,\ldots,X_n \sim \mathcal{N}(\mu_0,\sigma_0^2)
 <h2><span class="section-number">6.4. </span>Kernel density estimation<a class="headerlink" href="#kernel-density-estimation" title="Permalink to this heading">#</a></h2>
 <p>Let’s return now to an idea that we met above: Estimating a empirical distribution’s <em>density</em> curve. I mentioned that one way to accomplish this task is to use something called a <em>kernel density estimator</em> (KDE). I will now give a very brief introduction to these estimators.</p>
 <p>Naturally, a kernel density estimation begins by choosing the <em>kernel</em>, which is a function that has a “bell shape,” not unlike the normal density curve. In fact, one can even <em>choose</em> the normal density curve as the kernel, and then one obtains <em>Gaussian KDE</em>. These will be the only types of kernels that we will consider.</p>
-<p>Imagine for simplicity that we have three data points along the <span class="math notranslate nohighlight">\(x\)</span>-axis. The idea is then to place three normal density curves directly over top of the data points. We then <em>sum</em> these curves and divide by <span class="math notranslate nohighlight">\(3\)</span> (to normalize the area under the curve to <span class="math notranslate nohighlight">\(1\)</span>), obtaining a <em>kernel density estimate</em>. The variances (i.e., the spread) of the normal density curves are controlled by a parameter called <em>bandwidth</em>, which is represented by the letter <span class="math notranslate nohighlight">\(h\)</span>. Values <span class="math notranslate nohighlight">\(h&gt;1\)</span> correspond to lower variance, while values <span class="math notranslate nohighlight">\(h&lt;1\)</span> correspond to higher variance. Here are three examples of different values of <span class="math notranslate nohighlight">\(h\)</span>:</p>
+<p>Imagine for simplicity that we have three data points along the <span class="math notranslate nohighlight">\(x\)</span>-axis. The idea is then to place three kernels (i.e., normal density curves) directly over top of the data points. We then <em>sum</em> the kernels and divide by <span class="math notranslate nohighlight">\(3\)</span> (to normalize the area under the curve to <span class="math notranslate nohighlight">\(1\)</span>), obtaining a <em>kernel density estimate</em>. The width of the kernel is controlled by a parameter called <em>bandwidth</em>, denoted <span class="math notranslate nohighlight">\(h\)</span>, which coincides with the standard deviation of the normal distribution in the case of Gaussian KDE. So, large values of <span class="math notranslate nohighlight">\(h\)</span> correspond to wide kernels, and smaller values correspond to narrower kernels. Here are three examples of Gaussian KDE with different values of <span class="math notranslate nohighlight">\(h\)</span>:</p>
 <div class="cell tag_hide-input tag_full-width docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -715,7 +720,7 @@ X_1,X_2,\ldots,X_n \sim \mathcal{N}(\mu_0,\sigma_0^2)
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">bandwidths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]</span>
+<span class="n">bandwidths</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]</span>
 
 <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">bandwidths</span><span class="p">:</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="n">bandwidths</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
@@ -754,7 +759,7 @@ X_1,X_2,\ldots,X_n \sim \mathcal{N}(\mu_0,\sigma_0^2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/82c32ef4d0044b24a690d0385e3ae52f6e1e9c1185f8813324acb14c5e459133.png"><img alt="../_images/82c32ef4d0044b24a690d0385e3ae52f6e1e9c1185f8813324acb14c5e459133.png" src="../_images/82c32ef4d0044b24a690d0385e3ae52f6e1e9c1185f8813324acb14c5e459133.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/5797553b9e495e150c18d987ece1a5018ce6d190dc617e0417e7160e7056828a.png"><img alt="../_images/5797553b9e495e150c18d987ece1a5018ce6d190dc617e0417e7160e7056828a.png" src="../_images/5797553b9e495e150c18d987ece1a5018ce6d190dc617e0417e7160e7056828a.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
@@ -800,7 +805,7 @@ X_1,X_2,\ldots,X_n \sim \mathcal{N}(\mu_0,\sigma_0^2)
 </section>
 <section id="empirical-statistics">
 <h2><span class="section-number">6.5. </span>Empirical statistics<a class="headerlink" href="#empirical-statistics" title="Permalink to this heading">#</a></h2>
-<p>Before we continue discussing more ways to <em>visualize</em> datasets, we need to discuss numerical summaries of datasets. This section is essentially a recapitulation of what you learned in the third programming assignment (see the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials">Github repo</a>) with a few new things thrown in at the end.</p>
+<p>Before we continue discussing more ways to <em>visualize</em> datasets, we need to discuss numerical summaries of datasets. This section is essentially a recapitulation of what you learned in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> with a few new things thrown in at the end.</p>
 <p>Let’s begin our discussion by returning to a general IID random sample</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
