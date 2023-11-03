@@ -444,9 +444,345 @@ p(x_1,x_2,x_3,x_4,x_5) = p(x_1|x_2)p(x_2)p(x_3|x_2)p(x_4|x_1,x_2)p(x_5|x_4).
 <h2><span class="section-number">11.4. </span>More examples<a class="headerlink" href="#more-examples" title="Permalink to this heading">#</a></h2>
 <section id="linear-regression">
 <h3><span class="section-number">11.4.1. </span>Linear regression<a class="headerlink" href="#linear-regression" title="Permalink to this heading">#</a></h3>
+<p>The goal of <em>linear regression</em> is to model an IID random sample <span class="math notranslate nohighlight">\(\{Y^{(i)}\}_{i=1}^m\)</span> of normally distributed variables based on a sequence <span class="math notranslate nohighlight">\(\{\mathbf{x}^{(i)}\}_{i=1}^n \subset \mathbb{R}^n\)</span> of deterministic vectors. Here are the precise details:</p>
+<div class="proof definition admonition" id="definition-1">
+<p class="admonition-title"><span class="caption-number">Definition 11.2 </span></p>
+<section class="definition-content" id="proof-content">
+<p>A <em>linear regression model</em> is a probabilistic graphical model whose underlying graph is of the form</p>
+<a class="reference internal image-reference" href="../_images/lin-reg-01.svg"><img alt="../_images/lin-reg-01.svg" class="align-center" src="../_images/lin-reg-01.svg" width="50%" /></a>
+<p> </p>
+<p>The components of the parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\beta=(\beta_0,\beta_1,\ldots,\beta_n)\)</span> may be any real numbers, while <span class="math notranslate nohighlight">\(\sigma^2\)</span> must be positive (in particular, not zero). For each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[
+Y^{(i)} ; x^{(i)}, \boldsymbol\beta,\sigma^2 \sim \mathcal{N}\big(\mu^{(i)},\sigma^2\big),
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+\mu^{(i)} = \beta_0 + \beta_1 x_1^{(i)} + \cdots + \beta_n x_n^{(i)}.
+\]</div>
+<p>The (components of the) vectors <span class="math notranslate nohighlight">\(\{x^{(i)}\}\)</span> are referred to as the <em>predictors</em>, <em>regressors</em>, <em>explanatory variables</em>, or <em>independent variables</em>, while the random variables <span class="math notranslate nohighlight">\(\{Y^{(i)}\}\)</span> are called the <em>response variables</em> or the <em>dependent variables</em>. In the case that <span class="math notranslate nohighlight">\(n=1\)</span>, so that the predictors are real numbers, the model is called a <em>simple linear regression model</em>; otherwise, it is called a <em>multiple linear regression model</em>.</p>
+</section>
+</div><p>It follows that the joint density function of a linear regression model factors as</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+p(\mathbf{y}; \mathbf{x}^{(1)},\ldots,\mathbf{x}^{(m)}, \boldsymbol\beta,\sigma^2) &amp;= \prod_{i=1}^m p\big( y^{(i)}; \mathbf{x}^{(i)}, \boldsymbol\beta,\sigma^2\big) \\
+&amp;= \prod_{i=1}^m \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[ -\frac{1}{2\sigma^2}\big(y^{(i)} - \mu^{(i)}\big)^2\right] \\
+&amp;= \frac{1}{\big(2\pi \sigma^2\big)^{m/2}} \exp \left[ - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2 \right].
+\end{align*}\]</div>
+<p>Note that</p>
+<div class="math notranslate nohighlight">
+\[
+E\big(Y^{(i)}\big) = \mu^{(i)} = \beta_0 + \beta_1 x_1^{(i)} + \cdots + \beta_n x_n^{(i)},
+\]</div>
+<p>and so a linear regression model assumes (among other things) that the means of the response variables are linearly related to the regressors through the function</p>
+<div class="math notranslate nohighlight" id="equation-lin-reg-line-eqn">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-lin-reg-line-eqn" title="Permalink to this equation">#</a></span>\[
+\mu = \beta_0 + \beta_1x_1 + \cdots + \beta_n x_n.
+\]</div>
+<p>The parameter <span class="math notranslate nohighlight">\(\beta_0\)</span> is often called the <em>intercept coefficient</em>, while the other <span class="math notranslate nohighlight">\(\beta_j\)</span>’s (for <span class="math notranslate nohighlight">\(j&gt;0\)</span>) are called <em>slope coefficients</em> since they are exactly the (infinitesimal) slopes:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \mu}{\partial x_j} = \beta_j.
+\]</div>
+<p>The line <a class="reference internal" href="#equation-lin-reg-line-eqn">(11.1)</a> is often called the <em>regression line</em> of the model, and it is often displayed in a scatter plot with observed data. For example, suppose we consider the Ames housing data from the <a href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a>. In this dataset, we have two columns of observations on <em>price</em> (measured in thousands of US dollars) and <em>area</em> (measured in square feet):</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/data-3-1.csv&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">])</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>area</th>
+      <th>price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1656</td>
+      <td>215.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>896</td>
+      <td>105.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1329</td>
+      <td>172.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2110</td>
+      <td>244.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1629</td>
+      <td>189.9</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2925</th>
+      <td>1003</td>
+      <td>142.5</td>
+    </tr>
+    <tr>
+      <th>2926</th>
+      <td>902</td>
+      <td>131.0</td>
+    </tr>
+    <tr>
+      <th>2927</th>
+      <td>970</td>
+      <td>132.0</td>
+    </tr>
+    <tr>
+      <th>2928</th>
+      <td>1389</td>
+      <td>170.0</td>
+    </tr>
+    <tr>
+      <th>2929</th>
+      <td>2000</td>
+      <td>188.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>2930 rows × 2 columns</p>
+</div></div></figure>
+</div>
+</div>
+<p>We might believe that the price observations <span class="math notranslate nohighlight">\(y^{(1)},\ldots,y^{2{,}930}\)</span> come from an IID random sample</p>
+<div class="math notranslate nohighlight">
+\[
+Y^{(1)},\ldots,Y^{(2{,}930)}
+\]</div>
+<p>that may be predicted by the area observations <span class="math notranslate nohighlight">\(x^{(1)},\ldots,x^{(2{,}930)}\)</span> through a simple linear regression model. Based on this dataset, as we will see below (in <a class="reference internal" href="#mle-lin-reg-sec"><span class="std std-numref">Section 11.6.2</span></a>), it is possible to choose an “optimal” value for the parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\beta = (\beta_0,\beta_1)\)</span> leading to a “best fit.” Using these values of <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span>, we may plot the regression line <a class="reference internal" href="#equation-lin-reg-line-eqn">(11.1)</a> along with the data in a scatter plot:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib_inline.backend_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
+<span class="n">magenta</span> <span class="o">=</span> <span class="s1">&#39;#FD46FC&#39;</span>
+
+<span class="n">lr</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s1">&#39;price ~ area&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">beta_0</span><span class="p">,</span> <span class="n">beta_1</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">params</span>
+
+<span class="n">min_data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="n">max_data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">min_data</span><span class="p">,</span> <span class="n">max_data</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">beta_0</span> <span class="o">+</span> <span class="n">beta_1</span> <span class="o">*</span> <span class="n">grid</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/a1c07ac25e24a167582084ca3e67aeb9ead4668570f9bdeab0ed382a1843a6d4.svg"><img alt="../_images/a1c07ac25e24a167582084ca3e67aeb9ead4668570f9bdeab0ed382a1843a6d4.svg" src="../_images/a1c07ac25e24a167582084ca3e67aeb9ead4668570f9bdeab0ed382a1843a6d4.svg" width="70%" /></a>
+</figure>
+</div>
+</div>
+<p>In general, the random variables</p>
+<div class="math notranslate nohighlight">
+\[
+\epsilon^{(i)} = Y^{(i)} - \mu^{(i)}
+\]</div>
+<p>in a linear regression model are called the <em>error terms</em>. Note then that</p>
+<div class="math notranslate nohighlight">
+\[
+Y^{(i)} = \beta_0 + \beta_1 x_1^{(i)} + \cdots + \beta_n x_n^{(i)} + \epsilon^{(i)}
+\]</div>
+<p>and <span class="math notranslate nohighlight">\(\epsilon^{(i)} \sim \mathcal{N}\big( 0,\sigma^2\big)\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>. The assumption built into the linear regression model that the error terms all share the same variance is called <em>homoscedasticity</em>. If we have observed values <span class="math notranslate nohighlight">\(y^{(1)},\ldots,y^{(m)}\)</span>, then the differences</p>
+<div class="math notranslate nohighlight" id="equation-resid-eqn">
+<span class="eqno">(11.2)<a class="headerlink" href="#equation-resid-eqn" title="Permalink to this equation">#</a></span>\[
+y^{(i)} - \hat{y}^{(i)}
+\]</div>
+<p>are observed values of the error terms, where</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y}^{(i)} \stackrel{\text{def}}{=} \mu^{(i)} = \beta_0 + \beta_1x_1^{(i)} + \cdots + \beta_n x_n^{(i)}
+\]</div>
+<p>are the <em>predicted values</em> of the <span class="math notranslate nohighlight">\(y^{(i)}\)</span>’s. The differences <a class="reference internal" href="#equation-resid-eqn">(11.2)</a> are called the <em>residuals</em> of the observed values.</p>
+<p>Based on the scatter plot above, it is apparent that the homoscedasticity assumption is violated in the Ames dataset. This is made even more apparent by plotting the residuals against the predictor variable:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resid</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">resid</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">resid</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;residuals&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/df6eec5befb3e89e5baee91682bfbef1c0f2366107d5aa5d3750dd94c7ea7782.svg"><img alt="../_images/df6eec5befb3e89e5baee91682bfbef1c0f2366107d5aa5d3750dd94c7ea7782.svg" src="../_images/df6eec5befb3e89e5baee91682bfbef1c0f2366107d5aa5d3750dd94c7ea7782.svg" width="70%" /></a>
+</figure>
+</div>
+</div>
+<p>Indeed, the distributions of the residuals appear to widen as the area variable increases.</p>
+<p>As with the parameter vector <span class="math notranslate nohighlight">\(\boldsymbol{\beta}\)</span>, it is also possible to estimate an “optimal” value of the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> in the linear regression model for the Ames dataset. Given these parameters, we may then generate new datasets by sampling from the normal distributions</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{N}\big(\mu^{(i)}, \sigma^2\big)
+\]</div>
+<p>for each <span class="math notranslate nohighlight">\(i=1,2,\ldots,2{,}930\)</span>. It is interesting to produce scatter plots of a few generated datasets and compare their shape to the real dataset above:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">lr</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
+<span class="n">y_hat</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">predict</span><span class="p">()</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)):</span>
+    <span class="n">y_gen</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">y_hat</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">2930</span><span class="p">)</span>
+    <span class="n">df_gen</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;area&#39;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">],</span> <span class="s1">&#39;price&#39;</span><span class="p">:</span> <span class="n">y_gen</span><span class="p">})</span>
+    <span class="n">df_gen</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">beta_0</span> <span class="o">+</span> <span class="n">beta_1</span> <span class="o">*</span> <span class="n">grid</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;generated dataset 1&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;generated dataset 2&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;generated dataset 3&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;generated dataset 4&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/27ee97c54b343f8736e868e93abede9e7ca5332585c43247be4ad0ed8c875f92.svg"><img alt="../_images/27ee97c54b343f8736e868e93abede9e7ca5332585c43247be4ad0ed8c875f92.svg" src="../_images/27ee97c54b343f8736e868e93abede9e7ca5332585c43247be4ad0ed8c875f92.svg" width="100%" /></a>
+</figure>
+</div>
+</div>
+<p>The lines in these plots are copies of the original regression line. The residuals for these generated datasets look as follows:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)):</span>
+    <span class="n">y_gen</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">y_hat</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">2930</span><span class="p">)</span>
+    <span class="n">df_gen</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;area&#39;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">],</span> <span class="s1">&#39;price&#39;</span><span class="p">:</span> <span class="n">y_gen</span><span class="p">})</span>
+    <span class="n">y_hat</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_gen</span><span class="p">)</span>
+    <span class="n">resid</span> <span class="o">=</span> <span class="n">y_gen</span> <span class="o">-</span> <span class="n">y_hat</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">resid</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.20</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;residuals&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;generated dataset 1&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;generated dataset 2&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;generated dataset 3&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;generated dataset 4&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/48a0b93ba464b7639f114f193d4cbf25b14483d9f67f6c392ab23e6c0cf22175.svg"><img alt="../_images/48a0b93ba464b7639f114f193d4cbf25b14483d9f67f6c392ab23e6c0cf22175.svg" src="../_images/48a0b93ba464b7639f114f193d4cbf25b14483d9f67f6c392ab23e6c0cf22175.svg" width="100%" /></a>
+</figure>
+</div>
+</div>
+<p>This is a form of <em>model checking</em>: By generating new data from the model and comparing to the original data, we are checking to see how well our model matches the real data.</p>
 </section>
 <section id="logistic-regression">
 <h3><span class="section-number">11.4.2. </span>Logistic regression<a class="headerlink" href="#logistic-regression" title="Permalink to this heading">#</a></h3>
+<p>The only difference between the linear regression models studied in the previous section and the <em>logistic regression models</em> studied in this one are the assumed forms of distributions of the IID random sample.</p>
+<div class="proof definition admonition" id="definition-2">
+<p class="admonition-title"><span class="caption-number">Definition 11.3 </span></p>
+<section class="definition-content" id="proof-content">
+<p>A <em>logistic regression model</em> is a probabilistic graphical model whose underlying graph is of the form</p>
+<a class="reference internal image-reference" href="../_images/log-reg-01.svg"><img alt="../_images/log-reg-01.svg" class="align-center" src="../_images/log-reg-01.svg" width="50%" /></a>
+<p> </p>
+<p>The deterministic vectors <span class="math notranslate nohighlight">\(\mathbf{x}^{(i)} = \big(x_1^{(i)},\ldots,x_n^{(n)}\big)\)</span> have no restrictions on their componenets, as well as the parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\beta=(\beta_0,\beta_1,\ldots,\beta_n)\)</span>. For each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[
+Y^{(i)} ; \mathbf{x}^{(i)}, \boldsymbol\beta \sim \mathcal{B}er\big(\phi^{(i)}\big),
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+\phi^{(i)} = \sigma\big(\beta_0 + \beta_1 x_1^{(i)} + \cdots + \beta_n x_n^{(i)}\big)
+\]</div>
+<p>and <span class="math notranslate nohighlight">\(\sigma: \mathbb{R} \to \mathbb{R}\)</span> is the <em>logistic function</em> (or <em>sigmoid function</em>) defined as</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma(z) = \frac{1}{1+e^{-z}}.
+\]</div>
+</section>
+</div><p>It follows that the joint density function of a logistic regression model factors as</p>
+<div class="math notranslate nohighlight">
+\[
+p( \mathbf{y}; \mathbf{x}^{(1)},\ldots, \mathbf{x}^{(m)}, \boldsymbol\beta) = \prod_{i=1}^m p\big( y^{(i)}; \mathbf{x}^{(i)}, \boldsymbol\beta\big) = \prod_{i=1}^m \big(\phi^{(i)}\big)^{y^{(i)}} \big(1 - \phi^{(i)}\big)^{1 - \phi^{(i)}}.
+\]</div>
 </section>
 <section id="markov-models">
 <h3><span class="section-number">11.4.3. </span>Markov models<a class="headerlink" href="#markov-models" title="Permalink to this heading">#</a></h3>
@@ -470,7 +806,7 @@ p(x_1,x_2,x_3,x_4,x_5) = p(x_1|x_2)p(x_2)p(x_3|x_2)p(x_4|x_1,x_2)p(x_5|x_4).
 <h3><span class="section-number">11.6.1. </span>The basics<a class="headerlink" href="#the-basics" title="Permalink to this heading">#</a></h3>
 </section>
 <section id="mle-for-linear-regression">
-<h3><span class="section-number">11.6.2. </span>MLE for linear regression<a class="headerlink" href="#mle-for-linear-regression" title="Permalink to this heading">#</a></h3>
+<span id="mle-lin-reg-sec"></span><h3><span class="section-number">11.6.2. </span>MLE for linear regression<a class="headerlink" href="#mle-for-linear-regression" title="Permalink to this heading">#</a></h3>
 </section>
 <section id="mle-for-logistic-regression">
 <h3><span class="section-number">11.6.3. </span>MLE for logistic regression<a class="headerlink" href="#mle-for-logistic-regression" title="Permalink to this heading">#</a></h3>

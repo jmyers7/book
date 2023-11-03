@@ -222,6 +222,7 @@ Here are some probability histograms, for various settings of the parameters:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
+:label: binom-pmf
 :mystnb:
 :   figure:
 :       align: center
