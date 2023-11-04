@@ -24,28 +24,17 @@ Our exploration in the third programming assignment centered on the _Ames housin
 
 import pandas as pd
 import numpy as np
+import scipy as sp
 import matplotlib.pyplot as plt
+import matplotlib as mpl 
 import seaborn as sns
-
-# hide annoying warnings for tight_layout()
 import warnings
+plt.style.use('../aux-files/custom_style_light.mplstyle')
+mpl.rcParams['figure.dpi'] = 600
 warnings.filterwarnings("ignore")
 
-# set custom style for plots
-plt.style.use('../aux-files/custom_style_light.mplstyle')
-
-# make sure this comes last in the imports!
-# change the output resolution of figures
-import matplotlib as mpl 
-mpl.rcParams['figure.dpi'] = 600
-
-# end import section
-
-sample = pd.read_csv('../aux-files/austin_sample.csv')
-
-# pull out the price column to convert 'sample' from a dataframe to a series
-sample = sample['price'] 
-sample
+srs_airbnb = pd.read_csv('../aux-files/austin_sample.csv', usecols=['price']).squeeze()
+srs_airbnb
 ```
 
 ```{margin}
@@ -242,9 +231,9 @@ It's time to bring back the Airbnb prices! I have asked the computer to generate
 :   image:
 :       width: 70%
 
-sns.ecdfplot(sample)
-plt.xlabel(r'$x=$price')
-plt.ylabel('accumulated probability')
+sns.ecdfplot(x=srs_airbnb)
+plt.xlabel('price')
+plt.ylabel('probability')
 plt.tight_layout()
 ```
 
@@ -271,23 +260,21 @@ To aid our sketch of the unknown density function, it might help to superimpose 
 :   image:
 :       width: 70%
 
-from scipy.stats import norm # import a normal random variable from scipy
+xbar = srs_airbnb.mean()
+s = srs_airbnb.std()
+X = sp.stats.norm(loc=xbar, scale=s)
+grid = np.linspace(srs_airbnb.min(), srs_airbnb.max())
 
-sorted_sample = sample.sort_values()
-xbar = np.mean(sample) # sample mean
-s = np.std(sample) # sample standard deviation
-y_norm = norm(loc=xbar, scale=s).cdf(sorted_sample) # toss the data into the normal CDF
-
-sns.ecdfplot(sample, label='sample ECDF')
-plt.plot(sorted_sample, y_norm, label='normal CDF')
-plt.axvline(x=xbar, linestyle='dashed', color='r', label='sample mean')
-plt.xlabel(r'$x=$price')
-plt.ylabel('accumulated probability')
+sns.ecdfplot(x=srs_airbnb, label='ECDF')
+plt.plot(grid, X.cdf(grid), label='normal CDF')
+plt.axvline(x=xbar, color='r', label='empirical mean')
+plt.xlabel('price')
+plt.ylabel('probability')
 plt.legend()
 plt.tight_layout()
 ```
 
-In this figure, I've plotted the CDF from a $\mathcal{N}(\mu,\sigma^2)$ distribution, where I've used the empirical mean and standard deviation for the parameters $\mu$ and $\sigma$ (more on these below).
+In this figure, I've plotted the CDF from a $\mathcal{N}(\mu,\sigma^2)$ distribution, where I've used the empirical mean $\bar{x}$ and standard deviation $s$ for the parameters $\mu$ and $\sigma$ (more on these below).
 
 ```{margin}
 This is essentially just a curve sketching exercise from calculus. We're using our knowledge of the relationships between a function and its first two derivatives, and what these gadgets tell us about increase/decrease and concavity.
@@ -305,11 +292,9 @@ As I will show you below, computers are capable of estimating PDFs from data usi
 :   image:
 :       width: 70%
 
-y_norm = norm(loc=xbar, scale=s).pdf(sorted_sample)
-
-sns.kdeplot(sample, label='estimated data PDF')
-plt.plot(sorted_sample, y_norm, label='normal PDF')
-plt.xlabel(r'$x=$price')
+sns.kdeplot(x=srs_airbnb, label='estimated data PDF')
+plt.plot(grid, X.pdf(grid), label='normal PDF')
+plt.xlabel('price')
 plt.ylabel('probability density')
 plt.xlim(0, 510)
 plt.legend()
@@ -384,10 +369,8 @@ Of course, computers are capable of plotting these types of histograms. Here is 
 :   image:
 :       width: 70%
 
-# the parameter `ec` stands for edge color. here, I've chosen black.
-# the `density` parameter normalizes each rectangle so that their areas sum to 1.
-plt.hist(sample, ec='b', density=True) 
-plt.xlabel(r'$x=$price')
+srs_airbnb.plot(kind='hist', ec='black', density=True)
+plt.xlabel('price')
 plt.ylabel('probability')
 plt.tight_layout()
 ```
@@ -404,8 +387,8 @@ Be warned, however, that the shapes of these types of histograms are quite sensi
 :   image:
 :       width: 70%
 
-plt.hist(sample, ec='b', density=True, bins=100)
-plt.xlabel(r'$x=$price')
+srs_airbnb.plot(kind='hist', ec='black', density=True, bins=100)
+plt.xlabel('price')
 plt.ylabel('probability')
 plt.tight_layout()
 ```
@@ -422,8 +405,8 @@ At the other extreme, here's a histogram with three bins:
 :   image:
 :       width: 70%
 
-plt.hist(sample, ec='b', density=True, bins=3)
-plt.xlabel(r'$x=$price')
+srs_airbnb.plot(kind='hist', ec='black', density=True, bins=3)
+plt.xlabel('price')
 plt.ylabel('probability')
 plt.tight_layout()
 ```
@@ -471,38 +454,41 @@ Imagine for simplicity that we have three data points along the $x$-axis. The id
 :       width: 100%
 
 x = np.linspace(-4, 6, 200)
-fig, axes = plt.subplots(3, 4, sharey=True, sharex=True, figsize=(10, 5))
+fig, axes = plt.subplots(nrows=3, ncols=4, sharey=True, sharex=True, figsize=(10, 5))
 bandwidths = [0.5, 1, 1.5]
 
 for h in bandwidths:
     idx = bandwidths.index(h)
-    y1 = norm().pdf(x / h) / h
-    y2 = norm().pdf((x - 2) / h) / h
-    y3 = norm().pdf((x - 3) / h) / h
+    blue = '#486AFB'
+    magenta = '#FD46FC'
 
-    axes[idx, 0].plot(0, -0.01, 'o', color='#486AFB')
-    axes[idx, 0].plot(2, -0.01, 'o', color='#486AFB')
-    axes[idx, 0].plot(3, -0.01, 'o', color='#486AFB')
+    y1 = sp.stats.norm.pdf(x / h) / h
+    y2 = sp.stats.norm.pdf((x - 2) / h) / h
+    y3 = sp.stats.norm.pdf((x - 3) / h) / h
+
+    axes[idx, 0].plot(0, -0.01, 'o', color=blue)
+    axes[idx, 0].plot(2, -0.01, 'o', color=blue)
+    axes[idx, 0].plot(3, -0.01, 'o', color=blue)
     axes[idx, 0].set_xlim(-4, 6)
     axes[idx, 0].set_ylabel('density')
 
     axes[idx, 1].plot(x, y1, )
-    axes[idx, 1].plot(x, y2, color='#486AFB')
-    axes[idx, 1].plot(x, y3, color='#486AFB')
-    axes[idx, 1].plot(0, -0.01, 'o', color='#486AFB')
-    axes[idx, 1].plot(2, -0.01, 'o', color='#486AFB')
-    axes[idx, 1].plot(3, -0.01, 'o', color='#486AFB')
+    axes[idx, 1].plot(x, y2, color=blue)
+    axes[idx, 1].plot(x, y3, color=blue)
+    axes[idx, 1].plot(0, -0.01, 'o', color=blue)
+    axes[idx, 1].plot(2, -0.01, 'o', color=blue)
+    axes[idx, 1].plot(3, -0.01, 'o', color=blue)
     axes[idx, 1].set_title(rf'bandwidth $h={h}$')
 
     axes[idx, 2].plot(x, y1, )
-    axes[idx, 2].plot(x, y2, color='#486AFB')
-    axes[idx, 2].plot(x, y3, color='#486AFB')
-    axes[idx, 2].plot(0, -0.01, 'o', color='#486AFB')
-    axes[idx, 2].plot(2, -0.01, 'o', color='#486AFB')
-    axes[idx, 2].plot(3, -0.01, 'o', color='#486AFB')
+    axes[idx, 2].plot(x, y2, color=blue)
+    axes[idx, 2].plot(x, y3, color=blue)
+    axes[idx, 2].plot(0, -0.01, 'o', color=blue)
+    axes[idx, 2].plot(2, -0.01, 'o', color=blue)
+    axes[idx, 2].plot(3, -0.01, 'o', color=blue)
     axes[idx, 2].plot(x, (y1 + y2 + y3) / 3, label='sum of kernels')
 
-    axes[idx, 3].plot(x, (y1 + y2 + y3) / 3, label='sum of kernels', color='#FD46FC')
+    axes[idx, 3].plot(x, (y1 + y2 + y3) / 3, label='sum of kernels', color=magenta)
 
 plt.tight_layout()
 ```
@@ -534,11 +520,10 @@ fig, axes = plt.subplots(nrows=1, ncols=3, sharey=True, sharex=True, figsize=(10
 
 for h in bandwidths:
     idx = bandwidths.index(h)
-    sns.kdeplot(sample, ax=axes[idx], bw_method=h)
-    axes[idx].set_xlabel(r'$x=$price')
-    axes[idx].set_title(rf'bandwidth $h={h}$')
+    sns.kdeplot(x=srs_airbnb, ax=axes[idx], bw_method=h)
+    axes[idx].set_xlabel('price')
+    axes[idx].set_title(f'bandwidth $h={h}$')
     
-plt.xlabel(r'$x=$price')
 axes[0].set_ylabel('probability density')
 plt.tight_layout()
 ```
@@ -638,8 +623,7 @@ The empirical 0.25-, 0.5-, and 0.75-quantiles are called the _first_, _second_, 
 ```{code-cell} ipython3
 :tags: [hide-input]
 
-airbnb_stats = sample.describe()
-airbnb_stats
+srs_airbnb.describe()
 ```
 
 Along with the empirical quartiles, you can also see that this method from the Pandas library conveniently outputs the empirical mean and standard deviation, as well as the size of the dataset (the _count_) and the minimum and maximum sample values.
@@ -660,7 +644,7 @@ So, using the outputs above, we see that the empirical IQR of the Airbnb dataset
 ```{code-cell} ipython3
 :tags: [hide-input]
 
-iqr_airbnb = airbnb_stats['75%'] - airbnb_stats['25%']
+iqr_airbnb = srs_airbnb.quantile(q=0.75) - srs_airbnb.quantile(q=0.25)
 
 print(f'The IQR for the Airbnb dataset is {iqr_airbnb:.2f}.')
 
@@ -720,30 +704,35 @@ There's a very convenient way to _visually_ summarize all these empirical statis
 
 ## QQ-plots
 
-We learned in the third programming assignment (see the [Github repo](https://github.com/jmyers7/stats-book-materials)) how to produce a plot of the empirical quantiles of a dataset. In this section, we will learn how to produce a plot that compares these empirical quantiles to the quantiles of a normal distribution. This new type of plot, called a _(normal) quantile-quantile plot_ or _(normal) QQ-plot_, is useful for checking whether the empirical distribution of a dataset follows a normal distribution.
+```{margin}
 
-Though the basic idea behind a QQ-plot is quite simple, it demands that we slightly alter the definition of _empirical quantiles_ given in the previous section. Indeed, according to that definition, the minimum and maximum values in a dataset are the $0$- and $1$-quantiles, respectively. But we will run into trouble if we are going to compare these to the quantiles of a normal distribution, since normal distributions do not have $0$- and $1$-quantiles.
+I should mention that there are other types of plots closely related to QQ-plots, called _probability plots_ and _PP-plots_. In fact, there seems to be some disagreement as to whether what I am describing in this section actually _is_ a QQ-plot. But this all seems to me to be uninteresting academic pedantry.
+```
 
-To help explain, for convenience, let's suppose that the points in our dataset are labeled with $y$'s instead of $x$'s. (You'll see why this is convenient, in just a moment.) Suppose that we put our dataset in non-decreasing order,
+We learned in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments) how to produce a plot of the empirical quantiles of a dataset. In this section, we will learn how to produce a plot that compares these empirical quantiles to the (theoretical) quantiles of a proposed model distribution. These new types of plots are called _quantile-quantile plots_ or _QQ-plots_.
+
+Though the basic idea behind a QQ-plot is quite simple, it demands that we slightly alter the definition of _empirical quantiles_ given in the previous section and the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments). Indeed, according to that definition, the minimum and maximum values in a dataset are the $0$- and $1$-quantiles, respectively. But we will run into trouble if we are going to compare these to the quantiles of theoretical model distributions which might not have $0$- and $1$-quantiles.
+
+To help motivate the new definition, for convenience, let's suppose that the points in our dataset are labeled with $y$'s instead of $x$'s. (You'll see why this is convenient, in just a moment.) Suppose that we put our dataset in non-decreasing order,
 
 \begin{equation*}
-y_1 \leq y_2 \leq \cdots \leq y_n,
+y^{(1)} \leq y^{(2)} \leq \cdots \leq y^{(m)},
 \end{equation*}
 
-where $n$ is the size of the dataset. Then, instead of identifying quantiles through the association
+where (as usual) $m$ is the size of the dataset. Then, instead of identifying quantiles through the association
 
 \begin{equation*}
-y_k \leftrightarrow \frac{k-1}{n-1}
+y^{(i)} \leftrightarrow \frac{i-1}{m-1}
 \end{equation*}
 
 as we did in {prf:ref}`emp-quantile-defn`, we instead make the association
 
 ```{math}
 :label: quant-eqn
-y_k \leftrightarrow \frac{k-1/2}{n},
+y^{(i)} \leftrightarrow \frac{i-1/2}{m},
 ```
 
-for $k=1,2,\ldots,n$. For a specific example, suppose that $n=5$ and that all the data points are distinct. Then, if we plot our dataset along an axis along with the labels {eq}`quant-eqn`, we get the following picture:
+for $i=1,2,\ldots,m$. For a specific example, suppose that $m=5$ and that all the data points are distinct. Then, if we plot our dataset along an axis along with the labels {eq}`quant-eqn`, we get the following picture:
 
 ```{image} ../img/quant.svg 
 :width: 80%
@@ -753,19 +742,19 @@ for $k=1,2,\ldots,n$. For a specific example, suppose that $n=5$ and that all th
 
 Notice that the minimum and maximum values are no longer the $0$- and $1$-quantiles, but instead the $0.1$- and $0.9$-quantiles.
 
-Now, to construct the QQ-plot, we compare these (new) empirical quantiles to the _actual_ quantiles of the standard normal distribution $\mathcal{N}(0,1)$ by first defining
+Now, suppose that we thought that our data was well modeled by a probability distribution with continuous distribution function $F$ and quantile function $Q = F^{-1}$. Then, to construct the _QQ-plot_ that compares the empirical quantiles to the model quantiles, we define
 
 \begin{equation*}
-x_k = \Phi^{-1} \left( \frac{k-1/2}{n} \right)
+x^{(i)} = Q\left( \frac{i-1/2}{m} \right)
 \end{equation*}
 
-for each $k=1,2,\ldots,n$, where $\Phi$ is the CDF of the standard normal distribution. In particular, note that $x_k$ really _is_ the $(k-1/2)/n$-quantile of $\mathcal{N}(0,1)$, according to our earlier definition of _quantile_ in {numref}`Chapter %s <random-variables>`. The QQ-plot then consists of the points
+for each $i=1,2,\ldots,m$. In particular, note that $x^{(i)}$ really _is_ the $(i-1/2)/m$-quantile of the model distribution, according to our earlier definition of _quantile_ in {numref}`Chapter %s <random-variables>`. The QQ-plot then consists of those points
 
 \begin{equation*}
-(x_k,y_k), \quad k=1,2,\ldots,n.
+\big(x^{(i)},y^{(i)}\big), \quad i=1,2,\ldots,m.
 \end{equation*}
 
-Here, I ask the computer to generate the QQ-plot for the Airbnb prices:
+Let's see how this might all work with our dataset of Airbnb prices. Suppose that we thought this dataset was well modeled by a normal distribution $\mathcal{N}(\mu,\sigma^2)$ where we select the empirical statistics $\bar{y}$ ($y=$ price) and $s^2$ for the model parameters $\mu=\bar{y}$ and $\sigma^2 = s^2$. Then, I can have the computer generate a QQ-plot comparing the empirical quantiles to the (theoretical) model quantiles:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -777,34 +766,65 @@ Here, I ask the computer to generate the QQ-plot for the Airbnb prices:
 
 from statsmodels.graphics.gofplots import qqplot
 
-qqplot(sample, a=1/2, alpha=0.25)
-plt.xlabel(r'$x_k=$normal quantiles')
-plt.ylabel(r'$y_k=$empirical quantiles')
+qqplot(data=srs_airbnb, dist=X, a=1/2, alpha=0.25, line='45')
+plt.xlabel('(normal) model quantiles')
+plt.ylabel('empirical quantiles')
+plt.show()
+```
+
+Ok, great. How do we interpret this thing? The idea is that, if the model distribution fit the dataset well, then the empirical quantiles should be reasonably close to the model quantiles. One can judge this "reasonable closeness" in the QQ-plot by checking how well the scattered points fit the diagonal red line (which has a slope of $1$, or 45 degrees).
+
+In our Airbnb example, it is clear that the scattered points are a poor fit for the diagonal line. Thus, the QQ-plot suggests that our dataset is **not** accurately modeled by the proposed normal distribution.
+
+But what if we just chose our parameters $\mu$ and $\sigma^2$ poorly, and the dataset is accurately modeled by _another_ normal distribution with different parameters? In particular, what if we thought that the dataset was accurately modeled by a _standard_ normal distribution? Here's the relevant QQ-plot, to test our hypothesis:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+:   image:
+:       width: 100%
+
+_, axes = plt.subplots(ncols=2, nrows=1, sharey=True, figsize=(12, 6))
+
+qqplot(data=srs_airbnb, a=1/2, alpha=0.25, line='45', ax=axes[0])
+qqplot(data=srs_airbnb, a=1/2, alpha=0.25, ax=axes[1])
+axes[0].set_xlabel('(standard normal) model quantiles')
+axes[0].set_title('with diagonal line')
+axes[0].set_ylabel('empirical quantiles')
+axes[1].set_xlabel('(standard normal) model quantiles')
+axes[1].set_ylabel('empirical quantiles')
+axes[1].set_title('without diagonal line')
 plt.tight_layout()
 ```
 
-Ok, great. How do we interpret this thing?
+The QQ-plot on the left (with the diagonal line) shows us that we picked an _even worse_ model. The horizontal axis on the QQ-plot on the right has been re-scaled so that the scattered points do not appear to fall along a (nearly) vertical line, as they do in the left-hand plot.
 
-> Essentially, what we are looking for in a QQ-plot is whether the points fall along some straight line $y = ax + b$. If the QQ-plot roughly falls along a line, then the dataset is _close_ to being normally distributed.
+The point I want to illustrate now is that the QQ-plot on the right---without the diagonal line, and with axes on different scales---may be used to judge whether our data is fit well by _some_ normal distribution. Indeed, my goal is to justify the following:
 
-Why is this true? To explain, suppose that the points in the QQ-plot fell _exactly_ on a straight line, so that
+> **Observation**: What we are looking for in the (standard normal) QQ-plot on the right is whether the scattered points fall along _some_ straight line $y = ax + b$ (with $a>0$). If they do, then the data is fit well by the normal distribution $\mathcal{N}(b,a^2)$.
+
+This observation rests upon the fact that affine transformations of normal variables are still normal (which we saw back in {numref}`Chapter %s <examples>`).
+
+To explain, suppose that the points in the QQ-plot fell _exactly_ on a straight line, so that
 
 ```{math}
 :label: norm-eqn
-y_k = ax_k + b, \quad k=1,2,\ldots,n,
+y^{(i)} = ax^{(i)} + b, \quad i=1,2,\ldots,m,
 ```
 
-for some $a$ and $b$ with $a\neq 0$. Then, let
+for some $a$ and $b$ with $a >0$. Then, let
 
 \begin{equation*}
 f(x) = \frac{1}{\sqrt{2\pi}} \exp\left( -\frac{x^2}{2}\right)
 \end{equation*}
 
-be the density of the standard normal distribution, so that $\Phi(x) = \int_{-\infty}^x f(t) \ \text{d} t$. Now, if {eq}`norm-eqn` were true, then
+be the density of the standard normal distribution, with associated distribution function $\Phi(x) = \int_{-\infty}^x f(t) \ \text{d} t$. Now, if {eq}`norm-eqn` were true, then
 
 ```{math}
 :label: trans-eqn
-\frac{k-1/2}{n} = \Phi\left( \frac{y_k-b}{a} \right) = \int_{-\infty}^{(y_k-b)/a} f(t) \ \text{d} t = \int_{-\infty}^{y_k} \frac{1}{a} f \left( \frac{s-b}{a}\right) \ \text{d} s,
+\frac{i-1/2}{m} = \Phi\left( \frac{y^{(i)}-b}{a} \right) = \int_{-\infty}^{(y^{(i)}-b)/a} f(t) \ \text{d} t = \int_{-\infty}^{y^{(i)}} \frac{1}{a} f \left( \frac{s-b}{a}\right) \ \text{d} s,
 ```
 
 where I made the substitution $t = (s-b)/a$ in going from the first integral to the second. But notice that the transformed function
@@ -813,19 +833,9 @@ where I made the substitution $t = (s-b)/a$ in going from the first integral to 
 \frac{1}{a} f \left( \frac{x-b}{a}\right) = \frac{1}{a\sqrt{2\pi}} \exp\left[ -\frac{1}{2} \left(\frac{x-b}{a}\right)^2\right]
 \end{equation*}
 
-is the density of $\mathcal{N}(b,a^2)$, and so {eq}`trans-eqn` shows that, provided {eq}`norm-eqn` is true, the data point $y_k$ is the $(k-1/2)/n$-quantile of $\mathcal{N}(b,a^2)$. We conclude:
+is the density of $\mathcal{N}(b,a^2)$, and so {eq}`trans-eqn` shows that, provided {eq}`norm-eqn` is true, the data point $y^{(i)}$ is the $(i-1/2)/m$-quantile of $\mathcal{N}(b,a^2)$. Thus, the empirical quantiles match the (theoretical) model quantiles of $\mathcal{N}(b,a^2)$, which justifies the observation in the box above.
 
-> If the QQ-plot falls nearly along the straight line $y=ax+b$, then the empirical distribution of the dataset is closely approximated by the normal distribution $\mathcal{N}(b,a^2)$.
-
-Returning to the QQ-plot of the Airbnb prices with this intuition in mind, it does _not_ appear that the dataset is normally distributed, since the plot does not fall along a straight line. But we knew this already, based on our examination of the ECDF, the histogram, and the KDE of the Airbnb prices.
-
-```{tip}
-Essentially what I am describing in this chapter is something called graphical _exploratory data analysis_ (EDA), wherein one uses as many visualization schemes as possible to get a feel for the _shape_ of a dataset. When conducting EDA, you want to use as many tools as possible, since any one particular tool often as disadvantages that might be offset by other tools. For example, while a plot of the ECDF and a QQ-plot do not carry effects from arbitrary choices like the number of bins for a histogram or the bandwidth of a KDE, they can also be harder to interpret. So, use _everything_ you have at your disposal!
-```
-
-When the empirical distribution of a dataset is _not_ normally distributed, so that its QQ-plot is curvy, one can sometimes "interpret" the concavity of the plot. But this can be tricky to do, and it's difficult to write down hard and fast rules that work for _all_ possible QQ-plot shapes. I encourage you to think on your own, however, what the concavity of the QQ-plot of the Airbnb prices means!
-
-The Airbnb prices are _almost_ continuous, so the QQ-plot of the dataset _looks_ like a nice smooth curve. However, if your dataset is large, consisting of observed values of a discrete variable with a small-ish range, then the QQ-plot might have an unexpected shape with lots of horizontal stretches due to repetitions in the dataset.
+Now, whatever a good model for the Airbnb prices happens to be, all of its QQ-plots will look like nice smooth curves. However, if your dataset is large, consisting of observed values of a discrete variable with a small-ish range, then the QQ-plot might have an unexpected shape with lots of horizontal stretches due to repetitions in the dataset.
 
 ```{margin}
 This dataset was obtained from the UCI Machine Learning Repository [here](http://archive.ics.uci.edu/dataset/352/online+retail). It was passed through some light pre-processing, including removal of (extreme) outliers.
@@ -836,9 +846,8 @@ For example, let's consider a dataset consisting of sales data from an online re
 ```{code-cell} ipython3
 :tags: [hide-input]
 
-sample_sales = pd.read_csv('../aux-files/online_sales.csv')
-sample_sales = sample_sales['Quantity']
-sample_sales.describe()
+srs_sales = pd.read_csv('../aux-files/online_sales.csv', usecols=['Quantity']).squeeze()
+srs_sales.describe()
 ```
 
 The data consists of observations of the random variable
@@ -847,9 +856,9 @@ The data consists of observations of the random variable
 Y = \text{number of items purchased in a given order}.
 \end{equation*}
 
-So, an observed value of $y=3$ in the dataset means that three items were purchased in the order. From the 'count,' 'max,' and 'min' numbers in the description of the dataset, we see that the dataset contains nearly half a million data points distributed over discrete (integer) values ranging from $y=-12$ to $y=23$. (A negative value means that items were returned to the store.) Therefore, there are going to be _lots_ of repetitions in this dataset.
+So, an observed value of $y=3$ in the dataset means that three items were purchased in the corresponding order. From the 'count,' 'max,' and 'min' numbers in the description of the dataset, we see that the dataset contains nearly half a million data points distributed over discrete (integer) values ranging from $y=-12$ to $y=23$. (A negative value means that items were returned to the store.) Therefore, there are going to be _lots_ of repetitions in this dataset.
 
-Here's the QQ-plot of this dataset:
+Here's the QQ-plot of this dataset against the standard normal distribution, with re-scaled axes:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -859,13 +868,13 @@ Here's the QQ-plot of this dataset:
 :   image:
 :       width: 70%
 
-qqplot(np.sort(sample_sales), a=1/2, alpha=0.25)
-plt.xlabel('normal quantiles')
-plt.ylabel('sample quantiles')
-plt.tight_layout()
+qqplot(data=srs_sales, a=1/2, alpha=0.25)
+plt.xlabel('(standard normal) model quantiles')
+plt.ylabel('empirical quantiles')
+plt.show()
 ```
 
-In contrast to the QQ-plot of the Airbnb prices, this QQ-plot appears to be a series of disconnected horizontal lines. The $y$-value of a horizontal line corresponds to a value in the dataset that is repeated. But be _very_ careful in interpreting the _lengths_ of the horizontal lines as measures for how _often_ the data points are repeated, as you would with the heights of the bars in a histogram. Indeed, because of the shape of the standard normal CDF (it is nearly flat away from its mean), the lengths of horizontal lines toward the bottom and the top of the QQ-plot are scaled up compared to the lengths of the horizontal lines in the middle of the plot. (I will explain this more precisely in class, with pictures.)
+In contrast to the QQ-plot of the Airbnb prices, this QQ-plot appears to be a series of disconnected horizontal lines. The $y$-value of a horizontal line corresponds to a value in the dataset that is repeated. But be _very_ careful in interpreting the _lengths_ of the horizontal lines as measures for how _often_ the data points are repeated, as you would with the heights of the bars in a histogram. Indeed, because of the shape of normal density curves (which are nearly flat away from their means), the lengths of horizontal lines toward the bottom and the top of the QQ-plot are disproportionately scaled up compared to the lengths of the horizontal lines in the middle of the plot. (I will explain this more precisely in class, with pictures.)
 
 For example, focus on the horizontal lines in the QQ-plot at $y=12$ and $y=20$. These lines appear to have nearly the same length. But then look at the histogram of the data, which for comparison I've plotted behind a normal density curve with $\mu=$ empirical mean and $\sigma=$ empirical standard deviation.
 
@@ -877,17 +886,17 @@ For example, focus on the horizontal lines in the QQ-plot at $y=12$ and $y=20$. 
 :   image:
 :       width: 70%
 
-x = np.linspace(-12, 23)
-y = norm(loc=sample_sales.mean(), scale=sample_sales.std()).pdf(x)
+grid = np.linspace(-12, 23)
+U = sp.stats.norm(loc=srs_sales.mean(), scale=srs_sales.std())
 
-plt.hist(sample_sales, density=True, bins=20)
-plt.plot(x, y)
+srs_sales.plot(kind='hist', ec='black', density=True, bins=20)
+plt.plot(grid, U.pdf(grid))
 plt.xlabel('quantity')
 plt.ylabel('probability')
 plt.tight_layout()
 ```
 
-The histogram reveals that there are many, _many_ fewer observations at $y=20$ compared to $y=12$, and yet the corresponding horizontal lines in the QQ-plot appear to have the same length! Again, this discrepancy is due to the shape of normal CDFs which are flat away from their means. 
+The histogram reveals that there are many, _many_ fewer observations at $y=20$ compared to $y=12$, and yet the corresponding horizontal lines in the QQ-plot appear to have the same length! Again, this discrepancy is due to the shape of normal density curves.
 
 So, we should not think of the lengths of the horizontal lines in a QQ-plot as a measure of _absolute_ discrepancy compared to a normal distribution. Rather, they are a measure of the _relative_ discrepancy. In other words, their lengths should be proportional to the ratio
 
@@ -958,9 +967,9 @@ We finish the chapter with a discussion of two more methods to visualize dataset
 :   image:
 :       width: 100%
 
-sns.boxplot(x=sample_sales)
-plt.xlabel(r'$x=$quantity')
-plt.gcf().set_size_inches(10, 2)
+sns.boxplot(x=srs_sales)
+plt.xlabel('quantity')
+plt.gcf().set_size_inches(w=10, h=2)
 plt.tight_layout()
 ```
 
@@ -992,9 +1001,9 @@ Here's the box plot for the Airbnb prices:
 :   image:
 :       width: 100%
 
-sns.boxplot(x=sample)
-plt.xlabel(r'$x=$price')
-plt.gcf().set_size_inches(10, 2)
+sns.boxplot(x=srs_airbnb)
+plt.xlabel('price')
+plt.gcf().set_size_inches(w=10, h=2)
 plt.tight_layout()
 ```
 
@@ -1010,13 +1019,14 @@ Now, what were to happen if we combined a box plot with one of the tools for gra
 :   image:
 :       width: 100%
 
-sns.violinplot(x=sample_sales, bw=0.3, width=0.8)
-plt.xlabel(r'$x=$quantity')
-plt.gcf().set_size_inches(10, 3)
+sns.set_context('paper')
+sns.violinplot(x=srs_sales, bw=0.3)
+plt.xlabel('quantity')
+plt.gcf().set_size_inches(w=10, h=4)
 plt.tight_layout()
 ```
 
-This is a _violin plot_ of our online sales data (the reason for the name is evident). Along the central horizontal line is a box plot---can you see it? The white dot in the box (which is really a flattened rectangle) represents the empirical median. You can see the upper whisker in its entirety, but the tip of the lower whisker is not visible. Then, above the central horizontal line is displayed a KDE of the dataset, and its mirror image is displayed below. For comparison, here's a picture of a KDE of the dataset all on its own:
+This is a _violin plot_ of our online sales data (the reason for the name is evident). Along the central horizontal line is a box plot---can you see it? The white dot in the box represents the empirical median. You can see the upper whisker in its entirety, but the tip of the lower whisker is not visible. Then, above the central horizontal line is displayed a KDE of the dataset, and its mirror image is displayed below. For comparison, here's a picture of a KDE of the dataset all on its own:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1026,8 +1036,8 @@ This is a _violin plot_ of our online sales data (the reason for the name is evi
 :   image:
 :       width: 100%
 
-sns.kdeplot(sample_sales, bw_method=0.3)
-plt.gcf().set_size_inches(8, 2)
+sns.kdeplot(x=srs_sales, bw_method=0.3)
+plt.gcf().set_size_inches(w=8, h=2)
 plt.xlabel('quantity')
 plt.ylabel('probability density')
 plt.tight_layout()
@@ -1045,9 +1055,10 @@ Here's a violin plot of the Airbnb dataset:
 :   image:
 :       width: 100%
 
-sns.violinplot(x=sample, bw=0.15)
-plt.xlabel(r'$x=$price')
-plt.gcf().set_size_inches(10, 3)
+sns.set_context('paper')
+sns.violinplot(x=srs_airbnb, bw=0.15)
+plt.xlabel('price')
+plt.gcf().set_size_inches(w=10, h=4)
 plt.tight_layout()
 ```
 
