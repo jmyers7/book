@@ -15,7 +15,7 @@ kernelspec:
 
 ## Data and random samples
 
-This chapter is a continuation of the ideas presented in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments) where we began exploring how the concepts that we have been studying over the past few chapters apply to _real-world_ datasets. In that assignment, we learned about _empirical distributions_ of datasets and associated empirical quantities like means, variances, and quantiles.
+This chapter is a continuation of the ideas presented in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments) where we began exploring how the concepts that we have been studying over the past few chapters apply to _real-world_ datasets. In that assignment, we learned about _empirical distributions_ of datasets and associated empirical quantities like means, variances, and quantiles. We will continue making the connection between theory and practice by exploring some further methods and techniques for real-world data analysis, as well as catch a first glimpse of _probabilistic models_, which we will study in much more depth in {numref}`Chapter %s <prob-models>`.
 
 Our exploration in the third programming assignment centered on the _Ames housing dataset_. In this chapter, we will explore a dataset related to Airbnbs. In particular, we have at hand a sample of listing prices (in USD) for Airbnbs in Austin, Texas, over the last 12 months:
 
@@ -33,8 +33,8 @@ plt.style.use('../aux-files/custom_style_light.mplstyle')
 mpl.rcParams['figure.dpi'] = 600
 warnings.filterwarnings("ignore")
 
-srs_airbnb = pd.read_csv('../aux-files/austin_sample.csv', usecols=['price']).squeeze()
-srs_airbnb
+srs = pd.read_csv('../aux-files/austin_sample.csv', usecols=['price']).squeeze()
+srs
 ```
 
 ```{margin}
@@ -106,7 +106,7 @@ On the other hand, we do very much(!) care about the probability distributions o
 But because each of the random variables $X_i$ is essentially a "duplicate" of the single 'price' random variable $X$, they all have the *same* distribution, in the sense that
 
 \begin{equation*}
-P(X_1}\in A) = P(X_2\in A) = \cdots = P(X_m\in A)
+P(X_1\in A) = P(X_2\in A) = \cdots = P(X_m\in A)
 \end{equation*}
 
 for all events $A\subset \mathbb{R}$. If we draw each of the random variables along with their distributions, we would get:
@@ -232,7 +232,7 @@ To make this concrete, let's bring back the Airbnb prices. I have asked the comp
 :   image:
 :       width: 70%
 
-sns.ecdfplot(x=srs_airbnb)
+sns.ecdfplot(x=srs)
 plt.xlabel('price')
 plt.ylabel('probability')
 plt.tight_layout()
@@ -260,12 +260,12 @@ in the notation introduced above. How might we find good settings for the parame
 :   image:
 :       width: 70%
 
-xbar = srs_airbnb.mean()
-s = srs_airbnb.std()
+xbar = srs.mean()
+s = srs.std()
 X = sp.stats.norm(loc=xbar, scale=s)
-grid = np.linspace(srs_airbnb.min(), srs_airbnb.max())
+grid = np.linspace(srs.min(), srs.max())
 
-sns.ecdfplot(x=srs_airbnb, label='ECDF')
+sns.ecdfplot(x=srs, label='ECDF')
 plt.plot(grid, X.cdf(grid), label='normal CDF')
 plt.axvline(x=xbar, color='r', label='empirical mean')
 plt.xlabel('price')
@@ -286,7 +286,7 @@ Closely related to CDFs are density functions, of course. Now, _if_ we assume th
 :   image:
 :       width: 70%
 
-sns.kdeplot(x=srs_airbnb, label='estimated data PDF')
+sns.kdeplot(x=srs, label='estimated data PDF')
 plt.plot(grid, X.pdf(grid), label='normal PDF')
 plt.xlabel('price')
 plt.ylabel('probability density')
@@ -307,7 +307,7 @@ However, the KDE estimate for the data density curve shows that the data is righ
 :   image:
 :       width: 100%
 
-srs_log = np.log(srs_airbnb)
+srs_log = np.log(srs)
 X = sp.stats.norm(loc=srs_log.mean(), scale=srs_log.std())
 grid = np.linspace(srs_log.min(), srs_log.max() + 2)
 
@@ -396,7 +396,7 @@ Of course, computers are capable of plotting these types of histograms. Here is 
 :   image:
 :       width: 70%
 
-srs_airbnb.plot(kind='hist', ec='black', density=True)
+srs.plot(kind='hist', ec='black', density=True)
 plt.xlabel('price')
 plt.ylabel('probability')
 plt.tight_layout()
@@ -414,7 +414,7 @@ Be warned, however, that the shapes of these types of histograms are quite sensi
 :   image:
 :       width: 70%
 
-srs_airbnb.plot(kind='hist', ec='black', density=True, bins=100)
+srs.plot(kind='hist', ec='black', density=True, bins=100)
 plt.xlabel('price')
 plt.ylabel('probability')
 plt.tight_layout()
@@ -432,7 +432,7 @@ At the other extreme, here's a histogram with three bins:
 :   image:
 :       width: 70%
 
-srs_airbnb.plot(kind='hist', ec='black', density=True, bins=3)
+srs.plot(kind='hist', ec='black', density=True, bins=3)
 plt.xlabel('price')
 plt.ylabel('probability')
 plt.tight_layout()
@@ -547,7 +547,7 @@ fig, axes = plt.subplots(nrows=1, ncols=3, sharey=True, sharex=True, figsize=(10
 
 for h in bandwidths:
     idx = bandwidths.index(h)
-    sns.kdeplot(x=srs_airbnb, ax=axes[idx], bw_method=h)
+    sns.kdeplot(x=srs, ax=axes[idx], bw_method=h)
     axes[idx].set_xlabel('price')
     axes[idx].set_title(f'bandwidth $h={h}$')
     
@@ -651,7 +651,7 @@ The empirical 0.25-, 0.5-, and 0.75-quantiles are called the _first_, _second_, 
 ```{code-cell} ipython3
 :tags: [hide-input]
 
-srs_airbnb.describe()
+srs.describe()
 ```
 
 Along with the empirical quartiles, you also see that this method from the Pandas library conveniently outputs the empirical mean and standard deviation, as well as the size of the dataset (the _count_) and the minimum and maximum sample values.
@@ -672,7 +672,7 @@ So, using the outputs above, we see that the empirical IQR of the Airbnb dataset
 ```{code-cell} ipython3
 :tags: [hide-input]
 
-iqr_airbnb = srs_airbnb.quantile(q=0.75) - srs_airbnb.quantile(q=0.25)
+iqr_airbnb = srs.quantile(q=0.75) - srs.quantile(q=0.25)
 
 print(f'The IQR for the Airbnb dataset is {iqr_airbnb:.2f}.')
 
@@ -784,9 +784,9 @@ As I mentioned, QQ-plots serve as another type of diagnostic plot that allow us 
 
 from statsmodels.graphics.gofplots import qqplot
 
-X = sp.stats.norm(loc=srs_airbnb.mean(), scale=srs_airbnb.std())
+X = sp.stats.norm(loc=srs.mean(), scale=srs.std())
 
-qqplot(data=srs_airbnb, dist=X, a=1/2, alpha=0.25, line='45')
+qqplot(data=srs, dist=X, a=1/2, alpha=0.25, line='45')
 plt.xlabel('(normal) model quantiles')
 plt.ylabel('empirical quantiles')
 plt.show()
@@ -806,8 +806,8 @@ But what if we just chose our parameters $\mu$ and $\sigma^2$ poorly, and the da
 
 _, axes = plt.subplots(ncols=2, nrows=1, sharey=True, figsize=(10, 4))
 
-qqplot(data=srs_airbnb, a=1/2, alpha=0.25, line='45', ax=axes[0])
-qqplot(data=srs_airbnb, a=1/2, alpha=0.25, ax=axes[1])
+qqplot(data=srs, a=1/2, alpha=0.25, line='45', ax=axes[0])
+qqplot(data=srs, a=1/2, alpha=0.25, ax=axes[1])
 axes[0].set_xlabel('(standard normal) model quantiles')
 axes[0].set_title('with diagonal line')
 axes[0].set_ylabel('empirical quantiles')
@@ -883,109 +883,6 @@ Remember, we are looking for the data to fall along a straight line. In this plo
 srs_log.rename('log price').describe()
 ```
 
-Notice that the QQ-plots of the Airbnb dataset all appear to be nice smooth-ish curves. However, if your dataset is large, consisting of observed values of a discrete variable over a small range, then the QQ-plot might have an unexpected shape with lots of horizontal stretches due to repetitions in the dataset.
-
-```{margin}
-This dataset was obtained from the UCI Machine Learning Repository [here](http://archive.ics.uci.edu/dataset/352/online+retail). It was passed through some light pre-processing, including removal of (extreme) outliers.
-```
-
-For example, let's consider a dataset consisting of sales data from an online retail store in the UK. Here's a description:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-
-srs_sales = pd.read_csv('../aux-files/online_sales.csv', usecols=['Quantity']).squeeze().rename('quantity')
-srs_sales.describe()
-```
-
-The data consists of observations of the random variable
-
-\begin{equation*}
-Y = \text{quantity of items purchased in a given order}.
-\end{equation*}
-
-So, an observed value of $y=3$ in the dataset means that three items were purchased in the corresponding order. From the 'count,' 'max,' and 'min' numbers in the description of the dataset, we see that the dataset contains nearly half a million data points distributed over discrete (integer) values ranging from $y=-12$ to $y=23$. (A negative value means that items were returned to the store.) Therefore, there are going to be _lots_ of repetitions in this dataset.
-
-Here's the QQ-plot of this dataset against the standard normal distribution:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-:   image:
-:       width: 70%
-
-qqplot(data=srs_sales, a=1/2, alpha=0.25)
-plt.xlabel('(standard normal) model quantiles')
-plt.ylabel('empirical quantiles')
-plt.show()
-```
-
-In contrast to the QQ-plot of the Airbnb prices, this QQ-plot appears to be a series of disconnected horizontal lines. The $y$-value of a horizontal line corresponds to a value in the dataset that is repeated. But be _very_ careful in interpreting the _lengths_ of the horizontal lines as measures for how _often_ the data points are repeated, as you would with the heights of the bars in a histogram. Indeed, because of the shape of normal density curves (which are nearly flat away from their means), the lengths of horizontal lines toward the bottom and the top of the QQ-plot are disproportionately scaled up compared to the lengths of the horizontal lines in the middle of the plot. (I will explain this more precisely in class, with pictures.)
-
-For example, focus on the horizontal lines in the QQ-plot at $y=12$ and $y=20$. These lines appear to have nearly the same length. But then look at the empirical PMF of the data, which for comparison I've plotted behind a normal density curve with $\mu=$ empirical mean and $\sigma=$ empirical standard deviation.
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-:   image:
-:       width: 100%
-
-# warning! I think I found a bug that requires me to add (for some strange reason)
-# 12 to the location parameter of the normal density curve to produce the correct
-# plot. Try removing the 12 in the definition of `U` to see what I mean.
-pmf = srs_sales.value_counts(normalize=True)
-pmf.loc[0] = 0
-pmf.sort_index(inplace=True)
-U = sp.stats.norm(loc=srs_sales.mean()+12, scale=srs_sales.std())
-grid = np.linspace(0, 35)
-
-_, axis = plt.subplots(ncols=1, nrows=1, figsize=(10, 4))
-pmf.plot(kind='bar', ax=axis)
-axis.plot(grid, U.pdf(grid), color='#FD46FC')
-plt.ylabel('probability')
-plt.tight_layout()
-
-```
-
-The histogram reveals that there are many, _many_ fewer observations at $y=20$ compared to $y=12$, and yet the corresponding horizontal lines in the QQ-plot appear to have the same length! Again, this discrepancy is due to the shape of normal density curves.
-
-So, we should not think of the lengths of the horizontal lines in a QQ-plot as a measure of _absolute_ discrepancy compared to a normal distribution. Rather, they are a measure of the _relative_ discrepancy. In other words, their lengths should be proportional to the ratio
-
-\begin{equation*}
-\frac{\text{actual frequency of observed data point}}{\text{frequency of data point as predicted by a normal distribution}}.
-\end{equation*}
-
-This helps resolve the conflict between the equality of the lengths of the horizontal lines at $y=12$ and $y=20$, for the normal distribution predicts that we should see $y=12$ much more often than $y=20$, so that the two relative discrepancies should be nearly equal.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1012,7 +909,7 @@ This helps resolve the conflict between the equality of the lengths of the horiz
 
 ## Box plots and violin plots
 
-We finish the chapter with a discussion of two more methods to visualize datasets and empirical distributions. To begin, let's first consider the online sales data along with all the empirical statistics that we described and computed in the previous sections. We may combine all this information in something called a _box plot_ (or _box and whisker plot_):
+We finish the chapter with a discussion of two more methods to visualize datasets and empirical distributions. To begin, let's consider our Airbnb data and all the empirical statistics that we described and computed in the previous sections. We may combine all this information in something called a _box plot_ (or _box and whisker plot_):
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1022,49 +919,31 @@ We finish the chapter with a discussion of two more methods to visualize dataset
 :   image:
 :       width: 100%
 
-sns.boxplot(x=srs_sales)
-plt.xlabel('quantity')
-plt.gcf().set_size_inches(w=10, h=2)
-plt.tight_layout()
-```
-
-The left edge of the blue box is at $x=1$, which is the empirical $0.25$-quantile or first quartile; likewise, its right edge is at $x=6$, which is the empirical 0.75-quantile or third quartile. Therefore, the _width_ of the box is exactly the empirical IQR. The box thus represents where the middle 50% of the dataset lives. The vertical line through the box is at $x=2$, which is the empirical 0.5-quantile or the empirical median.
-
-You notice that the box has "whiskers." The left whisker either extends out to the minimum value in the dataset _or_ to the threshold value
-
-\begin{equation*}
-(\text{empirical 0.25-quantile}) - 1.5\times (\text{empirical IQR})
-\end{equation*}
-
-for determining outliers, whichever is greater. In this case, the whisker extends to the threshold value, and then all the dots to the _left_ of the whisker represent outliers in the lower tail of the distribution.
-
-Likewise, the right whisker either extends out to the maximum value in the dataset _or_ to the upper threshold value
-
-\begin{equation*}
-(\text{empirical 0.75-quantile}) + 1.5\times (\text{empirical IQR})
-\end{equation*}
-
-for determining outliers, whichever is smaller. In this case, the dataset _does_ contain outliers in its upper tail, so the whisker extends to the threshold value, and all the dots to the right are outliers.
-
-Here's the box plot for the Airbnb prices:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-:   image:
-:       width: 100%
-
-sns.boxplot(x=srs_airbnb)
+sns.boxplot(x=srs)
 plt.xlabel('price')
 plt.gcf().set_size_inches(w=10, h=2)
 plt.tight_layout()
 ```
 
-This time, there are _no_ outliers in the lower tail of the distribution, since the minimum value in the dataset is 82 cents (really?!), which is greater than the lower threshold for determining outliers. However, there are _lots_ of outliers in the upper tail of the distribution, and they are very densely packed together.
+The left edge of the blue box is at $x=83.24$, which is the empirical $0.25$-quantile or first quartile; its right edge is at $x=199.46$, which is the empirical 0.75-quantile or third quartile. Therefore, the _width_ of the box is exactly the empirical IQR. The box thus represents where the middle 50% of the dataset lives. The vertical line through the box is at $x=121.56$, which is the empirical 0.5-quantile or the empirical median.
 
-Now, what were to happen if we combined a box plot with one of the tools for graphical EDA that we studied earlier? We'd get something like this:
+You notice that the box has "whiskers." In general, the left whisker in a box plot either extends out to the minimum value in the dataset _or_ to the threshold value
+
+\begin{equation*}
+(\text{empirical 0.25-quantile}) - 1.5\times (\text{empirical IQR})
+\end{equation*}
+
+for determining outliers, whichever is greater. In the case of our Airbnb data, the whisker extends to the minimum value at $x=0.82$ (82 cents---really?).
+
+Likewise, the right whisker in general either extends out to the maximum value in the dataset _or_ to the upper threshold value
+
+\begin{equation*}
+(\text{empirical 0.75-quantile}) + 1.5\times (\text{empirical IQR})
+\end{equation*}
+
+for determining outliers, whichever is smaller. In the case of our Airbnb data, the dataset _does_ contain outliers in its upper tail, so the whisker extends to the threshold value, and all the dots to the right are outliers.
+
+Now, what were to happen if we combined a box plot and a KDE? We'd get something like this:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1075,13 +954,13 @@ Now, what were to happen if we combined a box plot with one of the tools for gra
 :       width: 100%
 
 sns.set_context('paper')
-sns.violinplot(x=srs_sales, bw=0.3)
+sns.violinplot(x=srs, bw=0.3)
 plt.xlabel('quantity')
 plt.gcf().set_size_inches(w=10, h=4)
 plt.tight_layout()
 ```
 
-This is a _violin plot_ of our online sales data (the reason for the name is evident). Along the central horizontal line is a box plot---can you see it? The white dot in the box represents the empirical median. You can see the upper whisker in its entirety, but the tip of the lower whisker is not visible. Then, above the central horizontal line is displayed a KDE of the dataset, and its mirror image is displayed below. For comparison, here's a picture of a KDE of the dataset all on its own:
+This is a _violin plot_---the reason for the name is evident. Along the central horizontal line is a box plot---can you see it? The white dot in the box represents the empirical median, while you can see the upper and lower whiskers as well. Then, above the central horizontal line is displayed a KDE of the dataset, and its mirror image is displayed below. For comparison, here's a picture of a KDE of the dataset all on its own:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1091,30 +970,11 @@ This is a _violin plot_ of our online sales data (the reason for the name is evi
 :   image:
 :       width: 100%
 
-sns.kdeplot(x=srs_sales, bw_method=0.3)
+sns.kdeplot(x=srs, bw_method=0.3)
 plt.gcf().set_size_inches(w=8, h=2)
 plt.xlabel('quantity')
 plt.ylabel('probability density')
 plt.tight_layout()
 ```
 
-So, violin plots are tools belonging to both graphical and numerical EDA since they combine KDEs with box plots. They have advantages over just plain box plots because they are better able to convey a sense of the _shape_ of a dataset. For example, box plots cannot display multiple data modes (multiple peaks in the distribution), whereas KDEs _can_. We see this in the online sales dataset above, which is bimodal (has two peaks).
-
-Here's a violin plot of the Airbnb dataset:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-:   image:
-:       width: 100%
-
-sns.set_context('paper')
-sns.violinplot(x=srs_airbnb, bw=0.15)
-plt.xlabel('price')
-plt.gcf().set_size_inches(w=10, h=4)
-plt.tight_layout()
-```
-
-We see that a significant portion of the upper tail of the distribution extends beyond the tip of the upper whisker, indicating many large outliers.
+So, violin plots are tools belonging to both graphical and numerical exploratory data analysis since they combine KDEs with box plots. They have advantages over just plain box plots because they are better able to convey a sense of the _shape_ of a dataset. For example, box plots cannot display multiple data modes (multiple peaks in the distribution), whereas KDEs _can_.
