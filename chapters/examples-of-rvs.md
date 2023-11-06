@@ -1180,7 +1180,7 @@ P(I_k >t | T_{k-1} = s ) &= P\left( \text{no emails arrive in $(s,s+t]$} \mid T_
 for $s,t> 0$. The second equality follows from independence of the arrival times $T_1,T_2,\ldots$; indeed, the arrival time of an email should have no influence on whether an email arrives in a subsequent time interval. The third equality follows from the fact (again) that the number of emails that arrive in a time interval of length $t$ is a $\mathcal{P}ois(\lambda t)$ random variable. But independence considerations also suggest that
 
 $$
-P(I_k >t) = P(I_k >t | T_{k-1} < s )
+P(I_k >t) = P(I_k >t | T_{k-1} = s )
 $$
 
 and hence
