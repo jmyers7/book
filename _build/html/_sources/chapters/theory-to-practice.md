@@ -55,15 +55,10 @@ which takes a listing from the population $S$ as input and spits out its price:
 X(\text{listing}) = \text{price}.
 \end{equation*}
 
-```{margin}
-
-Why am I writing the sample points with parenthesized superscripts $x^{(i)}$ rather than with subscripts $x_i$? This is because later the observations in our samples may consist of _vectors_, and we will use subscripts to index the components of vectors. So, the notation in this chapter is chosen with future applications in mind.
-```
-
 The actual prices in our sample are called *observed values* of the random variable $X$ and, as in previous chapters, they are represented with a lowercase $x$. We would list the elements in our sample as
 
 \begin{equation*}
-x^{(1)},x^{(2)}, \ldots, x^{(m)} \in \mathbb{R}
+x_1,x_2,\ldots,x_m \in \mathbb{R}
 \end{equation*}
 
 where $m=3{,}972$.
@@ -81,10 +76,10 @@ However, what makes our current scenario different from those considered in past
 The answer is pretty obvious, actually. After all, a collection of $m$ prices like those in our sample must come from a collection of $m$ listings, right? This suggests that we should simply duplicate the random variable $X$ to obtain a *sequence* of random variables
 
 \begin{equation*}
-X^{(1)},X^{(2)},\ldots,X^{(m)},
+X_1,X_2,\ldots,X_m,
 \end{equation*}
 
-where the random variable $X^{(i)}$ (for $1\leq i \leq m$) spits out the price of the $i$-th listing. Something like:
+where the random variable $X_i$ (for $1\leq i \leq m$) spits out the price of the $i$-th listing. Something like:
 
 ```{image} ../img/cartesian.svg
 :width: 90%
@@ -100,7 +95,7 @@ Now, what about probability? Remember, I called the population $S$ of all listin
 
 Indeed, $P$ is a purely academic object whose only role in this business is to make the theory under the hood tick along. It's mostly pure mathematicians like me that spend time worrying about $P$, but it is *never*, *ever* mentioned or acknowledged in real-world scenarios.
 
-On the other hand, we do very much(!) care about the probability distributions of the random variables $X^{(1)},X^{(2)},\ldots,X^{(m)}$. We will be devoting a huge amount of time and effort over the rest of this course trying to figure out the distribution of this or that random variable. In the context of our Airbnb prices, the distributions of the $X^{(i)}$'s tell us the distribution of prices:
+On the other hand, we do very much(!) care about the probability distributions of the random variables $X_1,X_2,\ldots,X_m$. We will be devoting a huge amount of time and effort over the rest of this course trying to figure out the distribution of this or that random variable. In the context of our Airbnb prices, the distributions of the $X_i$'s tell us the distribution of prices:
 
 ```{image} ../img/airbnb.svg
 :width: 90%
@@ -108,10 +103,10 @@ On the other hand, we do very much(!) care about the probability distributions o
 ```
 &nbsp;
 
-But because each of the random variables $X^{(i)}$ is essentially a "duplicate" of the single 'price' random variable $X$, they all have the *same* distribution, in the sense that
+But because each of the random variables $X_i$ is essentially a "duplicate" of the single 'price' random variable $X$, they all have the *same* distribution, in the sense that
 
 \begin{equation*}
-P(X^{(1)}\in A)  = P(X^{(2)}\in A) = \cdots = P(X^{(m)}\in A)
+P(X_1}\in A) = P(X_2\in A) = \cdots = P(X_m\in A)
 \end{equation*}
 
 for all events $A\subset \mathbb{R}$. If we draw each of the random variables along with their distributions, we would get:
@@ -127,11 +122,11 @@ Notice that all the distributions are the same! This leads us to one of the main
 ```{prf:definition}
 :label: random-sample-defn
 
-Let $X^{(1)},X^{(2)},\ldots,X^{(m)}$ be a sequence of random variables, all defined on the same probability space.
+Let $X_1,X_2,\ldots,X_m$ be a sequence of random variables, all defined on the same probability space.
 
 * The random variables are called a *random sample* if they are *independent* and *identically distributed* (IID).
 
-Provided that the sequence is a random sample, an *observed random sample*, or a *dataset*, is a sequence of real numbers $x^{(1)},x^{(2)},\ldots,x^{(m)}$ where $x^{(i)}$ is an observed value of $X^{(i)}$.
+Provided that the sequence is a random sample, an *observed random sample*, or a *dataset*, is a sequence of real numbers $x_1,x_2,\ldots,x_m$ where $x_i$ is an observed value of $X_i$.
 ```
 
 Two random variables are said to be *independent* if the probability of one of the random variables taking a particular value is not influenced or affected by the other random variable taking a particular value. This isn't a precise definition, and it must be adapted to apply to an entire *sequence* of random variables, but it is good enough for now. (The precise definition will come in {prf:ref}`independence-defn`.)
@@ -142,9 +137,9 @@ Why have two different types of random samples? Answers:
 
 ```{admonition} The roles of random samples
 
-* Observed random samples $x^{(1)},x^{(2)},\ldots,x^{(m)}$ are the datasets that we work with in the real world. It is therefore obvious why we care about these.
+* Observed random samples $x_1,x_2,\ldots,x_m$ are the datasets that we work with in the real world. It is therefore obvious why we care about these.
 
-* We use random samples $X^{(1)},X^{(2)}\ldots,X^{(m)}$ when we want to reason theoretically about the observed random samples that we encounter in the real world. For example, suppose that you want to prove that some type of statistical estimator or machine learning algorithm works well for *any* dataset. Then you *must* argue using random samples consisting of IID random variables!
+* We use random samples $X_1,X_2,\ldots,X_m$ when we want to reason theoretically about the observed random samples that we encounter in the real world. For example, suppose that you want to prove that some type of statistical estimator or machine learning algorithm works well for *any* dataset. Then you *must* argue using random samples consisting of IID random variables!
 ```
 
 
@@ -180,48 +175,54 @@ Why have two different types of random samples? Answers:
 
 ## Probabilistic models and empirical distributions
 
-If $X^{(1)},X^{(2)},\ldots,X^{(m)}$ is a random sample, then by definition the probability distributions of the $X^{(i)}$ are all identical. This will often be written as either
+If $X_1,X_2,\ldots,X_m$ is a random sample, then by definition the probability distributions of the $X_i$ are all identical. This will often be written as either
 
 \begin{equation*}
-X^{(1)},X^{(2)},\ldots,X^{(m)} \sim f \quad \text{or} \quad X^{(1)},X^{(2)},\ldots,X^{(m)} \sim F,
+X_1,X_2,\ldots,X_m \sim f \quad \text{or} \quad X_1,X_2,\ldots,X_m \sim F,
 \end{equation*}
 
-where $f$ is the density function of the $X^{(i)}$'s and $F$ is their distribution function. A particular choice of $f$ or $F$ is called a _probabilistic model_. Often, an analyst doesn't choose a _specific_ $f$ or $F$, but rather chooses a _family_ from which these functions are drawn. For example, an analyst might choose the model from the Gaussian family of distributions, so that
+where $f$ is the density function of the $X_i$'s and $F$ is their distribution function. A particular choice of $f$ or $F$ is called a _probabilistic model_. Often, an analyst doesn't choose a _specific_ distribution, but rather chooses a _family_ from which the model distribution is drawn. For example, an analyst might choose the model from the Gaussian family of distributions, so that
 
 \begin{equation*}
-X^{(1)},X^{(2)},\ldots,X^{(m)} \sim \mathcal{N}(\mu_0,\sigma_0^2)
+X_1,X_2,\ldots,X_m;\mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 \end{equation*}
 
-where $\mu_0$ and $\sigma_0$ are unknown parameters. Then, the goal is to use data to estimate $\mu_0$ and $\sigma_0$ as accurately as possible. In this scenario the parameters $\mu_0$ and $\sigma_0$ are called *model parameters* (or sometimes _population parameters_).
+Then, the goal is to estimate specific values of the parameters $\mu$ and $\sigma$ that yield a best-fit model for an observed random sample $x_1,x_2,\ldots,x_m$. In this scenario the parameters $\mu$ and $\sigma$ are called *model parameters* (or sometimes _population parameters_).
 
-Since the normal distributions $\mathcal{N}(\mu,\sigma^2)$ depend on a finite number of parameters, we say that the normal probabilistic model is _parametric_. However, sometimes we may believe that the data is modeled by a collection of distributions that are _not_ parametrized in any natural way by a finite set of parameters; these latter types of statistical models are called _non-parametric_.
+As we will learn in {numref}`Chapter %s <prob-models>`, the random variables and parameters in a probabilistic model may be depicted graphically; for our normal model, we would draw the following picture in the case that $m=3$:
 
-At the risk of oversimplification, what I have just describe is, in a nutshell, the entire program of _inferential statistics_. A major portion of the second half of this course will be devoted to studying clever procedures and algorithms that use datasets to generate estimates of model parameters. In particular, we will study probabilistic models in exhaustive detail in {numref}`Chapter %s <prob-models>`.
+```{image} ../img/norm-model.svg
+:width: 50%
+:align: center
+```
+&nbsp;
 
-As a first step in this direction, in this chapter we study *empirical distributions*. These are the probability distributions of observed datasets. Our interest in datasets hinges on the assumption that they _accurately_ represent the larger population; if so, then their empirical distributions should reasonably match the unknown population distribution.
+The probabilistic models we will study in {numref}`Chapter %s <prob-models>` will be more complex than this, however, with arrows running between the random variables themselves (representing "probabilistic influence") and both _observed_ and _latent_ (or _hidden_) random variables.
 
-Here's the main definition:
+What do we mean when we say that a model "fits" the data well? Essentially, we mean that the model distribution and the empirical distribution of the dataset---the latter of which you learned about in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments)---are reasonably "close." While _closeness_ may actually be _quantified_ in certain ways (e.g., using [KL divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence)), often times an analyst judges _closeness_ by checking that various probabilistic objects of the model and empirical distributions are nearly equal, and also by checking several diagnostic plots, many of which we will study in this chapter.
+
+The first method we will use to compare a model and empirical distribution is by comparing their CDFs. For this, we need to define the CDF of a dataset. Here's the definition:
 
 ````{prf:definition}
 :label: emp-dist-defn
 
-Let $X^{(1)},X^{(2)},\ldots,X^{(m)} \sim F$ be a random sample from an unknown distribution function $F$, and let $x^{(1)},x^{(2)},\ldots,x^{(m)}$ be an _observed_ random sample. Then the *empirical distribution* of the dataset is the discrete probability measure on $\mathbb{R}$ with probability mass function
+Let $X_1,X_2,\ldots,X_m \sim F$ be a random sample from an unknown distribution function $F$, and let $x_1,x_2,\ldots,x_m$ be an _observed_ random sample. Then the *empirical distribution* of the dataset is the discrete probability measure on $\mathbb{R}$ with probability mass function
 
 ```{math}
 :label: ECDF-eqn
-p(x) = \frac{\text{number of data points $x^{(i)}$ that match $x$}}{m}.
+p(x) = \frac{\text{number of data points $x_i$ that match $x$}}{m}.
 ```
 
 The *empirical cumulative distribution function* (ECDF) of the dataset is the CDF of the empiricical disribution. It is often denoted $\widehat{F}(x)$, and it is given by the usual formula
 
 \begin{equation*}
-\widehat{F}(x) = \sum_{y\leq x} p(y) = \frac{\text{number of data points $x^{(i)}$ with $x^{(i)} \leq x$}}{m}.
+\widehat{F}(x) = \sum_{y\leq x} p(y) = \frac{\text{number of data points $x_i$ with $x_i \leq x$}}{m}.
 \end{equation*}
 ````
 
 You can think of empirical probabilities as relative frequencies. Indeed, this is essentially the _definition_ described by the formula {eq}`ECDF-eqn`: It says that $p(x)$ is the relative frequency of the number $x$ in the dataset.
 
-It's time to bring back the Airbnb prices! I have asked the computer to generate their ECDF:
+To make this concrete, let's bring back the Airbnb prices. I have asked the computer to generate the ECDF of this dataset:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -239,18 +240,17 @@ plt.tight_layout()
 
 Remember, the CDFs of discrete distributions are step functions. So why doesn't _this_ look like a step function? Essentially, the data points are so numerous and packed together so tightly along the $x$-axis that we can't see the steps. But rest assured, if we were to zoom in, we'd see them.
 
-
 ```{margin}
-Of course, the true population of prices is not _actually_ a continuous random variable, since prices only go out to the second decimal place. But we'll still model it as if it is continuous.
 
+Actually, it's not quite right to say that the empirical variance $s^2$ is the parameter estimate derived from the method of moments or maximum likelihood estimation. In fact, the latter estimates have the sample size $m$ in the denominator, whereas the empirical variance $s^2$ is usually defined with $m-1$ in the denominator.
 ```
-If we are confident that our observed sample of Airbnb prices is reasonably representative of the unknown population of prices, then its ECDF serves as an approximation to the true population CDF. If we assume that the unknown population distribution is continuous, then there is also an unknown population density function floating around out there in the ether waiting to be discovered. Can we use our ECDF to guess what its shape might be?
+Now, what if we thought that our Airbnb prices were well modeled by a normal distribution, so that
 
-_Absolutely_!
+$$
+X_1,X_2,\ldots,X_{3{,}972} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2)
+$$
 
-The trick is to remember that density functions are the derivatives of CDFs. So, when we look at our ECDF above, we can try to get a feeling for the shape of the density function by estimating the slopes of the tangent lines to the graph of the ECDF. I realize that the ECDF is technically a step function, and hence all of its tangent lines (which exist) are horizontal; but from our perspective, it _looks_ like a nice smooth-ish curve that has positively sloped tangent lines.
-
-To aid our sketch of the unknown density function, it might help to superimpose the CDF of a normal distribution on top of our ECDF:
+in the notation introduced above. How might we find good settings for the parameters $\mu$ and $\sigma^2$? In this case, we might choose $\mu$ and $\sigma^2$ to be the _empirical mean_ $\bar{x}$ and _empirical variance_ $s^2$, which you learned about back in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments)---and which we will review in a section below. (This is the _method of moments_ for estimating model parameters which, in this special case, is also the method of _maximum likelihood estimation_.) Let's then plot the ECDF of the dataset with the CDF of the normal model distribution superimposed:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -274,15 +274,9 @@ plt.legend()
 plt.tight_layout()
 ```
 
-In this figure, I've plotted the CDF from a $\mathcal{N}(\mu,\sigma^2)$ distribution, where I've used the empirical mean $\bar{x}$ and standard deviation $s$ for the parameters $\mu$ and $\sigma$ (more on these below).
+Yikes. Those CDFs are quite different from each other, suggesting that the normal model is a bad fit.
 
-```{margin}
-This is essentially just a curve sketching exercise from calculus. We're using our knowledge of the relationships between a function and its first two derivatives, and what these gadgets tell us about increase/decrease and concavity.
-```
-
-This is a little of what I can glean from this last figure: If we believed that the true population distribution was normal, the data tells us otherwise. Indeed, the two CDFs have some fairly significant differences. Notice that the ECDF is steeper than the normal CDF right _before_ the red dashed line, and that it also has an inflection point before this line. This tells me that the sample density curve should be peaked slightly to the left of the normal density curve. As we pass over the dashed line, the ECDF is concave downward and hence the sample density curve is decreasing over these $x$-values as it drops downward into its tail. But as it begins its descent, the normal CDF is steeper, so the sample density curve should be descending at a quicker rate, putting it underneath the normal density curve. But then, as we get toward the right edge of the figure, the slopes of the ECDF appear to be larger than those of the normal CDF, and so the two density curves should cross again, putting the sample density's upper tail on top of the normal density's tail. In fact, if I squint hard enough, it appears that the ECDF might have a second inflection point on the far right of the figure.
-
-As I will show you below, computers are capable of estimating PDFs from data using something called _kernel density estimation_ (KDE). If I feed the Airbnb data into my computer, it returns the following sketch of the data density curve using KDE:
+Closely related to CDFs are density functions, of course. Now, _if_ we assume that our Airbnb dataset is an observed random sample drawn from _some_ unknown "true" model distribution, then what might the density function of that model distribution look like? As I will show you in a section below, computers are capable of estimating these types of PDFs from data using something called _kernel density estimation_ (KDE). If I feed the Airbnb dataset into my computer, it returns the following sketch of the data density curve using KDE:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -301,8 +295,41 @@ plt.legend()
 plt.tight_layout()
 ```
 
-Notice that this plot confirms most of what we thought the data density curve would look like, based on our comparison of the ECDF to the normal CDF. The shape of the estimated data PDF is influenced not only by the actual dataset, but also by a parameter of the KDE process called *bandwidth*. We will explore this in further detail below.
+I have superimposed the density curve of the normal model from above for comparison. Again, this plot shows that this model is a bad fit.
 
+However, the KDE estimate for the data density curve shows that the data is right-skewed (long tail to the right) and unimodal (one peak); this suggests that a log transform (which you learned about in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments)) might "un-skew" the data by removing the tail. Let's try performing a log transform, setting up a _new_ normal model based on the empirical mean and variance of the transformed dataset, and then print out CDFs and a KDE:
+
+```{code-cell} ipython3
+:tags: [hide-input, full-width]
+:mystnb:
+:   figure:
+:       align: center
+:   image:
+:       width: 100%
+
+srs_log = np.log(srs_airbnb)
+X = sp.stats.norm(loc=srs_log.mean(), scale=srs_log.std())
+grid = np.linspace(srs_log.min(), srs_log.max() + 2)
+
+_, axes = plt.subplots(ncols=2, nrows=1, figsize=(10, 4), sharex=True)
+sns.ecdfplot(x=srs_log, label='ECDF', ax=axes[0])
+axes[0].plot(grid, X.cdf(grid), label='normal CDF')
+axes[0].set_xlabel('log price')
+axes[0].set_ylabel('probability')
+axes[0].legend()
+sns.kdeplot(x=srs_log, ax=axes[1], label='estimated data PDF')
+axes[1].plot(grid, X.pdf(grid), label='normal PDF')
+axes[1].set_xlabel('log price')
+axes[1].set_ylabel('probability density')
+axes[1].legend()
+plt.tight_layout()
+```
+
+```{margin}
+
+By the way, datasets whose log transforms are well modeled by normal distributions occur quite frequently. So frequently, in fact, that we refer to these datasets as [log-normally distributed](https://en.wikipedia.org/wiki/Log-normal_distribution#).
+```
+That looks pretty good! Based just on these two diagnostic plots, I would feel confident in using a normal model to model (the logarithm of the) data. We just need to remember that any information we learn about the data through this model, we need to "back-transform" using the exponential function to translate to the original dataset.
 
 
 
@@ -443,7 +470,7 @@ Let's return now to an idea that we met above: Estimating a empirical distributi
 
 Naturally, a kernel density estimation begins by choosing the _kernel_, which is a function that has a "bell shape," not unlike the normal density curve. In fact, one can even _choose_ the normal density curve as the kernel, and then one obtains _Gaussian KDE_. These will be the only types of kernels that we will consider.
 
-Imagine for simplicity that we have three data points along the $x$-axis. The idea is then to place three kernels (i.e., normal density curves) directly over top of the data points. We then _sum_ the kernels and divide by $3$ (to normalize the area under the curve to $1$), obtaining a _kernel density estimate_. The width of the kernel is controlled by a parameter called _bandwidth_, denoted $h$, which coincides with the standard deviation of the normal distribution in the case of Gaussian KDE. So, large values of $h$ correspond to wide kernels, and smaller values correspond to narrower kernels. Here are three examples of Gaussian KDE with different values of $h$:
+Imagine for simplicity that we have three data points along the $x$-axis. The idea is then to place three kernels (i.e., normal density curves) directly over top of the data points. We then _sum_ the kernels and divide by $3$ (to normalize the area under the curve to $1$), obtaining a _kernel density estimate_. The width of the kernel is controlled by a parameter called _bandwidth_, denoted $h$, which coincides with the standard deviation of the normal distribution in the case of Gaussian KDE. So, large values of $h$ correspond to wide kernels, and smaller values correspond to narrow kernels. Here are three examples of Gaussian KDE with different values of $h$:
 
 ```{code-cell} ipython3
 :tags: [hide-input, full-width]
@@ -555,68 +582,69 @@ Before we continue discussing more ways to _visualize_ datasets, we need to disc
 Let's begin our discussion by returning to a general IID random sample
 
 \begin{equation*}
-X_1,X_2,\ldots, X_n \sim F,
+X_1,X_2,\ldots,X_m \sim F,
 \end{equation*}
 
-where $F$ represents the (unknown) distribution function corresponding to a probabilistic model. Suppose that the model distribution has a mean $\mu_0$ and a standard deviation $\sigma_0$, so that
+where $F$ represents the (unknown) distribution function corresponding to a probabilistic model. Suppose that the model distribution has a mean $\mu$ and a variance $\sigma^2$, so that
 
 \begin{equation*}
-E(X_k) = \mu_0 \quad \text{and} \quad V(X_k) = \sigma_0^2,
+E(X_i) = \mu \quad \text{and} \quad V(X_i) = \sigma^2,
 \end{equation*}
 
-for each $k=1,2,\ldots,n$. Based on an observed random sample
+for each $i=1,2,\ldots,n$. Based on an observed random sample
 
 \begin{equation*}
-x_1,x_2,\ldots, x_n,
+x_1,x_2,\ldots,x_m,
 \end{equation*}
 
-how might we estimate the unknown population parameters $\mu_0$ and $\sigma_0$?
+how might we estimate the unknown model parameters $\mu$ and $\sigma$?
 
 ```{prf:definition}
-Let $x_1,x_2,\ldots,x_n$ be an observed random sample (i.e., a dataset). The *empirical mean* is defined to be the number
+Let $x_1,x_2,\ldots,x_m$ be an observed random sample (i.e., a dataset). The *empirical mean* is defined to be the number
 
 \begin{equation*}
-\bar{x} = \frac{1}{n} \sum_{k=1}^n x_k,
+\bar{x} = \frac{1}{m} \sum_{i=1}^m x_i,
 \end{equation*}
 
 while the *empirical variance* is defined to be the number
 
 \begin{equation*}
-s^2 = \frac{1}{n-1} \sum_{k=1}^n (x_k - \bar{x})^2.
+s^2 = \frac{1}{m-1} \sum_{i=1}^m (x_i - \bar{x})^2.
 \end{equation*}
 
 The *empirical standard deviation* $s$ is defined, as usual, as the positive square root of the empirical variance, $s = \sqrt{s^2}$.
 ```
 
-The empirical mean $\bar{x}$ and standard deviation $s$ are supposed to serve as data-based estimates for the true population mean $\mu_0$ and standard deviation $\sigma_0$. If we believe that the dataset is truly representative of the population, then these estimates should be close to their targets.
+The empirical mean $\bar{x}$ and standard deviation $s$ are supposed to serve as data-based estimates for the model mean $\mu$ and standard deviation $\sigma$.
 
-I should mention that the empirical quantities we just defined are often called the _sample mean_, _sample variance_, and _sample standard deviation_. However, as we will see later, our empirical quantities turn out to be observed values of certain _estimators_ that are (also) called the _sample mean_, _sample variance_, and _sample standard deviation_. Since I believe that it is important---at least at first---to distinguish between an **estimate** and an **estimator**, I have decided to refer to $\bar{x}$, $s^2$, and $s$ as _empirical quantities_ rather than _sample quantities_. In later chapters, however, I will not be so careful, and will refer to $\bar{x}$, $s^2$, and $s$ as _sample quantities_.
+I should mention that the empirical quantities we just defined are often called the _sample mean_, _sample variance_, and _sample standard deviation_. However, as we will see later, our empirical quantities turn out to be observed values of certain _estimators_ that are also called the _sample mean_, _sample variance_, and _sample standard deviation_. Since I believe that it is important---at least at first---to distinguish between an **estimate** and an **estimator**, I have decided to refer to $\bar{x}$, $s^2$, and $s$ as _empirical quantities_ rather than _sample quantities_. In later chapters, however, I will not be so careful, and will refer to $\bar{x}$, $s^2$, and $s$ as _sample quantities_.
 
 ```{margin}
-By the way, the replacement of $1/n$ with $1/(n-1)$ in the empirical variance is sometimes called [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction).
+By the way, the replacement of $1/m$ with $1/(m-1)$ in the empirical variance is sometimes called [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction).
 ```
-The definitions of $\bar{x}$ and $s^2$ are surely quite natural, _except_ that the empirical variance involves division by $n-1$ instead of the sample size $n$ like you might have expected. The reason for this is that, if we had a factor of $1/n$ in $s^2$ instead of $1/(n-1)$, then the value of $s^2$ would _systematically_ (on average) underestimate the true value $\sigma_0^2$ over repeated sampling. This can be demonstrated empirically through computer simulation, and it can also be _proved_ theoretically as we will see later when we study bias of estimators. So for now, we will just take the above definition of $s^2$ on faith, postponing till a later discussion the explanation regarding _why_ it's a good estimator.
 
-Though the empirical quantities $\bar{x}$, $s^2$, and $s$ all have definitions that closely mimic their population-level counterparts $\mu$, $\sigma^2$, and $\sigma$, the definition of the _empirical quantiles_ of a dataset is a bit further removed from the definition of quantiles that we learned back in {numref}`Chapter %s <random-variables>`. Here is the definition:
+The definitions of $\bar{x}$ and $s^2$ are surely quite natural, _except_ that the empirical variance involves division by $m-1$ instead of the sample size $m$ like you might have expected. The reason for this is that, if we had a factor of $1/m$ in $s^2$ instead of $1/(m-1)$, then the value of $s^2$ would _systematically_ underestimate the true value $\sigma^2$ over repeated sampling. This can be demonstrated empirically through computer simulation, and it can also be _proved_ theoretically as we will see later when we study bias of estimators. So for now, we will just take the above definition of $s^2$ on faith, postponing till a later discussion the explanation regarding _why_ it's a good estimator.
+
+Though the empirical quantities $\bar{x}$, $s^2$, and $s$ all have definitions that closely mimic their counterparts $\mu$, $\sigma^2$, and $\sigma$, the definition of the _empirical quantiles_ of a dataset is a bit further removed from the definition of quantiles that we learned back in {numref}`Chapter %s <random-variables>`. Here is the definition:
 
 ````{prf:definition}
 :label: emp-quantile-defn
-Let $x_1,x_2,\ldots,x_n$ be an observed random sample, written in non-decreasing order:
+Let $x_1,x_2,\ldots,x_m$ be an observed random sample, written in non-decreasing order:
 
 ```{math}
 :label: listing-eqn
-x_1 \leq x_2 \leq \cdots \leq x_n.
+x_1 \leq x_2 \leq \cdots \leq x_m.
 ```
 
-For each $k=1,2,\ldots,n$, the datapoint $x_k$ is called the _empirical $q$-quantile_ where
+For each $i=1,2,\ldots,m$, the datapoint $x_i$ is called the _empirical $q$-quantile_ where
 
 ```{math}
 :label: quantile-eqn
-q  = \frac{k-1}{n-1}.
+q  = \frac{i-1}{m-1}.
 ```
 ````
 
-This definition appeared in the third programming assignment, where I mentioned that the intuition for the formula {eq}`quantile-eqn` for $q$ is that it is precisely the proportion of data points (excluding) $x_k$ that fall to the _left_ of $x_k$ in the listing {eq}`listing-eqn`. I also explained in that assignment how one goes about computing the empirical $q$-quantile where $q$ is a number (between $0$ and $1$, inclusive) that is _not_ of the form {eq}`quantile-eqn`: The default method in the Pandas library is linear interpolation.
+This definition appeared in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments), where I explained that the intuition for the formula {eq}`quantile-eqn` for $q$ is that it is precisely the proportion of data points (excluding) $x_i$ that fall to the _left_ of $x_i$ in the listing {eq}`listing-eqn`. I also explained in that assignment how one goes about computing the empirical $q$-quantile where $q$ is a number (between $0$ and $1$, inclusive) that is _not_ of the form {eq}`quantile-eqn`: The default method in the Pandas library is linear interpolation.
 
 The empirical 0.25-, 0.5-, and 0.75-quantiles are called the _first_, _second_, and _third quartiles_. For the Airbnb dataset, these are listed in the following printout on the lines labeled $25\%$, $50\%$ and $75\%$:
 
@@ -626,13 +654,13 @@ The empirical 0.25-, 0.5-, and 0.75-quantiles are called the _first_, _second_, 
 srs_airbnb.describe()
 ```
 
-Along with the empirical quartiles, you can also see that this method from the Pandas library conveniently outputs the empirical mean and standard deviation, as well as the size of the dataset (the _count_) and the minimum and maximum sample values.
+Along with the empirical quartiles, you also see that this method from the Pandas library conveniently outputs the empirical mean and standard deviation, as well as the size of the dataset (the _count_) and the minimum and maximum sample values.
 
 The range over which the middle 50% of a dataset sits is defined in:
 
 ```{prf:definition}
 
-Let $x_1,x_2,\ldots,x_n$ be an observed random sample. The _empirical interquartile range_ (_empirical IQR_) is the difference
+Let $x_1,x_2,\ldots,x_m$ be an observed random sample. The _empirical interquartile range_ (_empirical IQR_) is the difference
 
 \begin{equation*}
 (\text{empirical 0.75-quantile}) - (\text{empirical 0.25-quantile}).
@@ -653,30 +681,20 @@ print(f'The IQR for the Airbnb dataset is {iqr_airbnb:.2f}.')
 With the definition of _empirical IQR_ in hand, we may now define _outliers_:
 
 ```{prf:definition}
-Let $x_1,x_2,\ldots,x_n$ be an observed random sample. Then a data point $x_k$ is called an _outlier_ if it is above an upper threshold value
+Let $x_1,x_2,\ldots,x_m$ be an observed random sample. Then a data point $x_i$ is called an _outlier_ if it is above an upper threshold value
 
 \begin{equation*}
-x_k > (\text{empirical 0.75-quantile}) + 1.5\times (\text{empirical IQR}),
+x_i > (\text{empirical 0.75-quantile}) + 1.5\times (\text{empirical IQR}),
 \end{equation*}
 
 or if it is below a lower threshold value
 
 \begin{equation*}
-x_k < (\text{empirical 0.25-quantile}) - 1.5\times (\text{empirical IQR}).
+x_i < (\text{empirical 0.25-quantile}) - 1.5\times (\text{empirical IQR}).
 \end{equation*}
 ```
 
 There's a very convenient way to _visually_ summarize all these empirical statistics (along with outliers) which we will discuss in the last section of this chapter.
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -716,20 +734,20 @@ Though the basic idea behind a QQ-plot is quite simple, it demands that we sligh
 To help motivate the new definition, for convenience, let's suppose that the points in our dataset are labeled with $y$'s instead of $x$'s. (You'll see why this is convenient, in just a moment.) Suppose that we put our dataset in non-decreasing order,
 
 \begin{equation*}
-y^{(1)} \leq y^{(2)} \leq \cdots \leq y^{(m)},
+y_1 \leq y_2 \leq \cdots \leq y_m,
 \end{equation*}
 
 where (as usual) $m$ is the size of the dataset. Then, instead of identifying quantiles through the association
 
 \begin{equation*}
-y^{(i)} \leftrightarrow \frac{i-1}{m-1}
+y_i \leftrightarrow \frac{i-1}{m-1}
 \end{equation*}
 
 as we did in {prf:ref}`emp-quantile-defn`, we instead make the association
 
 ```{math}
 :label: quant-eqn
-y^{(i)} \leftrightarrow \frac{i-1/2}{m},
+y_i \leftrightarrow \frac{i-1/2}{m},
 ```
 
 for $i=1,2,\ldots,m$. For a specific example, suppose that $m=5$ and that all the data points are distinct. Then, if we plot our dataset along an axis along with the labels {eq}`quant-eqn`, we get the following picture:
@@ -745,16 +763,16 @@ Notice that the minimum and maximum values are no longer the $0$- and $1$-quanti
 Now, suppose that we thought that our data was well modeled by a probability distribution with continuous distribution function $F$ and quantile function $Q = F^{-1}$. Then, to construct the _QQ-plot_ that compares the empirical quantiles to the model quantiles, we define
 
 \begin{equation*}
-x^{(i)} = Q\left( \frac{i-1/2}{m} \right)
+x_i = Q\left( \frac{i-1/2}{m} \right)
 \end{equation*}
 
-for each $i=1,2,\ldots,m$. In particular, note that $x^{(i)}$ really _is_ the $(i-1/2)/m$-quantile of the model distribution, according to our earlier definition of _quantile_ in {numref}`Chapter %s <random-variables>`. The QQ-plot then consists of those points
+for each $i=1,2,\ldots,m$. In particular, note that $x_i$ really _is_ the $(i-1/2)/m$-quantile of the model distribution, according to our earlier definition of _quantile_ in {numref}`Chapter %s <random-variables>`. The QQ-plot then consists of those points
 
 \begin{equation*}
-\big(x^{(i)},y^{(i)}\big), \quad i=1,2,\ldots,m.
+(x_i,y_i), \quad i=1,2,\ldots,m.
 \end{equation*}
 
-Let's see how this might all work with our dataset of Airbnb prices. Suppose that we thought this dataset was well modeled by a normal distribution $\mathcal{N}(\mu,\sigma^2)$ where we select the empirical statistics $\bar{y}$ ($y=$ price) and $s^2$ for the model parameters $\mu=\bar{y}$ and $\sigma^2 = s^2$. Then, I can have the computer generate a QQ-plot comparing the empirical quantiles to the (theoretical) model quantiles:
+As I mentioned, QQ-plots serve as another type of diagnostic plot that allow us to compare an empirical distribution to a proposed model distribution. Let's see how this might work with our dataset of Airbnb prices. Remember, we originally thought that the Airbnb dataset _itself_ might be well modeled by a normal distribution $\mathcal{N}(\mu,\sigma^2)$ where $\mu$ and $\sigma^2$ are the empirical mean and variance. But we saw through comparison of CDFs and PDFs that this model did _not_ fit the data well. The QQ-plot suggests the same:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -766,27 +784,27 @@ Let's see how this might all work with our dataset of Airbnb prices. Suppose tha
 
 from statsmodels.graphics.gofplots import qqplot
 
+X = sp.stats.norm(loc=srs_airbnb.mean(), scale=srs_airbnb.std())
+
 qqplot(data=srs_airbnb, dist=X, a=1/2, alpha=0.25, line='45')
 plt.xlabel('(normal) model quantiles')
 plt.ylabel('empirical quantiles')
 plt.show()
 ```
 
-Ok, great. How do we interpret this thing? The idea is that, if the model distribution fit the dataset well, then the empirical quantiles should be reasonably close to the model quantiles. One can judge this "reasonable closeness" in the QQ-plot by checking how well the scattered points fit the diagonal red line (which has a slope of $1$, or 45 degrees).
-
-In our Airbnb example, it is clear that the scattered points are a poor fit for the diagonal line. Thus, the QQ-plot suggests that our dataset is **not** accurately modeled by the proposed normal distribution.
+How do we interpret this plot? The idea is that, if the model distribution fit the dataset well, then the empirical quantiles should be reasonably close to the model quantiles. One can judge this "reasonable closeness" in the QQ-plot by checking how well the scattered points fit the diagonal red line (which has a slope of $1$, or 45 degrees). So, in our Airbnb example, it is clear that the scattered points are a poor fit for the diagonal line, which suggests our dataset is _not_ accurately modeled by the proposed normal distribution.
 
 But what if we just chose our parameters $\mu$ and $\sigma^2$ poorly, and the dataset is accurately modeled by _another_ normal distribution with different parameters? In particular, what if we thought that the dataset was accurately modeled by a _standard_ normal distribution? Here's the relevant QQ-plot, to test our hypothesis:
 
 ```{code-cell} ipython3
-:tags: [hide-input]
+:tags: [hide-input, full-width]
 :mystnb:
 :   figure:
 :       align: center
 :   image:
 :       width: 100%
 
-_, axes = plt.subplots(ncols=2, nrows=1, sharey=True, figsize=(12, 6))
+_, axes = plt.subplots(ncols=2, nrows=1, sharey=True, figsize=(10, 4))
 
 qqplot(data=srs_airbnb, a=1/2, alpha=0.25, line='45', ax=axes[0])
 qqplot(data=srs_airbnb, a=1/2, alpha=0.25, ax=axes[1])
@@ -811,31 +829,61 @@ To explain, suppose that the points in the QQ-plot fell _exactly_ on a straight 
 
 ```{math}
 :label: norm-eqn
-y^{(i)} = ax^{(i)} + b, \quad i=1,2,\ldots,m,
+y_i = ax_i + b, \quad i=1,2,\ldots,m,
 ```
 
 for some $a$ and $b$ with $a >0$. Then, let
 
 \begin{equation*}
-f(x) = \frac{1}{\sqrt{2\pi}} \exp\left( -\frac{x^2}{2}\right)
+\phi(x) = \frac{1}{\sqrt{2\pi}} \exp\left( -\frac{x^2}{2}\right)
 \end{equation*}
 
-be the density of the standard normal distribution, with associated distribution function $\Phi(x) = \int_{-\infty}^x f(t) \ \text{d} t$. Now, if {eq}`norm-eqn` were true, then
+be the density of the standard normal distribution, with associated distribution function
+
+$$
+\Phi(x) = \int_{-\infty}^x \phi(t) \ \text{d} t.
+$$
+
+Now, if {eq}`norm-eqn` were true, then
 
 ```{math}
 :label: trans-eqn
-\frac{i-1/2}{m} = \Phi\left( \frac{y^{(i)}-b}{a} \right) = \int_{-\infty}^{(y^{(i)}-b)/a} f(t) \ \text{d} t = \int_{-\infty}^{y^{(i)}} \frac{1}{a} f \left( \frac{s-b}{a}\right) \ \text{d} s,
+\frac{i-1/2}{m} = \Phi\left( \frac{y_i-b}{a} \right) = \int_{-\infty}^{(y_i-b)/a} \phi(t) \ \text{d} t = \int_{-\infty}^{y_i} \frac{1}{a} \phi \left( \frac{s-b}{a}\right) \ \text{d} s,
 ```
 
 where I made the substitution $t = (s-b)/a$ in going from the first integral to the second. But notice that the transformed function
 
 \begin{equation*}
-\frac{1}{a} f \left( \frac{x-b}{a}\right) = \frac{1}{a\sqrt{2\pi}} \exp\left[ -\frac{1}{2} \left(\frac{x-b}{a}\right)^2\right]
+\frac{1}{a} \phi \left( \frac{x-b}{a}\right) = \frac{1}{a\sqrt{2\pi}} \exp\left[ -\frac{1}{2} \left(\frac{x-b}{a}\right)^2\right]
 \end{equation*}
 
-is the density of $\mathcal{N}(b,a^2)$, and so {eq}`trans-eqn` shows that, provided {eq}`norm-eqn` is true, the data point $y^{(i)}$ is the $(i-1/2)/m$-quantile of $\mathcal{N}(b,a^2)$. Thus, the empirical quantiles match the (theoretical) model quantiles of $\mathcal{N}(b,a^2)$, which justifies the observation in the box above.
+is the density of $\mathcal{N}(b,a^2)$, and so {eq}`trans-eqn` shows that, provided {eq}`norm-eqn` is true, the data point $y_i$ is the $(i-1/2)/m$-quantile of $\mathcal{N}(b,a^2)$. Thus, the empirical quantiles match the (theoretical) model quantiles of $\mathcal{N}(b,a^2)$, which justifies the observation in the box above.
 
-Now, whatever a good model for the Airbnb prices happens to be, all of its QQ-plots will look like nice smooth curves. However, if your dataset is large, consisting of observed values of a discrete variable with a small-ish range, then the QQ-plot might have an unexpected shape with lots of horizontal stretches due to repetitions in the dataset.
+So, the standard normal model is a bad fit---even worse than the first normal model. But remember that the plots of the CDFs and PDFs suggest that the Airbnb dataset is _log-normal_, in the sense that its log transform is well modeled by a normal distribution. To confirm this, let's check a QQ-plot of the log transform against standard normal quantiles:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+:   image:
+:       width: 70%
+
+qqplot(data=srs_log, a=1/2, alpha=0.25)
+plt.xlabel('(standard normal) model quantiles')
+plt.ylabel('empirical quantiles (w/log transform)')
+plt.show()
+```
+
+Remember, we are looking for the data to fall along a straight line. In this plot, it appears that the scattered points fall along the line $y = 0.6x + 4.8$, which I estimated through visual inspection. This suggests that the best-fit normal model should be $\mathcal{N}(4.8, 0.6^2)$. Note how closely these parameter values match the empirical statistics of the log transformed data:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+
+srs_log.rename('log price').describe()
+```
+
+Notice that the QQ-plots of the Airbnb dataset all appear to be nice smooth-ish curves. However, if your dataset is large, consisting of observed values of a discrete variable over a small range, then the QQ-plot might have an unexpected shape with lots of horizontal stretches due to repetitions in the dataset.
 
 ```{margin}
 This dataset was obtained from the UCI Machine Learning Repository [here](http://archive.ics.uci.edu/dataset/352/online+retail). It was passed through some light pre-processing, including removal of (extreme) outliers.
@@ -846,19 +894,19 @@ For example, let's consider a dataset consisting of sales data from an online re
 ```{code-cell} ipython3
 :tags: [hide-input]
 
-srs_sales = pd.read_csv('../aux-files/online_sales.csv', usecols=['Quantity']).squeeze()
+srs_sales = pd.read_csv('../aux-files/online_sales.csv', usecols=['Quantity']).squeeze().rename('quantity')
 srs_sales.describe()
 ```
 
 The data consists of observations of the random variable
 
 \begin{equation*}
-Y = \text{number of items purchased in a given order}.
+Y = \text{quantity of items purchased in a given order}.
 \end{equation*}
 
 So, an observed value of $y=3$ in the dataset means that three items were purchased in the corresponding order. From the 'count,' 'max,' and 'min' numbers in the description of the dataset, we see that the dataset contains nearly half a million data points distributed over discrete (integer) values ranging from $y=-12$ to $y=23$. (A negative value means that items were returned to the store.) Therefore, there are going to be _lots_ of repetitions in this dataset.
 
-Here's the QQ-plot of this dataset against the standard normal distribution, with re-scaled axes:
+Here's the QQ-plot of this dataset against the standard normal distribution:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -876,7 +924,7 @@ plt.show()
 
 In contrast to the QQ-plot of the Airbnb prices, this QQ-plot appears to be a series of disconnected horizontal lines. The $y$-value of a horizontal line corresponds to a value in the dataset that is repeated. But be _very_ careful in interpreting the _lengths_ of the horizontal lines as measures for how _often_ the data points are repeated, as you would with the heights of the bars in a histogram. Indeed, because of the shape of normal density curves (which are nearly flat away from their means), the lengths of horizontal lines toward the bottom and the top of the QQ-plot are disproportionately scaled up compared to the lengths of the horizontal lines in the middle of the plot. (I will explain this more precisely in class, with pictures.)
 
-For example, focus on the horizontal lines in the QQ-plot at $y=12$ and $y=20$. These lines appear to have nearly the same length. But then look at the histogram of the data, which for comparison I've plotted behind a normal density curve with $\mu=$ empirical mean and $\sigma=$ empirical standard deviation.
+For example, focus on the horizontal lines in the QQ-plot at $y=12$ and $y=20$. These lines appear to have nearly the same length. But then look at the empirical PMF of the data, which for comparison I've plotted behind a normal density curve with $\mu=$ empirical mean and $\sigma=$ empirical standard deviation.
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -884,16 +932,23 @@ For example, focus on the horizontal lines in the QQ-plot at $y=12$ and $y=20$. 
 :   figure:
 :       align: center
 :   image:
-:       width: 70%
+:       width: 100%
 
-grid = np.linspace(-12, 23)
-U = sp.stats.norm(loc=srs_sales.mean(), scale=srs_sales.std())
+# warning! I think I found a bug that requires me to add (for some strange reason)
+# 12 to the location parameter of the normal density curve to produce the correct
+# plot. Try removing the 12 in the definition of `U` to see what I mean.
+pmf = srs_sales.value_counts(normalize=True)
+pmf.loc[0] = 0
+pmf.sort_index(inplace=True)
+U = sp.stats.norm(loc=srs_sales.mean()+12, scale=srs_sales.std())
+grid = np.linspace(0, 35)
 
-srs_sales.plot(kind='hist', ec='black', density=True, bins=20)
-plt.plot(grid, U.pdf(grid))
-plt.xlabel('quantity')
+_, axis = plt.subplots(ncols=1, nrows=1, figsize=(10, 4))
+pmf.plot(kind='bar', ax=axis)
+axis.plot(grid, U.pdf(grid), color='#FD46FC')
 plt.ylabel('probability')
 plt.tight_layout()
+
 ```
 
 The histogram reveals that there are many, _many_ fewer observations at $y=20$ compared to $y=12$, and yet the corresponding horizontal lines in the QQ-plot appear to have the same length! Again, this discrepancy is due to the shape of normal density curves.
