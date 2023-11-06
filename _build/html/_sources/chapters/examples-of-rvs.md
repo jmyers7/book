@@ -1000,6 +1000,8 @@ The CDF of a standard normal variable is so important that it gets its own notat
 
 Let $Z\sim \mathcal{N}(0,1)$ be a standard normal random variable.
 
+* The probability density function of $Z$ is denoted $\phi(z)$.
+
 * The cumulative distribution function of $Z$ is denoted $\Phi(z)$. 
 
 * For each real number $\alpha$, we define $z_\alpha$ to be the number for which the area under the density curve of $Z$ to the _right_ is exactly $\alpha$. In other words, we have
