@@ -786,7 +786,7 @@ from statsmodels.graphics.gofplots import qqplot
 
 X = sp.stats.norm(loc=srs.mean(), scale=srs.std())
 
-qqplot(data=srs, dist=X, a=1/2, alpha=0.25, line='45')
+qqplot(data=srs, dist=X, a=0.5, alpha=0.25, line='45')
 plt.xlabel('(normal) model quantiles')
 plt.ylabel('empirical quantiles')
 plt.show()
@@ -806,8 +806,8 @@ But what if we just chose our parameters $\mu$ and $\sigma^2$ poorly, and the da
 
 _, axes = plt.subplots(ncols=2, nrows=1, sharey=True, figsize=(10, 4))
 
-qqplot(data=srs, a=1/2, alpha=0.25, line='45', ax=axes[0])
-qqplot(data=srs, a=1/2, alpha=0.25, ax=axes[1])
+qqplot(data=srs, a=0.5, alpha=0.25, line='45', ax=axes[0])
+qqplot(data=srs, a=0.5, alpha=0.25, ax=axes[1])
 axes[0].set_xlabel('(standard normal) model quantiles')
 axes[0].set_title('with diagonal line')
 axes[0].set_ylabel('empirical quantiles')
@@ -869,7 +869,7 @@ So, the standard normal model is a bad fit---even worse than the first normal mo
 :   image:
 :       width: 70%
 
-qqplot(data=srs_log, a=1/2, alpha=0.25)
+qqplot(data=srs_log, a=0.5, alpha=0.25)
 plt.xlabel('(standard normal) model quantiles')
 plt.ylabel('empirical quantiles (w/log transform)')
 plt.show()
