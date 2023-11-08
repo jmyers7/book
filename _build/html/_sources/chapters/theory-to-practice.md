@@ -789,7 +789,7 @@ X = sp.stats.norm(loc=srs.mean(), scale=srs.std())
 qqplot(data=srs, dist=X, a=0.5, alpha=0.25, line='45')
 plt.xlabel('(normal) model quantiles')
 plt.ylabel('empirical quantiles')
-plt.show()
+plt.tight_layout()
 ```
 
 How do we interpret this plot? The idea is that, if the model distribution fit the dataset well, then the empirical quantiles should be reasonably close to the model quantiles. One can judge this "reasonable closeness" in the QQ-plot by checking how well the scattered points fit the diagonal red line (which has a slope of $1$, or 45 degrees). So, in our Airbnb example, it is clear that the scattered points are a poor fit for the diagonal line, which suggests our dataset is _not_ accurately modeled by the proposed normal distribution.
@@ -872,7 +872,7 @@ So, the standard normal model is a bad fit---even worse than the first normal mo
 qqplot(data=srs_log, a=0.5, alpha=0.25)
 plt.xlabel('(standard normal) model quantiles')
 plt.ylabel('empirical quantiles (w/log transform)')
-plt.show()
+plt.tight_layout()
 ```
 
 Remember, we are looking for the data to fall along a straight line. In this plot, it appears that the scattered points fall along the line $y = 0.6x + 4.8$, which I estimated through visual inspection. This suggests that the best-fit normal model should be $\mathcal{N}(4.8, 0.6^2)$. Note how closely these parameter values match the empirical statistics of the log transformed data:
