@@ -240,6 +240,7 @@ The heights of the bars above each numerical value in $\mathbb{R}$ represent the
 Ok. Having worked our way through a concrete example, we are now ready for the abstract definitions.
 
 ```{prf:definition}
+:label: prob-measure-X-defn
 
 Let $X:S\to \mathbb{R}$ be a random variable on a probability space $S$ with probability measure $P$. We define the *probability measure of $X$*, denoted $P_X$, via the formula
 
