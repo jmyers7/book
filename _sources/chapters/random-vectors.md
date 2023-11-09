@@ -17,13 +17,38 @@ kernelspec:
 (motivation)=
 ## Motivation
 
-Suppose that you are studying the local housing market. You decide to track the variable $X$, which is the size of a house in square feet, as well as the variable $Y$, which is the selling price of a house in thousands of (US) dollars. You collect data on $n=2000$ houses (the local market encompasses a _large_ metropolitan area), giving you observed random samples
+To introduce _random vectors_, let's return to the housing dataset that we studied in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments), which contains data on $2{,}930$ houses in Ames, Iowa. We are interested in two particular features in the dataset, _area_ and _selling price_:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   image:
+:       width: 100%
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib as mpl 
+import seaborn as sns
+import warnings
+warnings.filterwarnings("ignore")
+plt.style.use('../aux-files/custom_style_light.mplstyle')
+mpl.rcParams['figure.dpi'] = 600
+
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/data-3-1.csv'
+df = pd.read_csv(url, usecols=['area', 'price'])
+df.describe()
+```
+
+The areas are measured in square feet, while the prices are measured in thousands of US dollars. We label the area observations as $x$'s and the price observations as $y$'s, so that our dataset consists of two lists of $m=2{,}930$ numbers:
 
 $$
-x_1,x_2,\ldots,x_n \quad \text{and} \quad y_1,y_2,\ldots,y_n.
+x_1,x_2,\ldots,x_m \quad \text{and} \quad y_1,y_2,\ldots,y_m.
 $$
 
-Thus, for each $i=1,2,\ldots,n$, the pair $(x_i,y_i)$ represents the size and selling price of the $i$-th house. You then plot the empirical distributions of the two datasets, obtaining:
+We conceptualize these as observed values corresponding to two random variables $X$ and $Y$.
+
+We may plot histograms (and KDEs) for the empirical distributions of the datasets:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -33,57 +58,17 @@ Thus, for each $i=1,2,\ldots,n$, the pair $(x_i,y_i)$ represents the size and se
 :   image:
 :       width: 100%
 
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy.stats import multivariate_normal
 
-# hide annoying warnings for tight_layout()
-import warnings
-warnings.filterwarnings("ignore")
 
-# set custom style for plots
-plt.style.use('../aux-files/custom_style_light.mplstyle')
-
-# make sure this comes last in the imports!
-# change the output resolution of figures
-import matplotlib as mpl 
-mpl.rcParams['figure.dpi'] = 600
-
-# end import section
-
-np.random.seed(42)
-
-# data will be simulated from a multivariate gaussian.
-# define the parameters
-rho = 0.85
-sigma_1 = 200
-sigma_2 = 20
-mu = np.array([2000, 175])
-sigma = np.array([
-    [sigma_1 ** 2, rho * sigma_1 * sigma_2],
-    [rho * sigma_1 * sigma_2, sigma_2 ** 2]
-])
-
-# generate the data
-data = multivariate_normal(mean=mu, cov=sigma).rvs(size=2000)
-X = np.round(data[:, 0])
-Y = np.round(data[:, 1])
-
-# build the plots
-_, (ax1, ax2) = plt.subplots(ncols=2, figsize=(10, 4))
-sns.histplot(x=X, ax=ax1, kde=True, stat='density')
-sns.histplot(x=Y, ax=ax2, kde=True, stat='density')
-ax1.set_xlabel(r'$x=$size (ft$^2$)')
-ax2.set_xlabel(r'$y=$price (\$1,000)')
-ax1.set_ylabel('density')
-ax2.set_ylabel('')
+_, axes = plt.subplots(ncols=2, figsize=(10, 4))
+sns.histplot(data=df, x='area', ax=axes[0], ec='black', stat='density', kde=True)
+axes[0].set_ylabel('density')
+sns.histplot(data=df, x='price', ax=axes[1], ec='black', stat='density', kde=True)
+axes[1].set_ylabel('density')
 plt.tight_layout()
 ```
 
-These are histograms of the two datasets, with KDEs superimposed (we learned about these in the [previous chapter](theory-to-practice)).
-
-Whatever information we might glean from these histograms, the information is about the two random variables $X$ and $Y$ _in isolation_ from each other. But because we expect that the size of a house and its selling price might be (strongly) related, it might be more informative to study $X$ and $Y$ _in tandem_ with each other. One way to do this is to plot the points $(x_i,y_i)$ in the $xy$-plane, obtaining a visualization called a _scatter plot_:
+Whatever information we might glean from these histograms, the information is about the two random variables $X$ and $Y$ _in isolation_ from each other. But because we expect that the size of a house and its selling price might be (strongly) related, it might be more informative to study $X$ and $Y$ _in tandem_ with each other. One way to do this is via the scatter plots that we produced in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments):
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -93,19 +78,17 @@ Whatever information we might glean from these histograms, the information is ab
 :   image:
 :       width: 80%
 
-sns.scatterplot(x=X, y=Y)
-plt.xlabel(r'$x=$size (ft$^2$)')
-plt.ylabel(r'$y=$price (\$1,000)')
+sns.scatterplot(data=df, x='area', y='price')
 plt.tight_layout()
 ```
 
-This plot confirms exactly what we expected! Since the pattern of points generally follows a positively-sloped line, we may conclude that as the size $x$ of a house increases, so too does its selling price $y$.
+This plot confirms exactly what we expected! Since the pattern of points generally follows a positively-sloped line, we may conclude that as the size $X$ of a house increases, so too does its selling price $Y$.
 
 To reiterate:
 
 > We would not have been able to discover this relation between $X$ and $Y$ had we studied these two variables in isolation from each other. This suggests that, given _any_ pair of random variables $X$ and $Y$, we might obtain valuable information if we study them _together_ as a single object.
 
-+++
+
 
 
 
@@ -133,45 +116,77 @@ To reiterate:
 
 ## $2$-dimensional random vectors
 
-So, what do you get when you want to combine two random variables $X$ and $Y$ into a single object? Here's the answer:
+So, what do you get when you want to combine two random variables into a single object? Here's the answer:
 
 ```{prf:definition}
 Let $S$ be a probability space. A _$2$-dimensional random vector_ is a function
 
 $$
-\mathbf{X} : S \to \mathbb{R}^2.
+X : S \to \mathbb{R}^2.
 $$
 
-Thus, we may write $\mathbf{X}(s) = (X_1(s), X_2(s))$ for each sample point $s\in S$. When we do so, the functions $X_1$ and $X_2$ are ordinary random variables that are called the _components_ of the random vector $\mathbf{X}$.
+Thus, we may write $X(s) = (X_1(s), X_2(s))$ for each sample point $s\in S$, where
+
+$$
+X_1:S\to \mathbb{R} \quad \text{and} \quad X_2: S \to \mathbb{R}
+$$
+
+are random variables. When we do so, the random variables $X_1$ and $X_2$ are called the _components_ of the random vector $X$.
 ```
 
-So, a $2$-dimensional random vector is nothing but a pair of random variables. That's it. We will often write a random vector simply as a pair $(X_1,X_2)$, where $X_1$ and $X_2$ are the component random variables. In the example in the previous section, we have the random vector $(X,Y)$ consisting of the size of a house and its selling price.
+So, a $2$-dimensional random vector is nothing but a pair of random variables. That's it. We will often write a random vector simply as a pair $(X_1,X_2)$, where $X_1$ and $X_2$ are the component random variables. In the example in the previous section, we have the random vector $(X,Y)$ consisting of the size of a house and its selling price; notice here that $X$ does not stand for the random vector, but rather its first component.
 
-What's the big deal? Simply putting two random variables together into a random vector doesn't seem like it would lead to anything useful. But do you remember that every random variable $X$ induces a probability distribution on $\mathbb{R}$? (If not, look [here](prob-measure-rv).) As I will now show you, every random vector does the same, but this time the induced probability distribution is on the plane $\mathbb{R}^2$. This is where things get interesting!
+So what's the big deal? Simply putting two random variables together into a random vector doesn't seem like it would lead to anything useful. But do you remember that every random variable $X$ induces a probability distribution $P_X$ on $\mathbb{R}$? (If not, look [here](prob-measure-rv).) As I will now show you, every random vector $(X,Y)$ does the same, inducing a probability measure denoted $P_{XY}$, but this time the measure lives on the plane $\mathbb{R}^2$:
+
+
+```{image} ../img/pushforward-vec.svg
+:width: 70%
+:align: center
+```
+&nbsp;
+
+Here is the official definition. It will be worth comparing this to {prf:ref}`prob-measure-X-defn`.
+
 
 ```{prf:definition}
-Let $(X,Y):S \to \mathbb{R}^2$ be a $2$-dimensional random vector on a probability space $S$ with probability measure $P$. We define the _probability measure_ of $(X,Y)$, denoted $P_{(X,Y)}$ or $P_{XY}$, via the formula
+Let $(X,Y):S \to \mathbb{R}^2$ be a $2$-dimensional random vector on a probability space $S$ with probability measure $P$. We define the _probability measure_ of $(X,Y)$, denoted $P_{XY}$, via the formula
 
 $$
-P_{XY}(C) = P \left( \{s\in S \mid (X(s),Y(s))\in C\} \right),
+P_{XY}(C) = P \left( \{s\in S : (X(s),Y(s))\in C\} \right),
 $$ (hard-eqn)
 
 for all events $C\subset \mathbb{R}^2$. The probability measure $P_{XY}$ is also called the _joint distribution_ or the _bivariate distribution_ of $X$ and $Y$.
 ```
 
-Holy smokes, the equation {eq}`hard-eqn` looks confusing! However, just as we saw back in {numref}`prob-measure-rv` when we were talking about the probability measure $P_X$ induced by a single random variable, there is alternate notation for $P_{XY}$ that may clarify the definition. Indeed, we often write the much more suggestive
+For a given event $C\subset \mathbb{R}^2$, notice that the set
 
 $$
-P((X,Y)\in C)
+\{s\in S : (X(s),Y(s))\in C\} \subset S
+$$ (inv-img-eqn)
+
+inside the probability measure on the right-hand side of {eq}`hard-eqn` consists exactly of those sample points $s\in S$ that land in $C$ under the action of the random vector $(X,Y)$; I would visualize this as:
+
+```{image} ../img/pushforward-vec-2.svg
+:width: 70%
+:align: center
+```
+&nbsp;
+
+Then, the probability $P_{XY}(C)$ is (by definition!) equal to the probability of the set {eq}`inv-img-eqn` as measured by the original measure $P$.
+
+There is alternate notation for $P_{XY}(C)$ that you'll see, similar to the alternate notation introduced back in {numref}`prob-measure-rv` for $P_X$. Indeed, instead of writing $P_{XY}(C)$, we will often write
+
+$$
+P((X,Y)\in C).
 $$ (wrong2-eqn)
 
-in place of $P_{XY}(C)$. If $C$ happens to be a set of the form $A\times B$ where $A,B\subset \mathbb{R}$, then we will write
+If $C$ happens to be a product set of the form $A\times B$ where $A,B\subset \mathbb{R}$, then we will write
 
 $$
-P(X\in A, \ Y\in B) \quad \text{or} \quad P(X\in A \text{ and } Y\in B)
+P(X\in A, \ Y\in B)
 $$ (wrong-eqn)
 
-in place of $P_{XY}(A\times B)$. (The comma is pronounced "and.") The expressions in {eq}`wrong2-eqn` and {eq}`wrong-eqn` are technically abuses of notation, but they are _so_ much more descriptive and intuitive that we feel OK forgiving the abuse.
+in place of $P_{XY}(A\times B)$. Notice that the expressions in {eq}`wrong2-eqn` and {eq}`wrong-eqn` are technically abuses of notation.
 
 ```{admonition} Problem Prompt
 Do problem 1 on the worksheet.
@@ -319,21 +334,55 @@ Do problem 5 on the worksheet.
 
 ## Marginal distributions
 
-If $(X,Y)$ is a $2$-dimensinal random vector, then we have the joint distribution $P_{XY}$ on the plane $\mathbb{R}^2$, as well as the individual distributions $P_X$ and $P_Y$ induced by $X$ and $Y$ on the real line $\mathbb{R}$. When the random vector $(X,Y)$ is in the mix, the latter two distributions have special names:
+I would visualize a $2$-dimensional random vector $(X,Y)$ along with its component random variables $X$ and $Y$ as follows:
 
-```{prf:definition}
-Let $(X,Y)$ be a $2$-dimensional random vector. Then the distributions $P_X$ and $P_Y$ are called the _marginal distributions_ of $(X,Y)$.
+```{image} ../img/proj.svg
+:width: 80%
+:align: center
 ```
+&nbsp;
 
-So, just to emphasize:
+Here, the two maps labeled "proj" are what we mathematicians call the [_universal projection maps_](https://en.wikipedia.org/wiki/Product_(category_theory)); the first one, on the left, "projects" $\mathbb{R}^2$ onto the $x$-axis, and is given simply by chopping off the $y$-coordinate:
 
-> Marginal distributions are nothing new---the only thing that is new is the terminology.
+$$
+(x,y) \mapsto x.
+$$
 
-It turns out that it is rather easy to obtain the marginal distributions from the joint one. This is the content of:
+The second projection, on the right in the diagram, "projects" $\mathbb{R}^2$ onto the $y$-axis by chopping off the $x$-coordinate:
+
+$$
+(x,y) \mapsto y.
+$$
+
+Notice that the diagram "[commutes](https://en.wikipedia.org/wiki/Commutative_diagram)," in the sense that the action of $X$ coincides with the action of the composite map $\text{proj}\circ (X,Y)$. Thus, if you begin at the sample space $S$ and proceed to $\mathbb{R}$ along $X$, you'll get the same result as first going along $(X,Y)$ to $\mathbb{R}^2$, and then going along the projection arrow to $\mathbb{R}$. The same observations hold for $Y$.
+
+In this situation, we have _four_(!) probability measures in the mix. We have the original measure $P$ on the sample space $S$, the joint measure $P_{XY}$ on the plane $\mathbb{R}^2$, as well as the two measures $P_X$ and $P_Y$ on the line $\mathbb{R}$. My goal is to convince you in this section that these probability measures are all tightly linked to each other.
+
+Let's focus on the link between $P_{XY}$ and $P_X$. Let's suppose that we have an event $A\subset \mathbb{R}$ along with the product event $A \times \mathbb{R} \subset \mathbb{R}^2$. I would visualize this as:
+
+```{image} ../img/proj-2.svg
+:width: 100%
+:align: center
+```
+&nbsp;
+
+Notice that the product set $A\times \mathbb{R}$ consists exactly of those ordered pairs $(x,y)$ that land in $A$ under the projection map. Now, consider the two sets
+
+$$
+\{s\in S : X(s) \in A\} \quad \text{and} \quad \{s\in S : (X(s), Y(s))\in A \times \mathbb{R} \}
+$$
+
+consisting, respectively, of those sample points $s\in S$ that land in $A$ under $X$ and those sample points that land in $A \times \mathbb{R}$ under $(X,Y)$. Take a moment to convince yourself that these are just two different descriptions of the _same set_! Therefore, we may conclude that
+
+$$
+P_X(A) = P\big(\{s\in S : X(s) \in A\} \big) = P \big(\{s\in S : (X(s), Y(s))\in A \times \mathbb{R} \} \big) = P_{XY}(A \times \mathbb{R}),
+$$
+
+where the first equality follows from _the definition_ of $P_X$ while the last equality follows from _the definition_ of $P_{XY}$. This argument essentially amounts to a proof of the following crucial result:
 
 ```{prf:theorem}
 :label: marg-thm
-Let $(X,Y)$ be a $2$-dimensional random vector with distribution $P_{XY}$. Then the marginal distributions $P_X$ and $P_Y$ may be obtained via the formulas
+Let $(X,Y)$ be a $2$-dimensional random vector with induced probability measure $P_{XY}$. Then the measures $P_X$ and $P_Y$ may be obtained via the formulas
 
 $$
 P_X(A) = P_{XY}(A\times \mathbb{R}) \quad \text{and} \quad P_Y(B) = P_{XY}(\mathbb{R} \times B)
@@ -360,7 +409,18 @@ for all events $A,B\subset \mathbb{R}$. In particular:
     $$
 ```
 
-An immediate corollary of this result is a description of the marginal probability mass and density functions. We will use this result often:
+In this scenario, the distributions $P_X$ and $P_Y$ have special names:
+
+
+```{prf:definition}
+Let $(X,Y)$ be a $2$-dimensional random vector. Then the distributions $P_X$ and $P_Y$ are called the _marginal distributions_ of $(X,Y)$.
+```
+
+So, just to emphasize:
+
+> Marginal distributions are nothing new---the only thing that is new is the terminology.
+
+An immediate consequence of {prf:ref}`marg-thm` is a description of the marginal probability mass and density functions. We will use this result often:
 
 ```{prf:theorem}
 :label: marginal-thm
@@ -430,16 +490,16 @@ Do problems 6 and 7 on the worksheet.
 
 Almost everything that we learned in the [previous chapter](theory-to-practice) on data and empirical distributions may be applied in the bivariate setting. Essentially, you just need to change all random variables to random vectors, and put either a "joint" or "bivariate" in front of everything. :)
 
-To illustrate, let's return to our housing data explored in the [first section](motivation). There, we had _two_ observed random samples
+To illustrate, let's return to the Ames housing data explored in the [first section](motivation). There, we had _two_ observed random samples
 
 $$
-x_1,x_2,\ldots,x_n \quad \text{and} \quad y_1,y_2,\ldots,y_n
+x_1,x_2,\ldots,x_m \quad \text{and} \quad y_1,y_2,\ldots,y_m
 $$
 
-of the sizes (in square feet) and the selling prices (in thousands of dollars) of a subset of $n=500$ houses. In the precise language of the [previous chapter](theory-to-practice), we would say that these datasets are observations from the IID random samples
+of the sizes and the selling prices of $m=2{,}930$ houses. In the precise language of the [previous chapter](theory-to-practice), we would say that these datasets are observations from the IID random samples
 
 $$
-X_1,X_2,\ldots,X_n \quad \text{and} \quad Y_1,Y_2,\ldots,Y_n.
+X_1,X_2,\ldots,X_m \quad \text{and} \quad Y_1,Y_2,\ldots,Y_m.
 $$
 
 Make sure you remember the difference between a random sample and an _observed_ random sample!
@@ -447,7 +507,7 @@ Make sure you remember the difference between a random sample and an _observed_ 
 However, the $i$-th size $x_i$ and the $i$-th price $y_i$ naturally go together, since they are both referring to the $i$-th house. Therefore, we might instead consider our two observed random samples as a _single_ observed random sample
 
 $$
-(x_1,y_1), (x_2,y_2),\ldots,(x_n,y_n).
+(x_1,y_1), (x_2,y_2),\ldots,(x_m,y_m).
 $$
 
 But what is this new observed random sample an observation of? Answer:
@@ -455,14 +515,14 @@ But what is this new observed random sample an observation of? Answer:
 ```{prf:definition}
 :label: random-sample-vec-defn
 
-Let $(X_1,Y_1), (X_2,Y_2),\ldots,(X_n,Y_n)$ be a sequence of $2$-dimensional random vectors, all defined on the same probability space.
+Let $(X_1,Y_1), (X_2,Y_2),\ldots,(X_m,Y_m)$ be a sequence of $2$-dimensional random vectors, all defined on the same probability space.
 
 * The random vectors are called a _bivariate random sample_ if they are _independent_ and _identically distributed_ (IID).
 
 Provided that the sequence is a bivariate random sample, an _observed bivariate random sample_, or a _bivariate dataset_, is a sequence of pairs of real numbers
 
 $$
-(x_1,y_1), (x_2,y_2),\ldots,(x_n,y_n)
+(x_1,y_1), (x_2,y_2),\ldots,(x_m,y_m)
 $$
 
 where $(x_i,y_i)$ is an observation of $(X_i,Y_i)$.
@@ -478,20 +538,12 @@ Thus, it might be more natural to say that our housing data constitutes an obser
 Adapting the definition of empirical distributions of univariate datasets from the [previous chapter](theory-to-practice) is also easy:
 
 ```{prf:definition}
-Let $(x_1,y_1),(x_2,y_2),\ldots,(x_n,y_n)$ be an observed bivariate random sample, i.e., a bivariate dataset. The _empirical distribution_ of the dataset is the discrete probability measure on $\mathbb{R}^2$ with joint probability mass function
+Let $(x_1,y_1),(x_2,y_2),\ldots,(x_m,y_m)$ be an observed bivariate random sample, i.e., a bivariate dataset. The _empirical distribution_ of the dataset is the discrete probability measure on $\mathbb{R}^2$ with joint probability mass function
 
 $$
-p(x,y) = \frac{\text{number of data points $(x_i,y_i)$ that match $(x,y)$}}{n}.
+p(x,y) = \frac{\text{number of data points $(x_i,y_i)$ that match $(x,y)$}}{m}.
 $$
 ```
-
-If we assume that our bivariate dataset consists of observations drawn from an IID random sample
-
-$$
-(X_1,Y_1),(X_2,Y_2),\ldots,(X_n,Y_n),
-$$
-
-then the empirical distribution of the dataset is supposed to serve as an approximation for the _true_ joint distribution of the $(X_i,Y_i)$'s.
 
 We saw in the [first section](motivation) that we may visualize bivariate empirical distributions using scatter plots. Here's a variation on a scatter plot, which places the marginal empirical distributions in the (where else?) margins of the plot!
 
@@ -503,13 +555,11 @@ We saw in the [first section](motivation) that we may visualize bivariate empiri
 :   image:
 :       width: 70%
 
-sns.jointplot(x=X, y=Y, marginal_kws={'kde' : True})
-plt.xlabel(r'$x=$size (ft$^2$)')
-plt.ylabel(r'$y=$price (\$1,000)')
+sns.jointplot(data=df, x='area', y='price', marginal_kws={'kde' : True, 'ec': 'black'})
 plt.tight_layout()
 ```
 
-To be a bit more precise, along the top of the figure we see a histogram (with KDE) of the empirical distribution of the $x_i$'s, and along the side we see a histogram (with KDE) of the empirical distribution of the $y_i$'s.
+Along the top of the figure we see a histogram (with KDE) of the empirical distribution of the $x_i$'s, and along the side we see a histogram (with KDE) of the empirical distribution of the $y_i$'s.
 
 This type of figure makes it very clear how marginal distributions are obtained from joint distributions. For example, take a look at:
 
@@ -521,37 +571,34 @@ This type of figure makes it very clear how marginal distributions are obtained 
 :   image:
 :       width: 70%
 
-import pandas as pd
+df_slice = df[(145 <= df['price']) & (df['price'] <= 155)]
 
-# combine the data into a DataFrame
-joint_data = pd.DataFrame({'X' : X, 'Y' : Y})
-slice_data = joint_data[(178 <= joint_data['Y']) & (joint_data['Y'] <= 180)]
-
-# instantiate a JointGrid object
 g = sns.JointGrid()
+sns.scatterplot(data=df, x='area', y='price', ax=g.ax_joint, alpha=0.1)
+sns.scatterplot(data=df_slice, x='area', y='price', ax=g.ax_joint)
+ax1 = sns.histplot(data=df, x='area', ax=g.ax_marg_x, ec='black')
+ax2 = sns.histplot(data=df, y='price', ax=g.ax_marg_y, ec='black')
 
-# generate the plots
-sns.scatterplot(data=joint_data, x='X', y='Y', ax=g.ax_joint, alpha=0.05,)
-sns.scatterplot(data=slice_data, x='X', y='Y', ax=g.ax_joint)
-ax1 = sns.histplot(data=joint_data, x='X', ax=g.ax_marg_x, ec='b', color='w')
-ax2 = sns.histplot(data=joint_data, y='Y', ax=g.ax_marg_y, ec='b')
-
-# change one of the bars to magenta
 for bar in ax2.patches:
     bar.set_facecolor('w')
-ax2.patches[16].set_facecolor('#FD46FC')
+ax2.patches[11].set_facecolor('#FD46FC')
 
-g.set_axis_labels(xlabel=r'$x=$size (ft$^2$)', ylabel=r'$y=$price (\$1,000)')
+plt.gcf().set_size_inches(4, 4)
+g.set_axis_labels(xlabel='area', ylabel='price')
 plt.tight_layout()
 ```
 
-Here, I have highlighted one of the histogram bars in the empirical distribution of the $y_i$'s. The height of this bar is obtained by counting all the data points in the corresponding highlighted horizontal slice. This is a direct translation of the formula
+```{margin}
+Actually, we need to be careful with identifying $p_Y(150)$ as the _exact_ height of the histogram bar, since this is a "binned" histogram.
+```
+
+The height of highlighted histogram bar on the right is the value $p_Y(150)$, where $p_Y$ is the empirical marginal mass function of the price variable $Y$. Remember, this value is obtained through the formula
 
 $$
-p_Y(y) = \sum_{x\in \mathbb{R}} p_{XY}(x,y)
+p_Y(150) = \sum_{x\in \mathbb{R}} p_{XY}(x,150),
 $$
 
-for obtaining a marginal PMF $p_Y(y)$ from a joint PMF $p_{XY}(x,y)$ by summing over all $x$'s with a fixed $y$-value.
+where $p_{XY}$ is the empirical joint mass function. We visualize this formula as summing the joint mass function $p_{XY}(x,150)$ along the (highlighted) horizontal slice of the scatter plot where $y=150$.
 
 What about bivariate versions of KDEs and histograms? Answer:
 
@@ -563,28 +610,19 @@ What about bivariate versions of KDEs and histograms? Answer:
 :   image:
 :       width: 100%
 
-_, (ax1, ax2) = plt.subplots(ncols=2,
-                             figsize=(9, 4),
-                             sharey=True,
-                             sharex=True)
+_, axes = plt.subplots(ncols=2, figsize=(9, 4), sharey=True, sharex=True)
 
-sns.kdeplot(x=X, y=Y, ax=ax1)
-sns.histplot(x=X, y=Y,
-             cbar=True,
-             ax=ax2,
-             cbar_kws={'label': 'frequency'})
+sns.kdeplot(data=df, x='area', y='price', ax=axes[0])
+sns.histplot(data=df, x='area', y='price', cbar=True, ax=axes[1], cbar_kws={'label': 'count'})
 
-ax1.set_title('bivariate kde')
-ax2.set_title('bivariate histogram')
-ax1.set_xlabel(r'$x=$size (ft$^2$)')
-ax2.set_xlabel(r'$x=$size (ft$^2$)')
-ax1.set_ylabel(r'$y=$price (\$1,000)')
+axes[0].set_title('bivariate kde')
+axes[1].set_title('bivariate histogram')
 plt.tight_layout()
 ```
 
-Even though the density surface for a bivariate empirical distribution is _not_ a continuous surface, if it _were_, you can imagine that the curves in the KDE on the left are its contours. In other words, these are the curves over which the density surface has constant height. It appears that the density surface has either a global minimum or global maximum near $(2000,175)$, but we can't tell which from the KDE alone because the contours are not labelled.
+Even though the density surface for a bivariate empirical distribution is _not_ a continuous surface, if it _were_, you can imagine that the curves in the KDE on the left are its contours. In other words, these are the curves over which the density surface has constant height. It appears that the density surface has either a global minimum or global maximum near $(1000,125)$, but we can't tell which from the KDE alone because the contours are not labeled.
 
-On the right-hand side of the figure above, we have a bivariate version of a histogram. While a histogram for a univariate dataset is obtained by subdividing the line $\mathbb{R}$ into bins, for a bivariate dataset the plane $\mathbb{R}^2$ is subdivided into rectangle bins. Then, over each of these rectangular bins we would place a $3$-dimensional "bar" whose height is equal (or proportional) to the number of data points that fall in the bin; thus, a histogram for bivariate data should really live in three dimensions ($xyz$-space). However, the histogram above shows only the bins in the plane $\mathbb{R}^2$, and it displays the heights of the "bars" by color, with darker shades of blue indicating a larger number of data points are contained in the bin. It is evident from this diagram that the global extreme point identified in the KDE is, in fact, a global maximum.
+On the right-hand side of the figure above, we have a bivariate version of a histogram. While a histogram for a univariate dataset is obtained by subdividing the line $\mathbb{R}$ into bins, for a bivariate dataset the plane $\mathbb{R}^2$ is subdivided into rectangular bins. Then, over each of these rectangular bins we would place a $3$-dimensional "bar" whose height is equal (or proportional) to the number of data points that fall in the bin; thus, a histogram for bivariate data should really live in three dimensions. However, the histogram above shows only the bins in the plane $\mathbb{R}^2$, and it displays the heights of the "bars" by color, with darker shades of blue indicating a larger number of data points are contained in the bin. It is evident from this diagram that the global extreme point identified in the KDE is, in fact, a global maximum.
 
 
 
@@ -618,10 +656,10 @@ Let's see how this might work with the probability measures induced by random va
 To get a feel for what we're going for, let's return to our housing data
 
 $$
-(x_1,y_1),(x_2,y_2),\ldots,(x_n,y_n)
+(x_1,y_1),(x_2,y_2),\ldots,(x_m,y_m)
 $$
 
-and its bivariate empirical distribution that we studied in the previous section. Suppose that we are interested in studying the (empirical) distribution of sizes $x$ of houses with fixed sale price $y=180$. If we set $B = \{180\}$, then this means we want to shrink the range of the $y$'s down from all of $\mathbb{R}$ to the simple event $B$. The slice of data points with $y=180$ are highlighted in the following scatter plot:
+and its bivariate empirical distribution that we studied in the previous section. Suppose that we are interested in studying the (empirical) distribution of sizes $x$ of houses with fixed sale price $y=150$. If we set $B = \{150\}$, then this means we want to shrink the range of the $y$'s down from all of $\mathbb{R}$ to the simple event $B$. The slice of data points with $y=150$ are highlighted in the following scatter plot:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -631,18 +669,13 @@ and its bivariate empirical distribution that we studied in the previous section
 :   image:
 :       width: 80%
 
-# combine the data into a DataFrame
-joint_data = pd.DataFrame({'X' : X, 'Y' : Y})
-slice_data = joint_data[joint_data['Y'] == 180]
 
-sns.scatterplot(x=X, y=Y, alpha=0.05)
-sns.scatterplot(data=slice_data, x='X', y='Y')
-plt.xlabel(r'$x=$size (ft$^2$)')
-plt.ylabel(r'$y=$price (\$1,000)')
+sns.scatterplot(data=df, x='area', y='price', alpha=0.1)
+sns.scatterplot(data=df_slice, x='area', y='price')
 plt.tight_layout()
 ```
 
-Then, after cutting down the range of $y$'s to lie in $B=\{180\}$, we wonder what the distribution over the sizes $x$ looks like. Answer:
+Then, after cutting down the range of $y$'s to lie in $B=\{150\}$, we wonder what the distribution over the sizes $x$ looks like. Answer:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -652,16 +685,14 @@ Then, after cutting down the range of $y$'s to lie in $B=\{180\}$, we wonder wha
 :   image:
 :       width: 70%
 
-# instantiate a JointGrid object
-g = sns.JointGrid()
 
-# generate the plots
-scatter = sns.scatterplot(data=joint_data, x='X', y='Y', ax=g.ax_joint, alpha=0.05,)
-sns.scatterplot(data=slice_data, x='X', y='Y', ax=g.ax_joint)
-sns.histplot(data=slice_data, x='X', ax=g.ax_marg_x, ec='b', color='#FD46FC', kde=True)
+g = sns.JointGrid()
+scatter = sns.scatterplot(data=df, x='area', y='price', ax=g.ax_joint, alpha=0.1)
+sns.scatterplot(data=df_slice, x='area', y='price', ax=g.ax_joint)
+sns.histplot(data=df_slice, x='area', ax=g.ax_marg_x, ec='black', color='#FD46FC', kde=True)
 
 g.ax_marg_y.remove()
-g.set_axis_labels(xlabel=r'$x=$size (ft$^2$)', ylabel=r'$y=$price (\$1,000)')
+g.set_axis_labels(xlabel='area', ylabel='price')
 plt.tight_layout()
 ```
 
@@ -669,12 +700,13 @@ plt.tight_layout()
 If you haven't caught on by now, the word _empirical_ usually always means "observed" or "based on a dataset."
 
 ```
-The histogram along the top of the figure shows the empirical distribution of the $x$'s belonging to data points $(x,y)$ with $y=180$. If we remember that our original random variables in the [first section](motivation) were $X$ and $Y$, then this empirical distribution is an approximation to the _conditional distribution of $X$ given $Y=180$._ (The precise definition is below.) So, the histogram along the top of the scatter plot displays an _empirical_ conditional distribution.
+The histogram along the top of the figure shows the empirical distribution of the $x$'s belonging to data points $(x,y)$ with $y=150$. If we remember that our original random variables in the [first section](motivation) were $X$ and $Y$, then this empirical distribution is an approximation to the _conditional distribution of $X$ given $Y=180$._ (The precise definition is below.) So, the histogram along the top of the scatter plot displays an _empirical_ conditional distribution.
 
 
 ```{margin}
 At the most general level, defining _conditional distributions_ is surprisingly very difficult. Have a look at [this](https://en.wikipedia.org/wiki/Conditional_probability_distribution#Measure-theoretic_formulation) page if you don't believe me.
 ```
+
 Alright. We're ready for the definitions. At this level, it turns out that the easiest way to define conditional distributions is via mass and density functions:
 
 ```{prf:definition}
@@ -878,48 +910,48 @@ Up till now in this chapter, we have studied pairs of random variables $X$ and $
 
 ```{prf:definition}
 
-Let $S$ be a probability space and $n\geq 1$ an integer. An _$n$-dimensional random vector_ is a function
+Let $S$ be a probability space and $n\geq 1$ an integer. An _$m$-dimensional random vector_ is a function
 
 $$
-\mathbf{X}: S \to \mathbb{R}^n.
+X: S \to \mathbb{R}^m.
 $$
 
 Thus, we may write
 
 $$
-\mathbf{X}(s) = (X_1(s),X_2(s),\ldots,X_n(s))
+X(s) = (X_1(s),X_2(s),\ldots,X_m(s))
 $$
 
-for each sample point $s\in S$. When we do so, the functions $X_1,X_2,\ldots,X_n$ are ordinary random variables that are called the _components_ of the random vector $\mathbf{X}$.
+for each sample point $s\in S$. When we do so, the functions $X_1,X_2,\ldots,X_m$ are ordinary random variables that are called the _components_ of the random vector $X$.
 ```
 
-So, an $n$-dimensional random vector is nothing but a sequence of random variables $X_1,X_2,\ldots,X_n$. These vectors are thus _immensely important_, since they are connected with random samples and datasets as defined back in {prf:ref}`random-sample-defn`.
+So, an $m$-dimensional random vector is nothing but a sequence of random variables $X_1,X_2,\ldots,X_m$. These vectors are thus _immensely important_, since they are connected with random samples and datasets as defined back in {prf:ref}`random-sample-defn`.
 
 Random vectors in dimensions $>2$ induce joint probability distributions, just like their $2$-dimensional relatives:
 
 ```{prf:definition}
-Let $(X_1,X_2,\ldots,X_n):S \to \mathbb{R}^n$ be an $n$-dimensional random vector on a probability space $S$ with probability measure $P$. We define the _probability measure_ of the random vector, denoted $P_{(X_1,X_2,\ldots,X_n)}$ or $P_{X_1X_2\cdots X_n}$, via the formula
+Let $(X_1,X_2,\ldots,X_m):S \to \mathbb{R}^n$ be an $n$-dimensional random vector on a probability space $S$ with probability measure $P$. We define the _probability measure_ of the random vector, denoted $P_{X_1X_2\cdots X_m}$, via the formula
 
 $$
-P_{X_1X_2\cdots X_n}(C) = P \left( \{s\in S \mid (X_1(s),X_2(s),\ldots,X_n(s))\in C\} \right),
+P_{X_1X_2\cdots X_m}(C) = P \left( \{s\in S \mid (X_1(s),X_2(s),\ldots,X_m(s))\in C\} \right),
 $$ (hard2-eqn)
 
-for all events $C\subset \mathbb{R}^n$. The probability measure $P_{X_1X_2\cdots X_n}$ is also called the _joint distribution_ of the component random variables $X_1,X_2,\ldots,X_n$.
+for all events $C\subset \mathbb{R}^m$. The probability measure $P_{X_1X_2\cdots X_m}$ is also called the _joint distribution_ of the component random variables $X_1,X_2,\ldots,X_m$.
 ```
 
 The equation {eq}`hard2-eqn` is the _precise_ definition of the joint distribution for _any_ event $C$ in $\mathbb{R}^n$. But if $C$ happens to be an event of the form
 
 $$
-C = \{ (x_1,x_2,\ldots,x_n) : x_1\in A_1, x_2\in A_2,\ldots, x_n \in A_n\}
+C = \{ (x_1,x_2,\ldots,x_m) : x_1\in A_1, x_2\in A_2,\ldots, x_m \in A_m\}
 $$
 
-for some events $A_1,A_2,\ldots,A_n\subset \mathbb{R}$, then we shall _always_ write
+for some events $A_1,A_2,\ldots,A_m\subset \mathbb{R}$, then we shall _always_ write
 
 $$
-P(X_1\in A_1, X_2\in A_2,\ldots, X_n \in A_n)
+P(X_1\in A_1, X_2\in A_2,\ldots, X_m \in A_m)
 $$ (clock-eqn)
 
-in place of $P_{X_1X_2\cdots X_n}(C)$. Again, this expression {eq}`clock-eqn` is technically an abuse of notation, but it is tolerated because it is so much more descriptive and intuitive.
+in place of $P_{X_1X_2\cdots X_m}(C)$. Again, this expression {eq}`clock-eqn` is technically an abuse of notation.
 
 
 ```{margin}
@@ -948,8 +980,7 @@ Do problems 13 and 14 on the worksheet.
 (independence)=
 ## Independence
 
-Because of its central role in the definitions of random samples and datasets (see {prf:ref}`random-sample-defn` and {prf:ref}`random-sample-vec-defn`), _independence_ is one of the most important concepts in all probability and statistics. In a somewhat different order compared to previous chapters, I will begin our discussion with the abstract definitions before moving on to an extended example from Bayesian statistics which highlights how independence is used in practice and brings together many of the concepts we have studied in past chapters.
-
+Because of its central role in the definitions of random samples and datasets (see {prf:ref}`random-sample-defn` and {prf:ref}`random-sample-vec-defn`), _independence_ is one of the most important concepts in all probability and statistics. In a somewhat different order compared to previous chapters, I will begin our discussion with the abstract definitions before moving on to an extended example from Bayesian statistics that highlights how independence is often used in computations.
 
 We already studied a form of _independence_ back in {numref}`independence-first`, where we saw that two events $A$ and $B$ in a probability space are _independent_ if
 
@@ -965,43 +996,43 @@ $$ (cond-ind-eqn)
 
 This latter equation is telling us that $A$ and $B$ are independent provided that the conditional probability of $A$, given $B$, is just the plain probability of $A$. In other words, if $A$ and $B$ are independent, then whether $B$ has occurred has no impact on the probability of $A$ occurring.
 
-Our mission in this chapter is to adapt these definitions to the probability measures induced by random variables. The key step is to replace the left-hand side of {eq}`ind-fan-eqn` with a joint probability distribution. We make this replacement in the next defintion, while also generalizing to an arbitrary number of random variables:
+Our mission in this section is to adapt these definitions to the probability measures induced by random variables. The key step is to replace the left-hand side of {eq}`ind-fan-eqn` with a joint probability distribution. We make this replacement in the next defintion, while also generalizing to an arbitrary number of random variables:
 
 ```{prf:definition}
 :label: independence-defn
 
-Let $X_1,\ldots,X_n$ be random variables, all defined on the same probability space. Then these random variables are said to be _independent_ if
+Let $X_1,X_2,\ldots,X_m$ be random variables, all defined on the same probability space. Then these random variables are said to be _independent_ if
 
 $$
-P(X_1\in A_1,\ldots,X_n \in A_n) = P(X_1\in A_1) \cdots P(X_n\in A_n)
+P(X_1\in A_1, X_2\in A_2,\ldots,X_m \in A_n) = P(X_1\in A_1)P(X_2\in A_2) \cdots P(X_m\in A_m)
 $$
 
-for all events $A_1,\ldots,A_n\subset \mathbb{R}$. If the variables are not independent, they are called _dependent_.
+for all events $A_1,A_2,\ldots,A_m\subset \mathbb{R}$. If the variables are not independent, they are called _dependent_.
 ```
 
-Notice that no conditions are placed on the random variables $X_1,\ldots,X_n$ in this definition, like assuming they are discrete or continuous. However, provided that mass or density functions exist, then convenient criteria for independence may be obtained in terms of these functions:
+Notice that no conditions are placed on the random variables $X_1,\ldots,X_m$ in this definition, such as assuming they are discrete or continuous. However, provided that mass or density functions exist, then convenient criteria for independence may be obtained in terms of these functions:
 
 ```{prf:theorem} Mass/Density Criteria for Independence
-Let $X_1,\ldots,X_n$ be random variables.
+Let $X_1,X_2,\ldots,X_m$ be random variables.
 
 * Suppose that the random variables are jointly discrete. Then they are independent if and only if
 
   $$
-  p_{X_1\cdots X_n}(x_1,\ldots,x_n) = p_{X_1}(x_1) \cdots p_{X_n}(x_n)
+  p_{X_1X_2\cdots X_m}(x_1,x_2,\ldots,x_m) = p_{X_1}(x_1)p_{X_2}(x_2) \cdots p_{X_m}(x_m)
   $$
 
-  for all $x_1,\ldots,x_n \in \mathbb{R}$.
+  for all $x_1,x_2,\ldots,x_m \in \mathbb{R}$.
 
 * Suppose that the random variables are jointly continuous. Then they are independent if and only if
 
   $$
-  f_{X_1\cdots X_n}(x_1,\ldots,x_n) = f_{X_1}(x_1) \cdots f_{X_n}(x_n)
+  f_{X_1X_2\cdots X_m}(x_1,x_2,\ldots,x_m) = f_{X_1}(x_1)f_{X_2}(x_2) \cdots f_{X_m}(x_m)
   $$ (cont-factor-eqn)
 
-  for all $x_1,\ldots,x_n \in \mathbb{R}$.
+  for all $x_1,x_2,\ldots,x_m \in \mathbb{R}$.
 ```
 
-Let's outline a quick proof of {eq}`cont-factor-eqn` in the case that there are only two random variables $X$ and $Y$. In any case, we have
+Let's outline a quick proof of {eq}`cont-factor-eqn` in the case that there are only two random variables $X$ and $Y$. Then, given events $A,B\subset \mathbb{R}$, we have
 
 \begin{align*}
 P(X\in A) P(Y\in B) &= \int_Af_X(x) \ \text{d} x \int_B f_Y(y) \ \text{d}y \\
@@ -1031,7 +1062,7 @@ Let $X$ and $Y$ be two random variables.
     p_{X|Y}(x|y)  = p_X(x)
     $$
 
-    for all values of $y$ such that $p_Y(y)>0$ and all $x\in \mathbb{R}$.
+    for all $x\in \mathbb{R}$ and all $y\in \mathbb{R}$ such that $p_Y(y)>0$.
 
 * Suppose $X$ and $Y$ are jointly continuous. Then they are independent if and only if
 
@@ -1039,7 +1070,7 @@ Let $X$ and $Y$ be two random variables.
     f_{X|Y}(x|y)  = f_X(x)
     $$
 
-    for all values of $y$ such that $f_Y(y)>0$ and all $x\in \mathbb{R}$.
+    for all $x\in \mathbb{R}$ and all $y\in \mathbb{R}$ such that $f_Y(y)>0$.
 ```
 
 
@@ -1114,7 +1145,7 @@ $$
 
 for the density function of $\theta$ drawn from the $\mathcal{B}eta(6,2)$ distribution.
 
-Now, suppose that we flip the coin ten times. It is natural to realize the resulting dataset as an observation from an identically distributed random sample
+Now, suppose that we flip the coin ten times. It is natural to realize the resulting dataset as an observation from an IID random sample
 
 $$
 X_1,X_2,\ldots,X_{10}
@@ -1183,7 +1214,7 @@ plt.tight_layout()
 
 Here's what you should notice: For larger values of $x$, the distributions are shifted toward higher values of $\theta$, which reflects the fact that many heads suggests $\theta$ is close to $1$. In the other direction, smaller values of $x$ shift the distributions toward $0$.
 
-In particular, for $x=3$ we obtain an "updated" distribution of $\mathcal{B}eta(9,9)$, which has the symmetric density curve in the figure. The expected value for this distribution is exactly $0.5$, so we would need to see 3 heads in our dataset to conclude that the coin has a good chance of being fair (at least according to the "posterior mean"). But if we see four or more heads ($x\geq 4$), then our computations still support the conclusion that our friend is untrustworthy since the distributions in this range have expected values $>0.5$. In the other direction, if we see two or fewer heads ($x\leq 2$), then we might believe that the coin favors us.
+In particular, for $x=3$ we obtain an "updated" distribution of $\mathcal{B}eta(9,9)$, which has the symmetric density curve in the figure. The expected value for this distribution is exactly $0.5$, so we would need to see three heads in our dataset to conclude that the coin has a good chance of being fair (at least according to the "posterior mean"). But if we see four or more heads, then our computations still support the conclusion that our friend is untrustworthy since the distributions in this range have expected values $>0.5$. In the other direction, if we see two or fewer heads, then we might believe that the coin favors us.
 
 ```{note}
 
@@ -1192,6 +1223,6 @@ It is worth addressing this point again: Why do we need to see _three_ heads to 
 Remember, we believe that our friend is untrustworthy. If we believed that $\theta=0.75$, then seeing five heads is not enough evidence to convince us that $\theta$ is, in reality, near $0.5$. We would need to see _even fewer_ heads to overcome (or offset) the prior estimate of $\theta=0.75$.
 ```
 
-Actually, my description here is slightly at odds with a strict interpretation of Bayesian philosophy, since a true Bayesian would never assume that the parameter $\theta$ has a fixed valued, only that it has a prior probability distribution. My description has shades of [hypothesis testing](hyp-test).
+Actually, my description here is slightly at odds with a strict interpretation of Bayesian philosophy, since a true Bayesian would never assume that the parameter $\theta$ has a fixed valued at the outset, only that it has a prior probability distribution.
 
-Notice that independence of the coin flips was _absolutely crucial_ for the computations to go through. Without assuming independence, we would not have been able to factor the joint mass function (conditioned on $\theta$) as in {eq}`factor-likelihood-eqn`, which would have made our application of Bayes' Theorem much more difficult. This joint mass function is actually known as the _likelihood function_ $\mathcal{L}(\theta)$ of the parameter $\theta$, and we will see these same computations appear again when we study [_maximum likelihood estimation_](point-est) (_MLE_).
+Notice that independence of the coin flips was _absolutely crucial_ for the computations to go through. Without assuming independence, we would not have been able to factor the joint mass function (conditioned on $\theta$) as in {eq}`factor-likelihood-eqn`, which would have made our application of Bayes' Theorem much more difficult. This joint mass function is actually known as the _likelihood function_ $\mathcal{L}(\theta)$ of the parameter $\theta$, and we will see these same computations appear again when we study [_maximum likelihood estimation_](prob-models) (_MLE_).
