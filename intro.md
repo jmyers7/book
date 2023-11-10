@@ -12,7 +12,7 @@ kernelspec:
 ---
 
 (intro)=
-# A Course in Mathematical Statistics with Python
+# Mathematical Statistics with a View Toward Machine Learning
 
 ```{image} ./img/wallpaper4.png
 :width: 100%
