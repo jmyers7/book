@@ -509,16 +509,14 @@ P_X(\{50\}) &amp;= 5/32 \approx 0.16.
 <span class="eqno">(4.2)<a class="headerlink" href="#equation-inv2-eqn" title="Permalink to this equation">#</a></span>\[P_X(A) = P \big( \{ s\in S : X(s) \in A\} \big),\]</div>
 <p>for all events <span class="math notranslate nohighlight">\(A\subset \mathbb{R}\)</span>.</p>
 </section>
-</div><p>The defining equation <a class="reference internal" href="#equation-inv2-eqn">(4.2)</a> might look confusing and intimidating, but notice that it just encapsulates the idea behind equation <a class="reference internal" href="#equation-inv-eqn">(4.1)</a> that we explored above. Indeed, in our example from above, <span class="math notranslate nohighlight">\(X\)</span> was the ‘annual income’ variable. If we let <span class="math notranslate nohighlight">\(A\)</span> be the simple event <span class="math notranslate nohighlight">\(\{x\}\)</span>, then the left-hand side of <a class="reference internal" href="#equation-inv2-eqn">(4.2)</a> is precisely <span class="math notranslate nohighlight">\(P_X(\{x\})\)</span>, just like in <a class="reference internal" href="#equation-inv-eqn">(4.1)</a>. On the other side, notice that the set</p>
+</div><p>For a given event <span class="math notranslate nohighlight">\(A\subset \mathbb{R}\)</span>, notice that the set</p>
 <div class="math notranslate nohighlight">
-\[\{ s\in S : X(s) \in \{x\}\}\]</div>
-<p>may be rewritten as</p>
-<div class="math notranslate nohighlight">
-\[\{ s\in S : X(s) =x\},\]</div>
-<p>since the only way that <span class="math notranslate nohighlight">\(X(s) \in \{x\}\)</span> is if <span class="math notranslate nohighlight">\(X(s) = x\)</span>. But the equation <span class="math notranslate nohighlight">\(X(s) = x\)</span> simply says that the annual income of person <span class="math notranslate nohighlight">\(s\)</span> is <span class="math notranslate nohighlight">\(x\)</span>, and hence</p>
-<div class="math notranslate nohighlight">
-\[\{ s\in S : X(s) =x\} = \{\text{people with annual income $x$}\}.\]</div>
-<p>Thus, as I said above, the equation <a class="reference internal" href="#equation-inv2-eqn">(4.2)</a> really is just a generalization of the idea behind <a class="reference internal" href="#equation-inv-eqn">(4.1)</a>.</p>
+\[
+\{s \in S : X(s) \in A)\} \subset S
+\]</div>
+<p>inside the probability measure on the right-hand side of <a class="reference internal" href="#equation-inv2-eqn">(4.2)</a> consists exactly of those sample points <span class="math notranslate nohighlight">\(s\in S\)</span> that land in <span class="math notranslate nohighlight">\(A\)</span> under the action of the random variable <span class="math notranslate nohighlight">\(X\)</span>; I would visualize this as:</p>
+<a class="reference internal image-reference" href="../_images/pushforward-2.svg"><img alt="../_images/pushforward-2.svg" class="align-center" src="../_images/pushforward-2.svg" width="70%" /></a>
+<p> </p>
 <div class="admonition-alternate-notation admonition">
 <p class="admonition-title">Alternate notation</p>
 <p>In the <em>mathematical</em> theory of probability, the notation <span class="math notranslate nohighlight">\(P_X\)</span> is very common for the probability measure induced by <span class="math notranslate nohighlight">\(X\)</span>. However, in elementary statistics it is much more common to write</p>
@@ -545,7 +543,7 @@ P_X(\{50\}) &amp;= 5/32 \approx 0.16.
 </section>
 <section id="discrete-and-continuous-random-variables">
 <h2><span class="section-number">4.3. </span>Discrete and continuous random variables<a class="headerlink" href="#discrete-and-continuous-random-variables" title="Permalink to this heading">#</a></h2>
-<p>Two types of random variables will be the ones that are most frequently encountered in this class. Their definitions follow below. Before reading them, however, it might be worth returning to our previous discussion of discrete and continuous probability measures.</p>
+<p>Two types of random variables will be the ones that are most frequently encountered in this class. Their definitions follow below. Before reading them, however, it might be worth reviewing our discussions of discrete and continuous probability measures in <a class="reference internal" href="prob-spaces.html#discrete-prob"><span class="std std-numref">Sections 2.6</span></a> and <a class="reference internal" href="prob-spaces.html#cont-prob"><span class="std std-numref">2.8</span></a>.</p>
 <div class="proof definition admonition" id="definition-2">
 <p class="admonition-title"><span class="caption-number">Definition 4.3 </span></p>
 <section class="definition-content" id="proof-content">
@@ -567,31 +565,22 @@ P_X(\{50\}) &amp;= 5/32 \approx 0.16.
 </li>
 </ol>
 </section>
-</div><p>Notice that a random variable <span class="math notranslate nohighlight">\(X\)</span> is discrete if and only if its probability measure <span class="math notranslate nohighlight">\(P_X\)</span> is discrete, in the sense discussed in our previous chapter, and <span class="math notranslate nohighlight">\(X\)</span> is continuous if and only if <span class="math notranslate nohighlight">\(P_X\)</span> is continuous.</p>
-<p>You should understand these <em>formal</em> definitions <em>intuitively</em> as follows:</p>
-<div class="admonition-recognizing-discrete-and-continuous-random-variables admonition">
-<p class="admonition-title">Recognizing Discrete and Continuous Random Variables</p>
-<ul class="simple">
-<li><p>If the range of a random variable is <em>finite</em> or <em>countably infinite</em>, then it is discrete.</p></li>
-<li><p>If the range of a random variable is a <em>continuum</em> of values, then it is continuous.</p></li>
-</ul>
-</div>
-<p>Now:</p>
-<div class="admonition-problem-prompt admonition">
-<p class="admonition-title">Problem Prompt</p>
-<p>Let’s get some practice recognizing discrete and continuous random variables, and computing some of their probability measures. Do problems 8 and 9 on the worksheet.</p>
-</div>
-<aside class="margin sidebar">
+</div><aside class="margin sidebar">
 <p class="sidebar-title">Looking beyond…</p>
 <p>Here’s where things get really deep!</p>
 <p>Though it seems that discrete and continuous random variables are really rather different because the former type involve discrete summations while the latter involve continuous integrals, there is a very general mathematical theory of integration in which they are <em>united</em>. This is the powerful theory of <a href="https://en.wikipedia.org/wiki/Lebesgue_integration">Lebesgue integration</a>.</p>
 <p>Indeed, in this much more general theory, discrete summations actually <em>are</em> integrals of a particular type: They are  integrals “against a <a href="https://en.wikipedia.org/wiki/Counting_measure">counting measure</a>.” Also, in this theory the <em>probability mass functions</em> of discrete random variables and the <em>probability density functions</em> of continuous ones are united, for they are both examples of <a href="https://en.wikipedia.org/wiki/Radon%E2%80%93Nikodym_theorem#">Radon-Nikodym derivatives</a> of measures that are <a href="https://en.wikipedia.org/wiki/Absolute_continuity#Absolute_continuity_of_measures">absolutely continuous</a> with respect to an ambient measure, either a <a href="https://en.wikipedia.org/wiki/Counting_measure">counting measure</a> in the discrete case, or the <a href="https://en.wikipedia.org/wiki/Lebesgue_measure">Lebesgue measure</a> in the continuous one.</p>
 </aside>
+<p>Notice that a random variable <span class="math notranslate nohighlight">\(X\)</span> is discrete if and only if its probability measure <span class="math notranslate nohighlight">\(P_X\)</span> is discrete in the sense defined in <a class="reference internal" href="prob-spaces.html#discrete-prob"><span class="std std-numref">Section 2.6</span></a>, while it is continuous if and only if <span class="math notranslate nohighlight">\(P_X\)</span> is continuous in the sense defined in <a class="reference internal" href="prob-spaces.html#cont-prob"><span class="std std-numref">Section 2.8</span></a>.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Let’s get some practice recognizing discrete and continuous random variables, and computing some of their probability measures. Do problems 8 and 9 on the worksheet.</p>
+</div>
 <p>As I mentioned, discrete and continuous random variables will be the only types of random variables that we work with in this class—at least in problems where we need to <em>compute</em> things. As we continue, you will notice the contrast in the definition above, where discrete random variables involve summations <span class="math notranslate nohighlight">\(\sum\)</span> and continuous random variables involve integrals <span class="math notranslate nohighlight">\(\int\)</span>, will be replicated over and over again. This is another good intuition to have in mind for these two types of random variables: The discrete random variables are those in which you “add things” to compute various quantities, whereas continuous random variables are those in which you must “integrate things.”</p>
 </section>
 <section id="distribution-and-quantile-functions">
 <span id="dist-func-rv"></span><h2><span class="section-number">4.4. </span>Distribution and quantile functions<a class="headerlink" href="#distribution-and-quantile-functions" title="Permalink to this heading">#</a></h2>
-<p>If <span class="math notranslate nohighlight">\(X\)</span> is any type of random variable (discrete, continuous, or neither), then its probability measure <span class="math notranslate nohighlight">\(P_X\)</span> lives on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. As such, it has both distribution and quantile functions. We studied these latter types of functions in a previous chapter—but in case you forgot their definitions, here’s a reminder of the definition of distribution functions:</p>
+<p>If <span class="math notranslate nohighlight">\(X\)</span> is any type of random variable (discrete, continuous, or neither), then its probability measure <span class="math notranslate nohighlight">\(P_X\)</span> lives on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. As such, it has both distribution and quantile functions. We studied these latter types of functions in <a class="reference internal" href="prob-spaces.html#dist-quant"><span class="std std-numref">Section 2.10</span></a>. But in case you forgot their definitions, we review them in this section in the context of random variables.</p>
 <div class="proof definition admonition" id="definition-3">
 <p class="admonition-title"><span class="caption-number">Definition 4.4 </span></p>
 <section class="definition-content" id="proof-content">
@@ -632,7 +621,7 @@ Q(p) = \min\{x\in \mathbb{R} : p \leq F(x)\}.
 <li><p>The quantile <span class="math notranslate nohighlight">\(Q(0.5)\)</span> is called the <em>median of <span class="math notranslate nohighlight">\(X\)</span></em>.</p></li>
 </ol>
 </section>
-</div><p>Even though we had considerable practice with distribution and quantile functions in a previous chapter, it won’t hurt us to do another practice problem:</p>
+</div><p>Even though we had considerable practice with distribution and quantile functions in <a class="reference internal" href="prob-spaces.html#dist-quant"><span class="std std-numref">Section 2.10</span></a>, it won’t hurt to do another practice problem:</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problem 10 on the worksheet.</p>
@@ -655,47 +644,25 @@ X: S \to \mathbb{R}, \quad X = \text{ largest of two numbers}.
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="c1"># set custom style for plots</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
-
-<span class="c1"># make sure this comes last in the imports!</span>
-<span class="c1"># change the output resolution and size of figures</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">600</span>
 
-<span class="k">def</span> <span class="nf">prob_hist</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">yvals</span><span class="p">,</span> <span class="n">stemwidth</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span>
-              <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;probability&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">vline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">hline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
-    
-    <span class="n">_</span><span class="p">,</span> <span class="n">stems</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">yvals</span><span class="p">,</span> <span class="n">basefmt</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">markerfmt</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">stems</span><span class="p">,</span> <span class="s1">&#39;linewidth&#39;</span><span class="p">,</span> <span class="n">stemwidth</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">size</span> <span class="o">!=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
-        <span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
-    
-    <span class="k">if</span> <span class="n">vline</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">vline</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">hline</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">hline</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-
-<span class="n">sums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="o">/</span><span class="mi">10</span><span class="p">])</span>
-<span class="n">prob_hist</span><span class="p">(</span><span class="n">sums</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">stemwidth</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">support</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/8f39acd11661e57fb4155502f709a959ad81547bc5885045601003e7e949b14e.png"><img alt="../_images/8f39acd11661e57fb4155502f709a959ad81547bc5885045601003e7e949b14e.png" src="../_images/8f39acd11661e57fb4155502f709a959ad81547bc5885045601003e7e949b14e.png" style="width: 70%;" /></a>
+<a class="reference internal image-reference" href="../_images/6d9d10bf8fcf6e0ed2cdf42718910bf755c42c53385c98109cc01d7cedda8ef3.png"><img alt="../_images/6d9d10bf8fcf6e0ed2cdf42718910bf755c42c53385c98109cc01d7cedda8ef3.png" src="../_images/6d9d10bf8fcf6e0ed2cdf42718910bf755c42c53385c98109cc01d7cedda8ef3.png" style="width: 70%;" /></a>
 </figure>
 </div>
 </div>
@@ -715,18 +682,11 @@ X: S \to \mathbb{R}, \quad X = \text{ largest of two numbers}.
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">max_n</span> <span class="o">=</span> <span class="mi">200</span>
-<span class="n">n_list</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">means</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">draw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">sums</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">probs</span><span class="p">)</span>
-    <span class="n">means</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">draw</span><span class="p">))</span>
-    <span class="n">n_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-        
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_list</span><span class="p">,</span> <span class="n">means</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$n=$number of trials&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;mean value of $X$&#39;</span><span class="p">)</span>
+<span class="n">sizes</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
+<span class="n">means</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">probs</span><span class="p">))</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">sizes</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sizes</span><span class="p">,</span> <span class="n">means</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$n=$number of trials&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;mean value of $X$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
@@ -762,16 +722,17 @@ X: S \to \mathbb{R}, \quad X = \text{ largest of two numbers}.
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="o">/</span><span class="mi">10</span><span class="p">])</span>
-<span class="n">prob_hist</span><span class="p">(</span><span class="n">sums</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">stemwidth</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/8f39acd11661e57fb4155502f709a959ad81547bc5885045601003e7e949b14e.png"><img alt="../_images/8f39acd11661e57fb4155502f709a959ad81547bc5885045601003e7e949b14e.png" src="../_images/8f39acd11661e57fb4155502f709a959ad81547bc5885045601003e7e949b14e.png" style="width: 70%;" /></a>
+<a class="reference internal image-reference" href="../_images/6d9d10bf8fcf6e0ed2cdf42718910bf755c42c53385c98109cc01d7cedda8ef3.png"><img alt="../_images/6d9d10bf8fcf6e0ed2cdf42718910bf755c42c53385c98109cc01d7cedda8ef3.png" src="../_images/6d9d10bf8fcf6e0ed2cdf42718910bf755c42c53385c98109cc01d7cedda8ef3.png" style="width: 70%;" /></a>
 </figure>
 </div>
 </div>
@@ -789,17 +750,19 @@ X: S \to \mathbb{R}, \quad X = \text{ largest of two numbers}.
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expected_val</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sums</span><span class="p">)):</span>
-    <span class="n">expected_val</span> <span class="o">+=</span> <span class="n">sums</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">probs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
-<span class="n">prob_hist</span><span class="p">(</span><span class="n">sums</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">stemwidth</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$y$&#39;</span><span class="p">,</span> <span class="n">vline</span><span class="o">=</span><span class="n">expected_val</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expected_val</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x</span> <span class="o">*</span> <span class="n">p</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">probs</span><span class="p">)])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">expected_val</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/8ee7ca3dcdd890c7c68f4f1925d74204c74f885704e415a41d79d25e05e6fa5c.png"><img alt="../_images/8ee7ca3dcdd890c7c68f4f1925d74204c74f885704e415a41d79d25e05e6fa5c.png" src="../_images/8ee7ca3dcdd890c7c68f4f1925d74204c74f885704e415a41d79d25e05e6fa5c.png" style="width: 70%;" /></a>
+<a class="reference internal image-reference" href="../_images/339fe31036f1cb55076718ee2ee960f4e30dddaa1b7909815bfe9da16d655047.png"><img alt="../_images/339fe31036f1cb55076718ee2ee960f4e30dddaa1b7909815bfe9da16d655047.png" src="../_images/339fe31036f1cb55076718ee2ee960f4e30dddaa1b7909815bfe9da16d655047.png" style="width: 70%;" /></a>
 </figure>
 </div>
 </div>
@@ -811,39 +774,27 @@ X: S \to \mathbb{R}, \quad X = \text{ largest of two numbers}.
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">beta</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="p">[[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span> <span class="p">[(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]]</span>
+<span class="n">support</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
-<span class="n">params</span> <span class="o">=</span> <span class="p">[</span> <span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span> <span class="p">[(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]]</span>
-<span class="n">xvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">support</span><span class="p">])</span>
+    <span class="n">probs</span> <span class="o">=</span> <span class="n">probs</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+    <span class="n">expected_val</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x</span> <span class="o">*</span> <span class="n">p</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">probs</span><span class="p">)])</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">support</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">expected_val</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-        <span class="n">a</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">b</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-        
-        <span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xvals</span><span class="p">])</span>
-        <span class="n">probs</span> <span class="o">=</span> <span class="n">probs</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
-
-        <span class="n">expected_val</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xvals</span><span class="p">)):</span>
-            <span class="n">expected_val</span> <span class="o">+=</span> <span class="n">xvals</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">probs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
-        
-        <span class="n">_</span><span class="p">,</span> <span class="n">stems</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">basefmt</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">markerfmt</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">stems</span><span class="p">,</span> <span class="s1">&#39;linewidth&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xvals</span><span class="p">)</span>
-        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">expected_val</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
-
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$X_1$&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$X_2$&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$X_3$&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$X_4$&#39;</span><span class="p">)</span>   
-<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$X_1$&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$X_2$&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$X_3$&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$X_4$&#39;</span><span class="p">)</span>   
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -851,7 +802,7 @@ X: S \to \mathbb{R}, \quad X = \text{ largest of two numbers}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/b965fc18362448bb6b58ee85b30846133c7a66776e0dd03a09aa81a0738732b2.png"><img alt="../_images/b965fc18362448bb6b58ee85b30846133c7a66776e0dd03a09aa81a0738732b2.png" src="../_images/b965fc18362448bb6b58ee85b30846133c7a66776e0dd03a09aa81a0738732b2.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/d939f02a1e4fb73ba29c48e08a2cebf11c0a011faa77f3d5d5a94bd27bac503b.png"><img alt="../_images/d939f02a1e4fb73ba29c48e08a2cebf11c0a011faa77f3d5d5a94bd27bac503b.png" src="../_images/d939f02a1e4fb73ba29c48e08a2cebf11c0a011faa77f3d5d5a94bd27bac503b.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
@@ -1222,36 +1173,25 @@ P(c=x) = \begin{cases} 1 &amp; : x = c, \\ 0 &amp; : x\neq c. \end{cases}
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="p">]</span>
-<span class="n">xvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
-<span class="n">probs_list</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+<span class="n">support</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">b</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">X</span> <span class="o">=</span> <span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-    
-    <span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xvals</span><span class="p">])</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">support</span><span class="p">])</span>
     <span class="n">probs</span> <span class="o">=</span> <span class="n">probs</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
-    <span class="n">probs_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
-
-    <span class="n">expected_val</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xvals</span><span class="p">)):</span>
-        <span class="n">expected_val</span> <span class="o">+=</span> <span class="n">xvals</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">probs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+    <span class="n">expected_val</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x</span> <span class="o">*</span> <span class="n">p</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">probs</span><span class="p">)])</span>
     
-    <span class="n">_</span><span class="p">,</span> <span class="n">stems</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">basefmt</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">markerfmt</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">stems</span><span class="p">,</span> <span class="s1">&#39;linewidth&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xvals</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">support</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">expected_val</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
 
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1259,7 +1199,7 @@ P(c=x) = \begin{cases} 1 &amp; : x = c, \\ 0 &amp; : x\neq c. \end{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/29d47ec865b027abe31a0fa05224fe903659b925d337d3e45d72adc83aa64946.png"><img alt="../_images/29d47ec865b027abe31a0fa05224fe903659b925d337d3e45d72adc83aa64946.png" src="../_images/29d47ec865b027abe31a0fa05224fe903659b925d337d3e45d72adc83aa64946.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/0b59d464852cd3294696929464808a174b75b944f4cbc296ddb89ee085053023.png"><img alt="../_images/0b59d464852cd3294696929464808a174b75b944f4cbc296ddb89ee085053023.png" src="../_images/0b59d464852cd3294696929464808a174b75b944f4cbc296ddb89ee085053023.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
@@ -1343,8 +1283,8 @@ g(x) = ax+b,
 <p class="admonition-title"><span class="caption-number">Theorem 4.6 </span> (Variance of an Affine Transformation)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable and <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> constants. Then</p>
-<div class="amsmath math notranslate nohighlight" id="equation-41e15c1f-d9f0-43a8-a2be-085611a1c1ae">
-<span class="eqno">(4.18)<a class="headerlink" href="#equation-41e15c1f-d9f0-43a8-a2be-085611a1c1ae" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
+<div class="amsmath math notranslate nohighlight" id="equation-b3923547-79c8-420d-bd2d-39617d37035c">
+<span class="eqno">(4.18)<a class="headerlink" href="#equation-b3923547-79c8-420d-bd2d-39617d37035c" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
 V(aX +b) = a^2 V(X).
 \end{equation}\]</div>
 </section>
