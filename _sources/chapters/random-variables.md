@@ -249,19 +249,20 @@ $$P_X(A) = P \big( \{ s\in S : X(s) \in A\} \big),$$ (inv2-eqn)
 for all events $A\subset \mathbb{R}$.
 ```
 
-The defining equation {eq}`inv2-eqn` might look confusing and intimidating, but notice that it just encapsulates the idea behind equation {eq}`inv-eqn` that we explored above. Indeed, in our example from above, $X$ was the 'annual income' variable. If we let $A$ be the simple event $\{x\}$, then the left-hand side of {eq}`inv2-eqn` is precisely $P_X(\{x\})$, just like in {eq}`inv-eqn`. On the other side, notice that the set 
+For a given event $A\subset \mathbb{R}$, notice that the set
 
-$$\{ s\in S : X(s) \in \{x\}\}$$
+$$
+\{s \in S : X(s) \in A)\} \subset S
+$$
 
-may be rewritten as
+inside the probability measure on the right-hand side of {eq}`inv2-eqn` consists exactly of those sample points $s\in S$ that land in $A$ under the action of the random variable $X$; I would visualize this as:
 
-$$\{ s\in S : X(s) =x\},$$
+```{image} ../img/pushforward-2.svg
+:width: 70%
+:align: center
+```
+&nbsp;
 
-since the only way that $X(s) \in \{x\}$ is if $X(s) = x$. But the equation $X(s) = x$ simply says that the annual income of person $s$ is $x$, and hence
-
-$$\{ s\in S : X(s) =x\} = \{\text{people with annual income $x$}\}.$$
-
-Thus, as I said above, the equation {eq}`inv2-eqn` really is just a generalization of the idea behind {eq}`inv-eqn`.
 
 ```{admonition} Alternate notation
 
@@ -300,7 +301,7 @@ Let's practice! Have a go at problems 5-7 on the worksheet.
 
 ## Discrete and continuous random variables
 
-Two types of random variables will be the ones that are most frequently encountered in this class. Their definitions follow below. Before reading them, however, it might be worth returning to our previous discussion of discrete and continuous probability measures.
+Two types of random variables will be the ones that are most frequently encountered in this class. Their definitions follow below. Before reading them, however, it might be worth reviewing our discussions of discrete and continuous probability measures in {numref}`Sections %s <discrete-prob>` and {numref}`%s <cont-prob>`.
 
 ```{prf:definition}
 
@@ -323,23 +324,6 @@ Let $X:S\to \mathbb{R}$ be a random variable.
     for all events $A\subset \mathbb{R}$. In this case, $f(x)$ is called the *probability density function of $X$*.
 ```
 
-Notice that a random variable $X$ is discrete if and only if its probability measure $P_X$ is discrete, in the sense discussed in our previous chapter, and $X$ is continuous if and only if $P_X$ is continuous.
-
-You should understand these *formal* definitions *intuitively* as follows:
-
-```{admonition} Recognizing Discrete and Continuous Random Variables
-
-* If the range of a random variable is *finite* or *countably infinite*, then it is discrete.
-
-* If the range of a random variable is a *continuum* of values, then it is continuous.
-```
-
-Now:
-
-```{admonition} Problem Prompt
-Let's get some practice recognizing discrete and continuous random variables, and computing some of their probability measures. Do problems 8 and 9 on the worksheet.
-```
-
 ```{margin} Looking beyond...
 
 Here's where things get really deep!
@@ -347,6 +331,13 @@ Here's where things get really deep!
 Though it seems that discrete and continuous random variables are really rather different because the former type involve discrete summations while the latter involve continuous integrals, there is a very general mathematical theory of integration in which they are *united*. This is the powerful theory of <a href="https://en.wikipedia.org/wiki/Lebesgue_integration">Lebesgue integration</a>.
 
 Indeed, in this much more general theory, discrete summations actually *are* integrals of a particular type: They are  integrals "against a <a href="https://en.wikipedia.org/wiki/Counting_measure">counting measure</a>." Also, in this theory the *probability mass functions* of discrete random variables and the *probability density functions* of continuous ones are united, for they are both examples of <a href="https://en.wikipedia.org/wiki/Radon%E2%80%93Nikodym_theorem#">Radon-Nikodym derivatives</a> of measures that are <a href="https://en.wikipedia.org/wiki/Absolute_continuity#Absolute_continuity_of_measures">absolutely continuous</a> with respect to an ambient measure, either a <a href="https://en.wikipedia.org/wiki/Counting_measure">counting measure</a> in the discrete case, or the <a href="https://en.wikipedia.org/wiki/Lebesgue_measure">Lebesgue measure</a> in the continuous one.
+```
+
+Notice that a random variable $X$ is discrete if and only if its probability measure $P_X$ is discrete in the sense defined in {numref}`Section %s <discrete-prob>`, while it is continuous if and only if $P_X$ is continuous in the sense defined in {numref}`Section %s <cont-prob>`.
+
+
+```{admonition} Problem Prompt
+Let's get some practice recognizing discrete and continuous random variables, and computing some of their probability measures. Do problems 8 and 9 on the worksheet.
 ```
 
 As I mentioned, discrete and continuous random variables will be the only types of random variables that we work with in this class---at least in problems where we need to *compute* things. As we continue, you will notice the contrast in the definition above, where discrete random variables involve summations $\sum$ and continuous random variables involve integrals $\int$, will be replicated over and over again. This is another good intuition to have in mind for these two types of random variables: The discrete random variables are those in which you "add things" to compute various quantities, whereas continuous random variables are those in which you must "integrate things."
@@ -367,7 +358,7 @@ As I mentioned, discrete and continuous random variables will be the only types 
 (dist-func-rv)=
 ## Distribution and quantile functions
 
-If $X$ is any type of random variable (discrete, continuous, or neither), then its probability measure $P_X$ lives on $\mathbb{R}$. As such, it has both distribution and quantile functions. We studied these latter types of functions in a previous chapter---but in case you forgot their definitions, here's a reminder of the definition of distribution functions:
+If $X$ is any type of random variable (discrete, continuous, or neither), then its probability measure $P_X$ lives on $\mathbb{R}$. As such, it has both distribution and quantile functions. We studied these latter types of functions in {numref}`Section %s <dist-quant>`. But in case you forgot their definitions, we review them in this section in the context of random variables.
 
 ```{prf:definition}
 
@@ -411,7 +402,7 @@ In other words, the value $x=Q(p)$ is the smallest $x\in \mathbb{R}$ such that $
 2. The quantile $Q(0.5)$ is called the *median of $X$*.
 ```
 
-Even though we had considerable practice with distribution and quantile functions in a previous chapter, it won't hurt us to do another practice problem:
+Even though we had considerable practice with distribution and quantile functions in {numref}`Section %s <dist-quant>`, it won't hurt to do another practice problem:
 
 ```{admonition} Problem Prompt
 Do problem 10 on the worksheet.
@@ -446,40 +437,18 @@ We saw that the probability measure of $X$ is described by the following probabi
 
 import matplotlib.pyplot as plt
 import numpy as np
-
-# set custom style for plots
-plt.style.use('../aux-files/custom_style_light.mplstyle')
-
-# make sure this comes last in the imports!
-# change the output resolution and size of figures
+import scipy as sp
+from itertools import product
 import matplotlib as mpl 
+plt.style.use('../aux-files/custom_style_light.mplstyle')
 mpl.rcParams['figure.dpi'] = 600
 
-def prob_hist(xvals, yvals, stemwidth=25, title='', xlabel='values',
-              ylabel='probability', size=(-1, -1), vline='', hline=''):
-    
-    _, stems, _ = plt.stem(xvals, yvals, basefmt=' ', markerfmt=' ')
-    plt.setp(stems, 'linewidth', stemwidth)
-    plt.gca().set_ylim(ymin=0)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
-    plt.title(title)
-
-    if size != (-1,-1):
-        fig = plt.gcf()
-        fig.set_size_inches(size)
-    
-    if vline != '':
-        plt.axvline(x=vline, color='red', linestyle='--')
-
-    if hline != '':
-        plt.axhline(y=hline, color='red', linestyle='--')
-
-    plt.tight_layout()
-
-sums = np.arange(2, 6)
-probs = np.array([1/10, 2/10, 3/10, 4/10])
-prob_hist(sums, probs, stemwidth=10, xlabel=r'$x$')
+support = [2, 3, 4, 5]
+probs = [0.1, 0.2, 0.3, 0.4]
+plt.bar(support, probs, width=0.25)
+plt.xlabel('x')
+plt.ylabel('probability')
+plt.tight_layout()
 ```
 
 Given this information, I want to ask: What is the *mean* (i.e., *average*) value of $X$? You might say: "Well, the range of $X$ consists of the numbers $2,3,4,5$, so the mean value of $X$ is just the mean of these four numbers:"
@@ -503,18 +472,11 @@ But why stop with a mean value of $X$ over only $n=10$ trials? Why not let $n$ g
 :       width: 70%
 
 np.random.seed(42)
-max_n = 200
-n_list = []
-means = []
-
-for n in range(1, max_n+1):
-    draw = np.random.choice(sums, size=n, p=probs)
-    means.append(np.mean(draw))
-    n_list.append(n)
-        
-plt.plot(n_list, means)
-plt.xlabel(r'$n=$number of trials')
-plt.ylabel(r'mean value of $X$')
+sizes = range(1, 201)
+means = [np.mean(np.random.choice(support, size=n, p=probs)) for n in sizes]
+plt.plot(sizes, means)
+plt.xlabel('$n=$number of trials')
+plt.ylabel('mean value of $X$')
 plt.axhline(y=4, color='red', linestyle='--')
 plt.tight_layout()
 ```
@@ -547,9 +509,10 @@ We interpret these four $1/4$'s as the *uniform* probability measure on the rang
 :   image:
 :       width: 70%
 
-sums = np.arange(2, 6)
-probs = np.array([1/10, 2/10, 3/10, 4/10])
-prob_hist(sums, probs, stemwidth=10, xlabel=r'$x$')
+plt.bar(support, probs, width=0.25)
+plt.xlabel('x')
+plt.ylabel('probability')
+plt.tight_layout()
 ```
 
 So, what happens if we substitute the *correct* probability measure into the weighted sum? Here it is:
@@ -570,10 +533,12 @@ Just by looking at the probability histogram of $X$, you can *see* that the mean
 :   image:
 :       width: 70%
 
-expected_val = 0
-for k in range(len(sums)):
-    expected_val += sums[k] * probs[k]
-prob_hist(sums, probs, stemwidth=10, xlabel=r'$y$', vline=expected_val)
+expected_val = sum([x * p for x, p in zip(support, probs)])
+plt.bar(support, probs, width=0.25)
+plt.axvline(x=expected_val, color='red', linestyle='--')
+plt.xlabel('x')
+plt.ylabel('probability')
+plt.tight_layout()
 ```
 
 Let me give you four more random variables, $X_1$, $X_2$, $X_3$, and $X_4$, along with their probability histograms and vertical lines representing their mean values:
@@ -586,40 +551,29 @@ Let me give you four more random variables, $X_1$, $X_2$, $X_3$, and $X_4$, alon
 :   image:
 :       width: 100%
 
-from scipy.stats import beta
+params = [[(2, 6), (6, 2)], [(0.1, 0.1), (2, 2)]]
+support = np.linspace(0.1, 0.9, 9)
+_, axes = plt.subplots(ncols=2, nrows=2, sharey=True, figsize=(10, 6))
 
-params = [ [(2, 6), (6, 2)], [(0.1, 0.1), (2, 2)]]
-xvals = np.linspace(0.1, 0.9, 9)
+for i, j in product(range(2), repeat=2):
+    a = params[i][j][0]
+    b = params[i][j][1]
+    X = sp.stats.beta(a, b)
+    probs = np.array([X.pdf(x) for x in support])
+    probs = probs / np.sum(probs)
+    expected_val = sum([x * p for x, p in zip(support, probs)])
 
-fig, axes = plt.subplots(2, 2, sharey=True)
+    axes[i, j].bar(support, probs, width=0.05)
+    axes[i, j].set_xticks(support)
+    axes[i, j].axvline(x=expected_val, color='red', linestyle='--')
+    axes[i, j].set_ylabel('probability')
 
-for i in range(2):
-    for j in range(2):
-        a = params[i][j][0]
-        b = params[i][j][1]
-        X = beta(a, b)
-        
-        probs = np.array([X.pdf(x) for x in xvals])
-        probs = probs / np.sum(probs)
-
-        expected_val = 0
-        for k in range(len(xvals)):
-            expected_val += xvals[k] * probs[k]
-        
-        _, stems, _ = axes[i,j].stem(xvals, probs, basefmt=' ', markerfmt=' ')
-        plt.setp(stems, 'linewidth', 10)
-        axes[i,j].set_ylim(ymin=0)
-        axes[i,j].set_xticks(xvals)
-        axes[i,j].axvline(x=expected_val, color='red', linestyle='--')
-        axes[i,j].set_ylabel('probability')
-
-
-axes[0,0].set_xlabel(r'$X_1$')
-axes[0,1].set_xlabel(r'$X_2$')
-axes[1,0].set_xlabel(r'$X_3$')
-axes[1,1].set_xlabel(r'$X_4$')   
-fig.set_size_inches(10, 6)
+axes[0, 0].set_xlabel('$X_1$')
+axes[0, 1].set_xlabel('$X_2$')
+axes[1, 0].set_xlabel('$X_3$')
+axes[1, 1].set_xlabel('$X_4$')   
 plt.tight_layout()
+
 ```
 
 Notice that the mean values of the random variables $X_1$ and $X_2$ in the first row are "pulled" in the direction of higher "probability mass," while the mean values of $X_3$ and $X_4$ in the second row lie on the "axes of symmetry" of the probability distributions. Think of the mean value of a random variable as the "center of mass" of its probability distribution.
@@ -1144,36 +1098,25 @@ In this section, we study two so-called *measures of dispersion*, or *measures o
 :   image:
 :       width: 100%
 
-params = [ (10, 10), (2, 2) ]
-xvals = np.linspace(0.1, 0.9, 9)
-probs_list = []
-
-fig, axes = plt.subplots(1, 2, sharey=True)
+params = [(10, 10), (2, 2)]
+support = np.linspace(0.1, 0.9, 9)
+_, axes = plt.subplots(nrows=1, ncols=2, sharey=True, figsize=(8, 3))
 
 for i in range(2):
     a = params[i][0]
     b = params[i][1]
-    X = beta(a, b)
-    
-    probs = np.array([X.pdf(x) for x in xvals])
+    X = sp.stats.beta(a, b)
+    probs = np.array([X.pdf(x) for x in support])
     probs = probs / np.sum(probs)
-    probs_list.append(probs)
-
-    expected_val = 0
-    for k in range(len(xvals)):
-        expected_val += xvals[k] * probs[k]
+    expected_val = sum([x * p for x, p in zip(support, probs)])
     
-    _, stems, _ = axes[i].stem(xvals, probs, basefmt=' ', markerfmt=' ')
-    plt.setp(stems, 'linewidth', 10)
-    axes[i].set_ylim(ymin=0)
-    axes[i].set_xticks(xvals)
+    axes[i].bar(support, probs, width=0.05)
+    axes[i].set_xticks(support)
     axes[i].axvline(x=expected_val, color='red', linestyle='--')
     axes[i].set_ylabel('probability')
 
-
-axes[0].set_xlabel(r'$x$')
-axes[1].set_xlabel(r'$x$')
-fig.set_size_inches(8, 3)
+axes[0].set_xlabel('$y$')
+axes[1].set_xlabel('$y$')
 plt.tight_layout()
 ```
 
