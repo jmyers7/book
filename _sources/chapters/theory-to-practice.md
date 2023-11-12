@@ -673,9 +673,7 @@ So, using the outputs above, we see that the empirical IQR of the Airbnb dataset
 :tags: [hide-input]
 
 iqr_airbnb = srs.quantile(q=0.75) - srs.quantile(q=0.25)
-
-print(f'The IQR for the Airbnb dataset is {iqr_airbnb:.2f}.')
-
+iqr_airbnb
 ```
 
 With the definition of _empirical IQR_ in hand, we may now define _outliers_:
