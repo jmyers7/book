@@ -111,38 +111,28 @@ Therefore, a random variable $X\sim \mathcal{B}er(\theta)$ outputs the value $1$
 :       width: 100%
 
 import matplotlib.pyplot as plt
-import numpy as np
-
-# set custom style for plots
-plt.style.use('../aux-files/custom_style_light.mplstyle')
-
-# make sure this comes last in the imports!
-# change the output resolution and size of figures
 import matplotlib as mpl 
+import numpy as np
+import scipy as sp
+from itertools import product
+from cycler import cycler
+plt.style.use('../aux-files/custom_style_light.mplstyle')
 mpl.rcParams['figure.dpi'] = 600
 
-# end import section
-
-from scipy.stats import bernoulli
-
 params = [[0.25, 0.75], [0.50, 0.90]]
-xvals = np.arange(0, 5)
+support = [0, 1]
 
-fig, axes = plt.subplots(ncols=2, nrows=2, sharey=True)
+fig, axes = plt.subplots(ncols=2, nrows=2, sharey=True, figsize=(7, 5))
 
-for i in range(2):
-    for j in range(2):
-        p = params[i][j]
-        X = bernoulli(p=p)
-        
-        _, stems, _ = axes[i,j].stem(xvals, X.pmf(xvals), basefmt=' ', markerfmt=' ')
-        plt.setp(stems, 'linewidth', 10)
-        axes[i,j].set_ylim(ymin=0, ymax=1)
-        axes[i,j].set_xticks(xvals)
-        axes[i,j].set_ylabel('probability')
-        axes[i,j].set_xlabel(rf'$\theta={p}$')
+for i, j in product(range(2), repeat=2):
+    theta = params[i][j]
+    X = sp.stats.bernoulli(p=theta)
+    
+    axes[i, j].bar(support, X.pmf(support), width=0.3)
+    axes[i, j].set_ylabel('probability')
+    axes[i, j].set_xlim(-1, 3)
+    axes[i, j].set_xlabel(fr'$\theta={theta}$')
 
-fig.set_size_inches(7, 5)
 fig.suptitle(r'PMF of a random variable $X\sim \mathcal{B}er(\theta)$')
 plt.tight_layout()
 ```
@@ -229,28 +219,22 @@ Here are some probability histograms, for various settings of the parameters:
 :   image:
 :       width: 100%
 
-from scipy.stats import binom
-
 params = [[(3, 0.25), (3, 0.75)], [(8, 0.25), (8, 0.75)]]
-xvals = np.arange(0, 9)
+support = np.arange(0, 9)
 
-fig, axes = plt.subplots(ncols=2, nrows=2, sharey=True)
+fig, axes = plt.subplots(ncols=2, nrows=2, sharey=True, figsize=(7, 5))
 
-for i in range(2):
-    for j in range(2):
-        n = params[i][j][0]
-        p = params[i][j][1]
-        X = binom(n=n,p=p)
-        
-        _, stems, _ = axes[i,j].stem(xvals, X.pmf(xvals), basefmt=' ', markerfmt=' ')
-        plt.setp(stems, 'linewidth', 10)
-        axes[i,j].set_ylim(ymin=0, ymax=0.5)
-        axes[i,j].set_xticks(xvals)
-        axes[i,j].set_ylabel('probability')
-        axes[i,j].set_xlabel(rf'$n={n}$, $\theta={p}$')
+for i, j in product(range(2), repeat=2):
+    n = params[i][j][0]
+    theta = params[i][j][1]
+    X = sp.stats.binom(n=n, p=theta)
+    
+    axes[i, j].bar(support, X.pmf(support), width=0.3)
+    axes[i, j].set_ylabel('probability')
+    axes[i, j].set_xticks(support)
+    axes[i, j].set_xlabel(fr'$n={n}$, $\theta={theta}$')
 
-fig.set_size_inches(7, 5)
-fig.suptitle(r'PMF of a random variable $X\sim \mathcal{B}in(n,\theta)$')
+fig.suptitle(r'PMF of a random variable $X\sim \mathcal{B}er(\theta)$')
 plt.tight_layout()
 ```
 
@@ -411,26 +395,20 @@ So, we're back to distributions that are parametrized by a single parameter. For
 :   image:
 :       width: 100%
 
-from scipy.stats import geom
-
 params = [[0.15, 0.25], [0.75, 0.85]]
-xvals = np.arange(1, 12)
+support = np.arange(1, 12)
 
-fig, axes = plt.subplots(ncols=2, nrows=2, sharey=True)
+fig, axes = plt.subplots(ncols=2, nrows=2, sharey=True, figsize=(7, 5))
 
-for i in range(2):
-    for j in range(2):
-        p = params[i][j]
-        X = geom(p=p)
-        
-        _, stems, _ = axes[i,j].stem(xvals, X.pmf(xvals), basefmt=' ', markerfmt=' ')
-        plt.setp(stems, 'linewidth', 10)
-        axes[i,j].set_ylim(ymin=0, ymax=0.9)
-        axes[i,j].set_xticks(xvals)
-        axes[i,j].set_ylabel('probability')
-        axes[i,j].set_xlabel(rf'$\theta={p}$')
+for i, j in product(range(2), repeat=2):
+    theta = params[i][j]
+    X = sp.stats.geom(p=theta)
+    
+    axes[i, j].bar(support, X.pmf(support), width=0.3)
+    axes[i, j].set_ylabel('probability')
+    axes[i, j].set_xticks(support)
+    axes[i, j].set_xlabel(fr'$\theta={theta}$')
 
-fig.set_size_inches(7, 5)
 fig.suptitle(r'PMF of a random variable $X\sim \mathcal{G}eo(\theta)$')
 plt.tight_layout()
 ```
@@ -532,27 +510,21 @@ Here are some probability histograms for a hypergeometrically distributed random
 :   image:
 :       width: 100%
 
-from scipy.stats import hypergeom
+params = [[(100, 70, 10), (100, 70, 40)], [(100, 50, 10), (100, 50, 40)]]
+support = np.arange(0, 41)
 
-params = [[(100,70,10), (100,70,40)], [(100,50,10), (100,50,40)]]
-xvals = np.arange(0, 41)
+fig, axes = plt.subplots(ncols=2, nrows=2, sharey=True, figsize=(7, 5))
 
-fig, axes = plt.subplots(ncols=2, nrows=2, sharey=True)
+for i, j in product(range(2), repeat=2):
+    M = params[i][j][0]
+    n = params[i][j][1]
+    N = params[i][j][2]
+    X = sp.stats.hypergeom(M=M, n=n, N=N)
+    
+    axes[i, j].bar(support, X.pmf(support), width=0.5)
+    axes[i, j].set_ylabel('probability')
+    axes[i, j].set_xlabel(rf'$M={M}$, $n={n}$, $N={N}$')
 
-for i in range(2):
-    for j in range(2):
-        M = params[i][j][0]
-        n = params[i][j][1]
-        N = params[i][j][2]
-        X = hypergeom(M=M, n=n, N=N)
-        
-        _, stems, _ = axes[i,j].stem(xvals, X.pmf(xvals), basefmt=' ', markerfmt=' ')
-        plt.setp(stems, 'linewidth', 4)
-        axes[i,j].set_ylim(ymin=0, ymax=0.35)
-        axes[i,j].set_ylabel('probability')
-        axes[i,j].set_xlabel(rf'$M={M}$, $n={n}$, $N={N}$')
-
-fig.set_size_inches(7, 5)
 fig.suptitle(r'PMF of a random variable $X\sim \mathcal{HG}eo(M,n,N)$')
 plt.tight_layout()
 ```
@@ -710,25 +682,19 @@ In some references, the parameter $\mu$ is called $\lambda$ instead. But this cl
 :   image:
 :       width: 100%
 
-from scipy.stats import poisson
+params = [[0.1, 1], [3, 5]]
+support = np.arange(0, 11)
 
-params = [[0.1,1], [3,5]]
-xvals = np.arange(0, 11)
+fig, axes = plt.subplots(ncols=2, nrows=2, sharey=True, figsize=(7, 5))
 
-fig, axes = plt.subplots(2, 2, sharey=True)
+for i, j in product(range(2), repeat=2):
+    mu = params[i][j]
+    X = sp.stats.poisson(mu=mu)
+    
+    axes[i, j].bar(support, X.pmf(support), width=0.3)
+    axes[i, j].set_ylabel('probability')
+    axes[i, j].set_xlabel(rf'$\mu = {mu}$')
 
-for i in range(2):
-    for j in range(2):
-        mu = params[i][j]
-        X = poisson(mu=mu)
-        
-        _, stems, _ = axes[i,j].stem(xvals, X.pmf(xvals), basefmt=' ', markerfmt=' ')
-        plt.setp(stems, 'linewidth', 10)
-        axes[i,j].set_ylim(ymin=0)
-        axes[i,j].set_ylabel('probability')
-        axes[i,j].set_xlabel(rf'$\mu = {mu}$')
-
-fig.set_size_inches(7, 5)
 fig.suptitle(r'PMF of a random variable $X\sim \mathcal{P}ois(\mu)$')
 plt.tight_layout()
 ```
@@ -944,25 +910,20 @@ As the choice of letters suggest, the parameters $\mu$ and $\sigma$ turn out to 
 :   image:
 :       width: 100%
 
-from scipy.stats import norm
-
 params = [[(0, 1), (0, 4)], [(5, 3), (-2, 6)]]
-xvals = np.linspace(-10, 10, 250)
+support = np.linspace(-10, 10, 250)
 
-fig, axes = plt.subplots(ncols=2, nrows=2, sharey=True)
+fig, axes = plt.subplots(ncols=2, nrows=2, sharey=True, figsize=(7, 5))
 
-for i in range(2):
-    for j in range(2):
-        mu = params[i][j][0]
-        sigma = params[i][j][1]
-        X = norm(loc=mu, scale=sigma)
-        
-        axes[i,j].plot(xvals, X.pdf(xvals))
-        axes[i,j].set_ylim(ymin=0)
-        axes[i,j].set_ylabel('probability density')
-        axes[i,j].set_xlabel(rf'$\mu={mu}$, $\sigma={sigma}$')
+for i, j in product(range(2), repeat=2):
+    mu = params[i][j][0]
+    sigma = params[i][j][1]
+    X = sp.stats.norm(loc=mu, scale=sigma)
+    
+    axes[i, j].plot(support, X.pdf(support))
+    axes[i, j].set_ylabel('probability density')
+    axes[i, j].set_xlabel(rf'$\mu={mu}$, $\sigma={sigma}$')
 
-fig.set_size_inches(7, 5)
 fig.suptitle(r'PDF of a random variable $X\sim \mathcal{N}(\mu,\sigma^2)$')
 plt.tight_layout()
 ```
@@ -1023,15 +984,15 @@ For example, the critical value $z_{0.25}$ marks the location along the $z$-axis
 :   image:
 :       width: 70%
 
-Z = norm()
-xvals = np.linspace(-5, 5, 100)
+Z = sp.stats.norm()
+support = np.linspace(-5, 5, 100)
 alpha = 0.25
 z_alpha = Z.ppf(1 - alpha)
-xvals_crit = np.linspace(z_alpha, 5)
+short_support = np.linspace(z_alpha, 5)
 
-plt.plot(xvals, Z.pdf(xvals))
-plt.fill_between(xvals_crit, Z.pdf(xvals_crit), color='#FD46FC', alpha=0.3)
-plt.text(z_alpha - 0.3, -0.015, r'$z_{0.25}$', color='#FD46FC')
+plt.plot(support, Z.pdf(support))
+plt.fill_between(short_support, Z.pdf(short_support), color='#FD46FC', alpha=0.3)
+plt.text(z_alpha - 0.3, -0.012, r'$z_{0.25}$', color='#FD46FC')
 plt.xlabel(r'$z$')
 plt.ylabel('probability density')
 plt.tight_layout()
@@ -1098,27 +1059,19 @@ The effect of the parameter is clear on the graph of the density function:
 :   image:
 :       width: 100%
 
-from scipy.stats import expon
+params = [[0.5, 0.75], [1, 4]]
+support = np.linspace(0, 2)
 
-params = [[1/2, 3/4], [1, 4]]
-xvals = np.linspace(0, 2)
+fig, axes = plt.subplots(ncols=2, nrows=2, sharey=True, figsize=(7, 5))
 
-fig, axes = plt.subplots(ncols=2, nrows=2, sharey=True)
+for i, j in product(range(2), repeat=2):
+    l = params[i][j]
+    X = sp.stats.expon(scale=1 / l)
+    
+    axes[i, j].plot(support, X.pdf(support))
+    axes[i, j].set_ylabel('probability density')
+    axes[i, j].set_xlabel(rf'$\lambda={l}$')
 
-for i in range(2):
-    for j in range(2):
-        # We cannot use 'lambda' for a variable name since this is a
-        # reserved keyword in the Python language. Also, the SciPy
-        # implementation uses 1/lambda as the 'scale' parameter.
-        l = params[i][j]
-        X = expon(scale=1/l)
-        
-        axes[i,j].plot(xvals, X.pdf(xvals))
-        axes[i,j].set_ylim(ymin=0, ymax=2)
-        axes[i,j].set_ylabel('probability density')
-        axes[i,j].set_xlabel(rf'$\lambda={l}$')
-
-fig.set_size_inches(7, 5)
 fig.suptitle(r'PDF of a random variable $X\sim \mathcal{E}xp(\lambda)$')
 plt.tight_layout()
 ```
@@ -1287,25 +1240,20 @@ The PDFs look like the following, for various settings of the parameters.
 :   image:
 :       width: 100%
 
-from scipy.stats import gamma
-
 params = [[(1, 1), (1, 4)], [(2, 5), (4, 5)]]
-xvals = np.linspace(0, 5, 250)
+support = np.linspace(0, 5, 250)
 
-fig, axes = plt.subplots(ncols=2, nrows=2, sharey=True)
+fig, axes = plt.subplots(ncols=2, nrows=2, sharey=True, figsize=(7, 5))
 
-for i in range(2):
-    for j in range(2):
-        alpha = params[i][j][0]
-        b = params[i][j][1]
-        X = gamma(a=alpha, scale=1/b)
-        
-        axes[i,j].plot(xvals, X.pdf(xvals))
-        axes[i,j].set_ylim(ymin=0, ymax=2)
-        axes[i,j].set_ylabel('probability density')
-        axes[i,j].set_xlabel(rf'$\alpha={alpha}$, $\beta={b}$')
+for i, j in product(range(2), repeat=2):
+    alpha = params[i][j][0]
+    b = params[i][j][1]
+    X = sp.stats.gamma(a=alpha, scale=1/b)
+    
+    axes[i, j].plot(support, X.pdf(support))
+    axes[i, j].set_ylabel('probability density')
+    axes[i,j].set_xlabel(rf'$\alpha={alpha}$, $\beta={b}$')
 
-fig.set_size_inches(7, 5)
 fig.suptitle(r'PDF of a random variable $X\sim \mathcal{G}am(\alpha,\beta)$')
 plt.tight_layout()
 ```
@@ -1348,16 +1296,16 @@ It is instructive to inspect the densities of the first few $T_k$'s:
 :   image:
 :       width: 70%
 
-from cycler import cycler
 cycler = cycler(color=['#486afb', '#db48d2', '#ff3b90', '#ff6d4d', '#ffa600'])
 plt.rc('axes', prop_cycle=cycler)
 
-tvals = np.linspace(0, 3)
-l = 3 # lambda parameter
+support = np.linspace(0, 3)
+l = 3
 
-for a in range(1, 6):
-    T = gamma(a=a, scale=1/l)
-    plt.plot(tvals, T.pdf(tvals), label=rf'$T_{a}$')
+for k in range(1, 6):
+    T = sp.stats.gamma(a=k, scale=1 / l)
+    plt.plot(support, T.pdf(support), label=rf'$T_{k}$')
+
 plt.xlabel('$t$')
 plt.ylabel('probability density')
 plt.legend()
@@ -1407,13 +1355,13 @@ $$
 In particular, if we take $k=1$ and use {prf:ref}`recur-gamma-thm`, we get $E(X) = \alpha/\beta$, as desired. If we take $k=2$ and use {prf:ref}`recur-gamma-thm` twice, we get
 
 $$
-E(X^2) = \frac{\Gamma(\alpha+2)}{\beta^2\Gamma(\alpha)} = \frac{(\alpha-1)\alpha}{\beta^2}.
+E(X^2) = \frac{\Gamma(\alpha+2)}{\beta^2\Gamma(\alpha)} = \frac{(\alpha+1)\alpha}{\beta^2}.
 $$
 
 Then,
 
 $$
-V(X) = E(X^2) - E(X)^2 = \frac{(\alpha-1)\alpha}{\beta^2} - \frac{\alpha^2}{\beta^2} = \frac{\alpha}{\beta^2},
+V(X) = E(X^2) - E(X)^2 = \frac{(\alpha+1)\alpha}{\beta^2} - \frac{\alpha^2}{\beta^2} = \frac{\alpha}{\beta^2},
 $$
 
 which is what we wanted to prove.
@@ -1476,30 +1424,20 @@ For $\alpha,\beta>1$, notice that the density function $f(x;\alpha,\beta)$ has z
 :   image:
 :       width: 100%
 
-from scipy.stats import beta
+params = [[(2, 2), (3, 3)], [(2, 4), (5, 3)], [(0.5, 0.5), (0.75, 0.5)], [(0.5, 1.5), (2.75, 0.75)]]
+support = np.linspace(0, 1)
 
-params = [
-    [(2, 2), (3, 3)],
-    [(2, 4), (5, 3)],
-    [(1 / 2, 1 / 2), (3 / 4, 1 / 2)],
-    [(1/2, 1.5), (2.75, 3 / 4)]
-]
-xvals = np.linspace(0, 1)
+fig, axes = plt.subplots(ncols=2, nrows=4, figsize=(7, 9))
 
-fig, axes = plt.subplots(ncols=2, nrows=4)
+for i, j in product(range(4), range(2)):
+    a = params[i][j][0]
+    b = params[i][j][1]
+    X = sp.stats.beta(a=a, b=b)
+    
+    axes[i, j].plot(support, X.pdf(support))
+    axes[i, j].set_ylabel('probability density')
+    axes[i, j].set_xlabel(rf'$\alpha={a}$, $\beta={b}$')
 
-for i in range(4):
-    for j in range(2):
-        a = params[i][j][0]
-        b = params[i][j][1]
-        X = beta(a=a, b=b)
-        
-        axes[i,j].plot(xvals, X.pdf(xvals))
-        axes[i,j].set_ylim(ymin=0)
-        axes[i,j].set_ylabel('probability density')
-        axes[i,j].set_xlabel(rf'$\alpha={a}$, $\beta={b}$')
-
-fig.set_size_inches(7, 9)
 fig.suptitle(r'PDF of a random variable $X\sim \mathcal{B}eta(\alpha,\beta)$')
 plt.tight_layout()
 ```
