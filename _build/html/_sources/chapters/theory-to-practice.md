@@ -11,7 +11,7 @@ kernelspec:
 ---
 
 (theory-to-practice)=
-# Connecting theory to practice: data and samples
+# Connecting theory to practice: a first look at model building
 
 ## Data and random samples
 
