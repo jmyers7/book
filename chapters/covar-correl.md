@@ -83,35 +83,28 @@ to obtain the associated $y$-values, and then produce a scatter plot:
 
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import seaborn as sns
-from scipy.stats import multivariate_normal, norm, rv_continuous
-
-# hide annoying warnings for tight_layout()
+import scipy as sp
+import pandas as pd
 import warnings
-warnings.filterwarnings("ignore")
-
-# set custom style for plots
 plt.style.use('../aux-files/custom_style_light.mplstyle')
-
-# make sure this comes last in the imports!
-# change the output resolution and size of figures
-import matplotlib as mpl 
 mpl.rcParams['figure.dpi'] = 600
-
-# end import section
+warnings.filterwarnings("ignore")
 
 np.random.seed(42)
 
 def h(x):
     return x * (x - 1) * (x - 2)
 
-x = norm.rvs(loc=1, scale=0.5, size=1000)
+x = sp.stats.norm.rvs(loc=1, scale=0.5, size=1000)
 y = h(x)
 
 sns.scatterplot(x=x, y=y)
 plt.xlabel('$x$')
 plt.ylabel('$y=h(x)$')
 plt.ylim(-1.5, 1.5)
+plt.gcf().set_size_inches(w=6, h=3)
 plt.tight_layout()
 ```
 
@@ -127,10 +120,10 @@ However, very often with real-world data, an **exact** functional dependence $Y 
 :   image:
 :       width: 100%
 
-epsilon = norm.rvs(scale=0.15, size=1000)
-mesh = np.linspace(-0.5, 3)
+epsilon = sp.stats.norm.rvs(scale=0.15, size=1000)
+grid = np.linspace(-0.5, 3)
 
-_, ax = plt.subplots(ncols=2, figsize=(10, 5), sharey=True)
+_, ax = plt.subplots(ncols=2, figsize=(6, 3), sharey=True)
 
 sns.scatterplot(x=x, y=y + epsilon, ax=ax[0])
 ax[0].set_ylim(-1.5, 1.5)
@@ -138,7 +131,7 @@ ax[0].set_xlabel('$x$')
 ax[0].set_ylabel('$y=h(x) + $noise')
 
 sns.scatterplot(x=x, y=y + epsilon, alpha=0.2, ax=ax[1])
-ax[1].plot(mesh, h(mesh), color='#FD46FC')
+ax[1].plot(grid, h(grid), color='#FD46FC')
 ax[1].set_xlabel('$x$')
 
 plt.tight_layout()
@@ -156,29 +149,31 @@ The goal in this chapter is to study "noisy" _linear_ dependencies between rando
 :   image:
 :       width: 100%
 
-mesh = np.linspace(-2.5, 2.5)
-epsilon = norm.rvs(scale=0.3, size=500)
+grid = np.linspace(-2.5, 2.5)
+epsilon = sp.stats.norm.rvs(scale=0.3, size=500)
 m = [1, 0, -1]
-x = norm.rvs(size=500)
+x = sp.stats.norm.rvs(size=500)
 _, ax = plt.subplots(ncols=3, figsize=(15, 5), sharey=True, sharex=True)
 
 for i, m in enumerate(m):
     y = m * x + epsilon
     sns.scatterplot(x=x, y=y, ax=ax[i], alpha=0.3)
-    ax[i].plot(mesh, m * mesh, color='#FD46FC')
+    ax[i].plot(grid, m * grid, color='#FD46FC')
     ax[i].set_xlim(-3, 3)
     ax[i].set_ylim(-3, 3)
     ax[i].set_xlabel('$x$')
     ax[i].set_ylabel('$y$')
+
+plt.tight_layout()
 ```
 
-We have already seen scatter plots like this before! Indeed, recall the dataset from the [beginning](motivation) of the previous chapter consisting of pairs
+We have already seen scatter plots like this before! Indeed, recall Ames housing dataset from the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments) and the [beginning](motivation) of the previous chapter consisting of pairs
 
 $$
-(x_1,y_1),(x_2,y_2),\ldots,(x_{2000},y_{2000}),
+(x_1,y_1),(x_2,y_2),\ldots,(x_{2{,}930},y_{2{,}930}),
 $$
 
-where $x_i$ is the size of the $i$-th house (in ft$^2$) and $y_i$ is the selling price (in $1k). This was the scatter plot of the data, with a straight line superimposed for reference:
+where $x_i$ is the area of the $i$-th house (in ft$^2$) and $y_i$ is the selling price (in $1k). This was the scatter plot of the data, with a straight line superimposed for reference:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -188,36 +183,27 @@ where $x_i$ is the size of the $i$-th house (in ft$^2$) and $y_i$ is the selling
 :   image:
 :       width: 80%
 
-# data will be simulated from a multivariate gaussian.
-# define the parameters
-rho = 0.85
-sigma_1 = 200
-sigma_2 = 20
-mu = np.array([2000, 175])
-sigma = np.array([
-    [sigma_1 ** 2, rho * sigma_1 * sigma_2],
-    [rho * sigma_1 * sigma_2, sigma_2 ** 2]
-])
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/data-3-1.csv'
+df = pd.read_csv(url, usecols=['area', 'price'])
 
-# generate the data
-data = multivariate_normal(mean=mu, cov=sigma).rvs(size=2000)
-X = np.round(data[:, 0])
-Y = np.round(data[:, 1])
-
-sns.regplot(x=X, y=Y, ci=None, scatter_kws={'alpha' : 0.3}, line_kws={'color' : '#FD46FC'})
-plt.xlabel('$x=$size (ft$^2$)')
-plt.ylabel('$y=$price (\$1,000)')
+sns.regplot(data=df, x='area', y='price', ci=None, scatter_kws={'alpha' : 0.3}, line_kws={'color' : '#FD46FC'})
+plt.xlabel('area')
+plt.ylabel('price')
 plt.tight_layout()
 ```
 
 ```{margin}
 
-The line in this plot that the data clusters along is called the _least-squares line_. We will study these later in the book.
+The line in this plot that the data clusters along is called the _linear-regression line_. We will study these in {numref}`Chapters %s <prob-models>` and {numref}`%s <lin-reg>`.
 ```
 
 There appears to be a "noisy" linear dependence between the size of a house $X$ and its selling price $Y$. Moreover, the line that the data naturally clusters along has positive slope, which indicates that as the size of a house increases, its selling price tends to increase as well.
 
-In particular, our goal in this chapter is to uncover ways to _quantify_ or _measure_ the strength of "noisy" linear dependencies between random variables. We will discover that there are two such measures: _Covariance_ and _correlation_.
+Our goal in this chapter is to uncover ways to _quantify_ or _measure_ the strength of "noisy" linear dependencies between random variables. We will discover that there are two such measures: _Covariance_ and _correlation_.
+
+
+
+
 
 
 
@@ -257,9 +243,9 @@ and similarly $E(Y-\mu_Y) = 0$, so that when we carry out these replacements, we
 :   image:
 :       width: 80%
 
-sns.regplot(x=X - np.mean(X), y=Y - np.mean(Y), ci=None, scatter_kws={'alpha' : 0.3}, line_kws={'color' : '#FD46FC'})
-plt.xlabel('$x=$shifted size (ft$^2$)')
-plt.ylabel('$y=$shifted price (\$1,000)')
+sns.regplot(data=df - df.mean(), x='area', y='price', ci=None, scatter_kws={'alpha' : 0.3}, line_kws={'color' : '#FD46FC'})
+plt.xlabel('shifted area')
+plt.ylabel('shifted price')
 plt.tight_layout()
 ```
 
@@ -270,7 +256,7 @@ The reason that we "center" the data is because it allows us to conveniently rep
 > 1. If the observed values of two **centered** random variables $X$ and $Y$ cluster along a line of _positive_ slope, then $x$ and $y$ in a data point $(x,y)$ tend to have the same sign, i.e., $xy>0$.
 > 2. If the observed values of two **centered** random variables $X$ and $Y$ cluster along a line of _negative_ slope, then $x$ and $y$ in a data point $(x,y)$ tend to have opposite signs, i.e., $xy < 0$.
 
-Essentially, the next definition takes the average value of the product $xy$, as $x$ ranges over observed values of a **centered** random variable $X$ and $y$ ranges over observed values of a second **centered** random variable $Y$. If this average value is positive, it suggests a (noisy) linear dependence with positive slope; if it is negative, it suggests a (noisy) linear dependence with negative slope. A larger average (in either direction---positive or negative) tends to indicate a *stronger* dependency. If the random variables are not centered, then we subtract off their means before computing the product and taking its average value.
+Essentially, the next definition takes the average value of the product $xy$, as $(x,y)$ ranges over observed pairs of values of a pair $(X,Y)$ of **centered** random variables. If this average value is positive, it suggests a (noisy) linear dependence with positive slope; if it is negative, it suggests a (noisy) linear dependence with negative slope. A larger average (in either direction---positive or negative) tends to indicate a *stronger* dependency. If the random variables are not centered, then we subtract off their means before computing the product and taking its average value.
 
 ```{prf:definition}
 

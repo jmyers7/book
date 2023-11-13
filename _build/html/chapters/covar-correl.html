@@ -410,35 +410,28 @@ h(x) = x(x-1)(x-2)
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">multivariate_normal</span><span class="p">,</span> <span class="n">norm</span><span class="p">,</span> <span class="n">rv_continuous</span>
-
-<span class="c1"># hide annoying warnings for tight_layout()</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
-
-<span class="c1"># set custom style for plots</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
-
-<span class="c1"># make sure this comes last in the imports!</span>
-<span class="c1"># change the output resolution and size of figures</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span> 
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">600</span>
-
-<span class="c1"># end import section</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">h</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">h</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y=h(x)$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -446,7 +439,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/9ff51a5ce97fa52047d578413d2ac99df8ba122c15ce89e7c04cf9b4d941522a.png"><img alt="../_images/9ff51a5ce97fa52047d578413d2ac99df8ba122c15ce89e7c04cf9b4d941522a.png" src="../_images/9ff51a5ce97fa52047d578413d2ac99df8ba122c15ce89e7c04cf9b4d941522a.png" style="width: 80%;" /></a>
+<a class="reference internal image-reference" href="../_images/941a8ae618218b22bc82c7813ab3b908e2b233ae139eb568fad0bfc61a0f6958.png"><img alt="../_images/941a8ae618218b22bc82c7813ab3b908e2b233ae139eb568fad0bfc61a0f6958.png" src="../_images/941a8ae618218b22bc82c7813ab3b908e2b233ae139eb568fad0bfc61a0f6958.png" style="width: 80%;" /></a>
 </figure>
 </div>
 </div>
@@ -459,10 +452,10 @@ h(x) = x(x-1)(x-2)
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-<span class="n">mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
-<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
@@ -470,7 +463,7 @@ h(x) = x(x-1)(x-2)
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y=h(x) + $noise&#39;</span><span class="p">)</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">h</span><span class="p">(</span><span class="n">mesh</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FD46FC&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">h</span><span class="p">(</span><span class="n">grid</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FD46FC&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -480,7 +473,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/c76fc3b6903c79a83aaaf3b3f0bd089b49e36a6389cc1dde68bf6e6f05cf3aef.png"><img alt="../_images/c76fc3b6903c79a83aaaf3b3f0bd089b49e36a6389cc1dde68bf6e6f05cf3aef.png" src="../_images/c76fc3b6903c79a83aaaf3b3f0bd089b49e36a6389cc1dde68bf6e6f05cf3aef.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/246894d2fbfec92d33d37057de81b28833567d02b9dd5d1b3d851dd1f938af0d.png"><img alt="../_images/246894d2fbfec92d33d37057de81b28833567d02b9dd5d1b3d851dd1f938af0d.png" src="../_images/246894d2fbfec92d33d37057de81b28833567d02b9dd5d1b3d851dd1f938af0d.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
@@ -493,62 +486,21 @@ h(x) = x(x-1)(x-2)
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span>
-<span class="n">epsilon</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 <span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">epsilon</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">m</span> <span class="o">*</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FD46FC&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">m</span> <span class="o">*</span> <span class="n">grid</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FD46FC&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
     <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
     <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<figure class="align-center">
-<a class="reference internal image-reference" href="../_images/3d0de74a3acfec1310bc307890514ce6e227e7db6fdc84f7a8bb799e4a944da0.png"><img alt="../_images/3d0de74a3acfec1310bc307890514ce6e227e7db6fdc84f7a8bb799e4a944da0.png" src="../_images/3d0de74a3acfec1310bc307890514ce6e227e7db6fdc84f7a8bb799e4a944da0.png" style="width: 100%;" /></a>
-</figure>
-</div>
-</div>
-<p>We have already seen scatter plots like this before! Indeed, recall the dataset from the <a class="reference internal" href="random-vectors.html#motivation"><span class="std std-ref">beginning</span></a> of the previous chapter consisting of pairs</p>
-<div class="math notranslate nohighlight">
-\[
-(x_1,y_1),(x_2,y_2),\ldots,(x_{2000},y_{2000}),
-\]</div>
-<p>where <span class="math notranslate nohighlight">\(x_i\)</span> is the size of the <span class="math notranslate nohighlight">\(i\)</span>-th house (in ft<span class="math notranslate nohighlight">\(^2\)</span>) and <span class="math notranslate nohighlight">\(y_i\)</span> is the selling price (in $1k). This was the scatter plot of the data, with a straight line superimposed for reference:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># data will be simulated from a multivariate gaussian.</span>
-<span class="c1"># define the parameters</span>
-<span class="n">rho</span> <span class="o">=</span> <span class="mf">0.85</span>
-<span class="n">sigma_1</span> <span class="o">=</span> <span class="mi">200</span>
-<span class="n">sigma_2</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">175</span><span class="p">])</span>
-<span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="p">[</span><span class="n">sigma_1</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">sigma_1</span> <span class="o">*</span> <span class="n">sigma_2</span><span class="p">],</span>
-    <span class="p">[</span><span class="n">rho</span> <span class="o">*</span> <span class="n">sigma_1</span> <span class="o">*</span> <span class="n">sigma_2</span><span class="p">,</span> <span class="n">sigma_2</span> <span class="o">**</span> <span class="mi">2</span><span class="p">]</span>
-<span class="p">])</span>
 
-<span class="c1"># generate the data</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
-
-<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">Y</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span> <span class="p">:</span> <span class="mf">0.3</span><span class="p">},</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span> <span class="p">:</span> <span class="s1">&#39;#FD46FC&#39;</span><span class="p">})</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x=$size (ft$^2$)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y=$price (\$1,000)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -556,16 +508,46 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/5bca6f023b3ab810602738b42c3fe8b58f153e07337946957ef72496797b2720.png"><img alt="../_images/5bca6f023b3ab810602738b42c3fe8b58f153e07337946957ef72496797b2720.png" src="../_images/5bca6f023b3ab810602738b42c3fe8b58f153e07337946957ef72496797b2720.png" style="width: 80%;" /></a>
+<a class="reference internal image-reference" href="../_images/a462aab2899daff5669316b737fae8a14dcd37d194b1febd844b3bf0a59ea28b.png"><img alt="../_images/a462aab2899daff5669316b737fae8a14dcd37d194b1febd844b3bf0a59ea28b.png" src="../_images/a462aab2899daff5669316b737fae8a14dcd37d194b1febd844b3bf0a59ea28b.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>We have already seen scatter plots like this before! Indeed, recall Ames housing dataset from the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and the <a class="reference internal" href="random-vectors.html#motivation"><span class="std std-ref">beginning</span></a> of the previous chapter consisting of pairs</p>
+<div class="math notranslate nohighlight">
+\[
+(x_1,y_1),(x_2,y_2),\ldots,(x_{2{,}930},y_{2{,}930}),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_i\)</span> is the area of the <span class="math notranslate nohighlight">\(i\)</span>-th house (in ft<span class="math notranslate nohighlight">\(^2\)</span>) and <span class="math notranslate nohighlight">\(y_i\)</span> is the selling price (in $1k). This was the scatter plot of the data, with a straight line superimposed for reference:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/data-3-1.csv&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">])</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span> <span class="p">:</span> <span class="mf">0.3</span><span class="p">},</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span> <span class="p">:</span> <span class="s1">&#39;#FD46FC&#39;</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/66ffb31f7e89049fa71803fd2dc536b61ddc83997a4404001f3b78dc83a72cb9.png"><img alt="../_images/66ffb31f7e89049fa71803fd2dc536b61ddc83997a4404001f3b78dc83a72cb9.png" src="../_images/66ffb31f7e89049fa71803fd2dc536b61ddc83997a4404001f3b78dc83a72cb9.png" style="width: 80%;" /></a>
 </figure>
 </div>
 </div>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>The line in this plot that the data clusters along is called the <em>least-squares line</em>. We will study these later in the book.</p>
+<p>The line in this plot that the data clusters along is called the <em>linear-regression line</em>. We will study these in <a class="reference internal" href="models.html#prob-models"><span class="std std-numref">Chapters 11</span></a> and <a class="reference internal" href="lin-reg.html#lin-reg"><span class="std std-numref">17</span></a>.</p>
 </aside>
 <p>There appears to be a “noisy” linear dependence between the size of a house <span class="math notranslate nohighlight">\(X\)</span> and its selling price <span class="math notranslate nohighlight">\(Y\)</span>. Moreover, the line that the data naturally clusters along has positive slope, which indicates that as the size of a house increases, its selling price tends to increase as well.</p>
-<p>In particular, our goal in this chapter is to uncover ways to <em>quantify</em> or <em>measure</em> the strength of “noisy” linear dependencies between random variables. We will discover that there are two such measures: <em>Covariance</em> and <em>correlation</em>.</p>
+<p>Our goal in this chapter is to uncover ways to <em>quantify</em> or <em>measure</em> the strength of “noisy” linear dependencies between random variables. We will discover that there are two such measures: <em>Covariance</em> and <em>correlation</em>.</p>
 </section>
 <section id="covariance">
 <h2><span class="section-number">8.2. </span>Covariance<a class="headerlink" href="#covariance" title="Permalink to this heading">#</a></h2>
@@ -594,9 +576,9 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="n">Y</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">Y</span><span class="p">),</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span> <span class="p">:</span> <span class="mf">0.3</span><span class="p">},</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span> <span class="p">:</span> <span class="s1">&#39;#FD46FC&#39;</span><span class="p">})</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x=$shifted size (ft$^2$)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y=$shifted price (\$1,000)&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span> <span class="p">:</span> <span class="mf">0.3</span><span class="p">},</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span> <span class="p">:</span> <span class="s1">&#39;#FD46FC&#39;</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;shifted area&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;shifted price&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -604,7 +586,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/cbf8846d6a6858965ac14f3fbdf7937f8f5d556514268bc17d4999dca71753c5.png"><img alt="../_images/cbf8846d6a6858965ac14f3fbdf7937f8f5d556514268bc17d4999dca71753c5.png" src="../_images/cbf8846d6a6858965ac14f3fbdf7937f8f5d556514268bc17d4999dca71753c5.png" style="width: 80%;" /></a>
+<a class="reference internal image-reference" href="../_images/91147070b1168805413a56940436ce243fcc711b0c76a354dc2716aeefe1cc89.png"><img alt="../_images/91147070b1168805413a56940436ce243fcc711b0c76a354dc2716aeefe1cc89.png" src="../_images/91147070b1168805413a56940436ce243fcc711b0c76a354dc2716aeefe1cc89.png" style="width: 80%;" /></a>
 </figure>
 </div>
 </div>
@@ -616,7 +598,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 <li><p>If the observed values of two <strong>centered</strong> random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> cluster along a line of <em>negative</em> slope, then <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> in a data point <span class="math notranslate nohighlight">\((x,y)\)</span> tend to have opposite signs, i.e., <span class="math notranslate nohighlight">\(xy &lt; 0\)</span>.</p></li>
 </ol>
 </div></blockquote>
-<p>Essentially, the next definition takes the average value of the product <span class="math notranslate nohighlight">\(xy\)</span>, as <span class="math notranslate nohighlight">\(x\)</span> ranges over observed values of a <strong>centered</strong> random variable <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(y\)</span> ranges over observed values of a second <strong>centered</strong> random variable <span class="math notranslate nohighlight">\(Y\)</span>. If this average value is positive, it suggests a (noisy) linear dependence with positive slope; if it is negative, it suggests a (noisy) linear dependence with negative slope. A larger average (in either direction—positive or negative) tends to indicate a <em>stronger</em> dependency. If the random variables are not centered, then we subtract off their means before computing the product and taking its average value.</p>
+<p>Essentially, the next definition takes the average value of the product <span class="math notranslate nohighlight">\(xy\)</span>, as <span class="math notranslate nohighlight">\((x,y)\)</span> ranges over observed pairs of values of a pair <span class="math notranslate nohighlight">\((X,Y)\)</span> of <strong>centered</strong> random variables. If this average value is positive, it suggests a (noisy) linear dependence with positive slope; if it is negative, it suggests a (noisy) linear dependence with negative slope. A larger average (in either direction—positive or negative) tends to indicate a <em>stronger</em> dependency. If the random variables are not centered, then we subtract off their means before computing the product and taking its average value.</p>
 <div class="proof definition admonition" id="definition-1">
 <p class="admonition-title"><span class="caption-number">Definition 8.1 </span></p>
 <section class="definition-content" id="proof-content">
@@ -769,9 +751,18 @@ f(x,y) = \begin{cases}
 </div>
 </details>
 <div class="cell_output docutils container">
-<figure class="align-center">
-<a class="reference internal image-reference" href="../_images/7d01f6e16d1fe4c3ef6b4e77d142771e765d16182f979a013fc0668098172bf9.png"><img alt="../_images/7d01f6e16d1fe4c3ef6b4e77d142771e765d16182f979a013fc0668098172bf9.png" src="../_images/7d01f6e16d1fe4c3ef6b4e77d142771e765d16182f979a013fc0668098172bf9.png" style="width: 100%;" /></a>
-</figure>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">def</span> <span class="nf">conditional_density</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="k">return</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">u</span> <span class="o">*</span> <span class="n">v</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="k">class</span> <span class="nc">ConditionalRV</span><span class="p">(</span><span class="n">rv_continuous</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;rv_continuous&#39; is not defined
+</pre></div>
+</div>
 </div>
 </div>
 <p>Our value for the covariance in problem 1 was approximately <span class="math notranslate nohighlight">\(0.007\)</span>, while our value for the covariance in problem 2 was <span class="math notranslate nohighlight">\(\approx 0.019\)</span>. Does it make sense to you that both of these covariances are <em>positive</em>, given that you now know (roughly) what the distributions look like? My analysis would go something like this:</p>
