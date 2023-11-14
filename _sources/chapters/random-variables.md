@@ -11,7 +11,7 @@ kernelspec:
 ---
 
 (random-variables)=
-# Random variables, expected values, variances
+# Random variables
 
 ## Random variables
 
