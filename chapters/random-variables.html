@@ -167,9 +167,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="examples-of-rvs.html">5. Examples of random variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="theory-to-practice.html">6. Connecting theory to practice: a first look at model building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random-vectors.html">7. Random vectors; joint, marginal and conditional distributions; independence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="covar-correl.html">8. Covariance and correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more-prob.html">8. More probability theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples-of-random-vecs.html">9. Examples of random vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="more-prob.html">10. More probability theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">10. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="models.html">11. Probabilistic models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">12. Statistics and estimators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="asymptotic.html">13. The asymptotic theory: the LLN and CLT</a></li>
@@ -347,7 +347,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-algebra-of-random-variables">4.6. The algebra of random variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-of-random-variables">4.7. Functions of random variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-of-functions-of-random-variables-and-the-lotus">4.8. Expectations of functions of random variables and the LotUS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linearity-of-expectation-part-1">4.9. Linearity of expectation, part 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linearity-of-expectation">4.9. Linearity of expectation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variances-and-standard-deviations">4.10. Variances and standard deviations</a></li>
 </ul>
             </nav>
@@ -1044,15 +1044,15 @@ P\left(g(X)=y\right) = \sum_{x\in g^{-1}(y)} P(X=x).
 <div class="proof theorem admonition" id="lotus-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 4.1 </span> (Law of the Unconscious Statistician (LotUS))</p>
 <section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable and let <span class="math notranslate nohighlight">\(y=g(z)\)</span> be a real-valued function on the real line <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>.</p>
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable and <span class="math notranslate nohighlight">\(g:\mathbb{R}^2 \to \mathbb{R}\)</span> a function.</p>
 <ul>
-<li><p>If <span class="math notranslate nohighlight">\(X\)</span> is discrete with probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span>, then</p>
+<li><p>If <span class="math notranslate nohighlight">\(X\)</span> is discrete with mass function <span class="math notranslate nohighlight">\(p(x)\)</span>, then</p>
 <div class="math notranslate nohighlight">
 \[
   E(g(X)) = \sum_{x\in \mathbb{R}} g(x)\cdot p(x).
   \]</div>
 </li>
-<li><p>If <span class="math notranslate nohighlight">\(X\)</span> is continuous with probability density function <span class="math notranslate nohighlight">\(f(x)\)</span>, then</p>
+<li><p>If <span class="math notranslate nohighlight">\(X\)</span> is continuous with density function <span class="math notranslate nohighlight">\(f(x)\)</span>, then</p>
 <div class="math notranslate nohighlight">
 \[
   E(g(X)) = \int_{\mathbb{R}} g(x) \cdot f(x) \ \text{d} x.
@@ -1078,8 +1078,8 @@ E(g(X)) &amp;= \sum_{y\in \mathbb{R}} y\cdot P\left(g(X)=y\right) \\
 <p>Do problems 18 and 19 on the worksheet.</p>
 </div>
 </section>
-<section id="linearity-of-expectation-part-1">
-<h2><span class="section-number">4.9. </span>Linearity of expectation, part 1<a class="headerlink" href="#linearity-of-expectation-part-1" title="Permalink to this heading">#</a></h2>
+<section id="linearity-of-expectation">
+<h2><span class="section-number">4.9. </span>Linearity of expectation<a class="headerlink" href="#linearity-of-expectation" title="Permalink to this heading">#</a></h2>
 <p>We’ve learned that if <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are two random variables, then their pointwise sum <span class="math notranslate nohighlight">\(Z=X+Y\)</span> is also a random variable. In the discrete case, we may compute the expectations of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, respectively, via the definition as</p>
 <div class="math notranslate nohighlight" id="equation-huh1-eqn">
 <span class="eqno">(4.12)<a class="headerlink" href="#equation-huh1-eqn" title="Permalink to this equation">#</a></span>\[
@@ -1105,7 +1105,7 @@ E(X+Y) = E(X) + E(Y),
 E(cX) = c E(X).
 \]</div>
 </section>
-</div><p>You couldn’t possibly hope for any simpler relationship than <a class="reference internal" href="#equation-linear-eqn">(4.14)</a>! But as I just mentioned, I can’t yet explain <em>why</em> this equation holds. The explanation will come later, in part 2 of this section. (Did you notice that this section has ‘part 1’ in its name?)</p>
+</div><p>You couldn’t possibly hope for any simpler relationship than <a class="reference internal" href="#equation-linear-eqn">(4.14)</a>! But as I just mentioned, I can’t yet explain <em>why</em> this equation holds. The explanation will come later, in the form of <a class="reference internal" href="more-prob.html#linear-exp-thm">Theorem 8.10</a>.</p>
 <p>However, we <em>can</em> prove <a class="reference internal" href="#equation-homog-eqn">(4.15)</a> quite easily: Just use the LotUS with the function <span class="math notranslate nohighlight">\(g(x) = cx\)</span>. Can you supply the details to this argument?</p>
 <p>Now, even though we can’t prove <a class="reference internal" href="#equation-linear-eqn">(4.14)</a> at this point, we won’t need it quite yet, so we’re not in any danger. Instead, the following “weak” form of linearity is all we need. (For convenience, I’ve taken the identity <a class="reference internal" href="#equation-homog-eqn">(4.15)</a>—which you <em>just</em> proved—and included it in this special case.)</p>
 <div class="proof theorem admonition" id="weak-linear-thm">
@@ -1279,12 +1279,12 @@ V(X) &amp;= E\left( (X-\mu)^2 \right) \\
 g(x) = ax+b,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> are constants, then we <em>can</em> say something in general:</p>
-<div class="proof theorem admonition" id="theorem-13">
+<div class="proof theorem admonition" id="var-affine-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 4.6 </span> (Variance of an Affine Transformation)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable and <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> constants. Then</p>
-<div class="amsmath math notranslate nohighlight" id="equation-05e9c229-ac1b-482b-a62d-b30c7950099b">
-<span class="eqno">(4.18)<a class="headerlink" href="#equation-05e9c229-ac1b-482b-a62d-b30c7950099b" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
+<div class="amsmath math notranslate nohighlight" id="equation-8c3a9b2e-c90d-4982-8764-77863bb7fb8a">
+<span class="eqno">(4.18)<a class="headerlink" href="#equation-8c3a9b2e-c90d-4982-8764-77863bb7fb8a" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
 V(aX +b) = a^2 V(X).
 \end{equation}\]</div>
 </section>
@@ -1380,7 +1380,7 @@ V(aX+b) &amp;= E\left( (aX+b)^2 \right) - E(aX+b)^2 \\
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-algebra-of-random-variables">4.6. The algebra of random variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-of-random-variables">4.7. Functions of random variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-of-functions-of-random-variables-and-the-lotus">4.8. Expectations of functions of random variables and the LotUS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linearity-of-expectation-part-1">4.9. Linearity of expectation, part 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linearity-of-expectation">4.9. Linearity of expectation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variances-and-standard-deviations">4.10. Variances and standard deviations</a></li>
 </ul>
   </nav></div>

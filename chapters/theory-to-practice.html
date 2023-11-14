@@ -167,9 +167,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="examples-of-rvs.html">5. Examples of random variables</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Connecting theory to practice: a first look at model building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random-vectors.html">7. Random vectors; joint, marginal and conditional distributions; independence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="covar-correl.html">8. Covariance and correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more-prob.html">8. More probability theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples-of-random-vecs.html">9. Examples of random vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="more-prob.html">10. More probability theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">10. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="models.html">11. Probabilistic models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">12. Statistics and estimators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="asymptotic.html">13. The asymptotic theory: the LLN and CLT</a></li>
@@ -359,6 +359,12 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="connecting-theory-to-practice-a-first-look-at-model-building">
 <span id="theory-to-practice"></span><h1><span class="section-number">6. </span>Connecting theory to practice: a first look at model building<a class="headerlink" href="#connecting-theory-to-practice-a-first-look-at-model-building" title="Permalink to this heading">#</a></h1>
+<p>Essentially everything that we have studied so far in class belongs to abstract probability theory, though you investigated some real-world datasets and scenarios in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">programming assignments</a>. In this chapter, we take a first look at <em>probabilistic modeling</em>, continuing the discussion that we began in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> on <em>empirical distributions</em>. The ultimate goal is to begin connecting our abstract theory to real-world practice.</p>
+<p>The modeling concept is bigger than just probability theory, statistics, and machine learning; indeed, the process of (mathematical) model building is central to essentially all quantitative sciences:</p>
+<a class="reference internal image-reference" href="../_images/model-build.svg"><img alt="../_images/model-build.svg" class="align-center" src="../_images/model-build.svg" width="80%" /></a>
+<p> </p>
+<p>Popular stories in the history of western science tell of the search for better and more accurate physical models—the transition from the geocentric Ptolemaic model of the solar system to the heliocentric Copernican one immediately springs to mind as an example.</p>
+<p>Mathematical models serve multiple functions in science: an accurate model may be used to test hypotheses, and it may be used to predict future events. Prediction is a form of <em>data generation</em>, since the predictions often come in the form of</p>
 <section id="data-and-random-samples">
 <h2><span class="section-number">6.1. </span>Data and random samples<a class="headerlink" href="#data-and-random-samples" title="Permalink to this heading">#</a></h2>
 <p>This chapter is a continuation of the ideas presented in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> where we began exploring how the concepts that we have been studying over the past few chapters apply to <em>real-world</em> datasets. In that assignment, we learned about <em>empirical distributions</em> of datasets and associated empirical quantities like means, variances, and quantiles. We will continue making the connection between theory and practice by exploring some further methods and techniques for real-world data analysis, as well as catch a first glimpse of <em>probabilistic models</em>, which we will study in much more depth in <a class="reference internal" href="models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>.</p>
