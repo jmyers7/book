@@ -68,7 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="6. Connecting theory to practice: a first look at model building" href="theory-to-practice.html" />
-    <link rel="prev" title="4. Random variables, expected values, variances" href="random-variables.html" />
+    <link rel="prev" title="4. Random variables" href="random-variables.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -163,16 +163,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="preview.html">1. Preview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="prob-spaces.html">2. Probability spaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rules-of-prob.html">3. Rules of probability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="random-variables.html">4. Random variables, expected values, variances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random-variables.html">4. Random variables</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Examples of random variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="theory-to-practice.html">6. Connecting theory to practice: a first look at model building</a></li>
-<li class="toctree-l1"><a class="reference internal" href="random-vectors.html">7. Random vectors; joint, marginal and conditional distributions; independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random-vectors.html">7. Random vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more-prob.html">8. More probability theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples-of-random-vecs.html">9. Examples of random vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optim.html">10. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="models.html">11. Probabilistic models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">12. Statistics and estimators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">13. The asymptotic theory: the LLN and CLT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">13. Large sample theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more-samp-dist.html">14. More sampling distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CIs.html">15. Confidence intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hyp-test.html">16. Hypothesis testing</a></li>
@@ -729,8 +729,8 @@ E(X) = \frac{1}{\theta} \quad \text{and} \quad V(X) = \frac{1-\theta}{\theta^2}.
 <p class="admonition-title"><span class="caption-number">Definition 5.4 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(M\geq 0\)</span> be an integer, and let <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(N\)</span> be integers with <span class="math notranslate nohighlight">\(0\leq n,N\leq M\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>hypergeometric distribution</em> with parameters <span class="math notranslate nohighlight">\(M\)</span>, <span class="math notranslate nohighlight">\(n\)</span>, and <span class="math notranslate nohighlight">\(N\)</span>, denoted</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a2c7833e-d4eb-43d2-8105-b2f106d052de">
-<span class="eqno">(5.7)<a class="headerlink" href="#equation-a2c7833e-d4eb-43d2-8105-b2f106d052de" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
+<div class="amsmath math notranslate nohighlight" id="equation-301c23b5-5775-45e7-8a23-b3b3ad81fc7a">
+<span class="eqno">(5.7)<a class="headerlink" href="#equation-301c23b5-5775-45e7-8a23-b3b3ad81fc7a" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
 Y \sim \mathcal{HG}eo(M,n,N),
 \end{equation}\]</div>
 <p>if its probability mass function is given by</p>
@@ -1590,7 +1590,7 @@ E(X) = \frac{\alpha}{\alpha+\beta} \quad \text{and} \quad V(X) = \frac{\alpha\be
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">4. </span>Random variables, expected values, variances</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Random variables</p>
       </div>
     </a>
     <a class="right-next"

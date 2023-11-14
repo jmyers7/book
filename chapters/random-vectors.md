@@ -12,7 +12,7 @@ kernelspec:
 ---
 
 (random-vectors)=
-# Random vectors; joint, marginal and conditional distributions; independence
+# Random vectors
 
 (motivation)=
 ## Motivation
@@ -21,9 +21,6 @@ To introduce _random vectors_, let's return to the housing dataset that we studi
 
 ```{code-cell} ipython3
 :tags: [hide-input]
-:mystnb:
-:   image:
-:       width: 100%
 
 import numpy as np
 import pandas as pd

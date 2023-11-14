@@ -165,16 +165,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="chapters/preview.html">1. Preview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/prob-spaces.html">2. Probability spaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/rules-of-prob.html">3. Rules of probability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/random-variables.html">4. Random variables, expected values, variances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/random-variables.html">4. Random variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/examples-of-rvs.html">5. Examples of random variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/theory-to-practice.html">6. Connecting theory to practice: a first look at model building</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/random-vectors.html">7. Random vectors; joint, marginal and conditional distributions; independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/random-vectors.html">7. Random vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/more-prob.html">8. More probability theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/examples-of-random-vecs.html">9. Examples of random vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/optim.html">10. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/models.html">11. Probabilistic models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/stats-estimators.html">12. Statistics and estimators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/asymptotic.html">13. The asymptotic theory: the LLN and CLT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/asymptotic.html">13. Large sample theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/more-samp-dist.html">14. More sampling distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/CIs.html">15. Confidence intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/hyp-test.html">16. Hypothesis testing</a></li>
@@ -360,6 +360,7 @@ document.write(`
    <a href="#cap-theorem-23"><strong>theorem-23</strong></a> | 
    <a href="#cap-theorem-24"><strong>theorem-24</strong></a> | 
    <a href="#cap-theorem-3"><strong>theorem-3</strong></a> | 
+   <a href="#cap-theorem-5"><strong>theorem-5</strong></a> | 
    <a href="#cap-theorem-6"><strong>theorem-6</strong></a> | 
    <a href="#cap-theorem-7"><strong>theorem-7</strong></a> | 
    <a href="#cap-theorem-8"><strong>theorem-8</strong></a> | 
@@ -392,7 +393,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/random-variables.html#definition-0"><code class="xref">definition-0</code></a> <em>(chapters/random-variables)</em></td><td>
+       <a href="chapters/random-vectors.html#definition-0"><code class="xref">definition-0</code></a> <em>(chapters/random-vectors)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-definition-1"><td></td><td>
@@ -400,7 +401,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/more-prob.html#definition-1"><code class="xref">definition-1</code></a> <em>(chapters/more-prob)</em></td><td>
+       <a href="chapters/random-vectors.html#definition-1"><code class="xref">definition-1</code></a> <em>(chapters/random-vectors)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-definition-10"><td></td><td>
@@ -408,7 +409,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/random-variables.html#definition-10"><code class="xref">definition-10</code></a> <em>(chapters/random-variables)</em></td><td>
+       <a href="chapters/random-vectors.html#definition-10"><code class="xref">definition-10</code></a> <em>(chapters/random-vectors)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-definition-11"><td></td><td>
@@ -432,7 +433,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/more-prob.html#definition-14"><code class="xref">definition-14</code></a> <em>(chapters/more-prob)</em></td><td>
+       <a href="chapters/random-vectors.html#definition-14"><code class="xref">definition-14</code></a> <em>(chapters/random-vectors)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-definition-15"><td></td><td>
@@ -464,7 +465,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/random-variables.html#definition-2"><code class="xref">definition-2</code></a> <em>(chapters/random-variables)</em></td><td>
+       <a href="chapters/theory-to-practice.html#definition-2"><code class="xref">definition-2</code></a> <em>(chapters/theory-to-practice)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-definition-21"><td></td><td>
@@ -496,7 +497,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/random-variables.html#definition-4"><code class="xref">definition-4</code></a> <em>(chapters/random-variables)</em></td><td>
+       <a href="chapters/theory-to-practice.html#definition-4"><code class="xref">definition-4</code></a> <em>(chapters/theory-to-practice)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-definition-5"><td></td><td>
@@ -504,7 +505,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/more-prob.html#definition-5"><code class="xref">definition-5</code></a> <em>(chapters/more-prob)</em></td><td>
+       <a href="chapters/theory-to-practice.html#definition-5"><code class="xref">definition-5</code></a> <em>(chapters/theory-to-practice)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-definition-6"><td></td><td>
@@ -528,7 +529,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/more-prob.html#definition-8"><code class="xref">definition-8</code></a> <em>(chapters/more-prob)</em></td><td>
+       <a href="chapters/rules-of-prob.html#definition-8"><code class="xref">definition-8</code></a> <em>(chapters/rules-of-prob)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-definition-9"><td></td><td>
@@ -744,7 +745,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/more-prob.html#theorem-0"><code class="xref">theorem-0</code></a> <em>(chapters/more-prob)</em></td><td>
+       <a href="chapters/rules-of-prob.html#theorem-0"><code class="xref">theorem-0</code></a> <em>(chapters/rules-of-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-theorem-1"><td></td><td>
@@ -760,7 +761,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/more-prob.html#theorem-10"><code class="xref">theorem-10</code></a> <em>(chapters/more-prob)</em></td><td>
+       <a href="chapters/rules-of-prob.html#theorem-10"><code class="xref">theorem-10</code></a> <em>(chapters/rules-of-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-theorem-11"><td></td><td>
@@ -768,7 +769,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/random-vectors.html#theorem-11"><code class="xref">theorem-11</code></a> <em>(chapters/random-vectors)</em></td><td>
+       <a href="chapters/rules-of-prob.html#theorem-11"><code class="xref">theorem-11</code></a> <em>(chapters/rules-of-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-theorem-12"><td></td><td>
@@ -776,7 +777,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/random-vectors.html#theorem-12"><code class="xref">theorem-12</code></a> <em>(chapters/random-vectors)</em></td><td>
+       <a href="chapters/rules-of-prob.html#theorem-12"><code class="xref">theorem-12</code></a> <em>(chapters/rules-of-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-theorem-13"><td></td><td>
@@ -784,7 +785,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/random-vectors.html#theorem-13"><code class="xref">theorem-13</code></a> <em>(chapters/random-vectors)</em></td><td>
+       <a href="chapters/rules-of-prob.html#theorem-13"><code class="xref">theorem-13</code></a> <em>(chapters/rules-of-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-theorem-15"><td></td><td>
@@ -808,7 +809,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/more-prob.html#theorem-17"><code class="xref">theorem-17</code></a> <em>(chapters/more-prob)</em></td><td>
+       <a href="chapters/prob-spaces.html#theorem-17"><code class="xref">theorem-17</code></a> <em>(chapters/prob-spaces)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-theorem-18"><td></td><td>
@@ -816,7 +817,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/more-prob.html#theorem-18"><code class="xref">theorem-18</code></a> <em>(chapters/more-prob)</em></td><td>
+       <a href="chapters/random-vectors.html#theorem-18"><code class="xref">theorem-18</code></a> <em>(chapters/random-vectors)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-theorem-19"><td></td><td>
@@ -856,7 +857,15 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/random-vectors.html#theorem-3"><code class="xref">theorem-3</code></a> <em>(chapters/random-vectors)</em></td><td>
+       <a href="chapters/rules-of-prob.html#theorem-3"><code class="xref">theorem-3</code></a> <em>(chapters/rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-5"><td></td><td>
+       <strong>theorem-5</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/rules-of-prob.html#theorem-5"><code class="xref">theorem-5</code></a> <em>(chapters/rules-of-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-theorem-6"><td></td><td>
@@ -864,7 +873,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/more-prob.html#theorem-6"><code class="xref">theorem-6</code></a> <em>(chapters/more-prob)</em></td><td>
+       <a href="chapters/rules-of-prob.html#theorem-6"><code class="xref">theorem-6</code></a> <em>(chapters/rules-of-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-theorem-7"><td></td><td>
@@ -872,7 +881,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/more-prob.html#theorem-7"><code class="xref">theorem-7</code></a> <em>(chapters/more-prob)</em></td><td>
+       <a href="chapters/random-variables.html#theorem-7"><code class="xref">theorem-7</code></a> <em>(chapters/random-variables)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-theorem-8"><td></td><td>
@@ -888,7 +897,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/more-prob.html#theorem-9"><code class="xref">theorem-9</code></a> <em>(chapters/more-prob)</em></td><td>
+       <a href="chapters/rules-of-prob.html#theorem-9"><code class="xref">theorem-9</code></a> <em>(chapters/rules-of-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-var-affine-thm"><td></td><td>

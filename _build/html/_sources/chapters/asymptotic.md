@@ -11,6 +11,6 @@ kernelspec:
 ---
 
 (asymptotic)=
-# The asymptotic theory: the LLN and CLT
+# Large sample theory
 
 Coming soon!
