@@ -1013,6 +1013,8 @@ for all events $A_1,A_2,\ldots,A_m\subset \mathbb{R}$. If the variables are not 
 Notice that no conditions are placed on the random variables $X_1,\ldots,X_m$ in this definition, such as assuming they are discrete or continuous. However, provided that mass or density functions exist, then convenient criteria for independence may be obtained in terms of these functions:
 
 ```{prf:theorem} Mass/Density Criteria for Independence
+:label: mass-density-ind-thm
+
 Let $X_1,X_2,\ldots,X_m$ be random variables.
 
 * Suppose that the random variables are jointly discrete. Then they are independent if and only if

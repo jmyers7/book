@@ -13,6 +13,20 @@ kernelspec:
 (theory-to-practice)=
 # Connecting theory to practice: a first look at model building
 
+Essentially everything that we have studied so far in class belongs to abstract probability theory, though you investigated some real-world datasets and scenarios in the [programming assignments](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments). In this chapter, we take a first look at _probabilistic modeling_, continuing the discussion that we began in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments) on _empirical distributions_. The ultimate goal is to begin connecting our abstract theory to real-world practice.
+
+The modeling concept is bigger than just probability theory, statistics, and machine learning; indeed, the process of (mathematical) model building is central to essentially all quantitative sciences:
+
+```{image} ../img/model-build.svg
+:width: 80%
+:align: center
+```
+&nbsp;
+
+Popular stories in the history of western science tell of the search for better and more accurate physical models---the transition from the geocentric Ptolemaic model of the solar system to the heliocentric Copernican one immediately springs to mind as an example.
+
+Mathematical models serve multiple functions in science: an accurate model may be used to test hypotheses, and it may be used to predict future events. Prediction is a form of _data generation_, since the predictions often come in the form of
+
 ## Data and random samples
 
 This chapter is a continuation of the ideas presented in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments) where we began exploring how the concepts that we have been studying over the past few chapters apply to _real-world_ datasets. In that assignment, we learned about _empirical distributions_ of datasets and associated empirical quantities like means, variances, and quantiles. We will continue making the connection between theory and practice by exploring some further methods and techniques for real-world data analysis, as well as catch a first glimpse of _probabilistic models_, which we will study in much more depth in {numref}`Chapter %s <prob-models>`.

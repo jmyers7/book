@@ -922,15 +922,15 @@ Now, it turns out that *this* is the key equality for unlocking the proof of the
 ```{prf:theorem} Law of the Unconscious Statistician (LotUS)
 :label: lotus-thm
 
-Let $X$ be a random variable and let $y=g(z)$ be a real-valued function on the real line $\mathbb{R}$.
+Let $X$ be a random variable and $g:\mathbb{R}^2 \to \mathbb{R}$ a function.
 
-* If $X$ is discrete with probability mass function $p(x)$, then
+* If $X$ is discrete with mass function $p(x)$, then
   
   $$
   E(g(X)) = \sum_{x\in \mathbb{R}} g(x)\cdot p(x).
   $$
 
-* If $X$ is continuous with probability density function $f(x)$, then
+* If $X$ is continuous with density function $f(x)$, then
   
   $$
   E(g(X)) = \int_{\mathbb{R}} g(x) \cdot f(x) \ \text{d} x.
@@ -967,7 +967,7 @@ Do problems 18 and 19 on the worksheet.
 
 
 
-## Linearity of expectation, part 1
+## Linearity of expectation
 
 We've learned that if $X$ and $Y$ are two random variables, then their pointwise sum $Z=X+Y$ is also a random variable. In the discrete case, we may compute the expectations of $X$ and $Y$, respectively, via the definition as
 
@@ -998,7 +998,7 @@ E(cX) = c E(X).
 $$ (homog-eqn)
 ```
 
-You couldn't possibly hope for any simpler relationship than {eq}`linear-eqn`! But as I just mentioned, I can't yet explain *why* this equation holds. The explanation will come later, in part 2 of this section. (Did you notice that this section has 'part 1' in its name?)
+You couldn't possibly hope for any simpler relationship than {eq}`linear-eqn`! But as I just mentioned, I can't yet explain *why* this equation holds. The explanation will come later, in the form of {prf:ref}`linear-exp-thm`.
 
 However, we *can* prove {eq}`homog-eqn` quite easily: Just use the LotUS with the function $g(x) = cx$. Can you supply the details to this argument?
 
@@ -1215,6 +1215,7 @@ $$
 where $a$ and $b$ are constants, then we *can* say something in general:
 
 ```{prf:theorem} Variance of an Affine Transformation
+:label: var-affine-thm
 
 Let $X$ be a random variable and $a$ and $b$ constants. Then
 
