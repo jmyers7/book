@@ -414,16 +414,16 @@ p(x_1,x_2,x_3,x_4,x_5) = p(x_1|x_2)p(x_2)p(x_3|x_2)p(x_4|x_1,x_2)p(x_5|x_4).
 <p>A <em>linear regression model</em> is a probabilistic graphical model whose underlying graph is of the form</p>
 <a class="reference internal image-reference" href="../_images/lin-reg-00.svg"><img alt="../_images/lin-reg-00.svg" class="align-center" src="../_images/lin-reg-00.svg" width="50%" /></a>
 <p> </p>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{x} \in \mathbb{R}^n\)</span>. The model has the following parameters:</p>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{x} \in \mathbb{R}^{1\times n}\)</span>. The model has the following parameters:</p>
 <ul class="simple">
-<li><p>A parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\beta \in \mathbb{R}^{n}\)</span>.</p></li>
+<li><p>A parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\beta \in \mathbb{R}^{n\times 1}\)</span>.</p></li>
 <li><p>A real parameter <span class="math notranslate nohighlight">\(\beta_0\in \mathbb{R}\)</span>.</p></li>
 <li><p>A positive real parameter <span class="math notranslate nohighlight">\(\sigma^2 \in \mathbb{R}\)</span>.</p></li>
 </ul>
 <p>The link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-\mu = \mathbf{x}^T \boldsymbol\beta + \beta_0, \quad \text{where} \quad Y ; \mathbf{x}, \boldsymbol\beta,\beta_0,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big).
+\mu = \mathbf{x} \boldsymbol\beta + \beta_0, \quad \text{where} \quad Y ; \mathbf{x}, \boldsymbol\beta,\beta_0,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big).
 \]</div>
 </section>
 </div><p>The components of the vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> are referred to as <em>predictors</em>, <em>regressors</em>, <em>explanatory variables</em>, or <em>independent variables</em>, while the random variable <span class="math notranslate nohighlight">\(Y\)</span> is called the <em>response variable</em> or the <em>dependent variable</em>. In the case that <span class="math notranslate nohighlight">\(n=1\)</span>, the model is called a <em>simple linear regression model</em>; otherwise, it is called a <em>multiple linear regression model</em>.</p>
@@ -438,7 +438,7 @@ p(x_1,x_2,x_3,x_4,x_5) = p(x_1|x_2)p(x_2)p(x_3|x_2)p(x_4|x_1,x_2)p(x_5|x_4).
 \[
 p(y_1,\ldots,y_m; \mathbf{x}_1,\ldots,\mathbf{x}_m, \boldsymbol\beta,\beta_0,\sigma^2) = \frac{1}{\big(2\pi \sigma^2\big)^{m/2}} \exp \left[ - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y_i - \mu_i\big)^2 \right]
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\mu_i = \mathbf{x}_i^T \boldsymbol\beta + \beta_0\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(\mu_i = \mathbf{x}_i \boldsymbol\beta + \beta_0\)</span>.</p>
 </section>
 </div><p>The proof of the factorization is a simple computation:</p>
 <div class="amsmath math notranslate nohighlight">
@@ -600,7 +600,7 @@ E\big(Y_i\big) = \mu_{i} = \beta_0 + \beta_1 x_{i,1} + \cdots + \beta_n x_{i,n},
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/d4bbd139de223c69b60c67c088832ae8df165c8935760aa85585e291aa52c87a.svg"><img alt="../_images/d4bbd139de223c69b60c67c088832ae8df165c8935760aa85585e291aa52c87a.svg" src="../_images/d4bbd139de223c69b60c67c088832ae8df165c8935760aa85585e291aa52c87a.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/a7b8a6112dd85b45bcaae3789ea693554ed4fbfa2d5a0e4d65fbbde0f635913c.svg"><img alt="../_images/a7b8a6112dd85b45bcaae3789ea693554ed4fbfa2d5a0e4d65fbbde0f635913c.svg" src="../_images/a7b8a6112dd85b45bcaae3789ea693554ed4fbfa2d5a0e4d65fbbde0f635913c.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -644,7 +644,7 @@ y_i - \hat{y}_i
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/aa8de1c16a8ce63d2631978570285911de333f0c2cd4418c8dbabd59c0f2ed55.svg"><img alt="../_images/aa8de1c16a8ce63d2631978570285911de333f0c2cd4418c8dbabd59c0f2ed55.svg" src="../_images/aa8de1c16a8ce63d2631978570285911de333f0c2cd4418c8dbabd59c0f2ed55.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/16ba771f421c73ac8d5945c70630cf0073db98a3a4b1629e3cc9722189546f5e.svg"><img alt="../_images/16ba771f421c73ac8d5945c70630cf0073db98a3a4b1629e3cc9722189546f5e.svg" src="../_images/16ba771f421c73ac8d5945c70630cf0073db98a3a4b1629e3cc9722189546f5e.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -683,7 +683,7 @@ y_i - \hat{y}_i
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/9e00ee0adf9f12ccbec5b4076722beb6e76b47ca3715356202f804946f06bf32.svg"><img alt="../_images/9e00ee0adf9f12ccbec5b4076722beb6e76b47ca3715356202f804946f06bf32.svg" src="../_images/9e00ee0adf9f12ccbec5b4076722beb6e76b47ca3715356202f804946f06bf32.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/5910fa3b9f99d700a2cd6b01511da71d30e24466f531df51bc1a81c056756675.svg"><img alt="../_images/5910fa3b9f99d700a2cd6b01511da71d30e24466f531df51bc1a81c056756675.svg" src="../_images/5910fa3b9f99d700a2cd6b01511da71d30e24466f531df51bc1a81c056756675.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -711,7 +711,7 @@ y_i - \hat{y}_i
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/88696e4d2519148b10e644d987aa442acc1194373796c04fef572cb037a480ff.svg"><img alt="../_images/88696e4d2519148b10e644d987aa442acc1194373796c04fef572cb037a480ff.svg" src="../_images/88696e4d2519148b10e644d987aa442acc1194373796c04fef572cb037a480ff.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/9c5860d7ed0d454ccde6d19ed4ea2493210c06492566a480fa61c74e185c189b.svg"><img alt="../_images/9c5860d7ed0d454ccde6d19ed4ea2493210c06492566a480fa61c74e185c189b.svg" src="../_images/9c5860d7ed0d454ccde6d19ed4ea2493210c06492566a480fa61c74e185c189b.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -746,7 +746,7 @@ y_i - \hat{y}_i
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/6ca0b867293a0fab0aafe21537f10418eb7c31d93a45b369fda8cfd77964480f.svg"><img alt="../_images/6ca0b867293a0fab0aafe21537f10418eb7c31d93a45b369fda8cfd77964480f.svg" src="../_images/6ca0b867293a0fab0aafe21537f10418eb7c31d93a45b369fda8cfd77964480f.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/57ce0cec0759acd3638c72a9e5a480a80a08498f7d4980d27a15dac348a948ec.svg"><img alt="../_images/57ce0cec0759acd3638c72a9e5a480a80a08498f7d4980d27a15dac348a948ec.svg" src="../_images/57ce0cec0759acd3638c72a9e5a480a80a08498f7d4980d27a15dac348a948ec.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -759,15 +759,15 @@ y_i - \hat{y}_i
 <p>A <em>logistic regression model</em> is a probabilistic graphical model whose underlying graph is of the form</p>
 <a class="reference internal image-reference" href="../_images/log-reg-00.svg"><img alt="../_images/log-reg-00.svg" class="align-center" src="../_images/log-reg-00.svg" width="50%" /></a>
 <p> </p>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{x}\in \mathbb{R}^n\)</span>. The model has the following parameters:</p>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{x}\in \mathbb{R}^{1\times n}\)</span>. The model has the following parameters:</p>
 <ul class="simple">
-<li><p>A parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\beta \in \mathbb{R}^n\)</span>.</p></li>
+<li><p>A parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\beta \in \mathbb{R}^{n\times 1}\)</span>.</p></li>
 <li><p>A real parameter <span class="math notranslate nohighlight">\(\beta_0\in \mathbb{R}\)</span>.</p></li>
 </ul>
 <p>The link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-\phi = \sigma(\mathbf{x}^T\boldsymbol\beta + \beta_0), \quad \text{where} \quad Y; \mathbf{x},\boldsymbol\beta,\beta_0 \sim \mathcal{B}er(\phi).
+\phi = \sigma(\mathbf{x}\boldsymbol\beta + \beta_0), \quad \text{where} \quad Y; \mathbf{x},\boldsymbol\beta,\beta_0 \sim \mathcal{B}er(\phi).
 \]</div>
 </section>
 </div><div class="proof theorem admonition" id="theorem-4">
@@ -781,7 +781,7 @@ y_i - \hat{y}_i
 \[
 p(y_1,\ldots,y_m; \mathbf{x}_1,\ldots,\mathbf{x}_m, \boldsymbol\beta,\beta_0) = \prod_{i=1}^m \phi_i^{y_i}(1-\phi_i)^{1-y_i}
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\phi_i = \sigma(\mathbf{x}_i^T\boldsymbol\beta + \beta_0)\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(\phi_i = \sigma(\mathbf{x}_i\boldsymbol\beta + \beta_0)\)</span>.</p>
 </section>
 </div></section>
 <section id="neural-network-models">
@@ -792,22 +792,22 @@ p(y_1,\ldots,y_m; \mathbf{x}_1,\ldots,\mathbf{x}_m, \boldsymbol\beta,\beta_0) = 
 <p>A <em>neural network model</em> is a probabilistic graphical model whose underlying graph is of the form</p>
 <a class="reference internal image-reference" href="../_images/nn-00.svg"><img alt="../_images/nn-00.svg" class="align-center" src="../_images/nn-00.svg" width="50%" /></a>
 <p> </p>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{x} \in \mathbb{R}^n\)</span> and <span class="math notranslate nohighlight">\(\mathbf{z}\in \mathbb{R}^k\)</span>. The model has the following parameters:</p>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{x} \in \mathbb{R}^{1\times n}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{z}\in \mathbb{R}^{1\times k}\)</span>. The model has the following parameters:</p>
 <ul class="simple">
 <li><p>A parameter matrix <span class="math notranslate nohighlight">\(\boldsymbol\alpha \in \mathbb{R}^{n\times k}\)</span>.</p></li>
-<li><p>A parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\alpha_0 \in \mathbb{R}^k\)</span></p></li>
-<li><p>A parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\beta \in \mathbb{R}^{k}\)</span>.</p></li>
+<li><p>A parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\alpha_0 \in \mathbb{R}^{1\times k}\)</span></p></li>
+<li><p>A parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\beta \in \mathbb{R}^{k\times 1}\)</span>.</p></li>
 <li><p>A real parameter <span class="math notranslate nohighlight">\(\beta_0 \in \mathbb{R}\)</span>.</p></li>
 </ul>
 <p>The link function at <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-\mathbf{z} = \sigma(\mathbf{x}^T\boldsymbol\alpha + \boldsymbol\alpha_0),
+\mathbf{z} = \sigma(\mathbf{x}\boldsymbol\alpha + \boldsymbol\alpha_0),
 \]</div>
 <p>while the link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-\phi = \sigma(\mathbf{z}^T\boldsymbol\beta + \beta_0), \quad \text{where} \quad Y ; \mathbf{z}, \boldsymbol\beta,\beta_0 \sim \mathcal{B}er\big(\phi\big).
+\phi = \sigma(\mathbf{z}\boldsymbol\beta + \beta_0), \quad \text{where} \quad Y ; \mathbf{z}, \boldsymbol\beta,\beta_0 \sim \mathcal{B}er\big(\phi\big).
 \]</div>
 </section>
 </div><div class="proof theorem admonition" id="theorem-6">
@@ -821,7 +821,7 @@ p(y_1,\ldots,y_m; \mathbf{x}_1,\ldots,\mathbf{x}_m, \boldsymbol\beta,\beta_0) = 
 \[
 p(y_1,\ldots,y_m; \mathbf{z}_1,\ldots,\mathbf{z}_m,\boldsymbol\beta,\beta_0) = \prod_{i=1}^m \phi_i^{y_i}(1-\phi_i)^{1-y_i}
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\phi_i = \sigma(\mathbf{z}_i^T\boldsymbol\beta + \beta_0)\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(\phi_i = \sigma(\mathbf{z}_i\boldsymbol\beta + \beta_0)\)</span>.</p>
 </section>
 </div></section>
 <section id="gaussian-mixture-models">

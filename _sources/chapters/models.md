@@ -95,9 +95,9 @@ A _linear regression model_ is a probabilistic graphical model whose underlying 
 ```
 &nbsp;
 
-where $\mathbf{x} \in \mathbb{R}^n$. The model has the following parameters:
+where $\mathbf{x} \in \mathbb{R}^{1\times n}$. The model has the following parameters:
 
-* A parameter vector $\boldsymbol\beta \in \mathbb{R}^{n}$.
+* A parameter vector $\boldsymbol\beta \in \mathbb{R}^{n\times 1}$.
 
 * A real parameter $\beta_0\in \mathbb{R}$.
 
@@ -106,7 +106,7 @@ where $\mathbf{x} \in \mathbb{R}^n$. The model has the following parameters:
 The link function at $Y$ is given by
 
 $$
-\mu = \mathbf{x}^T \boldsymbol\beta + \beta_0, \quad \text{where} \quad Y ; \mathbf{x}, \boldsymbol\beta,\beta_0,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big).
+\mu = \mathbf{x} \boldsymbol\beta + \beta_0, \quad \text{where} \quad Y ; \mathbf{x}, \boldsymbol\beta,\beta_0,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big).
 $$
 ````
 
@@ -128,7 +128,7 @@ $$
 p(y_1,\ldots,y_m; \mathbf{x}_1,\ldots,\mathbf{x}_m, \boldsymbol\beta,\beta_0,\sigma^2) = \frac{1}{\big(2\pi \sigma^2\big)^{m/2}} \exp \left[ - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y_i - \mu_i\big)^2 \right]
 $$
 
-where $\mu_i = \mathbf{x}_i^T \boldsymbol\beta + \beta_0$.
+where $\mu_i = \mathbf{x}_i \boldsymbol\beta + \beta_0$.
 ````
 
 The proof of the factorization is a simple computation:
@@ -361,16 +361,16 @@ A _logistic regression model_ is a probabilistic graphical model whose underlyin
 ```
 &nbsp;
 
-where $\mathbf{x}\in \mathbb{R}^n$. The model has the following parameters:
+where $\mathbf{x}\in \mathbb{R}^{1\times n}$. The model has the following parameters:
 
-* A parameter vector $\boldsymbol\beta \in \mathbb{R}^n$.
+* A parameter vector $\boldsymbol\beta \in \mathbb{R}^{n\times 1}$.
 
 * A real parameter $\beta_0\in \mathbb{R}$.
 
 The link function at $Y$ is given by
 
 $$
-\phi = \sigma(\mathbf{x}^T\boldsymbol\beta + \beta_0), \quad \text{where} \quad Y; \mathbf{x},\boldsymbol\beta,\beta_0 \sim \mathcal{B}er(\phi).
+\phi = \sigma(\mathbf{x}\boldsymbol\beta + \beta_0), \quad \text{where} \quad Y; \mathbf{x},\boldsymbol\beta,\beta_0 \sim \mathcal{B}er(\phi).
 $$
 ````
 
@@ -390,7 +390,7 @@ $$
 p(y_1,\ldots,y_m; \mathbf{x}_1,\ldots,\mathbf{x}_m, \boldsymbol\beta,\beta_0) = \prod_{i=1}^m \phi_i^{y_i}(1-\phi_i)^{1-y_i}
 $$
 
-where $\phi_i = \sigma(\mathbf{x}_i^T\boldsymbol\beta + \beta_0)$.
+where $\phi_i = \sigma(\mathbf{x}_i\boldsymbol\beta + \beta_0)$.
 ````
 
 
@@ -407,26 +407,26 @@ A _neural network model_ is a probabilistic graphical model whose underlying gra
 ```
 &nbsp;
 
-where $\mathbf{x} \in \mathbb{R}^n$ and $\mathbf{z}\in \mathbb{R}^k$. The model has the following parameters:
+where $\mathbf{x} \in \mathbb{R}^{1\times n}$ and $\mathbf{z}\in \mathbb{R}^{1\times k}$. The model has the following parameters:
 
 * A parameter matrix $\boldsymbol\alpha \in \mathbb{R}^{n\times k}$.
 
-* A parameter vector $\boldsymbol\alpha_0 \in \mathbb{R}^k$
+* A parameter vector $\boldsymbol\alpha_0 \in \mathbb{R}^{1\times k}$
 
-* A parameter vector $\boldsymbol\beta \in \mathbb{R}^{k}$.
+* A parameter vector $\boldsymbol\beta \in \mathbb{R}^{k\times 1}$.
 
 * A real parameter $\beta_0 \in \mathbb{R}$.
 
 The link function at $\mathbf{z}$ is given by
 
 $$
-\mathbf{z} = \sigma(\mathbf{x}^T\boldsymbol\alpha + \boldsymbol\alpha_0),
+\mathbf{z} = \sigma(\mathbf{x}\boldsymbol\alpha + \boldsymbol\alpha_0),
 $$
 
 while the link function at $Y$ is given by
 
 $$
-\phi = \sigma(\mathbf{z}^T\boldsymbol\beta + \beta_0), \quad \text{where} \quad Y ; \mathbf{z}, \boldsymbol\beta,\beta_0 \sim \mathcal{B}er\big(\phi\big).
+\phi = \sigma(\mathbf{z}\boldsymbol\beta + \beta_0), \quad \text{where} \quad Y ; \mathbf{z}, \boldsymbol\beta,\beta_0 \sim \mathcal{B}er\big(\phi\big).
 $$
 ````
 
@@ -446,7 +446,7 @@ $$
 p(y_1,\ldots,y_m; \mathbf{z}_1,\ldots,\mathbf{z}_m,\boldsymbol\beta,\beta_0) = \prod_{i=1}^m \phi_i^{y_i}(1-\phi_i)^{1-y_i}
 $$
 
-where $\phi_i = \sigma(\mathbf{z}_i^T\boldsymbol\beta + \beta_0)$.
+where $\phi_i = \sigma(\mathbf{z}_i\boldsymbol\beta + \beta_0)$.
 ````
 
 
