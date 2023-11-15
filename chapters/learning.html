@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>18. Linear regression &#8212; Mathematical Statistics with a View Toward Machine Learning</title>
+    <title>12. Learning &#8212; Mathematical Statistics with a View Toward Machine Learning</title>
   
   
   
@@ -62,11 +62,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/lin-reg';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/learning';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="19. Bibliography" href="bib.html" />
-    <link rel="prev" title="17. Hypothesis testing" href="hyp-test.html" />
+    <link rel="next" title="13. Statistics and estimators" href="stats-estimators.html" />
+    <link rel="prev" title="11. Probabilistic models" href="models.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -169,13 +169,13 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="examples-of-random-vecs.html">9. Examples of random vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optim.html">10. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="models.html">11. Probabilistic models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="learning.html">12. Learning</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">12. Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">13. Statistics and estimators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="asymptotic.html">14. Large sample theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more-samp-dist.html">15. More sampling distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CIs.html">16. Confidence intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hyp-test.html">17. Hypothesis testing</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">18. Linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lin-reg.html">18. Linear regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bib.html">19. Bibliography</a></li>
 </ul>
 
@@ -246,7 +246,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/chapters/lin-reg.md" target="_blank"
+      <li><a href="../_sources/chapters/learning.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -315,7 +315,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -326,11 +328,27 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Linear regression</h1>
+    <h1>Learning</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-linear-regression-models">12.1. MLE for linear regression models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-logistic-regression-models">12.2. MLE for logistic regression models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-neural-networks">12.3. MLE for neural networks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-maximization-em">12.4. Expectation maximization (EM)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vanilla-em">12.4.1. Vanilla EM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-em-mcem">12.4.2. Monte Carlo EM (MCEM)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#em-for-gaussian-mixture-models">12.4.3. EM for Gaussian mixture models</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -340,9 +358,29 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="linear-regression">
-<span id="lin-reg"></span><h1><span class="section-number">18. </span>Linear regression<a class="headerlink" href="#linear-regression" title="Permalink to this heading">#</a></h1>
-<p>Coming soon!</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="learning">
+<span id="id1"></span><h1><span class="section-number">12. </span>Learning<a class="headerlink" href="#learning" title="Permalink to this heading">#</a></h1>
+<section id="mle-for-linear-regression-models">
+<span id="mle-lin-reg-sec"></span><h2><span class="section-number">12.1. </span>MLE for linear regression models<a class="headerlink" href="#mle-for-linear-regression-models" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="mle-for-logistic-regression-models">
+<h2><span class="section-number">12.2. </span>MLE for logistic regression models<a class="headerlink" href="#mle-for-logistic-regression-models" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="mle-for-neural-networks">
+<h2><span class="section-number">12.3. </span>MLE for neural networks<a class="headerlink" href="#mle-for-neural-networks" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="expectation-maximization-em">
+<h2><span class="section-number">12.4. </span>Expectation maximization (EM)<a class="headerlink" href="#expectation-maximization-em" title="Permalink to this heading">#</a></h2>
+<section id="vanilla-em">
+<h3><span class="section-number">12.4.1. </span>Vanilla EM<a class="headerlink" href="#vanilla-em" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="monte-carlo-em-mcem">
+<h3><span class="section-number">12.4.2. </span>Monte Carlo EM (MCEM)<a class="headerlink" href="#monte-carlo-em-mcem" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="em-for-gaussian-mixture-models">
+<h3><span class="section-number">12.4.3. </span>EM for Gaussian mixture models<a class="headerlink" href="#em-for-gaussian-mixture-models" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -377,20 +415,20 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="hyp-test.html"
+       href="models.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">17. </span>Hypothesis testing</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>Probabilistic models</p>
       </div>
     </a>
     <a class="right-next"
-       href="bib.html"
+       href="stats-estimators.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">19. </span>Bibliography</p>
+        <p class="prev-next-title"><span class="section-number">13. </span>Statistics and estimators</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -403,6 +441,28 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-linear-regression-models">12.1. MLE for linear regression models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-logistic-regression-models">12.2. MLE for logistic regression models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-neural-networks">12.3. MLE for neural networks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-maximization-em">12.4. Expectation maximization (EM)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vanilla-em">12.4.1. Vanilla EM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-em-mcem">12.4.2. Monte Carlo EM (MCEM)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#em-for-gaussian-mixture-models">12.4.3. EM for Gaussian mixture models</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
