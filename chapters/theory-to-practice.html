@@ -360,10 +360,17 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="connecting-theory-to-practice-a-first-look-at-model-building">
 <span id="theory-to-practice"></span><h1><span class="section-number">6. </span>Connecting theory to practice: a first look at model building<a class="headerlink" href="#connecting-theory-to-practice-a-first-look-at-model-building" title="Permalink to this heading">#</a></h1>
+<p>Though you investigated some real-world datasets and scenarios in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">programming assignments</a>, essentially everything that we have studied so far belongs to abstract probability theory. In this chapter, we take a first look at <em>modeling</em> while also continuing the discussion begun in the third programming assignment on <em>empirical distributions</em> of datasets. The ultimate goal is to begin connecting our abstract theory to real-world practice.</p>
+<p>The modeling concept is bigger than just probability theory, statistics, and machine learning; indeed, the process of model building is central to essentially all quantitative sciences:</p>
+<a class="reference internal image-reference" href="../_images/model-build.svg"><img alt="../_images/model-build.svg" class="align-center" src="../_images/model-build.svg" width="80%" /></a>
+<p> </p>
+<p>Popular stories in the history of western science tell of the search for better and more accurate physical models—the transition from the geocentric Ptolemaic model of the solar system to the heliocentric Copernican one immediately springs to mind as an example.</p>
+<p>Mathematical models serve multiple functions in science: an accurate model may be used to test hypotheses and suggest new theories, and it may be used to predict future events. The same is true for the models that we study in this chapter. These new models are <em>probabilistic</em>, however, which means that an analyst needs a firm foundation in probability theory to understand the language used to describe the models.</p>
+<p>While there are similarities between the models that you may have studied before and the new ones in this chapter, there are some differences as well along with novel use cases. For example, once these probabilistic models have been fully trained and all their parameters have been learned, they may be sampled from, <em>generating</em> new data in the process. This is the realm of <em>generative models</em> and <em>generative machine learning</em>. The probabilistic nature of the models means that the new data is random. Those who have no issues using anthropomorphized language to describe the models might refer to this randomness as <em>creativity</em>.</p>
+<p>But our aims in this chapter are much more limited. We will study univariate models made out of only a <em>single</em> random variable, though it may be “duplicated” many times to produce so-called <em>IID sequences</em> of random variables that serve as theoretical avatars of observed real-world datasets. We will briefly study a few tools and techniques that help us visualize the <em>shape</em> of a dataset; some of these visualization tools will then be used for <em>model checking</em> and to help judge <em>goodness-of-fit</em> for proposed probabilistic models. Later, in <a class="reference internal" href="models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>, we will embed the univariate models in this chapter into interconnected “webs” of random variables, creating ever more expressive and powerful probabilistic models. But we must learn to walk before we can run!</p>
 <section id="data-and-random-samples">
 <h2><span class="section-number">6.1. </span>Data and random samples<a class="headerlink" href="#data-and-random-samples" title="Permalink to this heading">#</a></h2>
-<p>This chapter is a continuation of the ideas presented in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> where we began exploring how the concepts that we have been studying over the past few chapters apply to <em>real-world</em> datasets. In that assignment, we learned about <em>empirical distributions</em> of datasets and associated empirical quantities like means, variances, and quantiles. We will continue making the connection between theory and practice by exploring some further methods and techniques for real-world data analysis, as well as catch a first glimpse of <em>probabilistic models</em>, which we will study in much more depth in <a class="reference internal" href="models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>.</p>
-<p>Our exploration in the third programming assignment centered on the <em>Ames housing dataset</em>. In this chapter, we will explore a dataset related to Airbnbs. In particular, we have at hand a sample of listing prices (in USD) for Airbnbs in Austin, Texas, over the last 12 months:</p>
+<p>The story begins with a careful study of the stuff that our models are supposed to model: data! Throughout this chapter, we will explore a real-world dataset consisting of listing prices (in USD) for Airbnbs in Austin, Texas, over an observation period of 12 months:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -377,6 +384,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">matplotlib_inline.backend_inline</span>
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">statsmodels.graphics.gofplots</span> <span class="kn">import</span> <span class="n">qqplot</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
 <span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
@@ -392,50 +400,50 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0        111.97
 1         97.62
 2         48.48
-3        124.23
+3        106.66
 4        156.66
           ...  
-13234    221.10
-13235     76.65
-13236    274.37
-13237    232.21
-13238     72.06
-Name: price, Length: 13239, dtype: float64
+13248    515.50
+13249     70.78
+13250    297.56
+13251    212.29
+13252     74.66
+Name: price, Length: 13253, dtype: float64
 </pre></div>
 </div>
 </div>
 </div>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>This is a subset of a larger dataset obtained <a class="reference external" href="http://insideairbnb.com">here</a>. The dataset originally consisted of integer prices, but for pedagogical reasons I want the prices to  more closely resemble a continuous variable. Thus, I added random fractions of a dollar onto each price.</p>
+<p>This dataset was obtained <a class="reference external" href="http://insideairbnb.com">here</a>. I removed outliers and also smoothed the data to remove spikes at prices that are multiples of <span class="math notranslate nohighlight">\(\$50\)</span>.</p>
 </aside>
-<p>Though the sample consists of quite a few prices (<span class="math notranslate nohighlight">\(m=3{,}972\)</span> of them, in fact), it does not represent <em>all</em> prices. In fact, there were a little over 14,500 total listings during the time period from which our sample was drawn.</p>
-<p>To fit this into our theoretical framework, we conceptualize the collection of <em>all</em> 14,500 listings as a probability space <span class="math notranslate nohighlight">\(S\)</span>. (I will talk about the associated probability measure below.) Then, we conceptualize the price of a listing as a random variable</p>
+<p>Notice that there are <span class="math notranslate nohighlight">\(m=13{,}239\)</span> prices in the dataset.</p>
+<p>To fit this dataset into the theoretical framework of the first few chapters, we conceptualize the (hypothetical) collection of <em>all</em> possible listings as a probability space <span class="math notranslate nohighlight">\(S\)</span>. Then, we conceptualize the price of a listing as a random variable</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 X: S \to \mathbb{R}
 \end{equation*}\]</div>
-<p>which takes a listing from the population <span class="math notranslate nohighlight">\(S\)</span> as input and spits out its price:</p>
+<p>that takes a listing from the population <span class="math notranslate nohighlight">\(S\)</span> as input and spits out its price:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 X(\text{listing}) = \text{price}.
 \end{equation*}\]</div>
-<p>The actual prices in our sample are called <em>observed values</em> of the random variable <span class="math notranslate nohighlight">\(X\)</span> and, as in previous chapters, they are represented with a lowercase <span class="math notranslate nohighlight">\(x\)</span>. We would list the elements in our sample as</p>
+<p>The actual prices in our dataset are called <em>observed values</em> of the random variable <span class="math notranslate nohighlight">\(X\)</span> and, as in previous chapters, they are represented with a lowercase <span class="math notranslate nohighlight">\(x\)</span>. We would list the elements in our dataset as</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 x_1,x_2,\ldots,x_m \in \mathbb{R}
 \end{equation*}\]</div>
-<p>where <span class="math notranslate nohighlight">\(m=3{,}972\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(m=13{,}239\)</span>.</p>
 <p>So far, this discussion is not all that different from ones that we have had before; in fact, I can even use the same cartoon from previous chapters to visualize the action of the random variable <span class="math notranslate nohighlight">\(X\)</span>:</p>
 <a class="reference internal image-reference" href="../_images/airbnb0.svg"><img alt="../_images/airbnb0.svg" class="align-center" src="../_images/airbnb0.svg" width="90%" /></a>
 <p> </p>
-<p>However, what makes our current scenario different from those considered in past chapters is that we have an entire sample of prices at hand, not just a <em>single</em> price. How are we to fit <em>samples</em> and <em>datasets</em> into our theoretical framework?</p>
-<p>The answer is pretty obvious, actually. After all, a collection of <span class="math notranslate nohighlight">\(m\)</span> prices like those in our sample must come from a collection of <span class="math notranslate nohighlight">\(m\)</span> listings, right? This suggests that we should simply duplicate the random variable <span class="math notranslate nohighlight">\(X\)</span> to obtain a <em>sequence</em> of random variables</p>
+<p>However, what makes our current scenario different from those considered in past chapters is that we have an entire dataset of prices at hand, not just a <em>single</em> price. How are we to fit <em>datasets</em> into our theoretical framework?</p>
+<p>The answer is pretty obvious, actually. After all, a collection of <span class="math notranslate nohighlight">\(m\)</span> prices like those in our dataset must come from a collection of <span class="math notranslate nohighlight">\(m\)</span> listings, right? This suggests that we should simply “duplicate” the random variable <span class="math notranslate nohighlight">\(X\)</span> to obtain a <em>sequence</em> of random variables</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 X_1,X_2,\ldots,X_m,
 \end{equation*}\]</div>
-<p>where the random variable <span class="math notranslate nohighlight">\(X_i\)</span> (for <span class="math notranslate nohighlight">\(1\leq i \leq m\)</span>) spits out the price of the <span class="math notranslate nohighlight">\(i\)</span>-th listing. Something like:</p>
+<p>where the random variable <span class="math notranslate nohighlight">\(X_i\)</span> (for <span class="math notranslate nohighlight">\(1\leq i \leq m\)</span>) spits out the price of the <span class="math notranslate nohighlight">\(i\)</span>-th listing. Something like this:</p>
 <a class="reference internal image-reference" href="../_images/cartesian.svg"><img alt="../_images/cartesian.svg" class="align-center" src="../_images/cartesian.svg" width="90%" /></a>
 <p> </p>
 <p>To make this work, technically we need to replace the sample space <span class="math notranslate nohighlight">\(S\)</span> with its <span class="math notranslate nohighlight">\(m\)</span>-fold <a href="https://en.wikipedia.org/wiki/Cartesian_product#n-ary_Cartesian_power">cartesian power</a>, but we won’t worry about these details. For us, it’s enough to understand this process at the intuitive level.</p>
@@ -443,11 +451,11 @@ X_1,X_2,\ldots,X_m,
 <blockquote>
 <div><p>We don’t actually <em>care</em> about <span class="math notranslate nohighlight">\(P\)</span>.</p>
 </div></blockquote>
-<p>Indeed, <span class="math notranslate nohighlight">\(P\)</span> is a purely academic object whose only role in this business is to make the theory under the hood tick along. It’s mostly pure mathematicians like me that spend time worrying about <span class="math notranslate nohighlight">\(P\)</span>, but it is <em>never</em>, <em>ever</em> mentioned or acknowledged in real-world scenarios.</p>
+<p>Indeed, <span class="math notranslate nohighlight">\(P\)</span> is a purely academic object whose only role in this business is to make the theory under the hood tick along. It’s mostly mathematicians like me that spend time worrying about <span class="math notranslate nohighlight">\(P\)</span>, but it is <em>never</em>, <em>ever</em> mentioned or acknowledged in real-world scenarios.</p>
 <p>On the other hand, we do very much(!) care about the probability distributions of the random variables <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span>. We will be devoting a huge amount of time and effort over the rest of this course trying to figure out the distribution of this or that random variable. In the context of our Airbnb prices, the distributions of the <span class="math notranslate nohighlight">\(X_i\)</span>’s tell us the distribution of prices:</p>
 <a class="reference internal image-reference" href="../_images/airbnb.svg"><img alt="../_images/airbnb.svg" class="align-center" src="../_images/airbnb.svg" width="90%" /></a>
 <p> </p>
-<p>But because each of the random variables <span class="math notranslate nohighlight">\(X_i\)</span> is essentially a “duplicate” of the single ‘price’ random variable <span class="math notranslate nohighlight">\(X\)</span>, they all have the <em>same</em> distribution, in the sense that</p>
+<p>But because each of the random variables <span class="math notranslate nohighlight">\(X_i\)</span> is essentially a “duplicate” of the single random variable <span class="math notranslate nohighlight">\(X\)</span>, they all have the <em>same</em> distribution, in the sense that</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 P(X_1\in A) = P(X_2\in A) = \cdots = P(X_m\in A)
@@ -463,7 +471,7 @@ P(X_1\in A) = P(X_2\in A) = \cdots = P(X_m\in A)
 <ul class="simple">
 <li><p>The random variables are called a <em>random sample</em> if they are <em>independent</em> and <em>identically distributed</em> (IID).</p></li>
 </ul>
-<p>Provided that the sequence is a random sample, an <em>observed random sample</em>, or a <em>dataset</em>, is a sequence of real numbers <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> where <span class="math notranslate nohighlight">\(x_i\)</span> is an observed value of <span class="math notranslate nohighlight">\(X_i\)</span>.</p>
+<p>Provided that the sequence is a random sample, an <em>observed random sample</em>, or a <em>dataset</em>, is a sequence of real numbers <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> where <span class="math notranslate nohighlight">\(x_i\)</span> is an observed value of <span class="math notranslate nohighlight">\(X_i\)</span>. We shall also refer to a dataset as an <em>observation</em> of the corresponding random sample.</p>
 </section>
 </div><p>Two random variables are said to be <em>independent</em> if the probability of one of the random variables taking a particular value is not influenced or affected by the other random variable taking a particular value. This isn’t a precise definition, and it must be adapted to apply to an entire <em>sequence</em> of random variables, but it is good enough for now. (The precise definition will come in <a class="reference internal" href="random-vectors.html#independence-defn">Definition 7.11</a>.)</p>
 <p>Take care to notice the difference between a <em>random sample</em> (without the modifier) and an <em>observed random sample</em>—the former is an IID sequence of random variables, while the latter is a sequence of real numbers!</p>
@@ -478,36 +486,36 @@ P(X_1\in A) = P(X_2\in A) = \cdots = P(X_m\in A)
 </section>
 <section id="probabilistic-models-and-empirical-distributions">
 <h2><span class="section-number">6.2. </span>Probabilistic models and empirical distributions<a class="headerlink" href="#probabilistic-models-and-empirical-distributions" title="Permalink to this heading">#</a></h2>
-<p>If <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> is a random sample, then by definition the probability distributions of the <span class="math notranslate nohighlight">\(X_i\)</span> are all identical. This will often be written as either</p>
+<p>Suppose we conceptualize our Airbnb dataset <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> as an observation of a random sample <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span>. Since the random variables in the random sample are identically distributed, they all induce the <em>same</em> probability distribution on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. <em>But what is this distribution?</em></p>
+<p>Whatever it is, it is <em>not</em> completely and uniquely determined by the dataset. Its specific identity is chosen by the analyst. Many factors are considered in this choice, but the most important is to pick a distribution that closely <em>fits</em> the empirical distribution of the dataset. This is the modeling process in a nutshell.</p>
+<p>Let’s introduce some notation and terminology. Suppose that <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> is <em>any</em> random sample. If the common probability distribution among the <span class="math notranslate nohighlight">\(X_i\)</span>’s comes from one of the families studied in <a class="reference internal" href="examples-of-rvs.html#examples"><span class="std std-numref">Chapter 5</span></a>—for example, a normal distribution—we will write the usual</p>
+<div class="math notranslate nohighlight" id="equation-normal-model-eqn">
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-normal-model-eqn" title="Permalink to this equation">#</a></span>\[X_1,X_2,\ldots,X_m \sim \mathcal{N}(\mu,\sigma^2). \]</div>
+<p>We will also sometimes write</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
-X_1,X_2,\ldots,X_m \sim f \quad \text{or} \quad X_1,X_2,\ldots,X_m \sim F,
+X_1,X_2,\ldots,X_m \sim F
 \end{equation*}\]</div>
-<p>where <span class="math notranslate nohighlight">\(f\)</span> is the density function of the <span class="math notranslate nohighlight">\(X_i\)</span>’s and <span class="math notranslate nohighlight">\(F\)</span> is their distribution function. A particular choice of <span class="math notranslate nohighlight">\(f\)</span> or <span class="math notranslate nohighlight">\(F\)</span> is called a <em>probabilistic model</em>. Often, an analyst doesn’t choose a <em>specific</em> distribution, but rather chooses a <em>family</em> from which the model distribution is drawn. For example, an analyst might choose the model from the Gaussian family of distributions, so that</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{equation*}
-X_1,X_2,\ldots,X_m;\mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
-\end{equation*}\]</div>
-<p>Then, the goal is to estimate specific values of the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> that yield a best-fit model for an observed random sample <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span>. In this scenario the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> are called <em>model parameters</em> (or sometimes <em>population parameters</em>).</p>
-<p>As we will learn in <a class="reference internal" href="models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>, the random variables and parameters in a probabilistic model may be depicted graphically; for our normal model, we would draw the following picture in the case that <span class="math notranslate nohighlight">\(m=3\)</span>:</p>
+<p>where <span class="math notranslate nohighlight">\(F\)</span> is the common distribution function shared among the <span class="math notranslate nohighlight">\(X_i\)</span>’s. We may also write the density function <span class="math notranslate nohighlight">\(f\)</span> or mass function <span class="math notranslate nohighlight">\(p\)</span> in place of <span class="math notranslate nohighlight">\(F\)</span>. In any case, a particular choice of <span class="math notranslate nohighlight">\(F\)</span> (or <span class="math notranslate nohighlight">\(f\)</span> or <span class="math notranslate nohighlight">\(p\)</span>) is called a <em>probabilistic model</em>. The modeling process may then be described as <em>choosing</em> a probabilistic model.</p>
+<p>There are both <em>parametric</em> and <em>non-parametric</em> probabilistic models. A normal model of the form <a class="reference internal" href="#equation-normal-model-eqn">(6.1)</a> belongs to the former type, since it depends on the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>. Proposing a parametric probabilistic model is then only half the battle, for then the parameters must be determined to completely specify the model. A machine learning engineer would say that the parameters are <em>learned</em> from a given dataset (see <a class="reference internal" href="learning.html#learning"><span class="std std-numref">Chapter 12</span></a>), while a statistician would say that they are <em>inferred</em> from data.</p>
+<p>As we will learn in <a class="reference internal" href="models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>, the random variables and parameters in a probabilistic model may be depicted graphically; for a normal model <a class="reference internal" href="#equation-normal-model-eqn">(6.1)</a> with <span class="math notranslate nohighlight">\(m=3\)</span>, we would draw the following picture:</p>
 <a class="reference internal image-reference" href="../_images/norm-model.svg"><img alt="../_images/norm-model.svg" class="align-center" src="../_images/norm-model.svg" width="50%" /></a>
 <p> </p>
-<p>The probabilistic models we will study in <a class="reference internal" href="models.html#prob-models"><span class="std std-numref">Chapter 11</span></a> will be more complex than this, however, with arrows running between the random variables themselves (representing “probabilistic influence”) and both <em>observed</em> and <em>latent</em> (or <em>hidden</em>) random variables.</p>
-<p>What do we mean when we say that a model “fits” the data well? Essentially, we mean that the model distribution and the empirical distribution of the dataset—the latter of which you learned about in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a>—are reasonably “close.” While <em>closeness</em> may actually be <em>quantified</em> in certain ways (e.g., using <a class="reference external" href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">KL divergence</a>), often times an analyst judges <em>closeness</em> by checking that various probabilistic objects of the model and empirical distributions are nearly equal, and also by checking several diagnostic plots, many of which we will study in this chapter.</p>
-<p>The first method we will use to compare a model and empirical distribution is by comparing their CDFs. For this, we need to define the CDF of a dataset. Here’s the definition:</p>
+<p>The arrows in this simple graph are intended to convey “influence”—that different parameter settings will alter or “influence” the distributions of the <span class="math notranslate nohighlight">\(X_i\)</span>’s. Admittedly, since the normal model is so simple, there isn’t much additional insight to be gained by drawing this graph. But it’s good practice for the models in <a class="reference internal" href="models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>.</p>
+<p>How do we judge the <em>goodness-of-fit</em> of a proposed model distribution? Our first method will be based on a visual comparison of the model distribution function to the <em>empirical distribution function</em>. The latter is defined in the next box, which also contains a reminder of the definition of an <em>empirical distribution</em> that appeared back in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a>.</p>
 <div class="proof definition admonition" id="emp-dist-defn">
 <p class="admonition-title"><span class="caption-number">Definition 6.2 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m \sim F\)</span> be a random sample from an unknown distribution function <span class="math notranslate nohighlight">\(F\)</span>, and let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> be an <em>observed</em> random sample. Then the <em>empirical distribution</em> of the dataset is the discrete probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with probability mass function</p>
-<div class="math notranslate nohighlight" id="equation-ecdf-eqn">
-<span class="eqno">(6.1)<a class="headerlink" href="#equation-ecdf-eqn" title="Permalink to this equation">#</a></span>\[p(x) = \frac{\text{number of data points $x_i$ that match $x$}}{m}.\]</div>
-<p>The <em>empirical cumulative distribution function</em> (ECDF) of the dataset is the CDF of the empiricical disribution. It is often denoted <span class="math notranslate nohighlight">\(\widehat{F}(x)\)</span>, and it is given by the usual formula</p>
+<p>The <em>empirical distribution</em> of a dataset <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> is the discrete probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with probability mass function</p>
+<div class="math notranslate nohighlight">
+\[p(x) = \frac{\text{number of data points $x_i$ that match $x$}}{m}.\]</div>
+<p>The <em>empirical cumulative distribution function</em> (<em>ECDF</em>) of the dataset is the CDF of the empiricical disribution. It is given by</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
-\widehat{F}(x) = \sum_{y\leq x} p(y) = \frac{\text{number of data points $x_i$ with $x_i \leq x$}}{m}.
+F(x) = \sum_{x^\star\leq x} p(x^\star) = \frac{\text{number of data points $x_i$ with $x_i \leq x$}}{m}.
 \end{equation*}\]</div>
 </section>
-</div><p>You can think of empirical probabilities as relative frequencies. Indeed, this is essentially the <em>definition</em> described by the formula <a class="reference internal" href="#equation-ecdf-eqn">(6.1)</a>: It says that <span class="math notranslate nohighlight">\(p(x)\)</span> is the relative frequency of the number <span class="math notranslate nohighlight">\(x\)</span> in the dataset.</p>
+</div><p>Notice that the probability <span class="math notranslate nohighlight">\(p(x)\)</span> is the <em>relative frequency</em> of <span class="math notranslate nohighlight">\(x\in \mathbb{R}\)</span>; it is exactly the frequency that <span class="math notranslate nohighlight">\(x\)</span> appears in the dataset, divided by the size of the dataset.</p>
 <p>To make this concrete, let’s bring back the Airbnb prices. I have asked the computer to generate the ECDF of this dataset:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -526,7 +534,7 @@ X_1,X_2,\ldots,X_m;\mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/023578e6b1c66c89752409a5164e7d8f6d61bc3ed246153b0bf947a71afa56fe.svg"><img alt="../_images/023578e6b1c66c89752409a5164e7d8f6d61bc3ed246153b0bf947a71afa56fe.svg" src="../_images/023578e6b1c66c89752409a5164e7d8f6d61bc3ed246153b0bf947a71afa56fe.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/fac9ea95cfaf84c2be2d0411a296861832f48f47f043b7f1fca7c40d6f417319.svg"><img alt="../_images/fac9ea95cfaf84c2be2d0411a296861832f48f47f043b7f1fca7c40d6f417319.svg" src="../_images/fac9ea95cfaf84c2be2d0411a296861832f48f47f043b7f1fca7c40d6f417319.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -535,12 +543,12 @@ X_1,X_2,\ldots,X_m;\mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 <p class="sidebar-title"></p>
 <p>Actually, it’s not quite right to say that the empirical variance <span class="math notranslate nohighlight">\(s^2\)</span> is the parameter estimate derived from the method of moments or maximum likelihood estimation. In fact, the latter estimates have the sample size <span class="math notranslate nohighlight">\(m\)</span> in the denominator, whereas the empirical variance <span class="math notranslate nohighlight">\(s^2\)</span> is usually defined with <span class="math notranslate nohighlight">\(m-1\)</span> in the denominator.</p>
 </aside>
-<p>Now, what if we thought that our Airbnb prices were well modeled by a normal distribution, so that</p>
+<p>Now, suppose that our Airbnb dataset is an observation of a random sample <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> (where <span class="math notranslate nohighlight">\(m=13{,}239\)</span>) and that we propose a normal model</p>
 <div class="math notranslate nohighlight">
 \[
-X_1,X_2,\ldots,X_{3{,}972} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2)
+X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 \]</div>
-<p>in the notation introduced above. How might we find good settings for the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>? In this case, we might choose <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> to be the <em>empirical mean</em> <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <em>empirical variance</em> <span class="math notranslate nohighlight">\(s^2\)</span>, which you learned about back in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a>—and which we will review in a section below. (This is the <em>method of moments</em> for estimating model parameters which, in this special case, is also the method of <em>maximum likelihood estimation</em>.) Let’s then plot the ECDF of the dataset with the CDF of the normal model distribution superimposed:</p>
+<p>How might we “learn” the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> from the data? In this case, we might choose <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> to be the <em>empirical mean</em> <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <em>empirical variance</em> <span class="math notranslate nohighlight">\(s^2\)</span>, which you saw back in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and which we will review in <a class="reference internal" href="#empirical-stats"><span class="std std-numref">Section 6.5</span></a> below. (This is the <em>method of moments</em> for estimating model parameters which, in this special case, is also the method of <em>maximum likelihood estimation</em>; see <a class="reference internal" href="learning.html#learning"><span class="std std-numref">Chapter 12</span></a>.) With these parameter settings, let’s plot the ECDF of the dataset along with the CDF of the normal model superimposed:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -566,12 +574,18 @@ X_1,X_2,\ldots,X_{3{,}972} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/e24dacc23c18994470664748b01d238cfcda4db5dbacde3242bbb0fe3508e106.svg"><img alt="../_images/e24dacc23c18994470664748b01d238cfcda4db5dbacde3242bbb0fe3508e106.svg" src="../_images/e24dacc23c18994470664748b01d238cfcda4db5dbacde3242bbb0fe3508e106.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/b0ea2530e550761d0151c3d5ddff6dbb42eb5744ce68c83fb341f7c6507d4094.svg"><img alt="../_images/b0ea2530e550761d0151c3d5ddff6dbb42eb5744ce68c83fb341f7c6507d4094.svg" src="../_images/b0ea2530e550761d0151c3d5ddff6dbb42eb5744ce68c83fb341f7c6507d4094.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
 <p>Yikes. Those CDFs are quite different from each other, suggesting that the normal model is a bad fit.</p>
-<p>Closely related to CDFs are density functions, of course. Now, <em>if</em> we assume that our Airbnb dataset is an observed random sample drawn from <em>some</em> unknown “true” model distribution, then what might the density function of that model distribution look like? As I will show you in a section below, computers are capable of estimating these types of PDFs from data using something called <em>kernel density estimation</em> (KDE). If I feed the Airbnb dataset into my computer, it returns the following sketch of the data density curve using KDE:</p>
+<p>All is not lost, however, since this comparison suggests a better model. Though technically the ECDF is a step function, it <em>appears</em> to us as a nice smooth-ish curve. If we pretend that it actually <em>is</em> a smooth curve, then the empirical distribution has a probability density function. This density function should have a local maximum around a price of <span class="math notranslate nohighlight">\(\$100\)</span> since the ECDF appears to have an inflection point near that price. As we continue scanning the graph from left to right beginning at <span class="math notranslate nohighlight">\(\$100\)</span>, we see that the tangent line slopes of the ECDF gradually decrease toward <span class="math notranslate nohighlight">\(0\)</span>, but that it takes awhile before the slopes are essentially <span class="math notranslate nohighlight">\(0\)</span>. This suggests that the dataset is <em>right-skew</em>, in the sense that it has a long tail reaching out to the right from its (single) peak.</p>
+<p>This analysis suggests that a log transform (which you learned about in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a>) might “un-skew” the data by removing the tail. In place of our (bad) normal model, we thus propose a normal model on the <em>transformed</em> data:</p>
+<div class="math notranslate nohighlight">
+\[
+\log{X_1},\log{X_2},\ldots,\log{X_{m}} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
+\]</div>
+<p>We take the model parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> as the empirical mean and variance of the log-transformed data. Here’s a CDF comparison:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -579,55 +593,28 @@ X_1,X_2,\ldots,X_{3{,}972} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2)
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">srs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;estimated data PDF&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">grid</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;normal PDF&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">510</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">srs_log</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">srs</span><span class="p">)</span>
+<span class="n">xbar</span> <span class="o">=</span> <span class="n">srs_log</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">srs_log</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">xbar</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">srs_log</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">srs_log</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">ecdfplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">srs_log</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ECDF after log transform&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">grid</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;normal CDF&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">srs_log</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xbar</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;empirical mean&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;log price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="c1">#plt.savefig(&#39;ecdf-compare-log.pdf&#39;)</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/c939c3f997fcb6dad73eb2e7b6a0012117fe66e4a7f0415c278c904b7b1874b5.svg"><img alt="../_images/c939c3f997fcb6dad73eb2e7b6a0012117fe66e4a7f0415c278c904b7b1874b5.svg" src="../_images/c939c3f997fcb6dad73eb2e7b6a0012117fe66e4a7f0415c278c904b7b1874b5.svg" width="70%" /></a>
-</figure>
-</div>
-</div>
-<p>I have superimposed the density curve of the normal model from above for comparison. Again, this plot shows that this model is a bad fit.</p>
-<p>However, the KDE estimate for the data density curve shows that the data is right-skewed (long tail to the right) and unimodal (one peak); this suggests that a log transform (which you learned about in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a>) might “un-skew” the data by removing the tail. Let’s try performing a log transform, setting up a <em>new</em> normal model based on the empirical mean and variance of the transformed dataset, and then print out CDFs and a KDE:</p>
-<div class="cell tag_hide-input tag_full-width docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">srs_log</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">srs</span><span class="p">)</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">srs_log</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scale</span><span class="o">=</span><span class="n">srs_log</span><span class="o">.</span><span class="n">std</span><span class="p">())</span>
-<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">srs_log</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">srs_log</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
-
-<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">ecdfplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">srs_log</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ECDF&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">grid</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;normal CDF&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;log price&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">srs_log</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;estimated data PDF&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">grid</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;normal PDF&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;log price&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<figure class="align-center">
-<a class="reference internal image-reference" href="../_images/5a652077f2b55a9cf70c78b5bed913e3f54c4a4bc3fba2229f58b26a0ef5556a.svg"><img alt="../_images/5a652077f2b55a9cf70c78b5bed913e3f54c4a4bc3fba2229f58b26a0ef5556a.svg" src="../_images/5a652077f2b55a9cf70c78b5bed913e3f54c4a4bc3fba2229f58b26a0ef5556a.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/eb182861891cde0a505b11998612752e172ffc1d84d2c3254548c9e72406af1c.svg"><img alt="../_images/eb182861891cde0a505b11998612752e172ffc1d84d2c3254548c9e72406af1c.svg" src="../_images/eb182861891cde0a505b11998612752e172ffc1d84d2c3254548c9e72406af1c.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -635,13 +622,14 @@ X_1,X_2,\ldots,X_{3{,}972} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2)
 <p class="sidebar-title"></p>
 <p>By the way, datasets whose log transforms are well modeled by normal distributions occur quite frequently. So frequently, in fact, that we refer to these datasets as <a class="reference external" href="https://en.wikipedia.org/wiki/Log-normal_distribution#">log-normally distributed</a>.</p>
 </aside>
-<p>That looks pretty good! Based just on these two diagnostic plots, I would feel confident in using a normal model to model (the logarithm of the) data. We just need to remember that any information we learn about the data through this model, we need to “back-transform” using the exponential function to translate to the original dataset.</p>
+<p>That looks pretty good! There is a slight discrepancy beginning around <span class="math notranslate nohighlight">\(6\)</span> on the horizontal axis where the normal CDF flattens while the ECDF remains steep. This means that the amount of probability density of the (log-transformed) dataset in this region is <em>larger</em> than predicted by the normal model.</p>
+<p>If we elect to use the normal model on the log-transformed data, we need to remember that any information we learn about the data through the model needs to be “back-transformed” using the exponential function to translate to the original dataset.</p>
 </section>
 <section id="histograms">
 <h2><span class="section-number">6.3. </span>Histograms<a class="headerlink" href="#histograms" title="Permalink to this heading">#</a></h2>
-<p>In the previous section, we used a plot of the ECDF of the Airbnb prices in order to <em>visualize</em> the empirical distribution. From this plot, we were able to get a sense of the <em>shape</em> of the dataset.</p>
-<p>There are a few more ways that we might attempt to visualize the empirical distribution. Indeed, since the empirical distribution of the Airbnb prices is technically discrete, we might attempt to visualize it using the probability histograms that we saw in <a class="reference internal" href="prob-spaces.html#prob-histo"><span class="std std-numref">Section 2.7</span></a> and implemented in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">thrid programming assignment</a>. However, as we saw in the previous section, the data points in our sample are so numerous and packed so closely together that such a probability histogram would be essentially useless. We would have <span class="math notranslate nohighlight">\(3{,}548\)</span> bars in our histogram, one for each unique price in our dataset!</p>
-<p>But here’s an idea: Suppose we “bin together” nearby prices along the <span class="math notranslate nohighlight">\(x\)</span>-axis <em>before</em> we draw the histogram. In other words, imagine we chop up the <span class="math notranslate nohighlight">\(x\)</span>-axis into smaller subintervals called <em>bins</em>, and then group together nearby data points in these bins:</p>
+<p>In the previous section, we used a plot of the ECDF of the Airbnb prices in order to <em>visualize</em> the empirical distribution. From this plot, we were able to get a sense of the <em>shape</em> of the dataset that informed our choice of probabilistic model.</p>
+<p>There are a few more ways that we might attempt to visualize the empirical distribution. Indeed, since the empirical distribution of the Airbnb prices is technically discrete, we might attempt to visualize it using the probability histograms that we saw in <a class="reference internal" href="prob-spaces.html#prob-histo"><span class="std std-numref">Section 2.7</span></a> and implemented in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">thrid programming assignment</a>. However, as we saw in the previous section, the data points in our sample are so numerous and packed so closely together that such a probability histogram would be essentially useless. We would have <span class="math notranslate nohighlight">\(10{,}666\)</span> bars in our histogram, one for each unique price in our dataset!</p>
+<p>But here’s an idea: Suppose we “bin together” nearby prices along the <span class="math notranslate nohighlight">\(x\)</span>-axis <em>before</em> we draw the histogram. In other words, imagine we chop up the <span class="math notranslate nohighlight">\(x\)</span>-axis into smaller subintervals called <em>bins</em>, and then group together nearby data points in these bins. Here’s an example using a toy dataset consisting of <span class="math notranslate nohighlight">\(m=14\)</span> points:</p>
 <a class="reference internal image-reference" href="../_images/bins1.svg"><img alt="../_images/bins1.svg" class="align-center" src="../_images/bins1.svg" width="100%" /></a>
 <p> </p>
 <p>In the figure on the right, there are seven bins, labeled <span class="math notranslate nohighlight">\(B_1,B_2,\ldots,B_7\)</span>. The number of bins can either be chosen explicitly by us, or we can let the computer choose the “optimal” number of bins based on some rule of thumb. Either way, the number <span class="math notranslate nohighlight">\(k\)</span> of bins need not be <span class="math notranslate nohighlight">\(7\)</span>.</p>
@@ -661,7 +649,7 @@ X_1,X_2,\ldots,X_{3{,}972} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2)
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">srs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">srs</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -671,12 +659,12 @@ X_1,X_2,\ldots,X_{3{,}972} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/c6ee05fac2da811cd2f46c4843c9d6c6d6f39a5f9bba311a18bfc8c327b9bdd5.svg"><img alt="../_images/c6ee05fac2da811cd2f46c4843c9d6c6d6f39a5f9bba311a18bfc8c327b9bdd5.svg" src="../_images/c6ee05fac2da811cd2f46c4843c9d6c6d6f39a5f9bba311a18bfc8c327b9bdd5.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/2453e49e133858b10728af46465b527b43c5fb572ab49648ac5c404fcd971b16.svg"><img alt="../_images/2453e49e133858b10728af46465b527b43c5fb572ab49648ac5c404fcd971b16.svg" src="../_images/2453e49e133858b10728af46465b527b43c5fb572ab49648ac5c404fcd971b16.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
-<p>Taking a moment to look at this histogram, if you then scroll up and look at the estimated data density curve in the previous section, you’ll notice that they match up pretty well. Thus, both ways of getting a sense of the shape of the data (estimated density curves and histograms) do their jobs adequately.</p>
-<p>Be warned, however, that the shapes of these types of histograms are quite sensitive to the number of bins (hence also the bin width), and making the <em>wrong</em> choice for this number can sometimes hide important features of the data. Here’s a histogram of the Airbnb data with 100 bins:</p>
+<p>The histogram shows the right-skew suggested by the plot of the ECDF in the previous section. There is also a peak in the data around <span class="math notranslate nohighlight">\(\$500\)</span>, which on the log scale is near <span class="math notranslate nohighlight">\(6.2 \approx \log{500}\)</span>. This peak was suggested by the plot of the ECDF of the log-transformed data.</p>
+<p>Be warned, however, that the shapes of histograms are sensitive to the number of bins. Here’s a histogram of the Airbnb data with 200 bins:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -684,7 +672,7 @@ X_1,X_2,\ldots,X_{3{,}972} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2)
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">srs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">srs</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -694,11 +682,11 @@ X_1,X_2,\ldots,X_{3{,}972} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/b15ca1762a43f7f0671acd2a7937ba5d82461b4d5dfa21b05a5679124b75c66c.svg"><img alt="../_images/b15ca1762a43f7f0671acd2a7937ba5d82461b4d5dfa21b05a5679124b75c66c.svg" src="../_images/b15ca1762a43f7f0671acd2a7937ba5d82461b4d5dfa21b05a5679124b75c66c.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/c753f22240bc1a25e4a4e4fd591a1f67b7ef9bcf4907280e8d4210e0f01ce1a9.svg"><img alt="../_images/c753f22240bc1a25e4a4e4fd591a1f67b7ef9bcf4907280e8d4210e0f01ce1a9.svg" src="../_images/c753f22240bc1a25e4a4e4fd591a1f67b7ef9bcf4907280e8d4210e0f01ce1a9.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
-<p>Though there are lots more bins here than our first histogram, I can still get a pretty good sense of the shape of the data. When you increase the number of bins, you tend to lose “smoothness” of the histogram.</p>
+<p>When too many bins are used, the resulting histogram is “spiky”. Some spikes might be significant, but often they are just reflections of random variability and anomalies in the data that we don’t want to model.</p>
 <p>At the other extreme, here’s a histogram with three bins:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -707,7 +695,7 @@ X_1,X_2,\ldots,X_{3{,}972} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2)
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">srs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">srs</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -717,18 +705,52 @@ X_1,X_2,\ldots,X_{3{,}972} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/e529e4a1e0da9ff9a280b9282688bfd6d26a3f82e1edddc5089b2bce8fcef4bd.svg"><img alt="../_images/e529e4a1e0da9ff9a280b9282688bfd6d26a3f82e1edddc5089b2bce8fcef4bd.svg" src="../_images/e529e4a1e0da9ff9a280b9282688bfd6d26a3f82e1edddc5089b2bce8fcef4bd.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/e3b0c17a5253a2293206de1ec1695f7ff67cde73cecd4e36b75e3ce82006b4b8.svg"><img alt="../_images/e3b0c17a5253a2293206de1ec1695f7ff67cde73cecd4e36b75e3ce82006b4b8.svg" src="../_images/e3b0c17a5253a2293206de1ec1695f7ff67cde73cecd4e36b75e3ce82006b4b8.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
-<p>This last histogram is not particularly informative. I get a sense that the sample data is skewed toward the right, but that’s about it.</p>
-<p>So, how do you choose the number of bins? First, you might let the computer decide for you, using the default setting. This default setting is often based off of rules of thumb that have been demonstrated to work well for some reason or another. Then, you can play with the number of bins manually, fine-tuning the number until you get a figure that you believe most accurately represents the shape of the data.</p>
+<p>Except for the right-skew, there’s not much else that we could learn about the shape of the dataset from this histogram.</p>
+<p>We may use histograms for model checking by generating or simulating new data. To do this, we sample <span class="math notranslate nohighlight">\(m=13{,}239\)</span> new data points from our log-normal model from the previous section. Then, we back-transform using the exponential function to move the simulated data from the log-price scale to the price scale. If we then generate a combined histogram of the true dataset and the simulated one, we get this:</p>
+<div class="cell tag_hide-input tag_full-width docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">srs</span><span class="p">)))</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">srs</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">sample</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">sample</span> <span class="o">&lt;=</span> <span class="n">srs</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="n">df_sample</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;price&#39;</span><span class="p">:</span> <span class="n">sample</span><span class="p">[</span><span class="n">mask</span><span class="p">]})</span>
+<span class="n">df_sample</span><span class="p">[</span><span class="s1">&#39;data type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;simulated&#39;</span>
+<span class="n">df_true</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;price&#39;</span><span class="p">:</span> <span class="n">srs</span><span class="p">})</span>
+<span class="n">df_true</span><span class="p">[</span><span class="s1">&#39;data type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;true&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">objs</span><span class="o">=</span><span class="p">[</span><span class="n">df_true</span><span class="p">,</span> <span class="n">df_sample</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;data type&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="s1">&#39;dodge&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/76066ca705e410aa359d6dd4640da252eb9a373d5470434633b227a2809e6b48.svg"><img alt="../_images/76066ca705e410aa359d6dd4640da252eb9a373d5470434633b227a2809e6b48.svg" src="../_images/76066ca705e410aa359d6dd4640da252eb9a373d5470434633b227a2809e6b48.svg" width="100%" /></a>
+</figure>
+</div>
+</div>
+<p>Again, the discrepancy around <span class="math notranslate nohighlight">\(\$500\)</span> is apparent; the log-normal model is incapable of capturing that local peak.</p>
+<p>How do you choose the number of bins in a histogram? First, you might let the computer decide for you, using the default setting. This default setting is often based off of rules of thumb that have been demonstrated to work well for some reason or another. Then, you can play with the number of bins manually, fine-tuning the number until you get a figure that you believe most accurately represents the shape of the data.</p>
 </section>
 <section id="kernel-density-estimation">
 <h2><span class="section-number">6.4. </span>Kernel density estimation<a class="headerlink" href="#kernel-density-estimation" title="Permalink to this heading">#</a></h2>
-<p>Let’s return now to an idea that we met above: Estimating a empirical distribution’s <em>density</em> curve. I mentioned that one way to accomplish this task is to use something called a <em>kernel density estimator</em> (KDE). I will now give a very brief introduction to these estimators.</p>
+<p>Though the empirical distribution of the Airbnb dataset is discrete, its ECDF <em>appears</em> to be a continuous curve. If we pretend that it <em>is</em> continuous, then the dataset should have a density function. What would this density function look like?</p>
+<p>If you recall that the density function is the derivative of the distribution function, then you may use the shape of the latter along with your curve sketching skills from calculus to get a sense of the shape of the density curve. But computers are capable of estimating density functions directly from the data. In this section, we will briefly explore one such way, called <em>kernel density estimation</em> (<em>KDE</em>).</p>
 <p>Naturally, a kernel density estimation begins by choosing the <em>kernel</em>, which is a function that has a “bell shape,” not unlike the normal density curve. In fact, one can even <em>choose</em> the normal density curve as the kernel, and then one obtains <em>Gaussian KDE</em>. These will be the only types of kernels that we will consider.</p>
-<p>Imagine for simplicity that we have three data points along the <span class="math notranslate nohighlight">\(x\)</span>-axis. The idea is then to place three kernels (i.e., normal density curves) directly over top of the data points. We then <em>sum</em> the kernels and divide by <span class="math notranslate nohighlight">\(3\)</span> (to normalize the area under the curve to <span class="math notranslate nohighlight">\(1\)</span>), obtaining a <em>kernel density estimate</em>. The width of the kernel is controlled by a parameter called <em>bandwidth</em>, denoted <span class="math notranslate nohighlight">\(h\)</span>, which coincides with the standard deviation of the normal distribution in the case of Gaussian KDE. So, large values of <span class="math notranslate nohighlight">\(h\)</span> correspond to wide kernels, and smaller values correspond to narrow kernels. Here are three examples of Gaussian KDE with different values of <span class="math notranslate nohighlight">\(h\)</span>:</p>
+<p>Imagine for simplicity that we have three data points along the <span class="math notranslate nohighlight">\(x\)</span>-axis. The idea is then to place three kernels (i.e., normal density curves) directly over top of the data points. We then <em>sum</em> the kernels and divide by <span class="math notranslate nohighlight">\(3\)</span> (to normalize the area under the curve to <span class="math notranslate nohighlight">\(1\)</span>), obtaining a <em>kernel density estimate</em>. The width of the kernel is controlled by a parameter called <em>bandwidth</em>, denoted <span class="math notranslate nohighlight">\(h\)</span>, which coincides with the standard deviation of the normal distribution in the case of Gaussian KDE. So, large values of <span class="math notranslate nohighlight">\(h\)</span> correspond to wide kernels, and smaller values correspond to narrow or “spiky” kernels. Here are three examples of Gaussian KDE with different values of <span class="math notranslate nohighlight">\(h\)</span> for our toy dataset consisting of three points:</p>
 <div class="cell tag_hide-input tag_full-width docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -780,7 +802,7 @@ X_1,X_2,\ldots,X_{3{,}972} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/b190f327772258922cda1d9132d4f1f72dabff163248aa992e1df3ce7f6bdf47.svg"><img alt="../_images/b190f327772258922cda1d9132d4f1f72dabff163248aa992e1df3ce7f6bdf47.svg" src="../_images/b190f327772258922cda1d9132d4f1f72dabff163248aa992e1df3ce7f6bdf47.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/4cb2162b36ff3547bb6d7859d1471ae5fbe03658214d0b440f714d2d9262d34a.svg"><img alt="../_images/4cb2162b36ff3547bb6d7859d1471ae5fbe03658214d0b440f714d2d9262d34a.svg" src="../_images/4cb2162b36ff3547bb6d7859d1471ae5fbe03658214d0b440f714d2d9262d34a.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -791,8 +813,7 @@ X_1,X_2,\ldots,X_{3{,}972} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2)
 <li><p>In the third column, I have plotted the <em>sum</em> of the three normal density curves (divided by <span class="math notranslate nohighlight">\(3\)</span>), which are, by definition, the KDEs generated from the data set.</p></li>
 <li><p>In the last column, I have plotted the KDEs on their own.</p></li>
 </ul>
-<p>Now, cover up the middle two columns in the figure. Which of the KDEs do you believe does the best job of conveying the <em>shape</em> of the data? I would say it’s a split decision between <span class="math notranslate nohighlight">\(h=1\)</span> and <span class="math notranslate nohighlight">\(h=0.5\)</span>.</p>
-<p>You’ve seen how to generate a KDE for a small three-sample dataset. The KDE that I generated above for the Airbnb prices follows the exactly same procedure, but instead of three normal density curves, there are now 3,972 of them, one for each data point in the sample! Here are three KDEs for the Airbnb prices, with different bandwidths:</p>
+<p>Of course, nobody would ever use KDE for a dataset with only three numbers. But a KDE for our Airbnb dataset would consist of <span class="math notranslate nohighlight">\(m=13{,}239\)</span> kernels, one for each data point! Here are three KDEs for the Airbnb prices, with different bandwidths:</p>
 <div class="cell tag_hide-input tag_full-width docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -817,14 +838,15 @@ X_1,X_2,\ldots,X_{3{,}972} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/7e1e16b413734c97b6a2b50d3844f8d752a25271ebbe63ba232f59512513eb5e.svg"><img alt="../_images/7e1e16b413734c97b6a2b50d3844f8d752a25271ebbe63ba232f59512513eb5e.svg" src="../_images/7e1e16b413734c97b6a2b50d3844f8d752a25271ebbe63ba232f59512513eb5e.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/93417b19d11e8c6f9d77958c493960bc9f7eb4fbbd0833f53a5cfbec289f2f5a.svg"><img alt="../_images/93417b19d11e8c6f9d77958c493960bc9f7eb4fbbd0833f53a5cfbec289f2f5a.svg" src="../_images/93417b19d11e8c6f9d77958c493960bc9f7eb4fbbd0833f53a5cfbec289f2f5a.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
-<p>So, we’ve seen that KDEs are supposed to serve as estimates for the density curves of datasets, but they are highly sensitive to the choice of bandwidth <span class="math notranslate nohighlight">\(h\)</span>. How do you choose <span class="math notranslate nohighlight">\(h\)</span>? Just like the ‘number of bins’ parameter for histograms, you are best off first letting the computer decide the bandwidth for you, and then manually fine-tune it (if needed) until you get a KDE that you believe best represents the data.</p>
+<p>Smaller values of the bandwidth <span class="math notranslate nohighlight">\(h\)</span> correspond to “spikier” kernels and hence “spikier” density estimates. Larger values of <span class="math notranslate nohighlight">\(h\)</span> correspond to smoother estimates. In the first two KDEs above, the local peak around <span class="math notranslate nohighlight">\(\$500\)</span> is apparent, but the (relatively) large bandwidth <span class="math notranslate nohighlight">\(h=0.3\)</span> in the last KDE appears to have “over-smoothed” the estimate and we’ve lost most of that peak.</p>
+<p>How do you choose the bandwidth in a KDE? Just like the “number of bins” parameter for histograms, you are best off first letting the computer decide the bandwidth for you, and then manually fine-tune it (if needed) until you get a KDE that you believe best represents the data.</p>
 </section>
 <section id="empirical-statistics">
-<h2><span class="section-number">6.5. </span>Empirical statistics<a class="headerlink" href="#empirical-statistics" title="Permalink to this heading">#</a></h2>
+<span id="empirical-stats"></span><h2><span class="section-number">6.5. </span>Empirical statistics<a class="headerlink" href="#empirical-statistics" title="Permalink to this heading">#</a></h2>
 <p>Before we continue discussing more ways to <em>visualize</em> datasets, we need to discuss numerical summaries of datasets. This section is essentially a recapitulation of what you learned in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> with a few new things thrown in at the end.</p>
 <p>Let’s begin our discussion by returning to a general IID random sample</p>
 <div class="amsmath math notranslate nohighlight">
@@ -845,7 +867,7 @@ x_1,x_2,\ldots,x_m,
 <div class="proof definition admonition" id="definition-2">
 <p class="admonition-title"><span class="caption-number">Definition 6.3 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> be an observed random sample (i.e., a dataset). The <em>empirical mean</em> is defined to be the number</p>
+<p>The <em>empirical mean</em> of a dataset <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> is defined to be the number</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 \bar{x} = \frac{1}{m} \sum_{i=1}^m x_i,
@@ -855,7 +877,7 @@ x_1,x_2,\ldots,x_m,
 \[\begin{equation*}
 s^2 = \frac{1}{m-1} \sum_{i=1}^m (x_i - \bar{x})^2.
 \end{equation*}\]</div>
-<p>The <em>empirical standard deviation</em> <span class="math notranslate nohighlight">\(s\)</span> is defined, as usual, as the positive square root of the empirical variance, <span class="math notranslate nohighlight">\(s = \sqrt{s^2}\)</span>.</p>
+<p>The <em>empirical standard deviation</em> <span class="math notranslate nohighlight">\(s\)</span> is defined as the positive square root of the empirical variance, <span class="math notranslate nohighlight">\(s = \sqrt{s^2}\)</span>.</p>
 </section>
 </div><p>The empirical mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> and standard deviation <span class="math notranslate nohighlight">\(s\)</span> are supposed to serve as data-based estimates for the model mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
 <p>I should mention that the empirical quantities we just defined are often called the <em>sample mean</em>, <em>sample variance</em>, and <em>sample standard deviation</em>. However, as we will see later, our empirical quantities turn out to be observed values of certain <em>estimators</em> that are also called the <em>sample mean</em>, <em>sample variance</em>, and <em>sample standard deviation</em>. Since I believe that it is important—at least at first—to distinguish between an <strong>estimate</strong> and an <strong>estimator</strong>, I have decided to refer to <span class="math notranslate nohighlight">\(\bar{x}\)</span>, <span class="math notranslate nohighlight">\(s^2\)</span>, and <span class="math notranslate nohighlight">\(s\)</span> as <em>empirical quantities</em> rather than <em>sample quantities</em>. In later chapters, however, I will not be so careful, and will refer to <span class="math notranslate nohighlight">\(\bar{x}\)</span>, <span class="math notranslate nohighlight">\(s^2\)</span>, and <span class="math notranslate nohighlight">\(s\)</span> as <em>sample quantities</em>.</p>
@@ -868,14 +890,14 @@ s^2 = \frac{1}{m-1} \sum_{i=1}^m (x_i - \bar{x})^2.
 <div class="proof definition admonition" id="emp-quantile-defn">
 <p class="admonition-title"><span class="caption-number">Definition 6.4 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> be an observed random sample, written in non-decreasing order:</p>
+<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> be a dataset, written in non-decreasing order:</p>
 <div class="math notranslate nohighlight" id="equation-listing-eqn">
 <span class="eqno">(6.2)<a class="headerlink" href="#equation-listing-eqn" title="Permalink to this equation">#</a></span>\[x_1 \leq x_2 \leq \cdots \leq x_m.\]</div>
-<p>For each <span class="math notranslate nohighlight">\(i=1,2,\ldots,m\)</span>, the datapoint <span class="math notranslate nohighlight">\(x_i\)</span> is called the <em>empirical <span class="math notranslate nohighlight">\(q\)</span>-quantile</em> where</p>
+<p>For each <span class="math notranslate nohighlight">\(i=1,2,\ldots,m\)</span>, the datapoint <span class="math notranslate nohighlight">\(x_i\)</span> is called the <em>empirical <span class="math notranslate nohighlight">\(q_i\)</span>-quantile</em> where</p>
 <div class="math notranslate nohighlight" id="equation-quantile-eqn">
-<span class="eqno">(6.3)<a class="headerlink" href="#equation-quantile-eqn" title="Permalink to this equation">#</a></span>\[q  = \frac{i-1}{m-1}.\]</div>
+<span class="eqno">(6.3)<a class="headerlink" href="#equation-quantile-eqn" title="Permalink to this equation">#</a></span>\[q_i  = \frac{i-1}{m-1}.\]</div>
 </section>
-</div><p>This definition appeared in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a>, where I explained that the intuition for the formula <a class="reference internal" href="#equation-quantile-eqn">(6.3)</a> for <span class="math notranslate nohighlight">\(q\)</span> is that it is precisely the proportion of data points (excluding) <span class="math notranslate nohighlight">\(x_i\)</span> that fall to the <em>left</em> of <span class="math notranslate nohighlight">\(x_i\)</span> in the listing <a class="reference internal" href="#equation-listing-eqn">(6.2)</a>. I also explained in that assignment how one goes about computing the empirical <span class="math notranslate nohighlight">\(q\)</span>-quantile where <span class="math notranslate nohighlight">\(q\)</span> is a number (between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>, inclusive) that is <em>not</em> of the form <a class="reference internal" href="#equation-quantile-eqn">(6.3)</a>: The default method in the Pandas library is linear interpolation.</p>
+</div><p>This definition appeared in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a>, where I explained that the intuition for the formula <a class="reference internal" href="#equation-quantile-eqn">(6.3)</a> for <span class="math notranslate nohighlight">\(q_i\)</span> is that it is precisely the proportion of data points (excluding) <span class="math notranslate nohighlight">\(x_i\)</span> that fall to the <em>left</em> of <span class="math notranslate nohighlight">\(x_i\)</span> in the listing <a class="reference internal" href="#equation-listing-eqn">(6.2)</a>. I also explained in that assignment how one goes about computing the empirical <span class="math notranslate nohighlight">\(q\)</span>-quantile where <span class="math notranslate nohighlight">\(q\)</span> is a number (between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>, inclusive) that is <em>not</em> of the form <a class="reference internal" href="#equation-quantile-eqn">(6.3)</a>: The default method in the Pandas library is linear interpolation.</p>
 <p>The empirical 0.25-, 0.5-, and 0.75-quantiles are called the <em>first</em>, <em>second</em>, and <em>third quartiles</em>. For the Airbnb dataset, these are listed in the following printout on the lines labeled <span class="math notranslate nohighlight">\(25\%\)</span>, <span class="math notranslate nohighlight">\(50\%\)</span> and <span class="math notranslate nohighlight">\(75\%\)</span>:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -890,14 +912,14 @@ s^2 = \frac{1}{m-1} \sum_{i=1}^m (x_i - \bar{x})^2.
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    13239.000000
-mean       166.657034
-std        107.371166
-min         -3.720000
-25%         89.075000
-50%        136.850000
-75%        215.315000
-max        526.550000
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    13253.000000
+mean       167.168658
+std        108.275932
+min          0.190000
+25%         88.840000
+50%        137.130000
+75%        216.840000
+max        516.960000
 Name: price, dtype: float64
 </pre></div>
 </div>
@@ -908,7 +930,7 @@ Name: price, dtype: float64
 <div class="proof definition admonition" id="definition-4">
 <p class="admonition-title"><span class="caption-number">Definition 6.5 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> be an observed random sample. The <em>empirical interquartile range</em> (<em>empirical IQR</em>) is the difference</p>
+<p>The <em>empirical interquartile range</em> (<em>empirical IQR</em>) of a dataset <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> is the difference</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 (\text{empirical 0.75-quantile}) - (\text{empirical 0.25-quantile}).
@@ -929,7 +951,7 @@ Name: price, dtype: float64
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>126.24
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>128.0
 </pre></div>
 </div>
 </div>
@@ -938,7 +960,7 @@ Name: price, dtype: float64
 <div class="proof definition admonition" id="definition-5">
 <p class="admonition-title"><span class="caption-number">Definition 6.6 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> be an observed random sample. Then a data point <span class="math notranslate nohighlight">\(x_i\)</span> is called an <em>outlier</em> if it is above an upper threshold value</p>
+<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> be a dataset. Then a data point <span class="math notranslate nohighlight">\(x_i\)</span> is called an <em>outlier</em> if it is above an upper threshold value</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 x_i &gt; (\text{empirical 0.75-quantile}) + 1.5\times (\text{empirical IQR}),
@@ -967,11 +989,11 @@ y_1 \leq y_2 \leq \cdots \leq y_m,
 <p>where (as usual) <span class="math notranslate nohighlight">\(m\)</span> is the size of the dataset. Then, instead of identifying quantiles through the association</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
-y_i \leftrightarrow \frac{i-1}{m-1}
+y_i \leftrightarrow q_i = \frac{i-1}{m-1}
 \end{equation*}\]</div>
 <p>as we did in <a class="reference internal" href="#emp-quantile-defn">Definition 6.4</a>, we instead make the association</p>
 <div class="math notranslate nohighlight" id="equation-quant-eqn">
-<span class="eqno">(6.4)<a class="headerlink" href="#equation-quant-eqn" title="Permalink to this equation">#</a></span>\[y_i \leftrightarrow \frac{i-1/2}{m},\]</div>
+<span class="eqno">(6.4)<a class="headerlink" href="#equation-quant-eqn" title="Permalink to this equation">#</a></span>\[y_i \leftrightarrow q_i =\frac{i-1/2}{m},\]</div>
 <p>for <span class="math notranslate nohighlight">\(i=1,2,\ldots,m\)</span>. For a specific example, suppose that <span class="math notranslate nohighlight">\(m=5\)</span> and that all the data points are distinct. Then, if we plot our dataset along an axis along with the labels <a class="reference internal" href="#equation-quant-eqn">(6.4)</a>, we get the following picture:</p>
 <a class="reference internal image-reference" href="../_images/quant.svg"><img alt="../_images/quant.svg" class="align-center" src="../_images/quant.svg" width="80%" /></a>
 <p> </p>
@@ -986,7 +1008,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 \[\begin{equation*}
 (x_i,y_i), \quad i=1,2,\ldots,m.
 \end{equation*}\]</div>
-<p>As I mentioned, QQ-plots serve as another type of diagnostic plot that allow us to compare an empirical distribution to a proposed model distribution. Let’s see how this might work with our dataset of Airbnb prices. Remember, we originally thought that the Airbnb dataset <em>itself</em> might be well modeled by a normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\sigma^2)\)</span> where <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> are the empirical mean and variance. But we saw through comparison of CDFs and PDFs that this model did <em>not</em> fit the data well. The QQ-plot suggests the same:</p>
+<p>As I mentioned, QQ-plots serve as another type of diagnostic plot that allow us to compare an empirical distribution to a proposed model distribution. Let’s see how this might work with our dataset of Airbnb prices. Remember, we originally thought that the Airbnb dataset <em>itself</em> might be well modeled by a normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\sigma^2)\)</span> where <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> are the empirical mean and variance. But we saw through comparison of CDFs that this model did <em>not</em> fit the data well. The QQ-plot suggests the same:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -994,9 +1016,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.graphics.gofplots</span> <span class="kn">import</span> <span class="n">qqplot</span>
-
-<span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">srs</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scale</span><span class="o">=</span><span class="n">srs</span><span class="o">.</span><span class="n">std</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">srs</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scale</span><span class="o">=</span><span class="n">srs</span><span class="o">.</span><span class="n">std</span><span class="p">())</span>
 
 <span class="n">qqplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">srs</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="s1">&#39;45&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;(normal) model quantiles&#39;</span><span class="p">)</span>
@@ -1008,7 +1028,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/c6947e213428b3e4514dd902c70e10a17a31d1f4beca070a9bd087c4bfbc7d7b.svg"><img alt="../_images/c6947e213428b3e4514dd902c70e10a17a31d1f4beca070a9bd087c4bfbc7d7b.svg" src="../_images/c6947e213428b3e4514dd902c70e10a17a31d1f4beca070a9bd087c4bfbc7d7b.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/03a5d8acfe927c4a0b8a33a098e2dcff12147e6f79da8cee8fed1259c588b6b3.svg"><img alt="../_images/03a5d8acfe927c4a0b8a33a098e2dcff12147e6f79da8cee8fed1259c588b6b3.svg" src="../_images/03a5d8acfe927c4a0b8a33a098e2dcff12147e6f79da8cee8fed1259c588b6b3.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1038,7 +1058,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/a637b37e96c40ae6f2ff131a52be883b95a1fd6d7e1d044c691ee7f224847e4c.svg"><img alt="../_images/a637b37e96c40ae6f2ff131a52be883b95a1fd6d7e1d044c691ee7f224847e4c.svg" src="../_images/a637b37e96c40ae6f2ff131a52be883b95a1fd6d7e1d044c691ee7f224847e4c.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/5a9e2cc5e3057dfa3f8b85f19d5f28c756d07b10a26a4b2e4fb202977c05596f.svg"><img alt="../_images/5a9e2cc5e3057dfa3f8b85f19d5f28c756d07b10a26a4b2e4fb202977c05596f.svg" src="../_images/5a9e2cc5e3057dfa3f8b85f19d5f28c756d07b10a26a4b2e4fb202977c05596f.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1070,7 +1090,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 \frac{1}{a} \phi \left( \frac{x-b}{a}\right) = \frac{1}{a\sqrt{2\pi}} \exp\left[ -\frac{1}{2} \left(\frac{x-b}{a}\right)^2\right]
 \end{equation*}\]</div>
 <p>is the density of <span class="math notranslate nohighlight">\(\mathcal{N}(b,a^2)\)</span>, and so <a class="reference internal" href="#equation-trans-eqn">(6.6)</a> shows that, provided <a class="reference internal" href="#equation-norm-eqn">(6.5)</a> is true, the data point <span class="math notranslate nohighlight">\(y_i\)</span> is the <span class="math notranslate nohighlight">\((i-1/2)/m\)</span>-quantile of <span class="math notranslate nohighlight">\(\mathcal{N}(b,a^2)\)</span>. Thus, the empirical quantiles match the (theoretical) model quantiles of <span class="math notranslate nohighlight">\(\mathcal{N}(b,a^2)\)</span>, which justifies the observation in the box above.</p>
-<p>So, the standard normal model is a bad fit—even worse than the first normal model. But remember that the plots of the CDFs and PDFs suggest that the Airbnb dataset is <em>log-normal</em>, in the sense that its log transform is well modeled by a normal distribution. To confirm this, let’s check a QQ-plot of the log transform against standard normal quantiles:</p>
+<p>So, the standard normal model is a bad fit—even worse than the first normal model. But remember that we discovered the Airbnb dataset is <em>log-normal</em>, in the sense that its log transform is well modeled by a normal distribution. To confirm this, let’s check a QQ-plot of the log-transformed data against standard normal quantiles:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1088,11 +1108,12 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/b6a5530ca794881b99bfba3fd6ecd8f161683e4b4df91d8d5a8de1b4eaaa5416.svg"><img alt="../_images/b6a5530ca794881b99bfba3fd6ecd8f161683e4b4df91d8d5a8de1b4eaaa5416.svg" src="../_images/b6a5530ca794881b99bfba3fd6ecd8f161683e4b4df91d8d5a8de1b4eaaa5416.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/44a86a2905397203d1e26e9ab5fc7f9a837dcbc766c0cc04bc396b697ac8ca43.svg"><img alt="../_images/44a86a2905397203d1e26e9ab5fc7f9a837dcbc766c0cc04bc396b697ac8ca43.svg" src="../_images/44a86a2905397203d1e26e9ab5fc7f9a837dcbc766c0cc04bc396b697ac8ca43.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
-<p>Remember, we are looking for the data to fall along a straight line. In this plot, it appears that the scattered points fall along the line <span class="math notranslate nohighlight">\(y = 0.6x + 4.8\)</span>, which I estimated through visual inspection. This suggests that the best-fit normal model should be <span class="math notranslate nohighlight">\(\mathcal{N}(4.8, 0.6^2)\)</span>. Note how closely these parameter values match the empirical statistics of the log transformed data:</p>
+<p>Notice that the points fall mostly along a straight line, except for a few points with log prices <span class="math notranslate nohighlight">\(\leq 2\)</span>, and a chunk of points with log prices near <span class="math notranslate nohighlight">\(6\)</span>. This latter discrepancy is another manifestation of the local peak in the dataset near a log price of <span class="math notranslate nohighlight">\(6\)</span>, or a price of <span class="math notranslate nohighlight">\(\$500\)</span>.</p>
+<p>By visual inspection, it appears that the scattered points fall mostly along the line <span class="math notranslate nohighlight">\(y = 0.6x + 4.8\)</span>. This suggests that the best-fit normal model for the log-transformed data should be <span class="math notranslate nohighlight">\(\mathcal{N}(4.8, 0.6^2)\)</span>. Note how closely these parameter values match the empirical statistics of the log transformed data:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1106,23 +1127,73 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </div>
 </details>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    13234.000000
-mean         4.911970
-std          0.666740
-min         -1.469676
-25%          4.489984
-50%          4.919251
-75%          5.372903
-max          6.266346
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    13253.000000
+mean         4.911520
+std          0.672302
+min         -1.660731
+25%          4.486837
+50%          4.920929
+75%          5.379160
+max          6.247966
 Name: log price, dtype: float64
 </pre></div>
 </div>
 </div>
 </div>
+<p>Instead of comparing the empirical quantiles to the normal model after log-transforming the data, it is instructive to compare the untransformed empirical quantiles directly to the log-normal model via a QQ-plot. This is the result:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">lognorm</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="n">srs_log</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">srs_log</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span>
+
+<span class="n">qqplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">srs</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="s1">&#39;45&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;(log-normal) model quantiles&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;empirical quantiles&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/aae525bf8cdb05f9a94a7a0bab8fe57a2a5a46d3bdbc3b9365e622b6dd951362.svg"><img alt="../_images/aae525bf8cdb05f9a94a7a0bab8fe57a2a5a46d3bdbc3b9365e622b6dd951362.svg" src="../_images/aae525bf8cdb05f9a94a7a0bab8fe57a2a5a46d3bdbc3b9365e622b6dd951362.svg" width="70%" /></a>
+</figure>
+</div>
+</div>
+<p>Again, the discrepancy occurs near a price of <span class="math notranslate nohighlight">\(\$500\)</span>. Above this price, notice that the model quantiles are <em>larger</em> than the empirical quantiles. This is consistent with a local peak in the dataset near <span class="math notranslate nohighlight">\(\$500\)</span> that is not captured by the model. The intuition for this is best explained by comparing the data density function (obtained via KDE) against the model density function:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">srs</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="mi">600</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">srs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;data KDE&#39;</span><span class="p">,</span> <span class="n">clip</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">grid</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;log-normal PDF&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/c54af5fc430a53b4aa4a261f09abcc9f548fdac38e7643857611355d7989c56a.svg"><img alt="../_images/c54af5fc430a53b4aa4a261f09abcc9f548fdac38e7643857611355d7989c56a.svg" src="../_images/c54af5fc430a53b4aa4a261f09abcc9f548fdac38e7643857611355d7989c56a.svg" width="70%" /></a>
+</figure>
+</div>
+</div>
+<p>Imagine sweeping from left to right across the horizontal axis approaching the peak near <span class="math notranslate nohighlight">\(\$500\)</span>, all the while accumulating probability (as area under the curve) from both the empirical and model distributions. Since the points along the QQ-plot fall mostly along a straight line till this peak, the empirical quantiles <span class="math notranslate nohighlight">\(y_i\)</span> and model quantiles <span class="math notranslate nohighlight">\(x_i\)</span> are in nearly the same positions along the horizontal axis (i.e, <span class="math notranslate nohighlight">\(y_i \approx x_i\)</span>). But as we begin entering the region near the peak, we begin to accumulate <em>more</em> probability from the empirical distribution compared to the model distribution because the empirical density (and hence the area under the curve) begins to enter its local peak. This means that the empirical quantiles will begin to bunch more closely together compared to the model quantiles since you must step <em>further</em> along the horizontal axis to accumulate the same amount of probability from the model distribution as you would from the empirical distribution over a shorter step. Thus, the model quantiles will be larger than the empirical quantiles.</p>
 </section>
 <section id="box-plots-and-violin-plots">
 <h2><span class="section-number">6.7. </span>Box plots and violin plots<a class="headerlink" href="#box-plots-and-violin-plots" title="Permalink to this heading">#</a></h2>
-<p>We finish the chapter with a discussion of two more methods to visualize datasets and empirical distributions. To begin, let’s consider our Airbnb data and all the empirical statistics that we described and computed in the previous sections. We may combine all this information in something called a <em>box plot</em> (or <em>box and whisker plot</em>):</p>
+<p>We finish the chapter with a discussion of two more methods to visualize datasets and empirical distributions. To begin, let’s consider our Airbnb data and all the empirical statistics that we described and computed <a class="reference internal" href="#empirical-stats"><span class="std std-numref">Section 6.5</span></a>. We may combine all this information in something called a <em>box plot</em> (or <em>box and whisker plot</em>):</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1140,23 +1211,23 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/c1d8e2a42c1dd2b8c1880517fa7df75c2d3df19292ed78ea632ff8fd5090a986.svg"><img alt="../_images/c1d8e2a42c1dd2b8c1880517fa7df75c2d3df19292ed78ea632ff8fd5090a986.svg" src="../_images/c1d8e2a42c1dd2b8c1880517fa7df75c2d3df19292ed78ea632ff8fd5090a986.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/814498aee28b0f35b4d5abeab15537c716b3233cfac5185f366d9d0ce0c69771.svg"><img alt="../_images/814498aee28b0f35b4d5abeab15537c716b3233cfac5185f366d9d0ce0c69771.svg" src="../_images/814498aee28b0f35b4d5abeab15537c716b3233cfac5185f366d9d0ce0c69771.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
-<p>The left edge of the blue box is at <span class="math notranslate nohighlight">\(x=83.24\)</span>, which is the empirical <span class="math notranslate nohighlight">\(0.25\)</span>-quantile or first quartile; its right edge is at <span class="math notranslate nohighlight">\(x=199.46\)</span>, which is the empirical 0.75-quantile or third quartile. Therefore, the <em>width</em> of the box is exactly the empirical IQR. The box thus represents where the middle 50% of the dataset lives. The vertical line through the box is at <span class="math notranslate nohighlight">\(x=121.56\)</span>, which is the empirical 0.5-quantile or the empirical median.</p>
+<p>The left edge of the blue box is at <span class="math notranslate nohighlight">\(x=88.84\)</span>, which is the empirical <span class="math notranslate nohighlight">\(0.25\)</span>-quantile or first quartile; its right edge is at <span class="math notranslate nohighlight">\(x=216.84\)</span>, which is the empirical 0.75-quantile or third quartile. Therefore, the <em>width</em> of the box is exactly the empirical IQR. The box thus represents where the middle 50% of the dataset lives. The vertical line through the box is at <span class="math notranslate nohighlight">\(x=137.13\)</span>, which is the empirical 0.5-quantile or the empirical median.</p>
 <p>You notice that the box has “whiskers.” In general, the left whisker in a box plot either extends out to the minimum value in the dataset <em>or</em> to the threshold value</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 (\text{empirical 0.25-quantile}) - 1.5\times (\text{empirical IQR})
 \end{equation*}\]</div>
-<p>for determining outliers, whichever is greater. In the case of our Airbnb data, the whisker extends to the minimum value at <span class="math notranslate nohighlight">\(x=0.82\)</span> (82 cents—really?).</p>
+<p>for determining outliers, whichever is greater. In the case of our Airbnb data, the whisker extends to the minimum value at <span class="math notranslate nohighlight">\(x=0.19\)</span> (19 cents—really?).</p>
 <p>Likewise, the right whisker in general either extends out to the maximum value in the dataset <em>or</em> to the upper threshold value</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
 (\text{empirical 0.75-quantile}) + 1.5\times (\text{empirical IQR})
 \end{equation*}\]</div>
-<p>for determining outliers, whichever is smaller. In the case of our Airbnb data, the dataset <em>does</em> contain outliers in its upper tail, so the whisker extends to the threshold value, and all the dots to the right are outliers.</p>
+<p>for determining outliers, whichever is smaller. In the case of our Airbnb data, the dataset <em>does</em> contain outliers in its upper tail, so the whisker extends to the threshold value, and all the dots to the right are outliers. Notice that these outliers are bunched so closely together that they actually appear as a solid, thick grey line in the plot.</p>
 <p>Now, what were to happen if we combined a box plot and a KDE? We’d get something like this:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1166,8 +1237,8 @@ Name: log price, dtype: float64
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s1">&#39;paper&#39;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">srs</span><span class="p">,</span> <span class="n">bw</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;quantity&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">srs</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
@@ -1176,7 +1247,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/a49730b2cc182b5128876471182ed3f9855961d1f315ec79e2937df86cd47744.svg"><img alt="../_images/a49730b2cc182b5128876471182ed3f9855961d1f315ec79e2937df86cd47744.svg" src="../_images/a49730b2cc182b5128876471182ed3f9855961d1f315ec79e2937df86cd47744.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/239a57fbc78898699523509a2fba27c5941fd1aea2578fbd8ecc4e470ecb29a3.svg"><img alt="../_images/239a57fbc78898699523509a2fba27c5941fd1aea2578fbd8ecc4e470ecb29a3.svg" src="../_images/239a57fbc78898699523509a2fba27c5941fd1aea2578fbd8ecc4e470ecb29a3.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1188,9 +1259,9 @@ Name: log price, dtype: float64
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">srs</span><span class="p">,</span> <span class="n">bw_method</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">srs</span><span class="p">,</span> <span class="n">clip</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;quantity&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
@@ -1199,7 +1270,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/b811de3f00c6119af308194be5fe2476751eb70b0f9b165d41a793ad68ff4086.svg"><img alt="../_images/b811de3f00c6119af308194be5fe2476751eb70b0f9b165d41a793ad68ff4086.svg" src="../_images/b811de3f00c6119af308194be5fe2476751eb70b0f9b165d41a793ad68ff4086.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/5c907bd9b0879d1179db8026153386ab2d3865bc8fa7e724d60d9acb99ba3904.svg"><img alt="../_images/5c907bd9b0879d1179db8026153386ab2d3865bc8fa7e724d60d9acb99ba3904.svg" src="../_images/5c907bd9b0879d1179db8026153386ab2d3865bc8fa7e724d60d9acb99ba3904.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
