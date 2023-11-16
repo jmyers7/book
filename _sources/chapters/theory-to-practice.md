@@ -13,19 +13,7 @@ kernelspec:
 (theory-to-practice)=
 # Connecting theory to practice: a first look at model building
 
-Essentially everything that we have studied so far in class belongs to abstract probability theory, though you investigated some real-world datasets and scenarios in the [programming assignments](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments). In this chapter, we take a first look at _probabilistic modeling_, continuing the discussion that we began in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments) on _empirical distributions_. The ultimate goal is to begin connecting our abstract theory to real-world practice.
 
-The modeling concept is bigger than just probability theory, statistics, and machine learning; indeed, the process of (mathematical) model building is central to essentially all quantitative sciences:
-
-```{image} ../img/model-build.svg
-:width: 80%
-:align: center
-```
-&nbsp;
-
-Popular stories in the history of western science tell of the search for better and more accurate physical models---the transition from the geocentric Ptolemaic model of the solar system to the heliocentric Copernican one immediately springs to mind as an example.
-
-Mathematical models serve multiple functions in science: an accurate model may be used to test hypotheses, and it may be used to predict future events. Prediction is a form of _data generation_, since the predictions often come in the form of
 
 ## Data and random samples
 
@@ -38,16 +26,16 @@ Our exploration in the third programming assignment centered on the _Ames housin
 
 import pandas as pd
 import numpy as np
-import scipy as sp
 import matplotlib.pyplot as plt
-import matplotlib as mpl 
+import matplotlib_inline.backend_inline
+import scipy as sp
 import seaborn as sns
 import warnings
 plt.style.use('../aux-files/custom_style_light.mplstyle')
-mpl.rcParams['figure.dpi'] = 600
-warnings.filterwarnings("ignore")
+matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
+warnings.filterwarnings('ignore')
 
-srs = pd.read_csv('../aux-files/austin_sample.csv', usecols=['price']).squeeze()
+srs = pd.read_csv('../aux-files/airbnb-data.csv', usecols=['price']).squeeze()
 srs
 ```
 
@@ -246,7 +234,7 @@ To make this concrete, let's bring back the Airbnb prices. I have asked the comp
 :   image:
 :       width: 70%
 
-sns.ecdfplot(x=srs)
+sns.ecdfplot(data=srs)
 plt.xlabel('price')
 plt.ylabel('probability')
 plt.tight_layout()
@@ -279,7 +267,7 @@ s = srs.std()
 X = sp.stats.norm(loc=xbar, scale=s)
 grid = np.linspace(srs.min(), srs.max())
 
-sns.ecdfplot(x=srs, label='ECDF')
+sns.ecdfplot(data=srs, label='ECDF')
 plt.plot(grid, X.cdf(grid), label='normal CDF')
 plt.axvline(x=xbar, color='r', label='empirical mean')
 plt.xlabel('price')
@@ -300,7 +288,7 @@ Closely related to CDFs are density functions, of course. Now, _if_ we assume th
 :   image:
 :       width: 70%
 
-sns.kdeplot(x=srs, label='estimated data PDF')
+sns.kdeplot(data=srs, label='estimated data PDF')
 plt.plot(grid, X.pdf(grid), label='normal PDF')
 plt.xlabel('price')
 plt.ylabel('probability density')
@@ -326,12 +314,12 @@ X = sp.stats.norm(loc=srs_log.mean(), scale=srs_log.std())
 grid = np.linspace(srs_log.min(), srs_log.max() + 2)
 
 _, axes = plt.subplots(ncols=2, nrows=1, figsize=(10, 4), sharex=True)
-sns.ecdfplot(x=srs_log, label='ECDF', ax=axes[0])
+sns.ecdfplot(data=srs_log, label='ECDF', ax=axes[0])
 axes[0].plot(grid, X.cdf(grid), label='normal CDF')
 axes[0].set_xlabel('log price')
 axes[0].set_ylabel('probability')
 axes[0].legend()
-sns.kdeplot(x=srs_log, ax=axes[1], label='estimated data PDF')
+sns.kdeplot(data=srs_log, ax=axes[1], label='estimated data PDF')
 axes[1].plot(grid, X.pdf(grid), label='normal PDF')
 axes[1].set_xlabel('log price')
 axes[1].set_ylabel('probability density')
@@ -561,7 +549,7 @@ fig, axes = plt.subplots(nrows=1, ncols=3, sharey=True, sharex=True, figsize=(10
 
 for h in bandwidths:
     idx = bandwidths.index(h)
-    sns.kdeplot(x=srs, ax=axes[idx], bw_method=h)
+    sns.kdeplot(data=srs, ax=axes[idx], bw_method=h)
     axes[idx].set_xlabel('price')
     axes[idx].set_title(f'bandwidth $h={h}$')
     
