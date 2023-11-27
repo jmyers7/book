@@ -342,11 +342,11 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-first-look-at-probabilistic-models">11.1. A first look at probabilistic models</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graphs-and-factorizations">11.2. Graphs and factorizations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deterministic-nodes-parameters-and-plate-notation">11.3. Deterministic nodes, parameters, and plate notation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-models">11.4. Linear regression models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-models">11.5. Logistic regression models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-network-models">11.6. Neural network models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-mixture-models">11.7. Gaussian mixture models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-models">11.3. Linear regression models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-models">11.4. Logistic regression models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-network-models">11.5. Neural network models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-mixture-models">11.6. Gaussian mixture models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-connection-to-supervised-machine-learning">11.7. A connection to supervised machine learning</a></li>
 </ul>
             </nav>
         </div>
@@ -403,11 +403,8 @@ p(x_1,x_2,x_3,x_4,x_5) = p(x_1|x_2)p(x_2)p(x_3|x_2)p(x_4|x_1,x_2)p(x_5|x_4).
 \]</div>
 <p>Notice that the random variable <span class="math notranslate nohighlight">\(X_2\)</span> has no parents in <span class="math notranslate nohighlight">\(G\)</span>, so that the marginal probability function <span class="math notranslate nohighlight">\(p(x_2)\)</span> serves in place of a conditional distribution.</p>
 </section>
-<section id="deterministic-nodes-parameters-and-plate-notation">
-<h2><span class="section-number">11.3. </span>Deterministic nodes, parameters, and plate notation<a class="headerlink" href="#deterministic-nodes-parameters-and-plate-notation" title="Permalink to this heading">#</a></h2>
-</section>
 <section id="linear-regression-models">
-<h2><span class="section-number">11.4. </span>Linear regression models<a class="headerlink" href="#linear-regression-models" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.3. </span>Linear regression models<a class="headerlink" href="#linear-regression-models" title="Permalink to this heading">#</a></h2>
 <div class="proof definition admonition" id="definition-1">
 <p class="admonition-title"><span class="caption-number">Definition 11.2 </span></p>
 <section class="definition-content" id="proof-content">
@@ -600,7 +597,7 @@ E\big(Y_i\big) = \mu_{i} = \beta_0 + \beta_1 x_{i,1} + \cdots + \beta_n x_{i,n},
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/15f756174484c3a20dd70cde8db306fc6f99be304f20a692573b623c7d6c2c4c.svg"><img alt="../_images/15f756174484c3a20dd70cde8db306fc6f99be304f20a692573b623c7d6c2c4c.svg" src="../_images/15f756174484c3a20dd70cde8db306fc6f99be304f20a692573b623c7d6c2c4c.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/2f0cd39c2fcd783938ffe83a0ff960178653afc04651af00e0677a70d35873c3.svg"><img alt="../_images/2f0cd39c2fcd783938ffe83a0ff960178653afc04651af00e0677a70d35873c3.svg" src="../_images/2f0cd39c2fcd783938ffe83a0ff960178653afc04651af00e0677a70d35873c3.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -644,7 +641,7 @@ y_i - \hat{y}_i
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/108a2d8bde42983db34d19c2ec5900c16221a0a25cfdd321d6d1c1bc252a5542.svg"><img alt="../_images/108a2d8bde42983db34d19c2ec5900c16221a0a25cfdd321d6d1c1bc252a5542.svg" src="../_images/108a2d8bde42983db34d19c2ec5900c16221a0a25cfdd321d6d1c1bc252a5542.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/b189db98e74ddf8a387ec202300327c5c934948a186e31f9cb0e9f2ef67f6a4e.svg"><img alt="../_images/b189db98e74ddf8a387ec202300327c5c934948a186e31f9cb0e9f2ef67f6a4e.svg" src="../_images/b189db98e74ddf8a387ec202300327c5c934948a186e31f9cb0e9f2ef67f6a4e.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -683,7 +680,7 @@ y_i - \hat{y}_i
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/d5d458e44aa88ac5726d446e93bc5d6bcf1527a686c07813c84f4dcdf9435f94.svg"><img alt="../_images/d5d458e44aa88ac5726d446e93bc5d6bcf1527a686c07813c84f4dcdf9435f94.svg" src="../_images/d5d458e44aa88ac5726d446e93bc5d6bcf1527a686c07813c84f4dcdf9435f94.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/634996cab35d905c0419379fc1a9c29da4b7e7269b2b820eca472dfeba4db6ba.svg"><img alt="../_images/634996cab35d905c0419379fc1a9c29da4b7e7269b2b820eca472dfeba4db6ba.svg" src="../_images/634996cab35d905c0419379fc1a9c29da4b7e7269b2b820eca472dfeba4db6ba.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -711,7 +708,7 @@ y_i - \hat{y}_i
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ff3cd13f5abbefbfd47d7d8937df843c487f656b89374e376214ded047ef2f9e.svg"><img alt="../_images/ff3cd13f5abbefbfd47d7d8937df843c487f656b89374e376214ded047ef2f9e.svg" src="../_images/ff3cd13f5abbefbfd47d7d8937df843c487f656b89374e376214ded047ef2f9e.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/7ebf4738fb2f3482a003ad9a15e646dc14c81697105ec074814ef9e61caafeeb.svg"><img alt="../_images/7ebf4738fb2f3482a003ad9a15e646dc14c81697105ec074814ef9e61caafeeb.svg" src="../_images/7ebf4738fb2f3482a003ad9a15e646dc14c81697105ec074814ef9e61caafeeb.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -746,13 +743,13 @@ y_i - \hat{y}_i
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/98137c78ed4da07daa7d33b87b037b7fd485bebfa542d179bfc46912a0a9ee52.svg"><img alt="../_images/98137c78ed4da07daa7d33b87b037b7fd485bebfa542d179bfc46912a0a9ee52.svg" src="../_images/98137c78ed4da07daa7d33b87b037b7fd485bebfa542d179bfc46912a0a9ee52.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/24449c3cbbb38c534eac9b95d1ccec8b3e31d27866ef6e06e7a9d4132e219959.svg"><img alt="../_images/24449c3cbbb38c534eac9b95d1ccec8b3e31d27866ef6e06e7a9d4132e219959.svg" src="../_images/24449c3cbbb38c534eac9b95d1ccec8b3e31d27866ef6e06e7a9d4132e219959.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
 </section>
 <section id="logistic-regression-models">
-<h2><span class="section-number">11.5. </span>Logistic regression models<a class="headerlink" href="#logistic-regression-models" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.4. </span>Logistic regression models<a class="headerlink" href="#logistic-regression-models" title="Permalink to this heading">#</a></h2>
 <div class="proof definition admonition" id="definition-3">
 <p class="admonition-title"><span class="caption-number">Definition 11.3 </span></p>
 <section class="definition-content" id="proof-content">
@@ -785,7 +782,7 @@ p(y_1,\ldots,y_m; \mathbf{x}_1,\ldots,\mathbf{x}_m, \boldsymbol\beta,\beta_0) = 
 </section>
 </div></section>
 <section id="neural-network-models">
-<h2><span class="section-number">11.6. </span>Neural network models<a class="headerlink" href="#neural-network-models" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.5. </span>Neural network models<a class="headerlink" href="#neural-network-models" title="Permalink to this heading">#</a></h2>
 <div class="proof definition admonition" id="definition-5">
 <p class="admonition-title"><span class="caption-number">Definition 11.4 </span></p>
 <section class="definition-content" id="proof-content">
@@ -825,7 +822,10 @@ p(y_1,\ldots,y_m; \mathbf{z}_1,\ldots,\mathbf{z}_m,\boldsymbol\beta,\beta_0) = \
 </section>
 </div></section>
 <section id="gaussian-mixture-models">
-<h2><span class="section-number">11.7. </span>Gaussian mixture models<a class="headerlink" href="#gaussian-mixture-models" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.6. </span>Gaussian mixture models<a class="headerlink" href="#gaussian-mixture-models" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="a-connection-to-supervised-machine-learning">
+<h2><span class="section-number">11.7. </span>A connection to supervised machine learning<a class="headerlink" href="#a-connection-to-supervised-machine-learning" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -898,11 +898,11 @@ p(y_1,\ldots,y_m; \mathbf{z}_1,\ldots,\mathbf{z}_m,\boldsymbol\beta,\beta_0) = \
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-first-look-at-probabilistic-models">11.1. A first look at probabilistic models</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graphs-and-factorizations">11.2. Graphs and factorizations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deterministic-nodes-parameters-and-plate-notation">11.3. Deterministic nodes, parameters, and plate notation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-models">11.4. Linear regression models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-models">11.5. Logistic regression models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-network-models">11.6. Neural network models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-mixture-models">11.7. Gaussian mixture models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-models">11.3. Linear regression models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-models">11.4. Logistic regression models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-network-models">11.5. Neural network models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-mixture-models">11.6. Gaussian mixture models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-connection-to-supervised-machine-learning">11.7. A connection to supervised machine learning</a></li>
 </ul>
   </nav></div>
 
