@@ -119,16 +119,16 @@ So, what do you get when you want to combine two random variables into a single 
 Let $S$ be a probability space. A _$2$-dimensional random vector_ is a function
 
 $$
-X : S \to \mathbb{R}^2.
+\mathbf{X} : S \to \mathbb{R}^2.
 $$
 
-Thus, we may write $X(s) = (X_1(s), X_2(s))$ for each sample point $s\in S$, where
+Thus, we may write $\mathbf{X}(s) = (X_1(s), X_2(s))$ for each sample point $s\in S$, where
 
 $$
 X_1:S\to \mathbb{R} \quad \text{and} \quad X_2: S \to \mathbb{R}
 $$
 
-are random variables. When we do so, the random variables $X_1$ and $X_2$ are called the _components_ of the random vector $X$.
+are random variables. When we do so, the random variables $X_1$ and $X_2$ are called the _components_ of the random vector $\mathbf{X}$.
 ```
 
 So, a $2$-dimensional random vector is nothing but a pair of random variables. That's it. We will often write a random vector simply as a pair $(X_1,X_2)$, where $X_1$ and $X_2$ are the component random variables. In the example in the previous section, we have the random vector $(X,Y)$ consisting of the size of a house and its selling price; notice here that $X$ does not stand for the random vector, but rather its first component.
@@ -610,7 +610,7 @@ What about bivariate versions of KDEs and histograms? Answer:
 _, axes = plt.subplots(ncols=2, figsize=(9, 4), sharey=True, sharex=True)
 
 sns.kdeplot(data=df, x='area', y='price', ax=axes[0])
-sns.histplot(data=df, x='area', y='price', cbar=True, ax=axes[1], cbar_kws={'label': 'count'})
+sns.histplot(data=df, x='area', y='price', cbar=True, ax=axes[1], cbar_kws={'label': 'density'}, stat='density')
 
 axes[0].set_title('bivariate kde')
 axes[1].set_title('bivariate histogram')

@@ -78,7 +78,17 @@ $$
 Notice that the random variable $X_2$ has no parents in $G$, so that the marginal probability function $p(x_2)$ serves in place of a conditional distribution.
 
 
-## Deterministic nodes, parameters, and plate notation
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -454,3 +464,8 @@ where $\phi_i = \sigma(\mathbf{z}_i\boldsymbol\beta + \beta_0)$.
 
 
 ## Gaussian mixture models
+
+
+
+
+## A connection to supervised machine learning
