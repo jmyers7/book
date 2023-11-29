@@ -390,19 +390,19 @@ for all events $A,B\subset \mathbb{R}$. In particular:
 1. If $(X,Y)$ is discrete with probability mass function $p(x,y)$, then
 
     $$
-    P(X\in A) = \sum_{x\in A, \ y\in \mathbb{R}}p(x,y) \quad \text{and} \quad P(Y\in B) = \sum_{y\in B, \ x\in \mathbb{R}} p(x,y).
+    P(X\in A) = \sum_{x\in A} \sum_{y\in \mathbb{R}} p(x,y) \quad \text{and} \quad P(Y\in B) = \sum_{y\in B} \sum_{x\in \mathbb{R}} p(x,y).
     $$
 
 2. If $(X,Y)$ is continuous with probability density function $f(x,y)$, then
 
     $$
-    P(X\in A) = \int_A \int_{-\infty}^\infty f(x,y) \ \text{d}x \text{d}y
+    P(X\in A) = \int_A \int_{-\infty}^\infty f(x,y) \ \text{d}y \text{d}x
     $$
   
     and
 
     $$
-    P(Y\in B) = \int_B \int_{-\infty}^\infty f(x,y) \ \text{d}y \text{d}x.
+    P(Y\in B) = \int_B \int_{-\infty}^\infty f(x,y) \ \text{d}x \text{d}y.
     $$
 ```
 
@@ -441,9 +441,9 @@ Let $(X,Y)$ be a $2$-dimensional random vector.
 Here's how I remember these formulas:
 
 ```{tip}
-1. To obtain the marginal density $f_X(x)$ from the joint density $f(x,y)$, we "integrate out" the dependence of $f(x,y)$ on $y$. Likewise for obtaining $f_Y(y)$ from $f(x,y)$.
+1. To obtain the marginal mass $p_X(x)$ from the joint mass $p(x,y)$, we "sum out" the dependence of $p(x,y)$ on $y$. Likewise for obtaining $p_Y(y)$ from $p(x,y)$.
 
-2. To obtain the marginal mass $p_X(x)$ from the joint mass $p(x,y)$, we "sum out" the dependence of $p(x,y)$ on $y$. Likewise for obtaining $p_Y(y)$ from $p(x,y)$.
+2. To obtain the marginal density $f_X(x)$ from the joint density $f(x,y)$, we "integrate out" the dependence of $f(x,y)$ on $y$. Likewise for obtaining $f_Y(y)$ from $f(x,y)$.
 ```
 
 In the continuous case, you should visualize the formulas {eq}`marg-cont-eqn` as integrations over cross-sections of the density surfaces. For example, the following picture is a visualization of the formula for the marginal density function $f_Y(y)$ evaluated at $y=5$:
