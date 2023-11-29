@@ -690,18 +690,18 @@ P_X(A) = P_{XY}(A\times \mathbb{R}) \quad \text{and} \quad P_Y(B) = P_{XY}(\math
 <li><p>If <span class="math notranslate nohighlight">\((X,Y)\)</span> is discrete with probability mass function <span class="math notranslate nohighlight">\(p(x,y)\)</span>, then</p>
 <div class="math notranslate nohighlight">
 \[
-    P(X\in A) = \sum_{x\in A, \ y\in \mathbb{R}}p(x,y) \quad \text{and} \quad P(Y\in B) = \sum_{y\in B, \ x\in \mathbb{R}} p(x,y).
+    P(X\in A) = \sum_{x\in A} \sum_{y\in \mathbb{R}} p(x,y) \quad \text{and} \quad P(Y\in B) = \sum_{y\in B} \sum_{x\in \mathbb{R}} p(x,y).
     \]</div>
 </li>
 <li><p>If <span class="math notranslate nohighlight">\((X,Y)\)</span> is continuous with probability density function <span class="math notranslate nohighlight">\(f(x,y)\)</span>, then</p>
 <div class="math notranslate nohighlight">
 \[
-    P(X\in A) = \int_A \int_{-\infty}^\infty f(x,y) \ \text{d}x \text{d}y
+    P(X\in A) = \int_A \int_{-\infty}^\infty f(x,y) \ \text{d}y \text{d}x
     \]</div>
 <p>and</p>
 <div class="math notranslate nohighlight">
 \[
-    P(Y\in B) = \int_B \int_{-\infty}^\infty f(x,y) \ \text{d}y \text{d}x.
+    P(Y\in B) = \int_B \int_{-\infty}^\infty f(x,y) \ \text{d}x \text{d}y.
     \]</div>
 </li>
 </ol>
@@ -740,8 +740,8 @@ P_X(A) = P_{XY}(A\times \mathbb{R}) \quad \text{and} \quad P_Y(B) = P_{XY}(\math
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <ol class="arabic simple">
-<li><p>To obtain the marginal density <span class="math notranslate nohighlight">\(f_X(x)\)</span> from the joint density <span class="math notranslate nohighlight">\(f(x,y)\)</span>, we “integrate out” the dependence of <span class="math notranslate nohighlight">\(f(x,y)\)</span> on <span class="math notranslate nohighlight">\(y\)</span>. Likewise for obtaining <span class="math notranslate nohighlight">\(f_Y(y)\)</span> from <span class="math notranslate nohighlight">\(f(x,y)\)</span>.</p></li>
 <li><p>To obtain the marginal mass <span class="math notranslate nohighlight">\(p_X(x)\)</span> from the joint mass <span class="math notranslate nohighlight">\(p(x,y)\)</span>, we “sum out” the dependence of <span class="math notranslate nohighlight">\(p(x,y)\)</span> on <span class="math notranslate nohighlight">\(y\)</span>. Likewise for obtaining <span class="math notranslate nohighlight">\(p_Y(y)\)</span> from <span class="math notranslate nohighlight">\(p(x,y)\)</span>.</p></li>
+<li><p>To obtain the marginal density <span class="math notranslate nohighlight">\(f_X(x)\)</span> from the joint density <span class="math notranslate nohighlight">\(f(x,y)\)</span>, we “integrate out” the dependence of <span class="math notranslate nohighlight">\(f(x,y)\)</span> on <span class="math notranslate nohighlight">\(y\)</span>. Likewise for obtaining <span class="math notranslate nohighlight">\(f_Y(y)\)</span> from <span class="math notranslate nohighlight">\(f(x,y)\)</span>.</p></li>
 </ol>
 </div>
 <p>In the continuous case, you should visualize the formulas <a class="reference internal" href="#equation-marg-cont-eqn">(7.5)</a> as integrations over cross-sections of the density surfaces. For example, the following picture is a visualization of the formula for the marginal density function <span class="math notranslate nohighlight">\(f_Y(y)\)</span> evaluated at <span class="math notranslate nohighlight">\(y=5\)</span>:</p>
