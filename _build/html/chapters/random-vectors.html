@@ -363,6 +363,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="random-vectors">
 <span id="id1"></span><h1><span class="section-number">7. </span>Random vectors<a class="headerlink" href="#random-vectors" title="Permalink to this heading">#</a></h1>
+<p>Essentially, an <span class="math notranslate nohighlight">\(n\)</span>-dimensional <em>random vector</em> is an <span class="math notranslate nohighlight">\(n\)</span>-tuple of random variables. These are the objects of study in the present chapter. We will discuss higher-dimensional generalizations of many of the gadgets that we studied in the context of random variables back in <a class="reference internal" href="random-variables.html#random-variables"><span class="std std-numref">Chapter 4</span></a>, including probability measures induced by random vectors, known as <em>joint distributions</em>. These latter distributions will be used to generalize to random variables the notions of <em>conditional probability</em> and <em>independence</em> that we first studied back in <a class="reference internal" href="rules-of-prob.html#rules-prob"><span class="std std-numref">Chapter 3</span></a>, which are some of the most important concepts in all probability theory. A careful study of this chapter is absolutely <em>critical</em> for the rest of the book!</p>
 <section id="motivation">
 <span id="id2"></span><h2><span class="section-number">7.1. </span>Motivation<a class="headerlink" href="#motivation" title="Permalink to this heading">#</a></h2>
 <p>To introduce <em>random vectors</em>, let’s return to the housing dataset that we studied in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a>, which contains data on <span class="math notranslate nohighlight">\(2{,}930\)</span> houses in Ames, Iowa. We are interested in two particular features in the dataset, <em>area</em> and <em>selling price</em>:</p>
@@ -561,12 +562,17 @@ P_{XY}(C) = P \left( \{s\in S : (X(s),Y(s))\in C\} \right),
 <span class="eqno">(7.3)<a class="headerlink" href="#equation-wrong2-eqn" title="Permalink to this equation">#</a></span>\[
 P((X,Y)\in C).
 \]</div>
-<p>If <span class="math notranslate nohighlight">\(C\)</span> happens to be a product set of the form <span class="math notranslate nohighlight">\(A\times B\)</span> where <span class="math notranslate nohighlight">\(A,B\subset \mathbb{R}\)</span>, then we will write</p>
+<p>If <span class="math notranslate nohighlight">\(C\)</span> happens to be a product event</p>
+<div class="math notranslate nohighlight">
+\[
+C = A \times B = \{(x,y)\in \mathbb{R}^2 : x\in A, y \in B\}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(A,B\subset \mathbb{R}\)</span>, then we will write</p>
 <div class="math notranslate nohighlight" id="equation-wrong-eqn">
 <span class="eqno">(7.4)<a class="headerlink" href="#equation-wrong-eqn" title="Permalink to this equation">#</a></span>\[
 P(X\in A, \ Y\in B)
 \]</div>
-<p>in place of <span class="math notranslate nohighlight">\(P_{XY}(A\times B)\)</span>. Notice that the expressions in <a class="reference internal" href="#equation-wrong2-eqn">(7.3)</a> and <a class="reference internal" href="#equation-wrong-eqn">(7.4)</a> are technically abuses of notation.</p>
+<p>in place of <span class="math notranslate nohighlight">\(P_{XY}(C)\)</span>. Notice that the expressions in <a class="reference internal" href="#equation-wrong2-eqn">(7.3)</a> and <a class="reference internal" href="#equation-wrong-eqn">(7.4)</a> are technically abuses of notation.</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problem 1 on the worksheet.</p>
@@ -1131,40 +1137,40 @@ f_{X|Y}(x|y)  = \frac{f_{Y|X}(y|x) f_X(x)}{\int_{\mathbb{R}} f_{Y|X}(y|x^\star) 
 <div class="proof definition admonition" id="definition-14">
 <p class="admonition-title"><span class="caption-number">Definition 7.9 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(S\)</span> be a probability space and <span class="math notranslate nohighlight">\(n\geq 1\)</span> an integer. An <em><span class="math notranslate nohighlight">\(m\)</span>-dimensional random vector</em> is a function</p>
+<p>Let <span class="math notranslate nohighlight">\(S\)</span> be a probability space and <span class="math notranslate nohighlight">\(n\geq 1\)</span> an integer. An <em><span class="math notranslate nohighlight">\(n\)</span>-dimensional random vector</em> is a function</p>
 <div class="math notranslate nohighlight">
 \[
-\mathbf{X}: S \to \mathbb{R}^m.
+\mathbf{X}: S \to \mathbb{R}^n.
 \]</div>
 <p>Thus, we may write</p>
 <div class="math notranslate nohighlight">
 \[
-\mathbf{X}(s) = (X_1(s),X_2(s),\ldots,X_m(s))
+\mathbf{X}(s) = (X_1(s),X_2(s),\ldots,X_n(s))
 \]</div>
-<p>for each sample point <span class="math notranslate nohighlight">\(s\in S\)</span>. When we do so, the functions <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> are ordinary random variables that are called the <em>components</em> of the random vector <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
+<p>for each sample point <span class="math notranslate nohighlight">\(s\in S\)</span>. When we do so, the functions <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n\)</span> are ordinary random variables that are called the <em>components</em> of the random vector <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
 </section>
 </div><p>Random vectors in dimensions <span class="math notranslate nohighlight">\(&gt;2\)</span> induce joint probability distributions, just like their <span class="math notranslate nohighlight">\(2\)</span>-dimensional relatives:</p>
 <div class="proof definition admonition" id="definition-15">
 <p class="admonition-title"><span class="caption-number">Definition 7.10 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\((X_1,X_2,\ldots,X_m):S \to \mathbb{R}^n\)</span> be an <span class="math notranslate nohighlight">\(n\)</span>-dimensional random vector on a probability space <span class="math notranslate nohighlight">\(S\)</span> with probability measure <span class="math notranslate nohighlight">\(P\)</span>. We define the <em>probability measure</em> of the random vector, denoted <span class="math notranslate nohighlight">\(P_{X_1X_2\cdots X_m}\)</span>, via the formula</p>
+<p>Let <span class="math notranslate nohighlight">\((X_1,X_2,\ldots,X_n):S \to \mathbb{R}^n\)</span> be an <span class="math notranslate nohighlight">\(n\)</span>-dimensional random vector on a probability space <span class="math notranslate nohighlight">\(S\)</span> with probability measure <span class="math notranslate nohighlight">\(P\)</span>. We define the <em>probability measure</em> of the random vector, denoted <span class="math notranslate nohighlight">\(P_{X_1X_2\cdots X_n}\)</span>, via the formula</p>
 <div class="math notranslate nohighlight" id="equation-hard2-eqn">
 <span class="eqno">(7.11)<a class="headerlink" href="#equation-hard2-eqn" title="Permalink to this equation">#</a></span>\[
-P_{X_1X_2\cdots X_m}(C) = P \left( \{s\in S \mid (X_1(s),X_2(s),\ldots,X_m(s))\in C\} \right),
+P_{X_1X_2\cdots X_n}(C) = P \left( \{s\in S : (X_1(s),X_2(s),\ldots,X_n(s))\in C\} \right),
 \]</div>
-<p>for all events <span class="math notranslate nohighlight">\(C\subset \mathbb{R}^m\)</span>. The probability measure <span class="math notranslate nohighlight">\(P_{X_1X_2\cdots X_m}\)</span> is also called the <em>joint distribution</em> of the component random variables <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span>.</p>
+<p>for all events <span class="math notranslate nohighlight">\(C\subset \mathbb{R}^n\)</span>. The probability measure <span class="math notranslate nohighlight">\(P_{X_1X_2\cdots X_n}\)</span> is also called the <em>joint distribution</em> of the component random variables <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n\)</span>.</p>
 </section>
-</div><p>The equation <a class="reference internal" href="#equation-hard2-eqn">(7.11)</a> is the <em>precise</em> definition of the joint distribution for <em>any</em> event <span class="math notranslate nohighlight">\(C\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. But if <span class="math notranslate nohighlight">\(C\)</span> happens to be an event of the form</p>
+</div><p>The equation <a class="reference internal" href="#equation-hard2-eqn">(7.11)</a> is the <em>precise</em> definition of the joint distribution for <em>any</em> event <span class="math notranslate nohighlight">\(C\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. If <span class="math notranslate nohighlight">\(C\)</span> happens to be a product event</p>
 <div class="math notranslate nohighlight">
 \[
-C = \{ (x_1,x_2,\ldots,x_m) : x_1\in A_1, x_2\in A_2,\ldots, x_m \in A_m\}
+C = A_1 \times A_2 \times \cdots \times A_n = \{ (x_1,x_2,\ldots,x_n)\in \mathbb{R}^n : x_1\in A_1, x_2\in A_2,\ldots, x_n \in A_n\}
 \]</div>
-<p>for some events <span class="math notranslate nohighlight">\(A_1,A_2,\ldots,A_m\subset \mathbb{R}\)</span>, then we shall <em>always</em> write</p>
+<p>for some events <span class="math notranslate nohighlight">\(A_1,A_2,\ldots,A_n\subset \mathbb{R}\)</span>, then we shall <em>always</em> write</p>
 <div class="math notranslate nohighlight" id="equation-clock-eqn">
 <span class="eqno">(7.12)<a class="headerlink" href="#equation-clock-eqn" title="Permalink to this equation">#</a></span>\[
-P(X_1\in A_1, X_2\in A_2,\ldots, X_m \in A_m)
+P(X_1\in A_1, X_2\in A_2,\ldots, X_n \in A_n)
 \]</div>
-<p>in place of <span class="math notranslate nohighlight">\(P_{X_1X_2\cdots X_m}(C)\)</span>. Again, this expression <a class="reference internal" href="#equation-clock-eqn">(7.12)</a> is technically an abuse of notation.</p>
+<p>in place of <span class="math notranslate nohighlight">\(P_{X_1X_2\cdots X_n}(C)\)</span>. Again, this expression <a class="reference internal" href="#equation-clock-eqn">(7.12)</a> is technically an abuse of notation.</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>If you want to see precise statements of definitions and theorems in dimensions <span class="math notranslate nohighlight">\(&gt;2\)</span>, have a look at Section 3.7 in <span id="id4">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>.</p>

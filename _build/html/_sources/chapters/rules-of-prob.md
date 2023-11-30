@@ -10,6 +10,7 @@ kernelspec:
   name: python3
 ---
 
+(rules-prob)=
 # Rules of probability
 
 Having learned the basic theory of probability in the previous chapter, in this chapter we begin developing various tools and techniques that will allow us to actually _compute_ probabilities.

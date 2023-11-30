@@ -14,6 +14,11 @@ kernelspec:
 (random-vectors)=
 # Random vectors
 
+Essentially, an $n$-dimensional _random vector_ is an $n$-tuple of random variables. These are the objects of study in the present chapter. We will discuss higher-dimensional generalizations of many of the gadgets that we studied in the context of random variables back in {numref}`Chapter %s <random-variables>`, including probability measures induced by random vectors, known as _joint distributions_. These latter distributions will be used to generalize to random variables the notions of _conditional probability_ and _independence_ that we first studied back in {numref}`Chapter %s <rules-prob>`, which are some of the most important concepts in all probability theory. A careful study of this chapter is absolutely _critical_ for the rest of the book!
+
+
+
+
 (motivation)=
 ## Motivation
 
@@ -177,13 +182,19 @@ $$
 P((X,Y)\in C).
 $$ (wrong2-eqn)
 
-If $C$ happens to be a product set of the form $A\times B$ where $A,B\subset \mathbb{R}$, then we will write
+If $C$ happens to be a product event
+
+$$
+C = A \times B = \{(x,y)\in \mathbb{R}^2 : x\in A, y \in B\}
+$$
+
+where $A,B\subset \mathbb{R}$, then we will write
 
 $$
 P(X\in A, \ Y\in B)
 $$ (wrong-eqn)
 
-in place of $P_{XY}(A\times B)$. Notice that the expressions in {eq}`wrong2-eqn` and {eq}`wrong-eqn` are technically abuses of notation.
+in place of $P_{XY}(C)$. Notice that the expressions in {eq}`wrong2-eqn` and {eq}`wrong-eqn` are technically abuses of notation.
 
 ```{admonition} Problem Prompt
 Do problem 1 on the worksheet.
@@ -904,46 +915,46 @@ Up till now in this chapter, we have studied pairs of random variables $X$ and $
 
 ```{prf:definition}
 
-Let $S$ be a probability space and $n\geq 1$ an integer. An _$m$-dimensional random vector_ is a function
+Let $S$ be a probability space and $n\geq 1$ an integer. An _$n$-dimensional random vector_ is a function
 
 $$
-\mathbf{X}: S \to \mathbb{R}^m.
+\mathbf{X}: S \to \mathbb{R}^n.
 $$
 
 Thus, we may write
 
 $$
-\mathbf{X}(s) = (X_1(s),X_2(s),\ldots,X_m(s))
+\mathbf{X}(s) = (X_1(s),X_2(s),\ldots,X_n(s))
 $$
 
-for each sample point $s\in S$. When we do so, the functions $X_1,X_2,\ldots,X_m$ are ordinary random variables that are called the _components_ of the random vector $\mathbf{X}$.
+for each sample point $s\in S$. When we do so, the functions $X_1,X_2,\ldots,X_n$ are ordinary random variables that are called the _components_ of the random vector $\mathbf{X}$.
 ```
 
 Random vectors in dimensions $>2$ induce joint probability distributions, just like their $2$-dimensional relatives:
 
 ```{prf:definition}
-Let $(X_1,X_2,\ldots,X_m):S \to \mathbb{R}^n$ be an $n$-dimensional random vector on a probability space $S$ with probability measure $P$. We define the _probability measure_ of the random vector, denoted $P_{X_1X_2\cdots X_m}$, via the formula
+Let $(X_1,X_2,\ldots,X_n):S \to \mathbb{R}^n$ be an $n$-dimensional random vector on a probability space $S$ with probability measure $P$. We define the _probability measure_ of the random vector, denoted $P_{X_1X_2\cdots X_n}$, via the formula
 
 $$
-P_{X_1X_2\cdots X_m}(C) = P \left( \{s\in S \mid (X_1(s),X_2(s),\ldots,X_m(s))\in C\} \right),
+P_{X_1X_2\cdots X_n}(C) = P \left( \{s\in S : (X_1(s),X_2(s),\ldots,X_n(s))\in C\} \right),
 $$ (hard2-eqn)
 
-for all events $C\subset \mathbb{R}^m$. The probability measure $P_{X_1X_2\cdots X_m}$ is also called the _joint distribution_ of the component random variables $X_1,X_2,\ldots,X_m$.
+for all events $C\subset \mathbb{R}^n$. The probability measure $P_{X_1X_2\cdots X_n}$ is also called the _joint distribution_ of the component random variables $X_1,X_2,\ldots,X_n$.
 ```
 
-The equation {eq}`hard2-eqn` is the _precise_ definition of the joint distribution for _any_ event $C$ in $\mathbb{R}^n$. But if $C$ happens to be an event of the form
+The equation {eq}`hard2-eqn` is the _precise_ definition of the joint distribution for _any_ event $C$ in $\mathbb{R}^n$. If $C$ happens to be a product event
 
 $$
-C = \{ (x_1,x_2,\ldots,x_m) : x_1\in A_1, x_2\in A_2,\ldots, x_m \in A_m\}
+C = A_1 \times A_2 \times \cdots \times A_n = \{ (x_1,x_2,\ldots,x_n)\in \mathbb{R}^n : x_1\in A_1, x_2\in A_2,\ldots, x_n \in A_n\}
 $$
 
-for some events $A_1,A_2,\ldots,A_m\subset \mathbb{R}$, then we shall _always_ write
+for some events $A_1,A_2,\ldots,A_n\subset \mathbb{R}$, then we shall _always_ write
 
 $$
-P(X_1\in A_1, X_2\in A_2,\ldots, X_m \in A_m)
+P(X_1\in A_1, X_2\in A_2,\ldots, X_n \in A_n)
 $$ (clock-eqn)
 
-in place of $P_{X_1X_2\cdots X_m}(C)$. Again, this expression {eq}`clock-eqn` is technically an abuse of notation.
+in place of $P_{X_1X_2\cdots X_n}(C)$. Again, this expression {eq}`clock-eqn` is technically an abuse of notation.
 
 
 ```{margin}
