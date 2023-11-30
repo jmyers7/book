@@ -1121,11 +1121,6 @@ My goal in this section is to step through an extended example that illustrates 
 
 The situation we find ourselves in is this:
 
-```{margin}
-
-I am using the letter $\theta$ for the probability rather than $p$ because the latter is overloaded in this scenario, as it also represents probability mass functions. Blame the statistical community for using $p$ for PMFs.
-```
-
 ```{admonition} The Canonical Bayesian Coin-Flipping Scenario
 
 Our friend suggests that we play a game, betting money on whether a coin flip lands heads or tails. If the coin lands heads, our friend wins; if the coin lands tails, we win.
