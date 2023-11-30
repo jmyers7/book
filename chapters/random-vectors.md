@@ -527,9 +527,6 @@ where $(x_i,y_i)$ is an observation of $(X_i,Y_i)$.
 
 To say that $(x_i,y_i)$ is an observed value of the random vector $(X_i,Y_i)$ simply means that it is in the range of the random vector (as a function with codomain $\mathbb{R}^2$). As I remarked in the [previous chapter](theory-to-practice), we haven't officially defined _independence_ yet---that will come in {prf:ref}`independence-defn` below.
 
-```{margin}
-An interesting question is raised as to whether the individual independence of the pair of observed univariate random samples is equivalent to independence of the observed bivariate random sample. We will address this in the next chapter.
-```
 Thus, it might be more natural to say that our housing data constitutes an observed bivariate random sample, rather than just two individual observed univariate random samples. These types of random samples---along with their higher-dimensional cousins called _multivariate random samples_---are quite common in prediction tasks where we aim to predict the $y_i$'s based on the $x_i$'s. For example, this is the entire gist of _supervised machine learning_.
 
 Adapting the definition of empirical distributions of univariate datasets from the [previous chapter](theory-to-practice) is also easy:
@@ -589,7 +586,7 @@ plt.tight_layout()
 Actually, we need to be careful with identifying $p_Y(150)$ as the _exact_ height of the histogram bar, since this is a "binned" histogram.
 ```
 
-The height of highlighted histogram bar on the right is the value $p_Y(150)$, where $p_Y$ is the empirical marginal mass function of the price variable $Y$. Remember, this value is obtained through the formula
+The height of the highlighted histogram bar on the right is the value $p_Y(150)$, where $p_Y$ is the empirical marginal mass function of the price variable $Y$. Remember, this value is obtained through the formula
 
 $$
 p_Y(150) = \sum_{x\in \mathbb{R}} p_{XY}(x,150),
@@ -697,7 +694,7 @@ plt.tight_layout()
 If you haven't caught on by now, the word _empirical_ usually always means "observed" or "based on a dataset."
 
 ```
-The histogram along the top of the figure shows the empirical distribution of the $x$'s belonging to data points $(x,y)$ with $y=150$. If we remember that our original random variables in the [first section](motivation) were $X$ and $Y$, then this empirical distribution is an approximation to the _conditional distribution of $X$ given $Y=180$._ (The precise definition is below.) So, the histogram along the top of the scatter plot displays an _empirical_ conditional distribution.
+The histogram along the top of the figure shows the empirical distribution of the $x$'s belonging to data points $(x,y)$ with $y=150$. If we remember that our original random variables in the [first section](motivation) were $X$ and $Y$, then this empirical distribution is an approximation to the _conditional distribution of $X$ given $Y=150$._ (The precise definition is below.) So, the histogram along the top of the scatter plot displays an _empirical_ conditional distribution.
 
 
 ```{margin}
@@ -910,19 +907,17 @@ Up till now in this chapter, we have studied pairs of random variables $X$ and $
 Let $S$ be a probability space and $n\geq 1$ an integer. An _$m$-dimensional random vector_ is a function
 
 $$
-X: S \to \mathbb{R}^m.
+\mathbf{X}: S \to \mathbb{R}^m.
 $$
 
 Thus, we may write
 
 $$
-X(s) = (X_1(s),X_2(s),\ldots,X_m(s))
+\mathbf{X}(s) = (X_1(s),X_2(s),\ldots,X_m(s))
 $$
 
-for each sample point $s\in S$. When we do so, the functions $X_1,X_2,\ldots,X_m$ are ordinary random variables that are called the _components_ of the random vector $X$.
+for each sample point $s\in S$. When we do so, the functions $X_1,X_2,\ldots,X_m$ are ordinary random variables that are called the _components_ of the random vector $\mathbf{X}$.
 ```
-
-So, an $m$-dimensional random vector is nothing but a sequence of random variables $X_1,X_2,\ldots,X_m$. These vectors are thus _immensely important_, since they are connected with random samples and datasets as defined back in {prf:ref}`random-sample-defn`.
 
 Random vectors in dimensions $>2$ induce joint probability distributions, just like their $2$-dimensional relatives:
 
@@ -955,6 +950,7 @@ in place of $P_{X_1X_2\cdots X_m}(C)$. Again, this expression {eq}`clock-eqn` is
 
 If you want to see precise statements of definitions and theorems in dimensions $>2$, have a look at Section 3.7 in {cite}`DeGrootSchervish2014`.
 ```
+
 Almost all the definitions and results that we considered above for $2$-dimensional random vectors have obvious generalizations to higher-dimensional random vectors. This includes higher-dimensional marginal and conditional distributions, as well as Laws of Total Probability and Bayes' Theorems. Provided that you understand the $2$-dimensional situation well, I am confident that the higher-dimensional case should pose no problem. Therefore, we will content ourselves with working through a few example problems, in place of an exhaustive account of all the definitions and theorems.
 
 ```{admonition} Problem Prompt
@@ -977,9 +973,7 @@ Do problems 13 and 14 on the worksheet.
 (independence)=
 ## Independence
 
-Because of its central role in the definitions of random samples and datasets (see {prf:ref}`random-sample-defn` and {prf:ref}`random-sample-vec-defn`), _independence_ is one of the most important concepts in all probability and statistics. In a somewhat different order compared to previous chapters, I will begin our discussion with the abstract definitions before moving on to an extended example from Bayesian statistics that highlights how independence is often used in computations.
-
-We already studied a form of _independence_ back in {numref}`independence-first`, where we saw that two events $A$ and $B$ in a probability space are _independent_ if
+Because of its central role in the definitions of random samples and datasets (see {prf:ref}`random-sample-defn` and {prf:ref}`random-sample-vec-defn`), _independence_ is one of the most important concepts in all probability and statistics. We already studied a form of _independence_ back in {numref}`independence-first`, where we saw that two events $A$ and $B$ in a probability space are _independent_ if
 
 $$
 P(A\cap B) = P(A) P(B).
@@ -993,21 +987,21 @@ $$ (cond-ind-eqn)
 
 This latter equation is telling us that $A$ and $B$ are independent provided that the conditional probability of $A$, given $B$, is just the plain probability of $A$. In other words, if $A$ and $B$ are independent, then whether $B$ has occurred has no impact on the probability of $A$ occurring.
 
-Our mission in this section is to adapt these definitions to the probability measures induced by random variables. The key step is to replace the left-hand side of {eq}`ind-fan-eqn` with a joint probability distribution. We make this replacement in the next defintion, while also generalizing to an arbitrary number of random variables:
+Our mission in this section is to adapt these definitions to the probability measures induced by random variables and vectors. The key step is to replace the left-hand side of {eq}`ind-fan-eqn` with a joint probability distribution. We make this replacement in the next defintion:
 
 ```{prf:definition}
 :label: independence-defn
 
-Let $X_1,X_2,\ldots,X_m$ be random variables, all defined on the same probability space. Then these random variables are said to be _independent_ if
+Let $\mathbf{X}_1,\mathbf{X}_2,\ldots,\mathbf{X}_m$ be random vectors, all defined on the same probability space. Then these random vectors are said to be _independent_ if
 
 $$
-P(X_1\in A_1, X_2\in A_2,\ldots,X_m \in A_n) = P(X_1\in A_1)P(X_2\in A_2) \cdots P(X_m\in A_m)
+P(\mathbf{X}_1\in C_1, \mathbf{X}_2\in C_2,\ldots,\mathbf{X}_m \in C_n) = P(\mathbf{X}_1\in C_1)P(\mathbf{X}_2\in C_2) \cdots P(\mathbf{X}_m\in C_m)
 $$
 
-for all events $A_1,A_2,\ldots,A_m\subset \mathbb{R}$. If the variables are not independent, they are called _dependent_.
+for all events $C_1,C_2,\ldots,C_m$. If the vectors are not independent, they are called _dependent_.
 ```
 
-Notice that no conditions are placed on the random variables $X_1,\ldots,X_m$ in this definition, such as assuming they are discrete or continuous. However, provided that mass or density functions exist, then convenient criteria for independence may be obtained in terms of these functions:
+Notice that no conditions are placed on the random vectors $\mathbf{X}_1,\ldots,\mathbf{X}_m$ in this definition, such as assuming they are discrete or continuous. However, provided that mass or density functions exist, then convenient criteria for independence may be obtained in terms of these functions. For simplicity, we will only state these criteria in the case of a sequence of random _variables_, leaving you with the task of generalizing to sequences of random _vectors_.
 
 ```{prf:theorem} Mass/Density Criteria for Independence
 :label: mass-density-ind-thm
@@ -1043,13 +1037,38 @@ for all events $A,B\subset \mathbb{R}$. Therefore, if $X$ and $Y$ are independen
 
 It turns out that there is also a characterization of independence in terms of factorizations of joint cumulative distribution functions. This characterization is actually taken as the _definition_ of independence in some references (e.g., {cite}`Wackerly2014`).
 
+The next important theorem shows that transformations of independent random vectors remain independent:
 
-```{admonition} Problem Prompt
+```{prf:theorem} Invariance of Independence
+:label: invar-independent-thm
 
-Do problems 15-18 on the worksheet.
+Let $\mathbf{X}_1,\mathbf{X}_2,\ldots,\mathbf{X}_m$ be independent $n$-dimensional random vectors, and let $g:\mathbb{R}^n \to \mathbb{R}^k$ be a function. Then the $k$-dimensional random vectors $g(\mathbf{X}_1),g(\mathbf{X}_2),\ldots,g(\mathbf{X}_m)$ are independent.
 ```
 
-Before moving on to the last section of this chapter, we state a "random variable" version of the equation {eq}`cond-ind-eqn` describing independent events in terms of conditional probabilities.
+The proof is easy. Let $C_1,\ldots,C_m\subset \mathbb{R}^k$ be events, and note that
+
+\begin{align*}
+P\big( g(\mathbf{X}_1)\in C_1,\ldots, g(\mathbf{X}_m)\in C_m \big) &= P\big( \mathbf{X}_1\in g^{-1}(C_1),\ldots, \mathbf{X}_m\in g^{-1}(C_m) \big)\\
+&=P\big( \mathbf{X}_1\in g^{-1}(C_1)\big)\cdots P\big(\mathbf{X}_m\in g^{-1}(C_m) \big) \\
+&=P\big( g(\mathbf{X}_1)\in C_1\big)\cdots P\big(g(\mathbf{X}_m)\in C_m \big).
+\end{align*}
+
+An immediate corollary of this theorem is the following result that shows independence of the components of random vectors follows from independence of the random vectors themselves. We have stated it only for $2$-dimensional random vectors for simplicity, but the generalization to higher dimensions should be obvious.
+
+```{prf:corollary} Independence of Components
+
+Suppose $(X_1,Y_1),(X_2,Y_2),\ldots,(X_m,Y_m)$ are independent $2$-dimensional random vectors. Then the sequences $X_1,X_2,\ldots,X_m$ and $Y_1,Y_2,\ldots,Y_m$ of random variables are independent.
+```
+
+To see how this is a corollary of {prf:ref}`invar-independent-thm`, consider the projection map
+
+$$
+g: \mathbb{R}^2 \to \mathbb{R}, \quad (x,y) \mapsto x,
+$$
+
+and note that $X_i = g(X_i,Y_i)$ for each $i=1,\ldots,m$. Then independence of the $X_i$'s follows from invariance of independence under the transformation $g$. Independence of the $Y_i$'s follows from the same considerations, but by changing the projection map $g$ so that it takes $(x,y) \mapsto y$.
+
+Before moving on to the worksheet problems, we state a "random variable" version of the equation {eq}`cond-ind-eqn` describing independent events in terms of conditional probabilities.
 
 ```{prf:theorem} Conditional Criteria for Independence
 
@@ -1072,7 +1091,12 @@ Let $X$ and $Y$ be two random variables.
     for all $x\in \mathbb{R}$ and all $y\in \mathbb{R}$ such that $f_Y(y)>0$.
 ```
 
+Now:
 
+```{admonition} Problem Prompt
+
+Do problems 15-18 on the worksheet.
+```
 
 
 

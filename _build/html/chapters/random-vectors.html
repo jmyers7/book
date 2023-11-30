@@ -793,10 +793,6 @@ X_1,X_2,\ldots,X_m \quad \text{and} \quad Y_1,Y_2,\ldots,Y_m.
 <p>where <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> is an observation of <span class="math notranslate nohighlight">\((X_i,Y_i)\)</span>.</p>
 </section>
 </div><p>To say that <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> is an observed value of the random vector <span class="math notranslate nohighlight">\((X_i,Y_i)\)</span> simply means that it is in the range of the random vector (as a function with codomain <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>). As I remarked in the <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-ref">previous chapter</span></a>, we haven’t officially defined <em>independence</em> yet—that will come in <a class="reference internal" href="#independence-defn">Definition 7.11</a> below.</p>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<p>An interesting question is raised as to whether the individual independence of the pair of observed univariate random samples is equivalent to independence of the observed bivariate random sample. We will address this in the next chapter.</p>
-</aside>
 <p>Thus, it might be more natural to say that our housing data constitutes an observed bivariate random sample, rather than just two individual observed univariate random samples. These types of random samples—along with their higher-dimensional cousins called <em>multivariate random samples</em>—are quite common in prediction tasks where we aim to predict the <span class="math notranslate nohighlight">\(y_i\)</span>’s based on the <span class="math notranslate nohighlight">\(x_i\)</span>’s. For example, this is the entire gist of <em>supervised machine learning</em>.</p>
 <p>Adapting the definition of empirical distributions of univariate datasets from the <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-ref">previous chapter</span></a> is also easy:</p>
 <div class="proof definition admonition" id="definition-9">
@@ -866,7 +862,7 @@ p(x,y) = \frac{\text{number of data points $(x_i,y_i)$ that match $(x,y)$}}{m}.
 <p class="sidebar-title"></p>
 <p>Actually, we need to be careful with identifying <span class="math notranslate nohighlight">\(p_Y(150)\)</span> as the <em>exact</em> height of the histogram bar, since this is a “binned” histogram.</p>
 </aside>
-<p>The height of highlighted histogram bar on the right is the value <span class="math notranslate nohighlight">\(p_Y(150)\)</span>, where <span class="math notranslate nohighlight">\(p_Y\)</span> is the empirical marginal mass function of the price variable <span class="math notranslate nohighlight">\(Y\)</span>. Remember, this value is obtained through the formula</p>
+<p>The height of the highlighted histogram bar on the right is the value <span class="math notranslate nohighlight">\(p_Y(150)\)</span>, where <span class="math notranslate nohighlight">\(p_Y\)</span> is the empirical marginal mass function of the price variable <span class="math notranslate nohighlight">\(Y\)</span>. Remember, this value is obtained through the formula</p>
 <div class="math notranslate nohighlight">
 \[
 p_Y(150) = \sum_{x\in \mathbb{R}} p_{XY}(x,150),
@@ -969,7 +965,7 @@ P(A|B) = \frac{P(A\cap B)}{P(B)},
 <p class="sidebar-title"></p>
 <p>If you haven’t caught on by now, the word <em>empirical</em> usually always means “observed” or “based on a dataset.”</p>
 </aside>
-<p>The histogram along the top of the figure shows the empirical distribution of the <span class="math notranslate nohighlight">\(x\)</span>’s belonging to data points <span class="math notranslate nohighlight">\((x,y)\)</span> with <span class="math notranslate nohighlight">\(y=150\)</span>. If we remember that our original random variables in the <a class="reference internal" href="#motivation"><span class="std std-ref">first section</span></a> were <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, then this empirical distribution is an approximation to the <em>conditional distribution of <span class="math notranslate nohighlight">\(X\)</span> given <span class="math notranslate nohighlight">\(Y=180\)</span>.</em> (The precise definition is below.) So, the histogram along the top of the scatter plot displays an <em>empirical</em> conditional distribution.</p>
+<p>The histogram along the top of the figure shows the empirical distribution of the <span class="math notranslate nohighlight">\(x\)</span>’s belonging to data points <span class="math notranslate nohighlight">\((x,y)\)</span> with <span class="math notranslate nohighlight">\(y=150\)</span>. If we remember that our original random variables in the <a class="reference internal" href="#motivation"><span class="std std-ref">first section</span></a> were <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, then this empirical distribution is an approximation to the <em>conditional distribution of <span class="math notranslate nohighlight">\(X\)</span> given <span class="math notranslate nohighlight">\(Y=150\)</span>.</em> (The precise definition is below.) So, the histogram along the top of the scatter plot displays an <em>empirical</em> conditional distribution.</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>At the most general level, defining <em>conditional distributions</em> is surprisingly very difficult. Have a look at <a class="reference external" href="https://en.wikipedia.org/wiki/Conditional_probability_distribution#Measure-theoretic_formulation">this</a> page if you don’t believe me.</p>
@@ -1138,17 +1134,16 @@ f_{X|Y}(x|y)  = \frac{f_{Y|X}(y|x) f_X(x)}{\int_{\mathbb{R}} f_{Y|X}(y|x^\star) 
 <p>Let <span class="math notranslate nohighlight">\(S\)</span> be a probability space and <span class="math notranslate nohighlight">\(n\geq 1\)</span> an integer. An <em><span class="math notranslate nohighlight">\(m\)</span>-dimensional random vector</em> is a function</p>
 <div class="math notranslate nohighlight">
 \[
-X: S \to \mathbb{R}^m.
+\mathbf{X}: S \to \mathbb{R}^m.
 \]</div>
 <p>Thus, we may write</p>
 <div class="math notranslate nohighlight">
 \[
-X(s) = (X_1(s),X_2(s),\ldots,X_m(s))
+\mathbf{X}(s) = (X_1(s),X_2(s),\ldots,X_m(s))
 \]</div>
-<p>for each sample point <span class="math notranslate nohighlight">\(s\in S\)</span>. When we do so, the functions <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> are ordinary random variables that are called the <em>components</em> of the random vector <span class="math notranslate nohighlight">\(X\)</span>.</p>
+<p>for each sample point <span class="math notranslate nohighlight">\(s\in S\)</span>. When we do so, the functions <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> are ordinary random variables that are called the <em>components</em> of the random vector <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
 </section>
-</div><p>So, an <span class="math notranslate nohighlight">\(m\)</span>-dimensional random vector is nothing but a sequence of random variables <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span>. These vectors are thus <em>immensely important</em>, since they are connected with random samples and datasets as defined back in <a class="reference internal" href="theory-to-practice.html#random-sample-defn">Definition 6.1</a>.</p>
-<p>Random vectors in dimensions <span class="math notranslate nohighlight">\(&gt;2\)</span> induce joint probability distributions, just like their <span class="math notranslate nohighlight">\(2\)</span>-dimensional relatives:</p>
+</div><p>Random vectors in dimensions <span class="math notranslate nohighlight">\(&gt;2\)</span> induce joint probability distributions, just like their <span class="math notranslate nohighlight">\(2\)</span>-dimensional relatives:</p>
 <div class="proof definition admonition" id="definition-15">
 <p class="admonition-title"><span class="caption-number">Definition 7.10 </span></p>
 <section class="definition-content" id="proof-content">
@@ -1182,8 +1177,7 @@ P(X_1\in A_1, X_2\in A_2,\ldots, X_m \in A_m)
 </section>
 <section id="independence">
 <span id="id5"></span><h2><span class="section-number">7.9. </span>Independence<a class="headerlink" href="#independence" title="Permalink to this heading">#</a></h2>
-<p>Because of its central role in the definitions of random samples and datasets (see <a class="reference internal" href="theory-to-practice.html#random-sample-defn">Definition 6.1</a> and <a class="reference internal" href="#random-sample-vec-defn">Definition 7.6</a>), <em>independence</em> is one of the most important concepts in all probability and statistics. In a somewhat different order compared to previous chapters, I will begin our discussion with the abstract definitions before moving on to an extended example from Bayesian statistics that highlights how independence is often used in computations.</p>
-<p>We already studied a form of <em>independence</em> back in <a class="reference internal" href="rules-of-prob.html#independence-first"><span class="std std-numref">Section 3.5</span></a>, where we saw that two events <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> in a probability space are <em>independent</em> if</p>
+<p>Because of its central role in the definitions of random samples and datasets (see <a class="reference internal" href="theory-to-practice.html#random-sample-defn">Definition 6.1</a> and <a class="reference internal" href="#random-sample-vec-defn">Definition 7.6</a>), <em>independence</em> is one of the most important concepts in all probability and statistics. We already studied a form of <em>independence</em> back in <a class="reference internal" href="rules-of-prob.html#independence-first"><span class="std std-numref">Section 3.5</span></a>, where we saw that two events <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> in a probability space are <em>independent</em> if</p>
 <div class="math notranslate nohighlight" id="equation-ind-fan-eqn">
 <span class="eqno">(7.13)<a class="headerlink" href="#equation-ind-fan-eqn" title="Permalink to this equation">#</a></span>\[
 P(A\cap B) = P(A) P(B).
@@ -1194,18 +1188,18 @@ P(A\cap B) = P(A) P(B).
 P(A|B) = P(A).
 \]</div>
 <p>This latter equation is telling us that <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are independent provided that the conditional probability of <span class="math notranslate nohighlight">\(A\)</span>, given <span class="math notranslate nohighlight">\(B\)</span>, is just the plain probability of <span class="math notranslate nohighlight">\(A\)</span>. In other words, if <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are independent, then whether <span class="math notranslate nohighlight">\(B\)</span> has occurred has no impact on the probability of <span class="math notranslate nohighlight">\(A\)</span> occurring.</p>
-<p>Our mission in this section is to adapt these definitions to the probability measures induced by random variables. The key step is to replace the left-hand side of <a class="reference internal" href="#equation-ind-fan-eqn">(7.13)</a> with a joint probability distribution. We make this replacement in the next defintion, while also generalizing to an arbitrary number of random variables:</p>
+<p>Our mission in this section is to adapt these definitions to the probability measures induced by random variables and vectors. The key step is to replace the left-hand side of <a class="reference internal" href="#equation-ind-fan-eqn">(7.13)</a> with a joint probability distribution. We make this replacement in the next defintion:</p>
 <div class="proof definition admonition" id="independence-defn">
 <p class="admonition-title"><span class="caption-number">Definition 7.11 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> be random variables, all defined on the same probability space. Then these random variables are said to be <em>independent</em> if</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{X}_1,\mathbf{X}_2,\ldots,\mathbf{X}_m\)</span> be random vectors, all defined on the same probability space. Then these random vectors are said to be <em>independent</em> if</p>
 <div class="math notranslate nohighlight">
 \[
-P(X_1\in A_1, X_2\in A_2,\ldots,X_m \in A_n) = P(X_1\in A_1)P(X_2\in A_2) \cdots P(X_m\in A_m)
+P(\mathbf{X}_1\in C_1, \mathbf{X}_2\in C_2,\ldots,\mathbf{X}_m \in C_n) = P(\mathbf{X}_1\in C_1)P(\mathbf{X}_2\in C_2) \cdots P(\mathbf{X}_m\in C_m)
 \]</div>
-<p>for all events <span class="math notranslate nohighlight">\(A_1,A_2,\ldots,A_m\subset \mathbb{R}\)</span>. If the variables are not independent, they are called <em>dependent</em>.</p>
+<p>for all events <span class="math notranslate nohighlight">\(C_1,C_2,\ldots,C_m\)</span>. If the vectors are not independent, they are called <em>dependent</em>.</p>
 </section>
-</div><p>Notice that no conditions are placed on the random variables <span class="math notranslate nohighlight">\(X_1,\ldots,X_m\)</span> in this definition, such as assuming they are discrete or continuous. However, provided that mass or density functions exist, then convenient criteria for independence may be obtained in terms of these functions:</p>
+</div><p>Notice that no conditions are placed on the random vectors <span class="math notranslate nohighlight">\(\mathbf{X}_1,\ldots,\mathbf{X}_m\)</span> in this definition, such as assuming they are discrete or continuous. However, provided that mass or density functions exist, then convenient criteria for independence may be obtained in terms of these functions. For simplicity, we will only state these criteria in the case of a sequence of random <em>variables</em>, leaving you with the task of generalizing to sequences of random <em>vectors</em>.</p>
 <div class="proof theorem admonition" id="mass-density-ind-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 7.7 </span> (Mass/Density Criteria for Independence)</p>
 <section class="theorem-content" id="proof-content">
@@ -1236,13 +1230,34 @@ P(X\in A) P(Y\in B) &amp;= \int_Af_X(x) \ \text{d} x \int_B f_Y(y) \ \text{d}y \
 \end{align*}\]</div>
 <p>for all events <span class="math notranslate nohighlight">\(A,B\subset \mathbb{R}\)</span>. Therefore, if <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent, then this shows the joint probability of <span class="math notranslate nohighlight">\(A\times B\)</span> is the integral over the product <span class="math notranslate nohighlight">\(f_X(x)f_Y(y)\)</span>, which is enough to show that the joint density is equal to this product. Conversely, if the joint density factors, then these computations also show that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent.</p>
 <p>It turns out that there is also a characterization of independence in terms of factorizations of joint cumulative distribution functions. This characterization is actually taken as the <em>definition</em> of independence in some references (e.g., <span id="id6">[<a class="reference internal" href="bib.html#id4" title="D. Wackerly, W. Mendenhall, and R. L. Scheaffer. Mathematical statistics with applications. Cengage Learning, 2014.">WMS14</a>]</span>).</p>
-<div class="admonition-problem-prompt admonition">
-<p class="admonition-title">Problem Prompt</p>
-<p>Do problems 15-18 on the worksheet.</p>
-</div>
-<p>Before moving on to the last section of this chapter, we state a “random variable” version of the equation <a class="reference internal" href="#equation-cond-ind-eqn">(7.14)</a> describing independent events in terms of conditional probabilities.</p>
-<div class="proof theorem admonition" id="theorem-18">
-<p class="admonition-title"><span class="caption-number">Theorem 7.8 </span> (Conditional Criteria for Independence)</p>
+<p>The next important theorem shows that transformations of independent random vectors remain independent:</p>
+<div class="proof theorem admonition" id="invar-independent-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 7.8 </span> (Invariance of Independence)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{X}_1,\mathbf{X}_2,\ldots,\mathbf{X}_m\)</span> be independent <span class="math notranslate nohighlight">\(n\)</span>-dimensional random vectors, and let <span class="math notranslate nohighlight">\(g:\mathbb{R}^n \to \mathbb{R}^k\)</span> be a function. Then the <span class="math notranslate nohighlight">\(k\)</span>-dimensional random vectors <span class="math notranslate nohighlight">\(g(\mathbf{X}_1),g(\mathbf{X}_2),\ldots,g(\mathbf{X}_m)\)</span> are independent.</p>
+</section>
+</div><p>The proof is easy. Let <span class="math notranslate nohighlight">\(C_1,\ldots,C_m\subset \mathbb{R}^k\)</span> be events, and note that</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P\big( g(\mathbf{X}_1)\in C_1,\ldots, g(\mathbf{X}_m)\in C_m \big) &amp;= P\big( \mathbf{X}_1\in g^{-1}(C_1),\ldots, \mathbf{X}_m\in g^{-1}(C_m) \big)\\
+&amp;=P\big( \mathbf{X}_1\in g^{-1}(C_1)\big)\cdots P\big(\mathbf{X}_m\in g^{-1}(C_m) \big) \\
+&amp;=P\big( g(\mathbf{X}_1)\in C_1\big)\cdots P\big(g(\mathbf{X}_m)\in C_m \big).
+\end{align*}\]</div>
+<p>An immediate corollary of this theorem is the following result that shows independence of the components of random vectors follows from independence of the random vectors themselves. We have stated it only for <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vectors for simplicity, but the generalization to higher dimensions should be obvious.</p>
+<div class="proof corollary admonition" id="corollary-19">
+<p class="admonition-title"><span class="caption-number">Corollary 7.1 </span> (Independence of Components)</p>
+<section class="corollary-content" id="proof-content">
+<p>Suppose <span class="math notranslate nohighlight">\((X_1,Y_1),(X_2,Y_2),\ldots,(X_m,Y_m)\)</span> are independent <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vectors. Then the sequences <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> and <span class="math notranslate nohighlight">\(Y_1,Y_2,\ldots,Y_m\)</span> of random variables are independent.</p>
+</section>
+</div><p>To see how this is a corollary of <a class="reference internal" href="#invar-independent-thm">Theorem 7.8</a>, consider the projection map</p>
+<div class="math notranslate nohighlight">
+\[
+g: \mathbb{R}^2 \to \mathbb{R}, \quad (x,y) \mapsto x,
+\]</div>
+<p>and note that <span class="math notranslate nohighlight">\(X_i = g(X_i,Y_i)\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>. Then independence of the <span class="math notranslate nohighlight">\(X_i\)</span>’s follows from invariance of independence under the transformation <span class="math notranslate nohighlight">\(g\)</span>. Independence of the <span class="math notranslate nohighlight">\(Y_i\)</span>’s follows from the same considerations, but by changing the projection map <span class="math notranslate nohighlight">\(g\)</span> so that it takes <span class="math notranslate nohighlight">\((x,y) \mapsto y\)</span>.</p>
+<p>Before moving on to the worksheet problems, we state a “random variable” version of the equation <a class="reference internal" href="#equation-cond-ind-eqn">(7.14)</a> describing independent events in terms of conditional probabilities.</p>
+<div class="proof theorem admonition" id="theorem-20">
+<p class="admonition-title"><span class="caption-number">Theorem 7.9 </span> (Conditional Criteria for Independence)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables.</p>
 <ul>
@@ -1262,7 +1277,12 @@ P(X\in A) P(Y\in B) &amp;= \int_Af_X(x) \ \text{d} x \int_B f_Y(y) \ \text{d}y \
 </li>
 </ul>
 </section>
-</div></section>
+</div><p>Now:</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problems 15-18 on the worksheet.</p>
+</div>
+</section>
 <section id="case-study-an-untrustworthy-friend">
 <span id="untrustworthy"></span><h2><span class="section-number">7.10. </span>Case study: an untrustworthy friend<a class="headerlink" href="#case-study-an-untrustworthy-friend" title="Permalink to this heading">#</a></h2>
 <p>My goal in this section is to step through an extended example that illustrates how independence is often used in computations involving real data. The scenario is taken from Bayesian statistics, and is similar to problem 12 on the worksheet. The point is not for you to learn the techniques and philosophy of Bayesian statistics in depth—that would require an entire course of its own. Instead, view this section as an enjoyable excursion into more advanced techniques that you might choose to study later.</p>
