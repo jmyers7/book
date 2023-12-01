@@ -760,7 +760,7 @@ Let $X$ and $Y$ be random variables.
 Let me show you how the discrete case works, leaving you do adapt the arguments to the continuous case on your own. First, note that $p_{X|Y}(x|y)$ is nonnegative, as all PMF's must be. Thus, we need only check that it sums to $1$ over all $x$:
 
 $$
-\sum_{x\in \mathbb{R}}p_{X|Y}(x|y) = \frac{1}{p_Y(y)} \sum_{x\in \mathbb{R}}p_{XY}(x,y) = \frac{P(\mathbb{R} \times \{y\})}{p_Y(y)}  = \frac{p_Y(y)}{p_Y(y)} = 1,
+\sum_{x\in \mathbb{R}}p_{X|Y}(x|y) = \frac{1}{p_Y(y)} \sum_{x\in \mathbb{R}}p_{XY}(x,y) = \frac{p_Y(y)}{p_Y(y)} = 1,
 $$
 
 where I used {prf:ref}`marg-thm` in the second equality. The same type of argument will prove {eq}`cond-dist-eqn`, which I will also let you do on your own.

@@ -1022,7 +1022,7 @@ P(A|B) = \frac{P(A\cap B)}{P(B)},
 </div><p>Let me show you how the discrete case works, leaving you do adapt the arguments to the continuous case on your own. First, note that <span class="math notranslate nohighlight">\(p_{X|Y}(x|y)\)</span> is nonnegative, as all PMF’s must be. Thus, we need only check that it sums to <span class="math notranslate nohighlight">\(1\)</span> over all <span class="math notranslate nohighlight">\(x\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
-\sum_{x\in \mathbb{R}}p_{X|Y}(x|y) = \frac{1}{p_Y(y)} \sum_{x\in \mathbb{R}}p_{XY}(x,y) = \frac{P(\mathbb{R} \times \{y\})}{p_Y(y)}  = \frac{p_Y(y)}{p_Y(y)} = 1,
+\sum_{x\in \mathbb{R}}p_{X|Y}(x|y) = \frac{1}{p_Y(y)} \sum_{x\in \mathbb{R}}p_{XY}(x,y) = \frac{p_Y(y)}{p_Y(y)} = 1,
 \]</div>
 <p>where I used <a class="reference internal" href="#marg-thm">Theorem 7.2</a> in the second equality. The same type of argument will prove <a class="reference internal" href="#equation-cond-dist-eqn">(7.6)</a>, which I will also let you do on your own.</p>
 <div class="admonition warning">
