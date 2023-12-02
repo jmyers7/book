@@ -308,6 +308,8 @@ plt.tight_layout()
 
 ## Stochastic gradient descent
 
+Batch GD objective function:
+
 ```{code-cell} ipython3
 :tags: [hide-input, full-width]
 :mystnb:
@@ -417,6 +419,82 @@ for theta in grid:
     z_list.append(J(dataset, {'theta': theta}))
 z = torch.row_stack(tensors=z_list).reshape(shape=grid_1.shape)
 
+# gradient descent parameters
+init_parameters = {'theta': torch.tensor([1.5, 1.5])}
+batch_size = len(dataset)
+random_state = 42
+gd_parameters = {'num_epochs': [10, 50],
+                 'lr': [1e-1, 3e-2]}
+parameters_list = []
+objectives_list = []
+
+# run gradient descent
+for i in range(2):
+    kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
+    running_parameters, running_objectives = SGD(init_parameters=init_parameters,
+                                                 dataset=dataset,
+                                                 J=J,
+                                                 tracking='gd_step',
+                                                 batch_size=batch_size,
+                                                 random_state=random_state,
+                                                 shuffle=True,
+                                                 **kwargs)
+    parameters_list.append(running_parameters)
+    objectives_list.append(running_objectives)
+
+# plot the objective function
+_, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 4))
+
+for i in range(2):
+    objectives = objectives_list[i]
+    kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
+    lr = kwargs['lr']
+    axes[i].plot(range(len(objectives)), objectives)
+    axes[i].set_xlabel('epochs')
+    axes[i].set_ylabel('objective')
+    axes[i].set_title(f'$\gamma={lr}$')
+
+plt.tight_layout()
+```
+
+Batch GD parameters:
+
+```{code-cell} ipython3
+:tags: [hide-input, full-width]
+:mystnb:
+:   figure:
+:       align: center
+:   image:
+:       width: 100%
+
+_, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 4))
+
+for i in range(2):
+    thetas = torch.row_stack(tensors=parameters_list[i]['theta'])
+    kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
+    lr = kwargs['lr']
+    num_epochs = kwargs['num_epochs']
+    axes[i].contour(grid_1, grid_2, z, levels=torch.arange(start=0, end=10, step=0.5), colors=blue, alpha=0.5)
+    axes[i].plot(thetas[:, 0], thetas[:, 1], color=magenta)
+    axes[i].scatter(thetas[:, 0], thetas[:, 1], color=magenta, zorder=2)
+    axes[i].scatter(thetas[0, 0], thetas[0, 1], s=100, color=magenta, zorder=2)
+    axes[i].set_title(f'$\gamma={lr}$, epochs$={num_epochs}$')
+    axes[i].set_xlabel(r'$\theta_1$')
+    axes[i].set_ylabel(r'$\theta_2$')
+
+plt.tight_layout()
+```
+
+SGD objective function:
+
+```{code-cell} ipython3
+:tags: [hide-input, full-width]
+:mystnb:
+:   figure:
+:       align: center
+:   image:
+:       width: 100%
+
 # SGD parameters
 init_parameters = {'theta': torch.tensor([1.5, 1.5])}
 num_epochs = 1
@@ -458,6 +536,7 @@ for i in range(4):
 plt.tight_layout()
 ```
 
+SGD parameters:
 
 ```{code-cell} ipython3
 :tags: [hide-input, full-width]
@@ -496,7 +575,7 @@ plt.tight_layout()
 
 ## Mini-batch gradient descent
 
-
+Mini-batch GD objective function:
 
 ```{code-cell} ipython3
 :tags: [hide-input, full-width]
@@ -545,6 +624,8 @@ for i in range(4):
 
 plt.tight_layout()
 ```
+
+Mini-batch GD parameters:
 
 ```{code-cell} ipython3
 :tags: [hide-input, full-width]

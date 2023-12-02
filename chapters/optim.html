@@ -416,7 +416,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/1b4d2467c9a0a8d7788b1b6938440e3b2cd55ba0dfe0cecf3421a724dd8d56eb.svg"><img alt="../_images/1b4d2467c9a0a8d7788b1b6938440e3b2cd55ba0dfe0cecf3421a724dd8d56eb.svg" src="../_images/1b4d2467c9a0a8d7788b1b6938440e3b2cd55ba0dfe0cecf3421a724dd8d56eb.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/01d2872e4a59ebcd53bc0431e857cb99eecda81a6943b01f3444d52864d87743.svg"><img alt="../_images/01d2872e4a59ebcd53bc0431e857cb99eecda81a6943b01f3444d52864d87743.svg" src="../_images/01d2872e4a59ebcd53bc0431e857cb99eecda81a6943b01f3444d52864d87743.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -484,7 +484,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/f6e52c714e696d41633c8d99ae9a7c5b2a7937f6bbe3cd3be71bb1c140429650.svg"><img alt="../_images/f6e52c714e696d41633c8d99ae9a7c5b2a7937f6bbe3cd3be71bb1c140429650.svg" src="../_images/f6e52c714e696d41633c8d99ae9a7c5b2a7937f6bbe3cd3be71bb1c140429650.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/866f9e0b73f39d8c32a34a8f36097c444fe3e1e02c4b06cf7b40727b7dd724d3.svg"><img alt="../_images/866f9e0b73f39d8c32a34a8f36097c444fe3e1e02c4b06cf7b40727b7dd724d3.svg" src="../_images/866f9e0b73f39d8c32a34a8f36097c444fe3e1e02c4b06cf7b40727b7dd724d3.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -576,7 +576,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/b75c7adee34ab94d33db10ced891838ced6a447875b8e4175756deb5ce10f9f9.svg"><img alt="../_images/b75c7adee34ab94d33db10ced891838ced6a447875b8e4175756deb5ce10f9f9.svg" src="../_images/b75c7adee34ab94d33db10ced891838ced6a447875b8e4175756deb5ce10f9f9.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/d1c5aa30b50b80169e1bf67e86d51f41c3fd2d4bd829e15f31d7a405d16310e7.svg"><img alt="../_images/d1c5aa30b50b80169e1bf67e86d51f41c3fd2d4bd829e15f31d7a405d16310e7.svg" src="../_images/d1c5aa30b50b80169e1bf67e86d51f41c3fd2d4bd829e15f31d7a405d16310e7.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -639,13 +639,14 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/0e4fe9cb13d215c02731e925b8cdc49aa602005a0be73c5d10c9c2b87916ec1c.svg"><img alt="../_images/0e4fe9cb13d215c02731e925b8cdc49aa602005a0be73c5d10c9c2b87916ec1c.svg" src="../_images/0e4fe9cb13d215c02731e925b8cdc49aa602005a0be73c5d10c9c2b87916ec1c.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/3362d0037878b53c93b3ecd349d70071308b548e355560d739228ec59eb8ae52.svg"><img alt="../_images/3362d0037878b53c93b3ecd349d70071308b548e355560d739228ec59eb8ae52.svg" src="../_images/3362d0037878b53c93b3ecd349d70071308b548e355560d739228ec59eb8ae52.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
 </section>
 <section id="stochastic-gradient-descent">
 <h2><span class="section-number">10.3. </span>Stochastic gradient descent<a class="headerlink" href="#stochastic-gradient-descent" title="Permalink to this heading">#</a></h2>
+<p>Batch GD objective function:</p>
 <div class="cell tag_hide-input tag_full-width docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -754,7 +755,95 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
     <span class="n">z_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">J</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;theta&#39;</span><span class="p">:</span> <span class="n">theta</span><span class="p">}))</span>
 <span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">row_stack</span><span class="p">(</span><span class="n">tensors</span><span class="o">=</span><span class="n">z_list</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">grid_1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
-<span class="c1"># SGD parameters</span>
+<span class="c1"># gradient descent parameters</span>
+<span class="n">init_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;theta&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])}</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+<span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">gd_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;num_epochs&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
+                 <span class="s1">&#39;lr&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1e-1</span><span class="p">,</span> <span class="mf">3e-2</span><span class="p">]}</span>
+<span class="n">parameters_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">objectives_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># run gradient descent</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">gd_parameters</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">gd_parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+    <span class="n">running_parameters</span><span class="p">,</span> <span class="n">running_objectives</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">init_parameters</span><span class="o">=</span><span class="n">init_parameters</span><span class="p">,</span>
+                                                 <span class="n">dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span>
+                                                 <span class="n">J</span><span class="o">=</span><span class="n">J</span><span class="p">,</span>
+                                                 <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;gd_step&#39;</span><span class="p">,</span>
+                                                 <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+                                                 <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
+                                                 <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                 <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">parameters_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">running_parameters</span><span class="p">)</span>
+    <span class="n">objectives_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">running_objectives</span><span class="p">)</span>
+
+<span class="c1"># plot the objective function</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">objectives</span> <span class="o">=</span> <span class="n">objectives_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">gd_parameters</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">gd_parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+    <span class="n">lr</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">]</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">objectives</span><span class="p">)),</span> <span class="n">objectives</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;epochs&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;objective&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;$\gamma=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/dc41fc0905ca68d7b55517c0ca16121c0488aecba52260f69829cbb729047833.svg"><img alt="../_images/dc41fc0905ca68d7b55517c0ca16121c0488aecba52260f69829cbb729047833.svg" src="../_images/dc41fc0905ca68d7b55517c0ca16121c0488aecba52260f69829cbb729047833.svg" width="100%" /></a>
+</figure>
+</div>
+</div>
+<p>Batch GD parameters:</p>
+<div class="cell tag_hide-input tag_full-width docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">thetas</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">row_stack</span><span class="p">(</span><span class="n">tensors</span><span class="o">=</span><span class="n">parameters_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;theta&#39;</span><span class="p">])</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">gd_parameters</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">gd_parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+    <span class="n">lr</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">]</span>
+    <span class="n">num_epochs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;num_epochs&#39;</span><span class="p">]</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">grid_1</span><span class="p">,</span> <span class="n">grid_2</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">colors</span><span class="o">=</span><span class="n">blue</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thetas</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">thetas</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">thetas</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">thetas</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">thetas</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">thetas</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;$\gamma=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, epochs$=</span><span class="si">{</span><span class="n">num_epochs</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_1$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_2$&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/372d35be95082a9708289cd1023db40fb4fe83976f8e633e4e87471ad92b09b8.svg"><img alt="../_images/372d35be95082a9708289cd1023db40fb4fe83976f8e633e4e87471ad92b09b8.svg" src="../_images/372d35be95082a9708289cd1023db40fb4fe83976f8e633e4e87471ad92b09b8.svg" width="100%" /></a>
+</figure>
+</div>
+</div>
+<p>SGD objective function:</p>
+<div class="cell tag_hide-input tag_full-width docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># SGD parameters</span>
 <span class="n">init_parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;theta&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])}</span>
 <span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1</span>
@@ -799,10 +888,11 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/a17ec396b4c18dd2bc76222ff1cc65648c4375b191695c8be4fe030f32c87fa7.svg"><img alt="../_images/a17ec396b4c18dd2bc76222ff1cc65648c4375b191695c8be4fe030f32c87fa7.svg" src="../_images/a17ec396b4c18dd2bc76222ff1cc65648c4375b191695c8be4fe030f32c87fa7.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/e136a6a48c421bb397365304244305f31d547b1fca7a9a2f0e5963d7d4f418ee.svg"><img alt="../_images/e136a6a48c421bb397365304244305f31d547b1fca7a9a2f0e5963d7d4f418ee.svg" src="../_images/e136a6a48c421bb397365304244305f31d547b1fca7a9a2f0e5963d7d4f418ee.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
+<p>SGD parameters:</p>
 <div class="cell tag_hide-input tag_full-width docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -833,13 +923,14 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ae56e15d9fcc36536b5b2365503adea13d627cb9ea5a8289d7459ec532937144.svg"><img alt="../_images/ae56e15d9fcc36536b5b2365503adea13d627cb9ea5a8289d7459ec532937144.svg" src="../_images/ae56e15d9fcc36536b5b2365503adea13d627cb9ea5a8289d7459ec532937144.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/826e3036bcaa0072e0f88fa091cd4be9ce826bb5d3a7e1810fed1c72c411a781.svg"><img alt="../_images/826e3036bcaa0072e0f88fa091cd4be9ce826bb5d3a7e1810fed1c72c411a781.svg" src="../_images/826e3036bcaa0072e0f88fa091cd4be9ce826bb5d3a7e1810fed1c72c411a781.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
 </section>
 <section id="mini-batch-gradient-descent">
 <h2><span class="section-number">10.4. </span>Mini-batch gradient descent<a class="headerlink" href="#mini-batch-gradient-descent" title="Permalink to this heading">#</a></h2>
+<p>Mini-batch GD objective function:</p>
 <div class="cell tag_hide-input tag_full-width docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -891,10 +982,11 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/b82fc42784b77cc294f81f1e63b1769de65baabaa0037f47dff2c94cc5a91e22.svg"><img alt="../_images/b82fc42784b77cc294f81f1e63b1769de65baabaa0037f47dff2c94cc5a91e22.svg" src="../_images/b82fc42784b77cc294f81f1e63b1769de65baabaa0037f47dff2c94cc5a91e22.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/9a7b8cab7ade7bf7cc8a0fa5b720ffe7a3495847358f64592a74ca8342e39004.svg"><img alt="../_images/9a7b8cab7ade7bf7cc8a0fa5b720ffe7a3495847358f64592a74ca8342e39004.svg" src="../_images/9a7b8cab7ade7bf7cc8a0fa5b720ffe7a3495847358f64592a74ca8342e39004.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
+<p>Mini-batch GD parameters:</p>
 <div class="cell tag_hide-input tag_full-width docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -927,7 +1019,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/57f7135d30bed67ffc7a0b6f34df256fad9b7868f690bf2d1d973761154c457f.svg"><img alt="../_images/57f7135d30bed67ffc7a0b6f34df256fad9b7868f690bf2d1d973761154c457f.svg" src="../_images/57f7135d30bed67ffc7a0b6f34df256fad9b7868f690bf2d1d973761154c457f.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/165e45a662ae8f5e3e1d18aff81d80a6169286d8a91085b8a77fa3fc68958819.svg"><img alt="../_images/165e45a662ae8f5e3e1d18aff81d80a6169286d8a91085b8a77fa3fc68958819.svg" src="../_images/165e45a662ae8f5e3e1d18aff81d80a6169286d8a91085b8a77fa3fc68958819.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
