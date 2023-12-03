@@ -37,6 +37,7 @@ import torch
 from torch.utils.data import DataLoader
 from torch.distributions.multivariate_normal import MultivariateNormal
 import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib_inline.backend_inline
 from itertools import product
@@ -64,13 +65,13 @@ We shall use a simple single-variable version of the _gradient descent (GD) algo
 
 ```{prf:algorithm} Single-variable gradient descent
 
-**Input:** A differentiable objective function $J:\mathbb{R}\to \mathbb{R}$, an initial guess $\theta_0\in \mathbb{R}$ for a minimizer $\theta^\star$, a _learning rate_ $\alpha>0$, and the _number $N$ of gradient steps_.
+**Input:** A differentiable objective function $J:\mathbb{R}\to \mathbb{R}$, an initial guess $\theta\in \mathbb{R}$ for a minimizer $\theta^\star$, a learning rate $\alpha>0$, and the number $N$ of gradient steps.
 
 **Output:** An approximation to a minimizer $\theta^\star$.
 
 1. For $t$ from $1$ to $N$, do:
-    * $\theta_t := \theta_{t-1} - \alpha J'(\theta_{t-1})$
-2. Return $\theta_N$.
+    * $\theta := \theta - \alpha J'(\theta)$
+2. Return $\theta$.
 ```
 
 Beginning from an initial guess $\theta_0$ for a minimizer, the GD algorithm outputs a sequence of approximations $\theta_1,\theta_2,\ldots,\theta_N$ for a minimizer. The last value $\theta_N$ in the sequence is taken as the output of the algorithm; if the algorithm converges to a minimizer, then we should have $\theta_N \approx \theta^\star$.
@@ -184,7 +185,7 @@ def GD(init_theta, J, num_steps, lr, decay=1):
     running_thetas = []
 
     # begin gradient descent loop
-    for i in range(num_steps):
+    for t in range(num_steps):
         # compute objective with current theta
         objective = J(theta)
         
@@ -197,7 +198,7 @@ def GD(init_theta, J, num_steps, lr, decay=1):
         
         # take a step and update the theta
         with torch.no_grad():
-            theta -= (decay ** (i + 1)) * lr * theta.grad
+            theta -= (decay ** (t + 1)) * lr * theta.grad
 
         # zero out the gradient to prepare for the next iteration
         theta.grad.zero_()
@@ -272,13 +273,13 @@ We see already that $J(\theta_3) \approx 10^7$; in fact, we have $J(\theta_t) \t
 
 ```{prf:algorithm} Single-variable gradient descent with rate decay
 
-**Input:** A differentiable objective function $J:\mathbb{R}\to \mathbb{R}$, an initial guess $\theta_0\in \mathbb{R}$ for a minimizer $\theta^\star$, a _learning rate_ $\alpha>0$, a _decay rate_ $\gamma \in (0, 1]$, and the _number $N$ of gradient steps_.
+**Input:** A differentiable objective function $J:\mathbb{R}\to \mathbb{R}$, an initial guess $\theta\in \mathbb{R}$ for a minimizer $\theta^\star$, a learning rate $\alpha>0$, a decay rate $\gamma \in (0, 1]$, and the number $N$ of gradient steps.
 
 **Output:** An approximation to a minimizer $\theta^\star$.
 
 1. For $t$ from $1$ to $N$, do:
-    * $\theta_t := \theta_{t-1} - \alpha\gamma^t J'(\theta_{t-1})$
-2. Return $\theta_N$.
+    * $\theta := \theta - \alpha\gamma^t J'(\theta)$
+2. Return $\theta$.
 ```
 
 While there are many ways to shrink the learning rate during gradient descent, the simple version in this implementation multiplies the scaled derivative $\alpha J'(\theta_{t-1})$ by a factor $\gamma^t \in (0,1]$ called the _decay rate_. Setting $\gamma=1$ results in _no_ rate decay. In our diverging example above, setting $\gamma=0.9$ results in:
@@ -413,13 +414,13 @@ After these preparations, we state the algorithm:
 
 ```{prf:algorithm} Multi-variable gradient descent with rate decay
 
-**Input:** A differentiable objective function $J:\mathbb{R}^n\to \mathbb{R}$, an initial guess $\btheta_0\in \mathbb{R}^n$ for a minimizer $\btheta^\star$, a _learning rate_ $\alpha>0$, a _decay rate_ $\gamma \in (0, 1]$, and the _number $N$ of gradient steps_.
+**Input:** A differentiable objective function $J:\mathbb{R}^n\to \mathbb{R}$, an initial guess $\btheta\in \mathbb{R}^n$ for a minimizer $\btheta^\star$, a learning rate $\alpha>0$, a decay rate $\gamma \in (0, 1]$, and the number $N$ of gradient steps.
 
 **Output:** An approximation to a minimizer $\btheta^\star$.
 
 1. For $t$ from $1$ to $N$, do:
-    * $\btheta_t := \btheta_{t-1} - \alpha\gamma^t \nabla J(\btheta_{t-1})^T$
-2. Return $\btheta_N$.
+    * $\btheta := \btheta - \alpha\gamma^t \nabla J(\btheta)^T$
+2. Return $\btheta$.
 ```
 
 Remember, we are viewing the input vector $\btheta$ as column vector and the gradient $\nabla J(\btheta)$ as a row vector; this accounts for the transpose in the update rule. Notice that this algorithm specializes to its single-variable cousin in the case $n=1$ since $J'(\theta) = \nabla J(\theta)$ when $\theta \in \mathbb{R}$.
@@ -600,12 +601,86 @@ Of course, an objective function $J:\mathbb{R}^2 \to \mathbb{R}$ defined on a $2
 
 
 
+
+
+
+
+
 ## Stochastic gradient descent
 
-Batch GD objective function:
+The special types of objective functions that we will see in {numref}`Chapter %s <learning>` are so-called _stochastic objective functions_ of the form
+
+```{math}
+:label: stoch-obj-eqn
+
+J(\btheta) = E\big( g(\mathbf{X};\btheta) \big)
+```
+
+where $\mathbf{X}$ is an $n$-dimensional random vector, $\btheta \in \mathbb{R}^k$ is a $k$-dimensional _parameter vector_, and $g:\mathbb{R}^{n+k} \to \mathbb{R}$ is a function. In many important cases, the probability distribution of $\mathbf{X}$ is discrete and does not depend on $\btheta$, so that
+
+```{math}
+:label: object-expect-eqn
+
+J(\btheta) = \sum_{\mathbf{x}\in \mathbb{R}^n} g(\mathbf{x};\btheta)p(\mathbf{x})
+```
+
+
+where $p(\mathbf{x})$ is the mass function of $\mathbf{X}$. In fact, the mass function $p(\mathbf{x})$ will often be an _empirical_ mass function of an observed multivariate dataset
+
+$$
+\mathbf{x}^{(1)},\ldots,\mathbf{x}^{(m)}\in \mathbb{R}^n,
+$$
+
+where we use a superscript with parentheses to index the data vectors rather than a subscript. Then, from {eq}`object-expect-eqn` and the definition of the mass function, we get
+
+$$
+J(\btheta) = \frac{1}{m} \sum_{i=1}^m g\big(\mathbf{x}^{(i)}; \btheta \big).
+$$
+
+Provided that the function is differentiable with respect to the parameter vector $\btheta$, we have
+
+```{math}
+:label: batch-eqn
+\nabla_\btheta J(\btheta) = \frac{1}{m} \sum_{i=1}^m \nabla_\btheta g\big(\mathbf{x}^{(i)}; \btheta \big)
+```
+
+where we write $\nabla_\btheta$ to emphasize that the gradient is computed with respect to the parameter vector $\btheta$. In this context, the gradient descent algorithm applied to {eq}`batch-eqn` is given a new name:
+
+```{prf:definition}
+
+The _batch gradient descent algorithm_ is the gradient descent algorithm applied to a stochastic objective function of the form {eq}`batch-eqn`.
+```
+
+Let's take a look at a simple example. Suppose that we define
+
+$$
+g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
+$$
+
+where $\bx,\btheta\in \bbr^2$ and the vertical bars represent the usual Euclidean norm. We create a bivariate dataset by drawing a random sample of size $1{,}024$ drawn from a $\mathcal{N}_2(\boldsymbol0,I)$ distribution. A scatter plot of the dataset looks like this:
 
 ```{code-cell} ipython3
-:tags: [hide-input, full-width]
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+:   image:
+:       width: 70%
+
+torch.manual_seed(42)
+dataset = MultivariateNormal(loc=torch.zeros(2), covariance_matrix=torch.eye(2)).sample(sample_shape=(1024,))
+
+sns.scatterplot(x=dataset[:, 0], y=dataset[:, 1])
+plt.xlabel('$x_1$')
+plt.ylabel('$x_2$')
+plt.gcf().set_size_inches(w=5, h=3)
+plt.tight_layout()
+```
+
+Then, two runs of the batch gradient descent algorithm produce the following plots of the objective function versus gradient steps:
+
+```{code-cell} ipython3
+:tags: [hide-input]
 :mystnb:
 :   figure:
 :       align: center
@@ -613,7 +688,7 @@ Batch GD objective function:
 :       width: 100%
 
 # implement the SGD algorithm in PyTorch
-def SGD(init_parameters, dataset, J, num_epochs, batch_size, lr, tracking, max_steps=-1, shuffle=True, random_state=None, verbose=False):
+def SGD(init_parameters, dataset, J, num_epochs, batch_size, lr, tracking, decay=1, max_steps=-1, shuffle=True, random_state=None, verbose=False):
     
     # deep copy the initial parameters into a parameter dictionary and start tracking gradients
     parameters = {name: parameter.clone().requires_grad_(True) for name, parameter in init_parameters.items()}
@@ -629,7 +704,7 @@ def SGD(init_parameters, dataset, J, num_epochs, batch_size, lr, tracking, max_s
     step_count = 0
 
     # begin looping through epochs
-    for epoch in range(num_epochs):
+    for t in range(num_epochs):
         
         # initialize a list to track per-step objectives
         per_step_objectives = []
@@ -654,7 +729,7 @@ def SGD(init_parameters, dataset, J, num_epochs, batch_size, lr, tracking, max_s
             # take a gradient step and update the parameters
             with torch.no_grad():
                 for parameter in parameters.values():
-                    parameter -= lr * parameter.grad
+                    parameter -= (decay ** (t + 1)) * lr * parameter.grad
             
             # zero out the gradients to prepare for the next iteration
             for parameter in parameters.values():
@@ -686,7 +761,7 @@ def SGD(init_parameters, dataset, J, num_epochs, batch_size, lr, tracking, max_s
 
     # if we are tracking per epoch and verbose == True, then print out the running objectives
     if verbose & (tracking == 'epoch'):
-        print(f'epoch {epoch + 1} of {num_epochs} --- objective: {running_objectives[-1]:.4f}')
+        print(f'epoch {t + 1} of {num_epochs} --- objective: {running_objectives[-1]:.4f}')
                 
     return running_parameters, running_objectives
 
@@ -699,10 +774,6 @@ def g(x, parameters):
 
 def J(x, parameters):
     return torch.mean(g(x, parameters))
-
-# generate data
-torch.manual_seed(42)
-dataset = MultivariateNormal(loc=torch.zeros(2), covariance_matrix=torch.eye(2)).sample(sample_shape=(1024,))
 
 # get grids for contour plots
 linspace = torch.linspace(start=-2, end=2, steps=200)
@@ -737,31 +808,31 @@ for i in range(2):
     objectives_list.append(running_objectives)
 
 # plot the objective function
-_, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 4))
+_, axes = plt.subplots(nrows=1, ncols=2, figsize=(7, 3))
 
 for i in range(2):
     objectives = objectives_list[i]
     kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
     lr = kwargs['lr']
     axes[i].plot(range(len(objectives)), objectives)
-    axes[i].set_xlabel('epochs')
+    axes[i].set_xlabel('gradient steps')
     axes[i].set_ylabel('objective')
-    axes[i].set_title(fr'$\alpha={lr}$')
+    axes[i].set_title(fr'$\alpha={lr}$, $\gamma=1$')
 
 plt.tight_layout()
 ```
 
-Batch GD parameters:
+If we track the parameters $\btheta = (\theta_1,\theta_2)$ during the algorithms, we get the following:
 
 ```{code-cell} ipython3
-:tags: [hide-input, full-width]
+:tags: [hide-input]
 :mystnb:
 :   figure:
 :       align: center
 :   image:
 :       width: 100%
 
-_, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 4))
+_, axes = plt.subplots(nrows=1, ncols=2, figsize=(9, 4.5))
 
 for i in range(2):
     thetas = torch.row_stack(tensors=parameters_list[i]['theta'])
@@ -770,16 +841,35 @@ for i in range(2):
     num_epochs = kwargs['num_epochs']
     axes[i].contour(grid_1, grid_2, z, levels=torch.arange(start=0, end=10, step=0.5), colors=blue, alpha=0.5)
     axes[i].plot(thetas[:, 0], thetas[:, 1], color=magenta)
-    axes[i].scatter(thetas[:, 0], thetas[:, 1], color=magenta, zorder=2)
+    axes[i].scatter(thetas[:, 0], thetas[:, 1], s=30, color=magenta, zorder=2)
     axes[i].scatter(thetas[0, 0], thetas[0, 1], s=100, color=magenta, zorder=2)
-    axes[i].set_title(fr'$\alpha={lr}$, epochs$={num_epochs}$')
+    axes[i].set_title(fr'$\alpha={lr}$, $\gamma=1$, gradient steps$={num_epochs}$')
     axes[i].set_xlabel(r'$\theta_1$')
     axes[i].set_ylabel(r'$\theta_2$')
 
 plt.tight_layout()
 ```
 
-SGD objective function:
+In both cases, notice that the algorithm is nicely converging toward the minimizer at $\btheta^\star \approx (0,0)$.
+
+One of the drawbacks of the batch algorithm is that it needs the _entire_ dataset in order to take a single gradient step. This isn't an issue for our small toy dataset of size $m=1{,}024$, but for the large datasets that you may encounter in the real world, this can be a serious hindrance to fast convergence. These considerations motivate the following:
+
+```{prf:algorithm} Stochastic gradient descent with rate decay
+
+**Input:** A dataset $\bx^{(1)},\ldots,\bx^{(m)}\in \mathbb{R}^n$, a differentiable function $g:\mathbb{R}^{n+k}\to \mathbb{R}$, an initial guess $\btheta\in \mathbb{R}^k$ for a minimizer $\btheta^\star$, a learning rate $\alpha>0$, a decay rate $\gamma \in (0, 1]$, and the number $N$ of epochs.
+
+**Output:** An approximation to a minimizer $\btheta^\star$.
+
+* For $t$ from $1$ to $N$, do:
+    * Shuffle the dataset
+    * For $i$ from $1$ to $m$, do:
+        * $\btheta := \btheta - \alpha\gamma^t \nabla_\btheta g\big(\bx^{(i)}, \btheta\big)^T$
+* Return $\btheta$
+```
+
+
+
+
 
 ```{code-cell} ipython3
 :tags: [hide-input, full-width]
