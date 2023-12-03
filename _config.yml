@@ -18,6 +18,11 @@ latex:
 sphinx:
   extra_extensions:
     - sphinx_proof
+  config:
+    mathjax_config:
+      tex:
+        macros:
+          "btheta": "\\boldsymbol\\theta"
 
 # Add a bibtex file so that we can create citations
 bibtex_bibfiles:
