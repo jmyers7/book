@@ -357,7 +357,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-in-one-variable">10.1. Gradient descent in one variable</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-in-multiple-variables">10.2. Gradient descent in multiple variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-gradient-descent">10.3. Stochastic gradient descent</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-gradient-descent">10.4. Mini-batch gradient descent</a></li>
 </ul>
             </nav>
         </div>
@@ -417,7 +416,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/f16c3906cf1f867778670f471a6d8f38592f6311f1760ede4130e72662035b7a.svg"><img alt="../_images/f16c3906cf1f867778670f471a6d8f38592f6311f1760ede4130e72662035b7a.svg" src="../_images/f16c3906cf1f867778670f471a6d8f38592f6311f1760ede4130e72662035b7a.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/024b585f9ba9178eb338583004720e8e27f57c0bf94a126a76338317b10d25f1.svg"><img alt="../_images/024b585f9ba9178eb338583004720e8e27f57c0bf94a126a76338317b10d25f1.svg" src="../_images/024b585f9ba9178eb338583004720e8e27f57c0bf94a126a76338317b10d25f1.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -426,16 +425,17 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 <div class="proof algorithm admonition" id="algorithm-0">
 <p class="admonition-title"><span class="caption-number">Algorithm 10.1 </span> (Single-variable gradient descent)</p>
 <section class="algorithm-content" id="proof-content">
-<p><strong>Input:</strong> A differentiable objective function <span class="math notranslate nohighlight">\(J:\mathbb{R}\to \mathbb{R}\)</span>, an initial guess <span class="math notranslate nohighlight">\(\theta\in \mathbb{R}\)</span> for a minimizer <span class="math notranslate nohighlight">\(\theta^\star\)</span>, a learning rate <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span>, and the number <span class="math notranslate nohighlight">\(N\)</span> of gradient steps.</p>
+<p><strong>Input:</strong> A differentiable objective function <span class="math notranslate nohighlight">\(J:\mathbb{R}\to \mathbb{R}\)</span>, an initial guess <span class="math notranslate nohighlight">\(\theta_0\in \mathbb{R}\)</span> for a minimizer <span class="math notranslate nohighlight">\(\theta^\star\)</span>, a learning rate <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span>, and the number <span class="math notranslate nohighlight">\(N\)</span> of gradient steps.</p>
 <p><strong>Output:</strong> An approximation to a minimizer <span class="math notranslate nohighlight">\(\theta^\star\)</span>.</p>
-<ol class="arabic simple">
-<li><p>For <span class="math notranslate nohighlight">\(t\)</span> from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(N\)</span>, do:</p>
 <ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\theta := \theta_0\)</span></p></li>
+<li><p>For <span class="math notranslate nohighlight">\(t\)</span> from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(N\)</span>, do:</p>
+<ul>
 <li><p><span class="math notranslate nohighlight">\(\theta := \theta - \alpha J'(\theta)\)</span></p></li>
 </ul>
 </li>
 <li><p>Return <span class="math notranslate nohighlight">\(\theta\)</span>.</p></li>
-</ol>
+</ul>
 </section>
 </div><p>Beginning from an initial guess <span class="math notranslate nohighlight">\(\theta_0\)</span> for a minimizer, the GD algorithm outputs a sequence of approximations <span class="math notranslate nohighlight">\(\theta_1,\theta_2,\ldots,\theta_N\)</span> for a minimizer. The last value <span class="math notranslate nohighlight">\(\theta_N\)</span> in the sequence is taken as the output of the algorithm; if the algorithm converges to a minimizer, then we should have <span class="math notranslate nohighlight">\(\theta_N \approx \theta^\star\)</span>.</p>
 <p>The equation</p>
@@ -485,7 +485,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/2b4d6ba43fcfc081a276b4c8e468e29926eaee0a3c083b021daac68612b7c0f3.svg"><img alt="../_images/2b4d6ba43fcfc081a276b4c8e468e29926eaee0a3c083b021daac68612b7c0f3.svg" src="../_images/2b4d6ba43fcfc081a276b4c8e468e29926eaee0a3c083b021daac68612b7c0f3.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/2dc3348473b7ec4b82e571356d11c9137246d89776bdd969da43c55f82091f40.svg"><img alt="../_images/2dc3348473b7ec4b82e571356d11c9137246d89776bdd969da43c55f82091f40.svg" src="../_images/2dc3348473b7ec4b82e571356d11c9137246d89776bdd969da43c55f82091f40.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -519,7 +519,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># implement the GD algorithm in PyTorch</span>
 <span class="c1"># define the gradient descent function</span>
-<span class="k">def</span> <span class="nf">GD</span><span class="p">(</span><span class="n">init_theta</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">GD</span><span class="p">(</span><span class="n">init_theta</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     
     <span class="c1"># deep copy the initial parameter start tracking gradients</span>
     <span class="n">theta</span> <span class="o">=</span> <span class="n">init_theta</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
@@ -542,7 +542,8 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
         
         <span class="c1"># take a step and update the theta</span>
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-            <span class="n">theta</span> <span class="o">-=</span> <span class="p">(</span><span class="n">decay</span> <span class="o">**</span> <span class="p">(</span><span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">theta</span><span class="o">.</span><span class="n">grad</span>
+            <span class="n">g</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">decay</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">theta</span><span class="o">.</span><span class="n">grad</span>
+            <span class="n">theta</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">g</span>
 
         <span class="c1"># zero out the gradient to prepare for the next iteration</span>
         <span class="n">theta</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
@@ -582,7 +583,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/a49af0eadcad89b5c007e24146372073b20824ad3116d8f1a6001050e62c3ac1.svg"><img alt="../_images/a49af0eadcad89b5c007e24146372073b20824ad3116d8f1a6001050e62c3ac1.svg" src="../_images/a49af0eadcad89b5c007e24146372073b20824ad3116d8f1a6001050e62c3ac1.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/58adcbaa85f4fa5615222108078ca7ef41ab6b93f6e3049a492e6c335352c5da.svg"><img alt="../_images/58adcbaa85f4fa5615222108078ca7ef41ab6b93f6e3049a492e6c335352c5da.svg" src="../_images/58adcbaa85f4fa5615222108078ca7ef41ab6b93f6e3049a492e6c335352c5da.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -621,7 +622,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/78d594bd3a735c2178af435540d539384004183ec942f9043ec71517361f33b4.svg"><img alt="../_images/78d594bd3a735c2178af435540d539384004183ec942f9043ec71517361f33b4.svg" src="../_images/78d594bd3a735c2178af435540d539384004183ec942f9043ec71517361f33b4.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/25216e30d0d694c23ce1843a73140833ad99156f7e3eecbef1c27ac77522d2b1.svg"><img alt="../_images/25216e30d0d694c23ce1843a73140833ad99156f7e3eecbef1c27ac77522d2b1.svg" src="../_images/25216e30d0d694c23ce1843a73140833ad99156f7e3eecbef1c27ac77522d2b1.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -629,18 +630,19 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 <div class="proof algorithm admonition" id="algorithm-2">
 <p class="admonition-title"><span class="caption-number">Algorithm 10.2 </span> (Single-variable gradient descent with rate decay)</p>
 <section class="algorithm-content" id="proof-content">
-<p><strong>Input:</strong> A differentiable objective function <span class="math notranslate nohighlight">\(J:\mathbb{R}\to \mathbb{R}\)</span>, an initial guess <span class="math notranslate nohighlight">\(\theta\in \mathbb{R}\)</span> for a minimizer <span class="math notranslate nohighlight">\(\theta^\star\)</span>, a learning rate <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span>, a decay rate <span class="math notranslate nohighlight">\(\gamma \in (0, 1]\)</span>, and the number <span class="math notranslate nohighlight">\(N\)</span> of gradient steps.</p>
+<p><strong>Input:</strong> A differentiable objective function <span class="math notranslate nohighlight">\(J:\mathbb{R}\to \mathbb{R}\)</span>, an initial guess <span class="math notranslate nohighlight">\(\theta_0\in \mathbb{R}\)</span> for a minimizer <span class="math notranslate nohighlight">\(\theta^\star\)</span>, a learning rate <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span>, a decay rate <span class="math notranslate nohighlight">\(\gamma \in [0, 1)\)</span>, and the number <span class="math notranslate nohighlight">\(N\)</span> of gradient steps.</p>
 <p><strong>Output:</strong> An approximation to a minimizer <span class="math notranslate nohighlight">\(\theta^\star\)</span>.</p>
-<ol class="arabic simple">
-<li><p>For <span class="math notranslate nohighlight">\(t\)</span> from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(N\)</span>, do:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\theta := \theta - \alpha\gamma^t J'(\theta)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta := \theta_0\)</span></p></li>
+<li><p>For <span class="math notranslate nohighlight">\(t\)</span> from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(N\)</span>, do:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\theta := \theta - \alpha (1 - \gamma)^t J'(\theta)\)</span></p></li>
 </ul>
 </li>
 <li><p>Return <span class="math notranslate nohighlight">\(\theta\)</span>.</p></li>
-</ol>
+</ul>
 </section>
-</div><p>While there are many ways to shrink the learning rate during gradient descent, the simple version in this implementation multiplies the scaled derivative <span class="math notranslate nohighlight">\(\alpha J'(\theta_{t-1})\)</span> by a factor <span class="math notranslate nohighlight">\(\gamma^t \in (0,1]\)</span> called the <em>decay rate</em>. Setting <span class="math notranslate nohighlight">\(\gamma=1\)</span> results in <em>no</em> rate decay. In our diverging example above, setting <span class="math notranslate nohighlight">\(\gamma=0.9\)</span> results in:</p>
+</div><p>While there are many ways to shrink the learning rate during gradient descent, the simple version in this implementation multiplies the derivative <span class="math notranslate nohighlight">\(J'(\theta_{t-1})\)</span> by a factor <span class="math notranslate nohighlight">\((1-\gamma)^t \in (0,1]\)</span>. Setting <span class="math notranslate nohighlight">\(\gamma=0\)</span> results in <em>no</em> rate decay. In our diverging example above, setting <span class="math notranslate nohighlight">\(\gamma=0.1\)</span> results in:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -652,7 +654,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
                  <span class="s1">&#39;num_steps&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
                  <span class="s1">&#39;lr&#39;</span><span class="p">:</span> <span class="mf">2e-1</span><span class="p">,}</span>
 
-<span class="n">running_thetas</span><span class="p">,</span> <span class="n">running_objectives</span> <span class="o">=</span> <span class="n">GD</span><span class="p">(</span><span class="o">**</span><span class="n">gd_parameters</span><span class="p">,</span> <span class="n">J</span><span class="o">=</span><span class="n">J</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">running_thetas</span><span class="p">,</span> <span class="n">running_objectives</span> <span class="o">=</span> <span class="n">GD</span><span class="p">(</span><span class="o">**</span><span class="n">gd_parameters</span><span class="p">,</span> <span class="n">J</span><span class="o">=</span><span class="n">J</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 
 <span class="n">grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">J</span><span class="p">(</span><span class="n">grid</span><span class="p">))</span>
@@ -669,7 +671,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/9a04af710796015abfb374f693125cd597537fa9e4efe493ec5582872b75e00f.svg"><img alt="../_images/9a04af710796015abfb374f693125cd597537fa9e4efe493ec5582872b75e00f.svg" src="../_images/9a04af710796015abfb374f693125cd597537fa9e4efe493ec5582872b75e00f.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/9e167b727e6096073858b5bcd8b3587e3070597de3890451c5a4c64ac9d33071.svg"><img alt="../_images/9e167b727e6096073858b5bcd8b3587e3070597de3890451c5a4c64ac9d33071.svg" src="../_images/9e167b727e6096073858b5bcd8b3587e3070597de3890451c5a4c64ac9d33071.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -677,12 +679,12 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 <p>The learning rate <span class="math notranslate nohighlight">\(\alpha\)</span> and the decay rate <span class="math notranslate nohighlight">\(\gamma\)</span> are often chosen by experimentation.</p>
 <div class="admonition-tip admonition">
 <p class="admonition-title">Tip</p>
-<p>When using the gradient descent algorithm to solve an optimization problem, try beginning with a learning and decay rate around <span class="math notranslate nohighlight">\(\alpha \approx 0.01\)</span> and <span class="math notranslate nohighlight">\(\gamma \approx 0.9\)</span>, respectively.</p>
+<p>When using the gradient descent algorithm to solve an optimization problem, try beginning with a learning and decay rate around <span class="math notranslate nohighlight">\(\alpha \approx 0.01\)</span> and <span class="math notranslate nohighlight">\(\gamma \approx 0.1\)</span>, respectively.</p>
 </div>
 <p>These values may be tuned by the analyst by closely monitoring the values of the objective function <span class="math notranslate nohighlight">\(J(\theta)\)</span> as the algorithm runs. This is easy in the single-variable case, since one can plot the graph of <span class="math notranslate nohighlight">\(J(\theta)\)</span>. In the multi-variable case, however, the graph of <span class="math notranslate nohighlight">\(J(\theta)\)</span> may live in many more dimensions than we can visualize, so the analyst might track the values of the objective function against the number of gradient steps. For example, with our polynomial objective function <span class="math notranslate nohighlight">\(J(\theta)\)</span> from above and</p>
 <div class="math notranslate nohighlight">
 \[
-\theta_0 = -0.5, \quad \alpha = 0.01, \quad \gamma = 0.9,
+\theta_0 = -0.5, \quad \alpha = 0.01, \quad \gamma = 0.1,
 \]</div>
 <p>we would plot the following:</p>
 <div class="cell tag_hide-input docutils container">
@@ -696,7 +698,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
                  <span class="s1">&#39;num_steps&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
                  <span class="s1">&#39;lr&#39;</span><span class="p">:</span> <span class="mf">1e-2</span><span class="p">,}</span>
 
-<span class="n">running_thetas</span><span class="p">,</span> <span class="n">running_objectives</span> <span class="o">=</span> <span class="n">GD</span><span class="p">(</span><span class="o">**</span><span class="n">gd_parameters</span><span class="p">,</span> <span class="n">J</span><span class="o">=</span><span class="n">J</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">running_thetas</span><span class="p">,</span> <span class="n">running_objectives</span> <span class="o">=</span> <span class="n">GD</span><span class="p">(</span><span class="o">**</span><span class="n">gd_parameters</span><span class="p">,</span> <span class="n">J</span><span class="o">=</span><span class="n">J</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">running_objectives</span><span class="p">)),</span> <span class="n">running_objectives</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;gradient steps&#39;</span><span class="p">)</span>
@@ -709,7 +711,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/a0e87453332b0cf3f6a34f6f616cc44641ec3dfd2a9e736557d4337c82553512.svg"><img alt="../_images/a0e87453332b0cf3f6a34f6f616cc44641ec3dfd2a9e736557d4337c82553512.svg" src="../_images/a0e87453332b0cf3f6a34f6f616cc44641ec3dfd2a9e736557d4337c82553512.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/cc935e3b3131ea012373ab5bd6f3f9c99d05dfd819dd51bb7fabf9596960806b.svg"><img alt="../_images/cc935e3b3131ea012373ab5bd6f3f9c99d05dfd819dd51bb7fabf9596960806b.svg" src="../_images/cc935e3b3131ea012373ab5bd6f3f9c99d05dfd819dd51bb7fabf9596960806b.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -754,16 +756,17 @@ J(\btheta^\star) \leq J(\btheta)
 <div class="proof algorithm admonition" id="algorithm-4">
 <p class="admonition-title"><span class="caption-number">Algorithm 10.3 </span> (Multi-variable gradient descent with rate decay)</p>
 <section class="algorithm-content" id="proof-content">
-<p><strong>Input:</strong> A differentiable objective function <span class="math notranslate nohighlight">\(J:\mathbb{R}^n\to \mathbb{R}\)</span>, an initial guess <span class="math notranslate nohighlight">\(\btheta\in \mathbb{R}^n\)</span> for a minimizer <span class="math notranslate nohighlight">\(\btheta^\star\)</span>, a learning rate <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span>, a decay rate <span class="math notranslate nohighlight">\(\gamma \in (0, 1]\)</span>, and the number <span class="math notranslate nohighlight">\(N\)</span> of gradient steps.</p>
+<p><strong>Input:</strong> A differentiable objective function <span class="math notranslate nohighlight">\(J:\mathbb{R}^n\to \mathbb{R}\)</span>, an initial guess <span class="math notranslate nohighlight">\(\btheta_0\in \mathbb{R}^n\)</span> for a minimizer <span class="math notranslate nohighlight">\(\btheta^\star\)</span>, a learning rate <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span>, a decay rate <span class="math notranslate nohighlight">\(\gamma \in [0, 1)\)</span>, and the number <span class="math notranslate nohighlight">\(N\)</span> of gradient steps.</p>
 <p><strong>Output:</strong> An approximation to a minimizer <span class="math notranslate nohighlight">\(\btheta^\star\)</span>.</p>
-<ol class="arabic simple">
-<li><p>For <span class="math notranslate nohighlight">\(t\)</span> from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(N\)</span>, do:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\btheta := \btheta - \alpha\gamma^t \nabla J(\btheta)^T\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\btheta := \btheta_0\)</span></p></li>
+<li><p>For <span class="math notranslate nohighlight">\(t\)</span> from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(N\)</span>, do:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\btheta := \btheta - \alpha(1-\gamma)^t \nabla J(\btheta)^T\)</span></p></li>
 </ul>
 </li>
 <li><p>Return <span class="math notranslate nohighlight">\(\btheta\)</span>.</p></li>
-</ol>
+</ul>
 </section>
 </div><p>Remember, we are viewing the input vector <span class="math notranslate nohighlight">\(\btheta\)</span> as column vector and the gradient <span class="math notranslate nohighlight">\(\nabla J(\btheta)\)</span> as a row vector; this accounts for the transpose in the update rule. Notice that this algorithm specializes to its single-variable cousin in the case <span class="math notranslate nohighlight">\(n=1\)</span> since <span class="math notranslate nohighlight">\(J'(\theta) = \nabla J(\theta)\)</span> when <span class="math notranslate nohighlight">\(\theta \in \mathbb{R}\)</span>.</p>
 <p>For an example, let’s consider the polynomial objective function</p>
@@ -807,7 +810,7 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/cb5549ed89dda52733bb11a7c1684b139c0bcae8c80767a1f63ed64fc24b5b19.svg"><img alt="../_images/cb5549ed89dda52733bb11a7c1684b139c0bcae8c80767a1f63ed64fc24b5b19.svg" src="../_images/cb5549ed89dda52733bb11a7c1684b139c0bcae8c80767a1f63ed64fc24b5b19.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/3583ac2eeb44d6e34dc0f48872cdcfad18dfadfb5207d40e2be050c2f3adaff1.svg"><img alt="../_images/3583ac2eeb44d6e34dc0f48872cdcfad18dfadfb5207d40e2be050c2f3adaff1.svg" src="../_images/3583ac2eeb44d6e34dc0f48872cdcfad18dfadfb5207d40e2be050c2f3adaff1.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -854,7 +857,7 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">thetas</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">thetas</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_1$&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_2$&#39;</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, $\gamma=1$, $N=</span><span class="si">{</span><span class="n">num_steps</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, $\gamma=0$, $N=</span><span class="si">{</span><span class="n">num_steps</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -862,12 +865,12 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/37a2152fe01ebb009fee176f0f6c631111c86f48297a6a8a5221ebbc5ee8896e.svg"><img alt="../_images/37a2152fe01ebb009fee176f0f6c631111c86f48297a6a8a5221ebbc5ee8896e.svg" src="../_images/37a2152fe01ebb009fee176f0f6c631111c86f48297a6a8a5221ebbc5ee8896e.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/2deeba85b507d2ee423071d7d9faf39153cb2c5c1c9bf2f66a288e7976df34a6.svg"><img alt="../_images/2deeba85b507d2ee423071d7d9faf39153cb2c5c1c9bf2f66a288e7976df34a6.svg" src="../_images/2deeba85b507d2ee423071d7d9faf39153cb2c5c1c9bf2f66a288e7976df34a6.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
 <p>The large magenta dots in the plots indicate the initial guesses <span class="math notranslate nohighlight">\(\btheta_0\)</span>, while the smaller dots indicate the approximations <span class="math notranslate nohighlight">\(\btheta_t\)</span> for <span class="math notranslate nohighlight">\(t&gt;0\)</span>. The algorithm appears to be converging nicely to the minimizer <span class="math notranslate nohighlight">\(\btheta^\star = (1,1)\)</span> in the upper-left plot; notice that the learning rate <span class="math notranslate nohighlight">\(\alpha = 0.005\)</span> is quite small. In the other three plots, the algorithm finds a neighborhood of a minimizer, but then oscillates back and forth and never appears to settle on the minimizer; this is due to the larger learning rate at <span class="math notranslate nohighlight">\(\alpha=0.01\)</span>.</p>
-<p>We may dampen these oscillations and encourage the algorithm to converge by adding learning rate decay. Here are four plots with the same initial values and learning rates, but with <span class="math notranslate nohighlight">\(\gamma = 0.95\)</span> and <span class="math notranslate nohighlight">\(N\)</span> increased to <span class="math notranslate nohighlight">\(40\)</span> to account for the learning rate decay:</p>
+<p>We may dampen these oscillations and encourage the algorithm to converge by adding learning rate decay. Here are four plots with the same initial values and learning rates, but with <span class="math notranslate nohighlight">\(\gamma = 0.05\)</span> and <span class="math notranslate nohighlight">\(N\)</span> increased to <span class="math notranslate nohighlight">\(40\)</span> to account for the learning rate decay:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -890,7 +893,7 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 <span class="c1"># run gradient descent and plot</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">gd_parameters</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">gd_parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
-    <span class="n">running_thetas</span><span class="p">,</span> <span class="n">running_objectives</span> <span class="o">=</span> <span class="n">GD</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">J</span><span class="o">=</span><span class="n">J</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+    <span class="n">running_thetas</span><span class="p">,</span> <span class="n">running_objectives</span> <span class="o">=</span> <span class="n">GD</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">J</span><span class="o">=</span><span class="n">J</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="n">axes_idx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
     <span class="n">thetas</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">row_stack</span><span class="p">(</span><span class="n">tensors</span><span class="o">=</span><span class="n">running_thetas</span><span class="p">)</span>
     <span class="n">lr</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">]</span>
@@ -900,7 +903,7 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">thetas</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">thetas</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_1$&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_2$&#39;</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, $\gamma=0.95$, $N=</span><span class="si">{</span><span class="n">num_steps</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, $\gamma=0.05$, $N=</span><span class="si">{</span><span class="n">num_steps</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -908,7 +911,7 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/22826e7a7a4c37e1a5d4e201b44dfd23c85b2de6e1900bdb58a76475cd646c90.svg"><img alt="../_images/22826e7a7a4c37e1a5d4e201b44dfd23c85b2de6e1900bdb58a76475cd646c90.svg" src="../_images/22826e7a7a4c37e1a5d4e201b44dfd23c85b2de6e1900bdb58a76475cd646c90.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/c2954609b6ed3ad049319dfd9d8cfca6ee1bf295f8f371c0f56e57c16ee6b4fb.svg"><img alt="../_images/c2954609b6ed3ad049319dfd9d8cfca6ee1bf295f8f371c0f56e57c16ee6b4fb.svg" src="../_images/c2954609b6ed3ad049319dfd9d8cfca6ee1bf295f8f371c0f56e57c16ee6b4fb.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -932,14 +935,14 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">gd_parameters</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">gd_parameters</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">running_objectives</span> <span class="o">=</span> <span class="n">GD</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">J</span><span class="o">=</span><span class="n">J</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">running_objectives</span> <span class="o">=</span> <span class="n">GD</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">J</span><span class="o">=</span><span class="n">J</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="n">axes_idx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
     <span class="n">lr</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">]</span>
     <span class="n">num_steps</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;num_steps&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">running_objectives</span><span class="p">)),</span> <span class="n">running_objectives</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;gradient steps&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;objective&#39;</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, $\gamma=0.95$, $N=</span><span class="si">{</span><span class="n">num_steps</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, $\gamma=0.05$, $N=</span><span class="si">{</span><span class="n">num_steps</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -947,7 +950,7 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/4169f95364773e8cf67cb7605b2eb9bab8adc19c4cb6d44704a613f1da59a377.svg"><img alt="../_images/4169f95364773e8cf67cb7605b2eb9bab8adc19c4cb6d44704a613f1da59a377.svg" src="../_images/4169f95364773e8cf67cb7605b2eb9bab8adc19c4cb6d44704a613f1da59a377.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/4451e40a0c68f898c3eb01f9ba6836e7e8c9c8fc68de1aac8da8be1fcfceae49.svg"><img alt="../_images/4451e40a0c68f898c3eb01f9ba6836e7e8c9c8fc68de1aac8da8be1fcfceae49.svg" src="../_images/4451e40a0c68f898c3eb01f9ba6836e7e8c9c8fc68de1aac8da8be1fcfceae49.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -982,10 +985,8 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g\big(\mathbf{x}^{(i)}; \btheta \big).
 <p>The <em>batch gradient descent algorithm</em> is the gradient descent algorithm applied to a stochastic objective function of the form <a class="reference internal" href="#equation-batch-eqn">(10.9)</a>.</p>
 </section>
 </div><p>Let’s take a look at a simple example. Suppose that we define</p>
-<div class="math notranslate nohighlight">
-\[
-g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
-\]</div>
+<div class="math notranslate nohighlight" id="equation-quadratic-eqn">
+<span class="eqno">(10.10)<a class="headerlink" href="#equation-quadratic-eqn" title="Permalink to this equation">#</a></span>\[g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,\]</div>
 <p>where <span class="math notranslate nohighlight">\(\bx,\btheta\in \bbr^2\)</span> and the vertical bars represent the usual Euclidean norm. We create a bivariate dataset by drawing a random sample of size <span class="math notranslate nohighlight">\(1{,}024\)</span> drawn from a <span class="math notranslate nohighlight">\(\mathcal{N}_2(\boldsymbol0,I)\)</span> distribution. A scatter plot of the dataset looks like this:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1008,7 +1009,7 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/472e12aed6df1e72ed5683023c02d28a90934458bee8405df594b54a96251a90.svg"><img alt="../_images/472e12aed6df1e72ed5683023c02d28a90934458bee8405df594b54a96251a90.svg" src="../_images/472e12aed6df1e72ed5683023c02d28a90934458bee8405df594b54a96251a90.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/62045ca8c191a3c28dfbb2bf99e3d51f585fe3cca38d78a9067672e6624fdd91.svg"><img alt="../_images/62045ca8c191a3c28dfbb2bf99e3d51f585fe3cca38d78a9067672e6624fdd91.svg" src="../_images/62045ca8c191a3c28dfbb2bf99e3d51f585fe3cca38d78a9067672e6624fdd91.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1021,7 +1022,7 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># implement the SGD algorithm in PyTorch</span>
-<span class="k">def</span> <span class="nf">SGD</span><span class="p">(</span><span class="n">init_parameters</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">tracking</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_steps</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">SGD</span><span class="p">(</span><span class="n">init_parameters</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">tracking</span><span class="p">,</span> <span class="n">decay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_steps</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     
     <span class="c1"># deep copy the initial parameters into a parameter dictionary and start tracking gradients</span>
     <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">parameter</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">init_parameters</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
@@ -1062,7 +1063,7 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
             <span class="c1"># take a gradient step and update the parameters</span>
             <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
                 <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                    <span class="n">parameter</span> <span class="o">-=</span> <span class="p">(</span><span class="n">decay</span> <span class="o">**</span> <span class="p">(</span><span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">parameter</span><span class="o">.</span><span class="n">grad</span>
+                    <span class="n">parameter</span> <span class="o">-=</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">decay</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">parameter</span><span class="o">.</span><span class="n">grad</span>
             
             <span class="c1"># zero out the gradients to prepare for the next iteration</span>
             <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
@@ -1135,7 +1136,6 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
                                                  <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;gd_step&#39;</span><span class="p">,</span>
                                                  <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
                                                  <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
-                                                 <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                                  <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">parameters_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">running_parameters</span><span class="p">)</span>
     <span class="n">objectives_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">running_objectives</span><span class="p">)</span>
@@ -1150,7 +1150,7 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">objectives</span><span class="p">)),</span> <span class="n">objectives</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;gradient steps&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;objective&#39;</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, $\gamma=1$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, $\gamma=0$&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
@@ -1159,11 +1159,11 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/6061b55466ffee24a8226cfec560c5ee3942d20b4bcc7f7c54115f142e2a6d36.svg"><img alt="../_images/6061b55466ffee24a8226cfec560c5ee3942d20b4bcc7f7c54115f142e2a6d36.svg" src="../_images/6061b55466ffee24a8226cfec560c5ee3942d20b4bcc7f7c54115f142e2a6d36.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/ea2a2b385fac5f0d64f3c15bf1b9c34a9b2d6ea7a4ba5cbbd635018e2c8fda5c.svg"><img alt="../_images/ea2a2b385fac5f0d64f3c15bf1b9c34a9b2d6ea7a4ba5cbbd635018e2c8fda5c.svg" src="../_images/ea2a2b385fac5f0d64f3c15bf1b9c34a9b2d6ea7a4ba5cbbd635018e2c8fda5c.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
-<p>If we track the parameters <span class="math notranslate nohighlight">\(\btheta = (\theta_1,\theta_2)\)</span> during the algorithms, we get the following:</p>
+<p>If we track the parameters <span class="math notranslate nohighlight">\(\btheta = (\theta_1,\theta_2)\)</span> during the runs, we get the following:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1182,7 +1182,7 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thetas</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">thetas</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">thetas</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">thetas</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">thetas</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">thetas</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, $\gamma=1$, gradient steps$=</span><span class="si">{</span><span class="n">num_epochs</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, $\gamma=0$, gradient steps$=</span><span class="si">{</span><span class="n">num_epochs</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_1$&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_2$&#39;</span><span class="p">)</span>
 
@@ -1193,32 +1193,48 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/13cc41ca671e4990e5391966c4a1d1288d012741cbd195bc768f0d5fd14e575d.svg"><img alt="../_images/13cc41ca671e4990e5391966c4a1d1288d012741cbd195bc768f0d5fd14e575d.svg" src="../_images/13cc41ca671e4990e5391966c4a1d1288d012741cbd195bc768f0d5fd14e575d.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/850f9aa3eb4068adcb5fed49eaceb6d88d5d5be6ba9678e72552d9096b302a5c.svg"><img alt="../_images/850f9aa3eb4068adcb5fed49eaceb6d88d5d5be6ba9678e72552d9096b302a5c.svg" src="../_images/850f9aa3eb4068adcb5fed49eaceb6d88d5d5be6ba9678e72552d9096b302a5c.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
 <p>In both cases, notice that the algorithm is nicely converging toward the minimizer at <span class="math notranslate nohighlight">\(\btheta^\star \approx (0,0)\)</span>.</p>
-<p>One of the drawbacks of the batch algorithm is that it needs the <em>entire</em> dataset in order to take a single gradient step. This isn’t an issue for our small toy dataset of size <span class="math notranslate nohighlight">\(m=1{,}024\)</span>, but for the large datasets that you may encounter in the real world, this can be a serious hindrance to fast convergence. These considerations motivate the following:</p>
-<div class="proof algorithm admonition" id="algorithm-6">
+<p>One of the drawbacks of the batch algorithm is that it needs the <em>entire</em> dataset in order to take just a single gradient step. This isn’t an issue for our small toy dataset of size <span class="math notranslate nohighlight">\(m=1{,}024\)</span>, but for the large datasets that you may encounter in the real world, this can be a serious hindrance to fast convergence.</p>
+<p>One method for dealing with this bottleneck is to use <em>mini-batches</em> of the data to compute gradient steps. To do so, we begin by randomly partitioning the dataset into subsets <span class="math notranslate nohighlight">\(B_1,B_2,\ldots,B_\ell\)</span> called <em>mini-batches</em>:</p>
+<div class="math notranslate nohighlight" id="equation-mini-batch-eqn">
+<span class="eqno">(10.11)<a class="headerlink" href="#equation-mini-batch-eqn" title="Permalink to this equation">#</a></span>\[B_1 \cup B_2 \cup \cdots \cup B_p = \{\bx^{(1)},\bx^{(2)},\ldots,\bx^{(m)}\}.\]</div>
+<p>Supposing that the <span class="math notranslate nohighlight">\(j\)</span>-th mini-batch <span class="math notranslate nohighlight">\(B_j\)</span> has size <span class="math notranslate nohighlight">\(\ell_j\)</span>, we would then expect from <a class="reference internal" href="#equation-batch-eqn">(10.9)</a> that</p>
+<div class="math notranslate nohighlight" id="equation-mini-batch-grad-eqn">
+<span class="eqno">(10.12)<a class="headerlink" href="#equation-mini-batch-grad-eqn" title="Permalink to this equation">#</a></span>\[\nabla J(\btheta) \approx \frac{1}{\ell_j} \sum_{x^{(i)} \in B_j} \nabla_\btheta g\big(\bx^{(i)}; \btheta\big).\]</div>
+<p>Very often, the mini-batch sizes <span class="math notranslate nohighlight">\(\ell_1,\ell_2,\ldots,\ell_p\)</span> are chosen to be equal to a common value <span class="math notranslate nohighlight">\(\ell\)</span>, except (possibly) for one to compensate for the fact that <span class="math notranslate nohighlight">\(m\)</span> may not be evenly divisible by <span class="math notranslate nohighlight">\(\ell\)</span>. For example, if <span class="math notranslate nohighlight">\(m=100\)</span> and <span class="math notranslate nohighlight">\(\ell=30\)</span>, then we would have four mini-batches, three of size <span class="math notranslate nohighlight">\(\ell=30\)</span> and the fourth of size <span class="math notranslate nohighlight">\(10\)</span>.</p>
+<p>As you are about to see, the mini-batch version of the GD algorithm loops over the mini-batches <a class="reference internal" href="#equation-mini-batch-eqn">(10.11)</a> and computes gradient steps as in <a class="reference internal" href="#equation-mini-batch-grad-eqn">(10.12)</a>. A single loop through <em>all</em> the mini-batches, covering the <em>entire</em> dataset, is called an <em>epoch</em>. As the vanilla version of the GD algorithm takes the number of gradient steps as a parameter, the new version of the algorithm takes the number of epochs as a parameter. This new version is called the <em>stochastic gradient descent (SGD) algorithm</em>:</p>
+<div class="proof algorithm admonition" id="sgd-alg">
 <p class="admonition-title"><span class="caption-number">Algorithm 10.4 </span> (Stochastic gradient descent with rate decay)</p>
 <section class="algorithm-content" id="proof-content">
-<p><strong>Input:</strong> A dataset <span class="math notranslate nohighlight">\(\bx^{(1)},\ldots,\bx^{(m)}\in \mathbb{R}^n\)</span>, a differentiable function <span class="math notranslate nohighlight">\(g:\mathbb{R}^{n+k}\to \mathbb{R}\)</span>, an initial guess <span class="math notranslate nohighlight">\(\btheta\in \mathbb{R}^k\)</span> for a minimizer <span class="math notranslate nohighlight">\(\btheta^\star\)</span>, a learning rate <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span>, a decay rate <span class="math notranslate nohighlight">\(\gamma \in (0, 1]\)</span>, and the number <span class="math notranslate nohighlight">\(N\)</span> of epochs.</p>
+<p><strong>Input:</strong> A dataset <span class="math notranslate nohighlight">\(\bx^{(1)},\ldots,\bx^{(m)}\in \mathbb{R}^n\)</span>, a stochastic objective function</p>
+<div class="math notranslate nohighlight">
+\[
+J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx^{(i)};\btheta \big), \quad \btheta \in \mathbb{R}^n,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(g:\mathbb{R}^{n+k}\to \mathbb{R}\)</span> is a differentiable function, an initial guess <span class="math notranslate nohighlight">\(\btheta_0\in \mathbb{R}^k\)</span> for a minimizer <span class="math notranslate nohighlight">\(\btheta^\star\)</span> of <span class="math notranslate nohighlight">\(J\)</span>, a learning rate <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span>, a decay rate <span class="math notranslate nohighlight">\(\gamma \in [0, 1)\)</span>, a mini-batch size <span class="math notranslate nohighlight">\(\ell\)</span>, and the number <span class="math notranslate nohighlight">\(N\)</span> of epochs.</p>
 <p><strong>Output:</strong> An approximation to a minimizer <span class="math notranslate nohighlight">\(\btheta^\star\)</span>.</p>
 <ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\btheta := \btheta_0\)</span></p></li>
 <li><p>For <span class="math notranslate nohighlight">\(t\)</span> from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(N\)</span>, do:</p>
 <ul>
-<li><p>Shuffle the dataset</p></li>
-<li><p>For <span class="math notranslate nohighlight">\(i\)</span> from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(m\)</span>, do:</p>
+<li><p>Randomly partition the dataset into mini-batches <a class="reference internal" href="#equation-mini-batch-eqn">(10.11)</a> of size <span class="math notranslate nohighlight">\(\ell\)</span>.</p></li>
+<li><p>For each mini-batch <span class="math notranslate nohighlight">\(B_j\)</span>, do:</p>
 <ul>
-<li><p><span class="math notranslate nohighlight">\(\btheta := \btheta - \alpha\gamma^t \nabla_\btheta g\big(\bx^{(i)}, \btheta\big)^T\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\btheta := \btheta - \frac{\alpha(1-\gamma)^t}{\ell} \sum_{x^{(i)} \in B_j} \nabla_\btheta g\big(\bx^{(i)}; \btheta\big)^T\)</span></p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>Return <span class="math notranslate nohighlight">\(\btheta\)</span></p></li>
+<li><p>Return <span class="math notranslate nohighlight">\(\btheta\)</span>.</p></li>
 </ul>
 </section>
-</div><div class="cell tag_hide-input tag_full-width docutils container">
+</div><p>Notice that the dataset is randomly partitioned into mini-batches inside each iteration of the per-epoch <code class="docutils literal notranslate"><span class="pre">for</span></code> loop; and remember that there may be one mini-batch of size <span class="math notranslate nohighlight">\(\neq \ell\)</span> if the size of the dataset <span class="math notranslate nohighlight">\(m\)</span> is not divisible by <span class="math notranslate nohighlight">\(\ell\)</span>.</p>
+<p>It is possible to select a mini-batch size of <span class="math notranslate nohighlight">\(\ell=1\)</span>, so that the algorithm computes a gradient step per data point. Some references refer to this algorithm as just <em>stochastic gradient descent</em>. In our example <a class="reference internal" href="#equation-quadratic-eqn">(10.10)</a> from above, a step size of <span class="math notranslate nohighlight">\(\ell=1\)</span> yields the following plots of objective values versus gradient steps:</p>
+<div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
 <span class="collapsed">Show code cell source</span>
@@ -1245,13 +1261,12 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
                                                  <span class="n">num_epochs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                                                  <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
                                                  <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
-                                                 <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                                  <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">parameters_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">running_parameters</span><span class="p">)</span>
     <span class="n">objectives_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">running_objectives</span><span class="p">)</span>
 
 <span class="c1"># plot the objective function</span>
-<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="n">axes_idx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -1261,7 +1276,7 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">objectives</span><span class="p">)),</span> <span class="n">objectives</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;gradient steps&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;objective&#39;</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, $\gamma=0$&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
@@ -1270,19 +1285,19 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/96225a4be66ff40869cef8dc49e730e54dd1690c313e34a9c3f5c32f2b5f57be.svg"><img alt="../_images/96225a4be66ff40869cef8dc49e730e54dd1690c313e34a9c3f5c32f2b5f57be.svg" src="../_images/96225a4be66ff40869cef8dc49e730e54dd1690c313e34a9c3f5c32f2b5f57be.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/a38c5f2c9aa5b9fadbe7144ce83af73657e75a7a117d794e99baac1ba71ca710.svg"><img alt="../_images/a38c5f2c9aa5b9fadbe7144ce83af73657e75a7a117d794e99baac1ba71ca710.svg" src="../_images/a38c5f2c9aa5b9fadbe7144ce83af73657e75a7a117d794e99baac1ba71ca710.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
-<p>SGD parameters:</p>
-<div class="cell tag_hide-input tag_full-width docutils container">
+<p>The plots are very noisy, especially for large numbers of gradient steps. However, a slight downward trend in objective values is detectable, indicating that the algorithm is locating the minimizer. The trace of the algorithm through parameter space is shown in:</p>
+<div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
 <span class="collapsed">Show code cell source</span>
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="n">axes_idx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -1292,9 +1307,9 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
     <span class="n">max_steps</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;max_steps&#39;</span><span class="p">]</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">grid_1</span><span class="p">,</span> <span class="n">grid_2</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">colors</span><span class="o">=</span><span class="n">blue</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thetas</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">thetas</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">thetas</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">thetas</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">thetas</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">thetas</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">thetas</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">thetas</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, gradient steps$=</span><span class="si">{</span><span class="n">max_steps</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, $\gamma=0$, gradient steps$=</span><span class="si">{</span><span class="n">max_steps</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_1$&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_2$&#39;</span><span class="p">)</span>
 
@@ -1305,15 +1320,12 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/474db4e8bca8b8beeb790730d8f0978b642494fee09668fca672c721212d634d.svg"><img alt="../_images/474db4e8bca8b8beeb790730d8f0978b642494fee09668fca672c721212d634d.svg" src="../_images/474db4e8bca8b8beeb790730d8f0978b642494fee09668fca672c721212d634d.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/ba7f46173545fc9ffc9b9be68371e5c0d1fdfae00c8bf5195a43b36647b3c64a.svg"><img alt="../_images/ba7f46173545fc9ffc9b9be68371e5c0d1fdfae00c8bf5195a43b36647b3c64a.svg" src="../_images/ba7f46173545fc9ffc9b9be68371e5c0d1fdfae00c8bf5195a43b36647b3c64a.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
-</section>
-<section id="mini-batch-gradient-descent">
-<h2><span class="section-number">10.4. </span>Mini-batch gradient descent<a class="headerlink" href="#mini-batch-gradient-descent" title="Permalink to this heading">#</a></h2>
-<p>Mini-batch GD objective function:</p>
-<div class="cell tag_hide-input tag_full-width docutils container">
+<p>The traces are very noisy, especially in the first row with the large learning rate <span class="math notranslate nohighlight">\(\alpha=0.1\)</span>. Nevertheless, it is clear that the algorithm has found the neighborhood of the minimizer at <span class="math notranslate nohighlight">\((0,0)\)</span>. We might try to tame the noise in these plots by increasing the decay rate, but according to our implementation, that would be equivalent to simply decreasing the learning rate since none of these four runs of the algorithm completes a full epoch. Indeed, notice that the power <span class="math notranslate nohighlight">\(t\)</span> in the expression <span class="math notranslate nohighlight">\((1-\gamma)^t\)</span> in the <a class="reference internal" href="#sgd-alg">statement</a> of the algorithm counts the number of epochs.</p>
+<div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
 <span class="collapsed">Show code cell source</span>
@@ -1338,13 +1350,12 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
                              <span class="n">J</span><span class="o">=</span><span class="n">J</span><span class="p">,</span>
                              <span class="n">tracking</span><span class="o">=</span><span class="s1">&#39;gd_step&#39;</span><span class="p">,</span>
                              <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
-                             <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                              <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">parameters_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">running_parameters</span><span class="p">)</span>
     <span class="n">objectives_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">running_objectives</span><span class="p">)</span>
 
 <span class="c1"># plot the objective function</span>
-<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="n">axes_idx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -1355,7 +1366,7 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">objectives</span><span class="p">)),</span> <span class="n">objectives</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;gradient steps&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;objective&#39;</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;mini-batch size$=</span><span class="si">{</span><span class="n">batch_size</span><span class="si">}</span><span class="s1">$, $\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\ell=</span><span class="si">{</span><span class="n">batch_size</span><span class="si">}</span><span class="s1">$, $\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, $\gamma=0$&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
@@ -1364,19 +1375,19 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/8b14e0b5e09af6b8764c4f26017b29f5a6b711ea7acabfcef1037674b4f2c310.svg"><img alt="../_images/8b14e0b5e09af6b8764c4f26017b29f5a6b711ea7acabfcef1037674b4f2c310.svg" src="../_images/8b14e0b5e09af6b8764c4f26017b29f5a6b711ea7acabfcef1037674b4f2c310.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/fee823f5e0bbe4e95783623b412cd2abb666af690f379214fde52c98f75f1ebc.svg"><img alt="../_images/fee823f5e0bbe4e95783623b412cd2abb666af690f379214fde52c98f75f1ebc.svg" src="../_images/fee823f5e0bbe4e95783623b412cd2abb666af690f379214fde52c98f75f1ebc.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
 <p>Mini-batch GD parameters:</p>
-<div class="cell tag_hide-input tag_full-width docutils container">
+<div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
 <span class="collapsed">Show code cell source</span>
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="n">axes_idx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -1390,7 +1401,7 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thetas</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">thetas</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">thetas</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">thetas</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">thetas</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">thetas</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;mini-batch size$=</span><span class="si">{</span><span class="n">batch_size</span><span class="si">}</span><span class="s1">$, $\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, gradient steps$=</span><span class="si">{</span><span class="n">max_steps</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\ell=</span><span class="si">{</span><span class="n">batch_size</span><span class="si">}</span><span class="s1">$, $\alpha=</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">$, $\gamma=0$, gradient steps$=</span><span class="si">{</span><span class="n">max_steps</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_1$&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta_2$&#39;</span><span class="p">)</span>
 
@@ -1401,7 +1412,7 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/133ceb943b7d9fd2caddd4e38191ce0bcc1ce28066bf0548ac4da89605e7f808.svg"><img alt="../_images/133ceb943b7d9fd2caddd4e38191ce0bcc1ce28066bf0548ac4da89605e7f808.svg" src="../_images/133ceb943b7d9fd2caddd4e38191ce0bcc1ce28066bf0548ac4da89605e7f808.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/63ac62fe527357f44acba32ac72ce1311b295be06535c59611ed6e9281cc8618.svg"><img alt="../_images/63ac62fe527357f44acba32ac72ce1311b295be06535c59611ed6e9281cc8618.svg" src="../_images/63ac62fe527357f44acba32ac72ce1311b295be06535c59611ed6e9281cc8618.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1474,7 +1485,6 @@ g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-in-one-variable">10.1. Gradient descent in one variable</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-in-multiple-variables">10.2. Gradient descent in multiple variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-gradient-descent">10.3. Stochastic gradient descent</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-gradient-descent">10.4. Mini-batch gradient descent</a></li>
 </ul>
   </nav></div>
 
