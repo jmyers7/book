@@ -264,9 +264,7 @@ where $x^{(i)}$ and $y^{(i)}$ are the size (in square feet) and selling price (i
 :   image:
 :       width: 70%
 
-import torch
-import torch.nn as nn
-import torch.optim as optim
+# import all the usual things
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -275,27 +273,48 @@ import matplotlib_inline.backend_inline
 import seaborn as sns
 import scipy as sp
 from itertools import product
-import statsmodels.formula.api as smf
 import warnings
 plt.style.use('../aux-files/custom_style_light.mplstyle')
 matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
-warnings.filterwarnings("ignore")
+warnings.filterwarnings('ignore')
 blue = '#486AFB'
 magenta = '#FD46FC'
 
+# linear regression example begins below
+
+# import linear regression model from scikit-learn
+from sklearn.linear_model import LinearRegression
+
+# import data
 url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/data-3-1.csv'
 df = pd.read_csv(url, usecols=['area', 'price'])
 
-lr = smf.ols(formula='price ~ area', data=df).fit()
-beta_0, beta_1 = lr.params
+# pull out the 'area' column and 'price column from the data and convert them to numpy arrays
+x = df['area'].to_numpy().reshape(-1, 1)
+y = df['price'].to_numpy()
 
-min_data = df['area'].min()
-max_data = df['area'].max()
-grid = np.linspace(min_data, max_data)
-df.plot(kind='scatter', x='area', y='price', alpha=0.15)
-plt.plot(grid, beta_0 + beta_1 * grid, color=magenta)
+# instantiate a linear regression model
+lr = LinearRegression()
+
+# train the model
+lr.fit(X=x, y=y)
+
+# get the learned parameters
+beta, beta_0 = lr.coef_, lr.intercept_
+
+# build a grid for the regression line
+grid = np.linspace(x.min(), x.max())
+
+# plot the regression line
+plt.plot(grid, beta * grid + beta_0, color=magenta)
+
+# plot the data
+plt.scatter(x=x, y=y, alpha=0.15)
+
+plt.xlabel('area')
+plt.ylabel('price')
 plt.gcf().set_size_inches(w=5, h=3)
-plt.show()
+plt.tight_layout()
 ```
 
 The positively-sloped line is used to visualize the approximate linear relationship {eq}`approx-linear-eqn`. This is a so-called _least squares line_ or _regression line_; we will learn how to compute them in {numref}`Chapter %s <learning>`.
@@ -398,12 +417,19 @@ We will study in {numref}`Chapter %s <learning>` how to train a linear regressio
 :   image:
 :       width: 70%
 
-resid = lr.resid
-plt.scatter(x=df['area'], y=resid, alpha=0.20)
+# get the predictions
+y_hat = lr.predict(X=x)
+
+# get the residuals
+resid = y - y_hat
+
+# plot the residuals vs. area
+plt.scatter(x=x, y=resid, alpha=0.20)
+
 plt.xlabel('area')
 plt.ylabel('residuals')
 plt.gcf().set_size_inches(w=5, h=3)
-plt.show()
+plt.tight_layout()
 ```
 
 It is evident from this plot that the homoscedasticity assumption is violated, since the distributions of the residuals appear to widen as the area variable increases.
@@ -424,15 +450,28 @@ for each $i=1,2,\ldots,m$. A scatter plot of one simulated dataset is:
 :   image:
 :       width: 70%
 
-np.random.seed(42)
+# import statsmodels
+import statsmodels.formula.api as smf
+
+# instantiate and train a linear regression model from statsmodels
+lr = smf.ols(formula='price ~ area', data=df).fit()
+
+# get the learned standard deviation
 sigma = np.sqrt(lr.scale)
-y_hat = lr.predict()
+
+# generate the dataset
+np.random.seed(42)
 y_gen = sp.stats.norm(loc=y_hat, scale=sigma).rvs(2930)
 df_gen = pd.DataFrame({'area': df['area'], 'price': y_gen})
+
+# plot the dataset
 df_gen.plot(kind='scatter', x='area', y='price', alpha=0.15)
-plt.plot(grid, beta_0 + beta_1 * grid, color=magenta)
+
+# plot the original regression line
+plt.plot(grid, beta_0 + beta * grid, color=magenta)
+
 plt.gcf().set_size_inches(w=5, h=3)
-plt.show()
+plt.tight_layout()
 ```
 
 To compare this simulated dataset against the real one, let's compare KDEs:
@@ -455,7 +494,7 @@ sns.move_legend(obj=g, loc='upper left')
 plt.xlim(250, 3000)
 plt.ylim(-50, 450)
 plt.gcf().set_size_inches(w=5, h=5)
-plt.show()
+plt.tight_layout()
 ```
 
 For smaller values of area, the distribution of the true prices is narrower compared to the simulated prices, while for larger values of area, the distribution of the true prices is wider.
@@ -504,19 +543,19 @@ $$
 :   image:
 :       width: 70%
 
+# import the data
 url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch-11-12-data.csv'
-data = pd.read_csv(url)
-class_0 = data[data['y'] == 0][['x_1', 'x_2']]
-class_1 = data[data['y'] == 1][['x_1', 'x_2']]
-class_0 = torch.tensor(data=class_0.to_numpy(), dtype=torch.float32)
-class_1 = torch.tensor(data=class_1.to_numpy(), dtype=torch.float32)
-data = torch.tensor(data=data.to_numpy(), dtype=torch.float32)
-x = data[:, :2]
-y = data[:, -1]
+df = pd.read_csv(url)
 
-plt.scatter(x=class_0[:, 0], y=class_0[:, 1], label='class 0')
-plt.scatter(x=class_1[:, 0], y=class_1[:, 1], label='class 1')
-plt.legend()
+# plot the data
+g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
+
+# change the default seaborn legend
+g.legend_.set_title(None)
+new_labels = ['class 0', 'class 1']
+for t, l in zip(g.legend_.texts, new_labels):
+    t.set_text(l)
+
 plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
 plt.xlim(-1.1, 3.1)
@@ -533,37 +572,46 @@ plt.tight_layout()
 :   image:
 :       width: 70%
 
-# define the logistic regression model
-torch.manual_seed(42)
-lr = nn.Sequential(nn.Linear(in_features=2, out_features=1), nn.Sigmoid())
+# import logistic regression model from scikit-learn
+from sklearn.linear_model import LogisticRegression
+
+# pull out the 'x' columns and the 'y' column, and convert to numpy arrays
+x = df[['x_1', 'x_2']].to_numpy()
+y = df['y'].to_numpy()
+
+# instantiate a logistic regression model
+lr = LogisticRegression()
 
 # train the model
-loss_fn = nn.BCELoss()
-optimizer = optim.Adam(lr.parameters(), lr=0.1)
-num_epochs = 200
-for _ in range(num_epochs):
-    optimizer.zero_grad()
-    y_hat = lr(x)
-    loss = loss_fn(y_hat.squeeze(), y)
-    loss.backward()
-    optimizer.step()
+lr.fit(X=x, y=y)
 
-# plot the decision boundary
+# begin code to plot decision boundary. define resolution of grid.
 resolution = 1000
-x_1 = torch.linspace(-1, 3, resolution)
-x_2 = torch.linspace(-30, 40, resolution)
-grid_1, grid_2 = torch.meshgrid(x_1, x_2)
-grid = torch.column_stack(tensors=(grid_1.reshape((resolution ** 2, -1)), grid_2.reshape((resolution ** 2, -1))))
-y_hat = (lr(grid) >= 0.5).to(torch.int32)
+
+# define grid
+x_1 = np.linspace(-1, 3, resolution)
+x_2 = np.linspace(-30, 40, resolution)
+grid_1, grid_2 = np.meshgrid(x_1, x_2)
+grid = np.column_stack((grid_1.reshape((resolution ** 2, -1)), grid_2.reshape((resolution ** 2, -1))))
+
+# apply the fitted model to the grid
+z = lr.predict(grid)
+
+# plot the decision boundary and colors
+z = z.reshape((resolution, resolution))
 cmap = clr.LinearSegmentedColormap.from_list('custom', [blue, magenta], N=2)
-decision_boundary = y_hat.reshape((resolution, resolution))
-plt.contourf(grid_1, grid_2, decision_boundary, cmap=cmap, alpha=0.45)
-plt.contour(grid_1, grid_2, decision_boundary)
+plt.contourf(grid_1, grid_2, z, cmap=cmap, alpha=0.45)
+plt.contour(grid_1, grid_2, z)
 
 # plot the data
-plt.scatter(x=class_0[:, 0], y=class_0[:, 1], label='class 0')
-plt.scatter(x=class_1[:, 0], y=class_1[:, 1], label='class 1')
-plt.legend()
+g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
+
+# change the default seaborn legend
+g.legend_.set_title(None)
+new_labels = ['class 0', 'class 1']
+for t, l in zip(g.legend_.texts, new_labels):
+    t.set_text(l)
+
 plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
 plt.xlim(-1.1, 3.1)
@@ -620,42 +668,52 @@ $$
 :   image:
 :       width: 70%
 
-# define the neural network model
+# import pytorch
+import torch
+
+# convert the data to torch tensors
+x = torch.tensor(data=x, dtype=torch.float32)
+y = torch.tensor(data=y, dtype=torch.float32)
+
+# define the neural network model architecture
 torch.manual_seed(42)
-net = nn.Sequential(nn.Linear(in_features=2, out_features=16),
-                   nn.ReLU(),
-                   nn.Linear(in_features=16, out_features=1),
-                   nn.Sigmoid())
+net = torch.nn.Sequential(torch.nn.Linear(in_features=2, out_features=16),
+                   torch.nn.ReLU(),
+                   torch.nn.Linear(in_features=16, out_features=1),
+                   torch.nn.Sigmoid())
+
+# define the loss function and optimizer
+loss_fn = torch.nn.BCELoss()
+optimizer = torch.optim.Adam(net.parameters())
 
 # train the model
-loss_fn = nn.BCELoss()
-optimizer = optim.Adam(net.parameters())
 num_epochs = 8000
-running_loss = []
 for _ in range(num_epochs):
     optimizer.zero_grad()
     y_hat = net(x)
     loss = loss_fn(y_hat.squeeze(), y)
-    running_loss.append(loss.item())
     loss.backward()
     optimizer.step()
 
-# plot the decision boundary
-resolution = 1000
-x_1 = torch.linspace(-1, 3, resolution)
-x_2 = torch.linspace(-30, 40, resolution)
-grid_1, grid_2 = torch.meshgrid(x_1, x_2)
-grid = torch.column_stack(tensors=(grid_1.reshape((resolution ** 2, -1)), grid_2.reshape((resolution ** 2, -1))))
-y_hat = (net(grid) >= 0.5).to(torch.int32)
+# apply the fitted model to the grid
+grid = torch.tensor(data=grid, dtype=torch.float32)
+z = (net(grid) >= 0.5).to(torch.int32)
+
+# plot the decision boundary and colors
+z = z.reshape((resolution, resolution))
 cmap = clr.LinearSegmentedColormap.from_list('custom', [blue, magenta], N=2)
-decision_boundary = y_hat.reshape((resolution, resolution))
-plt.contourf(grid_1, grid_2, decision_boundary, cmap=cmap, alpha=0.45)
-plt.contour(grid_1, grid_2, decision_boundary)
+plt.contourf(grid_1, grid_2, z, cmap=cmap, alpha=0.45)
+plt.contour(grid_1, grid_2, z)
 
 # plot the data
-plt.scatter(x=class_0[:, 0], y=class_0[:, 1], label='class 0')
-plt.scatter(x=class_1[:, 0], y=class_1[:, 1], label='class 1')
-plt.legend()
+g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
+
+# change the default seaborn legend
+g.legend_.set_title(None)
+new_labels = ['class 0', 'class 1']
+for t, l in zip(g.legend_.texts, new_labels):
+    t.set_text(l)
+
 plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
 plt.xlim(-1.1, 3.1)
