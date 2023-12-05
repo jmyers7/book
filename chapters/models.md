@@ -544,7 +544,7 @@ $$
 :       width: 70%
 
 # import the data
-url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch-11-12-data.csv'
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch11-book-data-01.csv'
 df = pd.read_csv(url)
 
 # plot the data
