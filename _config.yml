@@ -22,9 +22,18 @@ sphinx:
     mathjax_config:
       tex:
         macros:
+          "balpha": "\\boldsymbol\\alpha"
+          "bbeta": "\\boldsymbol\\beta"
           "btheta": "\\boldsymbol\\theta"
+          "dev": "\\varepsilon"
           "bbr": "\\mathbb{R}"
           "bx": "\\mathbf{x}"
+          "by": "\\mathbf{y}"
+          "bz": "\\mathbf{z}"
+          "bX": "\\mathbf{X}"
+          "bY": "\\mathbf{Y}"
+          "bZ": "\\mathbf{Z}"
+          
 
 # Add a bibtex file so that we can create citations
 bibtex_bibfiles:

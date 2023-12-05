@@ -15,67 +15,200 @@ kernelspec:
 
 **THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!**
 
-## A first look at probabilistic models
+## Probabilistic graphical models
 
-## Graphs and factorizations
 
-At the most basic level, a _directed graph_ $G$ consists of two sets $V$ and $E$ of _vertices_ and _edges_. The vertices are visualized as nodes, and the edges are arrows that run between the nodes. For example, consider the following graph $G$:
 
-```{image} ../img/graph-01.svg
-:width: 70%
+
+
+### Deterministic flows of influence
+
+Let's begin in the simple case of two (deterministic) vectors $\bx\in \bbr^n$ and $\by \in \bbr^m$. By saying that there is a _deterministic flow of influence_ from $\bx$ to $\by$, we shall mean simply that there is a function
+
+$$
+g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
+$$
+
+called a _link function_. It will be convenient to depict this situation graphically by representing the variables $\bx$ and $\by$ as nodes in a <a href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">graph</a> and the link function $g$ as an arrow between them:
+
+```{image} ../img/det-link.svg
+:width: 30%
 :align: center
 ```
 &nbsp;
 
-This graph consists of five vertices and five edges:
+Very often, the label $g$ on the link function will be omitted.
 
-$$
-V = \{v_1,v_2,v_3,v_4,v_5\}, \quad E = \{e_1,e_2,e_3,e_4,e_5\}.
-$$
+It could be the case that flow of influence is parametrized. For example, $g$ might be a linear transformation that is represented by a matrix $\balpha \in \bbr^{m\times n}$, with the entries in the matrix serving as parameters for the flow. We would represent this situation as
 
-Notice that this graph is _acyclic_, which means that beginning at any given node, there is no (directed) path along the edges that returns to the original node. Thus, our graph $G$ is an example of a _directed acyclic graph_, or _DAG_ for short.
-
-If there is a directed edge $v_i \to v_j$ from a node $v_i$ to a node $v_j$, then $v_i$ is said to be a _parent_ of $v_j$ and $v_j$ is called a _child_ of $v_i$. For example, in our graph $G$ above, the set of parents of $v_4$ is $\{v_1,v_2\}$, while the set of children of $v_4$ is $\{v_5\}$.
-
-More generally, if there exists a directed path from $v_i$ to $v_j$ of any length, say
-
-$$
-v_i \to \cdots \to v_j,
-$$
-
-then $v_j$ is called a _descendant_ of $v_i$. Thus, $v_j$ is a child of $v_i$ if there exists a directed path of length $1$. In our graph above, the node $v_5$ is a descendant of $v_2$ which is not a child.
-
-
-The vertex set of a graph can be any set whatsoever; in particular, we can take the vertex set of a DAG to be a set of random variables $V = \{X_1,\ldots,X_n\}$. In our running example from the previous section, we might imagine that our graph has vertex set consisting of five random variables:
-
-```{image} ../img/graph-02.svg
-:width: 70%
+```{image} ../img/det-link-2.svg
+:width: 30%
 :align: center
 ```
 &nbsp;
 
-I have omitted the edge labels for clarity, which I will continue to do in what follows.
+where the parameters are represented by an un-circled node.
 
+For a more complex example, consider the following graph:
+
+```{image} ../img/det-link-3.svg
+:width: 30%
+:align: center
+```
+&nbsp;
+
+This might represent a link function of the form
+
+$$
+\bz = \balpha \bx + \bbeta \by, \quad \bx \in \bbr^n, \ \by\in \bbr^k, \ \bz \in \bbr^m,
+$$
+
+which is parametrized by matrices $\balpha \in \bbr^{m\times n}$ and $\bbeta \in \bbr^{m\times k}$.
+
+
+
+
+
+
+
+
+
+
+### Stochastic flows of influence
+
+The vectors in our discussion might be random, rather than deterministic, say $\bX$ and $\bY$. In this case, a _stochastic flow of influence_ from $\bX$ to $\bY$ would be visualized just as before:
+
+
+```{image} ../img/random-link.svg
+:width: 30%
+:align: center
+```
+&nbsp;
+
+This flow is represented mathematically via a _link function_ $\btheta = g(\bx)$ where $\bx$ is an observed value of $\bX$ and $\btheta$ is a parameter that uniquely determines the probability distribution of $\bY$. So, in this case, an observed value $\bx$ does _not_ determine a particular observed value of $\by$, but rather an entire probability distribution over the $\by$'s. This probability distribution is conditioned on $\bX$, so the link function is often specified by giving the functional form of the conditional probability function $p(\by | \bx)$. Notice that only observed values $\bx$ of $\bX$ are used to determine the distribution of $\bY$ through the link---the distribution of $\bX$ itself plays no role.
+
+These stochastic flows might be parametrized, just as in the previous section. For example, suppose $\bY$ is $1$-dimensional, equal to a random variable $Y$, while $\bX\in \mathbb{R}^{1\times n}$ is an $n$-dimensional random row vector. Then, a particular example of a stochastic flow of influence is given by the graph
+
+
+```{image} ../img/lin-reg-0.svg
+:width: 45%
+:align: center
+```
+&nbsp;
+
+The parameters consist of a column vector $\bbeta \in \bbr^{n\times 1}$, a real number $\beta_0\in \bbr$, and a positive number $\sigma^2 >0$; a complete description of the link function at $Y$ is given by
+
+$$
+\mu \stackrel{\text{def}}{=} \bx \bbeta + \beta_0, \quad \text{where} \quad Y \mid \bX; \ \bbeta, \beta_0,\sigma^2 \sim \mathcal{N}(\mu, \sigma^2).
+$$
+
+In fact, this is exactly a _linear regression model_, which we will see again in {numref}`lin-reg-sec` below, as well as in {numref}`Chapters %s <learning>` and {numref}`%s <lin-reg>`.
+
+
+
+
+
+
+### Mixed flows of influence
+
+We shall take a flow of influence of the form
+
+```{image} ../img/mixed-1.svg
+:width: 30%
+:align: center
+```
+&nbsp;
+
+from a deterministic vector $\bx$ to a stochastic one $\bY$ to mean only one thing: There is a link function $\btheta = g(\bx)$ where $\btheta$ is a parameter that uniquely determines the distribution of $\bY$. Such a link function is often specified by giving the functional form of the parametrized probability function $p(\by; \bx)$.
+
+On the other hand, a flow of influence from a random vector $\bX$ to a deterministic vector $\by$ might mean one of two things. The more common situation is depicted graphically with a solid arrow as
+
+```{image} ../img/mixed-2.svg
+:width: 30%
+:align: center
+```
+&nbsp;
+
+In this situation, we mean simply that there is a link function of the form $\by = g(\bx)$, so that observed values of $\bX$ uniquely determine values of $\by$. The other situation is depicted graphically with a dashed arrow as
+
+```{image} ../img/mixed-3.svg
+:width: 30%
+:align: center
+```
+&nbsp;
+
+Here, we mean that the probability distribution $P_\bX$ itself uniquely determines a value $\by$. For example, we might consider the flow where $\bX$ and $\by$ have the same dimension and are linked via the function $\by = E(\bX)$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Data and hidden vectors
+
+The probabilistic graphical models that we will study in this chapter are meant to model real-world datasets. These datasets will often be conceptualized as observations of random or deterministic vectors, and these vectors are then integrated into a graphical model. These vectors are called _observed_, while all others are called _hidden_ or _latent_. To visually represent observed vectors in the graph structure, their nodes will be shaded; the nodes associated with _hidden_ vectors are left unshaded. For example, if we draw
+
+```{image} ../img/shaded.svg
+:width: 30%
+:align: center
+```
+&nbsp;
+
+then we mean that $\bX$ is observed while $\by$ is hidden.
+
+It is important to note that for the simple types of models we consider in this chapter, the datasets consist of observations across _all_ observed nodes in the model. For example, let's suppose that we have a graphical structure of the form
+
+```{image} ../img/unplated.svg
+:width: 50%
+:align: center
+```
+&nbsp;
+
+with two observed random vectors and one hidden. Then, by saying that $\bY$ and $\bZ$ are observed, we mean that we have in possession a dataset of the form
+
+$$
+(\by^{(1)}, \bz^{(1)}), \ldots, (\by^{(m)},\bz^{(m)}),
+$$
+
+where each $\by^{(i)}$ is an observation of $\bY$ and each $\bz^{(i)}$ is an observation of $\bZ$.
+
+
+
+
+
+
+
+
+
+
+### The general definition
+
+We now have everything we need to define _probabilistic graphical models_, or (*PGM*s). The remaining sections are then devoted to the study of particular examples of such models.
 
 ```{prf:definition}
 
-Let $V = \{X_1,\ldots,X_n\}$ be a collection of random variables, $G$ a graph with vertex set $V$, and $p(x_1,\ldots,x_n)$ the joint probability function. We shall say that $G$ _represents_ the joint probability distribution, or that $p$ _factors over $G$_, if
+A _probabilistic graphical model_ consists of the following:
 
-$$
-p(x_1,\ldots,x_n) = \prod_{i=1}^n p(x_i | \text{parents of $x_i$}).
-$$
+1. A set of vectors, some random and some deterministic, and some marked as observed and all others as hidden.
 
+2. A graphical structure depicting the vectors as nodes and flows of influence as arrows between the nodes. If any of these flows are parametrized, then the graphical structure also has (un-circled) nodes for the parameters.
+
+3. Mathematical descriptions of the flows as (possibly parametrized) link functions.
 ```
 
-Note that I am intentionally confusing an observed value $x_i$ of a random variable $X_i$ with the random variable itself, so that the "parents of $x_i$" actually makes sense.
-
-In our running example, the graph $G$ represents the joint probability distribution provided that
-
-$$
-p(x_1,x_2,x_3,x_4,x_5) = p(x_1|x_2)p(x_2)p(x_3|x_2)p(x_4|x_1,x_2)p(x_5|x_4).
-$$
-
-Notice that the random variable $X_2$ has no parents in $G$, so that the marginal probability function $p(x_2)$ serves in place of a conditional distribution.
 
 
 
@@ -93,7 +226,81 @@ Notice that the random variable $X_2$ has no parents in $G$, so that the margina
 
 
 
+
+
+
+
+
+(lin-reg-sec)=
 ## Linear regression models
+
+The type of PGM defined in this section is one of the simplest, but also one of the most important. Its goal is to model an observed dataset
+
+$$
+(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr
+$$
+
+where we believe that
+
+```{math}
+:label: approx-linear-eqn
+
+y^{(i)} \approx \bx^{(i)}\bbeta + \beta_0, \quad i=1,2,\ldots,m,
+```
+
+for some parameters $\bbeta \in \bbr^{n\times 1}$ and $\beta_0 \in \bbr$. For example, let's consider the Ames housing dataset from the <a href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and {numref}`Chapter %s <random-vectors>`; it consists of $m=2{,}930$ bivariate observations
+
+$$
+(x^{(1)}, y^{(1)}), (x^{(2)},y^{(2)}),\ldots, (x^{(m)},y^{(m)}) \in \bbr^2
+$$
+
+where $x^{(i)}$ and $y^{(i)}$ are the size (in square feet) and selling price (in thousands of US dollars) of the $i$-th house in the dataset. A scatter plot of the dataset looks like
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+:   image:
+:       width: 70%
+
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.colors as clr
+import matplotlib_inline.backend_inline
+import seaborn as sns
+import scipy as sp
+from itertools import product
+import statsmodels.formula.api as smf
+import warnings
+plt.style.use('../aux-files/custom_style_light.mplstyle')
+matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
+warnings.filterwarnings("ignore")
+blue = '#486AFB'
+magenta = '#FD46FC'
+
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/data-3-1.csv'
+df = pd.read_csv(url, usecols=['area', 'price'])
+
+lr = smf.ols(formula='price ~ area', data=df).fit()
+beta_0, beta_1 = lr.params
+
+min_data = df['area'].min()
+max_data = df['area'].max()
+grid = np.linspace(min_data, max_data)
+df.plot(kind='scatter', x='area', y='price', alpha=0.15)
+plt.plot(grid, beta_0 + beta_1 * grid, color=magenta)
+plt.gcf().set_size_inches(w=5, h=3)
+plt.show()
+```
+
+The positively-sloped line is used to visualize the approximate linear relationship {eq}`approx-linear-eqn`. This is a so-called _least squares line_ or _regression line_; we will learn how to compute them in {numref}`Chapter %s <learning>`.
+
+But for now, let's define our first PGM:
 
 ````{prf:definition}
 
@@ -105,7 +312,7 @@ A _linear regression model_ is a probabilistic graphical model whose underlying 
 ```
 &nbsp;
 
-where $\mathbf{x} \in \mathbb{R}^{1\times n}$. The model has the following parameters:
+where $\bX \in \mathbb{R}^{1\times n}$. The model has the following parameters:
 
 * A parameter vector $\boldsymbol\beta \in \mathbb{R}^{n\times 1}$.
 
@@ -116,135 +323,72 @@ where $\mathbf{x} \in \mathbb{R}^{1\times n}$. The model has the following param
 The link function at $Y$ is given by
 
 $$
-\mu = \mathbf{x} \boldsymbol\beta + \beta_0, \quad \text{where} \quad Y ; \mathbf{x}, \boldsymbol\beta,\beta_0,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big).
+\mu \stackrel{\text{def}}{=} \bx \bbeta + \beta_0, \quad \text{where} \quad Y \mid \bX; \ \bbeta,\beta_0,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big).
 $$
 ````
 
-The components of the vector $\mathbf{x}$ are referred to as _predictors_, _regressors_, _explanatory variables_, or _independent variables_, while the random variable $Y$ is called the _response variable_ or the _dependent variable_. In the case that $n=1$, the model is called a _simple linear regression model_; otherwise, it is called a _multiple linear regression model_.
-
-````{prf:theorem} Plate notation for linear regression models
-
-A linear regression model in plate notation is given by
-
-```{image} ../img/lin-reg-01.svg
-:width: 50%
-:align: center
-```
-&nbsp;
-
-The joint probability function factors as
-
-$$
-p(y_1,\ldots,y_m; \mathbf{x}_1,\ldots,\mathbf{x}_m, \boldsymbol\beta,\beta_0,\sigma^2) = \frac{1}{\big(2\pi \sigma^2\big)^{m/2}} \exp \left[ - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y_i - \mu_i\big)^2 \right]
-$$
-
-where $\mu_i = \mathbf{x}_i \boldsymbol\beta + \beta_0$.
-````
-
-The proof of the factorization is a simple computation:
-
-\begin{align*}
-p(y_1,\ldots,y_m; \mathbf{x}_1,\ldots,\mathbf{x}_m, \boldsymbol\beta,\beta_0,\sigma^2) &= \prod_{i=1}^m p\big( y_i; \mathbf{x}_i, \boldsymbol\beta,\beta_0,\sigma^2\big) \\
-&= \prod_{i=1}^m \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[ -\frac{1}{2\sigma^2}\big(y_i - \mu_i\big)^2\right] \\
-&= \frac{1}{\big(2\pi \sigma^2\big)^{m/2}} \exp \left[ - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y_i - \mu_i\big)^2 \right].
-\end{align*}
+The components of the vector $\bX$ are referred to as _predictors_, _regressors_, _explanatory variables_, or _independent variables_, while the random variable $Y$ is called the _response variable_ or the _dependent variable_. In the case that $n=1$, the model is called a _simple linear regression model_; otherwise, it is called a _multiple linear regression model_.
 
 Note that
 
 $$
-E\big(Y_i\big) = \mu_{i} = \beta_0 + \beta_1 x_{i,1} + \cdots + \beta_n x_{i,n},
+E\big(Y \mid \bX = \bx \big) = \mu = \bx \bbeta + \beta_0,
 $$
 
-and so a linear regression model assumes (among other things) that the means of the response variables are linearly related to the regressors through the function
+and so a linear regression model assumes (among other things) that the conditional mean of the response variable is linearly related to the regressors through the link function
 
 $$
-\mu = \beta_0 + \beta_1z_1 + \cdots + \beta_n z_n \quad (\mu, z_1,\ldots,z_n\in \mathbb{R}).
+\mu = \bx \bbeta + \beta_0.
 $$ (lin-reg-line-eqn)
 
 The parameter $\beta_0$ is often called the _intercept coefficient_, while the other $\beta_j$'s (for $j>0$) are called _slope coefficients_ since they are exactly the (infinitesimal) slopes:
 
 $$
-\frac{\partial \mu}{\partial z_j} = \beta_j.
+\frac{\partial \mu}{\partial x_j} = \beta_j.
 $$
 
-The line {eq}`lin-reg-line-eqn` is often called the _regression line_ of the model, and it is often displayed in a scatter plot with observed data. For example, suppose we consider the Ames housing data from the <a href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a>. In this dataset, we have two columns of observations on _price_ (measured in thousands of US dollars) and _area_ (measured in square feet):
 
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-:   image:
-:       width: 70%
-
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib_inline.backend_inline
-import seaborn as sns
-import scipy as sp
-from itertools import product
-import statsmodels.formula.api as smf
-import warnings
-plt.style.use('../aux-files/custom_style_light.mplstyle')
-matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
-warnings.filterwarnings("ignore")
-magenta = '#FD46FC'
-
-url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/data-3-1.csv'
-df = pd.read_csv(url, usecols=['area', 'price'])
-df
-```
-
-We might believe that the price observations $y_1,\ldots,y_{2{,}930}$ come from an IID random sample $Y_1,\ldots,Y_{2{,}930}$ that may be modeled with the area observations $x_1,\ldots,x_{2{,}930}$ through a simple linear regression model. As we will see below (in {numref}`mle-lin-reg-sec`), it is possible to choose an "optimal" value for the parameter vector $\beta = (\beta_0,\beta_1)$ leading to a "best fit" regression line, also called a _least squares line_. Using these values of $\beta_0$ and $\beta_1$, we may plot this regression line along with the data in a scatter plot:
-
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-:   image:
-:       width: 70%
-
-lr = smf.ols(formula='price ~ area', data=df).fit()
-beta_0, beta_1 = lr.params
-
-min_data = df['area'].min()
-max_data = df['area'].max()
-grid = np.linspace(min_data, max_data)
-df.plot(kind='scatter', x='area', y='price', alpha=0.15)
-plt.plot(grid, beta_0 + beta_1 * grid, color=magenta)
-plt.show()
-```
-
-In general, the random variables
+The random vector
 
 $$
-\epsilon_{i} \stackrel{\text{def}}{=} Y_i - \mu_i
+\dev \stackrel{\text{def}}{=} Y - \bX\bbeta - \beta_0
 $$
 
-in a linear regression model are called the _error terms_. Note then that
+in a linear regression model is called the _error term_; note then that
 
 $$
-Y_i = \beta_0 + \beta_1 x_{i,1} + \cdots + \beta_n x_{i,n} + \epsilon_i
-$$
+Y = \bX\bbeta + \beta_0 + \dev \quad \text{and} \quad \dev \sim \mathcal{N}(0, \sigma^2).
+$$ (random-lin-rel-eqn)
 
-and $\epsilon_i \sim \mathcal{N}\big( 0,\sigma^2\big)$ for each $i=1,\ldots,m$. Thus, in a linear regression model, all error terms share the same variance; this assumption is called _homoscedasticity_. If we have observed values $y_{1},\ldots,y_{m}$, then the differences
+This is the manifestation in terms of random vectors and variables of the approximate linear relationship {eq}`approx-linear-eqn` described at the beginning of this section.
 
-$$
-y_i - \hat{y}_i
-$$ (resid-eqn)
-
-are observed values of the error terms, where
+In our definition of a linear regression model, the random vector $\bX$ and random variable $Y$ are observed, which means that we have a dataset
 
 $$
-\hat{y}_i \stackrel{\text{def}}{=} \mu_{i} = \beta_0 + \beta_1x_{i,1} + \cdots + \beta_n x_{i,n}
+(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr.
 $$
 
-are the _predicted values_ of the $y_i$'s. The differences {eq}`resid-eqn` are called the _residuals_.
+If for each $i=1,\ldots,m$, we define the _predicted values_
 
-Based on the scatter plot above, it is apparent that the homoscedasticity assumption is violated in the Ames dataset. This is made even more apparent by plotting the residuals against the predictor variable:
+$$
+\hat{y}^{(i)} = \bx^{(i)}\bbeta + \beta_0
+$$
+
+and the _residuals_
+
+$$
+\dev^{(i)} = y^{(i)} - \hat{y}^{(i)},
+$$
+
+then from {eq}`random-lin-rel-eqn` we get
+
+$$
+y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
+$$
+
+This shows that the residuals $\dev^{(i)}$ are observations of the error term $\dev \sim \mathcal{N}(0,\sigma^2)$. Thus, in a linear regression model, all residuals from a dataset are assumed to be modeled by a normal distribution with mean $0$ and a _fixed_ variance; the fixed-variance assumption is sometimes called _homoscedasticity_.
+
+We will study in {numref}`Chapter %s <learning>` how to train a linear regression model on a dataset to learn optimal values of the parameters $\bbeta$ and $\beta_0$. We used those training methods to learn $\beta$ and $\beta_0$ on the Ames housing dataset mentioned at the beginning of this section; the positively-sloped line in the scatter plot was the line traced out by the link function $\mu =  \beta x + \beta_0$ with those learned parameter values. Thus, the predicted values $\hat{y}^{(i)}$ lie along this line, and the magnitude of the residual $\dev^{(i)}$ may be visualized as the vertical distance from the true data point $y^{(i)}$ to this line. We may plot the residuals $\dev^{(i)}$ against the predictor variables $x^{(i)}$ to get:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -258,18 +402,19 @@ resid = lr.resid
 plt.scatter(x=df['area'], y=resid, alpha=0.20)
 plt.xlabel('area')
 plt.ylabel('residuals')
+plt.gcf().set_size_inches(w=5, h=3)
 plt.show()
 ```
 
-Indeed, the distributions of the residuals appear to widen as the area variable increases.
+It is evident from this plot that the homoscedasticity assumption is violated, since the distributions of the residuals appear to widen as the area variable increases.
 
-As with the parameter vector $\beta$, it is also possible to estimate an "optimal" value of the variance $\sigma^2$ in the linear regression model for the Ames dataset. Given these parameters, we may then generate new datasets by sampling from the normal distributions
+As with the parameters $\beta$ and $\beta_0$, it is also possible to learn an optimal value of the variance $\sigma^2$. As another method of model checking, given all the parameters $\beta$, $\beta_0$, and $\sigma^2$, we may generate a new dataset by sampling from the normal distributions 
 
 $$
-\mathcal{N}\big(\mu_i, \sigma^2\big)
+\mathcal{N}\big(\hat{y}^{(i)}, \sigma^2\big)
 $$
 
-for each $i=1,2,\ldots,2{,}930$. It is interesting to produce scatter plots of a few generated datasets and compare their shape to the real dataset above:
+for each $i=1,2,\ldots,m$. A scatter plot of one simulated dataset is:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -277,26 +422,20 @@ for each $i=1,2,\ldots,2{,}930$. It is interesting to produce scatter plots of a
 :   figure:
 :       align: center
 :   image:
-:       width: 100%
+:       width: 70%
 
 np.random.seed(42)
 sigma = np.sqrt(lr.scale)
 y_hat = lr.predict()
-
-_, axes = plt.subplots(nrows=2, ncols=2, figsize=(8, 6), sharex=True, sharey=True)
-for i, j in product(range(2), range(2)):
-    y_gen = sp.stats.norm(loc=y_hat, scale=sigma).rvs(2930)
-    df_gen = pd.DataFrame({'area': df['area'], 'price': y_gen})
-    df_gen.plot(kind='scatter', x='area', y='price', alpha=0.15, ax=axes[i, j])
-    axes[i, j].plot(grid, beta_0 + beta_1 * grid, color=magenta)
-axes[0, 0].set_title(f'generated dataset 1')
-axes[0, 1].set_title(f'generated dataset 2')
-axes[1, 0].set_title(f'generated dataset 3')
-axes[1, 1].set_title(f'generated dataset 4')
-plt.tight_layout()
+y_gen = sp.stats.norm(loc=y_hat, scale=sigma).rvs(2930)
+df_gen = pd.DataFrame({'area': df['area'], 'price': y_gen})
+df_gen.plot(kind='scatter', x='area', y='price', alpha=0.15)
+plt.plot(grid, beta_0 + beta_1 * grid, color=magenta)
+plt.gcf().set_size_inches(w=5, h=3)
+plt.show()
 ```
 
-The lines in these plots are copies of the original "best fit" regression line. For comparison, let's plot contours of KDEs for the true dataset and the fourth generated one:
+To compare this simulated dataset against the real one, let's compare KDEs:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -304,10 +443,10 @@ The lines in these plots are copies of the original "best fit" regression line. 
 :   figure:
 :       align: center
 :   image:
-:       width: 100%
+:       width: 70%
 
 df['indicator'] = 'true data PDF'
-df_gen['indicator'] = 'generated data PDF'
+df_gen['indicator'] = 'simulated data PDF'
 df_combined = pd.concat(objs=[df, df_gen], axis=0)
 
 g = sns.kdeplot(data=df_combined, x='area', y='price', hue='indicator', levels=6)
@@ -315,38 +454,11 @@ g.get_legend().set_title(None)
 sns.move_legend(obj=g, loc='upper left')
 plt.xlim(250, 3000)
 plt.ylim(-50, 450)
-plt.tight_layout()
+plt.gcf().set_size_inches(w=5, h=5)
+plt.show()
 ```
 
-For smaller values of area, we see that the distributions of the true prices are narrower compared to the generated prices, while for larger values of area, the distributions of the true prices are wider.
-
-The residuals for the four generated datasets look as follows:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-:   image:
-:       width: 100%
-
-np.random.seed(42)
-
-_, axes = plt.subplots(nrows=2, ncols=2, figsize=(8, 6), sharex=True, sharey=True)
-for i, j in product(range(2), range(2)):
-    y_gen = sp.stats.norm(loc=y_hat, scale=sigma).rvs(2930)
-    df_gen = pd.DataFrame({'area': df['area'], 'price': y_gen})
-    y_hat = lr.predict(df_gen)
-    resid = y_gen - y_hat
-    axes[i, j].scatter(x=df['area'], y=resid, alpha=0.20)
-    axes[i, j].set_xlabel('area')
-    axes[i, j].set_ylabel('residuals')
-axes[0, 0].set_title(f'generated dataset 1')
-axes[0, 1].set_title(f'generated dataset 2')
-axes[1, 0].set_title(f'generated dataset 3')
-axes[1, 1].set_title(f'generated dataset 4')
-plt.tight_layout()
-```
+For smaller values of area, the distribution of the true prices is narrower compared to the simulated prices, while for larger values of area, the distribution of the true prices is wider.
 
 
 
@@ -384,24 +496,84 @@ $$
 $$
 ````
 
-````{prf:theorem} Plate notation for logistic regression models
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+:   image:
+:       width: 70%
 
-A logistic regression model in plate notation is given by
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch-11-12-data.csv'
+data = pd.read_csv(url)
+class_0 = data[data['y'] == 0][['x_1', 'x_2']]
+class_1 = data[data['y'] == 1][['x_1', 'x_2']]
+class_0 = torch.tensor(data=class_0.to_numpy(), dtype=torch.float32)
+class_1 = torch.tensor(data=class_1.to_numpy(), dtype=torch.float32)
+data = torch.tensor(data=data.to_numpy(), dtype=torch.float32)
+x = data[:, :2]
+y = data[:, -1]
 
-```{image} ../img/log-reg-01.svg
-:width: 50%
-:align: center
+plt.scatter(x=class_0[:, 0], y=class_0[:, 1], label='class 0')
+plt.scatter(x=class_1[:, 0], y=class_1[:, 1], label='class 1')
+plt.legend()
+plt.xlabel('$x_1$')
+plt.ylabel('$x_2$')
+plt.xlim(-1.1, 3.1)
+plt.ylim(-32, 42)
+plt.gcf().set_size_inches(w=5, h=5)
+plt.tight_layout()
 ```
-&nbsp;
 
-The joint probability function factors as
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+:   image:
+:       width: 70%
 
-$$
-p(y_1,\ldots,y_m; \mathbf{x}_1,\ldots,\mathbf{x}_m, \boldsymbol\beta,\beta_0) = \prod_{i=1}^m \phi_i^{y_i}(1-\phi_i)^{1-y_i}
-$$
+# define the logistic regression model
+torch.manual_seed(42)
+lr = nn.Sequential(nn.Linear(in_features=2, out_features=1), nn.Sigmoid())
 
-where $\phi_i = \sigma(\mathbf{x}_i\boldsymbol\beta + \beta_0)$.
-````
+# train the model
+loss_fn = nn.BCELoss()
+optimizer = optim.Adam(lr.parameters(), lr=0.1)
+num_epochs = 200
+for _ in range(num_epochs):
+    optimizer.zero_grad()
+    y_hat = lr(x)
+    loss = loss_fn(y_hat.squeeze(), y)
+    loss.backward()
+    optimizer.step()
+
+# plot the decision boundary
+resolution = 1000
+x_1 = torch.linspace(-1, 3, resolution)
+x_2 = torch.linspace(-30, 40, resolution)
+grid_1, grid_2 = torch.meshgrid(x_1, x_2)
+grid = torch.column_stack(tensors=(grid_1.reshape((resolution ** 2, -1)), grid_2.reshape((resolution ** 2, -1))))
+y_hat = (lr(grid) >= 0.5).to(torch.int32)
+cmap = clr.LinearSegmentedColormap.from_list('custom', [blue, magenta], N=2)
+decision_boundary = y_hat.reshape((resolution, resolution))
+plt.contourf(grid_1, grid_2, decision_boundary, cmap=cmap, alpha=0.45)
+plt.contour(grid_1, grid_2, decision_boundary)
+
+# plot the data
+plt.scatter(x=class_0[:, 0], y=class_0[:, 1], label='class 0')
+plt.scatter(x=class_1[:, 0], y=class_1[:, 1], label='class 1')
+plt.legend()
+plt.xlabel('$x_1$')
+plt.ylabel('$x_2$')
+plt.xlim(-1.1, 3.1)
+plt.ylim(-32, 42)
+plt.gcf().set_size_inches(w=5, h=5)
+plt.tight_layout()
+```
+
+
+
 
 
 
@@ -440,24 +612,57 @@ $$
 $$
 ````
 
-````{prf:theorem} Plate notation for neural network models
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+:   image:
+:       width: 70%
 
-A neural network model in plate notation is given by
+# define the neural network model
+torch.manual_seed(42)
+net = nn.Sequential(nn.Linear(in_features=2, out_features=16),
+                   nn.ReLU(),
+                   nn.Linear(in_features=16, out_features=1),
+                   nn.Sigmoid())
 
-```{image} ../img/nn-01.svg
-:width: 50%
-:align: center
+# train the model
+loss_fn = nn.BCELoss()
+optimizer = optim.Adam(net.parameters())
+num_epochs = 8000
+running_loss = []
+for _ in range(num_epochs):
+    optimizer.zero_grad()
+    y_hat = net(x)
+    loss = loss_fn(y_hat.squeeze(), y)
+    running_loss.append(loss.item())
+    loss.backward()
+    optimizer.step()
+
+# plot the decision boundary
+resolution = 1000
+x_1 = torch.linspace(-1, 3, resolution)
+x_2 = torch.linspace(-30, 40, resolution)
+grid_1, grid_2 = torch.meshgrid(x_1, x_2)
+grid = torch.column_stack(tensors=(grid_1.reshape((resolution ** 2, -1)), grid_2.reshape((resolution ** 2, -1))))
+y_hat = (net(grid) >= 0.5).to(torch.int32)
+cmap = clr.LinearSegmentedColormap.from_list('custom', [blue, magenta], N=2)
+decision_boundary = y_hat.reshape((resolution, resolution))
+plt.contourf(grid_1, grid_2, decision_boundary, cmap=cmap, alpha=0.45)
+plt.contour(grid_1, grid_2, decision_boundary)
+
+# plot the data
+plt.scatter(x=class_0[:, 0], y=class_0[:, 1], label='class 0')
+plt.scatter(x=class_1[:, 0], y=class_1[:, 1], label='class 1')
+plt.legend()
+plt.xlabel('$x_1$')
+plt.ylabel('$x_2$')
+plt.xlim(-1.1, 3.1)
+plt.ylim(-32, 42)
+plt.gcf().set_size_inches(w=5, h=5)
+plt.tight_layout()
 ```
-&nbsp;
-
-The joint probability function factors as
-
-$$
-p(y_1,\ldots,y_m; \mathbf{z}_1,\ldots,\mathbf{z}_m,\boldsymbol\beta,\beta_0) = \prod_{i=1}^m \phi_i^{y_i}(1-\phi_i)^{1-y_i}
-$$
-
-where $\phi_i = \sigma(\mathbf{z}_i\boldsymbol\beta + \beta_0)$.
-````
 
 
 
