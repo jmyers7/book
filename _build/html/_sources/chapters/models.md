@@ -337,7 +337,7 @@ where $\bX \in \mathbb{R}^{1\times n}$. The model has the following parameters:
 
 * A real parameter $\beta_0\in \mathbb{R}$.
 
-* A positive real parameter $\sigma^2 \in \mathbb{R}$.
+* A positive real parameter $\sigma^2>0$.
 
 The link function at $Y$ is given by
 
@@ -641,7 +641,7 @@ where $\mathbf{x} \in \mathbb{R}^{1\times n}$ and $\mathbf{z}\in \mathbb{R}^{1\t
 
 * A parameter matrix $\boldsymbol\alpha \in \mathbb{R}^{n\times k}$.
 
-* A parameter vector $\boldsymbol\alpha_0 \in \mathbb{R}^{1\times k}$
+* A parameter vector $\boldsymbol\alpha_0 \in \mathbb{R}^{1\times k}$.
 
 * A parameter vector $\boldsymbol\beta \in \mathbb{R}^{k\times 1}$.
 
@@ -726,7 +726,90 @@ plt.tight_layout()
 
 
 
+
+
+
 ## Gaussian mixture models
+
+````{prf:definition}
+
+A _(two-component) Gaussian model_ is a probabilistic graphical model whose underlying graph is of the form
+
+```{image} ../img/gmm.svg
+:width: 50%
+:align: center
+```
+&nbsp;
+
+The model has the following parameters:
+
+* A real parameter $\phi \in [0,1]$.
+
+* Two real parameters $\mu_0,\mu_1\in \bbr$.
+
+* Two positive real parameters $\sigma_0^2,\sigma_1^2 >0$.
+
+We have $Z \sim \mathcal{B}er(\phi)$, and the link functions at $X$ are given by
+
+$$
+\mu = \mu_0(1-z) + \mu_1z, \quad \sigma^2 = \sigma_0^2(1-z) + \sigma_1^2z
+$$
+
+and
+
+$$
+X \mid Z; \ \mu_0,\sigma_0^2,\mu_1, \sigma^2_1 \sim \mathcal{N}(\mu,\sigma^2).
+$$
+````
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+:   image:
+:       width: 70%
+
+# import gaussian mixture model from scikit-learn
+from sklearn.mixture import GaussianMixture
+
+# import data and convert to numpy array
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch11-book-data-02.csv'
+df = pd.read_csv(url)
+x = df['x'].to_numpy().reshape(-1, 1)
+
+# instantiate the model, fit it to the data, predict components
+gmm = GaussianMixture(n_components=2, random_state=42)
+z_hat = gmm.fit_predict(X=x)
+
+# cluster the data based on predicted components
+class_0 = x[z_hat == 0]
+class_1 = x[z_hat == 1]
+
+# pull out the learned parameters
+means = gmm.means_
+std = np.sqrt(gmm.covariances_)
+
+# define gaussian random variables based on learned parameters
+comp_0 = sp.stats.norm(loc=means[0][0], scale=std[0][0][0])
+comp_1 = sp.stats.norm(loc=means[1][0], scale=std[1][0][0])
+
+# plot the gaussian density curves
+grid = np.linspace(-3, 13, num=300)
+plt.plot(grid, comp_0.pdf(grid))
+plt.plot(grid, comp_1.pdf(grid))
+
+# plot the data with component labels
+plt.hist(x=class_0, alpha=0.7, ec='black', bins=5, density=True, color=blue, label='class 0')
+plt.hist(x=class_1, alpha=0.7, ec='black', bins=12, density=True, color=magenta, label='class 1')
+
+plt.legend()
+plt.xlabel('$x$')
+plt.ylabel('density')
+plt.gcf().set_size_inches(w=5, h=4)
+plt.tight_layout()
+```
+
 
 
 

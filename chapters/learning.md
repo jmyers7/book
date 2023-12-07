@@ -13,17 +13,7 @@ kernelspec:
 (learning)=
 # Learning
 
-(mle-lin-reg-sec)=
-## MLE for linear regression models
-
-## MLE for logistic regression models
-
-## MLE for neural networks
+**THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!**
 
 ## Expectation maximization (EM)
 
-### Vanilla EM
-
-### Monte Carlo EM (MCEM)
-
-### EM for Gaussian mixture models
