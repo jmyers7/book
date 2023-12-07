@@ -15,58 +15,51 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# import logistic regression model from scikit-learn
-from sklearn.linear_model import LogisticRegression()
 
-# pull out the 'x' columns and the 'y' column, and convert to numpy arrays
-x = df[['x_1', 'x_2']].to_numpy()
-y = df['y'].to_numpy()
+# import gaussian mixture model from scikit-learn
+from sklearn.mixture import GaussianMixture
 
-# instantiate a logistic regression model
-lr = LogisticRegression
+# import data and convert to numpy array
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch11-book-data-02.csv'
+df = pd.read_csv(url)
+x = df['x'].to_numpy().reshape(-1, 1)
 
-# train the model
-lr.fit(X=x, y=y)
+# instantiate the model and fit it to the data
+gmm = GaussianMixture(n_components=2, random_state=42)
+gmm.fit(X=x)
 
-# begin code to plot decision boundary. define resolution of grid.
-resolution = 1000
+# pull out the learned means and variances
+means = gmm.means_
+std = np.sqrt(gmm.covariances_)
 
-# define grid
-x_1 = np.linspace(-1, 3, resolution)
-x_2 = np.linspace(-30, 40, resolution)
-grid_1, grid_2 = np.meshgrid(x_1, x_2)
-grid = np.column_stack((grid_1.reshape((resolution ** 2, -1)), grid_2.reshape((resolution ** 2, -1))))
+# define gaussian random variables based on learned parameters
+comp_0 = sp.stats.norm(loc=means[0][0], scale=std[0][0][0])
+comp_1 = sp.stats.norm(loc=means[1][0], scale=std[1][0][0])
 
-# apply the fitted model to the grid
-z = lr.predict(grid)
+# plot the gaussian density curves
+grid = np.linspace(-3, 13, num=300)
+plt.plot(grid, comp_0.pdf(grid))
+plt.plot(grid, comp_1.pdf(grid))
 
-# plot the decision boundary and colors
-z = z.reshape((resolution, resolution))
-cmap = clr.LinearSegmentedColormap.from_list('custom', [blue, magenta], N=2)
-plt.contourf(grid_1, grid_2, z, cmap=cmap, alpha=0.45)
-plt.contour(grid_1, grid_2, z)
+# plot the data with component labels
+plt.hist(x=class_0, alpha=0.7, ec='black', bins=5, density=True, color=blue, label='class 0')
+plt.hist(x=class_1, alpha=0.7, ec='black', bins=12, density=True, color=magenta, label='class 1')
 
-# plot the data
-g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
-
-# change the default seaborn legend
-g.legend_.set_title(None)
-new_labels = ['class 0', 'class 1']
-for t, l in zip(g.legend_.texts, new_labels):
-    t.set_text(l)
-
-plt.xlabel('$x_1$')
-plt.ylabel('$x_2$')
-plt.xlim(-1.1, 3.1)
-plt.ylim(-32, 42)
-plt.gcf().set_size_inches(w=5, h=5)
+plt.legend()
+plt.xlabel('$x$')
+plt.ylabel('density')
 plt.tight_layout()
 ------------------
 
 
-[0;36m  Cell [0;32mIn[6], line 2[0;36m[0m
-[0;31m    from sklearn.linear_model import LogisticRegression()[0m
-[0m                                                       ^[0m
-[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn[8], line 27[0m
+[1;32m     24[0m plt[38;5;241m.[39mplot(grid, comp_1[38;5;241m.[39mpdf(grid))
+[1;32m     26[0m [38;5;66;03m# plot the data with component labels[39;00m
+[0;32m---> 27[0m plt[38;5;241m.[39mhist(x[38;5;241m=[39m[43mclass_0[49m, alpha[38;5;241m=[39m[38;5;241m0.7[39m, ec[38;5;241m=[39m[38;5;124m'[39m[38;5;124mblack[39m[38;5;124m'[39m, bins[38;5;241m=[39m[38;5;241m5[39m, density[38;5;241m=[39m[38;5;28;01mTrue[39;00m, color[38;5;241m=[39mblue, label[38;5;241m=[39m[38;5;124m'[39m[38;5;124mclass 0[39m[38;5;124m'[39m)
+[1;32m     28[0m plt[38;5;241m.[39mhist(x[38;5;241m=[39mclass_1, alpha[38;5;241m=[39m[38;5;241m0.7[39m, ec[38;5;241m=[39m[38;5;124m'[39m[38;5;124mblack[39m[38;5;124m'[39m, bins[38;5;241m=[39m[38;5;241m12[39m, density[38;5;241m=[39m[38;5;28;01mTrue[39;00m, color[38;5;241m=[39mmagenta, label[38;5;241m=[39m[38;5;124m'[39m[38;5;124mclass 1[39m[38;5;124m'[39m)
+[1;32m     30[0m plt[38;5;241m.[39mlegend()
 
+[0;31mNameError[0m: name 'class_0' is not defined
 
