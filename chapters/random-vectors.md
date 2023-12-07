@@ -1006,7 +1006,7 @@ Our mission in this section is to adapt these definitions to the probability mea
 Let $\mathbf{X}_1,\mathbf{X}_2,\ldots,\mathbf{X}_m$ be random vectors, all defined on the same probability space. Then these random vectors are said to be _independent_ if
 
 $$
-P(\mathbf{X}_1\in C_1, \mathbf{X}_2\in C_2,\ldots,\mathbf{X}_m \in C_n) = P(\mathbf{X}_1\in C_1)P(\mathbf{X}_2\in C_2) \cdots P(\mathbf{X}_m\in C_m)
+P(\mathbf{X}_1\in C_1, \mathbf{X}_2\in C_2,\ldots,\mathbf{X}_m \in C_m) = P(\mathbf{X}_1\in C_1)P(\mathbf{X}_2\in C_2) \cdots P(\mathbf{X}_m\in C_m)
 $$
 
 for all events $C_1,C_2,\ldots,C_m$. If the vectors are not independent, they are called _dependent_.
