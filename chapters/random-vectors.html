@@ -1102,14 +1102,12 @@ P(X\in A | y \leq Y \leq y+\epsilon) &amp;= \frac{\int_y^{y+\epsilon} \int_A f_{
 </li>
 </ul>
 </section>
-</div><p>Let me show you how to prove <a class="reference internal" href="#equation-cont-law-eqn">(7.8)</a>; I will leave the other equality <a class="reference internal" href="#equation-disc-law-eqn">(7.7)</a> for you to do on your own. We want to prove that the right-hand side of <a class="reference internal" href="#equation-cont-law-eqn">(7.8)</a> is the PDF of <span class="math notranslate nohighlight">\(X\)</span>. So, we integrate it over <span class="math notranslate nohighlight">\([a,b]\)</span> and hope that the probability <span class="math notranslate nohighlight">\(P(a\leq X \leq b)\)</span> pops out. Here are the computations:</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{align*}
-\int_a^b \left[\int_{-\infty}^\infty f_{X|Y}(x|y) f_Y(y) \ \text{d}y \right] \ \text{d} x &amp;= \int_a^b \left[\int_{-\infty}^\infty f_{XY}(x,y) \ \text{d}y \right] \ \text{d} x \\
-&amp;= \int_a^b f_X(x) \ \text{d} x \\
-&amp;= P(a\leq X \leq b).
-\end{align*}\]</div>
-<p>In moving from the first line to the second, you’ll notice that I “integrated out” the dependence on <span class="math notranslate nohighlight">\(x\)</span> of the joint PDF, obtaining the marginal PDF of <span class="math notranslate nohighlight">\(X\)</span> as a result. Since indeed the probability <span class="math notranslate nohighlight">\(P(a\leq X \leq b)\)</span> was obtained by integrating the right-hand side of <a class="reference internal" href="#equation-cont-law-eqn">(7.8)</a>, this proves that it is the PDF of <span class="math notranslate nohighlight">\(X\)</span>.</p>
+</div><p>Let me show you how to prove <a class="reference internal" href="#equation-cont-law-eqn">(7.8)</a>; I will leave the other equality <a class="reference internal" href="#equation-disc-law-eqn">(7.7)</a> for you to do on your own. But this is just an easy computation:</p>
+<div class="math notranslate nohighlight">
+\[
+\int_\bbr f_{X|Y}(x|y) f_Y(y) \ \text{d}y = \int_\bbr f_{XY}(x,y) \ \text{d}y = f_X(x)
+\]</div>
+<p>We used the definition of the conditional density in moving from the first integral to the second, while the second equality follows from <a class="reference internal" href="#marginal-thm">Theorem 7.3</a>.</p>
 <div class="proof theorem admonition" id="theorem-13">
 <p class="admonition-title"><span class="caption-number">Theorem 7.6 </span> (Bayes’ Theorem (for random variables))</p>
 <section class="theorem-content" id="proof-content">
@@ -1134,7 +1132,7 @@ P(X\in A | y \leq Y \leq y+\epsilon) &amp;= \frac{\int_y^{y+\epsilon} \int_A f_{
 \[
 f_{X|Y}(x|y)  = \frac{f_{Y|X}(y|x) f_X(x)}{\int_{\mathbb{R}} f_{Y|X}(y|x^\star) f_X(x^\star) \ \text{d}x^\star}
 \]</div>
-<p>for all <span class="math notranslate nohighlight">\(x,y\)</span>. The advantage gained by writing the denominator like this is that one <em>only</em> needs information about the conditional density <span class="math notranslate nohighlight">\(f_{Y|X}(y|x)\)</span> and the marginal density <span class="math notranslate nohighlight">\(f_X(x)\)</span> in order to compute the other conditional density <span class="math notranslate nohighlight">\(f_{X|Y}(x|y)\)</span>.</p>
+<p>for all <span class="math notranslate nohighlight">\(x,y\)</span> for which the densities are defined. The advantage gained by writing the denominator like this is that one <em>only</em> needs information about the conditional density <span class="math notranslate nohighlight">\(f_{Y|X}(y|x)\)</span> and the marginal density <span class="math notranslate nohighlight">\(f_X(x)\)</span> in order to compute the other conditional density <span class="math notranslate nohighlight">\(f_{X|Y}(x|y)\)</span>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Notice that the random vector <span class="math notranslate nohighlight">\((X,Y)\)</span> was required to be either discrete or continuous in both the Law of Total Probability and Bayes’ Theorem. Actually, there are versions of many of the definitions and results in this chapter for “mixed” joint distributions in which one of <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(Y\)</span> is continuous and the other is discrete (as long as an analog of a mass or density function exists). I won’t state these more general results here because it would be incredibly awkward and tedious to cover all possible cases using our limited theory and language. This is a situation where the machinery of measure theory is needed.</p>

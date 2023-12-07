@@ -850,15 +850,13 @@ Let $X$ and $Y$ be random variables.
     for each $x\in \mathbb{R}$.
 ```
 
-Let me show you how to prove {eq}`cont-law-eqn`; I will leave the other equality {eq}`disc-law-eqn` for you to do on your own. We want to prove that the right-hand side of {eq}`cont-law-eqn` is the PDF of $X$. So, we integrate it over $[a,b]$ and hope that the probability $P(a\leq X \leq b)$ pops out. Here are the computations:
+Let me show you how to prove {eq}`cont-law-eqn`; I will leave the other equality {eq}`disc-law-eqn` for you to do on your own. But this is just an easy computation:
 
-\begin{align*}
-\int_a^b \left[\int_{-\infty}^\infty f_{X|Y}(x|y) f_Y(y) \ \text{d}y \right] \ \text{d} x &= \int_a^b \left[\int_{-\infty}^\infty f_{XY}(x,y) \ \text{d}y \right] \ \text{d} x \\
-&= \int_a^b f_X(x) \ \text{d} x \\
-&= P(a\leq X \leq b).
-\end{align*}
+$$
+\int_\bbr f_{X|Y}(x|y) f_Y(y) \ \text{d}y = \int_\bbr f_{XY}(x,y) \ \text{d}y = f_X(x)
+$$
 
-In moving from the first line to the second, you'll notice that I "integrated out" the dependence on $x$ of the joint PDF, obtaining the marginal PDF of $X$ as a result. Since indeed the probability $P(a\leq X \leq b)$ was obtained by integrating the right-hand side of {eq}`cont-law-eqn`, this proves that it is the PDF of $X$.
+We used the definition of the conditional density in moving from the first integral to the second, while the second equality follows from {prf:ref}`marginal-thm`.
 
 ```{prf:theorem} Bayes' Theorem (for random variables)
 
@@ -883,7 +881,7 @@ $$
 f_{X|Y}(x|y)  = \frac{f_{Y|X}(y|x) f_X(x)}{\int_{\mathbb{R}} f_{Y|X}(y|x^\star) f_X(x^\star) \ \text{d}x^\star}
 $$
 
-for all $x,y$. The advantage gained by writing the denominator like this is that one _only_ needs information about the conditional density $f_{Y|X}(y|x)$ and the marginal density $f_X(x)$ in order to compute the other conditional density $f_{X|Y}(x|y)$.
+for all $x,y$ for which the densities are defined. The advantage gained by writing the denominator like this is that one _only_ needs information about the conditional density $f_{Y|X}(y|x)$ and the marginal density $f_X(x)$ in order to compute the other conditional density $f_{X|Y}(x|y)$.
 
 
 ```{note}
