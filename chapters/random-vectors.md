@@ -1051,7 +1051,13 @@ The next important theorem shows that transformations of independent random vect
 ```{prf:theorem} Invariance of Independence
 :label: invar-independent-thm
 
-Let $\mathbf{X}_1,\mathbf{X}_2,\ldots,\mathbf{X}_m$ be independent $n$-dimensional random vectors, and let $g:\mathbb{R}^n \to \mathbb{R}^k$ be a function. Then the $k$-dimensional random vectors $g(\mathbf{X}_1),g(\mathbf{X}_2),\ldots,g(\mathbf{X}_m)$ are independent.
+Let $\mathbf{X}_1,\mathbf{X}_2,\ldots,\mathbf{X}_m$ be independent $n$-dimensional random vectors, and let $g:\mathbb{R}^n \to \mathbb{R}^k$ be a function. Then the $k$-dimensional random vectors
+
+$$
+g(\mathbf{X}_1),g(\mathbf{X}_2),\ldots,g(\mathbf{X}_m)
+$$
+
+are independent.
 ```
 
 The proof is easy. Let $C_1,\ldots,C_m\subset \mathbb{R}^k$ be events, and note that
