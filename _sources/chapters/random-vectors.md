@@ -1153,9 +1153,9 @@ Notice that I am abusing the notation somewhat by writing $\theta \sim \mathcal{
 :   image:
 :       width: 70%
 
-from scipy.stats import beta
+import scipy as sp
 
-Theta = beta(a=6, b=2)
+Theta = sp.stats.beta(a=6, b=2)
 theta = np.linspace(0, 1, 150)
 
 plt.plot(theta, Theta.pdf(theta))
@@ -1216,28 +1216,11 @@ Thus, the "updated" distribution must be of the form $\mathcal{B}eta(x+6,12-x)$,
 :   image:
 :       width: 70%
 
-from cycler import cycler
-
-color = [
-    '#486afb',
-    '#4579ff',
-    '#4788ff',
-    '#4f95ff',
-    '#5ba2ff',
-    '#6aafff',
-    '#7bbbff',
-    '#8ec7ff',
-    '#a2d2ff',
-    '#b6ddff',
-    '#cce8ff'
-]
-
-default_cycler = cycler(color=color)
-plt.rc('axes', prop_cycle=default_cycler)
+blues = sns.color_palette('blend:#cce8ff,#486afb', n_colors=11)
 
 for x in range(10, -1, -1):
-    Theta_posterior = beta(a=x + 6, b=12 - x)
-    plt.plot(theta, Theta_posterior.pdf(theta), label=rf'$x={x}$')
+    Theta_posterior = sp.stats.beta(a=x + 6, b=12 - x)
+    plt.plot(theta, Theta_posterior.pdf(theta), label=rf'$x={x}$', color=blues.as_hex()[x])
 
 plt.xlabel(r'$\theta$')
 plt.ylabel('probability density')
