@@ -1001,7 +1001,7 @@ Our mission in this section is to adapt these definitions to the probability mea
 ```{prf:definition}
 :label: independence-defn
 
-Let $\mathbf{X}_1,\mathbf{X}_2,\ldots,\mathbf{X}_m$ be random vectors, all defined on the same probability space. Then these random vectors are said to be _independent_ if
+Let $\mathbf{X}_1,\mathbf{X}_2,\ldots,\mathbf{X}_m$ be random vectors, all defined on the same probability space, but possibly of different dimensions. Then these random vectors are said to be _independent_ if
 
 $$
 P(\mathbf{X}_1\in C_1, \mathbf{X}_2\in C_2,\ldots,\mathbf{X}_m \in C_m) = P(\mathbf{X}_1\in C_1)P(\mathbf{X}_2\in C_2) \cdots P(\mathbf{X}_m\in C_m)
@@ -1034,15 +1034,35 @@ Let $X_1,X_2,\ldots,X_m$ be random variables.
   for all $x_1,x_2,\ldots,x_m \in \mathbb{R}$.
 ```
 
-Let's outline a quick proof of {eq}`cont-factor-eqn` in the case that there are only two random variables $X$ and $Y$. Then, given events $A,B\subset \mathbb{R}$, we have
+Let's outline a quick proof of one direction of the equivalence in the case that there are only two jointly continuous random variables $X$ and $Y$. To begin, notice that we _always_ have equalities
 
 \begin{align*}
 P(X\in A) P(Y\in B) &= \int_Af_X(x) \ \text{d} x \int_B f_Y(y) \ \text{d}y \\
 &= \int_B \int_A f_X(x) f_Y(y) \ \text{d}x\text{d} y \\
-&= \iint_{A\times B} f_X(x) f_Y(y) \ \text{d} x \text{d}y
+&= \iint_{A\times B} f_X(x) f_Y(y) \ \text{d} x \text{d}y,
 \end{align*}
 
-for all events $A,B\subset \mathbb{R}$. Therefore, if $X$ and $Y$ are independent, then this shows the joint probability of $A\times B$ is the integral over the product $f_X(x)f_Y(y)$, which is enough to show that the joint density is equal to this product. Conversely, if the joint density factors, then these computations also show that $X$ and $Y$ are independent.
+for all events $A,B\subset \mathbb{R}$, no matter if $X$ and $Y$ are independent or not. But if the joint density factors into the product of the marginals, then this shows that
+
+$$
+P(X\in A, Y\in B) = \iint_{A\times B} f(x,y) \ \text{d}x \text{d}y = \iint_{A\times B} f_X(x) f_Y(y) \ \text{d} x \text{d}y = P(X\in A) P(Y\in B),
+$$
+
+which proves $X$ and $Y$ are independent.
+
+Conversely, if $X$ and $Y$ are indepenendent, then we have
+
+$$
+P(X\in A, Y\in B) = P(X\in A) P(Y\in B) = \iint_{A\times B} f_X(x) f_Y(y) \ \text{d} x \text{d}y.
+$$ (alm-eqn)
+
+From this we would be tempted to conclude that the joint density factors into the marginals, but there's actually a mathematical subtlety hiding. Indeed, to prove that the product $f_X(x)f_Y(y)$ serves as the joint density, we would need to show that
+
+$$
+P\big( (X,Y)\in C) = \iint_C f_X(x)f_Y(y) \ \text{d}x\text{d}y
+$$ (there-eqn)
+
+for _all_ events $C\subset \bbr^2$; but {eq}`alm-eqn` only establishes this equality for product events of the form $C = A \times B$. Therefore, in order to obtain the desired factorization, one needs to show additionally that {eq}`alm-eqn` implies {eq}`there-eqn` holds for _all_ events $C$. This _is_ true, but the techniques required are beyond the scope of this book.
 
 It turns out that there is also a characterization of independence in terms of factorizations of joint cumulative distribution functions. This characterization is actually taken as the _definition_ of independence in some references (e.g., {cite}`Wackerly2014`).
 
@@ -1051,37 +1071,50 @@ The next important theorem shows that transformations of independent random vect
 ```{prf:theorem} Invariance of Independence
 :label: invar-independent-thm
 
-Let $\mathbf{X}_1,\mathbf{X}_2,\ldots,\mathbf{X}_m$ be independent $n$-dimensional random vectors, and let $g:\mathbb{R}^n \to \mathbb{R}^k$ be a function. Then the $k$-dimensional random vectors
+Let $\mathbf{X}_1,\mathbf{X}_2,\ldots,\mathbf{X}_m$ be independent random vectors and let $g_1,\ldots,g_m$ be vector-valued functions for which the transformed random vectors
 
 $$
-g(\mathbf{X}_1),g(\mathbf{X}_2),\ldots,g(\mathbf{X}_m)
-$$
+g_1(\mathbf{X}_1),g_2(\mathbf{X}_2),\ldots,g_m(\mathbf{X}_m)
+$$ (trans-vec-eqn)
 
-are independent.
+are all defined. Then the random vectors {eq}`trans-vec-eqn` are independent.
 ```
 
-The proof is easy. Let $C_1,\ldots,C_m\subset \mathbb{R}^k$ be events, and note that
+The proof is easy. Letting $C_1,\ldots,C_m$ be events, note that
 
 \begin{align*}
-P\big( g(\mathbf{X}_1)\in C_1,\ldots, g(\mathbf{X}_m)\in C_m \big) &= P\big( \mathbf{X}_1\in g^{-1}(C_1),\ldots, \mathbf{X}_m\in g^{-1}(C_m) \big)\\
-&=P\big( \mathbf{X}_1\in g^{-1}(C_1)\big)\cdots P\big(\mathbf{X}_m\in g^{-1}(C_m) \big) \\
-&=P\big( g(\mathbf{X}_1)\in C_1\big)\cdots P\big(g(\mathbf{X}_m)\in C_m \big).
+P\big( g_1(\mathbf{X}_1)\in C_1,\ldots, g_m(\mathbf{X}_m)\in C_m \big) &= P\big( \mathbf{X}_1\in g_1^{-1}(C_1),\ldots, \mathbf{X}_m\in g_m^{-1}(C_m) \big)\\
+&=P\big( \mathbf{X}_1\in g_1^{-1}(C_1)\big)\cdots P\big(\mathbf{X}_m\in g_m^{-1}(C_m) \big) \\
+&=P\big( g_1(\mathbf{X}_1)\in C_1\big)\cdots P\big(g_m(\mathbf{X}_m)\in C_m \big).
 \end{align*}
 
-An immediate corollary of this theorem is the following result that shows independence of the components of random vectors follows from independence of the random vectors themselves. We have stated it only for $2$-dimensional random vectors for simplicity, but the generalization to higher dimensions should be obvious.
+An immediate corollary of this theorem is the following result that shows independence of the components of random vectors follows from independence of the random vectors themselves.
 
 ```{prf:corollary} Independence of Components
 
-Suppose $(X_1,Y_1),(X_2,Y_2),\ldots,(X_m,Y_m)$ are independent $2$-dimensional random vectors. Then the sequences $X_1,X_2,\ldots,X_m$ and $Y_1,Y_2,\ldots,Y_m$ of random variables are independent.
+Suppose $\bX_1,\bX_2,\ldots,\bX_m$ are independent random vectors. Then all sequences
+
+$$
+X_{1,j_1},X_{2,j_2},\ldots,X_{m,j_m}
+$$ (seq-comp-eqn)
+
+of component random variables are independent, where $X_{ij}$ is the $j$-th component random variable of $\bX_i$.
 ```
 
-To see how this is a corollary of {prf:ref}`invar-independent-thm`, consider the projection map
+To see how this is a corollary of {prf:ref}`invar-independent-thm`, notice that $X_{ij}$ is the transformation of $\bX_i$ under the canonical projection map
 
 $$
-g: \mathbb{R}^2 \to \mathbb{R}, \quad (x,y) \mapsto x,
+g_i(x_1,x_2,\ldots,x_n) = x_j,
 $$
 
-and note that $X_i = g(X_i,Y_i)$ for each $i=1,\ldots,m$. Then independence of the $X_i$'s follows from invariance of independence under the transformation $g$. Independence of the $Y_i$'s follows from the same considerations, but by changing the projection map $g$ so that it takes $(x,y) \mapsto y$.
+where $n$ is the dimension of $\bX_i$. Thus, the sequence of random variables {eq}`seq-comp-eqn` is the same as the sequence
+
+$$
+g_1(\mathbf{X}_1),g_2(\mathbf{X}_2),\ldots,g_m(\mathbf{X}_m)
+$$
+
+where each $g_i$ is the canonical projection just defined.
+
 
 Before moving on to the worksheet problems, we state a "random variable" version of the equation {eq}`cond-ind-eqn` describing independent events in terms of conditional probabilities.
 

@@ -1210,7 +1210,7 @@ P(A|B) = P(A).
 <div class="proof definition admonition" id="independence-defn">
 <p class="admonition-title"><span class="caption-number">Definition 7.11 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(\mathbf{X}_1,\mathbf{X}_2,\ldots,\mathbf{X}_m\)</span> be random vectors, all defined on the same probability space. Then these random vectors are said to be <em>independent</em> if</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{X}_1,\mathbf{X}_2,\ldots,\mathbf{X}_m\)</span> be random vectors, all defined on the same probability space, but possibly of different dimensions. Then these random vectors are said to be <em>independent</em> if</p>
 <div class="math notranslate nohighlight">
 \[
 P(\mathbf{X}_1\in C_1, \mathbf{X}_2\in C_2,\ldots,\mathbf{X}_m \in C_m) = P(\mathbf{X}_1\in C_1)P(\mathbf{X}_2\in C_2) \cdots P(\mathbf{X}_m\in C_m)
@@ -1239,45 +1239,71 @@ P(\mathbf{X}_1\in C_1, \mathbf{X}_2\in C_2,\ldots,\mathbf{X}_m \in C_m) = P(\mat
 </li>
 </ul>
 </section>
-</div><p>Let’s outline a quick proof of <a class="reference internal" href="#equation-cont-factor-eqn">(7.15)</a> in the case that there are only two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. Then, given events <span class="math notranslate nohighlight">\(A,B\subset \mathbb{R}\)</span>, we have</p>
+</div><p>Let’s outline a quick proof of one direction of the equivalence in the case that there are only two jointly continuous random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. To begin, notice that we <em>always</em> have equalities</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 P(X\in A) P(Y\in B) &amp;= \int_Af_X(x) \ \text{d} x \int_B f_Y(y) \ \text{d}y \\
 &amp;= \int_B \int_A f_X(x) f_Y(y) \ \text{d}x\text{d} y \\
-&amp;= \iint_{A\times B} f_X(x) f_Y(y) \ \text{d} x \text{d}y
+&amp;= \iint_{A\times B} f_X(x) f_Y(y) \ \text{d} x \text{d}y,
 \end{align*}\]</div>
-<p>for all events <span class="math notranslate nohighlight">\(A,B\subset \mathbb{R}\)</span>. Therefore, if <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent, then this shows the joint probability of <span class="math notranslate nohighlight">\(A\times B\)</span> is the integral over the product <span class="math notranslate nohighlight">\(f_X(x)f_Y(y)\)</span>, which is enough to show that the joint density is equal to this product. Conversely, if the joint density factors, then these computations also show that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent.</p>
+<p>for all events <span class="math notranslate nohighlight">\(A,B\subset \mathbb{R}\)</span>, no matter if <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent or not. But if the joint density factors into the product of the marginals, then this shows that</p>
+<div class="math notranslate nohighlight">
+\[
+P(X\in A, Y\in B) = \iint_{A\times B} f(x,y) \ \text{d}x \text{d}y = \iint_{A\times B} f_X(x) f_Y(y) \ \text{d} x \text{d}y = P(X\in A) P(Y\in B),
+\]</div>
+<p>which proves <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent.</p>
+<p>Conversely, if <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are indepenendent, then we have</p>
+<div class="math notranslate nohighlight" id="equation-alm-eqn">
+<span class="eqno">(7.16)<a class="headerlink" href="#equation-alm-eqn" title="Permalink to this equation">#</a></span>\[
+P(X\in A, Y\in B) = P(X\in A) P(Y\in B) = \iint_{A\times B} f_X(x) f_Y(y) \ \text{d} x \text{d}y.
+\]</div>
+<p>From this we would be tempted to conclude that the joint density factors into the marginals, but there’s actually a mathematical subtlety hiding. Indeed, to prove that the product <span class="math notranslate nohighlight">\(f_X(x)f_Y(y)\)</span> serves as the joint density, we would need to show that</p>
+<div class="math notranslate nohighlight" id="equation-there-eqn">
+<span class="eqno">(7.17)<a class="headerlink" href="#equation-there-eqn" title="Permalink to this equation">#</a></span>\[
+P\big( (X,Y)\in C) = \iint_C f_X(x)f_Y(y) \ \text{d}x\text{d}y
+\]</div>
+<p>for <em>all</em> events <span class="math notranslate nohighlight">\(C\subset \bbr^2\)</span>; but <a class="reference internal" href="#equation-alm-eqn">(7.16)</a> only establishes this equality for product events of the form <span class="math notranslate nohighlight">\(C = A \times B\)</span>. Therefore, in order to obtain the desired factorization, one needs to show additionally that <a class="reference internal" href="#equation-alm-eqn">(7.16)</a> implies <a class="reference internal" href="#equation-there-eqn">(7.17)</a> holds for <em>all</em> events <span class="math notranslate nohighlight">\(C\)</span>. This <em>is</em> true, but the techniques required are beyond the scope of this book.</p>
 <p>It turns out that there is also a characterization of independence in terms of factorizations of joint cumulative distribution functions. This characterization is actually taken as the <em>definition</em> of independence in some references (e.g., <span id="id6">[<a class="reference internal" href="bib.html#id4" title="D. Wackerly, W. Mendenhall, and R. L. Scheaffer. Mathematical statistics with applications. Cengage Learning, 2014.">WMS14</a>]</span>).</p>
 <p>The next important theorem shows that transformations of independent random vectors remain independent:</p>
 <div class="proof theorem admonition" id="invar-independent-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 7.8 </span> (Invariance of Independence)</p>
 <section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(\mathbf{X}_1,\mathbf{X}_2,\ldots,\mathbf{X}_m\)</span> be independent <span class="math notranslate nohighlight">\(n\)</span>-dimensional random vectors, and let <span class="math notranslate nohighlight">\(g:\mathbb{R}^n \to \mathbb{R}^k\)</span> be a function. Then the <span class="math notranslate nohighlight">\(k\)</span>-dimensional random vectors</p>
-<div class="math notranslate nohighlight">
-\[
-g(\mathbf{X}_1),g(\mathbf{X}_2),\ldots,g(\mathbf{X}_m)
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{X}_1,\mathbf{X}_2,\ldots,\mathbf{X}_m\)</span> be independent random vectors and let <span class="math notranslate nohighlight">\(g_1,\ldots,g_m\)</span> be vector-valued functions for which the transformed random vectors</p>
+<div class="math notranslate nohighlight" id="equation-trans-vec-eqn">
+<span class="eqno">(7.18)<a class="headerlink" href="#equation-trans-vec-eqn" title="Permalink to this equation">#</a></span>\[
+g_1(\mathbf{X}_1),g_2(\mathbf{X}_2),\ldots,g_m(\mathbf{X}_m)
 \]</div>
-<p>are independent.</p>
+<p>are all defined. Then the random vectors <a class="reference internal" href="#equation-trans-vec-eqn">(7.18)</a> are independent.</p>
 </section>
-</div><p>The proof is easy. Let <span class="math notranslate nohighlight">\(C_1,\ldots,C_m\subset \mathbb{R}^k\)</span> be events, and note that</p>
+</div><p>The proof is easy. Letting <span class="math notranslate nohighlight">\(C_1,\ldots,C_m\)</span> be events, note that</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
-P\big( g(\mathbf{X}_1)\in C_1,\ldots, g(\mathbf{X}_m)\in C_m \big) &amp;= P\big( \mathbf{X}_1\in g^{-1}(C_1),\ldots, \mathbf{X}_m\in g^{-1}(C_m) \big)\\
-&amp;=P\big( \mathbf{X}_1\in g^{-1}(C_1)\big)\cdots P\big(\mathbf{X}_m\in g^{-1}(C_m) \big) \\
-&amp;=P\big( g(\mathbf{X}_1)\in C_1\big)\cdots P\big(g(\mathbf{X}_m)\in C_m \big).
+P\big( g_1(\mathbf{X}_1)\in C_1,\ldots, g_m(\mathbf{X}_m)\in C_m \big) &amp;= P\big( \mathbf{X}_1\in g_1^{-1}(C_1),\ldots, \mathbf{X}_m\in g_m^{-1}(C_m) \big)\\
+&amp;=P\big( \mathbf{X}_1\in g_1^{-1}(C_1)\big)\cdots P\big(\mathbf{X}_m\in g_m^{-1}(C_m) \big) \\
+&amp;=P\big( g_1(\mathbf{X}_1)\in C_1\big)\cdots P\big(g_m(\mathbf{X}_m)\in C_m \big).
 \end{align*}\]</div>
-<p>An immediate corollary of this theorem is the following result that shows independence of the components of random vectors follows from independence of the random vectors themselves. We have stated it only for <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vectors for simplicity, but the generalization to higher dimensions should be obvious.</p>
+<p>An immediate corollary of this theorem is the following result that shows independence of the components of random vectors follows from independence of the random vectors themselves.</p>
 <div class="proof corollary admonition" id="corollary-19">
 <p class="admonition-title"><span class="caption-number">Corollary 7.1 </span> (Independence of Components)</p>
 <section class="corollary-content" id="proof-content">
-<p>Suppose <span class="math notranslate nohighlight">\((X_1,Y_1),(X_2,Y_2),\ldots,(X_m,Y_m)\)</span> are independent <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vectors. Then the sequences <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> and <span class="math notranslate nohighlight">\(Y_1,Y_2,\ldots,Y_m\)</span> of random variables are independent.</p>
+<p>Suppose <span class="math notranslate nohighlight">\(\bX_1,\bX_2,\ldots,\bX_m\)</span> are independent random vectors. Then all sequences</p>
+<div class="math notranslate nohighlight" id="equation-seq-comp-eqn">
+<span class="eqno">(7.19)<a class="headerlink" href="#equation-seq-comp-eqn" title="Permalink to this equation">#</a></span>\[
+X_{1,j_1},X_{2,j_2},\ldots,X_{m,j_m}
+\]</div>
+<p>of component random variables are independent, where <span class="math notranslate nohighlight">\(X_{ij}\)</span> is the <span class="math notranslate nohighlight">\(j\)</span>-th component random variable of <span class="math notranslate nohighlight">\(\bX_i\)</span>.</p>
 </section>
-</div><p>To see how this is a corollary of <a class="reference internal" href="#invar-independent-thm">Theorem 7.8</a>, consider the projection map</p>
+</div><p>To see how this is a corollary of <a class="reference internal" href="#invar-independent-thm">Theorem 7.8</a>, notice that <span class="math notranslate nohighlight">\(X_{ij}\)</span> is the transformation of <span class="math notranslate nohighlight">\(\bX_i\)</span> under the canonical projection map</p>
 <div class="math notranslate nohighlight">
 \[
-g: \mathbb{R}^2 \to \mathbb{R}, \quad (x,y) \mapsto x,
+g_i(x_1,x_2,\ldots,x_n) = x_j,
 \]</div>
-<p>and note that <span class="math notranslate nohighlight">\(X_i = g(X_i,Y_i)\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>. Then independence of the <span class="math notranslate nohighlight">\(X_i\)</span>’s follows from invariance of independence under the transformation <span class="math notranslate nohighlight">\(g\)</span>. Independence of the <span class="math notranslate nohighlight">\(Y_i\)</span>’s follows from the same considerations, but by changing the projection map <span class="math notranslate nohighlight">\(g\)</span> so that it takes <span class="math notranslate nohighlight">\((x,y) \mapsto y\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the dimension of <span class="math notranslate nohighlight">\(\bX_i\)</span>. Thus, the sequence of random variables <a class="reference internal" href="#equation-seq-comp-eqn">(7.19)</a> is the same as the sequence</p>
+<div class="math notranslate nohighlight">
+\[
+g_1(\mathbf{X}_1),g_2(\mathbf{X}_2),\ldots,g_m(\mathbf{X}_m)
+\]</div>
+<p>where each <span class="math notranslate nohighlight">\(g_i\)</span> is the canonical projection just defined.</p>
 <p>Before moving on to the worksheet problems, we state a “random variable” version of the equation <a class="reference internal" href="#equation-cond-ind-eqn">(7.14)</a> describing independent events in terms of conditional probabilities.</p>
 <div class="proof theorem admonition" id="theorem-20">
 <p class="admonition-title"><span class="caption-number">Theorem 7.9 </span> (Conditional Criteria for Independence)</p>
@@ -1367,7 +1393,7 @@ X_1,X_2,\ldots,X_{10}
 \]</div>
 <p>with <span class="math notranslate nohighlight">\(X_i \sim \mathcal{B}er(\theta)\)</span> for each <span class="math notranslate nohighlight">\(i\)</span> and a value <span class="math notranslate nohighlight">\(x_i=1\)</span> indicating that a head was obtained on the <span class="math notranslate nohighlight">\(i\)</span>-th flip. It is also natural to assume that the flips are independent of each other (conditioned on <span class="math notranslate nohighlight">\(\theta\)</span>). Therefore, the joint mass function of the random sample (conditioned on <span class="math notranslate nohighlight">\(\theta\)</span>) factors as</p>
 <div class="math notranslate nohighlight" id="equation-factor-likelihood-eqn">
-<span class="eqno">(7.16)<a class="headerlink" href="#equation-factor-likelihood-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.20)<a class="headerlink" href="#equation-factor-likelihood-eqn" title="Permalink to this equation">#</a></span>\[
 p(x_1,x_2,\ldots,x_{10}| \theta) = \prod_{i=1}^{10} p(x_i|\theta) = \prod_{i=1}^{10}\theta^{x_i}(1-\theta)^{1-x_i} = \theta^x (1-\theta)^{10-x},
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(x = x_1+x_2+\cdots +x_{10}\)</span> is the total number of heads in the dataset.</p>
@@ -1419,7 +1445,7 @@ f(\theta| x_1,\ldots,x_{10}) &amp;= \frac{p(x_1,\ldots,x_{10}|\theta)f(\theta)}{
 <p>Remember, we believe that our friend is untrustworthy. If we believed that <span class="math notranslate nohighlight">\(\theta=0.75\)</span>, then seeing five heads is not enough evidence to convince us that <span class="math notranslate nohighlight">\(\theta\)</span> is, in reality, near <span class="math notranslate nohighlight">\(0.5\)</span>. We would need to see <em>even fewer</em> heads to overcome (or offset) the prior estimate of <span class="math notranslate nohighlight">\(\theta=0.75\)</span>.</p>
 </div>
 <p>Actually, my description here is slightly at odds with a strict interpretation of Bayesian philosophy, since a true Bayesian would never assume that the parameter <span class="math notranslate nohighlight">\(\theta\)</span> has a fixed valued at the outset, only that it has a prior probability distribution.</p>
-<p>Notice that independence of the coin flips was <em>absolutely crucial</em> for the computations to go through. Without assuming independence, we would not have been able to factor the joint mass function (conditioned on <span class="math notranslate nohighlight">\(\theta\)</span>) as in <a class="reference internal" href="#equation-factor-likelihood-eqn">(7.16)</a>, which would have made our application of Bayes’ Theorem much more difficult. This joint mass function is actually known as the <em>likelihood function</em> <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span> of the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, and we will see these same computations appear again when we study <a class="reference internal" href="models.html#prob-models"><span class="std std-ref"><em>maximum likelihood estimation</em></span></a> (<em>MLE</em>).</p>
+<p>Notice that independence of the coin flips was <em>absolutely crucial</em> for the computations to go through. Without assuming independence, we would not have been able to factor the joint mass function (conditioned on <span class="math notranslate nohighlight">\(\theta\)</span>) as in <a class="reference internal" href="#equation-factor-likelihood-eqn">(7.20)</a>, which would have made our application of Bayes’ Theorem much more difficult. This joint mass function is actually known as the <em>likelihood function</em> <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span> of the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, and we will see these same computations appear again when we study <a class="reference internal" href="models.html#prob-models"><span class="std std-ref"><em>maximum likelihood estimation</em></span></a> (<em>MLE</em>).</p>
 </section>
 </section>
 
