@@ -1330,9 +1330,9 @@ g: \mathbb{R}^2 \to \mathbb{R}, \quad (x,y) \mapsto x,
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">beta</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
 
-<span class="n">Theta</span> <span class="o">=</span> <span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">Theta</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">Theta</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
@@ -1391,28 +1391,11 @@ f(\theta| x_1,\ldots,x_{10}) &amp;= \frac{p(x_1,\ldots,x_{10}|\theta)f(\theta)}{
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
-
-<span class="n">color</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;#486afb&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#4579ff&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#4788ff&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#4f95ff&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#5ba2ff&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#6aafff&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#7bbbff&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#8ec7ff&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#a2d2ff&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#b6ddff&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;#cce8ff&#39;</span>
-<span class="p">]</span>
-
-<span class="n">default_cycler</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">prop_cycle</span><span class="o">=</span><span class="n">default_cycler</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">blues</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s1">&#39;blend:#cce8ff,#486afb&#39;</span><span class="p">,</span> <span class="n">n_colors</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">Theta_posterior</span> <span class="o">=</span> <span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">x</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">12</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">Theta_posterior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">rf</span><span class="s1">&#39;$x=</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+    <span class="n">Theta_posterior</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">x</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">12</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">Theta_posterior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">rf</span><span class="s1">&#39;$x=</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">blues</span><span class="o">.</span><span class="n">as_hex</span><span class="p">()[</span><span class="n">x</span><span class="p">])</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
@@ -1424,7 +1407,7 @@ f(\theta| x_1,\ldots,x_{10}) &amp;= \frac{p(x_1,\ldots,x_{10}|\theta)f(\theta)}{
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/9d82e4c4f906137e2773356372705639bd245247c321e8fa0878cd43282d8d0e.png"><img alt="../_images/9d82e4c4f906137e2773356372705639bd245247c321e8fa0878cd43282d8d0e.png" src="../_images/9d82e4c4f906137e2773356372705639bd245247c321e8fa0878cd43282d8d0e.png" style="width: 70%;" /></a>
+<a class="reference internal image-reference" href="../_images/189b3215794f9c147701ce20778453af33eed1bb5d4a96bac21fead43a6c716e.png"><img alt="../_images/189b3215794f9c147701ce20778453af33eed1bb5d4a96bac21fead43a6c716e.png" src="../_images/189b3215794f9c147701ce20778453af33eed1bb5d4a96bac21fead43a6c716e.png" style="width: 70%;" /></a>
 </figure>
 </div>
 </div>
