@@ -14,13 +14,27 @@ kernelspec:
 (prob-spaces)=
 # Probability spaces
 
+
+
+
+
+
+
+
+
+
+
+
 ## What is probability?
 
-We often make probabilistic statements in our everyday conversation, such as, "I think there's a one-in-four chance that it will rain tomorrow," or, "I have a 75% chance of failing the final exam in my class." Such statements attempt to quantify our degree of belief in an event occurring, and as such they are _subjective_ assessments. Indeed, _my_ assessment of the chance of rain might very well be different from the person sitting next to me---and if that other person happens to be a meteorologist, then _their_ assessment of the probability is surely more accurate than mine. So, a single event---whether it rains tomorrow or not---evidently has multiple probabilities assigned to it, and these probabilities vary depending on whom you ask.
+We often make probabilistic statements in our everyday conversation, such as, "I think there's a one-in-four chance that it will rain tomorrow," or, "I have a 75% chance of failing the final exam in my class." Such statements attempt to quantify our degree of belief in an event occurring, and as such they are _subjective_ assessments. Indeed, _my_ assessment of the chance of rain might very well be different from the person sitting next to me---and if that other person happens to be a meteorologist, then _their_ assessment of the probability is likely more accurate than mine. So, a single event---whether it rains tomorrow or not---evidently has multiple probabilities assigned to it, and these probabilities vary depending on whom you ask.
 
-But these subjective probabilities may also change over time as new information arrives. If, for example, I initially believe that I have a 75% chance of failing my final exam, but then I surprise myself with a grade of 95% on the midterm, then I will likely decrease my assessment of the probability that I fail the final exam from 75% to a figure much smaller.
+These subjective probabilities may also change over time as new information arrives. If, for example, I initially believe that I have a 75% chance of failing my final exam, but then I surprise myself with a grade of 95% on the midterm, then I will likely decrease my assessment of the probability that I fail the final exam from 75% to a figure much smaller.
 
-> The interpretation that conceptualizes probabilities as measurements of _degrees of belief_ is called the _subjective_ or _Bayesian interpretation_ of probability.
+```{prf:definition}
+
+The interpretation that conceptualizes probabilities as measurements of _degrees of belief_ is called the _subjective_ (or _personal_) _interpretation_ of probability.
+```
 
 If probabilities are inherently subjective, then the 'mathematical theory of probability' seems to be a contradiction in terms. After all, mathematics is supposed to be the most logically rigorous of all the sciences, so how could probability and mathematics ever be brought together?
 
@@ -28,7 +42,7 @@ If probabilities are inherently subjective, then the 'mathematical theory of pro
 If you're interested in different interpretations of probability, you might find the [Wikipedia article](https://en.wikipedia.org/wiki/Probability_interpretations#) interesting.
 ```
 
-This question is a difficult one, and we will uncover answers in due time. But there are other interpretations of probability---ones that have much more apparent and obvious connections to mathematics---with which we will begin our course.
+This question is a difficult one, and we will uncover answers in due time. But there are other interpretations of probability with which we will begin our course.
 
 To illustrate, suppose that you roll a fair six-sided die:
 
@@ -48,11 +62,14 @@ But _why_ this particular value? Perhaps this:
 
 > "Well, since the die is fair and symmetric, there's an equal chance of rolling any number. And since there are six possible numbers that we could roll, the probability of rolling any one particular number is one in six."
 
-The interpretation of probability invoked in this explanation is sometimes called the _classical interpretation_; its characteristic qualities are appeals to "symmetry" and decompositions of events into "equally likely outcomes."
+This invokes the following interpretation of probability:
 
-In this die rolling scenario, notice that the subjective interpretation of probability is essentially useless. Why attempt to justify the value $1/6$ for $P(4)$ with some fuzzy, subjective argument when the precise value $P(4) = 1/6$ is **so** obvious?!
+```{prf:definition}
 
-As obvious and satisfying as this answer may be, there is yet _another_ way that we might justify it. This second justification depends not on physical properties of the die like symmetry, but instead relies on observed _long-run relative frequencies_. Here's the idea: Suppose that we roll the die many times over and over, and that we record the result of each roll. From our tally of rolls, we then compute the following ratio:
+The interpretation of probability whose characteristc qualities are appeals to "symmetry" and decompositions of events into "equally likely outcomes" is called the _classical interpretation_ of probability.
+```
+
+Though the classical interpretation of probability applied to the die-rolling scenario to justify the value $P(4)=1/6$ is quite satisfying, there is yet _another_ way that we might justify this value. This second justification depends not on physical properties of the die like symmetry, but instead relies on observed _long-run relative frequencies_. Here's the idea: Suppose that we roll the die many times over and over, and that we record the result of each roll. From our tally of rolls, we then compute the following ratio:
 
 $$
 \frac{\text{number of $4$s rolled}}{\text{total number of rolls}}.
@@ -126,17 +143,16 @@ plt.tight_layout()
 
 Now we can _really_ see that the relative frequency of $4$s is approaching the red dashed line. But this line just happens to be at a value of $1/6 = 0.1\bar{6}$!
 
-This demonstration suggests that if we wanted a justification for the value $1/6$ for $P(4)$ that does not rely upon symmetries of the die, we might explain this value as the long-run relative frequency of the number of $4$s rolled.
+This demonstration suggests that if we wanted a justification for the value $1/6$ for $P(4)$ that does not rely upon symmetries of the die, we might explain this value as the long-run relative frequency of the number of $4$s rolled. This hints at a _third_ interpretation of probability:
 
-This leads to a _third_ interpretation of probability:
+```{prf:definition}
 
-> The interpretation that conceptualizes probabilities as long-run relative frequencies is called the _frequentist interpretation_ of probability.
-
-The subjective and frequentist interpretations of probability are often portrayed as opposites of each other: Where one interpretation fails, the other seems to succeed.
+The interpretation that conceptualizes probabilities as long-run relative frequencies is called the _frequentist interpretation_ of probability.
+```
 
 The shortcomings and inadequacies of the frequentist interpretation are quite obvious. Indeed, the values that it assigns to probabilities are the limits of infinite sequences of events. But no such _infinite_ sequences exist in the real world. Even more than that, for some events, it's not even clear how we would generate _two_ identical repetitions! For example, if I attempted to justify on a frequentist basis a value of one-in-four for the probability that it will rain tomorrow, I would need to imagine tomorrow repeating itself over and over. But this is clearly absurd!
 
-Despite its shortcomings, in this course, we will primarily work under the frequentist interpretation, if only because that's the one that adapts itself most directly to computer simulation (as you saw above). But the subjective interpretation will reappear later when we study Bayesian statistics. Beyond this course, my advice is to learn a little about each of the various interpretations of probability, but don't become so ideologically rigid that you _universally_ advocate for one over another.
+Despite its shortcomings, in this course, we will primarily work under the frequentist interpretation, if only because that's the one that adapts itself most directly to computer simulation (as you saw above). But the subjective interpretation will reappear later when we catch a glimpse of Bayesian statistics. Going beyond this course, my advice is to learn a little about each of the various interpretations of probability, but don't become so ideologically rigid that you _universally_ advocate for one over another.
 
 
 
