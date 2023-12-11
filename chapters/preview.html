@@ -63,7 +63,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/preview';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -180,17 +180,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="theory-to-practice.html">6. Connecting theory to practice: a first look at model building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random-vectors.html">7. Random vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more-prob.html">8. More probability theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples-of-random-vecs.html">9. Examples of random vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optim.html">10. Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models.html">11. Probabilistic models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="learning.html">12. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">13. Statistics and estimators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">14. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="more-samp-dist.html">15. More sampling distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CIs.html">16. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">17. Hypothesis testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lin-reg.html">18. Linear regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bib.html">19. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">9. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">10. Probabilistic models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning.html">11. Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">12. Statistics and estimators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">13. Large sample theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more-samp-dist.html">14. More sampling distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CIs.html">15. Confidence intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">16. Hypothesis testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lin-reg.html">17. Linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">18. Bibliography</a></li>
 </ul>
 
     </div>
@@ -372,7 +371,7 @@ document.write(`
 <span id="introduction"></span><h1><span class="section-number">1. </span>Preview<a class="headerlink" href="#preview" title="Permalink to this heading">#</a></h1>
 <p>Most textbooks in mathematical statistics spend a considerable amount of time in the early chapters developing a theoretical foundation in probability theory before moving on to applications. As you can see from the menu to the left, this book is not an exception. While this order of topics is based on logical necessity, it might also give readers the false impression that mathematical statistics is just another abstract mathematical theory with little connection to their real-world interests.</p>
 <p>One of my goals in writing this book is to connect the theory to applications as early as possible, beginning in earnest in <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-numref">Chapter 6</span></a>. The first few <a class="reference external" href="https://github.com/jmyers7/stats-book-materials">programming assignments</a> in the Jupyter notebooks are also useful in this respect, giving the reader <em>something</em> hands-on and tangible to do in the early chapters while we’re studying obscure probability distributions and integrating one contrived density function after another.</p>
-<p>But still, the reader may have <em>no idea</em> where the book is headed! This brief “Preview” chapter is intended to give the reader some indication of our direction and goal, by describing <em>inferential statistics</em> and <em>statistical estimators</em>, topics that we will cover beginning in <a class="reference internal" href="stats-estimators.html#stats-estimators"><span class="std std-numref">Chapter 13</span></a> and continuing through the end of the book. The reader should understand that the theory in the first part of the book is built to serve as a foundation for the tools and techniques in these latter chapters.</p>
+<p>But still, the reader may have <em>no idea</em> where the book is headed! This brief “Preview” chapter is intended to give the reader some indication of our direction and goal, by describing <em>inferential statistics</em> and <em>statistical estimators</em>, topics that we will cover beginning in <a class="reference internal" href="stats-estimators.html#stats-estimators"><span class="std std-numref">Chapter 12</span></a> and continuing through the end of the book. The reader should understand that the theory in the first part of the book is built to serve as a foundation for the tools and techniques in these latter chapters.</p>
 <p>So, this initial chapter offers the opportunity to survey some beautiful concepts and ideas without getting sidetracked into technical theory. I will introduce several big-picture ideas and some key terminology. The reader should not be nervous or anxious about understanding everything in this chapter <em>in depth</em>, and should rest assured that we will cover all the concepts in much more detail later. Remember, this is only a preview!</p>
 <section id="the-goal-of-inferential-statistics">
 <h2><span class="section-number">1.1. </span>The goal of inferential statistics<a class="headerlink" href="#the-goal-of-inferential-statistics" title="Permalink to this heading">#</a></h2>
@@ -423,7 +422,7 @@ document.write(`
 </div></blockquote>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>We will discuss samples and datasets beginning in <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-numref">Chapter 6</span></a>, while our treatment of inference will begin properly in <a class="reference internal" href="stats-estimators.html#stats-estimators"><span class="std std-numref">Chapter 13</span></a>.</p>
+<p>We will discuss samples and datasets beginning in <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-numref">Chapter 6</span></a>, while our treatment of inference will begin properly in <a class="reference internal" href="stats-estimators.html#stats-estimators"><span class="std std-numref">Chapter 12</span></a>.</p>
 </aside>
 <p>The process of collecting data is called <em>sampling</em>, which passes from the population to the sample. You should then conceptualize <em>inference</em> as a process that goes in the opposite direction:</p>
 <a class="reference internal image-reference" href="../_images/inferential.svg"><img alt="../_images/inferential.svg" class="align-center" src="../_images/inferential.svg" width="70%" /></a>
@@ -627,7 +626,7 @@ document.write(`
 <p>Here’s what we do: Imagine that it is somehow possible to repeat Michelson’s procedure an infinite number of times, producing an infinite collection of 100-sample datasets under the exact same conditions as the original procedure. Of course, this is purely a thought exercise, because it isn’t <em>actually</em> possible to repeat a process an infinite number of times. Nevertheless, as we go along, we imagine computing the means of each of the new datasets; these means will <em>not</em> all be the same due to the variability that I mentioned above. In the “limit,” we obtain a distribution of mean values that looks roughly something like this:</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>The bar plot is a <em>probability histogram</em> of the <em>sampling distribution</em> for our estimator; the latter objects will be studied in <a class="reference internal" href="stats-estimators.html#stats-estimators"><span class="std std-numref">Chapter 13</span></a>. The smooth curve is a <em>kernel density estimate</em> (<em>KDE</em>) for the sampling distribution; these will be studied in <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-numref">Chapter 6</span></a>.</p>
+<p>The bar plot is a <em>probability histogram</em> of the <em>sampling distribution</em> for our estimator; the latter objects will be studied in <a class="reference internal" href="stats-estimators.html#stats-estimators"><span class="std std-numref">Chapter 12</span></a>. The smooth curve is a <em>kernel density estimate</em> (<em>KDE</em>) for the sampling distribution; these will be studied in <a class="reference internal" href="theory-to-practice.html#theory-to-practice"><span class="std std-numref">Chapter 6</span></a>.</p>
 </aside>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -665,7 +664,7 @@ document.write(`
 <p>Along the horizontal axis we see speeds, as with the plot we saw previously. However, along the vertical axis we now see “probability density” instead of count values. This just means that areas under the curve (which are <span class="math notranslate nohighlight">\(\approx\)</span> the areas of the rectangles) represent probability. Intervals of speeds along the horizontal axis that lie underneath large amounts of area represent values that are more likely to be outputs of our estimator; for example, according to the figure, it is <em>much</em> more likely for our estimator to output a value in the interval <span class="math notranslate nohighlight">\([845,855]\)</span> compared to the interval <span class="math notranslate nohighlight">\([820,830]\)</span>.</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>This interval is an example of a <em>95%-confidence interval</em>. These will be studied in <a class="reference internal" href="CIs.html#cis"><span class="std std-numref">Chapter 16</span></a>.</p>
+<p>This interval is an example of a <em>95%-confidence interval</em>. These will be studied in <a class="reference internal" href="CIs.html#cis"><span class="std std-numref">Chapter 15</span></a>.</p>
 </aside>
 <p>Now, a <em>specific</em> measure of the variability of our estimator is the interval of values over which 95% of the probability (<span class="math notranslate nohighlight">\(=\)</span> area!) sits. It is possible to have a computer find this interval for us:</p>
 <div class="cell tag_hide-input docutils container">
@@ -714,7 +713,7 @@ document.write(`
 </div>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>Does this mean that we may conclude with 95% probability that the “true” speed of light is in the interval between the two vertical lines? I encourage you to think <em>very carefully</em> about this question. We will discuss the answer later in <a class="reference internal" href="CIs.html#cis"><span class="std std-numref">Chapter 16</span></a>.</p>
+<p>Does this mean that we may conclude with 95% probability that the “true” speed of light is in the interval between the two vertical lines? I encourage you to think <em>very carefully</em> about this question. We will discuss the answer later in <a class="reference internal" href="CIs.html#cis"><span class="std std-numref">Chapter 15</span></a>.</p>
 </aside>
 <p>Since 95% of the probability (<span class="math notranslate nohighlight">\(=\)</span> area!) sits over the interval between the two vertical lines, if we feed a 100-sample dataset into our estimator, we expect it to output values in that interval with 95% probability. The length of this interval is about 30 km/s, and since we are dealing with numbers on the order of 300,000 km/s, that length is 1 part in 10,000 relative to the order of magnitude of the data. We would need an experimental physicist to contextualize these numbers for us, but it seems (in my completely uninformed opinion) like that’s a pretty small error! (Remember, it was 1897!) This leads us to:</p>
 <blockquote>

@@ -346,6 +346,38 @@ $$
 $$
 ````
 
+Before we introduce important terminology associated with linear regression models and look at an example, we need to discuss two probability density functions that will play a crucial role in the [next chapter](learning). The first is just the conditional density function of $Y$ given $\bX$:
+
+```{prf:definition}
+
+1. The _model conditional probability function for a linear regression model_ is the conditional probability density function
+
+    $$
+    p\big(y \mid \bx ; \ \bbeta, \beta_0, \sigma^2\big).
+    $$
+
+    On its support consisting of all $y\in \bbr$ and $\bx \in \bbr^{1\times n}$, it is given by the formula
+
+    $$
+    p\big(y \mid \bx ; \ \bbeta, \beta_0, \sigma^2\big) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} ( y - \mu)^2 \right),
+    $$
+
+    where $\mu = \bx \bbeta + \beta_0$.
+
+2. Given a dataset
+
+    $$
+    (\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr,
+    $$
+
+    the _data conditional probability function for a linear regression model_ is the conditional probability density function
+
+    $$
+    p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \bbeta, \beta_0,\sigma^2 \big) = \prod_{i=1}^m p\big(y^{(i)} \mid \bx^{(i)} ; \ \bbeta, \beta_0, \sigma^2\big).
+    $$
+```
+
+
 The components of the vector $\bX$ are referred to as _predictors_, _regressors_, _explanatory variables_, or _independent variables_, while the random variable $Y$ is called the _response variable_ or the _dependent variable_. In the case that $n=1$, the model is called a _simple linear regression model_; otherwise, it is called a _multiple linear regression model_.
 
 Note that
@@ -360,7 +392,7 @@ $$
 \mu = \bx \bbeta + \beta_0.
 $$ (lin-reg-line-eqn)
 
-The parameter $\beta_0$ is often called the _intercept coefficient_, while the other $\beta_j$'s (for $j>0$) are called _slope coefficients_ since they are exactly the (infinitesimal) slopes:
+The parameter $\beta_0$ is often called the _intercept_ or _bias term_, while the other $\beta_j$'s (for $j>0$) are called _slope coefficients_ since they are exactly the (infinitesimal) slopes:
 
 $$
 \frac{\partial \mu}{\partial x_j} = \beta_j.
@@ -381,7 +413,7 @@ $$ (random-lin-rel-eqn)
 
 This is the manifestation in terms of random vectors and variables of the approximate linear relationship {eq}`approx-linear-eqn` described at the beginning of this section.
 
-In our definition of a linear regression model, the random vector $\bX$ and random variable $Y$ are observed, which means that we have a dataset
+Suppose we are given a dataset
 
 $$
 (\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr.
@@ -407,7 +439,7 @@ $$
 
 This shows that the residuals $\dev^{(i)}$ are observations of the error term $\dev \sim \mathcal{N}(0,\sigma^2)$. Thus, in a linear regression model, all residuals from a dataset are assumed to be modeled by a normal distribution with mean $0$ and a _fixed_ variance; the fixed-variance assumption is sometimes called _homoscedasticity_.
 
-We will study in {numref}`Chapter %s <learning>` how to train a linear regression model on a dataset to learn optimal values of the parameters $\bbeta$ and $\beta_0$. We used those training methods to learn $\beta$ and $\beta_0$ on the Ames housing dataset mentioned at the beginning of this section; the positively-sloped line in the scatter plot was the line traced out by the link function $\mu =  \beta x + \beta_0$ with those learned parameter values. Thus, the predicted values $\hat{y}^{(i)}$ lie along this line, and the magnitude of the residual $\dev^{(i)}$ may be visualized as the vertical distance from the true data point $y^{(i)}$ to this line. We may plot the residuals $\dev^{(i)}$ against the predictor variables $x^{(i)}$ to get:
+In {numref}`Chapter %s <learning>`, we will learn how to train a linear regression model on a dataset to obtain optimal values of the parameters $\bbeta$ and $\beta_0$. Using these training methods, we obtained values of the parameters for the Ames housing dataset mentioned at the beginning of this section; the positively-sloped line in the scatter plot was the line traced out by the link function $\mu =  \beta x + \beta_0$. The predicted values $\hat{y}^{(i)}$ lie along this line, and the magnitude of the residual $\dev^{(i)}$ may be visualized as the vertical distance from the true data point $y^{(i)}$ to this line. We may plot the residuals $\dev^{(i)}$ against the predictor variables $x^{(i)}$ to get:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -432,7 +464,7 @@ plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
-It is evident from this plot that the homoscedasticity assumption is violated, since the distributions of the residuals appear to widen as the area variable increases.
+It is evident from this plot that the homoscedasticity assumption is violated since the distributions of the residuals appear to widen as the area variable increases.
 
 As with the parameters $\beta$ and $\beta_0$, it is also possible to learn an optimal value of the variance $\sigma^2$. As another method of model checking, given all the parameters $\beta$, $\beta_0$, and $\sigma^2$, we may generate a new dataset by sampling from the normal distributions 
 
@@ -522,7 +554,7 @@ A _logistic regression model_ is a probabilistic graphical model whose underlyin
 ```
 &nbsp;
 
-where $\mathbf{x}\in \mathbb{R}^{1\times n}$. The model has the following parameters:
+where $\bX\in \mathbb{R}^{1\times n}$. The model has the following parameters:
 
 * A parameter vector $\boldsymbol\beta \in \mathbb{R}^{n\times 1}$.
 
@@ -531,9 +563,40 @@ where $\mathbf{x}\in \mathbb{R}^{1\times n}$. The model has the following parame
 The link function at $Y$ is given by
 
 $$
-\phi = \sigma(\mathbf{x}\boldsymbol\beta + \beta_0), \quad \text{where} \quad Y; \mathbf{x},\boldsymbol\beta,\beta_0 \sim \mathcal{B}er(\phi).
+\phi = \sigma(\bx\bbeta + \beta_0), \quad \text{where} \quad Y \mid \bX; \ \bbeta,\beta_0 \sim \mathcal{B}er(\phi).
 $$
 ````
+
+```{prf:definition}
+
+1. The _model conditional probability function for a logistic regression model_ is the conditional probability density function
+
+    $$
+    p\big(y \mid \bx ; \ \bbeta, \beta_0\big).
+    $$
+
+    On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{1\times n}$, it is given by the formula
+
+    $$
+    p\big(y \mid \bx ; \ \bbeta, \beta_0\big) = \phi^y (1-\phi)^{1-y}
+    $$
+
+    where $\phi = \bx \bbeta + \beta_0$.
+
+2. Given a dataset
+
+    $$
+    (\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \{0,1\},
+    $$
+
+    the _data conditional probability function for a logistic regression model_ is the conditional probability density function
+
+    $$
+    p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \bbeta, \beta_0\big) = \prod_{i=1}^m p\big(y^{(i)} \mid \bx^{(i)} ; \ \bbeta, \beta_0\big).
+    $$
+
+```
+
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -637,7 +700,7 @@ A _neural network model_ is a probabilistic graphical model whose underlying gra
 ```
 &nbsp;
 
-where $\mathbf{x} \in \mathbb{R}^{1\times n}$ and $\mathbf{z}\in \mathbb{R}^{1\times k}$. The model has the following parameters:
+where $\bX \in \mathbb{R}^{1\times n}$ and $\mathbf{z}\in \mathbb{R}^{1\times k}$. The model has the following parameters:
 
 * A parameter matrix $\boldsymbol\alpha \in \mathbb{R}^{n\times k}$.
 
@@ -656,9 +719,42 @@ $$
 while the link function at $Y$ is given by
 
 $$
-\phi = \sigma(\mathbf{z}\boldsymbol\beta + \beta_0), \quad \text{where} \quad Y ; \mathbf{z}, \boldsymbol\beta,\beta_0 \sim \mathcal{B}er\big(\phi\big).
+\phi = \sigma(\mathbf{z}\boldsymbol\beta + \beta_0), \quad \text{where} \quad Y ;\  \mathbf{z}, \boldsymbol\beta,\beta_0 \sim \mathcal{B}er\big(\phi\big).
 $$
 ````
+
+```{prf:definition}
+
+1. The _model conditional probability function for a neural network model_ is the conditional probability density function
+
+    $$
+    p\big(y \mid \bx ; \ \balpha, \balpha_0, \bbeta, \beta_0\big).
+    $$
+
+    On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{1\times n}$, it is given by the formula
+
+    $$
+    p\big(y \mid \bx ; \ \bbeta, \beta_0\big) = \phi^y (1-\phi)^{1-y}
+    $$
+
+    where $\phi = \sigma(\bz \bbeta + \beta_0)$ and $\bz = \sigma(\bx \balpha + \balpha_0)$.
+
+2. Given a dataset
+
+    $$
+    (\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \{0,1\},
+    $$
+
+    the _data conditional probability function for a neural network model_ is the conditional probability density function
+
+    $$
+    p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \balpha, \balpha_0, \bbeta, \beta_0\big) = \prod_{i=1}^m p\big(y^{(i)} \mid \bx^{(i)} ; \ \balpha, \balpha_0, \bbeta, \beta_0\big).
+    $$
+
+```
+
+
+
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -762,6 +858,38 @@ X \mid Z; \ \mu_0,\sigma_0^2,\mu_1, \sigma^2_1 \sim \mathcal{N}(\mu,\sigma^2).
 $$
 ````
 
+```{prf:definition}
+
+1. The _model joint probability function for a Gaussian mixture model_ is the joint probability density function
+
+    $$
+    p\big(x, z ; \ \mu_0,\mu_1, \sigma_0^2, \sigma_1^2, \phi \big).
+    $$
+
+    On its support consisting of all $x\in \bbr$ and $z \in \{0,1\}$, it is given by the formula
+
+    $$
+    p\big(x, z ; \ \mu_0,\mu_1, \sigma_0^2, \sigma_1^2, \phi \big) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( - \frac{1}{2\sigma^2} (x-\mu)^2 \right) \phi^z (1-\phi)^{1-z}
+    $$
+
+    where $\mu = \mu_0(1-z) + \mu_1z$ and $\sigma^2 = \sigma_0^2(1-z) + \sigma_1^2z$.
+
+2. Given a dataset
+
+    $$
+    (x^{(1)}, z^{(1)}), (x^{(2)},z^{(2)}),\ldots, (x^{(m)},z^{(m)}) \in \bbr \times \{0,1\},
+    $$
+
+    the _data joint probability function for a Gaussian mixture model_ is the joint probability density function
+
+    $$
+    p\big(x^{(1)},\ldots,x^{(m)}, z^{(1)},\ldots,z^{(m)} ; \ \mu_0,\mu_1, \sigma_0^2, \sigma_1^2, \phi \big) = \prod_{i=1}^m p\big(x^{(i)}, z^{(i)} ; \ \mu_0,\mu_1, \sigma_0^2, \sigma_1^2, \phi \big).
+    $$
+
+
+```
+
+
 ```{code-cell} ipython3
 :tags: [hide-input]
 :mystnb:
@@ -813,5 +941,3 @@ plt.tight_layout()
 
 
 
-
-## A connection to supervised machine learning
