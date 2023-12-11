@@ -22,6 +22,7 @@ sphinx:
     mathjax_config:
       tex:
         macros:
+          "Ber": "\\mathcal{B}er"
           "balpha": "\\boldsymbol\\alpha"
           "bbeta": "\\boldsymbol\\beta"
           "btheta": "\\boldsymbol\\theta"

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>12. Learning &#8212; Mathematical Statistics with a View Toward Machine Learning</title>
+    <title>11. Learning &#8212; Mathematical Statistics with a View Toward Machine Learning</title>
   
   
   
@@ -63,11 +63,13 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/learning';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="13. Statistics and estimators" href="stats-estimators.html" />
-    <link rel="prev" title="11. Probabilistic models" href="models.html" />
+    <link rel="next" title="12. Statistics and estimators" href="stats-estimators.html" />
+    <link rel="prev" title="10. Probabilistic models" href="models.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -178,17 +180,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="theory-to-practice.html">6. Connecting theory to practice: a first look at model building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random-vectors.html">7. Random vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more-prob.html">8. More probability theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples-of-random-vecs.html">9. Examples of random vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optim.html">10. Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models.html">11. Probabilistic models</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">12. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">13. Statistics and estimators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">14. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="more-samp-dist.html">15. More sampling distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CIs.html">16. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">17. Hypothesis testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lin-reg.html">18. Linear regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bib.html">19. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">9. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">10. Probabilistic models</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">11. Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">12. Statistics and estimators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">13. Large sample theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more-samp-dist.html">14. More sampling distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CIs.html">15. Confidence intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">16. Hypothesis testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lin-reg.html">17. Linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">18. Bibliography</a></li>
 </ul>
 
     </div>
@@ -352,7 +353,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-maximization-em">12.1. Expectation maximization (EM)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-estimation">11.1. Maximum likelihood estimation</a></li>
 </ul>
             </nav>
         </div>
@@ -365,10 +366,99 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="learning">
-<span id="id1"></span><h1><span class="section-number">12. </span>Learning<a class="headerlink" href="#learning" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">11. </span>Learning<a class="headerlink" href="#learning" title="Permalink to this heading">#</a></h1>
 <p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
-<section id="expectation-maximization-em">
-<h2><span class="section-number">12.1. </span>Expectation maximization (EM)<a class="headerlink" href="#expectation-maximization-em" title="Permalink to this heading">#</a></h2>
+<section id="maximum-likelihood-estimation">
+<h2><span class="section-number">11.1. </span>Maximum likelihood estimation<a class="headerlink" href="#maximum-likelihood-estimation" title="Permalink to this heading">#</a></h2>
+<p>Let’s begin with a simple example. Suppose that we flip a coin <span class="math notranslate nohighlight">\(m\geq 1\)</span> times and let <span class="math notranslate nohighlight">\(x_i\)</span> be the number of heads obtained on the <span class="math notranslate nohighlight">\(i\)</span>-th toss; thus, <span class="math notranslate nohighlight">\(x_i\)</span> is an observed value of a random variable</p>
+<div class="math notranslate nohighlight">
+\[
+X \sim \Ber(\theta).
+\]</div>
+<p>This is a very simple example of a probabilistic graphical model whose underlying graph is of the form</p>
+<a class="reference internal image-reference" href="../_images/bern-pgm.svg"><img alt="../_images/bern-pgm.svg" class="align-center" src="../_images/bern-pgm.svg" width="30%" /></a>
+<p> </p>
+<p>Our observations together form a dataset of size <span class="math notranslate nohighlight">\(m\)</span>:</p>
+<div class="math notranslate nohighlight" id="equation-bern-dataset-eqn">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-bern-dataset-eqn" title="Permalink to this equation">#</a></span>\[
+x_1,x_2,\ldots,x_m \in \bbr.
+\]</div>
+<p>The dataset suggests certain values of the unknown parameter <span class="math notranslate nohighlight">\(\theta\)</span> that are “better” than others. For example, if <span class="math notranslate nohighlight">\(m=10\)</span> and the total number of heads</p>
+<div class="math notranslate nohighlight" id="equation-sum-dep-eqn">
+<span class="eqno">(11.2)<a class="headerlink" href="#equation-sum-dep-eqn" title="Permalink to this equation">#</a></span>\[
+x = x_1 + \cdots + x_{m}
+\]</div>
+<p>is <span class="math notranslate nohighlight">\(x=7\)</span>, then a value of <span class="math notranslate nohighlight">\(\theta=0.7\)</span> seems like a “better” choice compared to, say, <span class="math notranslate nohighlight">\(\theta=0.1\)</span>. Indeed, if <span class="math notranslate nohighlight">\(\theta=0.1\)</span>, then we would expect it highly unlikely to observe a dataset <a class="reference internal" href="#equation-bern-dataset-eqn">(11.1)</a> of size <span class="math notranslate nohighlight">\(m=10\)</span> containing <span class="math notranslate nohighlight">\(x=7\)</span> heads.</p>
+<p>We may confirm our hunch by actually computing probabilities. Assuming, as always, that the observations in the dataset are independent, we have</p>
+<div class="math notranslate nohighlight" id="equation-likelihood-bern-eqn">
+<span class="eqno">(11.3)<a class="headerlink" href="#equation-likelihood-bern-eqn" title="Permalink to this equation">#</a></span>\[
+p(x_1,\ldots,x_m;\theta) = \prod_{i=1}^m \theta^{x_i}(1-\theta)^{1-x_i} = \theta^x (1-\theta)^{m-x}.
+\]</div>
+<p>Notice that the value of the joint mass function depends only on the sum <a class="reference internal" href="#equation-sum-dep-eqn">(11.2)</a>. If this sum is <span class="math notranslate nohighlight">\(x=7\)</span>, and we have <span class="math notranslate nohighlight">\(m=10\)</span> and <span class="math notranslate nohighlight">\(\theta=0.1\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+p(x_1,\ldots,x_m;\theta=0.1) = 0.1^{7} (1-0.1)^{10-7} = 7.29 \times 10^{-8}.
+\]</div>
+<p>On the other hand, when <span class="math notranslate nohighlight">\(\theta=0.7\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[
+p(x_1,\ldots,x_m;\theta=0.7) = 0.7^{7} (1-0.7)^{10-7} \approx 2.22 \times 10^{-3}.
+\]</div>
+<p>Thus, it is five orders of magnitude more likely to observe a dataset with <span class="math notranslate nohighlight">\(x=7\)</span> for <span class="math notranslate nohighlight">\(\theta=0.7\)</span> compared to <span class="math notranslate nohighlight">\(\theta=0.1\)</span>. In fact, when <span class="math notranslate nohighlight">\(x=7\)</span> and <span class="math notranslate nohighlight">\(m=10\)</span>, the value <span class="math notranslate nohighlight">\(\theta = 0.7\)</span> is a maximizer of the function <a class="reference internal" href="#equation-likelihood-bern-eqn">(11.3)</a>, which may be verified by inspecting the graph:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span> <span class="nn">torch.distributions.multivariate_normal</span> <span class="kn">import</span> <span class="n">MultivariateNormal</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib_inline.backend_inline</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="n">blue</span> <span class="o">=</span> <span class="s1">&#39;#486AFB&#39;</span>
+<span class="n">magenta</span> <span class="o">=</span> <span class="s1">&#39;#FD46FC&#39;</span>
+
+<span class="k">def</span> <span class="nf">likelihood</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">theta</span> <span class="o">**</span> <span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">theta</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">x</span><span class="p">))</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">theta$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;likelihood&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/04e220d0462fbdb911710ebec18986eeb9f1ccccce2f796d937d8a0a5ba9bd58.svg"><img alt="../_images/04e220d0462fbdb911710ebec18986eeb9f1ccccce2f796d937d8a0a5ba9bd58.svg" src="../_images/04e220d0462fbdb911710ebec18986eeb9f1ccccce2f796d937d8a0a5ba9bd58.svg" width="70%" /></a>
+</figure>
+</div>
+</div>
+<p>Note the label along the vertical axis; when the dataset is held fixed, the values of the joint mass function <a class="reference internal" href="#equation-likelihood-bern-eqn">(11.3)</a> as a function of the parameter <span class="math notranslate nohighlight">\(\theta\)</span> are refered to as <em>likelihoods</em>. Hence, this function is called the <em>(data) likelihood function</em> and is denoted</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}(\theta;x_1,\ldots,x_m) = p(x_1,\ldots,x_m;\theta).
+\]</div>
+<p>When the dependence of the likelihood function on the dataset does not need to be explicitly indicated, we shall often simply write <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Note that the likelihood function <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span> is <strong>not</strong> a probability density function over <span class="math notranslate nohighlight">\(\theta\)</span>!</p>
+</div>
 </section>
 </section>
 
@@ -408,7 +498,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">11. </span>Probabilistic models</p>
+        <p class="prev-next-title"><span class="section-number">10. </span>Probabilistic models</p>
       </div>
     </a>
     <a class="right-next"
@@ -416,7 +506,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">13. </span>Statistics and estimators</p>
+        <p class="prev-next-title"><span class="section-number">12. </span>Statistics and estimators</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -435,7 +525,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-maximization-em">12.1. Expectation maximization (EM)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-estimation">11.1. Maximum likelihood estimation</a></li>
 </ul>
   </nav></div>
 

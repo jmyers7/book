@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>10. Optimization &#8212; Mathematical Statistics with a View Toward Machine Learning</title>
+    <title>9. Optimization &#8212; Mathematical Statistics with a View Toward Machine Learning</title>
   
   
   
@@ -63,13 +63,13 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/optim';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="11. Probabilistic models" href="models.html" />
-    <link rel="prev" title="9. Examples of random vectors" href="examples-of-random-vecs.html" />
+    <link rel="next" title="10. Probabilistic models" href="models.html" />
+    <link rel="prev" title="8. More probability theory" href="more-prob.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,17 +180,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="theory-to-practice.html">6. Connecting theory to practice: a first look at model building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random-vectors.html">7. Random vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more-prob.html">8. More probability theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples-of-random-vecs.html">9. Examples of random vectors</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">10. Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models.html">11. Probabilistic models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="learning.html">12. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">13. Statistics and estimators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">14. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="more-samp-dist.html">15. More sampling distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CIs.html">16. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">17. Hypothesis testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lin-reg.html">18. Linear regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bib.html">19. Bibliography</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">9. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">10. Probabilistic models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning.html">11. Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">12. Statistics and estimators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">13. Large sample theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more-samp-dist.html">14. More sampling distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CIs.html">15. Confidence intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">16. Hypothesis testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lin-reg.html">17. Linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">18. Bibliography</a></li>
 </ul>
 
     </div>
@@ -354,9 +353,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-in-one-variable">10.1. Gradient descent in one variable</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-in-multiple-variables">10.2. Gradient descent in multiple variables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-gradient-descent">10.3. Stochastic gradient descent</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-in-one-variable">9.1. Gradient descent in one variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-in-multiple-variables">9.2. Gradient descent in multiple variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-gradient-descent">9.3. Stochastic gradient descent</a></li>
 </ul>
             </nav>
         </div>
@@ -369,10 +368,10 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="optimization">
-<span id="optim"></span><h1><span class="section-number">10. </span>Optimization<a class="headerlink" href="#optimization" title="Permalink to this heading">#</a></h1>
+<span id="optim"></span><h1><span class="section-number">9. </span>Optimization<a class="headerlink" href="#optimization" title="Permalink to this heading">#</a></h1>
 <p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
 <section id="gradient-descent-in-one-variable">
-<h2><span class="section-number">10.1. </span>Gradient descent in one variable<a class="headerlink" href="#gradient-descent-in-one-variable" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">9.1. </span>Gradient descent in one variable<a class="headerlink" href="#gradient-descent-in-one-variable" title="Permalink to this heading">#</a></h2>
 <p>Consider the optimization problem of locating the minimum values of the polynomial function</p>
 <div class="math notranslate nohighlight">
 \[
@@ -416,14 +415,14 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/78a8175a4799398c0ae691335f4cf1c80659daf5a2cf3a8722b1d339ae3e7942.svg"><img alt="../_images/78a8175a4799398c0ae691335f4cf1c80659daf5a2cf3a8722b1d339ae3e7942.svg" src="../_images/78a8175a4799398c0ae691335f4cf1c80659daf5a2cf3a8722b1d339ae3e7942.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/72b415dafdc86dd6b549226bcd619e87951dd6cf27c100f7df2c6073095dfd30.svg"><img alt="../_images/72b415dafdc86dd6b549226bcd619e87951dd6cf27c100f7df2c6073095dfd30.svg" src="../_images/72b415dafdc86dd6b549226bcd619e87951dd6cf27c100f7df2c6073095dfd30.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
 <p>From the graph, we see that the objective function is minimized near <span class="math notranslate nohighlight">\(\theta^\star\approx 0.5\)</span> and <span class="math notranslate nohighlight">\(2.7\)</span>; these values are called <em>(local) minimizers</em> of the objective function.</p>
 <p>We shall use a simple single-variable version of the <em>gradient descent (GD) algorithm</em> to solve this optimization problem. In this context, the GD algorithm is called the <em>optimizer</em>. This algorithm depends on an initial guess for a minimizer, as well as two parameters called the <em>learning rate</em> and the <em>number of gradient steps</em>. We will state the algorithm first, and then walk through some intuition for why it works:</p>
 <div class="proof algorithm admonition" id="algorithm-0">
-<p class="admonition-title"><span class="caption-number">Algorithm 10.1 </span> (Single-variable gradient descent)</p>
+<p class="admonition-title"><span class="caption-number">Algorithm 9.1 </span> (Single-variable gradient descent)</p>
 <section class="algorithm-content" id="proof-content">
 <p><strong>Input:</strong> A differentiable objective function <span class="math notranslate nohighlight">\(J:\mathbb{R}\to \mathbb{R}\)</span>, an initial guess <span class="math notranslate nohighlight">\(\theta_0\in \mathbb{R}\)</span> for a minimizer <span class="math notranslate nohighlight">\(\theta^\star\)</span>, a learning rate <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span>, and the number <span class="math notranslate nohighlight">\(N\)</span> of gradient steps.</p>
 <p><strong>Output:</strong> An approximation to a minimizer <span class="math notranslate nohighlight">\(\theta^\star\)</span>.</p>
@@ -440,7 +439,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </div><p>Beginning from an initial guess <span class="math notranslate nohighlight">\(\theta_0\)</span> for a minimizer, the GD algorithm outputs a sequence of approximations <span class="math notranslate nohighlight">\(\theta_1,\theta_2,\ldots,\theta_N\)</span> for a minimizer. The last value <span class="math notranslate nohighlight">\(\theta_N\)</span> in the sequence is taken as the output of the algorithm; if the algorithm converges to a minimizer, then we should have <span class="math notranslate nohighlight">\(\theta_N \approx \theta^\star\)</span>.</p>
 <p>The equation</p>
 <div class="math notranslate nohighlight" id="equation-update-rule-eqn">
-<span class="eqno">(10.1)<a class="headerlink" href="#equation-update-rule-eqn" title="Permalink to this equation">#</a></span>\[\theta_t := \theta_{t-1} - \alpha J'(\theta_{t-1})\]</div>
+<span class="eqno">(9.1)<a class="headerlink" href="#equation-update-rule-eqn" title="Permalink to this equation">#</a></span>\[\theta_t := \theta_{t-1} - \alpha J'(\theta_{t-1})\]</div>
 <p>in the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop is called the <em>update rule</em>; we say that the new parameter <span class="math notranslate nohighlight">\(\theta_t\)</span> is obtained by taking a <em>gradient step</em> from <span class="math notranslate nohighlight">\(\theta_{t-1}\)</span>. The first update occurs when <span class="math notranslate nohighlight">\(t=1\)</span>, yielding</p>
 <div class="math notranslate nohighlight">
 \[
@@ -485,23 +484,23 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/e3db37b6ec24af5ff54d6fd14f08b013d17d4d78821dce389823c3872f4a625e.svg"><img alt="../_images/e3db37b6ec24af5ff54d6fd14f08b013d17d4d78821dce389823c3872f4a625e.svg" src="../_images/e3db37b6ec24af5ff54d6fd14f08b013d17d4d78821dce389823c3872f4a625e.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/f2bcd515e020d579fc7433f339ce6d0bce68252b0050bed4d4de9f90d27a49d3.svg"><img alt="../_images/f2bcd515e020d579fc7433f339ce6d0bce68252b0050bed4d4de9f90d27a49d3.svg" src="../_images/f2bcd515e020d579fc7433f339ce6d0bce68252b0050bed4d4de9f90d27a49d3.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
 <p>In this plot, we’ve drawn the tangent lines to the graph of <span class="math notranslate nohighlight">\(J(\theta)\)</span> at two initial values <span class="math notranslate nohighlight">\(\theta_0=-0.4\)</span> and <span class="math notranslate nohighlight">\(\theta_0=3.3\)</span>. Since the derivatives are the slopes of these tangent lines, the sign of the derivative is negative when <span class="math notranslate nohighlight">\(\theta_0=-0.4\)</span> and positive when <span class="math notranslate nohighlight">\(\theta_0 = 3.3\)</span>. In the first case, we have</p>
 <div class="math notranslate nohighlight" id="equation-first-update-eqn">
-<span class="eqno">(10.2)<a class="headerlink" href="#equation-first-update-eqn" title="Permalink to this equation">#</a></span>\[\theta_1 = -0.4 - \alpha J'(-0.4) &gt; -0.4\]</div>
+<span class="eqno">(9.2)<a class="headerlink" href="#equation-first-update-eqn" title="Permalink to this equation">#</a></span>\[\theta_1 = -0.4 - \alpha J'(-0.4) &gt; -0.4\]</div>
 <p>since <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span>, while in the second case we have</p>
 <div class="math notranslate nohighlight" id="equation-second-update-eqn">
-<span class="eqno">(10.3)<a class="headerlink" href="#equation-second-update-eqn" title="Permalink to this equation">#</a></span>\[\theta_1 = 3.3 - \alpha J'(3.3) &lt; 3.3.\]</div>
-<p>But notice that the nearest minimizer to <span class="math notranslate nohighlight">\(\theta_0 = -0.4\)</span> is <span class="math notranslate nohighlight">\(\theta^\star \approx 0.5\)</span>, and so the new <span class="math notranslate nohighlight">\(\theta_1\)</span> computed according to <a class="reference internal" href="#equation-first-update-eqn">(10.2)</a> should be closer to <span class="math notranslate nohighlight">\(\theta^\star\)</span> than the initial guess <span class="math notranslate nohighlight">\(\theta_0\)</span>, provided that the (scaled) negative derivative</p>
+<span class="eqno">(9.3)<a class="headerlink" href="#equation-second-update-eqn" title="Permalink to this equation">#</a></span>\[\theta_1 = 3.3 - \alpha J'(3.3) &lt; 3.3.\]</div>
+<p>But notice that the nearest minimizer to <span class="math notranslate nohighlight">\(\theta_0 = -0.4\)</span> is <span class="math notranslate nohighlight">\(\theta^\star \approx 0.5\)</span>, and so the new <span class="math notranslate nohighlight">\(\theta_1\)</span> computed according to <a class="reference internal" href="#equation-first-update-eqn">(9.2)</a> should be closer to <span class="math notranslate nohighlight">\(\theta^\star\)</span> than the initial guess <span class="math notranslate nohighlight">\(\theta_0\)</span>, provided that the (scaled) negative derivative</p>
 <div class="math notranslate nohighlight" id="equation-neg-derivative-eqn">
-<span class="eqno">(10.4)<a class="headerlink" href="#equation-neg-derivative-eqn" title="Permalink to this equation">#</a></span>\[-\alpha J'(\theta_0)\]</div>
-<p>is not too large (in magnitude) causing the new <span class="math notranslate nohighlight">\(\theta_1\)</span> to “overshoot” the minimizer <span class="math notranslate nohighlight">\(\theta^\star\)</span>. Similarly, the nearest minimizer to <span class="math notranslate nohighlight">\(\theta_0 = 3.3\)</span> is <span class="math notranslate nohighlight">\(\theta^\star \approx 2.7\)</span>, so the new <span class="math notranslate nohighlight">\(\theta_1\)</span> computed according to <a class="reference internal" href="#equation-second-update-eqn">(10.3)</a> should be closer to <span class="math notranslate nohighlight">\(\theta^\star\)</span> than <span class="math notranslate nohighlight">\(\theta_0\)</span>, again provided that the (scaled) negative derivative <a class="reference internal" href="#equation-neg-derivative-eqn">(10.4)</a> is not too large in magnitude.</p>
+<span class="eqno">(9.4)<a class="headerlink" href="#equation-neg-derivative-eqn" title="Permalink to this equation">#</a></span>\[-\alpha J'(\theta_0)\]</div>
+<p>is not too large (in magnitude) causing the new <span class="math notranslate nohighlight">\(\theta_1\)</span> to “overshoot” the minimizer <span class="math notranslate nohighlight">\(\theta^\star\)</span>. Similarly, the nearest minimizer to <span class="math notranslate nohighlight">\(\theta_0 = 3.3\)</span> is <span class="math notranslate nohighlight">\(\theta^\star \approx 2.7\)</span>, so the new <span class="math notranslate nohighlight">\(\theta_1\)</span> computed according to <a class="reference internal" href="#equation-second-update-eqn">(9.3)</a> should be closer to <span class="math notranslate nohighlight">\(\theta^\star\)</span> than <span class="math notranslate nohighlight">\(\theta_0\)</span>, again provided that the (scaled) negative derivative <a class="reference internal" href="#equation-neg-derivative-eqn">(9.4)</a> is not too large in magnitude.</p>
 <p>From these considerations, we conclude the following:</p>
 <div class="proof observation admonition" id="gd-obs">
-<p class="admonition-title"><span class="caption-number">Observation 10.1 </span></p>
+<p class="admonition-title"><span class="caption-number">Observation 9.1 </span></p>
 <section class="observation-content" id="proof-content">
 <ul class="simple">
 <li><p>The negative derivative <span class="math notranslate nohighlight">\(-J(\theta)\)</span> always “points downhill.”</p></li>
@@ -583,7 +582,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/af2778ed9b32b830156021b0503931f698945fa6ca50a2aa5652269346f153fa.svg"><img alt="../_images/af2778ed9b32b830156021b0503931f698945fa6ca50a2aa5652269346f153fa.svg" src="../_images/af2778ed9b32b830156021b0503931f698945fa6ca50a2aa5652269346f153fa.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/a8a49516cc926b9a3a85f8ee5f5192e6e74452d2b1f30c4d79dcbc7d983ce4bc.svg"><img alt="../_images/a8a49516cc926b9a3a85f8ee5f5192e6e74452d2b1f30c4d79dcbc7d983ce4bc.svg" src="../_images/a8a49516cc926b9a3a85f8ee5f5192e6e74452d2b1f30c4d79dcbc7d983ce4bc.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -622,13 +621,13 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/cdf0de4c8a9202d268aef6748baa9a2585bb656936839c6b50ac5997530830c2.svg"><img alt="../_images/cdf0de4c8a9202d268aef6748baa9a2585bb656936839c6b50ac5997530830c2.svg" src="../_images/cdf0de4c8a9202d268aef6748baa9a2585bb656936839c6b50ac5997530830c2.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/15d6d03f2f1ba5f6a79f7038c460b1cc35f2c7b14d1150b744ccf70d34767fea.svg"><img alt="../_images/15d6d03f2f1ba5f6a79f7038c460b1cc35f2c7b14d1150b744ccf70d34767fea.svg" src="../_images/15d6d03f2f1ba5f6a79f7038c460b1cc35f2c7b14d1150b744ccf70d34767fea.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
 <p>We see already that <span class="math notranslate nohighlight">\(J(\theta_3) \approx 10^7\)</span>; in fact, we have <span class="math notranslate nohighlight">\(J(\theta_t) \to \infty\)</span> as <span class="math notranslate nohighlight">\(t\to\infty\)</span> for these particular parameters. Of course, one can often prevent divergence by simply using a smaller learning rate, but sometimes a large <em>initial</em> learning rate is desirable to help the algorithm quickly find the neighborhood of a minimizer. So, what we desire is a scheme to shrink the learning rate from (relatively) large values to (relatively) smaller ones as the algorithm runs. This scheme is called <em>learning rate decay</em> or <em>rate decay</em>.</p>
 <div class="proof algorithm admonition" id="algorithm-2">
-<p class="admonition-title"><span class="caption-number">Algorithm 10.2 </span> (Single-variable gradient descent with rate decay)</p>
+<p class="admonition-title"><span class="caption-number">Algorithm 9.2 </span> (Single-variable gradient descent with rate decay)</p>
 <section class="algorithm-content" id="proof-content">
 <p><strong>Input:</strong> A differentiable objective function <span class="math notranslate nohighlight">\(J:\mathbb{R}\to \mathbb{R}\)</span>, an initial guess <span class="math notranslate nohighlight">\(\theta_0\in \mathbb{R}\)</span> for a minimizer <span class="math notranslate nohighlight">\(\theta^\star\)</span>, a learning rate <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span>, a decay rate <span class="math notranslate nohighlight">\(\gamma \in [0, 1)\)</span>, and the number <span class="math notranslate nohighlight">\(N\)</span> of gradient steps.</p>
 <p><strong>Output:</strong> An approximation to a minimizer <span class="math notranslate nohighlight">\(\theta^\star\)</span>.</p>
@@ -671,7 +670,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/fc39e16aff8a86f298c3bd36870a4a9b9b4b7e95108a0ec9852d3c48306266e8.svg"><img alt="../_images/fc39e16aff8a86f298c3bd36870a4a9b9b4b7e95108a0ec9852d3c48306266e8.svg" src="../_images/fc39e16aff8a86f298c3bd36870a4a9b9b4b7e95108a0ec9852d3c48306266e8.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/ffdfa669a840220b023cf7dc8a88416b29bc5f6ea67c82ebe57b732e6b830dd3.svg"><img alt="../_images/ffdfa669a840220b023cf7dc8a88416b29bc5f6ea67c82ebe57b732e6b830dd3.svg" src="../_images/ffdfa669a840220b023cf7dc8a88416b29bc5f6ea67c82ebe57b732e6b830dd3.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -711,7 +710,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/f54701cc125ead5b410064040329e956aabb450abad73bed500fa6430cc0184d.svg"><img alt="../_images/f54701cc125ead5b410064040329e956aabb450abad73bed500fa6430cc0184d.svg" src="../_images/f54701cc125ead5b410064040329e956aabb450abad73bed500fa6430cc0184d.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/83b958d81c2887890498466232930647893fab5f15a4d4a935934887009bce29.svg"><img alt="../_images/83b958d81c2887890498466232930647893fab5f15a4d4a935934887009bce29.svg" src="../_images/83b958d81c2887890498466232930647893fab5f15a4d4a935934887009bce29.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -723,7 +722,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 <p>where <span class="math notranslate nohighlight">\(\epsilon&gt;0\)</span> is a small number.</p>
 </section>
 <section id="gradient-descent-in-multiple-variables">
-<h2><span class="section-number">10.2. </span>Gradient descent in multiple variables<a class="headerlink" href="#gradient-descent-in-multiple-variables" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">9.2. </span>Gradient descent in multiple variables<a class="headerlink" href="#gradient-descent-in-multiple-variables" title="Permalink to this heading">#</a></h2>
 <p>We began this chapter with a discussion of the single-variable gradient descent algorithm only to help build intuition. But in reality the objective functions encountered in practice are functions of multiple variables—often many, <em>many</em> variables! So, in this section, we adapt the single-variable gradient descent algorithm to apply to functions of the form</p>
 <div class="math notranslate nohighlight">
 \[
@@ -735,9 +734,9 @@ J:\mathbb{R}^n \to \mathbb{R},
 \[
 J(\btheta^\star) \leq J(\btheta)
 \]</div>
-<p>for all <span class="math notranslate nohighlight">\(\btheta\)</span> in an open neighborhood of <span class="math notranslate nohighlight">\(\btheta^\star\)</span>. The underlying intuition for the multi-variable gradient descent algorithm is the natural generalization of the intuition from the single-variable case in <a class="reference internal" href="#gd-obs">Observation 10.1</a>. Indeed, provided that the objective function <span class="math notranslate nohighlight">\(J\)</span> is differentiable, we have:</p>
+<p>for all <span class="math notranslate nohighlight">\(\btheta\)</span> in an open neighborhood of <span class="math notranslate nohighlight">\(\btheta^\star\)</span>. The underlying intuition for the multi-variable gradient descent algorithm is the natural generalization of the intuition from the single-variable case in <a class="reference internal" href="#gd-obs">Observation 9.1</a>. Indeed, provided that the objective function <span class="math notranslate nohighlight">\(J\)</span> is differentiable, we have:</p>
 <div class="proof observation admonition" id="observation-3">
-<p class="admonition-title"><span class="caption-number">Observation 10.2 </span></p>
+<p class="admonition-title"><span class="caption-number">Observation 9.2 </span></p>
 <section class="observation-content" id="proof-content">
 <ul class="simple">
 <li><p>The negative gradient <span class="math notranslate nohighlight">\(-\nabla J(\btheta)\)</span> always “points downhill.”</p></li>
@@ -746,15 +745,15 @@ J(\btheta^\star) \leq J(\btheta)
 </section>
 </div><p>The claim in the first bullet point may be made precise by recalling the relationship between the gradient and directional derivatives that you learned in multi-variable calculus: Given a unit vector <span class="math notranslate nohighlight">\(\mathbf{u}\in \mathbb{R}^n\)</span>, we have</p>
 <div class="math notranslate nohighlight" id="equation-grad-directional-eqn">
-<span class="eqno">(10.5)<a class="headerlink" href="#equation-grad-directional-eqn" title="Permalink to this equation">#</a></span>\[\nabla J(\btheta) \mathbf{u} = \lim_{h\to \infty} \frac{J(\btheta + h\mathbf{u}) - J(\btheta)}{h},\]</div>
+<span class="eqno">(9.5)<a class="headerlink" href="#equation-grad-directional-eqn" title="Permalink to this equation">#</a></span>\[\nabla J(\btheta) \mathbf{u} = \lim_{h\to \infty} \frac{J(\btheta + h\mathbf{u}) - J(\btheta)}{h},\]</div>
 <p>where the right-hand side is the directional derivative of <span class="math notranslate nohighlight">\(J\)</span> in the direction of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span>. The matrix product on the left-hand side (gradients are row vectors!) is equal to the product</p>
 <div class="math notranslate nohighlight" id="equation-grad-dot-eqn">
-<span class="eqno">(10.6)<a class="headerlink" href="#equation-grad-dot-eqn" title="Permalink to this equation">#</a></span>\[|\nabla J(\theta) |\cos{\phi},\]</div>
+<span class="eqno">(9.6)<a class="headerlink" href="#equation-grad-dot-eqn" title="Permalink to this equation">#</a></span>\[|\nabla J(\theta) |\cos{\phi},\]</div>
 <p>where <span class="math notranslate nohighlight">\(\phi\in [0,\pi]\)</span> is the angle between the gradient <span class="math notranslate nohighlight">\(\nabla J(\theta)\)</span> and <span class="math notranslate nohighlight">\(\mathbf{u}\)</span>. This shows the directional derivative is minimized when <span class="math notranslate nohighlight">\(\phi = \pi\)</span>, and so the direction of fastest descent points in the direction of the negative gradient <span class="math notranslate nohighlight">\(-\nabla J(\theta)\)</span>.</p>
-<p>Another important consequence of the equations <a class="reference internal" href="#equation-grad-directional-eqn">(10.5)</a> and <a class="reference internal" href="#equation-grad-dot-eqn">(10.6)</a> is that the gradient vector (and its negative) are normal to the level (hyper-)surfaces of <span class="math notranslate nohighlight">\(J(\btheta)\)</span> (which are also called contours). Indeed, if <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> is a unit tangent vector to a level surface of <span class="math notranslate nohighlight">\(J(\btheta)\)</span>, then the directional derivative of <span class="math notranslate nohighlight">\(J\)</span> in the direction of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> must be <span class="math notranslate nohighlight">\(0\)</span> since <span class="math notranslate nohighlight">\(J\)</span> is (by definition) constant along its level surfaces. But then we must have <span class="math notranslate nohighlight">\(\phi = \pi/2\)</span>.</p>
+<p>Another important consequence of the equations <a class="reference internal" href="#equation-grad-directional-eqn">(9.5)</a> and <a class="reference internal" href="#equation-grad-dot-eqn">(9.6)</a> is that the gradient vector (and its negative) are normal to the level (hyper-)surfaces of <span class="math notranslate nohighlight">\(J(\btheta)\)</span> (which are also called contours). Indeed, if <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> is a unit tangent vector to a level surface of <span class="math notranslate nohighlight">\(J(\btheta)\)</span>, then the directional derivative of <span class="math notranslate nohighlight">\(J\)</span> in the direction of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> must be <span class="math notranslate nohighlight">\(0\)</span> since <span class="math notranslate nohighlight">\(J\)</span> is (by definition) constant along its level surfaces. But then we must have <span class="math notranslate nohighlight">\(\phi = \pi/2\)</span>.</p>
 <p>After these preparations, we state the algorithm:</p>
 <div class="proof algorithm admonition" id="algorithm-4">
-<p class="admonition-title"><span class="caption-number">Algorithm 10.3 </span> (Multi-variable gradient descent with rate decay)</p>
+<p class="admonition-title"><span class="caption-number">Algorithm 9.3 </span> (Multi-variable gradient descent with rate decay)</p>
 <section class="algorithm-content" id="proof-content">
 <p><strong>Input:</strong> A differentiable objective function <span class="math notranslate nohighlight">\(J:\mathbb{R}^n\to \mathbb{R}\)</span>, an initial guess <span class="math notranslate nohighlight">\(\btheta_0\in \mathbb{R}^n\)</span> for a minimizer <span class="math notranslate nohighlight">\(\btheta^\star\)</span>, a learning rate <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span>, a decay rate <span class="math notranslate nohighlight">\(\gamma \in [0, 1)\)</span>, and the number <span class="math notranslate nohighlight">\(N\)</span> of gradient steps.</p>
 <p><strong>Output:</strong> An approximation to a minimizer <span class="math notranslate nohighlight">\(\btheta^\star\)</span>.</p>
@@ -810,7 +809,7 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/e2dd2ca7223b2587b8aecdf655e04d4f5b15f499cb4fe45a27a00777a111317e.svg"><img alt="../_images/e2dd2ca7223b2587b8aecdf655e04d4f5b15f499cb4fe45a27a00777a111317e.svg" src="../_images/e2dd2ca7223b2587b8aecdf655e04d4f5b15f499cb4fe45a27a00777a111317e.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/775fea9a4ebc34ee2645b737becf0ec60964fe69c541c906b9f5360e18198a3e.svg"><img alt="../_images/775fea9a4ebc34ee2645b737becf0ec60964fe69c541c906b9f5360e18198a3e.svg" src="../_images/775fea9a4ebc34ee2645b737becf0ec60964fe69c541c906b9f5360e18198a3e.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -865,7 +864,7 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/f646bf7887fcd7a35a2eb91b794fc80faca950e53290251c499f9a86c87087f8.svg"><img alt="../_images/f646bf7887fcd7a35a2eb91b794fc80faca950e53290251c499f9a86c87087f8.svg" src="../_images/f646bf7887fcd7a35a2eb91b794fc80faca950e53290251c499f9a86c87087f8.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/f0d1f6de69fba2c4b6fffb51fa0669c01f0a30668df54d7791fb72c1be9ca010.svg"><img alt="../_images/f0d1f6de69fba2c4b6fffb51fa0669c01f0a30668df54d7791fb72c1be9ca010.svg" src="../_images/f0d1f6de69fba2c4b6fffb51fa0669c01f0a30668df54d7791fb72c1be9ca010.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -911,7 +910,7 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/e811e2d1db0014fddfe830bb8a6cd8c53075feace4633bb1a0b2e166d9952b9b.svg"><img alt="../_images/e811e2d1db0014fddfe830bb8a6cd8c53075feace4633bb1a0b2e166d9952b9b.svg" src="../_images/e811e2d1db0014fddfe830bb8a6cd8c53075feace4633bb1a0b2e166d9952b9b.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/ce3b3c8e999230ec48bba00f25a29ed19dde5cff21d49f78e93da470f15bd291.svg"><img alt="../_images/ce3b3c8e999230ec48bba00f25a29ed19dde5cff21d49f78e93da470f15bd291.svg" src="../_images/ce3b3c8e999230ec48bba00f25a29ed19dde5cff21d49f78e93da470f15bd291.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -950,7 +949,7 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/3f729a86242a38ce9f4e9a2964791e29d153a70cb56627289891ad4b6b982cba.svg"><img alt="../_images/3f729a86242a38ce9f4e9a2964791e29d153a70cb56627289891ad4b6b982cba.svg" src="../_images/3f729a86242a38ce9f4e9a2964791e29d153a70cb56627289891ad4b6b982cba.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/ac8103b8857641cd61f310bf082df7501436764bae16e97104a4ff8e98291d56.svg"><img alt="../_images/ac8103b8857641cd61f310bf082df7501436764bae16e97104a4ff8e98291d56.svg" src="../_images/ac8103b8857641cd61f310bf082df7501436764bae16e97104a4ff8e98291d56.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -958,35 +957,35 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 <p>Of course, an objective function <span class="math notranslate nohighlight">\(J:\mathbb{R}^2 \to \mathbb{R}\)</span> defined on a <span class="math notranslate nohighlight">\(2\)</span>-dimensional input space is still not a realistic example of the objective functions encountered in the real world. In two dimensions, we have the ability to plot the algorithm’s progress through <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> on a contour plot, as we did above. In dimensions <span class="math notranslate nohighlight">\(n\geq 4\)</span> we lose this visual aid, though one may plot input variables two at a time in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>. But no matter the input dimension, we may always plot the objective values against the number of gradient steps as a diagnostic plot for convergence.</p>
 </section>
 <section id="stochastic-gradient-descent">
-<h2><span class="section-number">10.3. </span>Stochastic gradient descent<a class="headerlink" href="#stochastic-gradient-descent" title="Permalink to this heading">#</a></h2>
-<p>The special types of objective functions that we will see in <a class="reference internal" href="learning.html#learning"><span class="std std-numref">Chapter 12</span></a> are so-called <em>stochastic objective functions</em> of the form</p>
+<h2><span class="section-number">9.3. </span>Stochastic gradient descent<a class="headerlink" href="#stochastic-gradient-descent" title="Permalink to this heading">#</a></h2>
+<p>The special types of objective functions that we will see in <a class="reference internal" href="learning.html#learning"><span class="std std-numref">Chapter 11</span></a> are so-called <em>stochastic objective functions</em> of the form</p>
 <div class="math notranslate nohighlight" id="equation-stoch-obj-eqn">
-<span class="eqno">(10.7)<a class="headerlink" href="#equation-stoch-obj-eqn" title="Permalink to this equation">#</a></span>\[J(\btheta) = E\big( g(\mathbf{X};\btheta) \big)\]</div>
+<span class="eqno">(9.7)<a class="headerlink" href="#equation-stoch-obj-eqn" title="Permalink to this equation">#</a></span>\[J(\btheta) = E\big( g(\mathbf{X};\btheta) \big)\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> is an <span class="math notranslate nohighlight">\(n\)</span>-dimensional random vector, <span class="math notranslate nohighlight">\(\btheta \in \mathbb{R}^k\)</span> is a <span class="math notranslate nohighlight">\(k\)</span>-dimensional <em>parameter vector</em>, and <span class="math notranslate nohighlight">\(g:\mathbb{R}^{n+k} \to \mathbb{R}\)</span> is a function. In many important cases, the probability distribution of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> is discrete and does not depend on <span class="math notranslate nohighlight">\(\btheta\)</span>, so that</p>
 <div class="math notranslate nohighlight" id="equation-object-expect-eqn">
-<span class="eqno">(10.8)<a class="headerlink" href="#equation-object-expect-eqn" title="Permalink to this equation">#</a></span>\[J(\btheta) = \sum_{\mathbf{x}\in \mathbb{R}^n} g(\mathbf{x};\btheta)p(\mathbf{x})\]</div>
+<span class="eqno">(9.8)<a class="headerlink" href="#equation-object-expect-eqn" title="Permalink to this equation">#</a></span>\[J(\btheta) = \sum_{\mathbf{x}\in \mathbb{R}^n} g(\mathbf{x};\btheta)p(\mathbf{x})\]</div>
 <p>where <span class="math notranslate nohighlight">\(p(\mathbf{x})\)</span> is the mass function of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>. In fact, the mass function <span class="math notranslate nohighlight">\(p(\mathbf{x})\)</span> will often be an <em>empirical</em> mass function of an observed multivariate dataset</p>
 <div class="math notranslate nohighlight">
 \[
 \mathbf{x}^{(1)},\ldots,\mathbf{x}^{(m)}\in \mathbb{R}^n,
 \]</div>
-<p>where we use a superscript with parentheses to index the data vectors rather than a subscript. Then, from <a class="reference internal" href="#equation-object-expect-eqn">(10.8)</a> and the definition of the mass function, we get</p>
+<p>where we use a superscript with parentheses to index the data vectors rather than a subscript. Then, from <a class="reference internal" href="#equation-object-expect-eqn">(9.8)</a> and the definition of the mass function, we get</p>
 <div class="math notranslate nohighlight">
 \[
 J(\btheta) = \frac{1}{m} \sum_{i=1}^m g\big(\mathbf{x}^{(i)}; \btheta \big).
 \]</div>
 <p>Provided that the function is differentiable with respect to the parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span>, we have</p>
 <div class="math notranslate nohighlight" id="equation-batch-eqn">
-<span class="eqno">(10.9)<a class="headerlink" href="#equation-batch-eqn" title="Permalink to this equation">#</a></span>\[\nabla_\btheta J(\btheta) = \frac{1}{m} \sum_{i=1}^m \nabla_\btheta g\big(\mathbf{x}^{(i)}; \btheta \big)\]</div>
-<p>where we write <span class="math notranslate nohighlight">\(\nabla_\btheta\)</span> to emphasize that the gradient is computed with respect to the parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span>. In this context, the gradient descent algorithm applied to <a class="reference internal" href="#equation-batch-eqn">(10.9)</a> is given a new name:</p>
+<span class="eqno">(9.9)<a class="headerlink" href="#equation-batch-eqn" title="Permalink to this equation">#</a></span>\[\nabla_\btheta J(\btheta) = \frac{1}{m} \sum_{i=1}^m \nabla_\btheta g\big(\mathbf{x}^{(i)}; \btheta \big)\]</div>
+<p>where we write <span class="math notranslate nohighlight">\(\nabla_\btheta\)</span> to emphasize that the gradient is computed with respect to the parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span>. In this context, the gradient descent algorithm applied to <a class="reference internal" href="#equation-batch-eqn">(9.9)</a> is given a new name:</p>
 <div class="proof definition admonition" id="definition-5">
-<p class="admonition-title"><span class="caption-number">Definition 10.1 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 9.1 </span></p>
 <section class="definition-content" id="proof-content">
-<p>The <em>batch gradient descent algorithm</em> is the gradient descent algorithm applied to a stochastic objective function of the form <a class="reference internal" href="#equation-batch-eqn">(10.9)</a>.</p>
+<p>The <em>batch gradient descent algorithm</em> is the gradient descent algorithm applied to a stochastic objective function of the form <a class="reference internal" href="#equation-batch-eqn">(9.9)</a>.</p>
 </section>
 </div><p>Let’s take a look at a simple example. Suppose that we define</p>
 <div class="math notranslate nohighlight" id="equation-quadratic-eqn">
-<span class="eqno">(10.10)<a class="headerlink" href="#equation-quadratic-eqn" title="Permalink to this equation">#</a></span>\[g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,\]</div>
+<span class="eqno">(9.10)<a class="headerlink" href="#equation-quadratic-eqn" title="Permalink to this equation">#</a></span>\[g: \bbr^4 \to \bbr, \quad g(\bx,\btheta) = |\bx - \btheta|^2,\]</div>
 <p>where <span class="math notranslate nohighlight">\(\bx,\btheta\in \bbr^2\)</span> and the vertical bars represent the usual Euclidean norm. We create a bivariate dataset by drawing a random sample of size <span class="math notranslate nohighlight">\(1{,}024\)</span> drawn from a <span class="math notranslate nohighlight">\(\mathcal{N}_2(\boldsymbol0,I)\)</span> distribution. A scatter plot of the dataset looks like this:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1009,7 +1008,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g\big(\mathbf{x}^{(i)}; \btheta \big).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/79a71445ec1496ee5a2d55d257aa9ab2aafd7ff97fa44e527c102b8c6f29e67e.svg"><img alt="../_images/79a71445ec1496ee5a2d55d257aa9ab2aafd7ff97fa44e527c102b8c6f29e67e.svg" src="../_images/79a71445ec1496ee5a2d55d257aa9ab2aafd7ff97fa44e527c102b8c6f29e67e.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/93db7bfea013c4f0590651da8bcd703664d66140c42fd8bda49e0bb462aa1b38.svg"><img alt="../_images/93db7bfea013c4f0590651da8bcd703664d66140c42fd8bda49e0bb462aa1b38.svg" src="../_images/93db7bfea013c4f0590651da8bcd703664d66140c42fd8bda49e0bb462aa1b38.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1159,7 +1158,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g\big(\mathbf{x}^{(i)}; \btheta \big).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/4539c05dda4a96e4afbebd90756647a43a4ac251b4de1be3167926d4d5e5aba1.svg"><img alt="../_images/4539c05dda4a96e4afbebd90756647a43a4ac251b4de1be3167926d4d5e5aba1.svg" src="../_images/4539c05dda4a96e4afbebd90756647a43a4ac251b4de1be3167926d4d5e5aba1.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/f34906a72b504196697755a22add8c2fc4ff8311af0a3ca26dd3052415e8b118.svg"><img alt="../_images/f34906a72b504196697755a22add8c2fc4ff8311af0a3ca26dd3052415e8b118.svg" src="../_images/f34906a72b504196697755a22add8c2fc4ff8311af0a3ca26dd3052415e8b118.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1193,7 +1192,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g\big(\mathbf{x}^{(i)}; \btheta \big).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/0412d26ee9f2734b01004bc003bef33d148ec5e4df792ab68da9156fe7bd623f.svg"><img alt="../_images/0412d26ee9f2734b01004bc003bef33d148ec5e4df792ab68da9156fe7bd623f.svg" src="../_images/0412d26ee9f2734b01004bc003bef33d148ec5e4df792ab68da9156fe7bd623f.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/1998c2756f9291f2b84ac1bff51e068e713d4d87fc293857c576844fee3a98ec.svg"><img alt="../_images/1998c2756f9291f2b84ac1bff51e068e713d4d87fc293857c576844fee3a98ec.svg" src="../_images/1998c2756f9291f2b84ac1bff51e068e713d4d87fc293857c576844fee3a98ec.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1201,14 +1200,14 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g\big(\mathbf{x}^{(i)}; \btheta \big).
 <p>One of the drawbacks of the batch algorithm is that it needs the <em>entire</em> dataset in order to take just a single gradient step. This isn’t an issue for our small toy dataset of size <span class="math notranslate nohighlight">\(m=1{,}024\)</span>, but for the large datasets that you may encounter in the real world, this can be a serious hindrance to fast convergence.</p>
 <p>One method for dealing with this bottleneck is to use <em>mini-batches</em> of the data to compute gradient steps. To do so, we begin by randomly partitioning the dataset into subsets <span class="math notranslate nohighlight">\(B_1,B_2,\ldots,B_\ell\)</span> called <em>mini-batches</em>:</p>
 <div class="math notranslate nohighlight" id="equation-mini-batch-eqn">
-<span class="eqno">(10.11)<a class="headerlink" href="#equation-mini-batch-eqn" title="Permalink to this equation">#</a></span>\[B_1 \cup B_2 \cup \cdots \cup B_p = \{\bx^{(1)},\bx^{(2)},\ldots,\bx^{(m)}\}.\]</div>
-<p>Supposing that the <span class="math notranslate nohighlight">\(j\)</span>-th mini-batch <span class="math notranslate nohighlight">\(B_j\)</span> has size <span class="math notranslate nohighlight">\(\ell_j\)</span>, we would then expect from <a class="reference internal" href="#equation-batch-eqn">(10.9)</a> that</p>
+<span class="eqno">(9.11)<a class="headerlink" href="#equation-mini-batch-eqn" title="Permalink to this equation">#</a></span>\[B_1 \cup B_2 \cup \cdots \cup B_p = \{\bx^{(1)},\bx^{(2)},\ldots,\bx^{(m)}\}.\]</div>
+<p>Supposing that the <span class="math notranslate nohighlight">\(j\)</span>-th mini-batch <span class="math notranslate nohighlight">\(B_j\)</span> has size <span class="math notranslate nohighlight">\(\ell_j\)</span>, we would then expect from <a class="reference internal" href="#equation-batch-eqn">(9.9)</a> that</p>
 <div class="math notranslate nohighlight" id="equation-mini-batch-grad-eqn">
-<span class="eqno">(10.12)<a class="headerlink" href="#equation-mini-batch-grad-eqn" title="Permalink to this equation">#</a></span>\[\nabla J(\btheta) \approx \frac{1}{\ell_j} \sum_{x^{(i)} \in B_j} \nabla_\btheta g\big(\bx^{(i)}; \btheta\big).\]</div>
+<span class="eqno">(9.12)<a class="headerlink" href="#equation-mini-batch-grad-eqn" title="Permalink to this equation">#</a></span>\[\nabla J(\btheta) \approx \frac{1}{\ell_j} \sum_{x^{(i)} \in B_j} \nabla_\btheta g\big(\bx^{(i)}; \btheta\big).\]</div>
 <p>Very often, the mini-batch sizes <span class="math notranslate nohighlight">\(\ell_1,\ell_2,\ldots,\ell_p\)</span> are chosen to be equal to a common value <span class="math notranslate nohighlight">\(\ell\)</span>, except (possibly) for one to compensate for the fact that <span class="math notranslate nohighlight">\(m\)</span> may not be evenly divisible by <span class="math notranslate nohighlight">\(\ell\)</span>. For example, if <span class="math notranslate nohighlight">\(m=100\)</span> and <span class="math notranslate nohighlight">\(\ell=30\)</span>, then we would have four mini-batches, three of size <span class="math notranslate nohighlight">\(\ell=30\)</span> and the fourth of size <span class="math notranslate nohighlight">\(10\)</span>.</p>
-<p>As you are about to see, the mini-batch version of the GD algorithm loops over the mini-batches <a class="reference internal" href="#equation-mini-batch-eqn">(10.11)</a> and computes gradient steps as in <a class="reference internal" href="#equation-mini-batch-grad-eqn">(10.12)</a>. A single loop through <em>all</em> the mini-batches, covering the <em>entire</em> dataset, is called an <em>epoch</em>. As the vanilla version of the GD algorithm takes the number of gradient steps as a parameter, the new version of the algorithm takes the number of epochs as a parameter. This new version is called the <em>stochastic gradient descent (SGD) algorithm</em>:</p>
+<p>As you are about to see, the mini-batch version of the GD algorithm loops over the mini-batches <a class="reference internal" href="#equation-mini-batch-eqn">(9.11)</a> and computes gradient steps as in <a class="reference internal" href="#equation-mini-batch-grad-eqn">(9.12)</a>. A single loop through <em>all</em> the mini-batches, covering the <em>entire</em> dataset, is called an <em>epoch</em>. As the vanilla version of the GD algorithm takes the number of gradient steps as a parameter, the new version of the algorithm takes the number of epochs as a parameter. This new version is called the <em>stochastic gradient descent (SGD) algorithm</em>:</p>
 <div class="proof algorithm admonition" id="sgd-alg">
-<p class="admonition-title"><span class="caption-number">Algorithm 10.4 </span> (Stochastic gradient descent with rate decay)</p>
+<p class="admonition-title"><span class="caption-number">Algorithm 9.4 </span> (Stochastic gradient descent with rate decay)</p>
 <section class="algorithm-content" id="proof-content">
 <p><strong>Input:</strong> A dataset <span class="math notranslate nohighlight">\(\bx^{(1)},\ldots,\bx^{(m)}\in \mathbb{R}^n\)</span>, a stochastic objective function</p>
 <div class="math notranslate nohighlight">
@@ -1221,7 +1220,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx^{(i)};\btheta \big), \quad \bth
 <li><p><span class="math notranslate nohighlight">\(\btheta := \btheta_0\)</span></p></li>
 <li><p>For <span class="math notranslate nohighlight">\(t\)</span> from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(N\)</span>, do:</p>
 <ul>
-<li><p>Randomly partition the dataset into mini-batches <a class="reference internal" href="#equation-mini-batch-eqn">(10.11)</a> of size <span class="math notranslate nohighlight">\(\ell\)</span>.</p></li>
+<li><p>Randomly partition the dataset into mini-batches <a class="reference internal" href="#equation-mini-batch-eqn">(9.11)</a> of size <span class="math notranslate nohighlight">\(\ell\)</span>.</p></li>
 <li><p>For each mini-batch <span class="math notranslate nohighlight">\(B_j\)</span>, do:</p>
 <ul>
 <li><p><span class="math notranslate nohighlight">\(\btheta := \btheta - \frac{\alpha(1-\gamma)^t}{\ell} \sum_{x^{(i)} \in B_j} \nabla_\btheta g\big(\bx^{(i)}; \btheta\big)^T\)</span></p></li>
@@ -1233,7 +1232,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx^{(i)};\btheta \big), \quad \bth
 </ul>
 </section>
 </div><p>Notice that the dataset is randomly partitioned into mini-batches inside each iteration of the per-epoch <code class="docutils literal notranslate"><span class="pre">for</span></code> loop; and remember that there may be one mini-batch of size <span class="math notranslate nohighlight">\(\neq \ell\)</span> if the size of the dataset <span class="math notranslate nohighlight">\(m\)</span> is not divisible by <span class="math notranslate nohighlight">\(\ell\)</span>.</p>
-<p>It is possible to select a mini-batch size of <span class="math notranslate nohighlight">\(\ell=1\)</span>, so that the algorithm computes a gradient step per data point. Some references refer to this algorithm as just <em>stochastic gradient descent</em>. In our example <a class="reference internal" href="#equation-quadratic-eqn">(10.10)</a> from above, a step size of <span class="math notranslate nohighlight">\(\ell=1\)</span> yields the following plots of objective values versus gradient steps:</p>
+<p>It is possible to select a mini-batch size of <span class="math notranslate nohighlight">\(\ell=1\)</span>, so that the algorithm computes a gradient step per data point. Some references refer to this algorithm as just <em>stochastic gradient descent</em>. In our example <a class="reference internal" href="#equation-quadratic-eqn">(9.10)</a> from above, a step size of <span class="math notranslate nohighlight">\(\ell=1\)</span> yields the following plots of objective values versus gradient steps:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1285,7 +1284,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx^{(i)};\btheta \big), \quad \bth
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/1dc5d355882db692f5b74b475adcadf7ce17246e3a44e07d34b92d76fae7c00b.svg"><img alt="../_images/1dc5d355882db692f5b74b475adcadf7ce17246e3a44e07d34b92d76fae7c00b.svg" src="../_images/1dc5d355882db692f5b74b475adcadf7ce17246e3a44e07d34b92d76fae7c00b.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/98e57447acce76f8387ba6082abc3d37f17460a7d3e313d4128f5a4ab6914e7e.svg"><img alt="../_images/98e57447acce76f8387ba6082abc3d37f17460a7d3e313d4128f5a4ab6914e7e.svg" src="../_images/98e57447acce76f8387ba6082abc3d37f17460a7d3e313d4128f5a4ab6914e7e.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1320,7 +1319,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx^{(i)};\btheta \big), \quad \bth
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/57ffb44e66a379cedeb65a79bf044b02c1abdd61653c685f7ef473d90cd5d0da.svg"><img alt="../_images/57ffb44e66a379cedeb65a79bf044b02c1abdd61653c685f7ef473d90cd5d0da.svg" src="../_images/57ffb44e66a379cedeb65a79bf044b02c1abdd61653c685f7ef473d90cd5d0da.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/381bc2eefee374697572110a197710667cf5c82cf7493cae3c3485fc147e16b5.svg"><img alt="../_images/381bc2eefee374697572110a197710667cf5c82cf7493cae3c3485fc147e16b5.svg" src="../_images/381bc2eefee374697572110a197710667cf5c82cf7493cae3c3485fc147e16b5.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1375,7 +1374,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx^{(i)};\btheta \big), \quad \bth
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/a8d3aa973c29427dcae31f9d4343fbb023e8117b52ac9fc275c7a48ff31f2484.svg"><img alt="../_images/a8d3aa973c29427dcae31f9d4343fbb023e8117b52ac9fc275c7a48ff31f2484.svg" src="../_images/a8d3aa973c29427dcae31f9d4343fbb023e8117b52ac9fc275c7a48ff31f2484.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/6a4da236426d449af51ba03f2a141ceb5b4ae2a9028896041b037c8a12a007e1.svg"><img alt="../_images/6a4da236426d449af51ba03f2a141ceb5b4ae2a9028896041b037c8a12a007e1.svg" src="../_images/6a4da236426d449af51ba03f2a141ceb5b4ae2a9028896041b037c8a12a007e1.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1412,7 +1411,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx^{(i)};\btheta \big), \quad \bth
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/3a55791186f682f965c086b4463987622e3e7f354e164321faaafe8f75fec5d7.svg"><img alt="../_images/3a55791186f682f965c086b4463987622e3e7f354e164321faaafe8f75fec5d7.svg" src="../_images/3a55791186f682f965c086b4463987622e3e7f354e164321faaafe8f75fec5d7.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/7be5d339a591a713f8d792175a2a9234fa5f1db0107920cd90efaa925e437899.svg"><img alt="../_images/7be5d339a591a713f8d792175a2a9234fa5f1db0107920cd90efaa925e437899.svg" src="../_images/7be5d339a591a713f8d792175a2a9234fa5f1db0107920cd90efaa925e437899.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1450,12 +1449,12 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx^{(i)};\btheta \big), \quad \bth
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="examples-of-random-vecs.html"
+       href="more-prob.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">9. </span>Examples of random vectors</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>More probability theory</p>
       </div>
     </a>
     <a class="right-next"
@@ -1463,7 +1462,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx^{(i)};\btheta \big), \quad \bth
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">11. </span>Probabilistic models</p>
+        <p class="prev-next-title"><span class="section-number">10. </span>Probabilistic models</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1482,9 +1481,9 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx^{(i)};\btheta \big), \quad \bth
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-in-one-variable">10.1. Gradient descent in one variable</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-in-multiple-variables">10.2. Gradient descent in multiple variables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-gradient-descent">10.3. Stochastic gradient descent</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-in-one-variable">9.1. Gradient descent in one variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-in-multiple-variables">9.2. Gradient descent in multiple variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-gradient-descent">9.3. Stochastic gradient descent</a></li>
 </ul>
   </nav></div>
 

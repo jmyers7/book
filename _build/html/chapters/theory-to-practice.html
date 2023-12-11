@@ -63,7 +63,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/theory-to-practice';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -180,17 +180,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Connecting theory to practice: a first look at model building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random-vectors.html">7. Random vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more-prob.html">8. More probability theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples-of-random-vecs.html">9. Examples of random vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optim.html">10. Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models.html">11. Probabilistic models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="learning.html">12. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">13. Statistics and estimators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">14. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="more-samp-dist.html">15. More sampling distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CIs.html">16. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">17. Hypothesis testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lin-reg.html">18. Linear regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bib.html">19. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">9. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">10. Probabilistic models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning.html">11. Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">12. Statistics and estimators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">13. Large sample theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more-samp-dist.html">14. More sampling distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CIs.html">15. Confidence intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">16. Hypothesis testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lin-reg.html">17. Linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">18. Bibliography</a></li>
 </ul>
 
     </div>
@@ -381,7 +380,7 @@ document.write(`
 <p>Popular stories in the history of western science tell of the search for better and more accurate physical models—the transition from the geocentric Ptolemaic model of the solar system to the heliocentric Copernican one immediately springs to mind as an example.</p>
 <p>Mathematical models serve multiple functions in science: an accurate model may be used to test hypotheses and suggest new theories, and it may be used to predict future events. The same is true for the models that we study in this chapter. These new models are <em>probabilistic</em>, however, which means that an analyst needs a firm foundation in probability theory to understand the language used to describe the models.</p>
 <p>While there are similarities between the models that you may have studied before and the new ones in this chapter, there are some differences as well along with novel use cases. For example, once these probabilistic models have been fully trained and all their parameters have been learned, they may be sampled from, <em>generating</em> new data in the process. This is the realm of <em>generative models</em> and <em>generative machine learning</em>. The probabilistic nature of the models means that the new data is random. Those who have no issues using anthropomorphized language to describe the models might refer to this randomness as <em>creativity</em>.</p>
-<p>But our aims in this chapter are much more limited. We will study univariate models made out of only a <em>single</em> random variable, though it may be “duplicated” many times to produce so-called <em>IID sequences</em> of random variables that serve as theoretical avatars of observed real-world datasets. We will briefly study a few tools and techniques that help us visualize the <em>shape</em> of a dataset; some of these visualization tools will then be used for <em>model checking</em> and to help judge <em>goodness-of-fit</em> for proposed probabilistic models. Later, in <a class="reference internal" href="models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>, we will embed the univariate models in this chapter into interconnected “webs” of random variables, creating ever more expressive and powerful probabilistic models. But we must learn to walk before we can run!</p>
+<p>But our aims in this chapter are much more limited. We will study univariate models made out of only a <em>single</em> random variable, though it may be “duplicated” many times to produce so-called <em>IID sequences</em> of random variables that serve as theoretical avatars of observed real-world datasets. We will briefly study a few tools and techniques that help us visualize the <em>shape</em> of a dataset; some of these visualization tools will then be used for <em>model checking</em> and to help judge <em>goodness-of-fit</em> for proposed probabilistic models. Later, in <a class="reference internal" href="models.html#prob-models"><span class="std std-numref">Chapter 10</span></a>, we will embed the univariate models in this chapter into interconnected “webs” of random variables, creating ever more expressive and powerful probabilistic models. But we must learn to walk before we can run!</p>
 <section id="data-and-random-samples">
 <h2><span class="section-number">6.1. </span>Data and random samples<a class="headerlink" href="#data-and-random-samples" title="Permalink to this heading">#</a></h2>
 <p>The story begins with a careful study of the stuff that our models are supposed to model: data! Throughout this chapter, we will explore a real-world dataset consisting of listing prices (in USD) for Airbnbs in Austin, Texas, over an observation period of 12 months:</p>
@@ -511,11 +510,11 @@ P(X_1\in A) = P(X_2\in A) = \cdots = P(X_m\in A)
 X_1,X_2,\ldots,X_m \sim F
 \end{equation*}\]</div>
 <p>where <span class="math notranslate nohighlight">\(F\)</span> is the common distribution function shared among the <span class="math notranslate nohighlight">\(X_i\)</span>’s. We may also write the density function <span class="math notranslate nohighlight">\(f\)</span> or mass function <span class="math notranslate nohighlight">\(p\)</span> in place of <span class="math notranslate nohighlight">\(F\)</span>. In any case, a particular choice of <span class="math notranslate nohighlight">\(F\)</span> (or <span class="math notranslate nohighlight">\(f\)</span> or <span class="math notranslate nohighlight">\(p\)</span>) is called a <em>probabilistic model</em>. The modeling process may then be described as <em>choosing</em> a probabilistic model.</p>
-<p>There are both <em>parametric</em> and <em>non-parametric</em> probabilistic models. A normal model of the form <a class="reference internal" href="#equation-normal-model-eqn">(6.1)</a> belongs to the former type, since it depends on the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>. Proposing a parametric probabilistic model is then only half the battle, for then the parameters must be determined to completely specify the model. A machine learning engineer would say that the parameters are <em>learned</em> from a given dataset (see <a class="reference internal" href="learning.html#learning"><span class="std std-numref">Chapter 12</span></a>), while a statistician would say that they are <em>inferred</em> from data.</p>
-<p>As we will learn in <a class="reference internal" href="models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>, the random variables and parameters in a probabilistic model may be depicted graphically; for a normal model <a class="reference internal" href="#equation-normal-model-eqn">(6.1)</a> with <span class="math notranslate nohighlight">\(m=3\)</span>, we would draw the following picture:</p>
+<p>There are both <em>parametric</em> and <em>non-parametric</em> probabilistic models. A normal model of the form <a class="reference internal" href="#equation-normal-model-eqn">(6.1)</a> belongs to the former type, since it depends on the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>. Proposing a parametric probabilistic model is then only half the battle, for then the parameters must be determined to completely specify the model. A machine learning engineer would say that the parameters are <em>learned</em> from a given dataset (see <a class="reference internal" href="learning.html#learning"><span class="std std-numref">Chapter 11</span></a>), while a statistician would say that they are <em>inferred</em> from data.</p>
+<p>As we will learn in <a class="reference internal" href="models.html#prob-models"><span class="std std-numref">Chapter 10</span></a>, the random variables and parameters in a probabilistic model may be depicted graphically; for a normal model <a class="reference internal" href="#equation-normal-model-eqn">(6.1)</a> with <span class="math notranslate nohighlight">\(m=3\)</span>, we would draw the following picture:</p>
 <a class="reference internal image-reference" href="../_images/norm-model.svg"><img alt="../_images/norm-model.svg" class="align-center" src="../_images/norm-model.svg" width="50%" /></a>
 <p> </p>
-<p>The arrows in this simple graph are intended to convey “influence”—that different parameter settings will alter or “influence” the distributions of the <span class="math notranslate nohighlight">\(X_i\)</span>’s. Admittedly, since the normal model is so simple, there isn’t much additional insight to be gained by drawing this graph. But it’s good practice for the models in <a class="reference internal" href="models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>.</p>
+<p>The arrows in this simple graph are intended to convey “influence”—that different parameter settings will alter or “influence” the distributions of the <span class="math notranslate nohighlight">\(X_i\)</span>’s. Admittedly, since the normal model is so simple, there isn’t much additional insight to be gained by drawing this graph. But it’s good practice for the models in <a class="reference internal" href="models.html#prob-models"><span class="std std-numref">Chapter 10</span></a>.</p>
 <p>How do we judge the <em>goodness-of-fit</em> of a proposed model distribution? Our first method will be based on a visual comparison of the model distribution function to the <em>empirical distribution function</em>. The latter is defined in the next box, which also contains a reminder of the definition of an <em>empirical distribution</em> that appeared back in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a>.</p>
 <div class="proof definition admonition" id="emp-dist-defn">
 <p class="admonition-title"><span class="caption-number">Definition 6.2 </span></p>
@@ -548,7 +547,7 @@ F(x) = \sum_{x^\star\leq x} p(x^\star) = \frac{\text{number of data points $x_i$
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/13fa2eed5a603ec02ddb6487d03e0070aed2c029318f410e5bacaae28edc46fc.svg"><img alt="../_images/13fa2eed5a603ec02ddb6487d03e0070aed2c029318f410e5bacaae28edc46fc.svg" src="../_images/13fa2eed5a603ec02ddb6487d03e0070aed2c029318f410e5bacaae28edc46fc.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/098b701d1d4a0a2c5052b18b77ac2f558f2e57aebff4b73203a36afa9abfb744.svg"><img alt="../_images/098b701d1d4a0a2c5052b18b77ac2f558f2e57aebff4b73203a36afa9abfb744.svg" src="../_images/098b701d1d4a0a2c5052b18b77ac2f558f2e57aebff4b73203a36afa9abfb744.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -562,7 +561,7 @@ F(x) = \sum_{x^\star\leq x} p(x^\star) = \frac{\text{number of data points $x_i$
 \[
 X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 \]</div>
-<p>How might we “learn” the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> from the data? In this case, we might choose <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> to be the <em>empirical mean</em> <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <em>empirical variance</em> <span class="math notranslate nohighlight">\(s^2\)</span>, which you saw back in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and which we will review in <a class="reference internal" href="#empirical-stats"><span class="std std-numref">Section 6.5</span></a> below. (This is the <em>method of moments</em> for estimating model parameters which, in this special case, is also the method of <em>maximum likelihood estimation</em>; see <a class="reference internal" href="learning.html#learning"><span class="std std-numref">Chapter 12</span></a>.) With these parameter settings, let’s plot the ECDF of the dataset along with the CDF of the normal model superimposed:</p>
+<p>How might we “learn” the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> from the data? In this case, we might choose <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> to be the <em>empirical mean</em> <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <em>empirical variance</em> <span class="math notranslate nohighlight">\(s^2\)</span>, which you saw back in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and which we will review in <a class="reference internal" href="#empirical-stats"><span class="std std-numref">Section 6.5</span></a> below. (This is the <em>method of moments</em> for estimating model parameters which, in this special case, is also the method of <em>maximum likelihood estimation</em>; see <a class="reference internal" href="learning.html#learning"><span class="std std-numref">Chapter 11</span></a>.) With these parameter settings, let’s plot the ECDF of the dataset along with the CDF of the normal model superimposed:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -588,7 +587,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/4d112ac769a64942b21650b21867b23c28996551f88d3d556907609beab4f2d0.svg"><img alt="../_images/4d112ac769a64942b21650b21867b23c28996551f88d3d556907609beab4f2d0.svg" src="../_images/4d112ac769a64942b21650b21867b23c28996551f88d3d556907609beab4f2d0.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/8596e58eff6d9c9b189ff193924e9af26086bfad5c3171acf5fa3bfed8918786.svg"><img alt="../_images/8596e58eff6d9c9b189ff193924e9af26086bfad5c3171acf5fa3bfed8918786.svg" src="../_images/8596e58eff6d9c9b189ff193924e9af26086bfad5c3171acf5fa3bfed8918786.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -628,7 +627,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/46ad0d4e30983f1ecd546e8a8f19b53df95d596b8cebba0a12d1e0c5ee418031.svg"><img alt="../_images/46ad0d4e30983f1ecd546e8a8f19b53df95d596b8cebba0a12d1e0c5ee418031.svg" src="../_images/46ad0d4e30983f1ecd546e8a8f19b53df95d596b8cebba0a12d1e0c5ee418031.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/7f9ea2753505d781c862dc2005b50dc9fe19606e88b8a379672d3bce284ec558.svg"><img alt="../_images/7f9ea2753505d781c862dc2005b50dc9fe19606e88b8a379672d3bce284ec558.svg" src="../_images/7f9ea2753505d781c862dc2005b50dc9fe19606e88b8a379672d3bce284ec558.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -673,7 +672,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/568294f82c500061752db982adafbdccd4aaa4b9756863c94b057a4aae1aaeb8.svg"><img alt="../_images/568294f82c500061752db982adafbdccd4aaa4b9756863c94b057a4aae1aaeb8.svg" src="../_images/568294f82c500061752db982adafbdccd4aaa4b9756863c94b057a4aae1aaeb8.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/7680d56346d0678c4736172e70e451903f0e49ed7229a6778f550e686f536b10.svg"><img alt="../_images/7680d56346d0678c4736172e70e451903f0e49ed7229a6778f550e686f536b10.svg" src="../_images/7680d56346d0678c4736172e70e451903f0e49ed7229a6778f550e686f536b10.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -696,7 +695,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/089d2952607aae4d29d98fefaa3bdc43c8a2bfb22d0f8d3ebd3206953d8db7ca.svg"><img alt="../_images/089d2952607aae4d29d98fefaa3bdc43c8a2bfb22d0f8d3ebd3206953d8db7ca.svg" src="../_images/089d2952607aae4d29d98fefaa3bdc43c8a2bfb22d0f8d3ebd3206953d8db7ca.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/26e08e32537ff4d2c01c5f33067b61494f7cf43e251c04339a890bae64f4d0f2.svg"><img alt="../_images/26e08e32537ff4d2c01c5f33067b61494f7cf43e251c04339a890bae64f4d0f2.svg" src="../_images/26e08e32537ff4d2c01c5f33067b61494f7cf43e251c04339a890bae64f4d0f2.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -719,7 +718,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/fbcf77ee052ec1562bcc0853a84817f55588275decb966c12e3cf7e126a2b474.svg"><img alt="../_images/fbcf77ee052ec1562bcc0853a84817f55588275decb966c12e3cf7e126a2b474.svg" src="../_images/fbcf77ee052ec1562bcc0853a84817f55588275decb966c12e3cf7e126a2b474.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/e1f8388a3c730885bd8cb9fbdb39890edb578d605d6621b3c8d5d13667050d0f.svg"><img alt="../_images/e1f8388a3c730885bd8cb9fbdb39890edb578d605d6621b3c8d5d13667050d0f.svg" src="../_images/e1f8388a3c730885bd8cb9fbdb39890edb578d605d6621b3c8d5d13667050d0f.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -752,7 +751,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/86dea30fea7fa9333ff6d0b4642335a61dd9722018079d6aadaebe72921a5c96.svg"><img alt="../_images/86dea30fea7fa9333ff6d0b4642335a61dd9722018079d6aadaebe72921a5c96.svg" src="../_images/86dea30fea7fa9333ff6d0b4642335a61dd9722018079d6aadaebe72921a5c96.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/be2461cd01249ea9ad47cbd597dceeec347cbc45980d4b4bc43f61d8f03d78ac.svg"><img alt="../_images/be2461cd01249ea9ad47cbd597dceeec347cbc45980d4b4bc43f61d8f03d78ac.svg" src="../_images/be2461cd01249ea9ad47cbd597dceeec347cbc45980d4b4bc43f61d8f03d78ac.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -816,7 +815,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ede66df4d4fae75af9bf342570a9d9d72ab7187955ea99eb98e7ceb398332cae.svg"><img alt="../_images/ede66df4d4fae75af9bf342570a9d9d72ab7187955ea99eb98e7ceb398332cae.svg" src="../_images/ede66df4d4fae75af9bf342570a9d9d72ab7187955ea99eb98e7ceb398332cae.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/21e018acad82e8ce28adced25f1fbfcb94890cb055121e8379add70b6280740e.svg"><img alt="../_images/21e018acad82e8ce28adced25f1fbfcb94890cb055121e8379add70b6280740e.svg" src="../_images/21e018acad82e8ce28adced25f1fbfcb94890cb055121e8379add70b6280740e.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -852,7 +851,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/77313a58ffdeeb7b6596b9670af6bf311d2612ad3848fde99a28573377f7f80d.svg"><img alt="../_images/77313a58ffdeeb7b6596b9670af6bf311d2612ad3848fde99a28573377f7f80d.svg" src="../_images/77313a58ffdeeb7b6596b9670af6bf311d2612ad3848fde99a28573377f7f80d.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/0d114db12bc8e12160c43d1d50b654c8d85598b8781d45e51d3fd7269294ed7c.svg"><img alt="../_images/0d114db12bc8e12160c43d1d50b654c8d85598b8781d45e51d3fd7269294ed7c.svg" src="../_images/0d114db12bc8e12160c43d1d50b654c8d85598b8781d45e51d3fd7269294ed7c.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1042,7 +1041,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/19e97b0006ce1c65222e351d948db1957ca0a5429166f157e3eaea562ed8ecf5.svg"><img alt="../_images/19e97b0006ce1c65222e351d948db1957ca0a5429166f157e3eaea562ed8ecf5.svg" src="../_images/19e97b0006ce1c65222e351d948db1957ca0a5429166f157e3eaea562ed8ecf5.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/5068ffbadf07e8f5c7c9b1c0688164e62b7e4ff75deff9be2efed5c805df2a2c.svg"><img alt="../_images/5068ffbadf07e8f5c7c9b1c0688164e62b7e4ff75deff9be2efed5c805df2a2c.svg" src="../_images/5068ffbadf07e8f5c7c9b1c0688164e62b7e4ff75deff9be2efed5c805df2a2c.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1072,7 +1071,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/6e9f2e4745ddf5c0eedeb003ca7281ddf740e92af911601d6205ec19f72f8795.svg"><img alt="../_images/6e9f2e4745ddf5c0eedeb003ca7281ddf740e92af911601d6205ec19f72f8795.svg" src="../_images/6e9f2e4745ddf5c0eedeb003ca7281ddf740e92af911601d6205ec19f72f8795.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/6b6b1f10a79c636b7e56a1f205b18f49effba24ef76953d1cba1ffb1cbb33997.svg"><img alt="../_images/6b6b1f10a79c636b7e56a1f205b18f49effba24ef76953d1cba1ffb1cbb33997.svg" src="../_images/6b6b1f10a79c636b7e56a1f205b18f49effba24ef76953d1cba1ffb1cbb33997.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1122,7 +1121,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/6886525e647c1d67d3087432e2bfcdceba55472afc2527eea70da71effd5ea2a.svg"><img alt="../_images/6886525e647c1d67d3087432e2bfcdceba55472afc2527eea70da71effd5ea2a.svg" src="../_images/6886525e647c1d67d3087432e2bfcdceba55472afc2527eea70da71effd5ea2a.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/b752f556196fb2deeb4b4d205f95c9d4df823ce8ec553dbcd5bda4f63bb49423.svg"><img alt="../_images/b752f556196fb2deeb4b4d205f95c9d4df823ce8ec553dbcd5bda4f63bb49423.svg" src="../_images/b752f556196fb2deeb4b4d205f95c9d4df823ce8ec553dbcd5bda4f63bb49423.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1174,7 +1173,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/b2534fd814405f8bc26dab2abb85c13d70a3e024ae2e2d3859d3e3746414df0d.svg"><img alt="../_images/b2534fd814405f8bc26dab2abb85c13d70a3e024ae2e2d3859d3e3746414df0d.svg" src="../_images/b2534fd814405f8bc26dab2abb85c13d70a3e024ae2e2d3859d3e3746414df0d.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/87944eb6dd75a0f1d895c2d750e2ba11e4ba059b14952d96253de17c07278354.svg"><img alt="../_images/87944eb6dd75a0f1d895c2d750e2ba11e4ba059b14952d96253de17c07278354.svg" src="../_images/87944eb6dd75a0f1d895c2d750e2ba11e4ba059b14952d96253de17c07278354.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1199,7 +1198,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ecee25ed5f0e6e3a7c075a7fb5b43c001e51b20c2d4a6ce6a76c4e5187d42785.svg"><img alt="../_images/ecee25ed5f0e6e3a7c075a7fb5b43c001e51b20c2d4a6ce6a76c4e5187d42785.svg" src="../_images/ecee25ed5f0e6e3a7c075a7fb5b43c001e51b20c2d4a6ce6a76c4e5187d42785.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/8c8dc590616aa3d97c380574385a6395988066ae67c2f3963fc1c41b32b7de20.svg"><img alt="../_images/8c8dc590616aa3d97c380574385a6395988066ae67c2f3963fc1c41b32b7de20.svg" src="../_images/8c8dc590616aa3d97c380574385a6395988066ae67c2f3963fc1c41b32b7de20.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1225,7 +1224,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/7778dc7da3b9c3490276007c8ee9c841d3e408709f952edbb54a8bbd487a1715.svg"><img alt="../_images/7778dc7da3b9c3490276007c8ee9c841d3e408709f952edbb54a8bbd487a1715.svg" src="../_images/7778dc7da3b9c3490276007c8ee9c841d3e408709f952edbb54a8bbd487a1715.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/89d4cc305ba1c843b6894de76950dd929e9dc1c6414f38a5c0bf5db894d12959.svg"><img alt="../_images/89d4cc305ba1c843b6894de76950dd929e9dc1c6414f38a5c0bf5db894d12959.svg" src="../_images/89d4cc305ba1c843b6894de76950dd929e9dc1c6414f38a5c0bf5db894d12959.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1261,7 +1260,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/796c522a60b8306a3f29757b43650737f788c040487ccf8ce4587b72dabe47b0.svg"><img alt="../_images/796c522a60b8306a3f29757b43650737f788c040487ccf8ce4587b72dabe47b0.svg" src="../_images/796c522a60b8306a3f29757b43650737f788c040487ccf8ce4587b72dabe47b0.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/3034c88c572b6c1b1e8a80260b45a48abc9235b1dfb4954e37801afca0e90f96.svg"><img alt="../_images/3034c88c572b6c1b1e8a80260b45a48abc9235b1dfb4954e37801afca0e90f96.svg" src="../_images/3034c88c572b6c1b1e8a80260b45a48abc9235b1dfb4954e37801afca0e90f96.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1284,7 +1283,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/f6c564674a35da1a80cecc4597d2b931bcb551c44f7529e5b6282b0c99dca8d4.svg"><img alt="../_images/f6c564674a35da1a80cecc4597d2b931bcb551c44f7529e5b6282b0c99dca8d4.svg" src="../_images/f6c564674a35da1a80cecc4597d2b931bcb551c44f7529e5b6282b0c99dca8d4.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/497afdff3c1b08e4b7dd38b0285e7c513d4de6b7615c9501801acf777a22428b.svg"><img alt="../_images/497afdff3c1b08e4b7dd38b0285e7c513d4de6b7615c9501801acf777a22428b.svg" src="../_images/497afdff3c1b08e4b7dd38b0285e7c513d4de6b7615c9501801acf777a22428b.svg" width="100%" /></a>
 </figure>
 </div>
 </div>

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>11. Probabilistic models &#8212; Mathematical Statistics with a View Toward Machine Learning</title>
+    <title>10. Probabilistic models &#8212; Mathematical Statistics with a View Toward Machine Learning</title>
   
   
   
@@ -63,13 +63,13 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/models';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="12. Learning" href="learning.html" />
-    <link rel="prev" title="10. Optimization" href="optim.html" />
+    <link rel="next" title="11. Learning" href="learning.html" />
+    <link rel="prev" title="9. Optimization" href="optim.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,17 +180,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="theory-to-practice.html">6. Connecting theory to practice: a first look at model building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random-vectors.html">7. Random vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="more-prob.html">8. More probability theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples-of-random-vecs.html">9. Examples of random vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="optim.html">10. Optimization</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">11. Probabilistic models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="learning.html">12. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">13. Statistics and estimators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">14. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="more-samp-dist.html">15. More sampling distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CIs.html">16. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">17. Hypothesis testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lin-reg.html">18. Linear regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bib.html">19. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">9. Optimization</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">10. Probabilistic models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="learning.html">11. Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats-estimators.html">12. Statistics and estimators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asymptotic.html">13. Large sample theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more-samp-dist.html">14. More sampling distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CIs.html">15. Confidence intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hyp-test.html">16. Hypothesis testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lin-reg.html">17. Linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">18. Bibliography</a></li>
 </ul>
 
     </div>
@@ -354,19 +353,18 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-graphical-models">11.1. Probabilistic graphical models</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deterministic-flows-of-influence">11.1.1. Deterministic flows of influence</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-flows-of-influence">11.1.2. Stochastic flows of influence</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-flows-of-influence">11.1.3. Mixed flows of influence</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-and-hidden-vectors">11.1.4. Data and hidden vectors</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-general-definition">11.1.5. The general definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-graphical-models">10.1. Probabilistic graphical models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deterministic-flows-of-influence">10.1.1. Deterministic flows of influence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-flows-of-influence">10.1.2. Stochastic flows of influence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-flows-of-influence">10.1.3. Mixed flows of influence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-and-hidden-vectors">10.1.4. Data and hidden vectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-general-definition">10.1.5. The general definition</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-models">11.2. Linear regression models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-models">11.3. Logistic regression models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-network-models">11.4. Neural network models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-mixture-models">11.5. Gaussian mixture models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-connection-to-supervised-machine-learning">11.6. A connection to supervised machine learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-models">10.2. Linear regression models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-models">10.3. Logistic regression models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-network-models">10.4. Neural network models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-mixture-models">10.5. Gaussian mixture models</a></li>
 </ul>
             </nav>
         </div>
@@ -379,12 +377,12 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="probabilistic-models">
-<span id="prob-models"></span><h1><span class="section-number">11. </span>Probabilistic models<a class="headerlink" href="#probabilistic-models" title="Permalink to this heading">#</a></h1>
+<span id="prob-models"></span><h1><span class="section-number">10. </span>Probabilistic models<a class="headerlink" href="#probabilistic-models" title="Permalink to this heading">#</a></h1>
 <p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
 <section id="probabilistic-graphical-models">
-<h2><span class="section-number">11.1. </span>Probabilistic graphical models<a class="headerlink" href="#probabilistic-graphical-models" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">10.1. </span>Probabilistic graphical models<a class="headerlink" href="#probabilistic-graphical-models" title="Permalink to this heading">#</a></h2>
 <section id="deterministic-flows-of-influence">
-<h3><span class="section-number">11.1.1. </span>Deterministic flows of influence<a class="headerlink" href="#deterministic-flows-of-influence" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">10.1.1. </span>Deterministic flows of influence<a class="headerlink" href="#deterministic-flows-of-influence" title="Permalink to this heading">#</a></h3>
 <p>Let’s begin in the simple case of two (deterministic) vectors <span class="math notranslate nohighlight">\(\bx\in \bbr^n\)</span> and <span class="math notranslate nohighlight">\(\by \in \bbr^m\)</span>. By saying that there is a <em>deterministic flow of influence</em> from <span class="math notranslate nohighlight">\(\bx\)</span> to <span class="math notranslate nohighlight">\(\by\)</span>, we shall mean simply that there is a function</p>
 <div class="math notranslate nohighlight">
 \[
@@ -409,7 +407,7 @@ g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
 <p>which is parametrized by matrices <span class="math notranslate nohighlight">\(\balpha \in \bbr^{m\times n}\)</span> and <span class="math notranslate nohighlight">\(\bbeta \in \bbr^{m\times k}\)</span>.</p>
 </section>
 <section id="stochastic-flows-of-influence">
-<h3><span class="section-number">11.1.2. </span>Stochastic flows of influence<a class="headerlink" href="#stochastic-flows-of-influence" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">10.1.2. </span>Stochastic flows of influence<a class="headerlink" href="#stochastic-flows-of-influence" title="Permalink to this heading">#</a></h3>
 <p>The vectors in our discussion might be random, rather than deterministic, say <span class="math notranslate nohighlight">\(\bX\)</span> and <span class="math notranslate nohighlight">\(\bY\)</span>. In this case, a <em>stochastic flow of influence</em> from <span class="math notranslate nohighlight">\(\bX\)</span> to <span class="math notranslate nohighlight">\(\bY\)</span> would be visualized just as before:</p>
 <a class="reference internal image-reference" href="../_images/random-link.svg"><img alt="../_images/random-link.svg" class="align-center" src="../_images/random-link.svg" width="30%" /></a>
 <p> </p>
@@ -422,10 +420,10 @@ g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
 \[
 \mu \stackrel{\text{def}}{=} \bx \bbeta + \beta_0, \quad \text{where} \quad Y \mid \bX; \ \bbeta, \beta_0,\sigma^2 \sim \mathcal{N}(\mu, \sigma^2).
 \]</div>
-<p>In fact, this is exactly a <em>linear regression model</em>, which we will see again in <a class="reference internal" href="#lin-reg-sec"><span class="std std-numref">Section 11.2</span></a> below, as well as in <a class="reference internal" href="learning.html#learning"><span class="std std-numref">Chapters 12</span></a> and <a class="reference internal" href="lin-reg.html#lin-reg"><span class="std std-numref">18</span></a>.</p>
+<p>In fact, this is exactly a <em>linear regression model</em>, which we will see again in <a class="reference internal" href="#lin-reg-sec"><span class="std std-numref">Section 10.2</span></a> below, as well as in <a class="reference internal" href="learning.html#learning"><span class="std std-numref">Chapters 11</span></a> and <a class="reference internal" href="lin-reg.html#lin-reg"><span class="std std-numref">17</span></a>.</p>
 </section>
 <section id="mixed-flows-of-influence">
-<h3><span class="section-number">11.1.3. </span>Mixed flows of influence<a class="headerlink" href="#mixed-flows-of-influence" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">10.1.3. </span>Mixed flows of influence<a class="headerlink" href="#mixed-flows-of-influence" title="Permalink to this heading">#</a></h3>
 <p>We shall take a flow of influence of the form</p>
 <a class="reference internal image-reference" href="../_images/mixed-1.svg"><img alt="../_images/mixed-1.svg" class="align-center" src="../_images/mixed-1.svg" width="30%" /></a>
 <p> </p>
@@ -439,7 +437,7 @@ g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
 <p>Here, we mean that the probability distribution <span class="math notranslate nohighlight">\(P_\bX\)</span> itself uniquely determines a value <span class="math notranslate nohighlight">\(\by\)</span>. For example, we might consider the flow where <span class="math notranslate nohighlight">\(\bX\)</span> and <span class="math notranslate nohighlight">\(\by\)</span> have the same dimension and are linked via the function <span class="math notranslate nohighlight">\(\by = E(\bX)\)</span>.</p>
 </section>
 <section id="data-and-hidden-vectors">
-<h3><span class="section-number">11.1.4. </span>Data and hidden vectors<a class="headerlink" href="#data-and-hidden-vectors" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">10.1.4. </span>Data and hidden vectors<a class="headerlink" href="#data-and-hidden-vectors" title="Permalink to this heading">#</a></h3>
 <p>The probabilistic graphical models that we will study in this chapter are meant to model real-world datasets. These datasets will often be conceptualized as observations of random or deterministic vectors, and these vectors are then integrated into a graphical model. These vectors are called <em>observed</em>, while all others are called <em>hidden</em> or <em>latent</em>. To visually represent observed vectors in the graph structure, their nodes will be shaded; the nodes associated with <em>hidden</em> vectors are left unshaded. For example, if we draw</p>
 <a class="reference internal image-reference" href="../_images/shaded.svg"><img alt="../_images/shaded.svg" class="align-center" src="../_images/shaded.svg" width="30%" /></a>
 <p> </p>
@@ -455,10 +453,10 @@ g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
 <p>where each <span class="math notranslate nohighlight">\(\by^{(i)}\)</span> is an observation of <span class="math notranslate nohighlight">\(\bY\)</span> and each <span class="math notranslate nohighlight">\(\bz^{(i)}\)</span> is an observation of <span class="math notranslate nohighlight">\(\bZ\)</span>.</p>
 </section>
 <section id="the-general-definition">
-<h3><span class="section-number">11.1.5. </span>The general definition<a class="headerlink" href="#the-general-definition" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">10.1.5. </span>The general definition<a class="headerlink" href="#the-general-definition" title="Permalink to this heading">#</a></h3>
 <p>We now have everything we need to define <em>probabilistic graphical models</em>, or (<em>PGM</em>s). The remaining sections are then devoted to the study of particular examples of such models.</p>
 <div class="proof definition admonition" id="definition-0">
-<p class="admonition-title"><span class="caption-number">Definition 11.1 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 10.1 </span></p>
 <section class="definition-content" id="proof-content">
 <p>A <em>probabilistic graphical model</em> consists of the following:</p>
 <ol class="arabic simple">
@@ -470,7 +468,7 @@ g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
 </div></section>
 </section>
 <section id="linear-regression-models">
-<span id="lin-reg-sec"></span><h2><span class="section-number">11.2. </span>Linear regression models<a class="headerlink" href="#linear-regression-models" title="Permalink to this heading">#</a></h2>
+<span id="lin-reg-sec"></span><h2><span class="section-number">10.2. </span>Linear regression models<a class="headerlink" href="#linear-regression-models" title="Permalink to this heading">#</a></h2>
 <p>The type of PGM defined in this section is one of the simplest, but also one of the most important. Its goal is to model an observed dataset</p>
 <div class="math notranslate nohighlight">
 \[
@@ -478,7 +476,7 @@ g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
 \]</div>
 <p>where we believe that</p>
 <div class="math notranslate nohighlight" id="equation-approx-linear-eqn">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-approx-linear-eqn" title="Permalink to this equation">#</a></span>\[y^{(i)} \approx \bx^{(i)}\bbeta + \beta_0, \quad i=1,2,\ldots,m,\]</div>
+<span class="eqno">(10.1)<a class="headerlink" href="#equation-approx-linear-eqn" title="Permalink to this equation">#</a></span>\[y^{(i)} \approx \bx^{(i)}\bbeta + \beta_0, \quad i=1,2,\ldots,m,\]</div>
 <p>for some parameters <span class="math notranslate nohighlight">\(\bbeta \in \bbr^{n\times 1}\)</span> and <span class="math notranslate nohighlight">\(\beta_0 \in \bbr\)</span>. For example, let’s consider the Ames housing dataset from the <a href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and <a class="reference internal" href="random-vectors.html#random-vectors"><span class="std std-numref">Chapter 7</span></a>; it consists of <span class="math notranslate nohighlight">\(m=2{,}930\)</span> bivariate observations</p>
 <div class="math notranslate nohighlight">
 \[
@@ -549,14 +547,14 @@ g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/73e6ff7135648b7c24e3db3ff3aa63a34bb6c344a7f983e44025174043fd2bbb.svg"><img alt="../_images/73e6ff7135648b7c24e3db3ff3aa63a34bb6c344a7f983e44025174043fd2bbb.svg" src="../_images/73e6ff7135648b7c24e3db3ff3aa63a34bb6c344a7f983e44025174043fd2bbb.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/326badc141f8093ada7a344c0ca1648c72a569ab3d5294dabc0d578f63d023a1.svg"><img alt="../_images/326badc141f8093ada7a344c0ca1648c72a569ab3d5294dabc0d578f63d023a1.svg" src="../_images/326badc141f8093ada7a344c0ca1648c72a569ab3d5294dabc0d578f63d023a1.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
-<p>The positively-sloped line is used to visualize the approximate linear relationship <a class="reference internal" href="#equation-approx-linear-eqn">(11.1)</a>. This is a so-called <em>least squares line</em> or <em>regression line</em>; we will learn how to compute them in <a class="reference internal" href="learning.html#learning"><span class="std std-numref">Chapter 12</span></a>.</p>
+<p>The positively-sloped line is used to visualize the approximate linear relationship <a class="reference internal" href="#equation-approx-linear-eqn">(10.1)</a>. This is a so-called <em>least squares line</em> or <em>regression line</em>; we will learn how to compute them in <a class="reference internal" href="learning.html#learning"><span class="std std-numref">Chapter 11</span></a>.</p>
 <p>But for now, let’s define our first PGM:</p>
 <div class="proof definition admonition" id="definition-1">
-<p class="admonition-title"><span class="caption-number">Definition 11.2 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 10.2 </span></p>
 <section class="definition-content" id="proof-content">
 <p>A <em>linear regression model</em> is a probabilistic graphical model whose underlying graph is of the form</p>
 <a class="reference internal image-reference" href="../_images/lin-reg-00.svg"><img alt="../_images/lin-reg-00.svg" class="align-center" src="../_images/lin-reg-00.svg" width="50%" /></a>
@@ -573,6 +571,36 @@ g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
 \mu \stackrel{\text{def}}{=} \bx \bbeta + \beta_0, \quad \text{where} \quad Y \mid \bX; \ \bbeta,\beta_0,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big).
 \]</div>
 </section>
+</div><p>Before we introduce important terminology associated with linear regression models and look at an example, we need to discuss two probability density functions that will play a crucial role in the <a class="reference internal" href="learning.html#learning"><span class="std std-ref">next chapter</span></a>. The first is just the conditional density function of <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(\bX\)</span>:</p>
+<div class="proof definition admonition" id="definition-2">
+<p class="admonition-title"><span class="caption-number">Definition 10.3 </span></p>
+<section class="definition-content" id="proof-content">
+<ol class="arabic">
+<li><p>The <em>model conditional probability function for a linear regression model</em> is the conditional probability density function</p>
+<div class="math notranslate nohighlight">
+\[
+    p\big(y \mid \bx ; \ \bbeta, \beta_0, \sigma^2\big).
+    \]</div>
+<p>On its support consisting of all <span class="math notranslate nohighlight">\(y\in \bbr\)</span> and <span class="math notranslate nohighlight">\(\bx \in \bbr^{1\times n}\)</span>, it is given by the formula</p>
+<div class="math notranslate nohighlight">
+\[
+    p\big(y \mid \bx ; \ \bbeta, \beta_0, \sigma^2\big) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} ( y - \mu)^2 \right),
+    \]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu = \bx \bbeta + \beta_0\)</span>.</p>
+</li>
+<li><p>Given a dataset</p>
+<div class="math notranslate nohighlight">
+\[
+    (\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr,
+    \]</div>
+<p>the <em>data conditional probability function for a linear regression model</em> is the conditional probability density function</p>
+<div class="math notranslate nohighlight">
+\[
+    p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \bbeta, \beta_0,\sigma^2 \big) = \prod_{i=1}^m p\big(y^{(i)} \mid \bx^{(i)} ; \ \bbeta, \beta_0, \sigma^2\big).
+    \]</div>
+</li>
+</ol>
+</section>
 </div><p>The components of the vector <span class="math notranslate nohighlight">\(\bX\)</span> are referred to as <em>predictors</em>, <em>regressors</em>, <em>explanatory variables</em>, or <em>independent variables</em>, while the random variable <span class="math notranslate nohighlight">\(Y\)</span> is called the <em>response variable</em> or the <em>dependent variable</em>. In the case that <span class="math notranslate nohighlight">\(n=1\)</span>, the model is called a <em>simple linear regression model</em>; otherwise, it is called a <em>multiple linear regression model</em>.</p>
 <p>Note that</p>
 <div class="math notranslate nohighlight">
@@ -581,10 +609,10 @@ E\big(Y \mid \bX = \bx \big) = \mu = \bx \bbeta + \beta_0,
 \]</div>
 <p>and so a linear regression model assumes (among other things) that the conditional mean of the response variable is linearly related to the regressors through the link function</p>
 <div class="math notranslate nohighlight" id="equation-lin-reg-line-eqn">
-<span class="eqno">(11.2)<a class="headerlink" href="#equation-lin-reg-line-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(10.2)<a class="headerlink" href="#equation-lin-reg-line-eqn" title="Permalink to this equation">#</a></span>\[
 \mu = \bx \bbeta + \beta_0.
 \]</div>
-<p>The parameter <span class="math notranslate nohighlight">\(\beta_0\)</span> is often called the <em>intercept coefficient</em>, while the other <span class="math notranslate nohighlight">\(\beta_j\)</span>’s (for <span class="math notranslate nohighlight">\(j&gt;0\)</span>) are called <em>slope coefficients</em> since they are exactly the (infinitesimal) slopes:</p>
+<p>The parameter <span class="math notranslate nohighlight">\(\beta_0\)</span> is often called the <em>intercept</em> or <em>bias term</em>, while the other <span class="math notranslate nohighlight">\(\beta_j\)</span>’s (for <span class="math notranslate nohighlight">\(j&gt;0\)</span>) are called <em>slope coefficients</em> since they are exactly the (infinitesimal) slopes:</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{\partial \mu}{\partial x_j} = \beta_j.
@@ -596,11 +624,11 @@ E\big(Y \mid \bX = \bx \big) = \mu = \bx \bbeta + \beta_0,
 \]</div>
 <p>in a linear regression model is called the <em>error term</em>; note then that</p>
 <div class="math notranslate nohighlight" id="equation-random-lin-rel-eqn">
-<span class="eqno">(11.3)<a class="headerlink" href="#equation-random-lin-rel-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(10.3)<a class="headerlink" href="#equation-random-lin-rel-eqn" title="Permalink to this equation">#</a></span>\[
 Y = \bX\bbeta + \beta_0 + \dev \quad \text{and} \quad \dev \sim \mathcal{N}(0, \sigma^2).
 \]</div>
-<p>This is the manifestation in terms of random vectors and variables of the approximate linear relationship <a class="reference internal" href="#equation-approx-linear-eqn">(11.1)</a> described at the beginning of this section.</p>
-<p>In our definition of a linear regression model, the random vector <span class="math notranslate nohighlight">\(\bX\)</span> and random variable <span class="math notranslate nohighlight">\(Y\)</span> are observed, which means that we have a dataset</p>
+<p>This is the manifestation in terms of random vectors and variables of the approximate linear relationship <a class="reference internal" href="#equation-approx-linear-eqn">(10.1)</a> described at the beginning of this section.</p>
+<p>Suppose we are given a dataset</p>
 <div class="math notranslate nohighlight">
 \[
 (\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr.
@@ -615,13 +643,13 @@ Y = \bX\bbeta + \beta_0 + \dev \quad \text{and} \quad \dev \sim \mathcal{N}(0, \
 \[
 \dev^{(i)} = y^{(i)} - \hat{y}^{(i)},
 \]</div>
-<p>then from <a class="reference internal" href="#equation-random-lin-rel-eqn">(11.3)</a> we get</p>
+<p>then from <a class="reference internal" href="#equation-random-lin-rel-eqn">(10.3)</a> we get</p>
 <div class="math notranslate nohighlight">
 \[
 y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 \]</div>
 <p>This shows that the residuals <span class="math notranslate nohighlight">\(\dev^{(i)}\)</span> are observations of the error term <span class="math notranslate nohighlight">\(\dev \sim \mathcal{N}(0,\sigma^2)\)</span>. Thus, in a linear regression model, all residuals from a dataset are assumed to be modeled by a normal distribution with mean <span class="math notranslate nohighlight">\(0\)</span> and a <em>fixed</em> variance; the fixed-variance assumption is sometimes called <em>homoscedasticity</em>.</p>
-<p>We will study in <a class="reference internal" href="learning.html#learning"><span class="std std-numref">Chapter 12</span></a> how to train a linear regression model on a dataset to learn optimal values of the parameters <span class="math notranslate nohighlight">\(\bbeta\)</span> and <span class="math notranslate nohighlight">\(\beta_0\)</span>. We used those training methods to learn <span class="math notranslate nohighlight">\(\beta\)</span> and <span class="math notranslate nohighlight">\(\beta_0\)</span> on the Ames housing dataset mentioned at the beginning of this section; the positively-sloped line in the scatter plot was the line traced out by the link function <span class="math notranslate nohighlight">\(\mu =  \beta x + \beta_0\)</span> with those learned parameter values. Thus, the predicted values <span class="math notranslate nohighlight">\(\hat{y}^{(i)}\)</span> lie along this line, and the magnitude of the residual <span class="math notranslate nohighlight">\(\dev^{(i)}\)</span> may be visualized as the vertical distance from the true data point <span class="math notranslate nohighlight">\(y^{(i)}\)</span> to this line. We may plot the residuals <span class="math notranslate nohighlight">\(\dev^{(i)}\)</span> against the predictor variables <span class="math notranslate nohighlight">\(x^{(i)}\)</span> to get:</p>
+<p>In <a class="reference internal" href="learning.html#learning"><span class="std std-numref">Chapter 11</span></a>, we will learn how to train a linear regression model on a dataset to obtain optimal values of the parameters <span class="math notranslate nohighlight">\(\bbeta\)</span> and <span class="math notranslate nohighlight">\(\beta_0\)</span>. Using these training methods, we obtained values of the parameters for the Ames housing dataset mentioned at the beginning of this section; the positively-sloped line in the scatter plot was the line traced out by the link function <span class="math notranslate nohighlight">\(\mu =  \beta x + \beta_0\)</span>. The predicted values <span class="math notranslate nohighlight">\(\hat{y}^{(i)}\)</span> lie along this line, and the magnitude of the residual <span class="math notranslate nohighlight">\(\dev^{(i)}\)</span> may be visualized as the vertical distance from the true data point <span class="math notranslate nohighlight">\(y^{(i)}\)</span> to this line. We may plot the residuals <span class="math notranslate nohighlight">\(\dev^{(i)}\)</span> against the predictor variables <span class="math notranslate nohighlight">\(x^{(i)}\)</span> to get:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -648,11 +676,11 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/6c56b7bb84315edaccaf2fbbc729537803d938c14388c543096f3b46b6c55810.svg"><img alt="../_images/6c56b7bb84315edaccaf2fbbc729537803d938c14388c543096f3b46b6c55810.svg" src="../_images/6c56b7bb84315edaccaf2fbbc729537803d938c14388c543096f3b46b6c55810.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/6f90591ad46b66b0dabf5cde0a10b9e778420679fe731f0889051ad9950173b5.svg"><img alt="../_images/6f90591ad46b66b0dabf5cde0a10b9e778420679fe731f0889051ad9950173b5.svg" src="../_images/6f90591ad46b66b0dabf5cde0a10b9e778420679fe731f0889051ad9950173b5.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
-<p>It is evident from this plot that the homoscedasticity assumption is violated, since the distributions of the residuals appear to widen as the area variable increases.</p>
+<p>It is evident from this plot that the homoscedasticity assumption is violated since the distributions of the residuals appear to widen as the area variable increases.</p>
 <p>As with the parameters <span class="math notranslate nohighlight">\(\beta\)</span> and <span class="math notranslate nohighlight">\(\beta_0\)</span>, it is also possible to learn an optimal value of the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>. As another method of model checking, given all the parameters <span class="math notranslate nohighlight">\(\beta\)</span>, <span class="math notranslate nohighlight">\(\beta_0\)</span>, and <span class="math notranslate nohighlight">\(\sigma^2\)</span>, we may generate a new dataset by sampling from the normal distributions</p>
 <div class="math notranslate nohighlight">
 \[
@@ -694,7 +722,7 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/cf081d24fc3f1c9b19958b91a8464c064db270333f57cb0286f87d4b2abdd679.svg"><img alt="../_images/cf081d24fc3f1c9b19958b91a8464c064db270333f57cb0286f87d4b2abdd679.svg" src="../_images/cf081d24fc3f1c9b19958b91a8464c064db270333f57cb0286f87d4b2abdd679.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/c065a6c49bfd76606b698ba99a7cc107ff522ee81725083d76132cb596f898cd.svg"><img alt="../_images/c065a6c49bfd76606b698ba99a7cc107ff522ee81725083d76132cb596f898cd.svg" src="../_images/c065a6c49bfd76606b698ba99a7cc107ff522ee81725083d76132cb596f898cd.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -723,21 +751,21 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/e93088c660a5749be94a6990343ce716960eddbdf045bdd39be5510c0d8c6a31.svg"><img alt="../_images/e93088c660a5749be94a6990343ce716960eddbdf045bdd39be5510c0d8c6a31.svg" src="../_images/e93088c660a5749be94a6990343ce716960eddbdf045bdd39be5510c0d8c6a31.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/b35de73a0b1600088429fba9461d490c5420bfe6038d79c7a6b9fcaca43b2a9c.svg"><img alt="../_images/b35de73a0b1600088429fba9461d490c5420bfe6038d79c7a6b9fcaca43b2a9c.svg" src="../_images/b35de73a0b1600088429fba9461d490c5420bfe6038d79c7a6b9fcaca43b2a9c.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
 <p>For smaller values of area, the distribution of the true prices is narrower compared to the simulated prices, while for larger values of area, the distribution of the true prices is wider.</p>
 </section>
 <section id="logistic-regression-models">
-<h2><span class="section-number">11.3. </span>Logistic regression models<a class="headerlink" href="#logistic-regression-models" title="Permalink to this heading">#</a></h2>
-<div class="proof definition admonition" id="definition-2">
-<p class="admonition-title"><span class="caption-number">Definition 11.3 </span></p>
+<h2><span class="section-number">10.3. </span>Logistic regression models<a class="headerlink" href="#logistic-regression-models" title="Permalink to this heading">#</a></h2>
+<div class="proof definition admonition" id="definition-3">
+<p class="admonition-title"><span class="caption-number">Definition 10.4 </span></p>
 <section class="definition-content" id="proof-content">
 <p>A <em>logistic regression model</em> is a probabilistic graphical model whose underlying graph is of the form</p>
 <a class="reference internal image-reference" href="../_images/log-reg-00.svg"><img alt="../_images/log-reg-00.svg" class="align-center" src="../_images/log-reg-00.svg" width="50%" /></a>
 <p> </p>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{x}\in \mathbb{R}^{1\times n}\)</span>. The model has the following parameters:</p>
+<p>where <span class="math notranslate nohighlight">\(\bX\in \mathbb{R}^{1\times n}\)</span>. The model has the following parameters:</p>
 <ul class="simple">
 <li><p>A parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\beta \in \mathbb{R}^{n\times 1}\)</span>.</p></li>
 <li><p>A real parameter <span class="math notranslate nohighlight">\(\beta_0\in \mathbb{R}\)</span>.</p></li>
@@ -745,8 +773,37 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 <p>The link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-\phi = \sigma(\mathbf{x}\boldsymbol\beta + \beta_0), \quad \text{where} \quad Y; \mathbf{x},\boldsymbol\beta,\beta_0 \sim \mathcal{B}er(\phi).
+\phi = \sigma(\bx\bbeta + \beta_0), \quad \text{where} \quad Y \mid \bX; \ \bbeta,\beta_0 \sim \mathcal{B}er(\phi).
 \]</div>
+</section>
+</div><div class="proof definition admonition" id="definition-4">
+<p class="admonition-title"><span class="caption-number">Definition 10.5 </span></p>
+<section class="definition-content" id="proof-content">
+<ol class="arabic">
+<li><p>The <em>model conditional probability function for a logistic regression model</em> is the conditional probability density function</p>
+<div class="math notranslate nohighlight">
+\[
+    p\big(y \mid \bx ; \ \bbeta, \beta_0\big).
+    \]</div>
+<p>On its support consisting of all <span class="math notranslate nohighlight">\(y\in \{0,1\}\)</span> and <span class="math notranslate nohighlight">\(\bx \in \bbr^{1\times n}\)</span>, it is given by the formula</p>
+<div class="math notranslate nohighlight">
+\[
+    p\big(y \mid \bx ; \ \bbeta, \beta_0\big) = \phi^y (1-\phi)^{1-y}
+    \]</div>
+<p>where <span class="math notranslate nohighlight">\(\phi = \bx \bbeta + \beta_0\)</span>.</p>
+</li>
+<li><p>Given a dataset</p>
+<div class="math notranslate nohighlight">
+\[
+    (\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \{0,1\},
+    \]</div>
+<p>the <em>data conditional probability function for a logistic regression model</em> is the conditional probability density function</p>
+<div class="math notranslate nohighlight">
+\[
+    p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \bbeta, \beta_0\big) = \prod_{i=1}^m p\big(y^{(i)} \mid \bx^{(i)} ; \ \bbeta, \beta_0\big).
+    \]</div>
+</li>
+</ol>
 </section>
 </div><div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -780,7 +837,7 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ebd5eda821e2c2b5de689c78542b8e5dac182cd565896ae868c3295777ed9c07.svg"><img alt="../_images/ebd5eda821e2c2b5de689c78542b8e5dac182cd565896ae868c3295777ed9c07.svg" src="../_images/ebd5eda821e2c2b5de689c78542b8e5dac182cd565896ae868c3295777ed9c07.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/c9f87194b43591c63bfe398826dc62050ecf55327561402b9cf7d5e272bb8c70.svg"><img alt="../_images/c9f87194b43591c63bfe398826dc62050ecf55327561402b9cf7d5e272bb8c70.svg" src="../_images/c9f87194b43591c63bfe398826dc62050ecf55327561402b9cf7d5e272bb8c70.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -843,20 +900,20 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/305ac5a3f87412fccc75a65f21cc5869f3f302d99a7f744bdd54d53e78605b0b.svg"><img alt="../_images/305ac5a3f87412fccc75a65f21cc5869f3f302d99a7f744bdd54d53e78605b0b.svg" src="../_images/305ac5a3f87412fccc75a65f21cc5869f3f302d99a7f744bdd54d53e78605b0b.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/f121e421f59cd116e050161897f9c441ff72c5ebe789b0e77f5f9807efa9b6c2.svg"><img alt="../_images/f121e421f59cd116e050161897f9c441ff72c5ebe789b0e77f5f9807efa9b6c2.svg" src="../_images/f121e421f59cd116e050161897f9c441ff72c5ebe789b0e77f5f9807efa9b6c2.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
 </section>
 <section id="neural-network-models">
-<h2><span class="section-number">11.4. </span>Neural network models<a class="headerlink" href="#neural-network-models" title="Permalink to this heading">#</a></h2>
-<div class="proof definition admonition" id="definition-3">
-<p class="admonition-title"><span class="caption-number">Definition 11.4 </span></p>
+<h2><span class="section-number">10.4. </span>Neural network models<a class="headerlink" href="#neural-network-models" title="Permalink to this heading">#</a></h2>
+<div class="proof definition admonition" id="definition-5">
+<p class="admonition-title"><span class="caption-number">Definition 10.6 </span></p>
 <section class="definition-content" id="proof-content">
 <p>A <em>neural network model</em> is a probabilistic graphical model whose underlying graph is of the form</p>
 <a class="reference internal image-reference" href="../_images/nn-00.svg"><img alt="../_images/nn-00.svg" class="align-center" src="../_images/nn-00.svg" width="50%" /></a>
 <p> </p>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{x} \in \mathbb{R}^{1\times n}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{z}\in \mathbb{R}^{1\times k}\)</span>. The model has the following parameters:</p>
+<p>where <span class="math notranslate nohighlight">\(\bX \in \mathbb{R}^{1\times n}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{z}\in \mathbb{R}^{1\times k}\)</span>. The model has the following parameters:</p>
 <ul class="simple">
 <li><p>A parameter matrix <span class="math notranslate nohighlight">\(\boldsymbol\alpha \in \mathbb{R}^{n\times k}\)</span>.</p></li>
 <li><p>A parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\alpha_0 \in \mathbb{R}^{1\times k}\)</span>.</p></li>
@@ -871,8 +928,37 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 <p>while the link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-\phi = \sigma(\mathbf{z}\boldsymbol\beta + \beta_0), \quad \text{where} \quad Y ; \mathbf{z}, \boldsymbol\beta,\beta_0 \sim \mathcal{B}er\big(\phi\big).
+\phi = \sigma(\mathbf{z}\boldsymbol\beta + \beta_0), \quad \text{where} \quad Y ;\  \mathbf{z}, \boldsymbol\beta,\beta_0 \sim \mathcal{B}er\big(\phi\big).
 \]</div>
+</section>
+</div><div class="proof definition admonition" id="definition-6">
+<p class="admonition-title"><span class="caption-number">Definition 10.7 </span></p>
+<section class="definition-content" id="proof-content">
+<ol class="arabic">
+<li><p>The <em>model conditional probability function for a neural network model</em> is the conditional probability density function</p>
+<div class="math notranslate nohighlight">
+\[
+    p\big(y \mid \bx ; \ \balpha, \balpha_0, \bbeta, \beta_0\big).
+    \]</div>
+<p>On its support consisting of all <span class="math notranslate nohighlight">\(y\in \{0,1\}\)</span> and <span class="math notranslate nohighlight">\(\bx \in \bbr^{1\times n}\)</span>, it is given by the formula</p>
+<div class="math notranslate nohighlight">
+\[
+    p\big(y \mid \bx ; \ \bbeta, \beta_0\big) = \phi^y (1-\phi)^{1-y}
+    \]</div>
+<p>where <span class="math notranslate nohighlight">\(\phi = \sigma(\bz \bbeta + \beta_0)\)</span> and <span class="math notranslate nohighlight">\(\bz = \sigma(\bx \balpha + \balpha_0)\)</span>.</p>
+</li>
+<li><p>Given a dataset</p>
+<div class="math notranslate nohighlight">
+\[
+    (\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \{0,1\},
+    \]</div>
+<p>the <em>data conditional probability function for a neural network model</em> is the conditional probability density function</p>
+<div class="math notranslate nohighlight">
+\[
+    p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \balpha, \balpha_0, \bbeta, \beta_0\big) = \prod_{i=1}^m p\big(y^{(i)} \mid \bx^{(i)} ; \ \balpha, \balpha_0, \bbeta, \beta_0\big).
+    \]</div>
+</li>
+</ol>
 </section>
 </div><div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -939,15 +1025,15 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/9018f916ccff322b47578b44c125e1e2d2fd4e569c4a2d1b5f156a4ad0076d9f.svg"><img alt="../_images/9018f916ccff322b47578b44c125e1e2d2fd4e569c4a2d1b5f156a4ad0076d9f.svg" src="../_images/9018f916ccff322b47578b44c125e1e2d2fd4e569c4a2d1b5f156a4ad0076d9f.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/79740d064f7f2e95791288c8e4e0fd6901d2984340b31c91c7242e8cbc3f1aee.svg"><img alt="../_images/79740d064f7f2e95791288c8e4e0fd6901d2984340b31c91c7242e8cbc3f1aee.svg" src="../_images/79740d064f7f2e95791288c8e4e0fd6901d2984340b31c91c7242e8cbc3f1aee.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
 </section>
 <section id="gaussian-mixture-models">
-<h2><span class="section-number">11.5. </span>Gaussian mixture models<a class="headerlink" href="#gaussian-mixture-models" title="Permalink to this heading">#</a></h2>
-<div class="proof definition admonition" id="definition-4">
-<p class="admonition-title"><span class="caption-number">Definition 11.5 </span></p>
+<h2><span class="section-number">10.5. </span>Gaussian mixture models<a class="headerlink" href="#gaussian-mixture-models" title="Permalink to this heading">#</a></h2>
+<div class="proof definition admonition" id="definition-7">
+<p class="admonition-title"><span class="caption-number">Definition 10.8 </span></p>
 <section class="definition-content" id="proof-content">
 <p>A <em>(two-component) Gaussian model</em> is a probabilistic graphical model whose underlying graph is of the form</p>
 <a class="reference internal image-reference" href="../_images/gmm.svg"><img alt="../_images/gmm.svg" class="align-center" src="../_images/gmm.svg" width="50%" /></a>
@@ -968,6 +1054,35 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 \[
 X \mid Z; \ \mu_0,\sigma_0^2,\mu_1, \sigma^2_1 \sim \mathcal{N}(\mu,\sigma^2).
 \]</div>
+</section>
+</div><div class="proof definition admonition" id="definition-8">
+<p class="admonition-title"><span class="caption-number">Definition 10.9 </span></p>
+<section class="definition-content" id="proof-content">
+<ol class="arabic">
+<li><p>The <em>model joint probability function for a Gaussian mixture model</em> is the joint probability density function</p>
+<div class="math notranslate nohighlight">
+\[
+    p\big(x, z ; \ \mu_0,\mu_1, \sigma_0^2, \sigma_1^2, \phi \big).
+    \]</div>
+<p>On its support consisting of all <span class="math notranslate nohighlight">\(x\in \bbr\)</span> and <span class="math notranslate nohighlight">\(z \in \{0,1\}\)</span>, it is given by the formula</p>
+<div class="math notranslate nohighlight">
+\[
+    p\big(x, z ; \ \mu_0,\mu_1, \sigma_0^2, \sigma_1^2, \phi \big) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( - \frac{1}{2\sigma^2} (x-\mu)^2 \right) \phi^z (1-\phi)^{1-z}
+    \]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu = \mu_0(1-z) + \mu_1z\)</span> and <span class="math notranslate nohighlight">\(\sigma^2 = \sigma_0^2(1-z) + \sigma_1^2z\)</span>.</p>
+</li>
+<li><p>Given a dataset</p>
+<div class="math notranslate nohighlight">
+\[
+    (x^{(1)}, z^{(1)}), (x^{(2)},z^{(2)}),\ldots, (x^{(m)},z^{(m)}) \in \bbr \times \{0,1\},
+    \]</div>
+<p>the <em>data joint probability function for a Gaussian mixture model</em> is the joint probability density function</p>
+<div class="math notranslate nohighlight">
+\[
+    p\big(x^{(1)},\ldots,x^{(m)}, z^{(1)},\ldots,z^{(m)} ; \ \mu_0,\mu_1, \sigma_0^2, \sigma_1^2, \phi \big) = \prod_{i=1}^m p\big(x^{(i)}, z^{(i)} ; \ \mu_0,\mu_1, \sigma_0^2, \sigma_1^2, \phi \big).
+    \]</div>
+</li>
+</ol>
 </section>
 </div><div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1020,13 +1135,10 @@ X \mid Z; \ \mu_0,\sigma_0^2,\mu_1, \sigma^2_1 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/7bdcd77861d5099c3f00192bde7666346078e29fe5ca3eeccfd89c1821bd7a29.svg"><img alt="../_images/7bdcd77861d5099c3f00192bde7666346078e29fe5ca3eeccfd89c1821bd7a29.svg" src="../_images/7bdcd77861d5099c3f00192bde7666346078e29fe5ca3eeccfd89c1821bd7a29.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/a1143126afd141d99db140c2112730162f5f72ee5a9306b62bd02a4017155131.svg"><img alt="../_images/a1143126afd141d99db140c2112730162f5f72ee5a9306b62bd02a4017155131.svg" src="../_images/a1143126afd141d99db140c2112730162f5f72ee5a9306b62bd02a4017155131.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
-</section>
-<section id="a-connection-to-supervised-machine-learning">
-<h2><span class="section-number">11.6. </span>A connection to supervised machine learning<a class="headerlink" href="#a-connection-to-supervised-machine-learning" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -1066,7 +1178,7 @@ X \mid Z; \ \mu_0,\sigma_0^2,\mu_1, \sigma^2_1 \sim \mathcal{N}(\mu,\sigma^2).
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">10. </span>Optimization</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Optimization</p>
       </div>
     </a>
     <a class="right-next"
@@ -1074,7 +1186,7 @@ X \mid Z; \ \mu_0,\sigma_0^2,\mu_1, \sigma^2_1 \sim \mathcal{N}(\mu,\sigma^2).
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">12. </span>Learning</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>Learning</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1093,19 +1205,18 @@ X \mid Z; \ \mu_0,\sigma_0^2,\mu_1, \sigma^2_1 \sim \mathcal{N}(\mu,\sigma^2).
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-graphical-models">11.1. Probabilistic graphical models</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deterministic-flows-of-influence">11.1.1. Deterministic flows of influence</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-flows-of-influence">11.1.2. Stochastic flows of influence</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-flows-of-influence">11.1.3. Mixed flows of influence</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-and-hidden-vectors">11.1.4. Data and hidden vectors</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-general-definition">11.1.5. The general definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-graphical-models">10.1. Probabilistic graphical models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deterministic-flows-of-influence">10.1.1. Deterministic flows of influence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-flows-of-influence">10.1.2. Stochastic flows of influence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mixed-flows-of-influence">10.1.3. Mixed flows of influence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-and-hidden-vectors">10.1.4. Data and hidden vectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-general-definition">10.1.5. The general definition</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-models">11.2. Linear regression models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-models">11.3. Logistic regression models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-network-models">11.4. Neural network models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-mixture-models">11.5. Gaussian mixture models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-connection-to-supervised-machine-learning">11.6. A connection to supervised machine learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-models">10.2. Linear regression models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-models">10.3. Logistic regression models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-network-models">10.4. Neural network models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-mixture-models">10.5. Gaussian mixture models</a></li>
 </ul>
   </nav></div>
 

@@ -67,38 +67,33 @@ If the total number of rolls is large, what might you expect the relative freque
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
-import matplotlib.pyplot as plt
 import numpy as np
-from scipy.stats import randint
-
-# set custom style for plots
+import scipy as sp
+import matplotlib.pyplot as plt
+import matplotlib_inline.backend_inline
+import warnings
 plt.style.use('../aux-files/custom_style_light.mplstyle')
-
-# make sure this comes last in the imports!
-# change the output resolution and size of figures
-import matplotlib as mpl 
-mpl.rcParams['figure.dpi'] = 600
-
-# end import section
+matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
+warnings.filterwarnings("ignore")
+blue = '#486AFB'
+magenta = '#FD46FC'
 
 max_roll = 100
 frequencies = []
-
 np.random.seed(42)
 
-for n in range(1, max_roll+1):
-    roll = randint(1, 7).rvs(size=n)
+for n in range(1, max_roll + 1):
+    roll = np.random.randint(low=1, high=7, size=n)
     frequency = np.count_nonzero(roll == 4) / n
     frequencies.append(frequency)
 
-plt.plot(range(1, max_roll+1), frequencies)
+plt.plot(range(1, max_roll + 1), frequencies)
 plt.xlabel(r'$n=$total rolls')
 plt.ylabel('relative frequency of 4s')
-plt.axhline(y=1/6, color='red', linestyle='--')
+plt.axhline(y=1 / 6, color='red', linestyle='--')
 plt.ylim(0, 1)
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
@@ -109,24 +104,23 @@ Along the horizontal axis you see the values of $n$, where $n$ is the total numb
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 max_roll = 1000
 frequencies = []
 
 np.random.seed(42)
 
-for n in range(1, max_roll+1):
-    roll = randint(1, 7).rvs(size=n)
+for n in range(1, max_roll + 1):
+    roll = np.random.randint(low=1, high=7, size=n)
     frequency = np.count_nonzero(roll == 4) / n
     frequencies.append(frequency)
 
-plt.plot(range(1, max_roll+1), frequencies)
+plt.plot(range(1, max_roll + 1), frequencies)
 plt.xlabel(r'$n=$total rolls')
 plt.ylabel('relative frequency of 4s')
-plt.axhline(y=1/6, color='red', linestyle='--')
+plt.axhline(y=1 / 6, color='red', linestyle='--')
 plt.ylim(0, 1)
+plt.gcf().set_size_inches(w=7, h=3)
 plt.tight_layout()
 ```
 
@@ -188,24 +182,23 @@ A frequentist would confirm this by rolling the die many times and tracking the 
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 max_roll = 200
 frequencies = []
 
 np.random.seed(42)
 
-for n in range(1, max_roll+1):
-    roll = randint(1, 7).rvs(size=n)
+for n in range(1, max_roll + 1):
+    roll = np.random.randint(low=1, high=7, size=n)
     frequency = np.count_nonzero(roll % 2) / n
     frequencies.append(frequency)
 
-plt.plot(range(1, max_roll+1), frequencies)
+plt.plot(range(1, max_roll + 1), frequencies)
 plt.xlabel(r'$n=$total rolls')
 plt.ylabel('relative frequency of odds')
 plt.axhline(y=1/2, color='red', linestyle='--')
 plt.ylim(0, 1)
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
@@ -224,12 +217,6 @@ To answer this question, let's have a look at three different long-run relative 
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
-
-from cycler import cycler
-cycler = cycler(color=['#486afb', '#FD46FC', '#F9A620'])
-plt.rc('axes', prop_cycle=cycler)
 
 max_roll = 500
 frequencies_evens = []
@@ -238,26 +225,27 @@ frequencies_evens_or_fours = []
 
 np.random.seed(42)
 
-for n in range(1, max_roll+1):
-    roll = randint(1, 7).rvs(size=n)
-    frequency = np.count_nonzero((roll+1) % 2) / n
+for n in range(1, max_roll + 1):
+    roll = np.random.randint(low=1, high=7, size=n)
+    frequency = np.count_nonzero((roll + 1) % 2) / n
     frequencies_evens.append(frequency)
     frequency = np.count_nonzero(roll == 5) / n
     frequencies_fours.append(frequency)
-    frequency = np.count_nonzero(((roll+1) % 2) | (roll == 5)) / n
+    frequency = np.count_nonzero(((roll + 1) % 2) | (roll == 5)) / n
     frequencies_evens_or_fours.append(frequency)
 
-plt.plot(range(1, max_roll+1), frequencies_evens, label='relative frequency of odds')
-plt.plot(range(1, max_roll+1), frequencies_fours, label='relative frequency of 4s')
-plt.plot(range(1, max_roll+1), frequencies_evens_or_fours, label='relative frequency of 4 or odd')
-plt.xlabel(r'$n=$total rolls')
+plt.plot(range(1, max_roll + 1), frequencies_evens, label='relative frequency of odds', color=blue)
+plt.plot(range(1, max_roll + 1), frequencies_fours, label='relative frequency of 4s', color=magenta)
+plt.plot(range(1, max_roll + 1), frequencies_evens_or_fours, label='relative frequency of 4 or odd', color='#F9A620')
+plt.xlabel('$n=$total rolls')
 plt.ylabel('relative frequency')
-plt.axhline(y=1/2, color='black', linestyle='--')
-plt.axhline(y=1/6, color='black', linestyle='--')
-plt.axhline(y=1/2+1/6, color='black', linestyle='--')
+plt.axhline(y=1 / 2, color='black', linestyle='--')
+plt.axhline(y=1 / 6, color='black', linestyle='--')
+plt.axhline(y=1 / 2 + 1 / 6, color='black', linestyle='--')
 plt.ylim(0, 1)
 plt.xlim(-40, 540)
 plt.legend()
+plt.gcf().set_size_inches(w=7, h=5)
 plt.tight_layout()
 ```
 
@@ -934,42 +922,18 @@ Since the sample space is $\mathbb{R}$, we can imagine it as the horizontal axis
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
-from scipy.stats import geom
 
-def prob_hist(xvals, yvals, stemwidth=25, title='', xlabel='values',
-              ylabel='probability', size=(-1, -1), vline='', hline='', ymax=''):
-    
-    _, stems, _ = plt.stem(xvals, yvals, basefmt=' ', markerfmt=' ')
-    plt.setp(stems, 'linewidth', stemwidth)
-    plt.gca().set_ylim(ymin=0)
-    plt.gca().set_xticks(xvals)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
-    plt.title(title)
+X = sp.stats.geom(0.25)
+grid = np.arange(-1, 13)
+probs = X.pmf(grid)
 
-    if ymax != '':
-        plt.gca().set_ylim(ymax=ymax)
-
-    if size != (-1,-1):
-        fig = plt.gcf()
-        fig.set_size_inches(size)
-    
-    if vline != '':
-        plt.axvline(x=vline, color='red', linestyle='--')
-
-    if hline != '':
-        plt.axhline(y=hline, color='red', linestyle='--')
-
-    plt.tight_layout()
-
-X = geom(0.25)
-xvals = np.arange(-1, 13)
-probs = X.pmf(xvals)
-
-prob_hist(xvals, probs, stemwidth=10, xlabel=r'$s$')
+plt.bar(grid, X.pmf(grid), width=0.4)
+plt.xticks(ticks=range(-1, 13))
+plt.xlabel('$s$')
+plt.ylabel('probability')
+plt.gcf().set_size_inches(w=5, h=3)
+plt.tight_layout()
 ```
 
 So, since $p(1)=0.25$, you see that there is a rectangle of height $0.25$ above $s=1$. Notice that there are _no_ rectangles above $s=0$ or any negative integer $s$; or, more accurately, the rectangles above these integers have height $=0$. Make sure also to notice that none of the rectangles have heights bigger than $1$!
@@ -981,13 +945,16 @@ What does a _uniform_ probability measure on $\mathbb{R}$ look like? Very simple
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
-xvals = np.arange(-1, 13)
+grid = np.arange(-1, 13)
 probs = [0, 0, 1/6, 1/6, 1/6, 1/6, 1/6, 1/6, 0, 0, 0, 0, 0, 0]
 
-prob_hist(xvals, probs, stemwidth=10, xlabel=r'$s$', ymax=0.25)
+plt.bar(grid, probs, width=0.4)
+plt.xticks(ticks=range(-1, 13))
+plt.xlabel('$s$')
+plt.ylabel('probability')
+plt.gcf().set_size_inches(w=5, h=3)
+plt.tight_layout()
 ```
 
 This is a histogram of the uniform probability measure on $\mathbb{R}$ with probability function $p(s)$ with
@@ -1143,12 +1110,10 @@ This was one of the densities that we studied in the worksheet problems. The ass
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
-x_left = np.linspace(-1, 3, 50)
-x_right = np.linspace(3.01, 5, 50)
-x_fill = np.linspace(1, 2.75)
+left_grid = np.linspace(-1, 3, 50)
+right_grid = np.linspace(3.01, 5, 50)
+fill_grid = np.linspace(1, 2.75)
 
 def f(s):
     if (0 <= s <= 3):
@@ -1157,21 +1122,22 @@ def f(s):
         return 0.0
 
 f_vec = np.vectorize(f)    
-y_left = f_vec(x_left)
-y_right = f_vec(x_right)
-y_fill = f_vec(x_fill)
+y_left = f_vec(left_grid)
+y_right = f_vec(right_grid)
+y_fill = f_vec(fill_grid)
 
-plt.plot(x_left, y_left)
-plt.plot(x_right, y_right, color='#486AFB')
-plt.fill_between(x_fill, y_fill, color='#FD46FC', alpha=0.3)
+plt.plot(left_grid, y_left)
+plt.plot(right_grid, y_right, color=blue)
+plt.fill_between(fill_grid, y_fill, color=magenta, alpha=0.3)
 
-plt.plot(3, (2/9) * 3, marker='o', color='#486AFB', markersize=7)
-plt.plot(-1, 0, marker='<', color='#486AFB', markersize=7)
-plt.plot(5, 0, marker='>', color='#486AFB', markersize=7)
-plt.plot(3, 0, marker='o', color='#486AFB', markersize=7, markerfacecolor='w')
+plt.plot(3, (2/9) * 3, marker='o', color=blue, markersize=7)
+plt.plot(-1, 0, marker='<', color=blue, markersize=7)
+plt.plot(5, 0, marker='>', color=blue, markersize=7)
+plt.plot(3, 0, marker='o', color=blue, markersize=7, markerfacecolor='w')
 
-plt.xlabel('s')
+plt.xlabel('$s$')
 plt.ylabel('probability density')
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
@@ -1198,12 +1164,10 @@ This density is also from the worksheet problems. The probability density curve 
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
-x_left = np.linspace(-1, 0.99, 50)
-x_right = np.linspace(1, 10, 100)
-x_fill = np.linspace(2, 4)
+left_grid = np.linspace(-1, 0.99, 50)
+right_grid = np.linspace(1, 10, 100)
+fill_grid = np.linspace(2, 4)
 
 def f(s):
     if (s >= 1):
@@ -1212,21 +1176,22 @@ def f(s):
         return 0.0
 
 f_vec = np.vectorize(f)    
-y_left = f_vec(x_left)
-y_right = f_vec(x_right)
-y_fill = f_vec(x_fill)
+y_left = f_vec(left_grid)
+y_right = f_vec(right_grid)
+y_fill = f_vec(fill_grid)
 
-plt.plot(x_left, y_left)
-plt.plot(x_right, y_right, color='#486AFB')
-plt.fill_between(x_fill, y_fill, color='#FD46FC', alpha=0.3)
+plt.plot(left_grid, y_left)
+plt.plot(right_grid, y_right, color=blue)
+plt.fill_between(fill_grid, y_fill, color=magenta, alpha=0.3)
 
-plt.plot(-1, 0, marker='<', color='#486AFB', markersize=7)
-plt.plot(10, 0, marker='>', color='#486AFB', markersize=7)
-plt.plot(1, 1, marker='o', color='#486AFB', markersize=7)
-plt.plot(1, 0, marker='o', color='#486AFB', markersize=7, markerfacecolor='w')
+plt.plot(-1, 0, marker='<', color=blue, markersize=7)
+plt.plot(10, 0, marker='>', color=blue, markersize=7)
+plt.plot(1, 1, marker='o', color=blue, markersize=7)
+plt.plot(1, 0, marker='o', color=blue, markersize=7, markerfacecolor='w')
 
-plt.xlabel('s')
+plt.xlabel('$s$')
 plt.ylabel('probability density')
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
@@ -1277,12 +1242,16 @@ Luckily, since distribution functions are real-valued functions on $\mathbb{R}$,
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
-sums = np.arange(2, 6)
-probs = np.array([1/10, 2/10, 3/10, 4/10])
-prob_hist(sums, probs, stemwidth=10, xlabel=r'$s$')
+grid = np.arange(2, 6)
+probs = [1/10, 2/10, 3/10, 4/10]
+
+plt.bar(grid, probs, width=0.3)
+plt.xticks(ticks=range(2, 6))
+plt.xlabel('$s$')
+plt.ylabel('probability')
+plt.gcf().set_size_inches(w=3, h=3)
+plt.tight_layout()
 ```
 
 Now, if $s$ is a number that is less than $2$, then $F(s)=0$, simply because there are no $t\in \mathbb{R}$ less than $2$ with $p(t)\neq 0$; thus, from {eq}`yuy-eqn`, we must have $F(s)=0$. However, we _do_ have
@@ -1304,12 +1273,10 @@ If we graph $F(s)$, we get a 'step function':
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 x = []
 for i in range(5):
-    x.append(np.linspace(i+1, i+2, endpoint=False))
+    x.append(np.linspace(i + 1, i + 2, endpoint=False))
 
 def f(y):
     if (y < 2):
@@ -1330,22 +1297,22 @@ for i in range(5):
     y.append(f_vec(x[i]))
 
 for i in range(5):
-    plt.plot(x[i], y[i], color='#486AFB')
+    plt.plot(x[i], y[i], color=blue)
 
-plt.plot(2, 0, marker='o', color='#486AFB', markersize=7, markerfacecolor='w')
-plt.plot(2, 0.1, marker='o', color='#486AFB', markersize=7)
-plt.plot(3, 0.1, marker='o', color='#486AFB', markersize=7, markerfacecolor='w')
-plt.plot(3, 0.3, marker='o', color='#486AFB', markersize=7)
-plt.plot(4, 0.3, marker='o', color='#486AFB', markersize=7, markerfacecolor='w')
-plt.plot(4, 0.6, marker='o', color='#486AFB', markersize=7)
-plt.plot(5, 0.6, marker='o', color='#486AFB', markersize=7, markerfacecolor='w')
-plt.plot(5, 1, marker='o', color='#486AFB', markersize=7)
+plt.plot(2, 0, marker='o', color=blue, markersize=7, markerfacecolor='w')
+plt.plot(2, 0.1, marker='o', color=blue, markersize=7)
+plt.plot(3, 0.1, marker='o', color=blue, markersize=7, markerfacecolor='w')
+plt.plot(3, 0.3, marker='o', color=blue, markersize=7)
+plt.plot(4, 0.3, marker='o', color=blue, markersize=7, markerfacecolor='w')
+plt.plot(4, 0.6, marker='o', color=blue, markersize=7)
+plt.plot(5, 0.6, marker='o', color=blue, markersize=7, markerfacecolor='w')
+plt.plot(5, 1, marker='o', color=blue, markersize=7)
+plt.plot(1, 0, marker='<', color=blue, markersize=7)
+plt.plot(6, 1, marker='>', color=blue, markersize=7)
 
-plt.plot(1, 0, marker='<', color='#486AFB', markersize=7)
-plt.plot(6, 1, marker='>', color='#486AFB', markersize=7)
-
-plt.xlabel('s')
+plt.xlabel('$s$')
 plt.ylabel('cumulative probability')
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
@@ -1362,11 +1329,9 @@ For a reminder, here is the graph of $f(s)$:
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
-x_left = np.linspace(-1, 0.99, 50)
-x_right = np.linspace(1, 10, 100)
+left_grid = np.linspace(-1, 0.99, 50)
+right_grid = np.linspace(1, 10, 100)
 
 def f(s):
     if (s >= 1):
@@ -1375,19 +1340,20 @@ def f(s):
         return 0.0
 
 f_vec = np.vectorize(f)    
-y_left = f_vec(x_left)
-y_right = f_vec(x_right)
+y_left = f_vec(left_grid)
+y_right = f_vec(right_grid)
 
-plt.plot(x_left, y_left)
-plt.plot(x_right, y_right, color='#486AFB')
+plt.plot(left_grid, y_left)
+plt.plot(right_grid, y_right, color=blue)
 
-plt.plot(-1, 0, marker='<', color='#486AFB', markersize=7)
-plt.plot(10, 0, marker='>', color='#486AFB', markersize=7)
-plt.plot(1, 1, marker='o', color='#486AFB', markersize=7)
-plt.plot(1, 0, marker='o', color='#486AFB', markersize=7, markerfacecolor='w')
+plt.plot(-1, 0, marker='<', color=blue, markersize=7)
+plt.plot(10, 0, marker='>', color=blue, markersize=7)
+plt.plot(1, 1, marker='o', color=blue, markersize=7)
+plt.plot(1, 0, marker='o', color=blue, markersize=7, markerfacecolor='w')
 
-plt.xlabel('s')
+plt.xlabel('$s$')
 plt.ylabel('probability density')
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
@@ -1406,8 +1372,7 @@ If we graph $F(s)$, we get:
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
+
 
 x = np.linspace(-5, 20, 500)
 
@@ -1421,15 +1386,13 @@ f_vec = np.vectorize(f)
 y = f_vec(x)
 
 plt.plot(x, y)
+plt.plot(-5, 0, marker=(3, 0, 90), color=blue, markersize=8)
+plt.plot(20, f(20), marker=(3, 0, 35), color=blue, markersize=8)
 
-plt.plot(-5, 0, marker=(3, 0, 90), color='#486AFB', markersize=8)
-plt.plot(20, f(20), marker=(3, 0, 35), color='#486AFB', markersize=8)
-#plt.axhline(y=1, color='red', linestyle='--')
-
-plt.xlabel('s')
+plt.xlabel('$s$')
 plt.ylabel('cumulative probability')
-plt.gcf().set_size_inches(5, 3)
 plt.ylim(-0.05, 1)
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
@@ -1542,11 +1505,9 @@ The graph of $f(s)$ is:
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
-x_left = np.linspace(-1, 0.99, 50)
-x_right = np.linspace(1, 10, 100)
+left_grid = np.linspace(-1, 0.99, 50)
+right_grid = np.linspace(1, 10, 100)
 
 def f(s):
     if (s >= 1):
@@ -1555,19 +1516,20 @@ def f(s):
         return 0.0
 
 f_vec = np.vectorize(f)    
-y_left = f_vec(x_left)
-y_right = f_vec(x_right)
+y_left = f_vec(left_grid)
+y_right = f_vec(right_grid)
 
-plt.plot(x_left, y_left)
-plt.plot(x_right, y_right, color='#486AFB')
+plt.plot(left_grid, y_left)
+plt.plot(right_grid, y_right, color=blue)
 
-plt.plot(-1, 0, marker='<', color='#486AFB', markersize=7)
-plt.plot(10, 0, marker='>', color='#486AFB', markersize=7)
-plt.plot(1, 1, marker='o', color='#486AFB', markersize=7)
-plt.plot(1, 0, marker='o', color='#486AFB', markersize=7, markerfacecolor='w')
+plt.plot(-1, 0, marker='<', color=blue, markersize=7)
+plt.plot(10, 0, marker='>', color=blue, markersize=7)
+plt.plot(1, 1, marker='o', color=blue, markersize=7)
+plt.plot(1, 0, marker='o', color=blue, markersize=7, markerfacecolor='w')
 
-plt.xlabel('s')
+plt.xlabel('$s$')
 plt.ylabel('probability density')
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
@@ -1580,12 +1542,10 @@ The number $s = Q(0.5)$ is the location $s\in \mathbb{R}$ along the horizontal a
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
-x_left = np.linspace(-2, 1, 50, endpoint=False)
-x_right = np.linspace(1, 5, 100)
-x_fill = np.linspace(1, 2)
+left_grid = np.linspace(-2, 1, 50, endpoint=False)
+right_grid = np.linspace(1, 5, 100)
+fill_grid = np.linspace(1, 2)
 
 def f(s):
     if (s >= 1):
@@ -1594,24 +1554,25 @@ def f(s):
         return 0.0
 
 f_vec = np.vectorize(f)    
-y_left = f_vec(x_left)
-y_right = f_vec(x_right)
-y_fill = f_vec(x_fill)
+y_left = f_vec(left_grid)
+y_right = f_vec(right_grid)
+y_fill = f_vec(fill_grid)
 
-plt.plot(x_left, y_left, label=r'pdf $f(s)$')
-plt.plot(x_right, y_right, color='#486AFB')
+plt.plot(left_grid, y_left, label='pdf $f(s)$')
+plt.plot(right_grid, y_right, color=blue)
 plt.axvline(x=2, color='red', linestyle='--', label=r'median $Q(0.5)$')
-plt.fill_between(x_fill, y_fill, color='#FD46FC', alpha=0.3)
+plt.fill_between(fill_grid, y_fill, color=magenta, alpha=0.3)
 
-plt.plot(-2, 0, marker='<', color='#486AFB', markersize=7)
-plt.plot(5, f(5), marker='>', color='#486AFB', markersize=7)
-plt.plot(1, 1, marker='o', color='#486AFB', markersize=7)
-plt.plot(1, 0, marker='o', color='#486AFB', markersize=7, markerfacecolor='w')
-plt.text(0, 0.4, r'$p=0.5$', color='#FD46FC')
+plt.plot(-2, 0, marker='<', color=blue, markersize=7)
+plt.plot(5, f(5), marker='>', color=blue, markersize=7)
+plt.plot(1, 1, marker='o', color=blue, markersize=7)
+plt.plot(1, 0, marker='o', color=blue, markersize=7, markerfacecolor='w')
+plt.text(0, 0.4, r'$p=0.5$', color=magenta)
 
 plt.xlabel('s')
 plt.ylabel('probability density')
 plt.legend()
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
@@ -1624,8 +1585,7 @@ Likewise, the number $s = Q(0.75)$ is the location $s\in \mathbb{R}$ along the h
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
+
 
 x_left = np.linspace(-2, 1, 50, endpoint=False)
 x_right = np.linspace(1, 5, 100)
@@ -1643,19 +1603,20 @@ y_right = f_vec(x_right)
 y_fill = f_vec(x_fill)
 
 plt.plot(x_left, y_left, label=r'pdf $f(s)$')
-plt.plot(x_right, y_right, color='#486AFB')
+plt.plot(x_right, y_right, color=blue)
 plt.axvline(x=4, color='red', linestyle='--', label=r'quantile $Q(0.75)$')
-plt.fill_between(x_fill, y_fill, color='#FD46FC', alpha=0.3)
+plt.fill_between(x_fill, y_fill, color=magenta, alpha=0.3)
 
-plt.plot(-2, 0, marker='<', color='#486AFB', markersize=7)
-plt.plot(5, f(5), marker='>', color='#486AFB', markersize=7)
-plt.plot(1, 1, marker='o', color='#486AFB', markersize=7)
-plt.plot(1, 0, marker='o', color='#486AFB', markersize=7, markerfacecolor='w')
-plt.text(-0.1, 0.4, r'$p=0.75$', color='#FD46FC')
+plt.plot(-2, 0, marker='<', color=blue, markersize=7)
+plt.plot(5, f(5), marker='>', color=blue, markersize=7)
+plt.plot(1, 1, marker='o', color=blue, markersize=7)
+plt.plot(1, 0, marker='o', color=blue, markersize=7, markerfacecolor='w')
+plt.text(-0.1, 0.4, r'$p=0.75$', color=magenta)
 
 plt.xlabel('s')
 plt.ylabel('probability density')
 plt.legend(loc='upper right')
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
