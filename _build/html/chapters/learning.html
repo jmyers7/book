@@ -63,7 +63,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/learning';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -354,6 +354,8 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-based-learning-objectives">11.1. Likelihood-based learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-estimation-for-linear-regression-models">11.2. Maximum likelihood estimation for linear regression models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-maximization-for-gaussian-mixture-models">11.3. Expectation maximization for Gaussian mixture models</a></li>
 </ul>
             </nav>
         </div>
@@ -396,7 +398,7 @@ x^{(1)},\ldots,x^{(m)} \in \{0,1\}.
 <p>Based on this dataset, our goal is to <em>learn</em> an optimal value for <span class="math notranslate nohighlight">\(\theta\)</span> that minimizes the discrepancy between the model distribution and the empirical distribution of the dataset. To do this, it will be convenient to introduce the sum</p>
 <div class="math notranslate nohighlight" id="equation-sum-dep-eqn">
 <span class="eqno">(11.1)<a class="headerlink" href="#equation-sum-dep-eqn" title="Permalink to this equation">#</a></span>\[
-\Sigma x = x^{(1)} + \cdots + x^{(m)}
+\Sigma x \def x^{(1)} + \cdots + x^{(m)}
 \]</div>
 <p>which counts the total number of heads seen during the <span class="math notranslate nohighlight">\(m\)</span> flips of the coin. To make this concrete, suppose that <span class="math notranslate nohighlight">\(m=10\)</span> and <span class="math notranslate nohighlight">\(\Sigma x=7\)</span>, so that we see seven heads over ten flips. Then, intuition suggests that <span class="math notranslate nohighlight">\(\theta=0.7\)</span> would be a “more optimal” estimate for the parameter then, say, <span class="math notranslate nohighlight">\(\theta=0.1\)</span>. Indeed, if <span class="math notranslate nohighlight">\(\theta=0.1\)</span>, we would expect it highly unlikely to observe seven heads over ten flips when there is only a one-in-ten chance of seeing a head on a single flip.</p>
 <p>We may confirm our hunch by actually computing probabilities. Assuming, as always, that the observations in the dataset are independent, we have</p>
@@ -455,7 +457,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/1b70d5c18c43698018e3f81c5a1e23807f8e6adaf4ce2b38778f2ef9708f4cbc.svg" src="../_images/1b70d5c18c43698018e3f81c5a1e23807f8e6adaf4ce2b38778f2ef9708f4cbc.svg" /></figure>
+<img alt="../_images/c54af72b613e185581ca68c37e08fbfb0f935c4c4e053b3f8d78e3aec888d123.svg" src="../_images/c54af72b613e185581ca68c37e08fbfb0f935c4c4e053b3f8d78e3aec888d123.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -492,13 +494,13 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/fba89715c18f5fef23253b7114dfa3ba7da418416b3d19a7bacc687f21dd91d1.svg" src="../_images/fba89715c18f5fef23253b7114dfa3ba7da418416b3d19a7bacc687f21dd91d1.svg" /></figure>
+<img alt="../_images/542ded0a37a662a0daaaa44011b2f2b99149417fbd326d0f6ec2291d6d65546c.svg" src="../_images/542ded0a37a662a0daaaa44011b2f2b99149417fbd326d0f6ec2291d6d65546c.svg" /></figure>
 </div>
 </div>
-<p>This often leads to difficulties when implementing MLE in computer algorithms due to numerical round-off. The machine is liable to round very small numbers to <span class="math notranslate nohighlight">\(0\)</span>. For this reason (and others), we often work with the (base <span class="math notranslate nohighlight">\(e\)</span>) logarithm of the data likelihood function, denoted by</p>
+<p>This often leads to difficulties when implementing MLE in computer algorithms due to numerical round-off. The machine is liable to round very small numbers to <span class="math notranslate nohighlight">\(0\)</span>. For this reason (and others), we often work with the (base-<span class="math notranslate nohighlight">\(e\)</span>) logarithm of the data likelihood function, denoted by</p>
 <div class="math notranslate nohighlight">
 \[
-\ell\big(\theta; x^{(1)},\ldots,x^{(m)}\big) = \log{\mathcal{L}\big(\theta; x^{(1)},\ldots,x^{(m)}\big)}.
+\ell\big(\theta; x^{(1)},\ldots,x^{(m)}\big) \def \log{\mathcal{L}\big(\theta; x^{(1)},\ldots,x^{(m)}\big)}.
 \]</div>
 <p>This is called the <em>data log-likelihood function</em>. As with the data likelihood function, if the dataset does not need to be explicitly mentioned, we will often write <span class="math notranslate nohighlight">\(\ell(\theta)\)</span>.</p>
 <p>MLE is the optimization problem with the data likelihood function <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span> as the objective function. But it is not hard to prove (see the suggested problems for this section) that the maximizers of the data likelihood function <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span> are the <em>same</em> as the maximizers of the data log-likelihood function <span class="math notranslate nohighlight">\(\ell(\theta)\)</span>. For our Bernoulli model with <span class="math notranslate nohighlight">\(m=100\)</span> and <span class="math notranslate nohighlight">\(\Sigma x=70\)</span>, a visual comparison of <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span> and <span class="math notranslate nohighlight">\(\ell(\theta)\)</span> is given in:</p>
@@ -530,7 +532,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/541d3f039219902160a7489d6d3dc7c8a82a3d58e01ef2ac678f870177c11564.svg" src="../_images/541d3f039219902160a7489d6d3dc7c8a82a3d58e01ef2ac678f870177c11564.svg" /></figure>
+<img alt="../_images/f9d310c677bc3b45e343bc96a8072254bff569955bcd4ed4caf912926f385e73.svg" src="../_images/f9d310c677bc3b45e343bc96a8072254bff569955bcd4ed4caf912926f385e73.svg" /></figure>
 </div>
 </div>
 <p>Notice that the values of <span class="math notranslate nohighlight">\(\ell(\theta)\)</span> are on a much more manageable scale compared to the values of <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span>, and that the two functions have the same global maximizer at <span class="math notranslate nohighlight">\(\theta=0.7\)</span>.</p>
@@ -539,8 +541,8 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 <p>The acronym <em>MLE</em> often serves double duty: It stands for the procedure of <em>maximum likelihood estimation</em>, but it also sometimes stands for the results of this procedure, called <em>maximum likelihood estimates</em>.</p>
 </aside>
 <p>Using the data log-likelihood function as the objective, we may easily compute the MLE in closed form for our Bernoulli model:</p>
-<div class="proof theorem admonition" id="theorem-0">
-<p class="admonition-title"><span class="caption-number">Theorem 11.1 </span> (MLE for the Bernoulli model)</p>
+<div class="proof theorem admonition" id="bern-mle-1-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 11.1 </span> (MLE for the Bernoulli model, part 1)</p>
 <section class="theorem-content" id="proof-content">
 <p>Consider the Bernoulli model described above and suppose that <span class="math notranslate nohighlight">\(0 &lt; \Sigma x &lt; m\)</span>. The (unique) global maximizer <span class="math notranslate nohighlight">\(\theta^\star\)</span> of the data log-likelihood function <span class="math notranslate nohighlight">\(\ell(\theta)\)</span> over <span class="math notranslate nohighlight">\(\theta \in (0,1)\)</span> is given by <span class="math notranslate nohighlight">\(\theta^\star = \Sigma x/m\)</span>. Thus, <span class="math notranslate nohighlight">\(\theta^\star=\Sigma x/m\)</span> is the maximum likelihood estimate.</p>
 </section>
@@ -600,14 +602,153 @@ x^{(1)},\ldots,x^{(m)} \in \{0,1\}.
 <p>where <span class="math notranslate nohighlight">\(\Sigma x=x^{(1)} + \cdots + x^{(m)}\)</span>. Letting <span class="math notranslate nohighlight">\(\widehat{X}\)</span> be a Bernoulli random variable with <span class="math notranslate nohighlight">\(\hat{p}(x)\)</span> as its mass function, we consider the stochastic objective function</p>
 <div class="math notranslate nohighlight">
 \[
-J(\theta) \stackrel{\text{def}}{=} E \big[ \ell\big(\theta; \widehat{X} \big) \big],
+J(\theta) \stackrel{\text{def}}{=} E \big( \ell\big(\theta; \widehat{X} \big) \big),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\ell(\theta;x)\)</span> is the model log-likelihood function. Note that</p>
 <div class="math notranslate nohighlight">
 \[
-J(\theta) = \ell(\theta;1) \hat{p}(1)+ \ell(\theta; 0 ) \hat{p}(0) = \frac{1}{m} \left[ \Sigma x \log{\theta}  + (m-\Sigma x)\log{(1-\theta)} \right],
+J(\theta) = \ell(\theta;1) \hat{p}(1)+ \ell(\theta; 0) \hat{p}(0) = \frac{1}{m} \left[ \Sigma x \log{\theta}  + (m-\Sigma x)\log{(1-\theta)} \right],
 \]</div>
-<p>and so by comparison with <a class="reference internal" href="#equation-data-log-like-bern-eqn">(11.3)</a> we see that the stochastic objective function <span class="math notranslate nohighlight">\(J(\theta)\)</span> differs from the data log-likelihood function <span class="math notranslate nohighlight">\(\ell\big( \theta; x^{(1)},\ldots,x^{(m)}\big)\)</span> only by a constant factor of <span class="math notranslate nohighlight">\(1/m\)</span>.</p>
+<p>and so by comparison with <a class="reference internal" href="#equation-data-log-like-bern-eqn">(11.3)</a> we see that the stochastic objective function <span class="math notranslate nohighlight">\(J(\theta)\)</span> differs from the data log-likelihood function <span class="math notranslate nohighlight">\(\ell\big( \theta; x^{(1)},\ldots,x^{(m)}\big)\)</span> only by a constant factor of <span class="math notranslate nohighlight">\(1/m\)</span>. Therefore, MLE is equivalent to the optimization problem with <span class="math notranslate nohighlight">\(J(\theta)\)</span> as an objective function, where <em>equivalence</em> means that the two problems have the same solutions. Thus:</p>
+<div class="proof theorem admonition" id="bern-mle-2-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 11.2 </span> (MLE for the Bernoulli model, part 2)</p>
+<section class="theorem-content" id="proof-content">
+<p>Consider the Bernoulli model described above, suppose that <span class="math notranslate nohighlight">\(0 &lt; \Sigma x &lt; m\)</span>, and let <span class="math notranslate nohighlight">\(\hat{p}(x)\)</span> be the empirical mass function of a dataset. The (unique) maximum likelihood estimate <span class="math notranslate nohighlight">\(\theta^\star = \Sigma x/m\)</span> is the global maximizer for the optimization problem with the stochastic objective function</p>
+<div class="math notranslate nohighlight">
+\[
+J(\theta) = E \big( \ell\big(\theta; \widehat{X} \big) \big),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ell(\theta;x)\)</span> is the model log-likelihood function and <span class="math notranslate nohighlight">\(\widehat{X} \sim \hat{p}(x)\)</span>.</p>
+</section>
+</div><p>Then, by combining <a class="reference internal" href="#bern-mle-1-thm">Theorem 11.1</a> and <a class="reference internal" href="#bern-mle-2-thm">Theorem 11.2</a>, we conclude:</p>
+<div class="proof theorem admonition" id="three-mle-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 11.3 </span> (Three ways to obtain an MLE)</p>
+<section class="theorem-content" id="proof-content">
+<p>The maximum likelihoood estimate for the Bernoulli model may be obtained by maximizing the data likelihood function <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span>, the data log-likelihood function <span class="math notranslate nohighlight">\(\ell(\theta)\)</span>, or the stochastic objective function <span class="math notranslate nohighlight">\(J(\theta)\)</span>.</p>
+</section>
+</div><p>Our description of likelihood-based learning methods thus far has focused on the simple Bernoulli model. However, from this specific and simple case I am hoping that you can see an outline of a general method able to fit <em>any</em> probabilistic model to data. In particular, <em>all</em> the models we studied in the <a class="reference internal" href="models.html#prob-models"><span class="std std-ref">previous chapter</span></a> have model and data likelihood functions, and thus these general methods apply to them.</p>
+<p>To be more precise, we need to distinguish between two types of models. The <a class="reference internal" href="models.html#lin-reg-sec"><span class="std std-ref">linear regression</span></a>, <a class="reference internal" href="models.html#log-reg-sec"><span class="std std-ref">logistic regression</span></a>, and <a class="reference internal" href="models.html#nn-sec"><span class="std std-ref">neural network models</span></a> that we studied in the previous chapter will all be trained as <em>fully-observed discriminative models</em>. This means two things: (1) all stochastic nodes in the underlying graphs are observed, and (2) the likelihood functions are obtained from the <em>conditional</em> probability functions of the models. The <a class="reference internal" href="models.html#gmm-sec"><span class="std std-ref">Gaussian mixture models</span></a> will be trained as <em>partially-observed generative models</em>, which means that the straightfoward MLE algorithm will need to be replaced with the <em>expectation maximization</em> (or <em>EM</em>) algorithm. We will address the EM algorithm separately in <a class="reference internal" href="#em-gmm-sec"><span class="std std-numref">Section 11.3</span></a> below.</p>
+<p>To describe the MLE algorithm for the first type of models, we need to define the likelihood-based objective functions. Note that these functions are all defined in terms of the data and model conditional probability functions from <a class="reference internal" href="models.html#prob-models"><span class="std std-numref">Section 10</span></a>.</p>
+<div class="proof definition admonition" id="mle-training-objectives-def">
+<p class="admonition-title"><span class="caption-number">Definition 11.1 </span> (MLE training objectives for fully-observed discriminative models)</p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\btheta\in \bbr^{k}\)</span> be the parameter vector of a fully-observed discriminative model and let <span class="math notranslate nohighlight">\(\hat{p}(\bx,y)\)</span> be the empirical mass function of a dataset</p>
+<div class="math notranslate nohighlight">
+\[
+(\bx^{(1)},y^{(1)}),\ldots,(\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr.
+\]</div>
+<ol class="arabic">
+<li><p>Define the <em>data likelihood function</em></p>
+<div class="math notranslate nohighlight">
+\[
+    \mathcal{L}\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) \def p \big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \btheta \big)
+    \]</div>
+<p>and the <em>model likelihood function</em></p>
+<div class="math notranslate nohighlight">
+\[
+    \mathcal{L}(\btheta; \ \bx, y) \def p ( y \mid \bx ; \ \btheta) 
+    \]</div>
+</li>
+<li><p>Define the <em>data log-likelihood function</em></p>
+<div class="math notranslate nohighlight">
+\[
+    \ell\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) \def \log{\mathcal{L}\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big)}.
+    \]</div>
+<p>and the <em>model log-likelihood function</em></p>
+<div class="math notranslate nohighlight">
+\[
+    \ell(\btheta; \ \bx, y) \def \log{\mathcal{L}(\btheta; \ \bx, y)}.
+    \]</div>
+</li>
+<li><p>Define the stochastic objective function</p>
+<div class="math notranslate nohighlight">
+\[
+    J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) \def E \big( \ell\big(\btheta; \widehat{\bX}, \widehat{Y}\big) \big),
+    \]</div>
+<p>where <span class="math notranslate nohighlight">\((\widehat{\bX}, \widehat{Y}) \sim \hat{p}(\bx, y)\)</span>.</p>
+</li>
+</ol>
+</section>
+</div><p>From independence of the dataset, we obtain the following expressions for these training objectives:</p>
+<div class="proof theorem admonition" id="theorem-4">
+<p class="admonition-title"><span class="caption-number">Theorem 11.4 </span> (Formulas for MLE training objectives)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let the notation be as in <a class="reference internal" href="#mle-training-objectives-def">Definition 11.1</a>. We have</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \prod_{i=1}^m \mathcal{L}\big( \btheta;\ \bx^{(i)}, y^{(i)} \big)
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight" id="equation-log-like-simp-eqn">
+<span class="eqno">(11.4)<a class="headerlink" href="#equation-log-like-simp-eqn" title="Permalink to this equation">#</a></span>\[
+\ell\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \sum_{i=1}^m \ell\big(\btheta; \ \bx^{(i)}, y^{(i)} \big)
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight" id="equation-stochastic-simp-eqn">
+<span class="eqno">(11.5)<a class="headerlink" href="#equation-stochastic-simp-eqn" title="Permalink to this equation">#</a></span>\[
+J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \frac{1}{m} \sum_{i=1}^m \ell\big(\btheta; \ \bx^{(i)}, y^{(i)} \big).
+\]</div>
+</section>
+</div><p>We now state the MLE algorithm for fully-observed discriminative models; note the similarity to <a class="reference internal" href="#three-mle-thm">Theorem 11.3</a>.</p>
+<div class="proof definition admonition" id="definition-5">
+<p class="admonition-title"><span class="caption-number">Definition 11.2 </span> (Maximum likelihood estimation for fully-observed discriminative models)</p>
+<section class="definition-content" id="proof-content">
+<p>Let the notation be as in <a class="reference internal" href="#mle-training-objectives-def">Definition 11.1</a>. A <em>maximum likelihood estimate</em> is a parameter vector <span class="math notranslate nohighlight">\(\btheta^\star\)</span> that is a solution to one of the following three equivalent optimization problems:</p>
+<ol class="arabic simple">
+<li><p>Maximize the data likelihood function</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+  \mathcal{L}\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big).
+  \]</div>
+<ol class="arabic simple" start="2">
+<li><p>Maximize the data log-likelihood function</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+  \ell\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big).
+  \]</div>
+<ol class="arabic simple" start="3">
+<li><p>Maximize the stochastic objective function</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+  J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big).
+  \]</div>
+</section>
+</div><p>In practice, nobody ever maximizes the data likelihood function directly; instead, maximum likelihood estimates are obtained via the other two objective functions in the forms <a class="reference internal" href="#equation-log-like-simp-eqn">(11.4)</a> and <a class="reference internal" href="#equation-stochastic-simp-eqn">(11.5)</a>. As we mentiond above, the stochastic objective function has the advantage of allowing the use of stochastic gradient descent when closed form solutions are not available.</p>
+</section>
+<section id="maximum-likelihood-estimation-for-linear-regression-models">
+<h2><span class="section-number">11.2. </span>Maximum likelihood estimation for linear regression models<a class="headerlink" href="#maximum-likelihood-estimation-for-linear-regression-models" title="Permalink to this heading">#</a></h2>
+<p>Linear regression models have the special property that maximum likelihood estimates may be obtained in <em>closed form</em>. Let’s see how.</p>
+<p>First, recall from <a class="reference internal" href="models.html#lin-reg-sec"><span class="std std-numref">Section 10.2</span></a> that the underlying graph of a linear regression model is of the form</p>
+<a class="reference internal image-reference" href="../_images/lin-reg-00.svg"><img alt="../_images/lin-reg-00.svg" class="align-center" src="../_images/lin-reg-00.svg" width="50%" /></a>
+<p> </p>
+<p>where <span class="math notranslate nohighlight">\(\bbeta \in \mathbb{R}^{n\times 1}\)</span>, <span class="math notranslate nohighlight">\(\beta_0 \in \bbr\)</span>, and <span class="math notranslate nohighlight">\(\sigma^2 &gt; 0\)</span>. Given a dataset</p>
+<div class="math notranslate nohighlight">
+\[
+(\bx^{(1)},y^{(1)}),\ldots,(\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr,
+\]</div>
+<p>we may retrieve the data log-likelihood function from <a class="reference internal" href="models.html#lin-reg-sec"><span class="std std-numref">Section 10.2</span></a>:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\ell(\bbeta, \beta_0, \sigma^2) &amp;= \sum_{i=1}^m \log \left[ \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} \big( y^{(i)} - \mu^{(i)} \big)^2 \right) \right] \\
+&amp;= - \frac{m}{2} \log{2\pi} - \frac{m}{2} \log{\sigma^2} - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2,
+\end{align*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu^{(i)} = \bx^{(i)} \bbeta + \beta_0\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>.</p>
+<p>The maximum likelihood estimate for the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> has a particularly simple form:</p>
+<div class="proof theorem admonition" id="theorem-6">
+<p class="admonition-title"><span class="caption-number">Theorem 11.5 </span> (MLE for the variance of a linear regression model)</p>
+<section class="theorem-content" id="proof-content">
+<p>The maximum likelihood estimate for the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> of a linear regression model is given by the formula</p>
+<div class="math notranslate nohighlight">
+\[
+(\sigma^2)^\star = \frac{1}{m}\sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
+\]</div>
+</section>
+</div></section>
+<section id="expectation-maximization-for-gaussian-mixture-models">
+<span id="em-gmm-sec"></span><h2><span class="section-number">11.3. </span>Expectation maximization for Gaussian mixture models<a class="headerlink" href="#expectation-maximization-for-gaussian-mixture-models" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -675,6 +816,8 @@ J(\theta) = \ell(\theta;1) \hat{p}(1)+ \ell(\theta; 0 ) \hat{p}(0) = \frac{1}{m}
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-based-learning-objectives">11.1. Likelihood-based learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-estimation-for-linear-regression-models">11.2. Maximum likelihood estimation for linear regression models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-maximization-for-gaussian-mixture-models">11.3. Expectation maximization for Gaussian mixture models</a></li>
 </ul>
   </nav></div>
 

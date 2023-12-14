@@ -66,7 +66,7 @@ $$
 Based on this dataset, our goal is to _learn_ an optimal value for $\theta$ that minimizes the discrepancy between the model distribution and the empirical distribution of the dataset. To do this, it will be convenient to introduce the sum
 
 $$
-\Sigma x = x^{(1)} + \cdots + x^{(m)}
+\Sigma x \def x^{(1)} + \cdots + x^{(m)}
 $$ (sum-dep-eqn)
 
 which counts the total number of heads seen during the $m$ flips of the coin. To make this concrete, suppose that $m=10$ and $\Sigma x=7$, so that we see seven heads over ten flips. Then, intuition suggests that $\theta=0.7$ would be a "more optimal" estimate for the parameter then, say, $\theta=0.1$. Indeed, if $\theta=0.1$, we would expect it highly unlikely to observe seven heads over ten flips when there is only a one-in-ten chance of seeing a head on a single flip.
@@ -159,10 +159,10 @@ plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
-This often leads to difficulties when implementing MLE in computer algorithms due to numerical round-off. The machine is liable to round very small numbers to $0$. For this reason (and others), we often work with the (base $e$) logarithm of the data likelihood function, denoted by
+This often leads to difficulties when implementing MLE in computer algorithms due to numerical round-off. The machine is liable to round very small numbers to $0$. For this reason (and others), we often work with the (base-$e$) logarithm of the data likelihood function, denoted by
 
 $$
-\ell\big(\theta; x^{(1)},\ldots,x^{(m)}\big) = \log{\mathcal{L}\big(\theta; x^{(1)},\ldots,x^{(m)}\big)}.
+\ell\big(\theta; x^{(1)},\ldots,x^{(m)}\big) \def \log{\mathcal{L}\big(\theta; x^{(1)},\ldots,x^{(m)}\big)}.
 $$
 
 This is called the _data log-likelihood function_. As with the data likelihood function, if the dataset does not need to be explicitly mentioned, we will often write $\ell(\theta)$.
@@ -202,7 +202,8 @@ The acronym _MLE_ often serves double duty: It stands for the procedure of _maxi
 
 Using the data log-likelihood function as the objective, we may easily compute the MLE in closed form for our Bernoulli model:
 
-```{prf:theorem} MLE for the Bernoulli model
+```{prf:theorem} MLE for the Bernoulli model, part 1
+:label: bern-mle-1-thm
 
 Consider the Bernoulli model described above and suppose that $0 < \Sigma x < m$. The (unique) global maximizer $\theta^\star$ of the data log-likelihood function $\ell(\theta)$ over $\theta \in (0,1)$ is given by $\theta^\star = \Sigma x/m$. Thus, $\theta^\star=\Sigma x/m$ is the maximum likelihood estimate.
 ```
@@ -276,13 +277,193 @@ $$
 where $\Sigma x=x^{(1)} + \cdots + x^{(m)}$. Letting $\widehat{X}$ be a Bernoulli random variable with $\hat{p}(x)$ as its mass function, we consider the stochastic objective function
 
 $$
-J(\theta) \stackrel{\text{def}}{=} E \big[ \ell\big(\theta; \widehat{X} \big) \big],
+J(\theta) \stackrel{\text{def}}{=} E \big( \ell\big(\theta; \widehat{X} \big) \big),
 $$
 
 where $\ell(\theta;x)$ is the model log-likelihood function. Note that
 
 $$
-J(\theta) = \ell(\theta;1) \hat{p}(1)+ \ell(\theta; 0 ) \hat{p}(0) = \frac{1}{m} \left[ \Sigma x \log{\theta}  + (m-\Sigma x)\log{(1-\theta)} \right],
+J(\theta) = \ell(\theta;1) \hat{p}(1)+ \ell(\theta; 0) \hat{p}(0) = \frac{1}{m} \left[ \Sigma x \log{\theta}  + (m-\Sigma x)\log{(1-\theta)} \right],
 $$
 
-and so by comparison with {eq}`data-log-like-bern-eqn` we see that the stochastic objective function $J(\theta)$ differs from the data log-likelihood function $\ell\big( \theta; x^{(1)},\ldots,x^{(m)}\big)$ only by a constant factor of $1/m$.
+and so by comparison with {eq}`data-log-like-bern-eqn` we see that the stochastic objective function $J(\theta)$ differs from the data log-likelihood function $\ell\big( \theta; x^{(1)},\ldots,x^{(m)}\big)$ only by a constant factor of $1/m$. Therefore, MLE is equivalent to the optimization problem with $J(\theta)$ as an objective function, where _equivalence_ means that the two problems have the same solutions. Thus:
+
+```{prf:theorem} MLE for the Bernoulli model, part 2
+:label: bern-mle-2-thm
+
+Consider the Bernoulli model described above, suppose that $0 < \Sigma x < m$, and let $\hat{p}(x)$ be the empirical mass function of a dataset. The (unique) maximum likelihood estimate $\theta^\star = \Sigma x/m$ is the global maximizer for the optimization problem with the stochastic objective function
+
+$$
+J(\theta) = E \big( \ell\big(\theta; \widehat{X} \big) \big),
+$$
+
+where $\ell(\theta;x)$ is the model log-likelihood function and $\widehat{X} \sim \hat{p}(x)$.
+```
+
+Then, by combining {prf:ref}`bern-mle-1-thm` and {prf:ref}`bern-mle-2-thm`, we conclude:
+
+```{prf:theorem} Three ways to obtain an MLE
+:label: three-mle-thm
+
+The maximum likelihoood estimate for the Bernoulli model may be obtained by maximizing the data likelihood function $\mathcal{L}(\theta)$, the data log-likelihood function $\ell(\theta)$, or the stochastic objective function $J(\theta)$.
+```
+
+Our description of likelihood-based learning methods thus far has focused on the simple Bernoulli model. However, from this specific and simple case I am hoping that you can see an outline of a general method able to fit _any_ probabilistic model to data. In particular, _all_ the models we studied in the [previous chapter](prob-models) have model and data likelihood functions, and thus these general methods apply to them.
+
+To be more precise, we need to distinguish between two types of models. The [linear regression](lin-reg-sec), [logistic regression](log-reg-sec), and [neural network models](nn-sec) that we studied in the previous chapter will all be trained as _fully-observed discriminative models_. This means two things: (1) all stochastic nodes in the underlying graphs are observed, and (2) the likelihood functions are obtained from the _conditional_ probability functions of the models. The [Gaussian mixture models](gmm-sec) will be trained as _partially-observed generative models_, which means that the straightfoward MLE algorithm will need to be replaced with the _expectation maximization_ (or _EM_) algorithm. We will address the EM algorithm separately in {numref}`em-gmm-sec` below.
+
+To describe the MLE algorithm for the first type of models, we need to define the likelihood-based objective functions. Note that these functions are all defined in terms of the data and model conditional probability functions from {numref}`prob-models`.
+
+```{prf:definition} MLE training objectives for fully-observed discriminative models
+:label: mle-training-objectives-def
+
+Let $\btheta\in \bbr^{k}$ be the parameter vector of a fully-observed discriminative model and let $\hat{p}(\bx,y)$ be the empirical mass function of a dataset
+
+$$
+(\bx^{(1)},y^{(1)}),\ldots,(\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr.
+$$
+
+1. Define the _data likelihood function_
+
+    $$
+    \mathcal{L}\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) \def p \big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \btheta \big)
+    $$
+
+    and the _model likelihood function_
+
+    $$
+    \mathcal{L}(\btheta; \ \bx, y) \def p ( y \mid \bx ; \ \btheta) 
+    $$
+
+2. Define the _data log-likelihood function_
+
+    $$
+    \ell\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) \def \log{\mathcal{L}\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big)}.
+    $$
+
+    and the _model log-likelihood function_
+
+    $$
+    \ell(\btheta; \ \bx, y) \def \log{\mathcal{L}(\btheta; \ \bx, y)}.
+    $$
+
+3. Define the stochastic objective function
+
+    $$
+    J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) \def E \big( \ell\big(\btheta; \widehat{\bX}, \widehat{Y}\big) \big),
+    $$
+
+    where $(\widehat{\bX}, \widehat{Y}) \sim \hat{p}(\bx, y)$.
+```
+
+From independence of the dataset, we obtain the following expressions for these training objectives:
+
+```{prf:theorem} Formulas for MLE training objectives
+
+Let the notation be as in {prf:ref}`mle-training-objectives-def`. We have
+
+$$
+\mathcal{L}\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \prod_{i=1}^m \mathcal{L}\big( \btheta;\ \bx^{(i)}, y^{(i)} \big)
+$$
+
+and
+
+$$
+\ell\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \sum_{i=1}^m \ell\big(\btheta; \ \bx^{(i)}, y^{(i)} \big)
+$$ (log-like-simp-eqn)
+
+and
+
+$$
+J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \frac{1}{m} \sum_{i=1}^m \ell\big(\btheta; \ \bx^{(i)}, y^{(i)} \big).
+$$ (stochastic-simp-eqn)
+
+```
+
+We now state the MLE algorithm for fully-observed discriminative models; note the similarity to {prf:ref}`three-mle-thm`.
+
+```{prf:definition} Maximum likelihood estimation for fully-observed discriminative models
+
+Let the notation be as in {prf:ref}`mle-training-objectives-def`. A _maximum likelihood estimate_ is a parameter vector $\btheta^\star$ that is a solution to one of the following three equivalent optimization problems:
+
+1. Maximize the data likelihood function
+
+  $$
+  \mathcal{L}\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big).
+  $$
+
+2. Maximize the data log-likelihood function
+
+  $$
+  \ell\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big).
+  $$
+
+3. Maximize the stochastic objective function
+
+  $$
+  J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big).
+  $$
+
+```
+
+In practice, nobody ever maximizes the data likelihood function directly; instead, maximum likelihood estimates are obtained via the other two objective functions in the forms {eq}`log-like-simp-eqn` and {eq}`stochastic-simp-eqn`. As we mentiond above, the stochastic objective function has the advantage of allowing the use of stochastic gradient descent when closed form solutions are not available.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Maximum likelihood estimation for linear regression models
+
+Linear regression models have the special property that maximum likelihood estimates may be obtained in _closed form_. Let's see how.
+
+First, recall from {numref}`lin-reg-sec` that the underlying graph of a linear regression model is of the form
+
+```{image} ../img/lin-reg-00.svg
+:width: 50%
+:align: center
+```
+&nbsp;
+
+where $\bbeta \in \mathbb{R}^{n\times 1}$, $\beta_0 \in \bbr$, and $\sigma^2 > 0$. Given a dataset
+
+$$
+(\bx^{(1)},y^{(1)}),\ldots,(\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr,
+$$
+
+we may retrieve the data log-likelihood function from {numref}`lin-reg-sec`:
+
+\begin{align*}
+\ell(\bbeta, \beta_0, \sigma^2) &= \sum_{i=1}^m \log \left[ \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} \big( y^{(i)} - \mu^{(i)} \big)^2 \right) \right] \\
+&= - \frac{m}{2} \log{2\pi} - \frac{m}{2} \log{\sigma^2} - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2,
+\end{align*}
+
+where $\mu^{(i)} = \bx^{(i)} \bbeta + \beta_0$ for each $i=1,\ldots,m$.
+
+The maximum likelihood estimate for the variance $\sigma^2$ has a particularly simple form:
+
+```{prf:theorem} MLE for the variance of a linear regression model
+
+The maximum likelihood estimate for the variance $\sigma^2$ of a linear regression model is given by the formula
+
+$$
+(\sigma^2)^\star = \frac{1}{m}\sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
+$$
+```
+
+
+
+(em-gmm-sec)=
+## Expectation maximization for Gaussian mixture models

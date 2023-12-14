@@ -69,10 +69,10 @@ We shall use a simple single-variable version of the _gradient descent (GD) algo
 
 **Output:** An approximation to a minimizer $\theta^\star$.
 
-* $\theta := \theta_0$
-* For $t$ from $1$ to $N$, do:
-    * $\theta := \theta - \alpha J'(\theta)$
-* Return $\theta$.
+1. $\theta := \theta_0$
+2. For $t$ from $1$ to $N$, do:
+    1. $\theta := \theta - \alpha J'(\theta)$
+3. Return $\theta$.
 ```
 
 Beginning from an initial guess $\theta_0$ for a minimizer, the GD algorithm outputs a sequence of approximations $\theta_1,\theta_2,\ldots,\theta_N$ for a minimizer. The last value $\theta_N$ in the sequence is taken as the output of the algorithm; if the algorithm converges to a minimizer, then we should have $\theta_N \approx \theta^\star$.

@@ -349,6 +349,7 @@ $$
 Before we introduce important terminology associated with linear regression models and look at an example, we need to discuss two probability density functions that will play a crucial role in the [next chapter](learning). The first is just the conditional density function of $Y$ given $\bX$:
 
 ```{prf:definition}
+:label: lin-reg-likelihood-def
 
 1. The _model conditional probability function for a linear regression model_ is the conditional probability density function
 
@@ -541,7 +542,7 @@ For smaller values of area, the distribution of the true prices is narrower comp
 
 
 
-
+(log-reg-sec)=
 ## Logistic regression models
 
 ````{prf:definition}
@@ -687,7 +688,7 @@ plt.tight_layout()
 
 
 
-
+(nn-sec)=
 ## Neural network models
 
 ````{prf:definition}
@@ -824,7 +825,7 @@ plt.tight_layout()
 
 
 
-
+(gmm-sec)=
 ## Gaussian mixture models
 
 ````{prf:definition}

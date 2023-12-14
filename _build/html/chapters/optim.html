@@ -63,7 +63,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/optim';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -415,7 +415,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/4a1ee25f3354a66ab656076ed193d1afde48b3fb1078dbf0e03c3082340204b1.svg"><img alt="../_images/4a1ee25f3354a66ab656076ed193d1afde48b3fb1078dbf0e03c3082340204b1.svg" src="../_images/4a1ee25f3354a66ab656076ed193d1afde48b3fb1078dbf0e03c3082340204b1.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/0ee8a9c8afd1eb92c8138efa42177989b0f4769891f788965effa42d22e1b535.svg"><img alt="../_images/0ee8a9c8afd1eb92c8138efa42177989b0f4769891f788965effa42d22e1b535.svg" src="../_images/0ee8a9c8afd1eb92c8138efa42177989b0f4769891f788965effa42d22e1b535.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -426,15 +426,15 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 <section class="algorithm-content" id="proof-content">
 <p><strong>Input:</strong> A differentiable objective function <span class="math notranslate nohighlight">\(J:\mathbb{R}\to \mathbb{R}\)</span>, an initial guess <span class="math notranslate nohighlight">\(\theta_0\in \mathbb{R}\)</span> for a minimizer <span class="math notranslate nohighlight">\(\theta^\star\)</span>, a learning rate <span class="math notranslate nohighlight">\(\alpha&gt;0\)</span>, and the number <span class="math notranslate nohighlight">\(N\)</span> of gradient steps.</p>
 <p><strong>Output:</strong> An approximation to a minimizer <span class="math notranslate nohighlight">\(\theta^\star\)</span>.</p>
-<ul class="simple">
+<ol class="arabic simple">
 <li><p><span class="math notranslate nohighlight">\(\theta := \theta_0\)</span></p></li>
 <li><p>For <span class="math notranslate nohighlight">\(t\)</span> from <span class="math notranslate nohighlight">\(1\)</span> to <span class="math notranslate nohighlight">\(N\)</span>, do:</p>
-<ul>
+<ol class="arabic simple">
 <li><p><span class="math notranslate nohighlight">\(\theta := \theta - \alpha J'(\theta)\)</span></p></li>
-</ul>
+</ol>
 </li>
 <li><p>Return <span class="math notranslate nohighlight">\(\theta\)</span>.</p></li>
-</ul>
+</ol>
 </section>
 </div><p>Beginning from an initial guess <span class="math notranslate nohighlight">\(\theta_0\)</span> for a minimizer, the GD algorithm outputs a sequence of approximations <span class="math notranslate nohighlight">\(\theta_1,\theta_2,\ldots,\theta_N\)</span> for a minimizer. The last value <span class="math notranslate nohighlight">\(\theta_N\)</span> in the sequence is taken as the output of the algorithm; if the algorithm converges to a minimizer, then we should have <span class="math notranslate nohighlight">\(\theta_N \approx \theta^\star\)</span>.</p>
 <p>The equation</p>
@@ -484,7 +484,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/cc9a56f1414b18b62ffbdfbe30df9f29e4342c53d24b8bb657b91c6525df85ee.svg"><img alt="../_images/cc9a56f1414b18b62ffbdfbe30df9f29e4342c53d24b8bb657b91c6525df85ee.svg" src="../_images/cc9a56f1414b18b62ffbdfbe30df9f29e4342c53d24b8bb657b91c6525df85ee.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/03f1ebea7c933bd12eac60b19775ab25df03de42583e1562dac71e071bcb2824.svg"><img alt="../_images/03f1ebea7c933bd12eac60b19775ab25df03de42583e1562dac71e071bcb2824.svg" src="../_images/03f1ebea7c933bd12eac60b19775ab25df03de42583e1562dac71e071bcb2824.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -582,7 +582,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/a94cb162c70907847bdbc1c02aed5c3224a3084561d730972ff4570184fa3466.svg"><img alt="../_images/a94cb162c70907847bdbc1c02aed5c3224a3084561d730972ff4570184fa3466.svg" src="../_images/a94cb162c70907847bdbc1c02aed5c3224a3084561d730972ff4570184fa3466.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/ce67639cf2f40feb0e2553d2ada4accd4c46c636cdf73eae0cc78fbb2fcaab73.svg"><img alt="../_images/ce67639cf2f40feb0e2553d2ada4accd4c46c636cdf73eae0cc78fbb2fcaab73.svg" src="../_images/ce67639cf2f40feb0e2553d2ada4accd4c46c636cdf73eae0cc78fbb2fcaab73.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -621,7 +621,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/848bfa9b2038041184e87ece4d9521f51c23c9d4336a4d7c6746e708d0a7ad20.svg"><img alt="../_images/848bfa9b2038041184e87ece4d9521f51c23c9d4336a4d7c6746e708d0a7ad20.svg" src="../_images/848bfa9b2038041184e87ece4d9521f51c23c9d4336a4d7c6746e708d0a7ad20.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/6c47a32e47cba5137d8abdd82eedff2d5e8267cd621c18c79cbd5fc7e4e17969.svg"><img alt="../_images/6c47a32e47cba5137d8abdd82eedff2d5e8267cd621c18c79cbd5fc7e4e17969.svg" src="../_images/6c47a32e47cba5137d8abdd82eedff2d5e8267cd621c18c79cbd5fc7e4e17969.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -670,7 +670,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/3e3be3ee4c8d53d6885db07857d77dc6173c655642e498d373d3e3542429e9e1.svg"><img alt="../_images/3e3be3ee4c8d53d6885db07857d77dc6173c655642e498d373d3e3542429e9e1.svg" src="../_images/3e3be3ee4c8d53d6885db07857d77dc6173c655642e498d373d3e3542429e9e1.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/62f41e91287265abba95fdb018da07d2796bef0cba6d0111d732b224bc795675.svg"><img alt="../_images/62f41e91287265abba95fdb018da07d2796bef0cba6d0111d732b224bc795675.svg" src="../_images/62f41e91287265abba95fdb018da07d2796bef0cba6d0111d732b224bc795675.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -710,7 +710,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/bc92235a2ab4afe4a20be50cbba345026101f3219c78fa5a803a0e79a4ea400f.svg"><img alt="../_images/bc92235a2ab4afe4a20be50cbba345026101f3219c78fa5a803a0e79a4ea400f.svg" src="../_images/bc92235a2ab4afe4a20be50cbba345026101f3219c78fa5a803a0e79a4ea400f.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/11b02aab2e2ce28acd552a9e750cd2b8b03c3dd6d5e8ba459fd78176a6536554.svg"><img alt="../_images/11b02aab2e2ce28acd552a9e750cd2b8b03c3dd6d5e8ba459fd78176a6536554.svg" src="../_images/11b02aab2e2ce28acd552a9e750cd2b8b03c3dd6d5e8ba459fd78176a6536554.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -809,7 +809,7 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/5af7f1623d525e37f44cf22594d70792c9ca74c0a12506f073e01cc78e257342.svg"><img alt="../_images/5af7f1623d525e37f44cf22594d70792c9ca74c0a12506f073e01cc78e257342.svg" src="../_images/5af7f1623d525e37f44cf22594d70792c9ca74c0a12506f073e01cc78e257342.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/1d1b0a977bae263ad9686f0dd76ff72206ca7129f713d9c0149d0490796affd4.svg"><img alt="../_images/1d1b0a977bae263ad9686f0dd76ff72206ca7129f713d9c0149d0490796affd4.svg" src="../_images/1d1b0a977bae263ad9686f0dd76ff72206ca7129f713d9c0149d0490796affd4.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -864,7 +864,7 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/53aa2eed57d9fb39a11d3b06d6a4a12da91dac2d955e0ca4749ea3bf2dfcecdc.svg"><img alt="../_images/53aa2eed57d9fb39a11d3b06d6a4a12da91dac2d955e0ca4749ea3bf2dfcecdc.svg" src="../_images/53aa2eed57d9fb39a11d3b06d6a4a12da91dac2d955e0ca4749ea3bf2dfcecdc.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/cf964b6f56e9fc854c9daba7ffce8c491bf34d12b3840df3e021cb377fbe7c23.svg"><img alt="../_images/cf964b6f56e9fc854c9daba7ffce8c491bf34d12b3840df3e021cb377fbe7c23.svg" src="../_images/cf964b6f56e9fc854c9daba7ffce8c491bf34d12b3840df3e021cb377fbe7c23.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -910,7 +910,7 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/beda605e7c13fbb41d126c83e0a9a9453b4b35951850a02edffa6fbaa8e07be5.svg"><img alt="../_images/beda605e7c13fbb41d126c83e0a9a9453b4b35951850a02edffa6fbaa8e07be5.svg" src="../_images/beda605e7c13fbb41d126c83e0a9a9453b4b35951850a02edffa6fbaa8e07be5.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/44e4ae9809f83d141c0714b0b524753908e8cbb5fc18b7fc58580680d3e1c41c.svg"><img alt="../_images/44e4ae9809f83d141c0714b0b524753908e8cbb5fc18b7fc58580680d3e1c41c.svg" src="../_images/44e4ae9809f83d141c0714b0b524753908e8cbb5fc18b7fc58580680d3e1c41c.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -949,7 +949,7 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/6b07f3edcc0b4e409c1cb7fad28c2b9d5e3b210b01d54333379eeffa9a0db57c.svg"><img alt="../_images/6b07f3edcc0b4e409c1cb7fad28c2b9d5e3b210b01d54333379eeffa9a0db57c.svg" src="../_images/6b07f3edcc0b4e409c1cb7fad28c2b9d5e3b210b01d54333379eeffa9a0db57c.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/f013a0a6d69e9f6f746c5a5136bb6df723e22e4a61ab516bf5a8aba014e8b1e3.svg"><img alt="../_images/f013a0a6d69e9f6f746c5a5136bb6df723e22e4a61ab516bf5a8aba014e8b1e3.svg" src="../_images/f013a0a6d69e9f6f746c5a5136bb6df723e22e4a61ab516bf5a8aba014e8b1e3.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1008,7 +1008,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g\big(\mathbf{x}^{(i)}; \btheta \big).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/e100eb67f644d702a93de253c9ee69c15dda706eace817a48bbf9c311a1b278e.svg"><img alt="../_images/e100eb67f644d702a93de253c9ee69c15dda706eace817a48bbf9c311a1b278e.svg" src="../_images/e100eb67f644d702a93de253c9ee69c15dda706eace817a48bbf9c311a1b278e.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/52ae81562e1d3d8c743f1b7f7854302e4852b1f3290b45b4db4f970803e9328d.svg"><img alt="../_images/52ae81562e1d3d8c743f1b7f7854302e4852b1f3290b45b4db4f970803e9328d.svg" src="../_images/52ae81562e1d3d8c743f1b7f7854302e4852b1f3290b45b4db4f970803e9328d.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1158,7 +1158,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g\big(\mathbf{x}^{(i)}; \btheta \big).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/3f1d3a1c857a002b67482fa221ccef90b23d888fea39f19257117225bc195d28.svg"><img alt="../_images/3f1d3a1c857a002b67482fa221ccef90b23d888fea39f19257117225bc195d28.svg" src="../_images/3f1d3a1c857a002b67482fa221ccef90b23d888fea39f19257117225bc195d28.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/94c1f06119b3cb7ee069f4cd670e7dc2b2ee4c2fb94acc8c2260df419dc860d0.svg"><img alt="../_images/94c1f06119b3cb7ee069f4cd670e7dc2b2ee4c2fb94acc8c2260df419dc860d0.svg" src="../_images/94c1f06119b3cb7ee069f4cd670e7dc2b2ee4c2fb94acc8c2260df419dc860d0.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1192,7 +1192,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g\big(\mathbf{x}^{(i)}; \btheta \big).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/a7c9ead167d936f96c8611f8f00c841b1de26163487768b363d57d7b5c8062bf.svg"><img alt="../_images/a7c9ead167d936f96c8611f8f00c841b1de26163487768b363d57d7b5c8062bf.svg" src="../_images/a7c9ead167d936f96c8611f8f00c841b1de26163487768b363d57d7b5c8062bf.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/f6811b6dc3cf83b33a3f55f704d026f17b1988c6e1fbc530d080b276675daa95.svg"><img alt="../_images/f6811b6dc3cf83b33a3f55f704d026f17b1988c6e1fbc530d080b276675daa95.svg" src="../_images/f6811b6dc3cf83b33a3f55f704d026f17b1988c6e1fbc530d080b276675daa95.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1284,7 +1284,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx^{(i)};\btheta \big), \quad \bth
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/e4b655cbe8e6ada89431007e292eef9fa8bec5f8eb559caa313985cd8acd65df.svg"><img alt="../_images/e4b655cbe8e6ada89431007e292eef9fa8bec5f8eb559caa313985cd8acd65df.svg" src="../_images/e4b655cbe8e6ada89431007e292eef9fa8bec5f8eb559caa313985cd8acd65df.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/d63134547f7cae846816762e7f7db224a3992e49576f671622a7d0f9f6dd40c6.svg"><img alt="../_images/d63134547f7cae846816762e7f7db224a3992e49576f671622a7d0f9f6dd40c6.svg" src="../_images/d63134547f7cae846816762e7f7db224a3992e49576f671622a7d0f9f6dd40c6.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1319,7 +1319,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx^{(i)};\btheta \big), \quad \bth
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/b6dedc7b4d2e1a54c21a4ece602ab63fdde6cb196e885f1f74419c84c343ee87.svg"><img alt="../_images/b6dedc7b4d2e1a54c21a4ece602ab63fdde6cb196e885f1f74419c84c343ee87.svg" src="../_images/b6dedc7b4d2e1a54c21a4ece602ab63fdde6cb196e885f1f74419c84c343ee87.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/f7c38f9a4ee47aa4ef9ca7bc1aba8daa69ca10dfbc0ed91a8156f8a96aeaa594.svg"><img alt="../_images/f7c38f9a4ee47aa4ef9ca7bc1aba8daa69ca10dfbc0ed91a8156f8a96aeaa594.svg" src="../_images/f7c38f9a4ee47aa4ef9ca7bc1aba8daa69ca10dfbc0ed91a8156f8a96aeaa594.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1374,7 +1374,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx^{(i)};\btheta \big), \quad \bth
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/f5d449f0a75deefc852afd33ac5dda900f2fe65488619e9e8bf1ee0ca7a340c8.svg"><img alt="../_images/f5d449f0a75deefc852afd33ac5dda900f2fe65488619e9e8bf1ee0ca7a340c8.svg" src="../_images/f5d449f0a75deefc852afd33ac5dda900f2fe65488619e9e8bf1ee0ca7a340c8.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/1f59270351f87949e0a932dedd83c386a2c79c4d51639cc0c3f996ccbdde31cf.svg"><img alt="../_images/1f59270351f87949e0a932dedd83c386a2c79c4d51639cc0c3f996ccbdde31cf.svg" src="../_images/1f59270351f87949e0a932dedd83c386a2c79c4d51639cc0c3f996ccbdde31cf.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1411,7 +1411,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx^{(i)};\btheta \big), \quad \bth
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/dc8f029017cfd079b43ddc418df58eba41f48cdf48c0745450efc1f78d4122e0.svg"><img alt="../_images/dc8f029017cfd079b43ddc418df58eba41f48cdf48c0745450efc1f78d4122e0.svg" src="../_images/dc8f029017cfd079b43ddc418df58eba41f48cdf48c0745450efc1f78d4122e0.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/685395115508632da5bce571ac0751c662d514a59ce3630b2cc5e220812e4b9c.svg"><img alt="../_images/685395115508632da5bce571ac0751c662d514a59ce3630b2cc5e220812e4b9c.svg" src="../_images/685395115508632da5bce571ac0751c662d514a59ce3630b2cc5e220812e4b9c.svg" width="100%" /></a>
 </figure>
 </div>
 </div>

@@ -23,6 +23,7 @@ sphinx:
       tex:
         macros:
           "Ber": "\\mathcal{B}er"
+          "def": "\\stackrel{\\text{def}}{=}"
           "balpha": "\\boldsymbol\\alpha"
           "bbeta": "\\boldsymbol\\beta"
           "btheta": "\\boldsymbol\\theta"
