@@ -63,7 +63,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/models';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -547,7 +547,7 @@ g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/e7d5c40a303770d62c94bb72df6989a85bd480e6088e16d045372b7f41e3cae8.svg"><img alt="../_images/e7d5c40a303770d62c94bb72df6989a85bd480e6088e16d045372b7f41e3cae8.svg" src="../_images/e7d5c40a303770d62c94bb72df6989a85bd480e6088e16d045372b7f41e3cae8.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/b05f11ee7c3a7f2a6b09f73f85a6b3a2d39f8af6c3f46ef1a16648567f7f11a2.svg"><img alt="../_images/b05f11ee7c3a7f2a6b09f73f85a6b3a2d39f8af6c3f46ef1a16648567f7f11a2.svg" src="../_images/b05f11ee7c3a7f2a6b09f73f85a6b3a2d39f8af6c3f46ef1a16648567f7f11a2.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -572,7 +572,7 @@ g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
 \]</div>
 </section>
 </div><p>Before we introduce important terminology associated with linear regression models and look at an example, we need to discuss two probability density functions that will play a crucial role in the <a class="reference internal" href="learning.html#learning"><span class="std std-ref">next chapter</span></a>. The first is just the conditional density function of <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(\bX\)</span>:</p>
-<div class="proof definition admonition" id="definition-2">
+<div class="proof definition admonition" id="lin-reg-likelihood-def">
 <p class="admonition-title"><span class="caption-number">Definition 10.3 </span></p>
 <section class="definition-content" id="proof-content">
 <ol class="arabic">
@@ -676,7 +676,7 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/0cc08b7a96e1238b3f53c8ff0774f1ce6c4dc6519456b2fcb4bbd49ba71b8c6c.svg"><img alt="../_images/0cc08b7a96e1238b3f53c8ff0774f1ce6c4dc6519456b2fcb4bbd49ba71b8c6c.svg" src="../_images/0cc08b7a96e1238b3f53c8ff0774f1ce6c4dc6519456b2fcb4bbd49ba71b8c6c.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/32bead495bea48beda8586554abd2c268aa7c5e72169701036f41b1b46391baa.svg"><img alt="../_images/32bead495bea48beda8586554abd2c268aa7c5e72169701036f41b1b46391baa.svg" src="../_images/32bead495bea48beda8586554abd2c268aa7c5e72169701036f41b1b46391baa.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -722,7 +722,7 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/50b452ffd047a9844b58e81d29ff3f1389893f849caef8488072623fc9106f64.svg"><img alt="../_images/50b452ffd047a9844b58e81d29ff3f1389893f849caef8488072623fc9106f64.svg" src="../_images/50b452ffd047a9844b58e81d29ff3f1389893f849caef8488072623fc9106f64.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/1ba645c5b687825c8cef8f4c73b6f3bfb6a077dcec4e4676c4b79a335dacbf38.svg"><img alt="../_images/1ba645c5b687825c8cef8f4c73b6f3bfb6a077dcec4e4676c4b79a335dacbf38.svg" src="../_images/1ba645c5b687825c8cef8f4c73b6f3bfb6a077dcec4e4676c4b79a335dacbf38.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -751,14 +751,14 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/9ee20f81e3ff9c45516264e9475793ff8e5f2b35a2726507639afe6e296b521f.svg"><img alt="../_images/9ee20f81e3ff9c45516264e9475793ff8e5f2b35a2726507639afe6e296b521f.svg" src="../_images/9ee20f81e3ff9c45516264e9475793ff8e5f2b35a2726507639afe6e296b521f.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/8e6ab99fff47a602db3b4f39ee4456441814758bbb421f8e5aff116d248aa0d7.svg"><img alt="../_images/8e6ab99fff47a602db3b4f39ee4456441814758bbb421f8e5aff116d248aa0d7.svg" src="../_images/8e6ab99fff47a602db3b4f39ee4456441814758bbb421f8e5aff116d248aa0d7.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
 <p>For smaller values of area, the distribution of the true prices is narrower compared to the simulated prices, while for larger values of area, the distribution of the true prices is wider.</p>
 </section>
 <section id="logistic-regression-models">
-<h2><span class="section-number">10.3. </span>Logistic regression models<a class="headerlink" href="#logistic-regression-models" title="Permalink to this heading">#</a></h2>
+<span id="log-reg-sec"></span><h2><span class="section-number">10.3. </span>Logistic regression models<a class="headerlink" href="#logistic-regression-models" title="Permalink to this heading">#</a></h2>
 <div class="proof definition admonition" id="definition-3">
 <p class="admonition-title"><span class="caption-number">Definition 10.4 </span></p>
 <section class="definition-content" id="proof-content">
@@ -837,7 +837,7 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/95c9aa29b1bcd404fc923c8059c7cf11f8a1d0ef3ca87ba68defd47a192159d5.svg"><img alt="../_images/95c9aa29b1bcd404fc923c8059c7cf11f8a1d0ef3ca87ba68defd47a192159d5.svg" src="../_images/95c9aa29b1bcd404fc923c8059c7cf11f8a1d0ef3ca87ba68defd47a192159d5.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/02ea37ebabb42438d9365df1b175beaaaee413e20d163c8dfc63ff3914d82da0.svg"><img alt="../_images/02ea37ebabb42438d9365df1b175beaaaee413e20d163c8dfc63ff3914d82da0.svg" src="../_images/02ea37ebabb42438d9365df1b175beaaaee413e20d163c8dfc63ff3914d82da0.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -900,13 +900,13 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/926ab631bfd6d49419ff0a453adb2dce14cac2b9d94750c4a5affee43992bbd4.svg"><img alt="../_images/926ab631bfd6d49419ff0a453adb2dce14cac2b9d94750c4a5affee43992bbd4.svg" src="../_images/926ab631bfd6d49419ff0a453adb2dce14cac2b9d94750c4a5affee43992bbd4.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/1cbab1ddb3d3cac6746f49470d7a8507ecaf9c1d753eda0213377fd585b18d72.svg"><img alt="../_images/1cbab1ddb3d3cac6746f49470d7a8507ecaf9c1d753eda0213377fd585b18d72.svg" src="../_images/1cbab1ddb3d3cac6746f49470d7a8507ecaf9c1d753eda0213377fd585b18d72.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
 </section>
 <section id="neural-network-models">
-<h2><span class="section-number">10.4. </span>Neural network models<a class="headerlink" href="#neural-network-models" title="Permalink to this heading">#</a></h2>
+<span id="nn-sec"></span><h2><span class="section-number">10.4. </span>Neural network models<a class="headerlink" href="#neural-network-models" title="Permalink to this heading">#</a></h2>
 <div class="proof definition admonition" id="definition-5">
 <p class="admonition-title"><span class="caption-number">Definition 10.6 </span></p>
 <section class="definition-content" id="proof-content">
@@ -1025,13 +1025,13 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/060360d91ee1fb99c29798d2937808325b518d30baa5cb680a5593d363605cf2.svg"><img alt="../_images/060360d91ee1fb99c29798d2937808325b518d30baa5cb680a5593d363605cf2.svg" src="../_images/060360d91ee1fb99c29798d2937808325b518d30baa5cb680a5593d363605cf2.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/05355305144db4a7c22c473fcb4dcbc4de35a5b0f07e3897bf0fbb43b273dbf0.svg"><img alt="../_images/05355305144db4a7c22c473fcb4dcbc4de35a5b0f07e3897bf0fbb43b273dbf0.svg" src="../_images/05355305144db4a7c22c473fcb4dcbc4de35a5b0f07e3897bf0fbb43b273dbf0.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
 </section>
 <section id="gaussian-mixture-models">
-<h2><span class="section-number">10.5. </span>Gaussian mixture models<a class="headerlink" href="#gaussian-mixture-models" title="Permalink to this heading">#</a></h2>
+<span id="gmm-sec"></span><h2><span class="section-number">10.5. </span>Gaussian mixture models<a class="headerlink" href="#gaussian-mixture-models" title="Permalink to this heading">#</a></h2>
 <div class="proof definition admonition" id="definition-7">
 <p class="admonition-title"><span class="caption-number">Definition 10.8 </span></p>
 <section class="definition-content" id="proof-content">
@@ -1135,7 +1135,7 @@ X \mid Z; \ \mu_0,\sigma_0^2,\mu_1, \sigma^2_1 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/4402b29eca2cff1a4ba4a79e6724771c1fcecdec0f9ee6ec8ab511f0f08f9775.svg"><img alt="../_images/4402b29eca2cff1a4ba4a79e6724771c1fcecdec0f9ee6ec8ab511f0f08f9775.svg" src="../_images/4402b29eca2cff1a4ba4a79e6724771c1fcecdec0f9ee6ec8ab511f0f08f9775.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/1b0bf55f3a5b0d034b080715d1fcf4c4fc93fc586a34d35a46247de46eb6c11b.svg"><img alt="../_images/1b0bf55f3a5b0d034b080715d1fcf4c4fc93fc586a34d35a46247de46eb6c11b.svg" src="../_images/1b0bf55f3a5b0d034b080715d1fcf4c4fc93fc586a34d35a46247de46eb6c11b.svg" width="70%" /></a>
 </figure>
 </div>
 </div>

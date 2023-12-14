@@ -317,6 +317,8 @@ document.write(`
    <a href="#cap-algorithm-2"><strong>algorithm-2</strong></a> | 
    <a href="#cap-algorithm-4"><strong>algorithm-4</strong></a> | 
    <a href="#cap-bern-bin-thm"><strong>bern-bin-thm</strong></a> | 
+   <a href="#cap-bern-mle-1-thm"><strong>bern-mle-1-thm</strong></a> | 
+   <a href="#cap-bern-mle-2-thm"><strong>bern-mle-2-thm</strong></a> | 
    <a href="#cap-bilinear-thm"><strong>bilinear-thm</strong></a> | 
    <a href="#cap-corollary-19"><strong>corollary-19</strong></a> | 
    <a href="#cap-definition-0"><strong>definition-0</strong></a> | 
@@ -350,11 +352,13 @@ document.write(`
    <a href="#cap-ind-expect-thm"><strong>ind-expect-thm</strong></a> | 
    <a href="#cap-independence-defn"><strong>independence-defn</strong></a> | 
    <a href="#cap-invar-independent-thm"><strong>invar-independent-thm</strong></a> | 
+   <a href="#cap-lin-reg-likelihood-def"><strong>lin-reg-likelihood-def</strong></a> | 
    <a href="#cap-linear-exp-thm"><strong>linear-exp-thm</strong></a> | 
    <a href="#cap-lotus-thm"><strong>lotus-thm</strong></a> | 
    <a href="#cap-marg-thm"><strong>marg-thm</strong></a> | 
    <a href="#cap-marginal-thm"><strong>marginal-thm</strong></a> | 
    <a href="#cap-mass-density-ind-thm"><strong>mass-density-ind-thm</strong></a> | 
+   <a href="#cap-mle-training-objectives-def"><strong>mle-training-objectives-def</strong></a> | 
    <a href="#cap-observation-3"><strong>observation-3</strong></a> | 
    <a href="#cap-population-def"><strong>population-def</strong></a> | 
    <a href="#cap-prob-measure-X-defn"><strong>prob-measure-X-defn</strong></a> | 
@@ -387,11 +391,13 @@ document.write(`
    <a href="#cap-theorem-26"><strong>theorem-26</strong></a> | 
    <a href="#cap-theorem-27"><strong>theorem-27</strong></a> | 
    <a href="#cap-theorem-3"><strong>theorem-3</strong></a> | 
+   <a href="#cap-theorem-4"><strong>theorem-4</strong></a> | 
    <a href="#cap-theorem-5"><strong>theorem-5</strong></a> | 
    <a href="#cap-theorem-6"><strong>theorem-6</strong></a> | 
    <a href="#cap-theorem-7"><strong>theorem-7</strong></a> | 
    <a href="#cap-theorem-8"><strong>theorem-8</strong></a> | 
    <a href="#cap-theorem-9"><strong>theorem-9</strong></a> | 
+   <a href="#cap-three-mle-thm"><strong>three-mle-thm</strong></a> | 
    <a href="#cap-var-affine-thm"><strong>var-affine-thm</strong></a> | 
    <a href="#cap-variance-lin-combo-thm"><strong>variance-lin-combo-thm</strong></a> | 
    <a href="#cap-weak-linear-thm"><strong>weak-linear-thm</strong></a>
@@ -429,6 +435,22 @@ document.write(`
        <td></td>
        <td>
        <a href="chapters/examples-of-rvs.html#bern-bin-thm"><code class="xref">bern-bin-thm</code></a> <em>(chapters/examples-of-rvs)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-bern-mle-1-thm"><td></td><td>
+       <strong>bern-mle-1-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/learning.html#bern-mle-1-thm"><code class="xref">bern-mle-1-thm</code></a> <em>(chapters/learning)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-bern-mle-2-thm"><td></td><td>
+       <strong>bern-mle-2-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/learning.html#bern-mle-2-thm"><code class="xref">bern-mle-2-thm</code></a> <em>(chapters/learning)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-bilinear-thm"><td></td><td>
@@ -695,6 +717,14 @@ document.write(`
        <a href="chapters/random-vectors.html#invar-independent-thm"><code class="xref">invar-independent-thm</code></a> <em>(chapters/random-vectors)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-lin-reg-likelihood-def"><td></td><td>
+       <strong>lin-reg-likelihood-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/models.html#lin-reg-likelihood-def"><code class="xref">lin-reg-likelihood-def</code></a> <em>(chapters/models)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-linear-exp-thm"><td></td><td>
        <strong>linear-exp-thm</strong></td><td></td></tr>
      <tr>
@@ -734,6 +764,14 @@ document.write(`
        <td>
        <a href="chapters/random-vectors.html#mass-density-ind-thm"><code class="xref">mass-density-ind-thm</code></a> <em>(chapters/random-vectors)</em></td><td>
        <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-mle-training-objectives-def"><td></td><td>
+       <strong>mle-training-objectives-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/learning.html#mle-training-objectives-def"><code class="xref">mle-training-objectives-def</code></a> <em>(chapters/learning)</em></td><td>
+       <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-observation-3"><td></td><td>
        <strong>observation-3</strong></td><td></td></tr>
@@ -991,6 +1029,14 @@ document.write(`
        <a href="chapters/rules-of-prob.html#theorem-3"><code class="xref">theorem-3</code></a> <em>(chapters/rules-of-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-4"><td></td><td>
+       <strong>theorem-4</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/learning.html#theorem-4"><code class="xref">theorem-4</code></a> <em>(chapters/learning)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-theorem-5"><td></td><td>
        <strong>theorem-5</strong></td><td></td></tr>
      <tr>
@@ -1029,6 +1075,14 @@ document.write(`
        <td></td>
        <td>
        <a href="chapters/rules-of-prob.html#theorem-9"><code class="xref">theorem-9</code></a> <em>(chapters/rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-three-mle-thm"><td></td><td>
+       <strong>three-mle-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/learning.html#three-mle-thm"><code class="xref">three-mle-thm</code></a> <em>(chapters/learning)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-var-affine-thm"><td></td><td>
