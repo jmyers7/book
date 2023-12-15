@@ -457,7 +457,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c54af72b613e185581ca68c37e08fbfb0f935c4c4e053b3f8d78e3aec888d123.svg" src="../_images/c54af72b613e185581ca68c37e08fbfb0f935c4c4e053b3f8d78e3aec888d123.svg" /></figure>
+<img alt="../_images/2edc2e91f89d94242e2d68d9d49f7c5dfac812af5dcd9ef19554bafe988b4dbf.svg" src="../_images/2edc2e91f89d94242e2d68d9d49f7c5dfac812af5dcd9ef19554bafe988b4dbf.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -494,7 +494,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/542ded0a37a662a0daaaa44011b2f2b99149417fbd326d0f6ec2291d6d65546c.svg" src="../_images/542ded0a37a662a0daaaa44011b2f2b99149417fbd326d0f6ec2291d6d65546c.svg" /></figure>
+<img alt="../_images/a1e018080ba12b5aca0ebcc83218255473c74bdee9d0800a75cbe294fd013ca7.svg" src="../_images/a1e018080ba12b5aca0ebcc83218255473c74bdee9d0800a75cbe294fd013ca7.svg" /></figure>
 </div>
 </div>
 <p>This often leads to difficulties when implementing MLE in computer algorithms due to numerical round-off. The machine is liable to round very small numbers to <span class="math notranslate nohighlight">\(0\)</span>. For this reason (and others), we often work with the (base-<span class="math notranslate nohighlight">\(e\)</span>) logarithm of the data likelihood function, denoted by</p>
@@ -532,7 +532,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/f9d310c677bc3b45e343bc96a8072254bff569955bcd4ed4caf912926f385e73.svg" src="../_images/f9d310c677bc3b45e343bc96a8072254bff569955bcd4ed4caf912926f385e73.svg" /></figure>
+<img alt="../_images/30077e776bcb8e9f89a5f778efce55cf23a4fd23aa9bc59eb8e75f5184627b8a.svg" src="../_images/30077e776bcb8e9f89a5f778efce55cf23a4fd23aa9bc59eb8e75f5184627b8a.svg" /></figure>
 </div>
 </div>
 <p>Notice that the values of <span class="math notranslate nohighlight">\(\ell(\theta)\)</span> are on a much more manageable scale compared to the values of <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span>, and that the two functions have the same global maximizer at <span class="math notranslate nohighlight">\(\theta=0.7\)</span>.</p>
@@ -720,11 +720,16 @@ J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \frac
 </section>
 <section id="maximum-likelihood-estimation-for-linear-regression-models">
 <h2><span class="section-number">11.2. </span>Maximum likelihood estimation for linear regression models<a class="headerlink" href="#maximum-likelihood-estimation-for-linear-regression-models" title="Permalink to this heading">#</a></h2>
-<p>Linear regression models have the special property that maximum likelihood estimates may be obtained in <em>closed form</em>. Let’s see how.</p>
-<p>First, recall from <a class="reference internal" href="models.html#lin-reg-sec"><span class="std std-numref">Section 10.2</span></a> that the underlying graph of a linear regression model is of the form</p>
-<a class="reference internal image-reference" href="../_images/lin-reg-00.svg"><img alt="../_images/lin-reg-00.svg" class="align-center" src="../_images/lin-reg-00.svg" width="50%" /></a>
+<p>Linear regression models have the special property that maximum likelihood estimates may be obtained in <em>closed form</em>. To derive them, we shall assume—as many books in statistics and machine learning do—that the variance parameter <span class="math notranslate nohighlight">\(\sigma^2\)</span> is a <em>fixed</em>, <em>known</em> number and does not need to be learned. You will address the case that <span class="math notranslate nohighlight">\(\sigma^2\)</span> is unknown in the suggested problems for this section.</p>
+<p>Therefore, the underlying graph of the linear regression model is of the form</p>
+<a class="reference internal image-reference" href="../_images/log-reg-00.svg"><img alt="../_images/log-reg-00.svg" class="align-center" src="../_images/log-reg-00.svg" width="50%" /></a>
 <p> </p>
-<p>where <span class="math notranslate nohighlight">\(\bbeta \in \mathbb{R}^{n\times 1}\)</span>, <span class="math notranslate nohighlight">\(\beta_0 \in \bbr\)</span>, and <span class="math notranslate nohighlight">\(\sigma^2 &gt; 0\)</span>. Given a dataset</p>
+<p>where <span class="math notranslate nohighlight">\(\bbeta \in \mathbb{R}^{n\times 1}\)</span> and <span class="math notranslate nohighlight">\(\beta_0 \in \bbr\)</span> are the only parameters. The link function at <span class="math notranslate nohighlight">\(Y\)</span> is still given by</p>
+<div class="math notranslate nohighlight">
+\[
+\mu = \bx\bbeta + \beta_0, \quad \text{where} \quad Y \mid \bX ; \ \bbeta,\beta_0 \sim \mathcal{N}(\mu, \sigma^2).
+\]</div>
+<p>Then, given a dataset</p>
 <div class="math notranslate nohighlight">
 \[
 (\bx^{(1)},y^{(1)}),\ldots,(\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr,
@@ -732,21 +737,119 @@ J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \frac
 <p>we may retrieve the data log-likelihood function from <a class="reference internal" href="models.html#lin-reg-sec"><span class="std std-numref">Section 10.2</span></a>:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
-\ell(\bbeta, \beta_0, \sigma^2) &amp;= \sum_{i=1}^m \log \left[ \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} \big( y^{(i)} - \mu^{(i)} \big)^2 \right) \right] \\
-&amp;= - \frac{m}{2} \log{2\pi} - \frac{m}{2} \log{\sigma^2} - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2,
+\ell(\bbeta, \beta_0) &amp;= \sum_{i=1}^m \log \left[ \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} \big( y^{(i)} - \mu^{(i)} \big)^2 \right) \right] \\
+&amp;= - \log{\sqrt{2\pi\sigma^2}} - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2,
 \end{align*}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mu^{(i)} = \bx^{(i)} \bbeta + \beta_0\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>.</p>
-<p>The maximum likelihood estimate for the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> has a particularly simple form:</p>
-<div class="proof theorem admonition" id="theorem-6">
-<p class="admonition-title"><span class="caption-number">Theorem 11.5 </span> (MLE for the variance of a linear regression model)</p>
-<section class="theorem-content" id="proof-content">
-<p>The maximum likelihood estimate for the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> of a linear regression model is given by the formula</p>
+<p>The maximizers of <span class="math notranslate nohighlight">\(\ell(\bbeta,\beta_0)\)</span> will occur at those parameter values for which <span class="math notranslate nohighlight">\(\nabla \ell(\bbeta, \beta_0)=0\)</span>. Since <span class="math notranslate nohighlight">\(\log{\sqrt{2\pi\sigma^2}}\)</span> is constant with respect to the parameters, it may be dropped, leaving the equivalent objective function</p>
 <div class="math notranslate nohighlight">
 \[
-(\sigma^2)^\star = \frac{1}{m}\sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
+(\bbeta,\beta_0) \mapsto - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
+\]</div>
+<p>But the scalar <span class="math notranslate nohighlight">\(\frac{1}{2\sigma^2}\)</span> is fixed, and so it too may be dropped, leaving us with the equivalent objective function</p>
+<div class="math notranslate nohighlight">
+\[
+\text{NRSS}(\bbeta,\beta_0) = - \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2
+\]</div>
+<p>called the <em>negative residual sum of squares</em>. Using this latter objective function, we obtain:</p>
+<div class="proof theorem admonition" id="theorem-6">
+<p class="admonition-title"><span class="caption-number">Theorem 11.5 </span> (Maximum likelihood estimates for linear regression with known variance)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let the notation be as above, and let</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathcal{X} = \begin{bmatrix}
+1 &amp; x^{(1)}_1 &amp; \cdots &amp; x^{(1)}_n \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+1 &amp; x^{(m)}_1 &amp; \cdots &amp; x^{(m)}_n
+\end{bmatrix}, \quad \by = \begin{bmatrix} y^{(1)} \\ \vdots \\ y^{(m)} \end{bmatrix}, \quad \btheta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_n \end{bmatrix}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bbeta^T = (\beta_1,\ldots,\beta_n)\)</span>. Provided that the <span class="math notranslate nohighlight">\((n+1) \times (n+1)\)</span> square matrix <span class="math notranslate nohighlight">\(\mathcal{X}^T \mathcal{X}\)</span> is invertible, the maximum likelihood estimates for the parameters <span class="math notranslate nohighlight">\(\bbeta\)</span> and <span class="math notranslate nohighlight">\(\beta_0\)</span> are given by</p>
+<div class="math notranslate nohighlight">
+\[
+\btheta = \left(\mathcal{X}^T \mathcal{X}\right)^{-1}\mathcal{X}^T \by.
 \]</div>
 </section>
-</div></section>
+</div><p>For the proof, as we noted above, the MLEs may be obtained by maximizing the function</p>
+<div class="math notranslate nohighlight">
+\[
+\text{NRSS}(\btheta) = - \left( \by - \mathcal{X}\btheta\right)^T\left( \by - \mathcal{X}\btheta\right).
+\]</div>
+<p>But as you will prove in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-1-solution">suggested problems</a>, taking the gradient gives</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla\text{NRSS}(\btheta) = -2 \left( \by - \mathcal{X}\btheta\right)^T J\left(\by - \mathcal{X}\btheta \right),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(J\left(\by - \mathcal{X}\btheta \right)\)</span> is the Jacobian matrix of the function</p>
+<div class="math notranslate nohighlight">
+\[
+\bbr^{n+1} \to \bbr^m, \quad \btheta \mapsto \by - \mathcal{X}\btheta.
+\]</div>
+<p>But it is easy to show that <span class="math notranslate nohighlight">\(J\left(\by - \mathcal{X}\btheta \right) = - \mathcal{X}\)</span>, and so</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla\text{NRSS}(\btheta) = 2 \left( \by - \mathcal{X}\btheta\right)^T \mathcal{X}.
+\]</div>
+<p>Setting the gradient to zero and solving gives</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{X}^T \mathcal{X} \btheta = \mathcal{X}^T \by,
+\]</div>
+<p>from which the desired equation follows. The only thing that is left to prove is that we have actually obtained a <em>maximizer</em>. This follows from concavity of the negative residual sum of squares function, which you will establish in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-2-solution">suggested problems</a> in the case of simple linear regression (i.e., when <span class="math notranslate nohighlight">\(n=1\)</span>).</p>
+<p>It is worth writing out the MLEs in the case of simple linear regression:</p>
+<div class="proof corollary admonition" id="corollary-7">
+<p class="admonition-title"><span class="caption-number">Corollary 11.1 </span> (Maximum likelihood estimates for simple linear regression with known variance)</p>
+<section class="corollary-content" id="proof-content">
+<p>Letting the notation be as above, the MLEs for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span> in a simple linear regression model are given by</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\beta_1 &amp;= \frac{\sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)\left( y^{(i)} - \bar{y} \right)}{\sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)^2}, \\
+\beta_0 &amp;= \bar{y} - \beta_1 \bar{x},
+\end{align*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bar{x} = \frac{1}{m} \sum_{i=1}^m x^{(i)}\)</span> and <span class="math notranslate nohighlight">\(\bar{y} = \frac{1}{m} \sum_{i=1}^m y^{(i)}\)</span> are the empirical means.</p>
+</section>
+</div><p>For the proof, first note that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathcal{X}^T \mathcal{X} = \begin{bmatrix} m &amp; m \bar{x} \\ m \bar{x} &amp; \sum_{i=1}^m {x^{(i)}}^2 \end{bmatrix}.
+\end{split}\]</div>
+<p>Assuming this matrix has nonzero determinant <span class="math notranslate nohighlight">\(m \sum_{i=1}^m {x^{(i)}}^2 - m^2 \bar{x}^2\neq 0\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left(\mathcal{X}^T \mathcal{X} \right)^{-1} = \frac{1}{m \sum_{i=1}^m {x^{(i)}}^2 - m^2 \bar{x}^2} \begin{bmatrix} \sum_{i=1}^m {x^{(i)}}^2 &amp; -m \bar{x} \\ -m \bar{x} &amp; m \end{bmatrix}.
+\end{split}\]</div>
+<p>But</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathcal{X}^T \by = \begin{bmatrix} m \bar{y} \\ \sum_{i=1}^m x^{(i)} y^{(i)} \end{bmatrix},
+\end{split}\]</div>
+<p>and so from</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \btheta =  \left(\mathcal{X}^T \mathcal{X}\right)^{-1}\mathcal{X}^T \by
+\end{split}\]</div>
+<p>we conclude</p>
+<div class="math notranslate nohighlight">
+\[
+\beta_1 = \frac{\sum_{i=1}^m x^{(i)} y^{(i)} -m \bar{x}\bar{y} }{ \sum_{i=1}^m {x^{(i)}}^2 - m \bar{x}^2}.
+\]</div>
+<p>But as you may easily check, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^m x^{(i)} y^{(i)} -m \bar{x}\bar{y}  = \sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)\left( y^{(i)} - \bar{y} \right)
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^m {x^{(i)}}^2 - m \bar{x}^2 = \sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)^2,
+\]</div>
+<p>from which the desired equation for <span class="math notranslate nohighlight">\(\beta_1\)</span> follows. To obtain the equation for <span class="math notranslate nohighlight">\(\beta_0\)</span>, note that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathcal{X}^T \mathcal{X} \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \mathcal{X}^T \by 
+\end{split}\]</div>
+<p>implies <span class="math notranslate nohighlight">\(m \beta_0  + m \beta_1 \bar{x} = m \bar{y}\)</span>, and so <span class="math notranslate nohighlight">\(\beta_0 = \bar{y} - \beta_1 \bar{x}\)</span>.</p>
+</section>
 <section id="expectation-maximization-for-gaussian-mixture-models">
 <span id="em-gmm-sec"></span><h2><span class="section-number">11.3. </span>Expectation maximization for Gaussian mixture models<a class="headerlink" href="#expectation-maximization-for-gaussian-mixture-models" title="Permalink to this heading">#</a></h2>
 </section>
