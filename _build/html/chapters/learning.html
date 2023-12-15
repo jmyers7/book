@@ -457,7 +457,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2edc2e91f89d94242e2d68d9d49f7c5dfac812af5dcd9ef19554bafe988b4dbf.svg" src="../_images/2edc2e91f89d94242e2d68d9d49f7c5dfac812af5dcd9ef19554bafe988b4dbf.svg" /></figure>
+<img alt="../_images/07c395c4d5c080f6646541faf516665089075ad0aa2f1c7cf22eeb0e5a2a727d.svg" src="../_images/07c395c4d5c080f6646541faf516665089075ad0aa2f1c7cf22eeb0e5a2a727d.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -494,7 +494,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a1e018080ba12b5aca0ebcc83218255473c74bdee9d0800a75cbe294fd013ca7.svg" src="../_images/a1e018080ba12b5aca0ebcc83218255473c74bdee9d0800a75cbe294fd013ca7.svg" /></figure>
+<img alt="../_images/c2cdb714d4e0fbb6489c2bd3715576283c147341d73a230e96d6c5e5dbe6785a.svg" src="../_images/c2cdb714d4e0fbb6489c2bd3715576283c147341d73a230e96d6c5e5dbe6785a.svg" /></figure>
 </div>
 </div>
 <p>This often leads to difficulties when implementing MLE in computer algorithms due to numerical round-off. The machine is liable to round very small numbers to <span class="math notranslate nohighlight">\(0\)</span>. For this reason (and others), we often work with the (base-<span class="math notranslate nohighlight">\(e\)</span>) logarithm of the data likelihood function, denoted by</p>
@@ -532,7 +532,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/30077e776bcb8e9f89a5f778efce55cf23a4fd23aa9bc59eb8e75f5184627b8a.svg" src="../_images/30077e776bcb8e9f89a5f778efce55cf23a4fd23aa9bc59eb8e75f5184627b8a.svg" /></figure>
+<img alt="../_images/325981d55fbb8f312680ac50a7c80e263430efee6a2debe9e6b0cb2678573dc1.svg" src="../_images/325981d55fbb8f312680ac50a7c80e263430efee6a2debe9e6b0cb2678573dc1.svg" /></figure>
 </div>
 </div>
 <p>Notice that the values of <span class="math notranslate nohighlight">\(\ell(\theta)\)</span> are on a much more manageable scale compared to the values of <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span>, and that the two functions have the same global maximizer at <span class="math notranslate nohighlight">\(\theta=0.7\)</span>.</p>
@@ -720,7 +720,7 @@ J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \frac
 </section>
 <section id="maximum-likelihood-estimation-for-linear-regression-models">
 <h2><span class="section-number">11.2. </span>Maximum likelihood estimation for linear regression models<a class="headerlink" href="#maximum-likelihood-estimation-for-linear-regression-models" title="Permalink to this heading">#</a></h2>
-<p>Linear regression models have the special property that maximum likelihood estimates may be obtained in <em>closed form</em>. To derive them, we shall assume—as many books in statistics and machine learning do—that the variance parameter <span class="math notranslate nohighlight">\(\sigma^2\)</span> is a <em>fixed</em>, <em>known</em> number and does not need to be learned. You will address the case that <span class="math notranslate nohighlight">\(\sigma^2\)</span> is unknown in the suggested problems for this section.</p>
+<p>Linear regression models have the special property that maximum likelihood estimates may be obtained in <em>closed form</em>. To derive them, we shall assume—as many books in statistics and machine learning do—that the variance parameter <span class="math notranslate nohighlight">\(\sigma^2\)</span> is a <em>fixed</em>, <em>known</em> number and does not need to be learned. You will address the case that <span class="math notranslate nohighlight">\(\sigma^2\)</span> is unknown in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-3">suggested problems</a> for this section.</p>
 <p>Therefore, the underlying graph of the linear regression model is of the form</p>
 <a class="reference internal image-reference" href="../_images/log-reg-00.svg"><img alt="../_images/log-reg-00.svg" class="align-center" src="../_images/log-reg-00.svg" width="50%" /></a>
 <p> </p>
@@ -738,10 +738,10 @@ J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \frac
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 \ell(\bbeta, \beta_0) &amp;= \sum_{i=1}^m \log \left[ \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} \big( y^{(i)} - \mu^{(i)} \big)^2 \right) \right] \\
-&amp;= - \log{\sqrt{2\pi\sigma^2}} - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2,
+&amp;= - m\log{\sqrt{2\pi\sigma^2}} - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2,
 \end{align*}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mu^{(i)} = \bx^{(i)} \bbeta + \beta_0\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>.</p>
-<p>The maximizers of <span class="math notranslate nohighlight">\(\ell(\bbeta,\beta_0)\)</span> will occur at those parameter values for which <span class="math notranslate nohighlight">\(\nabla \ell(\bbeta, \beta_0)=0\)</span>. Since <span class="math notranslate nohighlight">\(\log{\sqrt{2\pi\sigma^2}}\)</span> is constant with respect to the parameters, it may be dropped, leaving the equivalent objective function</p>
+<p>The maximizers of <span class="math notranslate nohighlight">\(\ell(\bbeta,\beta_0)\)</span> will occur at those parameter values for which <span class="math notranslate nohighlight">\(\nabla \ell(\bbeta, \beta_0)=0\)</span>. Since <span class="math notranslate nohighlight">\(-m\log{\sqrt{2\pi\sigma^2}}\)</span> is constant with respect to the parameters, it may be dropped, leaving the equivalent objective function</p>
 <div class="math notranslate nohighlight">
 \[
 (\bbeta,\beta_0) \mapsto - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
