@@ -427,7 +427,7 @@ In practice, nobody ever maximizes the data likelihood function directly; instea
 
 ## Maximum likelihood estimation for linear regression models
 
-Linear regression models have the special property that maximum likelihood estimates may be obtained in _closed form_. To derive them, we shall assume---as many books in statistics and machine learning do---that the variance parameter $\sigma^2$ is a _fixed_, _known_ number and does not need to be learned. You will address the case that $\sigma^2$ is unknown in the suggested problems for this section.
+Linear regression models have the special property that maximum likelihood estimates may be obtained in _closed form_. To derive them, we shall assume---as many books in statistics and machine learning do---that the variance parameter $\sigma^2$ is a _fixed_, _known_ number and does not need to be learned. You will address the case that $\sigma^2$ is unknown in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-3) for this section.
 
 Therefore, the underlying graph of the linear regression model is of the form
 
@@ -453,12 +453,12 @@ we may retrieve the data log-likelihood function from {numref}`lin-reg-sec`:
 
 \begin{align*}
 \ell(\bbeta, \beta_0) &= \sum_{i=1}^m \log \left[ \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} \big( y^{(i)} - \mu^{(i)} \big)^2 \right) \right] \\
-&= - \log{\sqrt{2\pi\sigma^2}} - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2,
+&= - m\log{\sqrt{2\pi\sigma^2}} - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2,
 \end{align*}
 
 where $\mu^{(i)} = \bx^{(i)} \bbeta + \beta_0$ for each $i=1,\ldots,m$.
 
-The maximizers of $\ell(\bbeta,\beta_0)$ will occur at those parameter values for which $\nabla \ell(\bbeta, \beta_0)=0$. Since $\log{\sqrt{2\pi\sigma^2}}$ is constant with respect to the parameters, it may be dropped, leaving the equivalent objective function
+The maximizers of $\ell(\bbeta,\beta_0)$ will occur at those parameter values for which $\nabla \ell(\bbeta, \beta_0)=0$. Since $-m\log{\sqrt{2\pi\sigma^2}}$ is constant with respect to the parameters, it may be dropped, leaving the equivalent objective function
 
 $$
 (\bbeta,\beta_0) \mapsto - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
