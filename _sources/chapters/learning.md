@@ -427,17 +427,23 @@ In practice, nobody ever maximizes the data likelihood function directly; instea
 
 ## Maximum likelihood estimation for linear regression models
 
-Linear regression models have the special property that maximum likelihood estimates may be obtained in _closed form_. Let's see how.
+Linear regression models have the special property that maximum likelihood estimates may be obtained in _closed form_. To derive them, we shall assume---as many books in statistics and machine learning do---that the variance parameter $\sigma^2$ is a _fixed_, _known_ number and does not need to be learned. You will address the case that $\sigma^2$ is unknown in the suggested problems for this section.
 
-First, recall from {numref}`lin-reg-sec` that the underlying graph of a linear regression model is of the form
+Therefore, the underlying graph of the linear regression model is of the form
 
-```{image} ../img/lin-reg-00.svg
+```{image} ../img/log-reg-00.svg
 :width: 50%
 :align: center
 ```
 &nbsp;
 
-where $\bbeta \in \mathbb{R}^{n\times 1}$, $\beta_0 \in \bbr$, and $\sigma^2 > 0$. Given a dataset
+where $\bbeta \in \mathbb{R}^{n\times 1}$ and $\beta_0 \in \bbr$ are the only parameters. The link function at $Y$ is still given by
+
+$$
+\mu = \bx\bbeta + \beta_0, \quad \text{where} \quad Y \mid \bX ; \ \bbeta,\beta_0 \sim \mathcal{N}(\mu, \sigma^2).
+$$
+
+Then, given a dataset
 
 $$
 (\bx^{(1)},y^{(1)}),\ldots,(\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr,
@@ -446,23 +452,141 @@ $$
 we may retrieve the data log-likelihood function from {numref}`lin-reg-sec`:
 
 \begin{align*}
-\ell(\bbeta, \beta_0, \sigma^2) &= \sum_{i=1}^m \log \left[ \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} \big( y^{(i)} - \mu^{(i)} \big)^2 \right) \right] \\
-&= - \frac{m}{2} \log{2\pi} - \frac{m}{2} \log{\sigma^2} - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2,
+\ell(\bbeta, \beta_0) &= \sum_{i=1}^m \log \left[ \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} \big( y^{(i)} - \mu^{(i)} \big)^2 \right) \right] \\
+&= - \log{\sqrt{2\pi\sigma^2}} - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2,
 \end{align*}
 
 where $\mu^{(i)} = \bx^{(i)} \bbeta + \beta_0$ for each $i=1,\ldots,m$.
 
-The maximum likelihood estimate for the variance $\sigma^2$ has a particularly simple form:
-
-```{prf:theorem} MLE for the variance of a linear regression model
-
-The maximum likelihood estimate for the variance $\sigma^2$ of a linear regression model is given by the formula
+The maximizers of $\ell(\bbeta,\beta_0)$ will occur at those parameter values for which $\nabla \ell(\bbeta, \beta_0)=0$. Since $\log{\sqrt{2\pi\sigma^2}}$ is constant with respect to the parameters, it may be dropped, leaving the equivalent objective function
 
 $$
-(\sigma^2)^\star = \frac{1}{m}\sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
+(\bbeta,\beta_0) \mapsto - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
+$$
+
+But the scalar $\frac{1}{2\sigma^2}$ is fixed, and so it too may be dropped, leaving us with the equivalent objective function
+
+$$
+\text{NRSS}(\bbeta,\beta_0) = - \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2
+$$
+
+called the _negative residual sum of squares_. Using this latter objective function, we obtain:
+
+
+```{prf:theorem} Maximum likelihood estimates for linear regression with known variance
+
+Let the notation be as above, and let
+
+$$
+\mathcal{X} = \begin{bmatrix}
+1 & x^{(1)}_1 & \cdots & x^{(1)}_n \\
+\vdots & \vdots & \ddots & \vdots \\
+1 & x^{(m)}_1 & \cdots & x^{(m)}_n
+\end{bmatrix}, \quad \by = \begin{bmatrix} y^{(1)} \\ \vdots \\ y^{(m)} \end{bmatrix}, \quad \btheta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_n \end{bmatrix}
+$$
+
+where $\bbeta^T = (\beta_1,\ldots,\beta_n)$. Provided that the $(n+1) \times (n+1)$ square matrix $\mathcal{X}^T \mathcal{X}$ is invertible, the maximum likelihood estimates for the parameters $\bbeta$ and $\beta_0$ are given by
+
+$$
+\btheta = \left(\mathcal{X}^T \mathcal{X}\right)^{-1}\mathcal{X}^T \by.
 $$
 ```
 
+For the proof, as we noted above, the MLEs may be obtained by maximizing the function
+
+$$
+\text{NRSS}(\btheta) = - \left( \by - \mathcal{X}\btheta\right)^T\left( \by - \mathcal{X}\btheta\right).
+$$
+
+But as you will prove in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-1-solution), taking the gradient gives
+
+$$
+\nabla\text{NRSS}(\btheta) = -2 \left( \by - \mathcal{X}\btheta\right)^T J\left(\by - \mathcal{X}\btheta \right),
+$$
+
+where $J\left(\by - \mathcal{X}\btheta \right)$ is the Jacobian matrix of the function
+
+$$
+\bbr^{n+1} \to \bbr^m, \quad \btheta \mapsto \by - \mathcal{X}\btheta.
+$$
+
+But it is easy to show that $J\left(\by - \mathcal{X}\btheta \right) = - \mathcal{X}$, and so
+
+$$
+\nabla\text{NRSS}(\btheta) = 2 \left( \by - \mathcal{X}\btheta\right)^T \mathcal{X}.
+$$
+
+Setting the gradient to zero and solving gives
+
+$$
+\mathcal{X}^T \mathcal{X} \btheta = \mathcal{X}^T \by,
+$$
+
+from which the desired equation follows. The only thing that is left to prove is that we have actually obtained a _maximizer_. This follows from concavity of the negative residual sum of squares function, which you will establish in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-2-solution) in the case of simple linear regression (i.e., when $n=1$).
+
+It is worth writing out the MLEs in the case of simple linear regression:
+
+```{prf:corollary} Maximum likelihood estimates for simple linear regression with known variance
+
+Letting the notation be as above, the MLEs for the parameters $\beta_0$ and $\beta_1$ in a simple linear regression model are given by
+
+\begin{align*}
+\beta_1 &= \frac{\sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)\left( y^{(i)} - \bar{y} \right)}{\sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)^2}, \\
+\beta_0 &= \bar{y} - \beta_1 \bar{x},
+\end{align*}
+
+where $\bar{x} = \frac{1}{m} \sum_{i=1}^m x^{(i)}$ and $\bar{y} = \frac{1}{m} \sum_{i=1}^m y^{(i)}$ are the empirical means.
+```
+
+For the proof, first note that
+
+$$
+\mathcal{X}^T \mathcal{X} = \begin{bmatrix} m & m \bar{x} \\ m \bar{x} & \sum_{i=1}^m {x^{(i)}}^2 \end{bmatrix}.
+$$
+
+Assuming this matrix has nonzero determinant $m \sum_{i=1}^m {x^{(i)}}^2 - m^2 \bar{x}^2\neq 0$, we have
+
+$$
+\left(\mathcal{X}^T \mathcal{X} \right)^{-1} = \frac{1}{m \sum_{i=1}^m {x^{(i)}}^2 - m^2 \bar{x}^2} \begin{bmatrix} \sum_{i=1}^m {x^{(i)}}^2 & -m \bar{x} \\ -m \bar{x} & m \end{bmatrix}.
+$$
+
+But
+
+$$
+\mathcal{X}^T \by = \begin{bmatrix} m \bar{y} \\ \sum_{i=1}^m x^{(i)} y^{(i)} \end{bmatrix},
+$$
+
+and so from
+
+$$
+\begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \btheta =  \left(\mathcal{X}^T \mathcal{X}\right)^{-1}\mathcal{X}^T \by
+$$
+
+we conclude
+
+$$
+\beta_1 = \frac{\sum_{i=1}^m x^{(i)} y^{(i)} -m \bar{x}\bar{y} }{ \sum_{i=1}^m {x^{(i)}}^2 - m \bar{x}^2}.
+$$
+
+But as you may easily check, we have
+
+$$
+\sum_{i=1}^m x^{(i)} y^{(i)} -m \bar{x}\bar{y}  = \sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)\left( y^{(i)} - \bar{y} \right)
+$$
+
+and
+
+$$
+\sum_{i=1}^m {x^{(i)}}^2 - m \bar{x}^2 = \sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)^2,
+$$
+
+from which the desired equation for $\beta_1$ follows. To obtain the equation for $\beta_0$, note that
+
+$$
+\mathcal{X}^T \mathcal{X} \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \mathcal{X}^T \by 
+$$
+
+implies $m \beta_0  + m \beta_1 \bar{x} = m \bar{y}$, and so $\beta_0 = \bar{y} - \beta_1 \bar{x}$.
 
 
 (em-gmm-sec)=
