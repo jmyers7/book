@@ -457,7 +457,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/07c395c4d5c080f6646541faf516665089075ad0aa2f1c7cf22eeb0e5a2a727d.svg" src="../_images/07c395c4d5c080f6646541faf516665089075ad0aa2f1c7cf22eeb0e5a2a727d.svg" /></figure>
+<img alt="../_images/6e607428419f020544acacb9db302491931f907e5daa269f5050b47fbd6b67d9.svg" src="../_images/6e607428419f020544acacb9db302491931f907e5daa269f5050b47fbd6b67d9.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -494,7 +494,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c2cdb714d4e0fbb6489c2bd3715576283c147341d73a230e96d6c5e5dbe6785a.svg" src="../_images/c2cdb714d4e0fbb6489c2bd3715576283c147341d73a230e96d6c5e5dbe6785a.svg" /></figure>
+<img alt="../_images/2aaa1eb4faf1ef9f58b6bd445be3ce1d8a27f91e9ce2eb7ee42661ed619d14ef.svg" src="../_images/2aaa1eb4faf1ef9f58b6bd445be3ce1d8a27f91e9ce2eb7ee42661ed619d14ef.svg" /></figure>
 </div>
 </div>
 <p>This often leads to difficulties when implementing MLE in computer algorithms due to numerical round-off. The machine is liable to round very small numbers to <span class="math notranslate nohighlight">\(0\)</span>. For this reason (and others), we often work with the (base-<span class="math notranslate nohighlight">\(e\)</span>) logarithm of the data likelihood function, denoted by</p>
@@ -532,7 +532,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/325981d55fbb8f312680ac50a7c80e263430efee6a2debe9e6b0cb2678573dc1.svg" src="../_images/325981d55fbb8f312680ac50a7c80e263430efee6a2debe9e6b0cb2678573dc1.svg" /></figure>
+<img alt="../_images/959c354986bac14cfba958d978e39314f3105b69968fcde872faa3e0a77c6f19.svg" src="../_images/959c354986bac14cfba958d978e39314f3105b69968fcde872faa3e0a77c6f19.svg" /></figure>
 </div>
 </div>
 <p>Notice that the values of <span class="math notranslate nohighlight">\(\ell(\theta)\)</span> are on a much more manageable scale compared to the values of <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span>, and that the two functions have the same global maximizer at <span class="math notranslate nohighlight">\(\theta=0.7\)</span>.</p>
@@ -546,7 +546,8 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 <section class="theorem-content" id="proof-content">
 <p>Consider the Bernoulli model described above and suppose that <span class="math notranslate nohighlight">\(0 &lt; \Sigma x &lt; m\)</span>. The (unique) global maximizer <span class="math notranslate nohighlight">\(\theta^\star\)</span> of the data log-likelihood function <span class="math notranslate nohighlight">\(\ell(\theta)\)</span> over <span class="math notranslate nohighlight">\(\theta \in (0,1)\)</span> is given by <span class="math notranslate nohighlight">\(\theta^\star = \Sigma x/m\)</span>. Thus, <span class="math notranslate nohighlight">\(\theta^\star=\Sigma x/m\)</span> is the maximum likelihood estimate.</p>
 </section>
-</div><p>To begin the simple proof, first note that</p>
+</div><div class="proof admonition" id="proof">
+<p>Proof. First note that</p>
 <div class="math notranslate nohighlight" id="equation-data-log-like-bern-eqn">
 <span class="eqno">(11.3)<a class="headerlink" href="#equation-data-log-like-bern-eqn" title="Permalink to this equation">#</a></span>\[
 \ell(\theta) = \Sigma x \log{\theta} + (m-\Sigma x) \log{(1-\theta)}
@@ -556,7 +557,8 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 \[
 \ell'(\theta) = \frac{\Sigma x}{\theta} - \frac{m-\Sigma x}{1-\theta},
 \]</div>
-<p>and a little algebra yields the solution <span class="math notranslate nohighlight">\(\theta = \Sigma x/m\)</span> to the equation <span class="math notranslate nohighlight">\(\ell'(\theta)=0\)</span>. To confirm that <span class="math notranslate nohighlight">\(\theta = \Sigma x/m\)</span> is a global maximizer over <span class="math notranslate nohighlight">\((0,1)\)</span>, note that the second derivatives of both <span class="math notranslate nohighlight">\(\log{\theta}\)</span> and <span class="math notranslate nohighlight">\(\log{(1-\theta)}\)</span> are always negative, and hence <span class="math notranslate nohighlight">\(\ell''(\theta)&lt;0\)</span> as well since <span class="math notranslate nohighlight">\(\Sigma x\)</span> and <span class="math notranslate nohighlight">\(m-\Sigma x\)</span> are positive (this is a manifestation of <a class="reference external" href="https://en.wikipedia.org/wiki/Concave_function">concavity</a>). Thus, <span class="math notranslate nohighlight">\(\theta^\star = \Sigma x/m\)</span> must be the (unique) global maximizer of <span class="math notranslate nohighlight">\(\ell(\theta)\)</span>.</p>
+<p>and a little algebra yields the solution <span class="math notranslate nohighlight">\(\theta = \Sigma x/m\)</span> to the equation <span class="math notranslate nohighlight">\(\ell'(\theta)=0\)</span>. To confirm that <span class="math notranslate nohighlight">\(\theta = \Sigma x/m\)</span> is a global maximizer over <span class="math notranslate nohighlight">\((0,1)\)</span>, note that the second derivatives of both <span class="math notranslate nohighlight">\(\log{\theta}\)</span> and <span class="math notranslate nohighlight">\(\log{(1-\theta)}\)</span> are always negative, and hence <span class="math notranslate nohighlight">\(\ell''(\theta)&lt;0\)</span> as well since <span class="math notranslate nohighlight">\(\Sigma x\)</span> and <span class="math notranslate nohighlight">\(m-\Sigma x\)</span> are positive (this is a manifestation of <a class="reference external" href="https://en.wikipedia.org/wiki/Concave_function">concavity</a>). Thus, <span class="math notranslate nohighlight">\(\theta^\star = \Sigma x/m\)</span> must be the (unique) global maximizer of <span class="math notranslate nohighlight">\(\ell(\theta)\)</span>. Q.E.D.</p>
+</div>
 <p>Note that the data likelihood function</p>
 <div class="math notranslate nohighlight">
 \[
@@ -746,12 +748,12 @@ J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \frac
 \[
 (\bbeta,\beta_0) \mapsto - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
 \]</div>
-<p>But the scalar <span class="math notranslate nohighlight">\(\frac{1}{2\sigma^2}\)</span> is fixed, and so it too may be dropped, leaving us with the equivalent objective function</p>
-<div class="math notranslate nohighlight">
-\[
-\text{NRSS}(\bbeta,\beta_0) = - \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2
+<p>But the reciprocal variance <span class="math notranslate nohighlight">\(1/\sigma^2\)</span> (i.e., the <em>precision</em>) is fixed, and so it too may be dropped, leaving us with the equivalent objective function</p>
+<div class="math notranslate nohighlight" id="equation-lin-reg-mle-objective-eqn">
+<span class="eqno">(11.6)<a class="headerlink" href="#equation-lin-reg-mle-objective-eqn" title="Permalink to this equation">#</a></span>\[
+J(\bbeta,\beta_0) \def - \frac{1}{2}\sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
 \]</div>
-<p>called the <em>negative residual sum of squares</em>. Using this latter objective function, we obtain:</p>
+<p>Using this latter objective function, we obtain:</p>
 <div class="proof theorem admonition" id="theorem-6">
 <p class="admonition-title"><span class="caption-number">Theorem 11.5 </span> (Maximum likelihood estimates for linear regression with known variance)</p>
 <section class="theorem-content" id="proof-content">
@@ -770,32 +772,50 @@ J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \frac
 \btheta = \left(\mathcal{X}^T \mathcal{X}\right)^{-1}\mathcal{X}^T \by.
 \]</div>
 </section>
-</div><p>For the proof, as we noted above, the MLEs may be obtained by maximizing the function</p>
+</div><div class="proof admonition" id="proof">
+<p>Proof. As we noted above, the MLEs may be obtained by maximizing the function <span class="math notranslate nohighlight">\(J(\btheta)\)</span> given in <a class="reference internal" href="#equation-lin-reg-mle-objective-eqn">(11.6)</a>, which may be rewritten as</p>
 <div class="math notranslate nohighlight">
 \[
-\text{NRSS}(\btheta) = - \left( \by - \mathcal{X}\btheta\right)^T\left( \by - \mathcal{X}\btheta\right).
+J(\btheta) = -\frac{1}{2} \left( \by - \mathcal{X}\btheta\right)^T\left( \by - \mathcal{X}\btheta\right).
 \]</div>
 <p>But as you will prove in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-1-solution">suggested problems</a>, taking the gradient gives</p>
 <div class="math notranslate nohighlight">
 \[
-\nabla\text{NRSS}(\btheta) = -2 \left( \by - \mathcal{X}\btheta\right)^T J\left(\by - \mathcal{X}\btheta \right),
+\nabla J(\btheta) = - \left( \by - \mathcal{X}\btheta\right)^T \text{Jac}\left(\by - \mathcal{X}\btheta \right),
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(J\left(\by - \mathcal{X}\btheta \right)\)</span> is the Jacobian matrix of the function</p>
+<p>where <span class="math notranslate nohighlight">\(\text{Jac}\left(\by - \mathcal{X}\btheta \right)\)</span> is the Jacobian matrix of the function</p>
 <div class="math notranslate nohighlight">
 \[
 \bbr^{n+1} \to \bbr^m, \quad \btheta \mapsto \by - \mathcal{X}\btheta.
 \]</div>
-<p>But it is easy to show that <span class="math notranslate nohighlight">\(J\left(\by - \mathcal{X}\btheta \right) = - \mathcal{X}\)</span>, and so</p>
+<p>But it is easy to show that <span class="math notranslate nohighlight">\(\text{Jac}\left(\by - \mathcal{X}\btheta \right) = - \mathcal{X}\)</span>, and so</p>
 <div class="math notranslate nohighlight">
 \[
-\nabla\text{NRSS}(\btheta) = 2 \left( \by - \mathcal{X}\btheta\right)^T \mathcal{X}.
+\nabla J(\btheta) =  \left( \by - \mathcal{X}\btheta\right)^T \mathcal{X}.
 \]</div>
 <p>Setting the gradient to zero and solving gives</p>
 <div class="math notranslate nohighlight">
 \[
 \mathcal{X}^T \mathcal{X} \btheta = \mathcal{X}^T \by,
 \]</div>
-<p>from which the desired equation follows. The only thing that is left to prove is that we have actually obtained a <em>maximizer</em>. This follows from concavity of the negative residual sum of squares function, which you will establish in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-2-solution">suggested problems</a> in the case of simple linear regression (i.e., when <span class="math notranslate nohighlight">\(n=1\)</span>).</p>
+<p>from which the desired equation follows. The only thing that is left to prove is that we have actually obtained a <em>maximizer</em>. This follows from concavity of the objective function <span class="math notranslate nohighlight">\(J(\btheta)\)</span>, which you will establish in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-2-solution">suggested problems</a>. Q.E.D.</p>
+</div>
+<p>Note that the maximizer of the objective function</p>
+<div class="math notranslate nohighlight">
+\[
+J(\bbeta,\beta_0) = - \frac{1}{2} \sum_{i=1}^m \left( y^{(i)} - \mu^{(i)} \right)^2
+\]</div>
+<p>is the same as the minimizer of the objective function</p>
+<div class="math notranslate nohighlight">
+\[
+\text{RSS}(\bbeta, \beta_0) \def \sum_{i=1}^m \left( y^{(i)} - \mu^{(i)} \right)^2,
+\]</div>
+<p>called the <em>residual sum of squares</em>. The name comes about from the terminology introduced in <a class="reference internal" href="models.html#lin-reg-sec"><span class="std std-numref">Section 10.2</span></a>, where we learned that the differences</p>
+<div class="math notranslate nohighlight">
+\[
+y^{(i)} - \mu^{(i)} = y^{(i)} - \beta_0 - \beta_1 x_1^{(i)} - \cdots - \beta_n x_n^{(i)}
+\]</div>
+<p>are called the <em>residuals</em>. Thus, the maximum likelihood parameter estimates are those that minimize the residual sum of squares, which explains why the MLEs are also often called the <em>ordinary least squares</em> (<em>OLS</em>) estimates.</p>
 <p>It is worth writing out the MLEs in the case of simple linear regression:</p>
 <div class="proof corollary admonition" id="corollary-7">
 <p class="admonition-title"><span class="caption-number">Corollary 11.1 </span> (Maximum likelihood estimates for simple linear regression with known variance)</p>
@@ -808,7 +828,8 @@ J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \frac
 \end{align*}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\bar{x} = \frac{1}{m} \sum_{i=1}^m x^{(i)}\)</span> and <span class="math notranslate nohighlight">\(\bar{y} = \frac{1}{m} \sum_{i=1}^m y^{(i)}\)</span> are the empirical means.</p>
 </section>
-</div><p>For the proof, first note that</p>
+</div><div class="proof admonition" id="proof">
+<p>Proof. First note that</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \mathcal{X}^T \mathcal{X} = \begin{bmatrix} m &amp; m \bar{x} \\ m \bar{x} &amp; \sum_{i=1}^m {x^{(i)}}^2 \end{bmatrix}.
@@ -848,7 +869,64 @@ J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \frac
 \[\begin{split}
 \mathcal{X}^T \mathcal{X} \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \mathcal{X}^T \by 
 \end{split}\]</div>
-<p>implies <span class="math notranslate nohighlight">\(m \beta_0  + m \beta_1 \bar{x} = m \bar{y}\)</span>, and so <span class="math notranslate nohighlight">\(\beta_0 = \bar{y} - \beta_1 \bar{x}\)</span>.</p>
+<p>implies <span class="math notranslate nohighlight">\(m \beta_0  + m \beta_1 \bar{x} = m \bar{y}\)</span>, and so <span class="math notranslate nohighlight">\(\beta_0 = \bar{y} - \beta_1 \bar{x}\)</span>. Q.E.D.</p>
+</div>
+<p>To illustrate the concepts, let’s take a simple toy dataset consisting of the three points</p>
+<div class="math notranslate nohighlight">
+\[
+(0, 0), (1, 1), (2, 3) \in \bbr^2.
+\]</div>
+<p>We may use the formulas above to obtain the MLEs for the two parameters <span class="math notranslate nohighlight">\(\beta_0,\beta_1 \in \bbr\)</span>. Plotting the regression line <span class="math notranslate nohighlight">\(y=\beta_0 + \beta_1 x\)</span> along with the data yields the left-hand plot in what follows, while the contours of the objective function <span class="math notranslate nohighlight">\(J(\btheta)\)</span> along with the MLE yield the right-hand plot:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># toy data</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># MLEs for parameters</span>
+<span class="n">beta0</span><span class="p">,</span> <span class="n">beta1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span> <span class="o">/</span> <span class="mi">2</span>
+
+<span class="c1"># define objective function</span>
+<span class="k">def</span> <span class="nf">J</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">X</span> <span class="o">@</span> <span class="n">theta</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="c1"># define grid</span>
+<span class="n">linspace_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">linspace_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">x_grid</span><span class="p">,</span> <span class="n">y_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">linspace_x</span><span class="p">,</span> <span class="n">linspace_y</span><span class="p">)</span>
+<span class="n">contour_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">x_grid</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">y_grid</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">J</span><span class="p">(</span><span class="n">contour_grid</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x_grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># plot</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">beta0</span> <span class="o">+</span> <span class="n">beta1</span> <span class="o">*</span> <span class="n">grid</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_grid</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">blue</span><span class="p">,</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">beta0</span><span class="p">],</span> <span class="p">[</span><span class="n">beta1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">beta_0$&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">beta_1$&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/80137849e1eb05c84a2f10de5859044afe6718ae82690b86ed946c36ed132bdb.svg" src="../_images/80137849e1eb05c84a2f10de5859044afe6718ae82690b86ed946c36ed132bdb.svg" /></figure>
+</div>
+</div>
+<p>You will compute the maximum likelihood estimates for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span> in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-4">suggested problems</a>.</p>
 </section>
 <section id="expectation-maximization-for-gaussian-mixture-models">
 <span id="em-gmm-sec"></span><h2><span class="section-number">11.3. </span>Expectation maximization for Gaussian mixture models<a class="headerlink" href="#expectation-maximization-for-gaussian-mixture-models" title="Permalink to this heading">#</a></h2>
