@@ -838,11 +838,13 @@ Let $p(s)$ be the probability mass function of a discrete probability measure $P
 2. $\sum_{s\in S} p(s) =1$.
 ```
 
+```{prf:proof}
 To see why (1) is true, suppose it were _not_ true, and that there exists a sample point $s\in S$ with $p(s)<0$. Then, the simple event $\\{s\\}$ would have _negative_ probability:
 
 $$P(\{s\}) = p(s) <0.$$
 
-But this cannot happen, and thus we must have $p(s) \geq 0$ for all $s\in S$. To see why (2) is true, observe that it follows immediately from {eq}`disc-eqn` and the fact $P(S)=1$.
+But this cannot happen, and thus we must have $p(s) \geq 0$ for all $s\in S$. To see why (2) is true, observe that it follows immediately from {eq}`disc-eqn` and the fact $P(S)=1$. Q.E.D.
+```
 
 You might be concerned that I did not mention explicitly that $p(s) \leq 1$ (for all $s\in S$). But this inequality is actually a _consequence_ of (1) and (2). Do you see why?
 
@@ -1240,13 +1242,13 @@ In particular:
 
 1. If $P$ is discrete with probability mass function $p(s)$, then
 
-    $$ F(s) = \sum_{t \leq s} p(t), $$ (yuy-eqn)
+    $$ F(s) = \sum_{s^\star \leq s} p(s^\star), $$ (yuy-eqn)
 
-    where the sum ranges over all $t\in \mathbb{R}$ with $t \leq s$.
+    where the sum ranges over all $s^\star\in \mathbb{R}$ with $s^\star \leq s$.
 
 2. If $P$ is continuous with probability density function $f(s)$, then
     
-    $$F(s) = \int_{-\infty}^s f(t) \ \text{d} t.$$
+    $$F(s) = \int_{-\infty}^s f(s^\star) \ \text{d} s^\star.$$
 
 Distribution functions are also frequently called _cumulative distribution functions_ (CDFs).
 ````
@@ -1270,13 +1272,13 @@ plt.gcf().set_size_inches(w=3, h=3)
 plt.tight_layout()
 ```
 
-Now, if $s$ is a number that is less than $2$, then $F(s)=0$, simply because there are no $t\in \mathbb{R}$ less than $2$ with $p(t)\neq 0$; thus, from {eq}`yuy-eqn`, we must have $F(s)=0$. However, we _do_ have
+Now, if $s$ is a number that is less than $2$, then $F(s)=0$, simply because there are no $s^\star\in \mathbb{R}$ less than $2$ with $p(s^\star)\neq 0$; thus, from {eq}`yuy-eqn`, we must have $F(s)=0$. However, we _do_ have
 
-$$F(2) = \sum_{-\infty < t \leq 2} p(t) = p(2) = 0.1.$$
+$$F(2) = \sum_{s^\star \leq 2} p(s^\star) = p(2) = 0.1.$$
 
-Likewise, we have $F(s) = 0.1$ for all $s$ with $2\leq s <3$, because there are no $t\in \mathbb{R}$ with $2<t<3$ and $p(t)\neq 0$. But, as soon as $s=3$, we pick up the term $p(3) = 0.2$ in the sum {eq}`yuy-eqn`, and we get
+Likewise, we have $F(s) = 0.1$ for all $s$ with $2\leq s <3$, because there are no $s^\star\in \mathbb{R}$ with $2<s^\star<3$ and $p(s^\star)\neq 0$. But, as soon as $s=3$, we pick up the term $p(3) = 0.2$ in the sum {eq}`yuy-eqn`, and we get
 
-$$F(3) = \sum_{-\infty < t \leq 3} p(t) = p(2) + p(3) = 0.3.$$
+$$F(3) = \sum_{s^\star \leq 3} p(s^\star) = p(2) + p(3) = 0.3.$$
 
 Do you see how this game is played? If you continue on with this line of reasoning, you will eventually cook up the following expression for the distribution function:
 
@@ -1375,7 +1377,7 @@ plt.tight_layout()
 
 Then, by definition, we have
 
-$$F(s) = \int_{-\infty}^s f(t) \ \text{d} t = \int_1^s \frac{1}{t^2} \ \text{d} t = - \frac{1}{s} + 1 $$
+$$F(s) = \int_{-\infty}^s f(s^\star) \ \text{d} s^\star = \int_1^s \frac{1}{(s^\star)^2} \ \text{d} s^\star = - \frac{1}{s} + 1 $$
 
 provided that $s\geq 1$, while $F(s)=0$ if $s<1$. Thus,
 
@@ -1431,7 +1433,7 @@ Let $F(s)$ be the distribution function of a probability measure $P$ on $\mathbb
 3. $F(s)$ is *right-continuous* at every $s\in \mathbb{R}$, in the sense that
   
   $$
-  F(s) = \lim_{t\to s^+} F(t).
+  F(s) = \lim_{s^\star\to s^+} F(s^\star).
   $$
 
 4. The probability measure $P$ is discrete if and only if $F(s)$ is a step function.
@@ -1473,7 +1475,7 @@ Let $F(s)$ be the distribution function of a probability measure $P$ on $\mathbb
 
 To see why this is _not_ just the standard Fundamental Theorem of Calculus that we learned in elementary calculus, recall that the latter _begins_ with an integrable $f(s)$ and _produces_ the antiderivative $F(s)$ via the formula
 
-$$F(s) = \int_{-\infty}^s f(t) \ \text{d} t.$$
+$$F(s) = \int_{-\infty}^s f(s^\star) \ \text{d} s^\star.$$
 
 _This_ new version of the Fundamental Theorem, however, goes in the opposite direction: It _begins_ with a continuous distribution function $F(s)$ and _produces_ the density function $f(s)$ as the derivative of $F(s)$.
 
@@ -1492,9 +1494,9 @@ Having studied distribution functions, we now study their (almost) inverses:
 
 ```{prf:definition}
 
-Let $P$ be a probability measure on $\mathbb{R}$ with distribution function $F:\mathbb{R} \to [0,1]$. The _quantile function_ $Q: [0,1] \to \mathbb{R}$ is defined so that
+Let $P$ be a probability measure on $\mathbb{R}$ with distribution function $F:\mathbb{R} \to [0,1]$. The _quantile function_ $Q: (0,1] \to \mathbb{R}$ is defined so that
 
-$$Q(p) = \min\{s\in \mathbb{R} : p\leq F(s)\}.$$
+$$Q(p) = \inf\{s\in \mathbb{R} : p\leq F(s)\}.$$
 
 In other words, the value $s=Q(p)$ is the smallest $s\in \mathbb{R}$ such that $p\leq F(s)$.
 
@@ -1503,7 +1505,7 @@ In other words, the value $s=Q(p)$ is the smallest $s\in \mathbb{R}$ such that $
 2. The quantile $Q(0.5)$ is called the *median* of the probability measure $P$.
 ```
 
-It is helpful to remember that a distribution function $F:\mathbb{R} \to [0,1]$ takes real numbers $s\in \mathbb{R}$ as inputs, and returns probabilities $p\in[0,1]$ as outputs. On the other hand, a quantile function $Q:[0,1]\to \mathbb{R}$ goes in the _opposite_ direction: It takes probabilities as $p\in[0,1]$ as inputs, and returns real numbers $s\in \mathbb{R}$ as outputs. Thus:
+It is helpful to remember that a distribution function $F:\mathbb{R} \to [0,1]$ takes real numbers $s\in \mathbb{R}$ as inputs, and returns probabilities $p\in[0,1]$ as outputs. On the other hand, a quantile function $Q:(0,1]\to \mathbb{R}$ goes in the _opposite_ direction: It takes probabilities as $p\in(0,1]$ as inputs, and returns real numbers $s\in \mathbb{R}$ as outputs. Thus:
 
 $$Q(p) = s \quad \text{and} \quad p = F(s).$$ (inv-eqn)
 
