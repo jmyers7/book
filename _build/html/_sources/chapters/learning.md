@@ -208,7 +208,8 @@ Using the data log-likelihood function as the objective, we may easily compute t
 Consider the Bernoulli model described above and suppose that $0 < \Sigma x < m$. The (unique) global maximizer $\theta^\star$ of the data log-likelihood function $\ell(\theta)$ over $\theta \in (0,1)$ is given by $\theta^\star = \Sigma x/m$. Thus, $\theta^\star=\Sigma x/m$ is the maximum likelihood estimate.
 ```
 
-To begin the simple proof, first note that
+```{prf:proof}
+First note that
 
 $$
 \ell(\theta) = \Sigma x \log{\theta} + (m-\Sigma x) \log{(1-\theta)}
@@ -220,7 +221,8 @@ $$
 \ell'(\theta) = \frac{\Sigma x}{\theta} - \frac{m-\Sigma x}{1-\theta},
 $$
 
-and a little algebra yields the solution $\theta = \Sigma x/m$ to the equation $\ell'(\theta)=0$. To confirm that $\theta = \Sigma x/m$ is a global maximizer over $(0,1)$, note that the second derivatives of both $\log{\theta}$ and $\log{(1-\theta)}$ are always negative, and hence $\ell''(\theta)<0$ as well since $\Sigma x$ and $m-\Sigma x$ are positive (this is a manifestation of [concavity](https://en.wikipedia.org/wiki/Concave_function)). Thus, $\theta^\star = \Sigma x/m$ must be the (unique) global maximizer of $\ell(\theta)$.
+and a little algebra yields the solution $\theta = \Sigma x/m$ to the equation $\ell'(\theta)=0$. To confirm that $\theta = \Sigma x/m$ is a global maximizer over $(0,1)$, note that the second derivatives of both $\log{\theta}$ and $\log{(1-\theta)}$ are always negative, and hence $\ell''(\theta)<0$ as well since $\Sigma x$ and $m-\Sigma x$ are positive (this is a manifestation of [concavity](https://en.wikipedia.org/wiki/Concave_function)). Thus, $\theta^\star = \Sigma x/m$ must be the (unique) global maximizer of $\ell(\theta)$. Q.E.D.
+```
 
 Note that the data likelihood function
 
@@ -464,13 +466,13 @@ $$
 (\bbeta,\beta_0) \mapsto - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
 $$
 
-But the scalar $\frac{1}{2\sigma^2}$ is fixed, and so it too may be dropped, leaving us with the equivalent objective function
+But the reciprocal variance $1/\sigma^2$ (i.e., the _precision_) is fixed, and so it too may be dropped, leaving us with the equivalent objective function
 
 $$
-\text{NRSS}(\bbeta,\beta_0) = - \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2
-$$
+J(\bbeta,\beta_0) \def - \frac{1}{2}\sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
+$$ (lin-reg-mle-objective-eqn)
 
-called the _negative residual sum of squares_. Using this latter objective function, we obtain:
+Using this latter objective function, we obtain:
 
 
 ```{prf:theorem} Maximum likelihood estimates for linear regression with known variance
@@ -492,28 +494,29 @@ $$
 $$
 ```
 
-For the proof, as we noted above, the MLEs may be obtained by maximizing the function
+```{prf:proof}
+As we noted above, the MLEs may be obtained by maximizing the function $J(\btheta)$ given in {eq}`lin-reg-mle-objective-eqn`, which may be rewritten as
 
 $$
-\text{NRSS}(\btheta) = - \left( \by - \mathcal{X}\btheta\right)^T\left( \by - \mathcal{X}\btheta\right).
+J(\btheta) = -\frac{1}{2} \left( \by - \mathcal{X}\btheta\right)^T\left( \by - \mathcal{X}\btheta\right).
 $$
 
 But as you will prove in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-1-solution), taking the gradient gives
 
 $$
-\nabla\text{NRSS}(\btheta) = -2 \left( \by - \mathcal{X}\btheta\right)^T J\left(\by - \mathcal{X}\btheta \right),
+\nabla J(\btheta) = - \left( \by - \mathcal{X}\btheta\right)^T \text{Jac}\left(\by - \mathcal{X}\btheta \right),
 $$
 
-where $J\left(\by - \mathcal{X}\btheta \right)$ is the Jacobian matrix of the function
+where $\text{Jac}\left(\by - \mathcal{X}\btheta \right)$ is the Jacobian matrix of the function
 
 $$
 \bbr^{n+1} \to \bbr^m, \quad \btheta \mapsto \by - \mathcal{X}\btheta.
 $$
 
-But it is easy to show that $J\left(\by - \mathcal{X}\btheta \right) = - \mathcal{X}$, and so
+But it is easy to show that $\text{Jac}\left(\by - \mathcal{X}\btheta \right) = - \mathcal{X}$, and so
 
 $$
-\nabla\text{NRSS}(\btheta) = 2 \left( \by - \mathcal{X}\btheta\right)^T \mathcal{X}.
+\nabla J(\btheta) =  \left( \by - \mathcal{X}\btheta\right)^T \mathcal{X}.
 $$
 
 Setting the gradient to zero and solving gives
@@ -522,7 +525,31 @@ $$
 \mathcal{X}^T \mathcal{X} \btheta = \mathcal{X}^T \by,
 $$
 
-from which the desired equation follows. The only thing that is left to prove is that we have actually obtained a _maximizer_. This follows from concavity of the negative residual sum of squares function, which you will establish in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-2-solution) in the case of simple linear regression (i.e., when $n=1$).
+from which the desired equation follows. The only thing that is left to prove is that we have actually obtained a _maximizer_. This follows from concavity of the objective function $J(\btheta)$, which you will establish in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-2-solution). Q.E.D.
+```
+
+
+Note that the maximizer of the objective function
+
+$$
+J(\bbeta,\beta_0) = - \frac{1}{2} \sum_{i=1}^m \left( y^{(i)} - \mu^{(i)} \right)^2
+$$
+
+is the same as the minimizer of the objective function
+
+$$
+\text{RSS}(\bbeta, \beta_0) \def \sum_{i=1}^m \left( y^{(i)} - \mu^{(i)} \right)^2,
+$$
+
+called the _residual sum of squares_. The name comes about from the terminology introduced in {numref}`lin-reg-sec`, where we learned that the differences
+
+$$
+y^{(i)} - \mu^{(i)} = y^{(i)} - \beta_0 - \beta_1 x_1^{(i)} - \cdots - \beta_n x_n^{(i)}
+$$
+
+are called the _residuals_. Thus, the maximum likelihood parameter estimates are those that minimize the residual sum of squares, which explains why the MLEs are also often called the _ordinary least squares_ (_OLS_) estimates.
+
+
 
 It is worth writing out the MLEs in the case of simple linear regression:
 
@@ -538,7 +565,9 @@ Letting the notation be as above, the MLEs for the parameters $\beta_0$ and $\be
 where $\bar{x} = \frac{1}{m} \sum_{i=1}^m x^{(i)}$ and $\bar{y} = \frac{1}{m} \sum_{i=1}^m y^{(i)}$ are the empirical means.
 ```
 
-For the proof, first note that
+```{prf:proof}
+
+First note that
 
 $$
 \mathcal{X}^T \mathcal{X} = \begin{bmatrix} m & m \bar{x} \\ m \bar{x} & \sum_{i=1}^m {x^{(i)}}^2 \end{bmatrix}.
@@ -586,7 +615,60 @@ $$
 \mathcal{X}^T \mathcal{X} \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \mathcal{X}^T \by 
 $$
 
-implies $m \beta_0  + m \beta_1 \bar{x} = m \bar{y}$, and so $\beta_0 = \bar{y} - \beta_1 \bar{x}$.
+implies $m \beta_0  + m \beta_1 \bar{x} = m \bar{y}$, and so $\beta_0 = \bar{y} - \beta_1 \bar{x}$. Q.E.D.
+```
+
+To illustrate the concepts, let's take a simple toy dataset consisting of the three points
+
+$$
+(0, 0), (1, 1), (2, 3) \in \bbr^2.
+$$
+
+We may use the formulas above to obtain the MLEs for the two parameters $\beta_0,\beta_1 \in \bbr$. Plotting the regression line $y=\beta_0 + \beta_1 x$ along with the data yields the left-hand plot in what follows, while the contours of the objective function $J(\btheta)$ along with the MLE yield the right-hand plot:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+# toy data
+X = np.array([[1, 0], [1, 1], [1, 2]])
+y = np.array([0, 1, 3]).reshape(-1, 1)
+
+# MLEs for parameters
+beta0, beta1 = -1 / 6, 3 / 2
+
+# define objective function
+def J(theta, X, y):
+    return -0.5 * np.linalg.norm(y - X @ theta, axis=0) ** 2
+
+# define grid
+linspace_x = np.linspace(-5, 6)
+linspace_y = np.linspace(-4, 5)
+x_grid, y_grid = np.meshgrid(linspace_x, linspace_y)
+contour_grid = np.column_stack((x_grid.reshape(-1, 1), y_grid.reshape(-1, 1))).T
+z = J(contour_grid, X, y).reshape(x_grid.shape)
+
+# plot
+_, axes = plt.subplots(ncols=2, figsize=(9, 3))
+
+grid = np.linspace(0, 2)
+axes[0].scatter(X[:, 1], y, s=30)
+axes[0].plot(grid, beta0 + beta1 * grid, color=magenta)
+axes[0].set_xlabel('$x$')
+axes[0].set_ylabel('$y$')
+
+axes[1].contour(x_grid, y_grid, z, levels=20, colors=blue, linestyles='solid')
+axes[1].scatter([beta0], [beta1], s=50, color=magenta)
+axes[1].set_xlabel('$\\beta_0$')
+axes[1].set_ylabel('$\\beta_1$')
+
+plt.tight_layout()
+```
+
+You will compute the maximum likelihood estimates for the parameters $\beta_0$ and $\beta_1$ in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-4).
+
 
 
 (em-gmm-sec)=
