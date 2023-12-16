@@ -1494,7 +1494,7 @@ Having studied distribution functions, we now study their (almost) inverses:
 
 ```{prf:definition}
 
-Let $P$ be a probability measure on $\mathbb{R}$ with distribution function $F:\mathbb{R} \to [0,1]$. The _quantile function_ $Q: (0,1] \to \mathbb{R}$ is defined so that
+Let $P$ be a probability measure on $\mathbb{R}$ with distribution function $F:\mathbb{R} \to [0,1]$. The _quantile function_ $Q: (0,1) \to \mathbb{R}$ is defined so that
 
 $$Q(p) = \inf\{s\in \mathbb{R} : p\leq F(s)\}.$$
 
@@ -1505,7 +1505,7 @@ In other words, the value $s=Q(p)$ is the smallest $s\in \mathbb{R}$ such that $
 2. The quantile $Q(0.5)$ is called the *median* of the probability measure $P$.
 ```
 
-It is helpful to remember that a distribution function $F:\mathbb{R} \to [0,1]$ takes real numbers $s\in \mathbb{R}$ as inputs, and returns probabilities $p\in[0,1]$ as outputs. On the other hand, a quantile function $Q:(0,1]\to \mathbb{R}$ goes in the _opposite_ direction: It takes probabilities as $p\in(0,1]$ as inputs, and returns real numbers $s\in \mathbb{R}$ as outputs. Thus:
+It is helpful to remember that a distribution function $F:\mathbb{R} \to [0,1]$ takes real numbers $s\in \mathbb{R}$ as inputs, and returns probabilities $p\in[0,1]$ as outputs. On the other hand, a quantile function $Q:(0,1)\to \mathbb{R}$ goes in the _opposite_ direction: It takes probabilities as $p\in(0,1)$ as inputs, and returns real numbers $s\in \mathbb{R}$ as outputs. Thus:
 
 $$Q(p) = s \quad \text{and} \quad p = F(s).$$ (inv-eqn)
 
