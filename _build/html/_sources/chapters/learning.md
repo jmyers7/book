@@ -98,12 +98,14 @@ Thus, it is five orders of magnitude more likely to observe a dataset with $x=7$
 :       align: center
 
 import torch
-from torch.utils.data import DataLoader
-from torch.distributions.multivariate_normal import MultivariateNormal
+from torch.utils.data import DataLoader, TensorDataset
+import torch.nn.functional as F
 import numpy as np
 import seaborn as sns
+import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib_inline.backend_inline
+import matplotlib.colors as clr
 from itertools import product
 import warnings
 plt.style.use('../aux-files/custom_style_light.mplstyle')
@@ -112,13 +114,14 @@ warnings.filterwarnings("ignore")
 blue = '#486AFB'
 magenta = '#FD46FC'
 
+m = 10
+x = 7
+
 def likelihood(theta, x, m):
     return (theta ** x) * ((1 - theta) ** (m - x))
 
-m = 10
-x = 7
-grid = np.linspace(0, 1)
-plt.plot(grid, likelihood(grid, x, m))
+predict_grid = np.linspace(0, 1)
+plt.plot(predict_grid, likelihood(predict_grid, x, m))
 plt.axvline(x=0.7, color=magenta, linestyle='--')
 plt.xlabel('$\\theta$')
 plt.ylabel('likelihood')
@@ -151,7 +154,7 @@ We see from {eq}`likelihood-bern-eqn` that the data likelihood function is a pro
 m = 100
 x = 70
 
-plt.plot(grid, likelihood(grid, x, m))
+plt.plot(predict_grid, likelihood(predict_grid, x, m))
 plt.axvline(x=0.7, color=magenta, linestyle='--')
 plt.xlabel('$\\theta$')
 plt.ylabel('likelihood')
@@ -178,11 +181,11 @@ MLE is the optimization problem with the data likelihood function $\mathcal{L}(\
 def log_likelihood(theta, x, m):
     return x * np.log(theta) + (m - x) * np.log(1 - theta)
 
-grid = np.linspace(0, 1)
+predict_grid = np.linspace(0, 1)
 _, axes = plt.subplots(ncols=2, figsize=(10, 3))
 
-axes[0].plot(grid, likelihood(grid, x, m))
-axes[1].plot(grid, log_likelihood(grid, x, m))
+axes[0].plot(predict_grid, likelihood(predict_grid, x, m))
+axes[1].plot(predict_grid, log_likelihood(predict_grid, x, m))
 axes[0].axvline(x=0.7, color=magenta, linestyle='--')
 axes[1].axvline(x=0.7, color=magenta, linestyle='--')
 axes[0].set_xlabel('$\\theta$')
@@ -427,7 +430,7 @@ In practice, nobody ever maximizes the data likelihood function directly; instea
 
 
 
-## Maximum likelihood estimation for linear regression models
+## MLE for linear regression
 
 Linear regression models have the special property that maximum likelihood estimates may be obtained in _closed form_. To derive them, we shall assume---as many books in statistics and machine learning do---that the variance parameter $\sigma^2$ is a _fixed_, _known_ number and does not need to be learned. You will address the case that $\sigma^2$ is unknown in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-3) for this section.
 
@@ -668,6 +671,356 @@ plt.tight_layout()
 ```
 
 You will compute the maximum likelihood estimates for the parameters $\beta_0$ and $\beta_1$ in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-4).
+
+
+
+
+
+
+
+## MLE for logistic regression
+
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+# import the data
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch10-book-data-01.csv'
+df = pd.read_csv(url)
+
+# plot the data
+g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
+
+# change the default seaborn legend
+g.legend_.set_title(None)
+new_labels = ['class 0', 'class 1']
+for t, l in zip(g.legend_.texts, new_labels):
+    t.set_text(l)
+
+plt.xlabel('$x_1$')
+plt.ylabel('$x_2$')
+plt.xlim(-1.1, 3.1)
+plt.ylim(-32, 42)
+plt.gcf().set_size_inches(w=5, h=4)
+plt.tight_layout()
+```
+
+
+
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+# import scaler from scikit-learn
+from sklearn.preprocessing import StandardScaler
+
+# define the SGD function
+def SGD(parameters, J, X, y, num_epochs, batch_size, lr, tracking, decay=0, max_steps=-1, shuffle=True, random_state=None):
+
+    # define data loader
+    if random_state is not None:
+        torch.manual_seed(random_state)
+    dataset = TensorDataset(X, y)
+    data_loader = DataLoader(dataset=dataset, batch_size=batch_size, shuffle=shuffle)
+    
+    # initialize lists and a dictionary to track objectives and parameters
+    running_objectives = []
+    running_parameters = {name: [] for name in parameters.keys()}
+    step_count = 0
+
+    # begin looping through epochs
+    for t in range(num_epochs):
+        
+        # initialize a list to track per-step objectives. this will only be used if
+        # tracking is set to 'epoch'
+        per_step_objectives = []
+        
+        # begin gradient descent loop
+        for mini_batch in data_loader:
+            
+            # compute objective with current parameters
+            objective = J(*mini_batch, parameters)
+
+            # if we are tracking per gradient step, then add objective value and parameters to the 
+            # running lists. otherwise, we are tracking per epoch, so add the objective value to
+            # the list of per-step objectives
+            if tracking == 'gd_step':
+                running_objectives.append(objective.detach().view(1))
+                for name, parameter in parameters.items():
+                    running_parameters[name].append(parameter.detach().clone())
+            else:
+                per_step_objectives.append(objective.detach().view(1))
+        
+            # compute gradients    
+            objective.backward()
+
+            # take a gradient step and update the parameters
+            with torch.no_grad():
+                for parameter in parameters.values():
+                    g = ((1 - decay) ** (t + 1)) * parameter.grad
+                    parameter -= lr * g
+            
+            # zero out the gradients to prepare for the next iteration
+            for parameter in parameters.values():
+                parameter.grad.zero_()
+
+            # if we hit the maximum number of gradient steps, break out of the inner `for`
+            # loop
+            step_count += 1
+            if step_count == max_steps:
+                break
+        
+        # if we are tracking per epoch, then add the average per-step objective to the
+        # list of running objectives. also, add the current parameters to the list of running
+        # parameters
+        if tracking == 'epoch':
+            per_step_objectives = torch.row_stack(per_step_objectives)
+            running_objectives.append(torch.mean(per_step_objectives))
+            for name, parameter in parameters.items():
+                running_parameters[name].append(parameter.detach().clone())
+        
+        # if we hit the maximum number of gradient steps, break out of the outer `for`
+        # loop
+        if step_count == max_steps:
+            break
+            
+    # output tensors instead of lists
+    #running_parameters = {name: torch.row_stack(l) for name, l in running_parameters.items()}
+    running_objectives = torch.row_stack(running_objectives)
+    
+    return running_parameters, running_objectives
+
+# convert the data to numpy arrays
+X = df[['x_1', 'x_2']].to_numpy()
+y = df['y'].to_numpy()
+
+# scale the input data
+ss = StandardScaler()
+X = ss.fit_transform(X=X)
+
+# convert the data to tensors
+X = torch.tensor(data=X, dtype=torch.float32)
+y = torch.tensor(data=y, dtype=torch.float32).reshape(-1, 1)
+
+# define the objective function for logistic regression
+def J(X, y, parameters):
+    beta = parameters['beta']
+    beta0 = parameters['beta0']
+    phi = torch.sigmoid(X @ beta + beta0)
+    return -1 * torch.mean(y * torch.log(phi) + (1 - y) * torch.log(1 - phi))
+
+# define the logistic regression model
+def model(X, parameters):
+    beta = parameters['beta']
+    beta0 = parameters['beta0']
+    phi = torch.sigmoid(X @ beta + beta0)
+    return (phi >= 0.5).to(torch.int)
+
+# define parameters for SGD
+sgd_parameters = {'num_epochs': [60, 10, 50],
+                  'batch_size': [1024, 8, 1],
+                  'lr': [1, 1e-1, 1e-1],
+                  'decay': [0, 0, 1e-1]}
+
+# define grid for contour plot
+resolution = 1000
+x1_grid = np.linspace(-1, 3, resolution)
+x2_grid = np.linspace(-30, 40, resolution)
+x1_grid, x2_grid = np.meshgrid(x1_grid, x2_grid)
+predict_grid = np.column_stack((x1_grid.reshape((resolution ** 2, -1)), x2_grid.reshape((resolution ** 2, -1))))
+predict_grid = ss.transform(X=predict_grid)
+predict_grid = torch.tensor(data=predict_grid, dtype=torch.float32)
+
+# define color map for contour plot
+cmap = clr.LinearSegmentedColormap.from_list('custom', [blue, magenta], N=2)
+
+# define the figure and subfigures
+fig = plt.figure(constrained_layout=True, figsize=(10, 10))
+subfigs = fig.subfigures(ncols=1, nrows=3)
+
+for i, subfig in enumerate(subfigs):
+
+    # grab SGD parameters
+    sgd_parameters_slice = {name: parameter[i] for name, parameter in sgd_parameters.items()}
+    batch_size = sgd_parameters_slice['batch_size']
+    lr = sgd_parameters_slice['lr']
+    decay = sgd_parameters_slice['decay']
+    subfig.suptitle(f'batch size$={batch_size}$, $\\alpha = {lr}$, $\\gamma = {decay}$')
+
+    # define the axes per row
+    axes = subfig.subplots(ncols=2, nrows=1)
+
+    # initialize the parameters
+    torch.manual_seed(42)
+    beta = torch.normal(mean=0, std=1e-1, size=(2, 1)).requires_grad_(True)
+    beta0 = torch.normal(mean=0, std=1e-1, size=(1,)).requires_grad_(True)
+    parameters = {'beta': beta, 'beta0': beta0}
+
+    # run SGD
+    running_parameters, running_objectives = SGD(parameters=parameters,
+                                                 J=J,
+                                                 X=X,
+                                                 y=y,
+                                                 tracking='epoch',
+                                                 **sgd_parameters_slice)
+
+    # plot the objective function
+    axes[0].plot(range(len(running_objectives)), running_objectives)
+    axes[0].set_xlabel('epochs')
+    axes[0].set_ylabel('objective $J(\\theta)$')
+    
+    # grab the learned parameters
+    learned_parameters = {name: parameter[-1] for name, parameter in running_parameters.items()}
+
+    # apply the fitted model to the grid
+    z = model(X=predict_grid, parameters=learned_parameters)
+
+    # plot the decision boundary and colors
+    z = z.reshape(shape=(resolution, resolution))
+    axes[1].contourf(x1_grid, x2_grid, z, cmap=cmap, alpha=0.45)
+    axes[1].contour(x1_grid, x2_grid, z)
+    axes[1].set_xlabel('$x_1$')
+    axes[1].set_ylabel('$x_2$')
+    axes[1].set_xlim(-1.1, 3.1)
+    axes[1].set_ylim(-32, 42)
+
+    # plot the data
+    g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axes[1])
+
+    # change the default seaborn legend
+    g.legend_.set_title(None)
+    new_labels = ['class 0', 'class 1']
+    for t, l in zip(g.legend_.texts, new_labels):
+        t.set_text(l)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## MLE for neural networks
+
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+# define the objective function for neural network
+def J(X, y, parameters):
+    alpha = parameters['alpha']
+    alpha0 = parameters['alpha0']
+    beta = parameters['beta']
+    beta0 = parameters['beta0']
+    Z = F.relu(X @ alpha + alpha0)
+    phi = torch.sigmoid(Z @ beta + beta0)
+    epsilon = 1e-5
+    phi = torch.clamp(input=phi, min=epsilon, max=1 - epsilon)
+    return -1 * torch.mean(y * torch.log(phi) + (1 - y) * torch.log(1 - phi))
+
+# define the neural network model
+def model(X, parameters):
+    alpha = parameters['alpha']
+    alpha0 = parameters['alpha0']
+    beta = parameters['beta']
+    beta0 = parameters['beta0']
+    Z = F.relu(X @ alpha + alpha0)
+    phi = torch.sigmoid(Z @ beta + beta0)
+    return (phi >= 0.5).to(torch.int)
+
+# define parameters for SGD
+sgd_parameters = {'num_epochs': [750, 40, 25],
+                  'batch_size': [1024, 8, 1],
+                  'lr': [5e-1, 1e-1, 1e-1],
+                  'decay': [0, 0, 1e-1]}
+
+# define the figure and subfigures
+fig = plt.figure(constrained_layout=True, figsize=(10, 10))
+subfigs = fig.subfigures(ncols=1, nrows=3)
+
+for i, subfig in enumerate(subfigs):
+
+    # grab SGD parameters
+    sgd_parameters_slice = {name: parameter[i] for name, parameter in sgd_parameters.items()}
+    batch_size = sgd_parameters_slice['batch_size']
+    lr = sgd_parameters_slice['lr']
+    decay = sgd_parameters_slice['decay']
+    subfig.suptitle(f'batch size$={batch_size}$, $\\alpha = {lr}$, $\\gamma = {decay}$')
+
+    # define the axes per row
+    axes = subfig.subplots(ncols=2, nrows=1)
+
+    # initialize the parameters
+    torch.manual_seed(42)
+    k = 16
+    alpha = torch.normal(mean=0, std=1e-1, size=(2, k)).requires_grad_(True)
+    alpha0 = torch.normal(mean=0, std=1e-1, size=(1, k)).requires_grad_(True)
+    beta = torch.normal(mean=0, std=1e-1, size=(k, 1)).requires_grad_(True)
+    beta0 = torch.normal(mean=0, std=1e-1, size=(1,)).requires_grad_(True)
+    parameters = {'alpha': alpha,
+                  'alpha0': alpha0,
+                  'beta': beta,
+                  'beta0': beta0}
+
+    # run SGD
+    running_parameters, running_objectives = SGD(parameters=parameters,
+                                                 J=J,
+                                                 X=X,
+                                                 y=y,
+                                                 tracking='epoch',
+                                                 **sgd_parameters_slice)
+
+    # plot the objective function
+    axes[0].plot(range(len(running_objectives)), running_objectives)
+    axes[0].set_xlabel('epochs')
+    axes[0].set_ylabel('objective $J(\\theta)$')
+    
+    # grab the learned parameters
+    learned_parameters = {name: parameter[-1] for name, parameter in running_parameters.items()}
+
+    # apply the fitted model to the grid
+    z = model(X=predict_grid, parameters=learned_parameters)
+
+    # plot the decision boundary and colors
+    z = z.reshape(shape=(resolution, resolution))
+    axes[1].contourf(x1_grid, x2_grid, z, cmap=cmap, alpha=0.45)
+    axes[1].contour(x1_grid, x2_grid, z)
+    axes[1].set_xlabel('$x_1$')
+    axes[1].set_ylabel('$x_2$')
+    axes[1].set_xlim(-1.1, 3.1)
+    axes[1].set_ylim(-32, 42)
+
+    # plot the data
+    g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axes[1])
+
+    # change the default seaborn legend
+    g.legend_.set_title(None)
+    new_labels = ['class 0', 'class 1']
+    for t, l in zip(g.legend_.texts, new_labels):
+        t.set_text(l)
+```
+
+
+
+
+
+
 
 
 

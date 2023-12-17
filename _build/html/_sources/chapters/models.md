@@ -261,8 +261,6 @@ where $x^{(i)}$ and $y^{(i)}$ are the size (in square feet) and selling price (i
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 # import all the usual things
 import pandas as pd
@@ -447,8 +445,6 @@ In {numref}`Chapter %s <learning>`, we will learn how to train a linear regressi
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 # get the predictions
 y_hat = lr.predict(X=x)
@@ -480,8 +476,6 @@ for each $i=1,2,\ldots,m$. A scatter plot of one simulated dataset is:
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 # import statsmodels
 import statsmodels.formula.api as smf
@@ -514,8 +508,6 @@ To compare this simulated dataset against the real one, let's compare KDEs:
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 df['indicator'] = 'true data PDF'
 df_gen['indicator'] = 'simulated data PDF'
@@ -526,7 +518,7 @@ g.get_legend().set_title(None)
 sns.move_legend(obj=g, loc='upper left')
 plt.xlim(250, 3000)
 plt.ylim(-50, 450)
-plt.gcf().set_size_inches(w=5, h=5)
+plt.gcf().set_size_inches(w=5, h=4)
 plt.tight_layout()
 ```
 
@@ -582,7 +574,7 @@ $$
     p\big(y \mid \bx ; \ \bbeta, \beta_0\big) = \phi^y (1-\phi)^{1-y}
     $$
 
-    where $\phi = \bx \bbeta + \beta_0$.
+    where $\phi = \sigma(\bx \bbeta + \beta_0)$.
 
 2. Given a dataset
 
@@ -604,11 +596,9 @@ $$
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 # import the data
-url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch11-book-data-01.csv'
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch10-book-data-01.csv'
 df = pd.read_csv(url)
 
 # plot the data
@@ -624,7 +614,7 @@ plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
 plt.xlim(-1.1, 3.1)
 plt.ylim(-32, 42)
-plt.gcf().set_size_inches(w=5, h=5)
+plt.gcf().set_size_inches(w=5, h=4)
 plt.tight_layout()
 ```
 
@@ -633,8 +623,6 @@ plt.tight_layout()
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 # import logistic regression model from scikit-learn
 from sklearn.linear_model import LogisticRegression
@@ -680,7 +668,7 @@ plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
 plt.xlim(-1.1, 3.1)
 plt.ylim(-32, 42)
-plt.gcf().set_size_inches(w=5, h=5)
+plt.gcf().set_size_inches(w=5, h=4)
 plt.tight_layout()
 ```
 
@@ -714,7 +702,7 @@ where $\bX \in \mathbb{R}^{1\times n}$ and $\mathbf{z}\in \mathbb{R}^{1\times k}
 The link function at $\mathbf{z}$ is given by
 
 $$
-\mathbf{z} = \sigma(\mathbf{x}\boldsymbol\alpha + \boldsymbol\alpha_0),
+\mathbf{z} = \rho(\mathbf{x}\boldsymbol\alpha + \boldsymbol\alpha_0),
 $$
 
 while the link function at $Y$ is given by
@@ -762,8 +750,6 @@ $$
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 # import pytorch
 import torch
@@ -815,7 +801,7 @@ plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
 plt.xlim(-1.1, 3.1)
 plt.ylim(-32, 42)
-plt.gcf().set_size_inches(w=5, h=5)
+plt.gcf().set_size_inches(w=5, h=4)
 plt.tight_layout()
 ```
 
@@ -896,14 +882,12 @@ $$
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 # import gaussian mixture model from scikit-learn
 from sklearn.mixture import GaussianMixture
 
 # import data and convert to numpy array
-url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch11-book-data-02.csv'
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch10-book-data-02.csv'
 df = pd.read_csv(url)
 x = df['x'].to_numpy().reshape(-1, 1)
 

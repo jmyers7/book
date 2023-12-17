@@ -30,8 +30,6 @@ This function is called the _objective function_ of the optimization problem. It
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 import torch
 from torch.utils.data import DataLoader
@@ -98,8 +96,6 @@ To understand the intuition for this rule, consider the two cases that the deriv
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 def J_prime(theta):
     return 4 * (theta ** 3) - 18 * (theta ** 2) + 22 * theta - 7
@@ -171,15 +167,9 @@ Let's run the GD algorithm four times, with various settings of the parameters:
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 100%
 
-# implement the GD algorithm in PyTorch
 # define the gradient descent function
-def GD(init_theta, J, num_steps, lr, decay=0):
-    
-    # deep copy the initial parameter start tracking gradients
-    theta = init_theta.clone().requires_grad_(True)
+def GD(theta, J, num_steps, lr, decay=0):
     
     # initialize lists to track objective values and thetas
     running_objectives = []
@@ -187,6 +177,7 @@ def GD(init_theta, J, num_steps, lr, decay=0):
 
     # begin gradient descent loop
     for t in range(num_steps):
+
         # compute objective with current theta
         objective = J(theta)
         
@@ -194,7 +185,7 @@ def GD(init_theta, J, num_steps, lr, decay=0):
         objective.backward()
         
         # append current objective and theta to running lists
-        running_objectives.append(objective.detach())
+        running_objectives.append(objective.detach().view(1))
         running_thetas.append(theta.detach().clone())
         
         # take a step and update the theta
@@ -204,6 +195,10 @@ def GD(init_theta, J, num_steps, lr, decay=0):
 
         # zero out the gradient to prepare for the next iteration
         theta.grad.zero_()
+
+    # output tensors instead of lists
+    running_thetas = torch.row_stack(running_thetas)
+    running_objectives = torch.row_stack(running_objectives)
 
     return running_thetas, running_objectives
 
@@ -216,20 +211,20 @@ for i in range(4):
     axes[idx].plot(grid, J(grid))
 
 # parameters for gradient descent
-gd_parameters = {'init_theta': [torch.tensor([-0.5]), torch.tensor([3.45]), torch.tensor([-0.5]), torch.tensor([3.45])],
+gd_parameters = {'theta': [torch.tensor([-0.5], requires_grad=True), torch.tensor([3.45], requires_grad=True), torch.tensor([-0.5], requires_grad=True), torch.tensor([3.45], requires_grad=True)],
                  'num_steps': [8, 7, 6, 6],
                  'lr': [1e-2, 1e-2, 1e-1, 2e-1]}
 
 # run gradient descent and plot
 for i in range(4):
-    kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
-    running_thetas, running_objectives = GD(**kwargs, J=J)
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    running_parameters, running_objectives = GD(**gd_parameters_slice, J=J)
     idx = axes_idx[i]
-    lr = kwargs['lr']
-    num_steps = kwargs['num_steps'] - 1
-    axes[idx].step(x=running_thetas, y=running_objectives, where='post', color=magenta, zorder=2)
-    axes[idx].scatter(x=running_thetas, y=running_objectives, s=30, color=magenta, zorder=2)
-    axes[idx].scatter(x=running_thetas[0], y=running_objectives[0], s=100, color=magenta, zorder=2)
+    lr = gd_parameters_slice['lr']
+    num_steps = gd_parameters_slice['num_steps'] - 1
+    axes[idx].step(x=running_parameters, y=running_objectives, where='post', color=magenta, zorder=2)
+    axes[idx].scatter(x=running_parameters, y=running_objectives, s=30, color=magenta, zorder=2)
+    axes[idx].scatter(x=running_parameters[0], y=running_objectives[0], s=100, color=magenta, zorder=2)
     axes[idx].set_xlabel(r'$\theta$')
     axes[idx].set_ylabel(r'$J(\theta)$')
     axes[idx].set_title(fr'$\alpha={lr}$, $N={num_steps}$')
@@ -251,20 +246,18 @@ It is possible for the GD algorithm to diverge, especially if the learning rate 
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
-gd_parameters = {'init_theta': torch.tensor([3.5]),
+gd_parameters = {'theta': torch.tensor([3.5], requires_grad=True),
                  'num_steps': 4,
                  'lr': 2e-1,}
 
-running_thetas, running_objectives = GD(**gd_parameters, J=J)
+running_parameters, running_objectives = GD(**gd_parameters, J=J)
 
 grid = torch.linspace(start=-55, end=50, steps=300)
 plt.plot(grid, J(grid))
-plt.step(x=running_thetas, y=running_objectives, where='post', color=magenta, zorder=2)
-plt.scatter(x=running_thetas, y=running_objectives, s=30, color=magenta, zorder=2)
-plt.scatter(x=running_thetas[0], y=running_objectives[0], s=100, color=magenta, zorder=2)
+plt.step(x=running_parameters, y=running_objectives, where='post', color=magenta, zorder=2)
+plt.scatter(x=running_parameters, y=running_objectives, s=30, color=magenta, zorder=2)
+plt.scatter(x=running_parameters[0], y=running_objectives[0], s=100, color=magenta, zorder=2)
 plt.xlabel(r'$\theta$')
 plt.ylabel(r'$J(\theta)$')
 plt.gcf().set_size_inches(w=5, h=3)
@@ -285,27 +278,25 @@ We see already that $J(\theta_3) \approx 10^7$; in fact, we have $J(\theta_t) \t
 * Return $\theta$.
 ```
 
-While there are many ways to shrink the learning rate during gradient descent, the simple version in this implementation multiplies the derivative $J'(\theta_{t-1})$ by a factor $(1-\gamma)^t \in (0,1]$. Setting $\gamma=0$ results in _no_ rate decay. In our diverging example above, setting $\gamma=0.1$ results in:
+While there are many ways to shrink the learning rate during gradient descent, the simple version in this implementation multiplies the derivative $J'(\theta_{t-1})$ by a factor $(1-\gamma)^t \in (0,1]$. Setting $\gamma=0$ results in _no_ rate decay. In our diverging example above, setting $\gamma=0.2$ results in:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
-gd_parameters = {'init_theta': torch.tensor([3.5]),
+gd_parameters = {'theta': torch.tensor([3.5], requires_grad=True),
                  'num_steps': 9,
                  'lr': 2e-1,}
 
-running_thetas, running_objectives = GD(**gd_parameters, J=J, decay=0.1)
+running_parameters, running_objectives = GD(**gd_parameters, J=J, decay=0.1)
 
 grid = torch.linspace(start=-0.5, end=3.5, steps=300)
 plt.plot(grid, J(grid))
-plt.step(x=running_thetas, y=running_objectives, where='post', color=magenta, zorder=2)
-plt.scatter(x=running_thetas, y=running_objectives, s=30, color=magenta, zorder=2)
-plt.scatter(x=running_thetas[0], y=running_objectives[0], s=100, color=magenta, zorder=2)
+plt.step(x=running_parameters, y=running_objectives, where='post', color=magenta, zorder=2)
+plt.scatter(x=running_parameters, y=running_objectives, s=30, color=magenta, zorder=2)
+plt.scatter(x=running_parameters[0], y=running_objectives[0], s=100, color=magenta, zorder=2)
 plt.xlabel(r'$\theta$')
 plt.ylabel(r'$J(\theta)$')
 plt.gcf().set_size_inches(w=5, h=3)
@@ -335,14 +326,12 @@ we would plot the following:
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
-gd_parameters = {'init_theta': torch.tensor([-0.5]),
+gd_parameters = {'theta': torch.tensor([-0.5], requires_grad=True),
                  'num_steps': 15,
                  'lr': 1e-2,}
 
-running_thetas, running_objectives = GD(**gd_parameters, J=J, decay=0.1)
+running_parameters, running_objectives = GD(**gd_parameters, J=J, decay=0.1)
 
 plt.plot(range(len(running_objectives)), running_objectives)
 plt.xlabel('gradient steps')
@@ -448,8 +437,6 @@ as well as a "saddle point" at $(0.5, 0.5)$ where the gradient $\nabla J(\btheta
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 # define the objective function
 def J(theta):
@@ -478,20 +465,8 @@ Let's run the GD algorithm four times beginning with _no_ rate decay, and track 
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 100%
 
-# define the objective function
-def J(theta):
-    theta_1, theta_2 = (theta[:, 0], theta[:, 1]) if theta.ndim == 2 else theta
-    return (theta_1 ** 2 + 10 * theta_2 ** 2) * ((theta_1 - 1) ** 2 + 10 * (theta_2 - 1) ** 2)
-
-# plot contours of objective function
-linspace_x = torch.linspace(start=-0.5, end=1.5, steps=200)
-linspace_y = torch.linspace(start=-0.25, end=1.25, steps=200)
-x, y = torch.meshgrid(linspace_x, linspace_y)
-grid = torch.column_stack(tensors=(x.reshape(-1, 1), y.reshape(-1, 1)))
-z = J(grid).reshape(x.shape)
+# plot the objective function
 axes_idx = list(product(range(2), repeat=2))
 _, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
 for k in range(4):
@@ -499,21 +474,20 @@ for k in range(4):
     axes[idx].contour(x, y, z, levels=range(11), colors=blue, alpha=0.5)
 
 # parameters for gradient descent
-gd_parameters = {'init_theta': [torch.tensor([0.25, 1]), torch.tensor([0.25, 1]), torch.tensor([0.75, 1.2]), torch.tensor([0.5, 0.49])],
+gd_parameters = {'theta': [torch.tensor([0.25, 1], requires_grad=True), torch.tensor([0.25, 1], requires_grad=True), torch.tensor([0.75, 1.2], requires_grad=True), torch.tensor([0.5, 0.49], requires_grad=True)],
                  'num_steps': [21, 21, 21, 21],
                  'lr': [5e-3, 1e-2, 1e-2, 1e-2]}
 
 # run gradient descent and plot
 for i in range(4):
-    kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
-    running_thetas, running_objectives = GD(**kwargs, J=J)
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    running_parameters, running_objectives = GD(**gd_parameters_slice, J=J)
     idx = axes_idx[i]
-    thetas = torch.row_stack(tensors=running_thetas)
-    lr = kwargs['lr']
-    num_steps = kwargs['num_steps'] - 1
-    axes[idx].plot(thetas[:, 0], thetas[:, 1], color=magenta)
-    axes[idx].scatter(thetas[:, 0], thetas[:, 1], s=30, color=magenta, zorder=2)
-    axes[idx].scatter(x=thetas[0, 0], y=thetas[0, 1], s=100, color=magenta, zorder=2)
+    lr = gd_parameters_slice['lr']
+    num_steps = gd_parameters_slice['num_steps'] - 1
+    axes[idx].plot(running_parameters[:, 0], running_parameters[:, 1], color=magenta)
+    axes[idx].scatter(running_parameters[:, 0], running_parameters[:, 1], s=30, color=magenta, zorder=2)
+    axes[idx].scatter(x=running_parameters[0, 0], y=running_parameters[0, 1], s=100, color=magenta, zorder=2)
     axes[idx].set_xlabel(r'$\theta_1$')
     axes[idx].set_ylabel(r'$\theta_2$')
     axes[idx].set_title(fr'$\alpha={lr}$, $\gamma=0$, $N={num_steps}$')
@@ -529,8 +503,6 @@ We may dampen these oscillations and encourage the algorithm to converge by addi
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 100%
 
 # plot the objective function
 axes_idx = list(product(range(2), repeat=2))
@@ -540,21 +512,20 @@ for k in range(4):
     axes[idx].contour(x, y, z, levels=range(11), colors=blue, alpha=0.5)
 
 # parameters for gradient descent
-gd_parameters = {'init_theta': [torch.tensor([0.25, 1]), torch.tensor([0.25, 1]), torch.tensor([0.75, 1.2]), torch.tensor([0.5, 0.49])],
+gd_parameters = {'theta': [torch.tensor([0.25, 1], requires_grad=True), torch.tensor([0.25, 1], requires_grad=True), torch.tensor([0.75, 1.2], requires_grad=True), torch.tensor([0.5, 0.49], requires_grad=True)],
                  'num_steps': [41, 41, 41, 41],
                  'lr': [5e-3, 1e-2, 1e-2, 1e-2]}
 
 # run gradient descent and plot
 for i in range(4):
-    kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
-    running_thetas, running_objectives = GD(**kwargs, J=J, decay=0.05)
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    running_parameters, running_objectives = GD(**gd_parameters_slice, J=J, decay=0.05)
     idx = axes_idx[i]
-    thetas = torch.row_stack(tensors=running_thetas)
-    lr = kwargs['lr']
-    num_steps = kwargs['num_steps'] - 1
-    axes[idx].plot(thetas[:, 0], thetas[:, 1], color=magenta)
-    axes[idx].scatter(thetas[:, 0], thetas[:, 1], s=30, color=magenta, zorder=2)
-    axes[idx].scatter(x=thetas[0, 0], y=thetas[0, 1], s=100, color=magenta, zorder=2)
+    lr = gd_parameters_slice['lr']
+    num_steps = gd_parameters_slice['num_steps'] - 1
+    axes[idx].plot(running_parameters[:, 0], running_parameters[:, 1], color=magenta)
+    axes[idx].scatter(running_parameters[:, 0], running_parameters[:, 1], s=30, color=magenta, zorder=2)
+    axes[idx].scatter(x=running_parameters[0, 0], y=running_parameters[0, 1], s=100, color=magenta, zorder=2)
     axes[idx].set_xlabel(r'$\theta_1$')
     axes[idx].set_ylabel(r'$\theta_2$')
     axes[idx].set_title(fr'$\alpha={lr}$, $\gamma=0.05$, $N={num_steps}$')
@@ -570,11 +541,9 @@ Here are the values of the objective function in all four runs, plotted against 
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 100%
 
 # parameters for gradient descent
-gd_parameters = {'init_theta': [torch.tensor([0.25, 1]), torch.tensor([0.25, 1]), torch.tensor([0.75, 1.2]), torch.tensor([0.5, 0.49])],
+gd_parameters = {'theta': [torch.tensor([0.25, 1], requires_grad=True), torch.tensor([0.25, 1], requires_grad=True), torch.tensor([0.75, 1.2], requires_grad=True), torch.tensor([0.5, 0.49], requires_grad=True)],
                  'num_steps': [41, 41, 41, 41],
                  'lr': [5e-3, 1e-2, 1e-2, 1e-2]}
 
@@ -583,11 +552,11 @@ axes_idx = list(product(range(2), repeat=2))
 _, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
 
 for i in range(4):
-    kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
-    _, running_objectives = GD(**kwargs, J=J, decay=0.05)
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    _, running_objectives = GD(**gd_parameters_slice, J=J, decay=0.05)
     idx = axes_idx[i]
-    lr = kwargs['lr']
-    num_steps = kwargs['num_steps'] - 1
+    lr = gd_parameters_slice['lr']
+    num_steps = gd_parameters_slice['num_steps'] - 1
     axes[idx].plot(range(len(running_objectives)), running_objectives)
     axes[idx].set_xlabel('gradient steps')
     axes[idx].set_ylabel('objective')
@@ -670,8 +639,6 @@ where $\bx,\btheta\in \bbr^2$ and the vertical bars represent the usual Euclidea
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 torch.manual_seed(42)
 dataset = MultivariateNormal(loc=torch.zeros(2), covariance_matrix=torch.eye(2)).sample(sample_shape=(1024,))
@@ -690,14 +657,8 @@ Then, two runs of the batch gradient descent algorithm produce the following plo
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 100%
 
-# implement the SGD algorithm in PyTorch
-def SGD(init_parameters, dataset, J, num_epochs, batch_size, lr, tracking, decay=0, max_steps=-1, shuffle=True, random_state=None, verbose=False):
-    
-    # deep copy the initial parameters into a parameter dictionary and start tracking gradients
-    parameters = {name: parameter.clone().requires_grad_(True) for name, parameter in init_parameters.items()}
+def SGD(parameters, dataset, J, num_epochs, batch_size, lr, tracking, decay=0, max_steps=-1, shuffle=True, random_state=None):
 
     # define data loader
     if random_state is not None:
@@ -706,13 +667,14 @@ def SGD(init_parameters, dataset, J, num_epochs, batch_size, lr, tracking, decay
     
     # initialize lists and a dictionary to track objectives and parameters
     running_objectives = []
-    running_parameters = {name: [parameter.detach().clone()] for name, parameter in parameters.items()}
+    running_parameters = {name: [] for name in parameters.keys()}
     step_count = 0
 
     # begin looping through epochs
     for t in range(num_epochs):
         
-        # initialize a list to track per-step objectives
+        # initialize a list to track per-step objectives. this will only be used if
+        # tracking is set to 'epoch'
         per_step_objectives = []
         
         # begin gradient descent loop
@@ -721,13 +683,15 @@ def SGD(init_parameters, dataset, J, num_epochs, batch_size, lr, tracking, decay
             # compute objective with current parameters
             objective = J(mini_batch, parameters)
 
-            # if we are tracking per gradient step, then add objective value to the 
-            # list of running objectives. otherwise, we are tracking per epoch, so
-            # add the objective value to the list of per-step objectives
+            # if we are tracking per gradient step, then add objective value and parameters to the 
+            # running lists. otherwise, we are tracking per epoch, so add the objective value to
+            # the list of per-step objectives
             if tracking == 'gd_step':
-                running_objectives.append(objective.item())
+                running_objectives.append(objective.detach().view(1))
+                for name, parameter in parameters.items():
+                    running_parameters[name].append(parameter.detach().clone())
             else:
-                per_step_objectives.append(objective.item())
+                per_step_objectives.append(objective.detach().view(1))
         
             # compute gradients    
             objective.backward()
@@ -735,17 +699,12 @@ def SGD(init_parameters, dataset, J, num_epochs, batch_size, lr, tracking, decay
             # take a gradient step and update the parameters
             with torch.no_grad():
                 for parameter in parameters.values():
-                    parameter -= ((1 - decay) ** (t + 1)) * lr * parameter.grad
+                    g = ((1 - decay) ** (t + 1)) * parameter.grad
+                    parameter -= lr * g
             
             # zero out the gradients to prepare for the next iteration
             for parameter in parameters.values():
                 parameter.grad.zero_()
-
-            # if we are tracking per gradient step, then add the new parameters to
-            # the list of running parameters
-            if tracking == 'gd_step':
-                for name in parameters.keys():
-                    running_parameters[name].append(parameters[name].detach().clone())
 
             # if we hit the maximum number of gradient steps, break out of the inner `for`
             # loop
@@ -753,22 +712,24 @@ def SGD(init_parameters, dataset, J, num_epochs, batch_size, lr, tracking, decay
             if step_count == max_steps:
                 break
         
+        # if we are tracking per epoch, then add the average per-step objective to the
+        # list of running objectives. also, add the current parameters to the list of running
+        # parameters
+        if tracking == 'epoch':
+            per_step_objectives = torch.row_stack(per_step_objectives)
+            running_objectives.append(torch.mean(per_step_objectives))
+            for name, parameter in parameters.items():
+                running_parameters[name].append(parameter.detach().clone())
+        
         # if we hit the maximum number of gradient steps, break out of the outer `for`
         # loop
         if step_count == max_steps:
             break
-                
-    # if we are tracking per epoch, then add the average per-step objective to the
-    # list of running objectives. also, add the current parameters to the list of running
-    # parameters
-    if tracking == 'epoch':
-        running_objectives.append(np.mean(per_step_objectives))
-        running_parameters.append([parameter.detach().clone() for parameter in parameters])
-
-    # if we are tracking per epoch and verbose == True, then print out the running objectives
-    if verbose & (tracking == 'epoch'):
-        print(f'epoch {t + 1} of {num_epochs} --- objective: {running_objectives[-1]:.4f}')
-                
+            
+    # output tensors instead of lists
+    running_parameters = {name: torch.row_stack(l) for name, l in running_parameters.items()}
+    running_objectives = torch.row_stack(running_objectives)
+    
     return running_parameters, running_objectives
 
 # define the objective function
@@ -791,7 +752,6 @@ for theta in grid:
 z = torch.row_stack(tensors=z_list).reshape(shape=grid_1.shape)
 
 # gradient descent parameters
-init_parameters = {'theta': torch.tensor([1.5, 1.5])}
 batch_size = len(dataset)
 random_state = 42
 gd_parameters = {'num_epochs': [10, 50],
@@ -801,14 +761,15 @@ objectives_list = []
 
 # run gradient descent
 for i in range(2):
-    kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
-    running_parameters, running_objectives = SGD(init_parameters=init_parameters,
+    parameters = {'theta': torch.tensor([1.5, 1.5], requires_grad=True)}
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    running_parameters, running_objectives = SGD(parameters=parameters,
                                                  dataset=dataset,
                                                  J=J,
                                                  tracking='gd_step',
                                                  batch_size=batch_size,
                                                  random_state=random_state,
-                                                 **kwargs)
+                                                 **gd_parameters_slice)
     parameters_list.append(running_parameters)
     objectives_list.append(running_objectives)
 
@@ -817,8 +778,8 @@ _, axes = plt.subplots(nrows=1, ncols=2, figsize=(7, 3))
 
 for i in range(2):
     objectives = objectives_list[i]
-    kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
-    lr = kwargs['lr']
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    lr = gd_parameters_slice['lr']
     axes[i].plot(range(len(objectives)), objectives)
     axes[i].set_xlabel('gradient steps')
     axes[i].set_ylabel('objective')
@@ -834,20 +795,18 @@ If we track the parameters $\btheta = (\theta_1,\theta_2)$ during the runs, we g
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 100%
 
 _, axes = plt.subplots(nrows=1, ncols=2, figsize=(9, 4.5))
 
 for i in range(2):
-    thetas = torch.row_stack(tensors=parameters_list[i]['theta'])
-    kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
-    lr = kwargs['lr']
-    num_epochs = kwargs['num_epochs']
+    running_parameters = parameters_list[i]['theta']
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    lr = gd_parameters_slice['lr']
+    num_epochs = gd_parameters_slice['num_epochs']
     axes[i].contour(grid_1, grid_2, z, levels=torch.arange(start=0, end=10, step=0.5), colors=blue, alpha=0.5)
-    axes[i].plot(thetas[:, 0], thetas[:, 1], color=magenta)
-    axes[i].scatter(thetas[:, 0], thetas[:, 1], s=30, color=magenta, zorder=2)
-    axes[i].scatter(thetas[0, 0], thetas[0, 1], s=100, color=magenta, zorder=2)
+    axes[i].plot(running_parameters[:, 0], running_parameters[:, 1], color=magenta)
+    axes[i].scatter(running_parameters[:, 0], running_parameters[:, 1], s=30, color=magenta, zorder=2)
+    axes[i].scatter(running_parameters[0, 0], running_parameters[0, 1], s=100, color=magenta, zorder=2)
     axes[i].set_title(fr'$\alpha={lr}$, $\gamma=0$, gradient steps$={num_epochs}$')
     axes[i].set_xlabel(r'$\theta_1$')
     axes[i].set_ylabel(r'$\theta_2$')
@@ -909,11 +868,8 @@ It is possible to select a mini-batch size of $\ell=1$, so that the algorithm co
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 100%
 
 # SGD parameters
-init_parameters = {'theta': torch.tensor([1.5, 1.5])}
 num_epochs = 1
 batch_size = 1
 random_state = 42
@@ -924,26 +880,27 @@ objectives_list = []
 
 # run SGD
 for i in range(4):
-    kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
-    running_parameters, running_objectives = SGD(init_parameters=init_parameters,
+    parameters = {'theta': torch.tensor([1.5, 1.5], requires_grad=True)}
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    running_parameters, running_objectives = SGD(parameters=parameters,
                                                  dataset=dataset,
                                                  J=J,
                                                  tracking='gd_step',
                                                  num_epochs=1,
                                                  batch_size=batch_size,
                                                  random_state=random_state,
-                                                 **kwargs)
+                                                 **gd_parameters_slice)
     parameters_list.append(running_parameters)
     objectives_list.append(running_objectives)
 
 # plot the objective function
-_, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6))
+_, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
 
 for i in range(4):
     idx = axes_idx[i]
     objectives = objectives_list[i]
-    kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
-    lr = kwargs['lr']
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    lr = gd_parameters_slice['lr']
     axes[idx].plot(range(len(objectives)), objectives)
     axes[idx].set_xlabel('gradient steps')
     axes[idx].set_ylabel('objective')
@@ -959,22 +916,20 @@ The plots are very noisy, especially for large numbers of gradient steps. Howeve
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 100%
 
 _, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
 
 for i in range(4):
     idx = axes_idx[i]
-    thetas = torch.row_stack(tensors=parameters_list[i]['theta'])
-    kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
-    lr = kwargs['lr']
-    max_steps = kwargs['max_steps']
+    running_parameters = parameters_list[i]['theta']
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    lr = gd_parameters_slice['lr']
+    max_steps = gd_parameters_slice['max_steps']
     axes[idx].contour(grid_1, grid_2, z, levels=torch.arange(start=0, end=10, step=0.5), colors=blue, alpha=0.5)
-    axes[idx].plot(thetas[:, 0], thetas[:, 1], color=magenta)
-    axes[idx].scatter(thetas[:, 0], thetas[:, 1], s=30, color=magenta, zorder=2)
-    axes[idx].scatter(thetas[0, 0], thetas[0, 1], s=100, color=magenta, zorder=2)
-    axes[idx].set_title(fr'$\alpha={lr}$, $\gamma=0$, gradient steps$={max_steps}$')
+    axes[idx].plot(running_parameters[:, 0], running_parameters[:, 1], color=magenta)
+    axes[idx].scatter(running_parameters[:, 0], running_parameters[:, 1], s=30, color=magenta, zorder=2)
+    axes[idx].scatter(running_parameters[0, 0], running_parameters[0, 1], s=100, color=magenta, zorder=2)
+    axes[idx].set_title(rf'$\alpha={lr}$, $\gamma=0$, gradient steps$={max_steps}$')
     axes[idx].set_xlabel(r'$\theta_1$')
     axes[idx].set_ylabel(r'$\theta_2$')
 
@@ -990,11 +945,8 @@ The traces are very noisy, especially in the first row with the large learning r
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 100%
 
 # mini-batch gradient descent parameters
-init_parameters = {'theta': torch.tensor([1.5, 1.5])}
 random_state = 42
 gd_parameters = {'num_epochs': [1, 1, 1, 2],
                'lr': [1e-1, 1e-1, 1e-1, 1e-1],
@@ -1005,13 +957,14 @@ objectives_list = []
 
 # run mini-batch gradient descent
 for i in range(4):
-    kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
-    running_parameters, running_objectives = SGD(init_parameters=init_parameters,
+    parameters = {'theta': torch.tensor([1.5, 1.5], requires_grad=True)}
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    running_parameters, running_objectives = SGD(parameters=parameters,
                              dataset=dataset,
                              J=J,
                              tracking='gd_step',
                              random_state=random_state,
-                             **kwargs)
+                             **gd_parameters_slice)
     parameters_list.append(running_parameters)
     objectives_list.append(running_objectives)
 
@@ -1021,13 +974,13 @@ _, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
 for i in range(4):
     idx = axes_idx[i]
     objectives = objectives_list[i]
-    kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
-    batch_size = kwargs['batch_size']
-    lr = kwargs['lr']
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    batch_size = gd_parameters_slice['batch_size']
+    lr = gd_parameters_slice['lr']
     axes[idx].plot(range(len(objectives)), objectives)
     axes[idx].set_xlabel('gradient steps')
     axes[idx].set_ylabel('objective')
-    axes[idx].set_title(fr'$\ell={batch_size}$, $\alpha={lr}$, $\gamma=0$')
+    axes[idx].set_title(rf'$\ell={batch_size}$, $\alpha={lr}$, $\gamma=0$')
 
 plt.tight_layout()
 ```
@@ -1039,24 +992,22 @@ Mini-batch GD parameters:
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 100%
 
 _, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
 
 for i in range(4):
     idx = axes_idx[i]
-    thetas = torch.row_stack(tensors=parameters_list[i]['theta'])
-    kwargs = {key: gd_parameters[key][i] for key in gd_parameters.keys()}
-    batch_size = kwargs['batch_size']
-    lr = kwargs['lr']
-    max_steps = kwargs['max_steps']
+    running_parameters = parameters_list[i]['theta']
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    batch_size = gd_parameters_slice['batch_size']
+    lr = gd_parameters_slice['lr']
+    max_steps = gd_parameters_slice['max_steps']
     total_data_points = batch_size * max_steps
     axes[idx].contour(grid_1, grid_2, z, levels=torch.arange(start=0, end=10, step=0.5), colors=blue, alpha=0.5)
-    axes[idx].plot(thetas[:, 0], thetas[:, 1], color=magenta)
-    axes[idx].scatter(thetas[:, 0], thetas[:, 1], color=magenta, zorder=2)
-    axes[idx].scatter(thetas[0, 0], thetas[0, 1], s=100, color=magenta, zorder=2)
-    axes[idx].set_title(fr'$\ell={batch_size}$, $\alpha={lr}$, $\gamma=0$, gradient steps$={max_steps}$')
+    axes[idx].plot(running_parameters[:, 0], running_parameters[:, 1], color=magenta)
+    axes[idx].scatter(running_parameters[:, 0], running_parameters[:, 1], color=magenta, zorder=2)
+    axes[idx].scatter(running_parameters[0, 0], running_parameters[0, 1], s=100, color=magenta, zorder=2)
+    axes[idx].set_title(rf'$\ell={batch_size}$, $\alpha={lr}$, $\gamma=0$, gradient steps$={max_steps}$')
     axes[idx].set_xlabel(r'$\theta_1$')
     axes[idx].set_ylabel(r'$\theta_2$')
 
