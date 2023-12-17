@@ -100,13 +100,16 @@ Thus, it is five orders of magnitude more likely to observe a dataset with $x=7$
 import torch
 from torch.utils.data import DataLoader, TensorDataset
 import torch.nn.functional as F
+from torch.distributions.normal import Normal
+from torch.distributions.bernoulli import Bernoulli
 import numpy as np
+import scipy as sp
 import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib_inline.backend_inline
 import matplotlib.colors as clr
-from itertools import product
+from collections import defaultdict
 import warnings
 plt.style.use('../aux-files/custom_style_light.mplstyle')
 matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
@@ -712,7 +715,7 @@ plt.tight_layout()
 
 
 ```{code-cell} ipython3
-:tags: [hide-input]
+:tags: [hide-input, full-width]
 :mystnb:
 :   figure:
 :       align: center
@@ -721,17 +724,20 @@ plt.tight_layout()
 from sklearn.preprocessing import StandardScaler
 
 # define the SGD function
-def SGD(parameters, J, X, y, num_epochs, batch_size, lr, tracking, decay=0, max_steps=-1, shuffle=True, random_state=None):
+def SGD(parameters, J, X, num_epochs, batch_size, lr, tracking='epoch', y=None, decay=0, max_steps=-1, J_args=None, shuffle=True, random_state=None):
+
+    # if no arguments to the objective are passed, set `J_args` to the empty dictionary
+    J_args = {} if J_args is None else J_args
 
     # define data loader
     if random_state is not None:
         torch.manual_seed(random_state)
-    dataset = TensorDataset(X, y)
+    dataset = TensorDataset(X, y) if y is not None else X
     data_loader = DataLoader(dataset=dataset, batch_size=batch_size, shuffle=shuffle)
     
     # initialize lists and a dictionary to track objectives and parameters
     running_objectives = []
-    running_parameters = {name: [] for name in parameters.keys()}
+    running_parameters = defaultdict(list)
     step_count = 0
 
     # begin looping through epochs
@@ -744,8 +750,12 @@ def SGD(parameters, J, X, y, num_epochs, batch_size, lr, tracking, decay=0, max_
         # begin gradient descent loop
         for mini_batch in data_loader:
             
-            # compute objective with current parameters
-            objective = J(*mini_batch, parameters)
+            # `mini_batch` will be a pair of tensors if `y` is not None; otherwise it will be a single tensor. when
+            # computing the objective, we need to distinguish the case:
+            if y is not None:
+                objective = J(*mini_batch, parameters=parameters, **J_args)
+            else:
+                objective = J(mini_batch, parameters=parameters, **J_args)
 
             # if we are tracking per gradient step, then add objective value and parameters to the 
             # running lists. otherwise, we are tracking per epoch, so add the objective value to
@@ -789,12 +799,8 @@ def SGD(parameters, J, X, y, num_epochs, batch_size, lr, tracking, decay=0, max_
         # loop
         if step_count == max_steps:
             break
-            
-    # output tensors instead of lists
-    #running_parameters = {name: torch.row_stack(l) for name, l in running_parameters.items()}
-    running_objectives = torch.row_stack(running_objectives)
-    
-    return running_parameters, running_objectives
+
+    return dict(running_parameters), running_objectives
 
 # convert the data to numpy arrays
 X = df[['x_1', 'x_2']].to_numpy()
@@ -917,7 +923,7 @@ for i, subfig in enumerate(subfigs):
 
 
 ```{code-cell} ipython3
-:tags: [hide-input]
+:tags: [hide-input, full-width]
 :mystnb:
 :   figure:
 :       align: center
@@ -1026,3 +1032,159 @@ for i, subfig in enumerate(subfigs):
 
 (em-gmm-sec)=
 ## Expectation maximization for Gaussian mixture models
+
+
+```{code-cell} ipython3
+:tags: [hide-input, full-width]
+:mystnb:
+:   figure:
+:       align: center
+
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch10-book-data-02.csv'
+df = pd.read_csv(url)
+X = torch.tensor(data=df['x'], dtype=torch.float32).reshape(-1, 1)
+
+#
+def parameter_transform(parameters):    
+    return_dict = {'mu0': parameters['mu0'],
+                   'mu1': parameters['mu1'],
+                   'sigma0': torch.exp(parameters['sigma0_trans']),
+                   'sigma1': torch.exp(parameters['sigma1_trans']),
+                   'phi': torch.sigmoid(parameters['phi_trans'])}
+    return return_dict
+
+#
+def log_joint(x, z, parameters):
+    mu0, mu1, sigma0, sigma1, phi = parameters.values()
+    mu = z * mu1 + (1 - z) * mu0
+    sigma = z * sigma1 + (1 - z) * sigma0
+    return Normal(loc=mu, scale=sigma).log_prob(x) + Bernoulli(probs=phi).log_prob(z)
+
+def joint(x, z, parameters):
+    return torch.exp(log_joint(x, z, parameters))
+
+def log_marginal(x, parameters):
+    z_zeros = torch.zeros(size=(len(x), 1))
+    z_ones = torch.ones(size=(len(x), 1))
+    return torch.log(joint(x, z_zeros, parameters) + joint(x, z_ones, parameters))
+
+def log_posterior(z, x, parameters):
+    return log_joint(x, z, parameters) - log_marginal(x, parameters)
+
+def posterior(z, x, parameters):
+    return torch.exp(log_posterior(z, x, parameters))
+
+#
+def sample_posterior(X, parameters, size=1, random_state=None):
+    if random_state is not None:
+        torch.manual_seed(42)
+    trans_parameters = parameter_transform(parameters)
+    z_ones = torch.ones(size=(len(X), 1))
+    probs = posterior(z=z_ones, x=X, parameters=trans_parameters)
+    epsilon = 1e-5
+    probs = torch.clamp(input=probs, min=epsilon, max=1 - epsilon)
+    return Bernoulli(probs=probs.squeeze()).sample((size,)).T
+
+def J(X, parameters, sample):
+    trans_parameters = parameter_transform(parameters)
+    return -1 * torch.sum(log_joint(x=X, z=sample, parameters=trans_parameters), dim=0).mean()
+
+# define the EM function
+def EM(parameters, J, X, num_e_steps, sample_fn, sample_size, sgd_parameters, random_state=None):
+    
+    # initialize lists to track objective values and parameters
+    running_objectives = []
+    running_parameters = defaultdict(list)
+
+    # begin loop for e-steps
+    for _ in range(num_e_steps):
+
+        # get a random sample to approximate the expectation
+        sample = sample_fn(parameters=parameters, X=X, size=sample_size, random_state=random_state)
+
+        # define arguments for the objective function to be passed into gradient descent
+        J_args = {'sample': sample}
+
+        # m-step (gradient descent)
+        per_step_parameters, per_step_objectives = SGD(parameters=parameters,
+                                                       J=J,
+                                                       X=X,
+                                                       J_args=J_args,
+                                                       shuffle=False,
+                                                       **sgd_parameters)
+
+        # collect per-e-step objectives and parameters into the running list
+        running_objectives.extend(per_step_objectives)
+        for key in per_step_parameters.keys():
+            running_parameters[key].extend(per_step_parameters[key])
+
+    return dict(running_parameters), running_objectives
+
+# 
+parameters = {'mu0': torch.tensor([-2.], requires_grad=True),
+              'mu1': torch.tensor([7.], requires_grad=True),
+              'sigma0_trans': torch.tensor([0.], requires_grad=True),
+              'sigma1_trans': torch.tensor([0.], requires_grad=True),
+              'phi_trans': torch.tensor([0.], requires_grad=True)}
+em_parameters = {'num_e_steps': 5,
+                 'sample_size': 32,
+                 'random_state': 42}
+sgd_parameters = {'num_epochs': 5,
+                  'batch_size': 1024,
+                  'lr': 1e-3,
+                  'decay': 0}
+
+running_parameters, running_objectives = EM(parameters=parameters,
+                                            J=J,
+                                            X=X,
+                                            sample_fn=sample_posterior,
+                                            sgd_parameters=sgd_parameters,
+                                            **em_parameters)
+
+# the parameters are returned transformed, so we need to transform them back
+transformed_dict = parameter_transform({key: torch.tensor(value) for key, value in running_parameters.items()})
+running_parameters = {key: [parameter for parameter in value] for key, value in transformed_dict.items()}
+
+num_e_steps = em_parameters['num_e_steps']
+num_epochs = sgd_parameters['num_epochs']
+
+blues = sns.color_palette('blend:#D4E1FB,#486AFB', n_colors=num_e_steps * num_epochs)
+magentas = sns.color_palette('blend:#FDD9FC,#FD46FC', n_colors=num_e_steps * num_epochs)
+color_step = 0
+
+_, axes = plt.subplots(nrows=2, ncols=2, figsize=(12, 10))
+grid_0 = np.linspace(-5, 5, num=300)
+grid_1 = np.linspace(0, 11, num=300)
+grid_0_1 = np.linspace(-5, 11, num=300)
+
+for i in range(num_e_steps * num_epochs):
+    mu0 = running_parameters['mu0'][i].item()
+    mu1 = running_parameters['mu1'][i].item()
+    sigma0 = running_parameters['sigma0'][i].item()
+    sigma1 = running_parameters['sigma1'][i].item()
+
+    X_0 = sp.stats.norm(loc=mu0, scale=sigma0)
+    X_1 = sp.stats.norm(loc=mu1, scale=sigma1)
+    
+    axes[0, 0].plot(grid_0, X_0.pdf(grid_0), color=blues.as_hex()[color_step])
+    axes[0, 1].plot(grid_1, X_1.pdf(grid_1), color=magentas.as_hex()[color_step])
+    axes[1, 0].plot(grid_0_1, X_0.pdf(grid_0_1), color=blues.as_hex()[color_step])
+    axes[1, 0].plot(grid_0_1, X_1.pdf(grid_0_1), color=magentas.as_hex()[color_step])
+    color_step += 1
+
+axes[0, 0].set_xlabel('$x$')
+axes[0, 0].set_ylabel('density')
+axes[0, 1].set_xlabel('$x$')
+axes[0, 1].set_ylabel('density')
+axes[1, 0].set_xlabel('$x$')
+axes[1, 0].set_ylabel('density')
+axes[1, 1].plot(range(num_e_steps * num_epochs), -torch.row_stack(running_objectives))
+axes[1, 1].set_xlabel('gradient steps')
+axes[1, 1].set_ylabel('objective')
+
+axes[0, 0].set_title('component 0')
+axes[0, 1].set_title('component 1')
+axes[1, 0].set_title('both components')
+axes[1, 1].set_title('objective function vs. gradient steps')
+plt.tight_layout()
+```
