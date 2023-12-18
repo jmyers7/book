@@ -30,12 +30,12 @@ To introduce _random vectors_, let's return to the housing dataset that we studi
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib as mpl 
+import matplotlib_inline.backend_inline
 import seaborn as sns
 import warnings
 warnings.filterwarnings("ignore")
 plt.style.use('../aux-files/custom_style_light.mplstyle')
-mpl.rcParams['figure.dpi'] = 600
+matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
 
 url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/data-3-1.csv'
 df = pd.read_csv(url, usecols=['area', 'price'])
@@ -57,10 +57,6 @@ We may plot histograms (and KDEs) for the empirical distributions of the dataset
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 100%
-
-
 
 _, axes = plt.subplots(ncols=2, figsize=(10, 4))
 sns.histplot(data=df, x='area', ax=axes[0], ec='black', stat='density', kde=True)
@@ -77,10 +73,9 @@ Whatever information we might glean from these histograms, the information is ab
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 80%
 
 sns.scatterplot(data=df, x='area', y='price')
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
@@ -557,10 +552,9 @@ We saw in the [first section](motivation) that we may visualize bivariate empiri
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 sns.jointplot(data=df, x='area', y='price', marginal_kws={'kde' : True, 'ec': 'black'})
+plt.gcf().set_size_inches(w=5, h=5)
 plt.tight_layout()
 ```
 
@@ -573,8 +567,6 @@ This type of figure makes it very clear how marginal distributions are obtained 
 :mystnb:
 :   figure:
 :       align: center  
-:   image:
-:       width: 70%
 
 df_slice = df[(145 <= df['price']) & (df['price'] <= 155)]
 
@@ -590,6 +582,7 @@ ax2.patches[11].set_facecolor('#FD46FC')
 
 plt.gcf().set_size_inches(4, 4)
 g.set_axis_labels(xlabel='area', ylabel='price')
+plt.gcf().set_size_inches(w=5, h=5)
 plt.tight_layout()
 ```
 
@@ -612,8 +605,6 @@ What about bivariate versions of KDEs and histograms? Answer:
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 100%
 
 _, axes = plt.subplots(ncols=2, figsize=(9, 4), sharey=True, sharex=True)
 
@@ -671,12 +662,10 @@ and its bivariate empirical distribution that we studied in the previous section
 :mystnb:
 :   figure:
 :       align: center  
-:   image:
-:       width: 80%
-
 
 sns.scatterplot(data=df, x='area', y='price', alpha=0.1)
 sns.scatterplot(data=df_slice, x='area', y='price')
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
@@ -687,8 +676,6 @@ Then, after cutting down the range of $y$'s to lie in $B=\{150\}$, we wonder wha
 :mystnb:
 :   figure:
 :       align: center  
-:   image:
-:       width: 70%
 
 
 g = sns.JointGrid()
@@ -698,6 +685,7 @@ sns.histplot(data=df_slice, x='area', ax=g.ax_marg_x, ec='black', color='#FD46FC
 
 g.ax_marg_y.remove()
 g.set_axis_labels(xlabel='area', ylabel='price')
+plt.gcf().set_size_inches(w=5, h=5)
 plt.tight_layout()
 ```
 
@@ -1183,8 +1171,6 @@ Notice that I am abusing the notation somewhat by writing $\theta \sim \mathcal{
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 import scipy as sp
 
@@ -1195,6 +1181,7 @@ plt.plot(theta, Theta.pdf(theta))
 plt.xlabel(r'$\theta$')
 plt.ylabel('probability density')
 plt.suptitle(r'$\theta \sim \mathcal{B}eta(6,2)$')
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
@@ -1246,8 +1233,6 @@ Thus, the "updated" distribution must be of the form $\mathcal{B}eta(x+6,12-x)$,
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 70%
 
 blues = sns.color_palette('blend:#cce8ff,#486afb', n_colors=11)
 

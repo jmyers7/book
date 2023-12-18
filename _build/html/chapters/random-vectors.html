@@ -390,12 +390,12 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span> 
+<span class="kn">import</span> <span class="nn">matplotlib_inline.backend_inline</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">600</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
 
 <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/data-3-1.csv&#39;</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">])</span>
@@ -498,8 +498,7 @@ x_1,x_2,\ldots,x_m \quad \text{and} \quad y_1,y_2,\ldots,y_m.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/9f2ddc4f3ceba2c03fe73c44f96e24f5b2b74a96bb9e8c6fa55a645b0ce3ce7c.png"><img alt="../_images/9f2ddc4f3ceba2c03fe73c44f96e24f5b2b74a96bb9e8c6fa55a645b0ce3ce7c.png" src="../_images/9f2ddc4f3ceba2c03fe73c44f96e24f5b2b74a96bb9e8c6fa55a645b0ce3ce7c.png" style="width: 100%;" /></a>
-</figure>
+<img alt="../_images/feffa178dea2a8f35bcff055b614178cd3bbd3f3d85b23b263299ed5dffdfde4.svg" src="../_images/feffa178dea2a8f35bcff055b614178cd3bbd3f3d85b23b263299ed5dffdfde4.svg" /></figure>
 </div>
 </div>
 <p>Whatever information we might glean from these histograms, the information is about the two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> <em>in isolation</em> from each other. But because we expect that the size of a house and its selling price might be (strongly) related, it might be more informative to study <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> <em>in tandem</em> with each other. One way to do this is via the scatter plots that we produced in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a>:</p>
@@ -511,6 +510,7 @@ x_1,x_2,\ldots,x_m \quad \text{and} \quad y_1,y_2,\ldots,y_m.
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -518,8 +518,7 @@ x_1,x_2,\ldots,x_m \quad \text{and} \quad y_1,y_2,\ldots,y_m.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/e3b032e13569fc3c14fccd3c04b125b16f45e552755e988daa19fa0ca024b6ba.png"><img alt="../_images/e3b032e13569fc3c14fccd3c04b125b16f45e552755e988daa19fa0ca024b6ba.png" src="../_images/e3b032e13569fc3c14fccd3c04b125b16f45e552755e988daa19fa0ca024b6ba.png" style="width: 80%;" /></a>
-</figure>
+<img alt="../_images/5280d89853210394a06b0f2e18fa93d29e20d4b52caa4cb34ae6ac6f3eb16523.svg" src="../_images/5280d89853210394a06b0f2e18fa93d29e20d4b52caa4cb34ae6ac6f3eb16523.svg" /></figure>
 </div>
 </div>
 <p>This plot confirms exactly what we expected! Since the pattern of points generally follows a positively-sloped line, we may conclude that as the size <span class="math notranslate nohighlight">\(X\)</span> of a house increases, so too does its selling price <span class="math notranslate nohighlight">\(Y\)</span>.</p>
@@ -832,6 +831,7 @@ p(x,y) = \frac{\text{number of data points $(x_i,y_i)$ that match $(x,y)$}}{m}.
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">marginal_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;kde&#39;</span> <span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;ec&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -839,8 +839,7 @@ p(x,y) = \frac{\text{number of data points $(x_i,y_i)$ that match $(x,y)$}}{m}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/cb271cb8dbb502ab85526dd441d80a08f1fa2211204e9a10f0c965b2c4deb37a.png"><img alt="../_images/cb271cb8dbb502ab85526dd441d80a08f1fa2211204e9a10f0c965b2c4deb37a.png" src="../_images/cb271cb8dbb502ab85526dd441d80a08f1fa2211204e9a10f0c965b2c4deb37a.png" style="width: 70%;" /></a>
-</figure>
+<img alt="../_images/9b8e3d2ae57a8a0ee8ecfa9e33682aa42776e77db49c238290c4dae60f147729.svg" src="../_images/9b8e3d2ae57a8a0ee8ecfa9e33682aa42776e77db49c238290c4dae60f147729.svg" /></figure>
 </div>
 </div>
 <p>Along the top of the figure we see a histogram (with KDE) of the empirical distribution of the <span class="math notranslate nohighlight">\(x_i\)</span>’s, and along the side we see a histogram (with KDE) of the empirical distribution of the <span class="math notranslate nohighlight">\(y_i\)</span>’s.</p>
@@ -866,6 +865,7 @@ p(x,y) = \frac{\text{number of data points $(x_i,y_i)$ that match $(x,y)$}}{m}.
 
 <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">set_axis_labels</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -873,8 +873,7 @@ p(x,y) = \frac{\text{number of data points $(x_i,y_i)$ that match $(x,y)$}}{m}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/afd5fd488c50c0aa8821e04b8872ff33cff365a9c7a586279a2b28c9e0b4d960.png"><img alt="../_images/afd5fd488c50c0aa8821e04b8872ff33cff365a9c7a586279a2b28c9e0b4d960.png" src="../_images/afd5fd488c50c0aa8821e04b8872ff33cff365a9c7a586279a2b28c9e0b4d960.png" style="width: 70%;" /></a>
-</figure>
+<img alt="../_images/5cbb47e20f5afe6e87b92ff947d05d94d9f6e38a4faa6afde40530e5d1565c75.svg" src="../_images/5cbb47e20f5afe6e87b92ff947d05d94d9f6e38a4faa6afde40530e5d1565c75.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -909,8 +908,7 @@ p_Y(150) = \sum_{x\in \mathbb{R}} p_{XY}(x,150),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ef2f59f706a3bec3204bd22f66d0066eaeac7834560d48bddb57479b978b7dcb.png"><img alt="../_images/ef2f59f706a3bec3204bd22f66d0066eaeac7834560d48bddb57479b978b7dcb.png" src="../_images/ef2f59f706a3bec3204bd22f66d0066eaeac7834560d48bddb57479b978b7dcb.png" style="width: 100%;" /></a>
-</figure>
+<img alt="../_images/e6faa6b9a2d8a844f6df81ab0f5f40fbc0e8781afedc0e85abef6c8aa32fa5dc.svg" src="../_images/e6faa6b9a2d8a844f6df81ab0f5f40fbc0e8781afedc0e85abef6c8aa32fa5dc.svg" /></figure>
 </div>
 </div>
 <p>Even though the density surface for a bivariate empirical distribution is <em>not</em> a continuous surface, if it <em>were</em>, you can imagine that the curves in the KDE on the left are its contours. In other words, these are the curves over which the density surface has constant height. It appears that the density surface has either a global minimum or global maximum near <span class="math notranslate nohighlight">\((1000,125)\)</span>, but we can’t tell which from the KDE alone because the contours are not labeled.</p>
@@ -943,6 +941,7 @@ P(A|B) = \frac{P(A\cap B)}{P(B)},
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_slice</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -950,8 +949,7 @@ P(A|B) = \frac{P(A\cap B)}{P(B)},
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ac5aadae60c08de184a19c8eaadc3f0d2a87958315b05e745d2aa305bb0f823b.png"><img alt="../_images/ac5aadae60c08de184a19c8eaadc3f0d2a87958315b05e745d2aa305bb0f823b.png" src="../_images/ac5aadae60c08de184a19c8eaadc3f0d2a87958315b05e745d2aa305bb0f823b.png" style="width: 80%;" /></a>
-</figure>
+<img alt="../_images/e2c0423b8652f0a584a1ab0d286a21dfda54c650eb1d141fe7aba72859ae9bb4.svg" src="../_images/e2c0423b8652f0a584a1ab0d286a21dfda54c650eb1d141fe7aba72859ae9bb4.svg" /></figure>
 </div>
 </div>
 <p>Then, after cutting down the range of <span class="math notranslate nohighlight">\(y\)</span>’s to lie in <span class="math notranslate nohighlight">\(B=\{150\}\)</span>, we wonder what the distribution over the sizes <span class="math notranslate nohighlight">\(x\)</span> looks like. Answer:</p>
@@ -969,6 +967,7 @@ P(A|B) = \frac{P(A\cap B)}{P(B)},
 
 <span class="n">g</span><span class="o">.</span><span class="n">ax_marg_y</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
 <span class="n">g</span><span class="o">.</span><span class="n">set_axis_labels</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -976,8 +975,7 @@ P(A|B) = \frac{P(A\cap B)}{P(B)},
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/b7bed58827216dc9c337426aa3cbab0dbb466becca9faa667b05c14f382f11a6.png"><img alt="../_images/b7bed58827216dc9c337426aa3cbab0dbb466becca9faa667b05c14f382f11a6.png" src="../_images/b7bed58827216dc9c337426aa3cbab0dbb466becca9faa667b05c14f382f11a6.png" style="width: 70%;" /></a>
-</figure>
+<img alt="../_images/9c672e71424344425f1c56d035c5bc56fd28985b2c57827a09955b5d83e33884.svg" src="../_images/9c672e71424344425f1c56d035c5bc56fd28985b2c57827a09955b5d83e33884.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -1364,6 +1362,7 @@ g_1(\mathbf{X}_1),g_2(\mathbf{X}_2),\ldots,g_m(\mathbf{X}_m)
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta \sim \mathcal</span><span class="si">{B}</span><span class="s1">eta(6,2)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1371,8 +1370,7 @@ g_1(\mathbf{X}_1),g_2(\mathbf{X}_2),\ldots,g_m(\mathbf{X}_m)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/9707ebcc345857dc04854caedacef449a3d203e4c9a5786d22171c44a5e6f8ed.png"><img alt="../_images/9707ebcc345857dc04854caedacef449a3d203e4c9a5786d22171c44a5e6f8ed.png" src="../_images/9707ebcc345857dc04854caedacef449a3d203e4c9a5786d22171c44a5e6f8ed.png" style="width: 70%;" /></a>
-</figure>
+<img alt="../_images/c030da6b02f8e83f85e8a6f51666b0f2545ea294c1717dd75e2ddbfb7bbbaee6.svg" src="../_images/c030da6b02f8e83f85e8a6f51666b0f2545ea294c1717dd75e2ddbfb7bbbaee6.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -1432,8 +1430,7 @@ f(\theta| x_1,\ldots,x_{10}) &amp;= \frac{p(x_1,\ldots,x_{10}|\theta)f(\theta)}{
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/189b3215794f9c147701ce20778453af33eed1bb5d4a96bac21fead43a6c716e.png"><img alt="../_images/189b3215794f9c147701ce20778453af33eed1bb5d4a96bac21fead43a6c716e.png" src="../_images/189b3215794f9c147701ce20778453af33eed1bb5d4a96bac21fead43a6c716e.png" style="width: 70%;" /></a>
-</figure>
+<img alt="../_images/406a7908a5770c3bf09d828d1c6107c28cb5ed7c5af0a20b412e3ef831471ac4.svg" src="../_images/406a7908a5770c3bf09d828d1c6107c28cb5ed7c5af0a20b412e3ef831471ac4.svg" /></figure>
 </div>
 </div>
 <p>Here’s what you should notice: For larger values of <span class="math notranslate nohighlight">\(x\)</span>, the distributions are shifted toward higher values of <span class="math notranslate nohighlight">\(\theta\)</span>, which reflects the fact that many heads suggests <span class="math notranslate nohighlight">\(\theta\)</span> is close to <span class="math notranslate nohighlight">\(1\)</span>. In the other direction, smaller values of <span class="math notranslate nohighlight">\(x\)</span> shift the distributions toward <span class="math notranslate nohighlight">\(0\)</span>.</p>
