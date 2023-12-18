@@ -63,7 +63,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/07-random-vectors';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -498,7 +498,7 @@ x_1,x_2,\ldots,x_m \quad \text{and} \quad y_1,y_2,\ldots,y_m.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/f30d90f2951794c41307b7052d81be8c4d3f03f7e96b7953ef2e995d6c120b01.svg" src="../_images/f30d90f2951794c41307b7052d81be8c4d3f03f7e96b7953ef2e995d6c120b01.svg" /></figure>
+<img alt="../_images/ea9fa2e36ee5d31199a9aa353834e3e2c181b1b2bdd892f52a4b1c891c953111.svg" src="../_images/ea9fa2e36ee5d31199a9aa353834e3e2c181b1b2bdd892f52a4b1c891c953111.svg" /></figure>
 </div>
 </div>
 <p>Whatever information we might glean from these histograms, the information is about the two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> <em>in isolation</em> from each other. But because we expect that the size of a house and its selling price might be (strongly) related, it might be more informative to study <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> <em>in tandem</em> with each other. One way to do this is via the scatter plots that we produced in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a>:</p>
@@ -518,7 +518,7 @@ x_1,x_2,\ldots,x_m \quad \text{and} \quad y_1,y_2,\ldots,y_m.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c19f7596efa92e64a52d96ac5d6b149665d939282c960d3da7aaf62e44d10821.svg" src="../_images/c19f7596efa92e64a52d96ac5d6b149665d939282c960d3da7aaf62e44d10821.svg" /></figure>
+<img alt="../_images/89082430386d92778dd95247fc83532623597a7b274407e0fbd2b0a996e8def9.svg" src="../_images/89082430386d92778dd95247fc83532623597a7b274407e0fbd2b0a996e8def9.svg" /></figure>
 </div>
 </div>
 <p>This plot confirms exactly what we expected! Since the pattern of points generally follows a positively-sloped line, we may conclude that as the size <span class="math notranslate nohighlight">\(X\)</span> of a house increases, so too does its selling price <span class="math notranslate nohighlight">\(Y\)</span>.</p>
@@ -839,7 +839,7 @@ p(x,y) = \frac{\text{number of data points $(x_i,y_i)$ that match $(x,y)$}}{m}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/b6f15767a92c5fb963188e077bf1f807d2bdb48af13c9389ddcbfec4c5f5031e.svg" src="../_images/b6f15767a92c5fb963188e077bf1f807d2bdb48af13c9389ddcbfec4c5f5031e.svg" /></figure>
+<img alt="../_images/08d751ad2d01804f4b8b696636e40bb1282ba62dce1364c40b2a18f629eeb891.svg" src="../_images/08d751ad2d01804f4b8b696636e40bb1282ba62dce1364c40b2a18f629eeb891.svg" /></figure>
 </div>
 </div>
 <p>Along the top of the figure we see a histogram (with KDE) of the empirical distribution of the <span class="math notranslate nohighlight">\(x_i\)</span>’s, and along the side we see a histogram (with KDE) of the empirical distribution of the <span class="math notranslate nohighlight">\(y_i\)</span>’s.</p>
@@ -873,7 +873,7 @@ p(x,y) = \frac{\text{number of data points $(x_i,y_i)$ that match $(x,y)$}}{m}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2071282ca4ef9bcaf021d283e1269a47a21dcc8b229041f835853c704066e38e.svg" src="../_images/2071282ca4ef9bcaf021d283e1269a47a21dcc8b229041f835853c704066e38e.svg" /></figure>
+<img alt="../_images/166458bd99053266f221a66be23d8bf6d38e333506429827ae2b3b0a8d0eede2.svg" src="../_images/166458bd99053266f221a66be23d8bf6d38e333506429827ae2b3b0a8d0eede2.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -908,7 +908,7 @@ p_Y(150) = \sum_{x\in \mathbb{R}} p_{XY}(x,150),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/8ae5724b302d76681796b9b24a1e194b2ae4fac5e123def06d70df34bced7832.svg" src="../_images/8ae5724b302d76681796b9b24a1e194b2ae4fac5e123def06d70df34bced7832.svg" /></figure>
+<img alt="../_images/325bf3dbfa8e2ad87d74e6610b83b333e6b960f14ed13c3fc646e440c8eb3e6a.svg" src="../_images/325bf3dbfa8e2ad87d74e6610b83b333e6b960f14ed13c3fc646e440c8eb3e6a.svg" /></figure>
 </div>
 </div>
 <p>Even though the density surface for a bivariate empirical distribution is <em>not</em> a continuous surface, if it <em>were</em>, you can imagine that the curves in the KDE on the left are its contours. In other words, these are the curves over which the density surface has constant height. It appears that the density surface has either a global minimum or global maximum near <span class="math notranslate nohighlight">\((1000,125)\)</span>, but we can’t tell which from the KDE alone because the contours are not labeled.</p>
@@ -949,7 +949,7 @@ P(A|B) = \frac{P(A\cap B)}{P(B)},
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/cf22ded3172e73fadd7c2a32f4842c2cd505d6795156181ab242786720aa1013.svg" src="../_images/cf22ded3172e73fadd7c2a32f4842c2cd505d6795156181ab242786720aa1013.svg" /></figure>
+<img alt="../_images/6e00fd2eeab9b7c2b7fc305ae49fbfab59dc34063660ec34df190fd7ae270ab5.svg" src="../_images/6e00fd2eeab9b7c2b7fc305ae49fbfab59dc34063660ec34df190fd7ae270ab5.svg" /></figure>
 </div>
 </div>
 <p>Then, after cutting down the range of <span class="math notranslate nohighlight">\(y\)</span>’s to lie in <span class="math notranslate nohighlight">\(B=\{150\}\)</span>, we wonder what the distribution over the sizes <span class="math notranslate nohighlight">\(x\)</span> looks like. Answer:</p>
@@ -975,7 +975,7 @@ P(A|B) = \frac{P(A\cap B)}{P(B)},
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2548de9af5e6a0d8c6d880d64b656cb3a7ff3ab81e9e10fe672e9b548f4508d8.svg" src="../_images/2548de9af5e6a0d8c6d880d64b656cb3a7ff3ab81e9e10fe672e9b548f4508d8.svg" /></figure>
+<img alt="../_images/74e8a15dadc889cd9b85fdf271cb0f4643876f5e7ea485b3f47f63afedf760c3.svg" src="../_images/74e8a15dadc889cd9b85fdf271cb0f4643876f5e7ea485b3f47f63afedf760c3.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -1370,7 +1370,7 @@ g_1(\mathbf{X}_1),g_2(\mathbf{X}_2),\ldots,g_m(\mathbf{X}_m)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c813cc4f0c14a1833bd799ffc5bc9e221b576c83e3c0cbd5e4d84356faa49357.svg" src="../_images/c813cc4f0c14a1833bd799ffc5bc9e221b576c83e3c0cbd5e4d84356faa49357.svg" /></figure>
+<img alt="../_images/ea20123dc284ffdfff8c8c44da9020ad44f0c41960639212c6630115e8b2134d.svg" src="../_images/ea20123dc284ffdfff8c8c44da9020ad44f0c41960639212c6630115e8b2134d.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -1430,7 +1430,7 @@ f(\theta| x_1,\ldots,x_{10}) &amp;= \frac{p(x_1,\ldots,x_{10}|\theta)f(\theta)}{
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ab32033bf5db6e3c6ee3bb8f8b92dbd164632db90f7fcb96f098cf64993ed3a5.svg" src="../_images/ab32033bf5db6e3c6ee3bb8f8b92dbd164632db90f7fcb96f098cf64993ed3a5.svg" /></figure>
+<img alt="../_images/cd5df331d3382691a197928a9c3c6981359fa4051d4f3c81b7a0f5e836d13c23.svg" src="../_images/cd5df331d3382691a197928a9c3c6981359fa4051d4f3c81b7a0f5e836d13c23.svg" /></figure>
 </div>
 </div>
 <p>Here’s what you should notice: For larger values of <span class="math notranslate nohighlight">\(x\)</span>, the distributions are shifted toward higher values of <span class="math notranslate nohighlight">\(\theta\)</span>, which reflects the fact that many heads suggests <span class="math notranslate nohighlight">\(\theta\)</span> is close to <span class="math notranslate nohighlight">\(1\)</span>. In the other direction, smaller values of <span class="math notranslate nohighlight">\(x\)</span> shift the distributions toward <span class="math notranslate nohighlight">\(0\)</span>.</p>

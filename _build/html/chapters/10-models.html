@@ -63,7 +63,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/10-models';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -502,26 +502,26 @@ g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">])</span>
 
 <span class="c1"># pull out the &#39;area&#39; column and &#39;price column from the data and convert them to numpy arrays</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 
 <span class="c1"># instantiate a linear regression model</span>
-<span class="n">lr</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 
 <span class="c1"># train the model</span>
-<span class="n">lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
 
 <span class="c1"># get the learned parameters</span>
-<span class="n">beta</span><span class="p">,</span> <span class="n">beta_0</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="n">lr</span><span class="o">.</span><span class="n">intercept_</span>
+<span class="n">beta</span><span class="p">,</span> <span class="n">beta_0</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span>
 
 <span class="c1"># build a grid for the regression line</span>
-<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">X</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
 
 <span class="c1"># plot the regression line</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">grid</span> <span class="o">+</span> <span class="n">beta_0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">)</span>
 
 <span class="c1"># plot the data</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
@@ -533,7 +533,7 @@ g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/b7175c77f7562903a7e2a331f87e43d7a06a5efec14eca5e11babd9a8015ec17.svg" src="../_images/b7175c77f7562903a7e2a331f87e43d7a06a5efec14eca5e11babd9a8015ec17.svg" /></figure>
+<img alt="../_images/cb1814da1b7331d6cba6a3df46137368fdaacec5c0d904ceca7d076d9f01f13d.svg" src="../_images/cb1814da1b7331d6cba6a3df46137368fdaacec5c0d904ceca7d076d9f01f13d.svg" /></figure>
 </div>
 </div>
 <p>The positively-sloped line is used to visualize the approximate linear relationship <a class="reference internal" href="#equation-approx-linear-eqn">(10.1)</a>. This is a so-called <em>least squares line</em> or <em>regression line</em>; we will learn how to compute them in <a class="reference internal" href="11-learning.html#learning"><span class="std std-numref">Chapter 11</span></a>.</p>
@@ -572,21 +572,21 @@ p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big) = \frac{1}{\sqrt{2\pi \sigma
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\mu = \beta_0 + \bx^T \bbeta\)</span>.</p>
 </section>
-</div><p>The second probability density function is obtained from the plated version of a linear regression model:</p>
+</div><p>The second important probability density function is obtained from the plated version of a linear regression model:</p>
 <a class="reference internal image-reference" href="../_images/lin-reg-00-plated.svg"><img alt="../_images/lin-reg-00-plated.svg" class="align-center" src="../_images/lin-reg-00-plated.svg" width="50%" /></a>
 <p> </p>
-<p>Observations of the visible nodes correspond to an observed dataset</p>
-<div class="math notranslate nohighlight" id="equation-lin-dataset-eqn">
-<span class="eqno">(10.2)<a class="headerlink" href="#equation-lin-dataset-eqn" title="Permalink to this equation">#</a></span>\[
-(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \bbr.
-\]</div>
-<p>Then:</p>
-<div class="proof definition admonition" id="definition-3">
+<p>Observations of the visible nodes correspond to an observed dataset. Then:</p>
+<div class="proof definition admonition" id="lin-reg-data-pf-def">
 <p class="admonition-title"><span class="caption-number">Definition 10.4 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Given an observed dataset <a class="reference internal" href="#equation-lin-dataset-eqn">(10.2)</a>, the <em>data probability function for a linear regression model</em> is the conditional probability density function</p>
+<p>Given an observed dataset</p>
+<div class="math notranslate nohighlight">
+\[
+(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \bbr,
+\]</div>
+<p>the <em>data probability function for a linear regression model</em> is the conditional probability density function</p>
 <div class="math notranslate nohighlight" id="equation-data-pf-eqn">
-<span class="eqno">(10.3)<a class="headerlink" href="#equation-data-pf-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(10.2)<a class="headerlink" href="#equation-data-pf-eqn" title="Permalink to this equation">#</a></span>\[
 p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \beta_0, \bbeta,\sigma^2 \big) = \prod_{i=1}^m p\big(y^{(i)} \mid \bx^{(i)} ; \ \beta_0, \bbeta, \sigma^2\big).
 \]</div>
 </section>
@@ -595,56 +595,56 @@ p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \beta_0, \bbeta,
 \[
 (\bX^{(1)},Y^{(1)}),\ldots,(\bX^{(m)}, Y^{(m)}),
 \]</div>
-<p>one may actually <em>prove</em> that the left-hand side of <a class="reference internal" href="#equation-data-pf-eqn">(10.3)</a> is equal to the product on the right-hand side; see the <span class="xref myst">suggested problems</span> for this section.</p>
+<p>one may actually <em>prove</em> that the left-hand side of <a class="reference internal" href="#equation-data-pf-eqn">(10.2)</a> is equal to the product on the right-hand side; see the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/10-2-suggested-problems.md#problem-1-solution">suggested problems</a> for this section.</p>
 <p>The components of the vector <span class="math notranslate nohighlight">\(\bX\)</span> are referred to as <em>predictors</em>, <em>regressors</em>, <em>explanatory variables</em>, or <em>independent variables</em>, while the random variable <span class="math notranslate nohighlight">\(Y\)</span> is called the <em>response variable</em> or the <em>dependent variable</em>. In the case that <span class="math notranslate nohighlight">\(n=1\)</span>, the model is called a <em>simple linear regression model</em>; otherwise, it is called a <em>multiple linear regression model</em>.</p>
 <p>Note that</p>
 <div class="math notranslate nohighlight">
 \[
-E\big(Y \mid \bX = \bx \big) = \mu = \bx \bbeta + \beta_0,
+E\big(Y \mid \bX = \bx \big) = \mu = \beta_0 + \bx^T \bbeta,
 \]</div>
 <p>and so a linear regression model assumes (among other things) that the conditional mean of the response variable is linearly related to the regressors through the link function</p>
 <div class="math notranslate nohighlight" id="equation-lin-reg-line-eqn">
-<span class="eqno">(10.4)<a class="headerlink" href="#equation-lin-reg-line-eqn" title="Permalink to this equation">#</a></span>\[
-\mu = \bx \bbeta + \beta_0.
+<span class="eqno">(10.3)<a class="headerlink" href="#equation-lin-reg-line-eqn" title="Permalink to this equation">#</a></span>\[
+\mu = \beta_0 + \bx^T \bbeta.
 \]</div>
-<p>The parameter <span class="math notranslate nohighlight">\(\beta_0\)</span> is often called the <em>intercept</em> or <em>bias term</em>, while the other <span class="math notranslate nohighlight">\(\beta_j\)</span>’s (for <span class="math notranslate nohighlight">\(j&gt;0\)</span>) are called <em>slope coefficients</em> since they are exactly the (infinitesimal) slopes:</p>
+<p>The parameter <span class="math notranslate nohighlight">\(\beta_0\)</span> is often called the <em>intercept</em> or <em>bias term</em>, while the other <span class="math notranslate nohighlight">\(\beta_j\)</span>’s (for <span class="math notranslate nohighlight">\(j&gt;0\)</span>) are called <em>weights</em> or <em>slope coefficients</em> since they are exactly the (infinitesimal) slopes:</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{\partial \mu}{\partial x_j} = \beta_j.
 \]</div>
-<p>The random vector</p>
+<p>The random variable</p>
 <div class="math notranslate nohighlight">
 \[
-\dev \stackrel{\text{def}}{=} Y - \bX\bbeta - \beta_0
+\dev \stackrel{\text{def}}{=} Y - \beta_0 - \bX^T\bbeta
 \]</div>
 <p>in a linear regression model is called the <em>error term</em>; note then that</p>
 <div class="math notranslate nohighlight" id="equation-random-lin-rel-eqn">
-<span class="eqno">(10.5)<a class="headerlink" href="#equation-random-lin-rel-eqn" title="Permalink to this equation">#</a></span>\[
-Y = \bX\bbeta + \beta_0 + \dev \quad \text{and} \quad \dev \sim \mathcal{N}(0, \sigma^2).
+<span class="eqno">(10.4)<a class="headerlink" href="#equation-random-lin-rel-eqn" title="Permalink to this equation">#</a></span>\[
+Y = \beta_0 + \bX^T\bbeta + \dev \quad \text{and} \quad \dev \sim \mathcal{N}(0, \sigma^2).
 \]</div>
 <p>This is the manifestation in terms of random vectors and variables of the approximate linear relationship <a class="reference internal" href="#equation-approx-linear-eqn">(10.1)</a> described at the beginning of this section.</p>
-<p>Suppose we are given a dataset</p>
+<p>Suppose we are given an observed dataset</p>
 <div class="math notranslate nohighlight">
 \[
-(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr.
+(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \bbr.
 \]</div>
 <p>If for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>, we define the <em>predicted values</em></p>
 <div class="math notranslate nohighlight">
 \[
-\hat{y}^{(i)} = \bx^{(i)}\bbeta + \beta_0
+\hat{y}^{(i)} = \beta_0 + \bx^{(i)T}\bbeta
 \]</div>
 <p>and the <em>residuals</em></p>
 <div class="math notranslate nohighlight">
 \[
 \dev^{(i)} = y^{(i)} - \hat{y}^{(i)},
 \]</div>
-<p>then from <a class="reference internal" href="#equation-random-lin-rel-eqn">(10.5)</a> we get</p>
+<p>then from <a class="reference internal" href="#equation-random-lin-rel-eqn">(10.4)</a> we get</p>
 <div class="math notranslate nohighlight">
 \[
-y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
+y^{(i)} = \beta_0 + \bx^{(i)T} \bbeta + \dev^{(i)}.
 \]</div>
 <p>This shows that the residuals <span class="math notranslate nohighlight">\(\dev^{(i)}\)</span> are observations of the error term <span class="math notranslate nohighlight">\(\dev \sim \mathcal{N}(0,\sigma^2)\)</span>. Thus, in a linear regression model, all residuals from a dataset are assumed to be modeled by a normal distribution with mean <span class="math notranslate nohighlight">\(0\)</span> and a <em>fixed</em> variance; the fixed-variance assumption is sometimes called <em>homoscedasticity</em>.</p>
-<p>In <a class="reference internal" href="11-learning.html#learning"><span class="std std-numref">Chapter 11</span></a>, we will learn how to train a linear regression model on a dataset to obtain optimal values of the parameters <span class="math notranslate nohighlight">\(\bbeta\)</span> and <span class="math notranslate nohighlight">\(\beta_0\)</span>. Using these training methods, we obtained values of the parameters for the Ames housing dataset mentioned at the beginning of this section; the positively-sloped line in the scatter plot was the line traced out by the link function <span class="math notranslate nohighlight">\(\mu =  \beta x + \beta_0\)</span>. The predicted values <span class="math notranslate nohighlight">\(\hat{y}^{(i)}\)</span> lie along this line, and the magnitude of the residual <span class="math notranslate nohighlight">\(\dev^{(i)}\)</span> may be visualized as the vertical distance from the true data point <span class="math notranslate nohighlight">\(y^{(i)}\)</span> to this line. We may plot the residuals <span class="math notranslate nohighlight">\(\dev^{(i)}\)</span> against the predictor variables <span class="math notranslate nohighlight">\(x^{(i)}\)</span> to get:</p>
+<p>In <a class="reference internal" href="11-learning.html#learning"><span class="std std-numref">Chapter 11</span></a>, we will learn how to train a linear regression model on a dataset to obtain optimal values of the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span>. Using these training methods, we obtained values for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta = \beta_1\)</span> for the Ames housing dataset mentioned at the beginning of this section. The positively-sloped line in the scatter plot was the line traced out by the link function <span class="math notranslate nohighlight">\(\mu = \beta_0 + \beta_1 x \)</span>. The predicted values <span class="math notranslate nohighlight">\(\hat{y}^{(i)}\)</span> lie along this line, and the magnitude of the residual <span class="math notranslate nohighlight">\(\dev^{(i)}\)</span> may be visualized as the vertical distance from the true data point <span class="math notranslate nohighlight">\(y^{(i)}\)</span> to this line. We may plot the residuals <span class="math notranslate nohighlight">\(\dev^{(i)}\)</span> against the predictor variables <span class="math notranslate nohighlight">\(x^{(i)}\)</span> to get:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -653,13 +653,13 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get the predictions</span>
-<span class="n">y_hat</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y_hat</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">)</span>
 
 <span class="c1"># get the residuals</span>
 <span class="n">resid</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_hat</span>
 
 <span class="c1"># plot the residuals vs. area</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">resid</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">resid</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.20</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;residuals&#39;</span><span class="p">)</span>
@@ -671,11 +671,11 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/8b65ca630922c7dbb9eda79714ce9d8bc24f275a9f07393791180c2b9f7cf71c.svg" src="../_images/8b65ca630922c7dbb9eda79714ce9d8bc24f275a9f07393791180c2b9f7cf71c.svg" /></figure>
+<img alt="../_images/fbd2130b8fe06eb1c7d50336784053d44ca035a725aefb91507d522a6f71c1e2.svg" src="../_images/fbd2130b8fe06eb1c7d50336784053d44ca035a725aefb91507d522a6f71c1e2.svg" /></figure>
 </div>
 </div>
 <p>It is evident from this plot that the homoscedasticity assumption is violated since the distributions of the residuals appear to widen as the area variable increases.</p>
-<p>As with the parameters <span class="math notranslate nohighlight">\(\beta\)</span> and <span class="math notranslate nohighlight">\(\beta_0\)</span>, it is also possible to learn an optimal value of the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>. As another method of model checking, given all the parameters <span class="math notranslate nohighlight">\(\beta\)</span>, <span class="math notranslate nohighlight">\(\beta_0\)</span>, and <span class="math notranslate nohighlight">\(\sigma^2\)</span>, we may generate a new dataset by sampling from the normal distributions</p>
+<p>As with the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span>, it is also possible to learn an optimal value of the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>. As another method of model checking, given all the learned parameters <span class="math notranslate nohighlight">\(\beta_0\)</span>, <span class="math notranslate nohighlight">\(\beta_1\)</span>, and <span class="math notranslate nohighlight">\(\sigma^2\)</span> for the Ames dataset, we may generate a new dataset by sampling from the normal distributions</p>
 <div class="math notranslate nohighlight">
 \[
 \mathcal{N}\big(\hat{y}^{(i)}, \sigma^2\big)
@@ -692,10 +692,10 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 <span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
 
 <span class="c1"># instantiate and train a linear regression model from statsmodels</span>
-<span class="n">lr</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s1">&#39;price ~ area&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s1">&#39;price ~ area&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 
 <span class="c1"># get the learned standard deviation</span>
-<span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">lr</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
 
 <span class="c1"># generate the dataset</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
@@ -716,7 +716,7 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/5dfd4382bf34af834b4638e9759b0cd659998a23efce15b194b961b21c2941e2.svg" src="../_images/5dfd4382bf34af834b4638e9759b0cd659998a23efce15b194b961b21c2941e2.svg" /></figure>
+<img alt="../_images/ad1666d4c4990f9e1840d49c5ba3f0ee27a9029a187a58a466e0ffc541fd7328.svg" src="../_images/ad1666d4c4990f9e1840d49c5ba3f0ee27a9029a187a58a466e0ffc541fd7328.svg" /></figure>
 </div>
 </div>
 <p>To compare this simulated dataset against the real one, let’s compare KDEs:</p>
@@ -744,60 +744,21 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/22a4dd707ad30744efe8349a017b52205e6e281828eb21bd6d70e887b2c04992.svg" src="../_images/22a4dd707ad30744efe8349a017b52205e6e281828eb21bd6d70e887b2c04992.svg" /></figure>
+<img alt="../_images/6d77bb7de5c2aad051ccd47026b907c48a6e10710c9ee334b890dc7b24adfd60.svg" src="../_images/6d77bb7de5c2aad051ccd47026b907c48a6e10710c9ee334b890dc7b24adfd60.svg" /></figure>
 </div>
 </div>
 <p>For smaller values of area, the distribution of the true prices is narrower compared to the simulated prices, while for larger values of area, the distribution of the true prices is wider.</p>
 </section>
 <section id="logistic-regression-models">
 <span id="log-reg-sec"></span><h2><span class="section-number">10.3. </span>Logistic regression models<a class="headerlink" href="#logistic-regression-models" title="Permalink to this heading">#</a></h2>
-<div class="proof definition admonition" id="definition-4">
-<p class="admonition-title"><span class="caption-number">Definition 10.5 </span></p>
-<section class="definition-content" id="proof-content">
-<p>A <em>logistic regression model</em> is a probabilistic graphical model whose underlying graph is of the form</p>
-<a class="reference internal image-reference" href="../_images/log-reg-00.svg"><img alt="../_images/log-reg-00.svg" class="align-center" src="../_images/log-reg-00.svg" width="50%" /></a>
-<p> </p>
-<p>where <span class="math notranslate nohighlight">\(\bX\in \mathbb{R}^{1\times n}\)</span>. The model has the following parameters:</p>
-<ul class="simple">
-<li><p>A parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\beta \in \mathbb{R}^{n\times 1}\)</span>.</p></li>
-<li><p>A real parameter <span class="math notranslate nohighlight">\(\beta_0\in \mathbb{R}\)</span>.</p></li>
-</ul>
-<p>The link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by</p>
+<p>The types of models studied in this section are closely related to the linear regression models in the previous, but here the goal is to model a dataset of the form</p>
 <div class="math notranslate nohighlight">
 \[
-\phi = \sigma(\bx\bbeta + \beta_0), \quad \text{where} \quad Y \mid \bX; \ \bbeta,\beta_0 \sim \mathcal{B}er(\phi).
+(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \{0,1\}.
 \]</div>
-</section>
-</div><div class="proof definition admonition" id="definition-5">
-<p class="admonition-title"><span class="caption-number">Definition 10.6 </span></p>
-<section class="definition-content" id="proof-content">
-<ol class="arabic">
-<li><p>The <em>model conditional probability function for a logistic regression model</em> is the conditional probability density function</p>
-<div class="math notranslate nohighlight">
-\[
-    p\big(y \mid \bx ; \ \bbeta, \beta_0\big).
-    \]</div>
-<p>On its support consisting of all <span class="math notranslate nohighlight">\(y\in \{0,1\}\)</span> and <span class="math notranslate nohighlight">\(\bx \in \bbr^{1\times n}\)</span>, it is given by the formula</p>
-<div class="math notranslate nohighlight">
-\[
-    p\big(y \mid \bx ; \ \bbeta, \beta_0\big) = \phi^y (1-\phi)^{1-y}
-    \]</div>
-<p>where <span class="math notranslate nohighlight">\(\phi = \sigma(\bx \bbeta + \beta_0)\)</span>.</p>
-</li>
-<li><p>Given a dataset</p>
-<div class="math notranslate nohighlight">
-\[
-    (\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \{0,1\},
-    \]</div>
-<p>the <em>data conditional probability function for a logistic regression model</em> is the conditional probability density function</p>
-<div class="math notranslate nohighlight">
-\[
-    p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \bbeta, \beta_0\big) = \prod_{i=1}^m p\big(y^{(i)} \mid \bx^{(i)} ; \ \bbeta, \beta_0\big).
-    \]</div>
-</li>
-</ol>
-</section>
-</div><div class="cell tag_hide-input docutils container">
+<p>Such datasets arise naturally in <em>binary classification problems</em>, where we aim to determine which of two classes a given object lies in based on predictor features. The true class of the <span class="math notranslate nohighlight">\(i\)</span>-th object is indicated by the value of <span class="math notranslate nohighlight">\(y^{(i)}\)</span>, while the vector <span class="math notranslate nohighlight">\(\bx^{(i)}\)</span> consists of the predictor features.</p>
+<p>As a running example through this and the next section, consider the following scatter plot:</p>
+<div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
 <span class="collapsed">Show code cell source</span>
@@ -821,7 +782,7 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">32</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -829,9 +790,190 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/37b9b49b49bc7374e88d381ef85ea0ae5e7e4124c76ae9f5ec632ccb5c3eb566.svg" src="../_images/37b9b49b49bc7374e88d381ef85ea0ae5e7e4124c76ae9f5ec632ccb5c3eb566.svg" /></figure>
+<img alt="../_images/6fff42680645f3c3b2fbbe254687da7de8f7781be740813ab8d520b232619e50.svg" src="../_images/6fff42680645f3c3b2fbbe254687da7de8f7781be740813ab8d520b232619e50.svg" /></figure>
 </div>
 </div>
+<p>The points represent the <span class="math notranslate nohighlight">\(2\)</span>-dimensional predictors <span class="math notranslate nohighlight">\(\bx^{(i)} = (x^{(i)}_1, x^{(i)}_2)\)</span>, while the color indicates the class <span class="math notranslate nohighlight">\(y^{(i)} \in \{0,1\}\)</span>. Our goal in this section is to capture the evident pattern in the data using a <em>logistic regression model</em>.</p>
+<p>To define these models, we first need to discuss the important <em>sigmoid function</em>, defined as</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma: \bbr \to (0,1), \quad \sigma(z) = \frac{1}{1+e^{-z}}.
+\]</div>
+<p>Its graph is:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+
+<span class="n">grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">grid</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$z$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\sigma(z)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/3ca92d52f30e91a4289505c41d54e09e7ed620fcf95b3a989873c476f639cefa.svg" src="../_images/3ca92d52f30e91a4289505c41d54e09e7ed620fcf95b3a989873c476f639cefa.svg" /></figure>
+</div>
+</div>
+<p>Since the outputs of the sigmoid function land in the open interval <span class="math notranslate nohighlight">\((0,1)\)</span>, we may use it to convert <em>any</em> real number into a <em>probability</em>. Indeed, this is precisely its role in a <em>logistic regression model</em>:</p>
+<div class="proof definition admonition" id="definition-4">
+<p class="admonition-title"><span class="caption-number">Definition 10.5 </span></p>
+<section class="definition-content" id="proof-content">
+<p>A <em>logistic regression model</em> is a probabilistic graphical model whose underlying graph is of the form</p>
+<a class="reference internal image-reference" href="../_images/log-reg-00.svg"><img alt="../_images/log-reg-00.svg" class="align-center" src="../_images/log-reg-00.svg" width="50%" /></a>
+<p> </p>
+<p>where <span class="math notranslate nohighlight">\(\bX\)</span> is <span class="math notranslate nohighlight">\(n\)</span>-dimensional. The model has the following parameters:</p>
+<ul class="simple">
+<li><p>A real parameter <span class="math notranslate nohighlight">\(\beta_0\in \mathbb{R}\)</span>.</p></li>
+<li><p>A parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\beta \in \mathbb{R}^{n}\)</span>.</p></li>
+</ul>
+<p>The link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[
+\phi = \sigma(\beta_0 + \bx^T\bbeta), \quad \text{where} \quad Y \mid \bX; \ \beta_0,\bbeta \sim \mathcal{B}er(\phi),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma\)</span> is the sigmoid function.</p>
+</section>
+</div><p>Notice that the link function <span class="math notranslate nohighlight">\(\phi = \sigma(\beta_0 + \bx^T\bbeta)\)</span> is precisely the affine link function <span class="math notranslate nohighlight">\(\mu = \beta_0 + \bx^T\bbeta\)</span> of a linear regression model composed with the sigmoid function.</p>
+<p>The two probability functions that we will use to train logistic regression models in the <a class="reference internal" href="11-learning.html#learning"><span class="std std-ref">next chapter</span></a> are given as follows. For the first:</p>
+<div class="proof definition admonition" id="definition-5">
+<p class="admonition-title"><span class="caption-number">Definition 10.6 </span></p>
+<section class="definition-content" id="proof-content">
+<p>The <em>model probability function for a logistic regression model</em> is the conditional probability density function</p>
+<div class="math notranslate nohighlight">
+\[
+p\big(y \mid \bx ; \ \bbeta, \beta_0\big).
+\]</div>
+<p>On its support consisting of all <span class="math notranslate nohighlight">\(y\in \{0,1\}\)</span> and <span class="math notranslate nohighlight">\(\bx \in \bbr^{n}\)</span>, it is given by the formula</p>
+<div class="math notranslate nohighlight">
+\[
+p\big(y \mid \bx ; \ \bbeta, \beta_0\big) = \phi^y (1-\phi)^{1-y}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\phi = \sigma(\bx \bbeta + \beta_0)\)</span>.</p>
+</section>
+</div><p>As with linear regression models, the second probability function is obtained from the plated version of a logistic regression model:</p>
+<a class="reference internal image-reference" href="../_images/log-reg-00-plated.svg"><img alt="../_images/log-reg-00-plated.svg" class="align-center" src="../_images/log-reg-00-plated.svg" width="50%" /></a>
+<p> </p>
+<p>Then:</p>
+<div class="proof definition admonition" id="logreg-data-pf-def">
+<p class="admonition-title"><span class="caption-number">Definition 10.7 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Given a dataset</p>
+<div class="math notranslate nohighlight">
+\[
+(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \{0,1\},
+\]</div>
+<p>the <em>data probability function for a logistic regression model</em> is the conditional probability density function</p>
+<div class="math notranslate nohighlight" id="equation-log-reg-data-pf-eqn">
+<span class="eqno">(10.5)<a class="headerlink" href="#equation-log-reg-data-pf-eqn" title="Permalink to this equation">#</a></span>\[
+p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \bbeta, \beta_0\big) = \prod_{i=1}^m p\big(y^{(i)} \mid \bx^{(i)} ; \ \bbeta, \beta_0\big).
+\]</div>
+</section>
+</div><p>As in <a class="reference internal" href="#lin-reg-data-pf-def">Definition 10.4</a>, one may <em>prove</em> that the data probability function of a logistic regression model is given by the product of model probability functions in <a class="reference internal" href="#equation-log-reg-data-pf-eqn">(10.5)</a>.</p>
+<p>Let’s return to our toy dataset introduced at the beginning of the section. To aid with training, it is often helpful to <em>standardize</em> the predictor features</p>
+<div class="math notranslate nohighlight">
+\[
+\bx^{(1)},\ldots,\bx^{(m)} \in \bbr^n.
+\]</div>
+<p>Precisely, this means that we compute the (empirical) mean <span class="math notranslate nohighlight">\(\bar{x}_j\)</span> and standard deviation <span class="math notranslate nohighlight">\(s_j\)</span> of each sequence</p>
+<div class="math notranslate nohighlight">
+\[
+x_j^{(1)},\ldots,x_j^{(m)} \in \bbr
+\]</div>
+<p>of components, and then replace each <span class="math notranslate nohighlight">\(x_j^{(i)}\)</span> with</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{x_j^{(i)} - \bar{x}_j}{s_j}.
+\]</div>
+<p>It is convenient to visualize this process in terms of the so-called <em>design matrix</em></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathcal{X} = \begin{bmatrix} x_1^{(1)} &amp; \cdots &amp; x_n^{(1)} \\
+\vdots &amp; \ddots &amp; \vdots \\
+x_1^{(m)} &amp; \cdots &amp; x_n^{(m)}
+\end{bmatrix}
+\end{split}\]</div>
+<p>whose rows are the transposes <span class="math notranslate nohighlight">\(\bx^{(i)T}\)</span>. Then the empirical means <span class="math notranslate nohighlight">\(\bar{x}_j\)</span> and standard deviations <span class="math notranslate nohighlight">\(s_j\)</span> are precisely the means and standard deviations of the columns.</p>
+<p>If we standardize our toy dataset, we get the following:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import scaler from scikit-learn</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="c1"># convert the data to numpy arrays</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="s1">&#39;x_2&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<span class="c1"># scale the input data</span>
+<span class="n">ss</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># replaced the columns of the dataframe with the transformed data</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;x_1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;x_2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># plot the scaled data</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;x_2&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+
+<span class="c1"># change the default seaborn legend</span>
+<span class="n">g</span><span class="o">.</span><span class="n">legend_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">new_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;class 0&#39;</span><span class="p">,</span> <span class="s1">&#39;class 1&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">legend_</span><span class="o">.</span><span class="n">texts</span><span class="p">,</span> <span class="n">new_labels</span><span class="p">):</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/768862cc83362e102e9ae4c96092263f53fac0af0ec4c917429109c53d2421f3.svg" src="../_images/768862cc83362e102e9ae4c96092263f53fac0af0ec4c917429109c53d2421f3.svg" /></figure>
+</div>
+</div>
+<p>Notice that the values of the two features <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> now lie in comparable ranges, while the overall <em>shape</em> of the dataset has not changed.</p>
+<p>Along with linear regression models, in the <a class="reference internal" href="11-learning.html#learning"><span class="std std-ref">next chapter</span></a> we will see how to learn optimal values of the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span> from data. With these parameters in hand, one way to check how well a logistic regression model captures the data is to draw the <em>decision boundary</em>. To define it, we first note that a logistic regression model may be turned into a <em>predictor</em> by thresholding the outputs of the sigmoid function at <span class="math notranslate nohighlight">\(0.5\)</span>. Precisely, we define</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+f:\bbr^n \to \{0,1\}, \quad f(\bx) = \begin{cases}
+0 &amp; : \sigma(\beta_0 + \bx^T\bbeta) &lt; 0.5, \\
+1 &amp; : \sigma(\beta_0 + \bx^T\bbeta) \geq 0.5. \\
+\end{cases}
+\end{split}\]</div>
+<p>The value <span class="math notranslate nohighlight">\(\phi = \sigma(\beta_0 + \bx^T \bbeta)\)</span> evaluated at a vector <span class="math notranslate nohighlight">\(\bx\)</span> should be thought of as the probability that <span class="math notranslate nohighlight">\(\bx\)</span> belongs to class <span class="math notranslate nohighlight">\(1\)</span>; if this probability is <span class="math notranslate nohighlight">\(\geq 0.5\)</span>, then the predictor <span class="math notranslate nohighlight">\(f\)</span> assigns <span class="math notranslate nohighlight">\(\bx\)</span> to class <span class="math notranslate nohighlight">\(1\)</span>. Otherwise, it assigns <span class="math notranslate nohighlight">\(\bx\)</span> to class <span class="math notranslate nohighlight">\(0\)</span>. Then the <em>decision boundary</em> is exactly the hypersurface in <span class="math notranslate nohighlight">\(\bbr^n\)</span> consisting of those <span class="math notranslate nohighlight">\(\bx\)</span> for which the predictor <span class="math notranslate nohighlight">\(f\)</span> is “flipping a coin,” i.e., it consists of those points <span class="math notranslate nohighlight">\(\bx\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma(\beta_0 + \bx^T \bbeta) = 0.5,
+\]</div>
+<p>which is equivalent to</p>
+<div class="math notranslate nohighlight">
+\[
+\beta_0 + \bx^T \bbeta = 0.
+\]</div>
+<p>Notice that this defines a hyper<strong>plane</strong> that separates <span class="math notranslate nohighlight">\(\bbr^n\)</span> into two unbounded regions based on whether</p>
+<div class="math notranslate nohighlight">
+\[
+\beta_0 + \bx^T \bbeta &gt; 0 \quad \text{or} \quad \beta_0 + \bx^T \bbeta &lt; 0.
+\]</div>
+<p>Those vectors <span class="math notranslate nohighlight">\(\bx\)</span> satisfying the first inequality would be predicted to belong to class <span class="math notranslate nohighlight">\(1\)</span>, while those satisfying the latter inequality would be predicted to belong to class <span class="math notranslate nohighlight">\(0\)</span>. In the case of our toy <span class="math notranslate nohighlight">\(2\)</span>-dimensional dataset from above, the decision boundary is a line in <span class="math notranslate nohighlight">\(\bbr^2\)</span>. It appears as the green line in:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -842,27 +984,23 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import logistic regression model from scikit-learn</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
 
-<span class="c1"># pull out the &#39;x&#39; columns and the &#39;y&#39; column, and convert to numpy arrays</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="s1">&#39;x_2&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-
 <span class="c1"># instantiate a logistic regression model</span>
-<span class="n">lr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
 
 <span class="c1"># train the model</span>
-<span class="n">lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
 
 <span class="c1"># begin code to plot decision boundary. define resolution of grid.</span>
 <span class="n">resolution</span> <span class="o">=</span> <span class="mi">1000</span>
 
 <span class="c1"># define grid</span>
-<span class="n">x_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">resolution</span><span class="p">)</span>
-<span class="n">x_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="n">resolution</span><span class="p">)</span>
+<span class="n">x_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">resolution</span><span class="p">)</span>
+<span class="n">x_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">resolution</span><span class="p">)</span>
 <span class="n">grid_1</span><span class="p">,</span> <span class="n">grid_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x_1</span><span class="p">,</span> <span class="n">x_2</span><span class="p">)</span>
 <span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">grid_1</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">resolution</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span> <span class="n">grid_2</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">resolution</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))))</span>
 
 <span class="c1"># apply the fitted model to the grid</span>
-<span class="n">z</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
 
 <span class="c1"># plot the decision boundary and colors</span>
 <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">resolution</span><span class="p">,</span> <span class="n">resolution</span><span class="p">))</span>
@@ -881,9 +1019,7 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">32</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -891,38 +1027,40 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/7e9ca0ceec4eb170d93b44c1bf93c4c3341b10d63bf22924449a54d2090a49ed.svg" src="../_images/7e9ca0ceec4eb170d93b44c1bf93c4c3341b10d63bf22924449a54d2090a49ed.svg" /></figure>
+<img alt="../_images/c9a068199c3f268dbaf832463afbf8f4f4d8851a9646bfca23204448e1804290.svg" src="../_images/c9a068199c3f268dbaf832463afbf8f4f4d8851a9646bfca23204448e1804290.svg" /></figure>
 </div>
 </div>
+<p>As is evident from the plot, our logistic regression model is doing its best to accurately classify as many data points as possible, but our model is handicapped by the fact it will <em>always</em> produce a linear decision boundary.</p>
 </section>
 <section id="neural-network-models">
 <span id="nn-sec"></span><h2><span class="section-number">10.4. </span>Neural network models<a class="headerlink" href="#neural-network-models" title="Permalink to this heading">#</a></h2>
-<div class="proof definition admonition" id="definition-6">
-<p class="admonition-title"><span class="caption-number">Definition 10.7 </span></p>
+<p>The desired to obtain <em>nonlinear</em> decision boundaries is (in part) the motivation for the probabilistic graphical models studied in this section.</p>
+<div class="proof definition admonition" id="definition-7">
+<p class="admonition-title"><span class="caption-number">Definition 10.8 </span></p>
 <section class="definition-content" id="proof-content">
 <p>A <em>neural network model</em> is a probabilistic graphical model whose underlying graph is of the form</p>
 <a class="reference internal image-reference" href="../_images/nn-00.svg"><img alt="../_images/nn-00.svg" class="align-center" src="../_images/nn-00.svg" width="50%" /></a>
 <p> </p>
-<p>where <span class="math notranslate nohighlight">\(\bX \in \mathbb{R}^{1\times n}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{z}\in \mathbb{R}^{1\times k}\)</span>. The model has the following parameters:</p>
+<p>where <span class="math notranslate nohighlight">\(\bX\)</span> is <span class="math notranslate nohighlight">\(n\)</span>-dimensional and <span class="math notranslate nohighlight">\(\mathbf{z}\in \mathbb{R}^{k}\)</span>. The model has the following parameters:</p>
 <ul class="simple">
-<li><p>A parameter matrix <span class="math notranslate nohighlight">\(\boldsymbol\alpha \in \mathbb{R}^{n\times k}\)</span>.</p></li>
-<li><p>A parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\alpha_0 \in \mathbb{R}^{1\times k}\)</span>.</p></li>
-<li><p>A parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\beta \in \mathbb{R}^{k\times 1}\)</span>.</p></li>
+<li><p>A parameter vector <span class="math notranslate nohighlight">\(\boldsymbol\alpha_0 \in \mathbb{R}^{k}\)</span>.</p></li>
+<li><p>A parameter matrix <span class="math notranslate nohighlight">\(\mathcal{A} \in \mathbb{R}^{n\times k}\)</span>.</p></li>
 <li><p>A real parameter <span class="math notranslate nohighlight">\(\beta_0 \in \mathbb{R}\)</span>.</p></li>
+<li><p>A parameter vector <span class="math notranslate nohighlight">\(\bbeta \in \mathbb{R}^{k}\)</span>.</p></li>
 </ul>
 <p>The link function at <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-\mathbf{z} = \rho(\mathbf{x}\boldsymbol\alpha + \boldsymbol\alpha_0),
+\mathbf{z}^T = \rho(\balpha_0^T + \mathbf{x}^T\mathcal{A}),
 \]</div>
 <p>while the link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-\phi = \sigma(\mathbf{z}\boldsymbol\beta + \beta_0), \quad \text{where} \quad Y ;\  \mathbf{z}, \boldsymbol\beta,\beta_0 \sim \mathcal{B}er\big(\phi\big).
+\phi = \sigma(\beta_0 + \mathbf{z}^T\bbeta), \quad \text{where} \quad Y ;\  \mathbf{z}, \beta_0,\bbeta \sim \mathcal{B}er\big(\phi\big).
 \]</div>
 </section>
-</div><div class="proof definition admonition" id="definition-7">
-<p class="admonition-title"><span class="caption-number">Definition 10.8 </span></p>
+</div><div class="proof definition admonition" id="definition-8">
+<p class="admonition-title"><span class="caption-number">Definition 10.9 </span></p>
 <section class="definition-content" id="proof-content">
 <ol class="arabic">
 <li><p>The <em>model conditional probability function for a neural network model</em> is the conditional probability density function</p>
@@ -930,7 +1068,7 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 \[
     p\big(y \mid \bx ; \ \balpha, \balpha_0, \bbeta, \beta_0\big).
     \]</div>
-<p>On its support consisting of all <span class="math notranslate nohighlight">\(y\in \{0,1\}\)</span> and <span class="math notranslate nohighlight">\(\bx \in \bbr^{1\times n}\)</span>, it is given by the formula</p>
+<p>On its support consisting of all <span class="math notranslate nohighlight">\(y\in \{0,1\}\)</span> and <span class="math notranslate nohighlight">\(\bx \in \bbr^{n}\)</span>, it is given by the formula</p>
 <div class="math notranslate nohighlight">
 \[
     p\big(y \mid \bx ; \ \bbeta, \beta_0\big) = \phi^y (1-\phi)^{1-y}
@@ -940,7 +1078,7 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 <li><p>Given a dataset</p>
 <div class="math notranslate nohighlight">
 \[
-    (\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \{0,1\},
+    (\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \{0,1\},
     \]</div>
 <p>the <em>data conditional probability function for a neural network model</em> is the conditional probability density function</p>
 <div class="math notranslate nohighlight">
@@ -957,36 +1095,35 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import pytorch</span>
-<span class="kn">import</span> <span class="nn">torch</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 
 <span class="c1"># convert the data to torch tensors</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
 <span class="c1"># define the neural network model architecture</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">net</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">16</span><span class="p">),</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">16</span><span class="p">),</span>
                    <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
                    <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
                    <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">())</span>
 
 <span class="c1"># define the loss function and optimizer</span>
 <span class="n">loss_fn</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()</span>
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span>
 
 <span class="c1"># train the model</span>
 <span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">8000</span>
 <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
     <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
-    <span class="n">y_hat</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">y_hat</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
     <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">y_hat</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">y</span><span class="p">)</span>
     <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
     <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
 
 <span class="c1"># apply the fitted model to the grid</span>
 <span class="n">grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-<span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">net</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
 
 <span class="c1"># plot the decision boundary and colors</span>
 <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">resolution</span><span class="p">,</span> <span class="n">resolution</span><span class="p">))</span>
@@ -1005,9 +1142,7 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">32</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1015,14 +1150,14 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0ade307dbcab7b21573368c5c86277a5f73d3df7fefd25f67aac4b3413540ba9.svg" src="../_images/0ade307dbcab7b21573368c5c86277a5f73d3df7fefd25f67aac4b3413540ba9.svg" /></figure>
+<img alt="../_images/6bb795191973299d710ad4dcf79f89e9f2122102e6776852f866255f58cc2152.svg" src="../_images/6bb795191973299d710ad4dcf79f89e9f2122102e6776852f866255f58cc2152.svg" /></figure>
 </div>
 </div>
 </section>
 <section id="gaussian-mixture-models">
 <span id="gmm-sec"></span><h2><span class="section-number">10.5. </span>Gaussian mixture models<a class="headerlink" href="#gaussian-mixture-models" title="Permalink to this heading">#</a></h2>
-<div class="proof definition admonition" id="definition-8">
-<p class="admonition-title"><span class="caption-number">Definition 10.9 </span></p>
+<div class="proof definition admonition" id="definition-9">
+<p class="admonition-title"><span class="caption-number">Definition 10.10 </span></p>
 <section class="definition-content" id="proof-content">
 <p>A <em>(two-component) Gaussian model</em> is a probabilistic graphical model whose underlying graph is of the form</p>
 <a class="reference internal image-reference" href="../_images/gmm.svg"><img alt="../_images/gmm.svg" class="align-center" src="../_images/gmm.svg" width="50%" /></a>
@@ -1044,8 +1179,8 @@ y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
 X \mid Z; \ \mu_0,\sigma_0^2,\mu_1, \sigma^2_1 \sim \mathcal{N}(\mu,\sigma^2).
 \]</div>
 </section>
-</div><div class="proof definition admonition" id="definition-9">
-<p class="admonition-title"><span class="caption-number">Definition 10.10 </span></p>
+</div><div class="proof definition admonition" id="definition-10">
+<p class="admonition-title"><span class="caption-number">Definition 10.11 </span></p>
 <section class="definition-content" id="proof-content">
 <ol class="arabic">
 <li><p>The <em>model joint probability function for a Gaussian mixture model</em> is the joint probability density function</p>
@@ -1124,7 +1259,7 @@ X \mid Z; \ \mu_0,\sigma_0^2,\mu_1, \sigma^2_1 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/91cdd9323bf60cda7861c815ab93ee39f19ea41e29142680688268e91a53723a.svg" src="../_images/91cdd9323bf60cda7861c815ab93ee39f19ea41e29142680688268e91a53723a.svg" /></figure>
+<img alt="../_images/63ed65f99d03f662f91c6b81388b66dea4378bbe017f3a618d0795c8235148c3.svg" src="../_images/63ed65f99d03f662f91c6b81388b66dea4378bbe017f3a618d0795c8235148c3.svg" /></figure>
 </div>
 </div>
 </section>
