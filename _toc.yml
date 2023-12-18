@@ -6,21 +6,21 @@ root: intro
 options:
   numbered: true
 chapters:
-- file: chapters/preview
-- file: chapters/prob-spaces
-- file: chapters/rules-of-prob
-- file: chapters/random-variables
-- file: chapters/examples-of-rvs
-- file: chapters/theory-to-practice
-- file: chapters/random-vectors
-- file: chapters/more-prob
-- file: chapters/optim
-- file: chapters/models
-- file: chapters/learning
-- file: chapters/stats-estimators
-- file: chapters/asymptotic
-- file: chapters/more-samp-dist
-- file: chapters/CIs
-- file: chapters/hyp-test
-- file: chapters/lin-reg
+- file: chapters/01-preview
+- file: chapters/02-prob-spaces
+- file: chapters/03-rules-of-prob
+- file: chapters/04-random-variables
+- file: chapters/05-examples-of-rvs
+- file: chapters/06-theory-to-practice
+- file: chapters/07-random-vectors
+- file: chapters/08-more-prob
+- file: chapters/09-optim
+- file: chapters/10-models
+- file: chapters/11-learning
+- file: chapters/12-stats-estimators
+- file: chapters/13-asymptotic
+- file: chapters/14-more-samp-dist
+- file: chapters/15-CIs
+- file: chapters/16-hyp-test
+- file: chapters/17-lin-reg
 - file: chapters/bib
