@@ -262,7 +262,6 @@ where $x^{(i)}$ and $y^{(i)}$ are the size (in square feet) and selling price (i
 :   figure:
 :       align: center
 
-# import all the usual things
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

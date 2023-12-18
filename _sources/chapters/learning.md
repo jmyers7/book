@@ -1150,7 +1150,6 @@ num_epochs = sgd_parameters['num_epochs']
 
 blues = sns.color_palette('blend:#D4E1FB,#486AFB', n_colors=num_e_steps * num_epochs)
 magentas = sns.color_palette('blend:#FDD9FC,#FD46FC', n_colors=num_e_steps * num_epochs)
-color_step = 0
 
 _, axes = plt.subplots(nrows=2, ncols=2, figsize=(12, 10))
 grid_0 = np.linspace(-5, 5, num=300)
@@ -1166,11 +1165,10 @@ for i in range(num_e_steps * num_epochs):
     X_0 = sp.stats.norm(loc=mu0, scale=sigma0)
     X_1 = sp.stats.norm(loc=mu1, scale=sigma1)
     
-    axes[0, 0].plot(grid_0, X_0.pdf(grid_0), color=blues.as_hex()[color_step])
-    axes[0, 1].plot(grid_1, X_1.pdf(grid_1), color=magentas.as_hex()[color_step])
-    axes[1, 0].plot(grid_0_1, X_0.pdf(grid_0_1), color=blues.as_hex()[color_step])
-    axes[1, 0].plot(grid_0_1, X_1.pdf(grid_0_1), color=magentas.as_hex()[color_step])
-    color_step += 1
+    axes[0, 0].plot(grid_0, X_0.pdf(grid_0), color=blues.as_hex()[i])
+    axes[0, 1].plot(grid_1, X_1.pdf(grid_1), color=magentas.as_hex()[i])
+    axes[1, 0].plot(grid_0_1, X_0.pdf(grid_0_1), color=blues.as_hex()[i])
+    axes[1, 0].plot(grid_0_1, X_1.pdf(grid_0_1), color=magentas.as_hex()[i])
 
 axes[0, 0].set_xlabel('$x$')
 axes[0, 0].set_ylabel('density')
