@@ -263,26 +263,26 @@ url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/
 df = pd.read_csv(url, usecols=['area', 'price'])
 
 # pull out the 'area' column and 'price column from the data and convert them to numpy arrays
-x = df['area'].to_numpy().reshape(-1, 1)
+X = df['area'].to_numpy().reshape(-1, 1)
 y = df['price'].to_numpy()
 
 # instantiate a linear regression model
-lr = LinearRegression()
+model = LinearRegression()
 
 # train the model
-lr.fit(X=x, y=y)
+model.fit(X=X, y=y)
 
 # get the learned parameters
-beta, beta_0 = lr.coef_, lr.intercept_
+beta, beta_0 = model.coef_, model.intercept_
 
 # build a grid for the regression line
-grid = np.linspace(x.min(), x.max())
+grid = np.linspace(X.min(), X.max())
 
 # plot the regression line
 plt.plot(grid, beta * grid + beta_0, color=magenta)
 
 # plot the data
-plt.scatter(x=x, y=y, alpha=0.15)
+plt.scatter(x=X, y=y, alpha=0.15)
 
 plt.xlabel('area')
 plt.ylabel('price')
@@ -338,7 +338,7 @@ $$
 where $\mu = \beta_0 + \bx^T \bbeta$.
 ```
 
-The second probability density function is obtained from the plated version of a linear regression model:
+The second important probability density function is obtained from the plated version of a linear regression model:
 
 ```{image} ../img/lin-reg-00-plated.svg
 :width: 50%
@@ -346,16 +346,18 @@ The second probability density function is obtained from the plated version of a
 ```
 &nbsp;
 
-Observations of the visible nodes correspond to an observed dataset
-
-$$
-(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \bbr.
-$$ (lin-dataset-eqn)
-
-Then: 
+Observations of the visible nodes correspond to an observed dataset. Then:
 
 ```{prf:definition}
-Given an observed dataset {eq}`lin-dataset-eqn`, the _data probability function for a linear regression model_ is the conditional probability density function
+:label: lin-reg-data-pf-def
+
+Given an observed dataset
+
+$$
+(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \bbr,
+$$
+
+the _data probability function for a linear regression model_ is the conditional probability density function
 
 $$
 p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \beta_0, \bbeta,\sigma^2 \big) = \prod_{i=1}^m p\big(y^{(i)} \mid \bx^{(i)} ; \ \beta_0, \bbeta, \sigma^2\big).
@@ -368,58 +370,52 @@ $$
 (\bX^{(1)},Y^{(1)}),\ldots,(\bX^{(m)}, Y^{(m)}),
 $$
 
-one may actually _prove_ that the left-hand side of {eq}`data-pf-eqn` is equal to the product on the right-hand side; see the [suggested problems]() for this section.
-
-
-
-
-
+one may actually _prove_ that the left-hand side of {eq}`data-pf-eqn` is equal to the product on the right-hand side; see the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/10-2-suggested-problems.md#problem-1-solution) for this section.
 
 The components of the vector $\bX$ are referred to as _predictors_, _regressors_, _explanatory variables_, or _independent variables_, while the random variable $Y$ is called the _response variable_ or the _dependent variable_. In the case that $n=1$, the model is called a _simple linear regression model_; otherwise, it is called a _multiple linear regression model_.
 
 Note that
 
 $$
-E\big(Y \mid \bX = \bx \big) = \mu = \bx \bbeta + \beta_0,
+E\big(Y \mid \bX = \bx \big) = \mu = \beta_0 + \bx^T \bbeta,
 $$
 
 and so a linear regression model assumes (among other things) that the conditional mean of the response variable is linearly related to the regressors through the link function
 
 $$
-\mu = \bx \bbeta + \beta_0.
+\mu = \beta_0 + \bx^T \bbeta.
 $$ (lin-reg-line-eqn)
 
-The parameter $\beta_0$ is often called the _intercept_ or _bias term_, while the other $\beta_j$'s (for $j>0$) are called _slope coefficients_ since they are exactly the (infinitesimal) slopes:
+The parameter $\beta_0$ is often called the _intercept_ or _bias term_, while the other $\beta_j$'s (for $j>0$) are called _weights_ or _slope coefficients_ since they are exactly the (infinitesimal) slopes:
 
 $$
 \frac{\partial \mu}{\partial x_j} = \beta_j.
 $$
 
-
-The random vector
+The random variable
 
 $$
-\dev \stackrel{\text{def}}{=} Y - \bX\bbeta - \beta_0
+\dev \stackrel{\text{def}}{=} Y - \beta_0 - \bX^T\bbeta
 $$
 
 in a linear regression model is called the _error term_; note then that
 
 $$
-Y = \bX\bbeta + \beta_0 + \dev \quad \text{and} \quad \dev \sim \mathcal{N}(0, \sigma^2).
+Y = \beta_0 + \bX^T\bbeta + \dev \quad \text{and} \quad \dev \sim \mathcal{N}(0, \sigma^2).
 $$ (random-lin-rel-eqn)
 
 This is the manifestation in terms of random vectors and variables of the approximate linear relationship {eq}`approx-linear-eqn` described at the beginning of this section.
 
-Suppose we are given a dataset
+Suppose we are given an observed dataset
 
 $$
-(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr.
+(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \bbr.
 $$
 
 If for each $i=1,\ldots,m$, we define the _predicted values_
 
 $$
-\hat{y}^{(i)} = \bx^{(i)}\bbeta + \beta_0
+\hat{y}^{(i)} = \beta_0 + \bx^{(i)T}\bbeta
 $$
 
 and the _residuals_
@@ -431,12 +427,12 @@ $$
 then from {eq}`random-lin-rel-eqn` we get
 
 $$
-y^{(i)} = \bx^{(i)} \bbeta + \beta_0 + \dev^{(i)}.
+y^{(i)} = \beta_0 + \bx^{(i)T} \bbeta + \dev^{(i)}.
 $$
 
 This shows that the residuals $\dev^{(i)}$ are observations of the error term $\dev \sim \mathcal{N}(0,\sigma^2)$. Thus, in a linear regression model, all residuals from a dataset are assumed to be modeled by a normal distribution with mean $0$ and a _fixed_ variance; the fixed-variance assumption is sometimes called _homoscedasticity_.
 
-In {numref}`Chapter %s <learning>`, we will learn how to train a linear regression model on a dataset to obtain optimal values of the parameters $\bbeta$ and $\beta_0$. Using these training methods, we obtained values of the parameters for the Ames housing dataset mentioned at the beginning of this section; the positively-sloped line in the scatter plot was the line traced out by the link function $\mu =  \beta x + \beta_0$. The predicted values $\hat{y}^{(i)}$ lie along this line, and the magnitude of the residual $\dev^{(i)}$ may be visualized as the vertical distance from the true data point $y^{(i)}$ to this line. We may plot the residuals $\dev^{(i)}$ against the predictor variables $x^{(i)}$ to get:
+In {numref}`Chapter %s <learning>`, we will learn how to train a linear regression model on a dataset to obtain optimal values of the parameters $\beta_0$ and $\bbeta$. Using these training methods, we obtained values for the parameters $\beta_0$ and $\bbeta = \beta_1$ for the Ames housing dataset mentioned at the beginning of this section. The positively-sloped line in the scatter plot was the line traced out by the link function $\mu = \beta_0 + \beta_1 x $. The predicted values $\hat{y}^{(i)}$ lie along this line, and the magnitude of the residual $\dev^{(i)}$ may be visualized as the vertical distance from the true data point $y^{(i)}$ to this line. We may plot the residuals $\dev^{(i)}$ against the predictor variables $x^{(i)}$ to get:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -445,13 +441,13 @@ In {numref}`Chapter %s <learning>`, we will learn how to train a linear regressi
 :       align: center
 
 # get the predictions
-y_hat = lr.predict(X=x)
+y_hat = model.predict(X=X)
 
 # get the residuals
 resid = y - y_hat
 
 # plot the residuals vs. area
-plt.scatter(x=x, y=resid, alpha=0.20)
+plt.scatter(x=X, y=resid, alpha=0.20)
 
 plt.xlabel('area')
 plt.ylabel('residuals')
@@ -461,7 +457,7 @@ plt.tight_layout()
 
 It is evident from this plot that the homoscedasticity assumption is violated since the distributions of the residuals appear to widen as the area variable increases.
 
-As with the parameters $\beta$ and $\beta_0$, it is also possible to learn an optimal value of the variance $\sigma^2$. As another method of model checking, given all the parameters $\beta$, $\beta_0$, and $\sigma^2$, we may generate a new dataset by sampling from the normal distributions 
+As with the parameters $\beta_0$ and $\bbeta$, it is also possible to learn an optimal value of the variance $\sigma^2$. As another method of model checking, given all the learned parameters $\beta_0$, $\beta_1$, and $\sigma^2$ for the Ames dataset, we may generate a new dataset by sampling from the normal distributions 
 
 $$
 \mathcal{N}\big(\hat{y}^{(i)}, \sigma^2\big)
@@ -479,10 +475,10 @@ for each $i=1,2,\ldots,m$. A scatter plot of one simulated dataset is:
 import statsmodels.formula.api as smf
 
 # instantiate and train a linear regression model from statsmodels
-lr = smf.ols(formula='price ~ area', data=df).fit()
+model = smf.ols(formula='price ~ area', data=df).fit()
 
 # get the learned standard deviation
-sigma = np.sqrt(lr.scale)
+sigma = np.sqrt(model.scale)
 
 # generate the dataset
 np.random.seed(42)
@@ -535,59 +531,15 @@ For smaller values of area, the distribution of the true prices is narrower comp
 (log-reg-sec)=
 ## Logistic regression models
 
-````{prf:definition}
-
-A _logistic regression model_ is a probabilistic graphical model whose underlying graph is of the form
-
-```{image} ../img/log-reg-00.svg
-:width: 50%
-:align: center
-```
-&nbsp;
-
-where $\bX\in \mathbb{R}^{1\times n}$. The model has the following parameters:
-
-* A parameter vector $\boldsymbol\beta \in \mathbb{R}^{n\times 1}$.
-
-* A real parameter $\beta_0\in \mathbb{R}$.
-
-The link function at $Y$ is given by
+The types of models studied in this section are closely related to the linear regression models in the previous, but here the goal is to model a dataset of the form
 
 $$
-\phi = \sigma(\bx\bbeta + \beta_0), \quad \text{where} \quad Y \mid \bX; \ \bbeta,\beta_0 \sim \mathcal{B}er(\phi).
+(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \{0,1\}.
 $$
-````
 
-```{prf:definition}
+Such datasets arise naturally in _binary classification problems_, where we aim to determine which of two classes a given object lies in based on predictor features. The true class of the $i$-th object is indicated by the value of $y^{(i)}$, while the vector $\bx^{(i)}$ consists of the predictor features.
 
-1. The _model conditional probability function for a logistic regression model_ is the conditional probability density function
-
-    $$
-    p\big(y \mid \bx ; \ \bbeta, \beta_0\big).
-    $$
-
-    On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{1\times n}$, it is given by the formula
-
-    $$
-    p\big(y \mid \bx ; \ \bbeta, \beta_0\big) = \phi^y (1-\phi)^{1-y}
-    $$
-
-    where $\phi = \sigma(\bx \bbeta + \beta_0)$.
-
-2. Given a dataset
-
-    $$
-    (\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \{0,1\},
-    $$
-
-    the _data conditional probability function for a logistic regression model_ is the conditional probability density function
-
-    $$
-    p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \bbeta, \beta_0\big) = \prod_{i=1}^m p\big(y^{(i)} \mid \bx^{(i)} ; \ \bbeta, \beta_0\big).
-    $$
-
-```
-
+As a running example through this and the next section, consider the following scatter plot:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -612,9 +564,211 @@ plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
 plt.xlim(-1.1, 3.1)
 plt.ylim(-32, 42)
-plt.gcf().set_size_inches(w=5, h=4)
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
+
+The points represent the $2$-dimensional predictors $\bx^{(i)} = (x^{(i)}_1, x^{(i)}_2)$, while the color indicates the class $y^{(i)} \in \{0,1\}$. Our goal in this section is to capture the evident pattern in the data using a _logistic regression model_.
+
+To define these models, we first need to discuss the important _sigmoid function_, defined as
+
+$$
+\sigma: \bbr \to (0,1), \quad \sigma(z) = \frac{1}{1+e^{-z}}.
+$$
+
+Its graph is:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+import torch
+import torch.nn.functional as F
+
+grid = torch.linspace(start=-10, end=10, steps=300)
+plt.plot(grid, F.sigmoid(grid))
+plt.gcf().set_size_inches(w=5, h=3)
+plt.xlabel('$z$')
+plt.ylabel('$\sigma(z)$')
+plt.tight_layout()
+```
+
+Since the outputs of the sigmoid function land in the open interval $(0,1)$, we may use it to convert _any_ real number into a _probability_. Indeed, this is precisely its role in a _logistic regression model_:
+
+
+````{prf:definition}
+
+A _logistic regression model_ is a probabilistic graphical model whose underlying graph is of the form
+
+```{image} ../img/log-reg-00.svg
+:width: 50%
+:align: center
+```
+&nbsp;
+
+where $\bX$ is $n$-dimensional. The model has the following parameters:
+
+* A real parameter $\beta_0\in \mathbb{R}$.
+
+* A parameter vector $\boldsymbol\beta \in \mathbb{R}^{n}$.
+
+The link function at $Y$ is given by
+
+$$
+\phi = \sigma(\beta_0 + \bx^T\bbeta), \quad \text{where} \quad Y \mid \bX; \ \beta_0,\bbeta \sim \mathcal{B}er(\phi),
+$$
+
+where $\sigma$ is the sigmoid function.
+````
+
+Notice that the link function $\phi = \sigma(\beta_0 + \bx^T\bbeta)$ is precisely the affine link function $\mu = \beta_0 + \bx^T\bbeta$ of a linear regression model composed with the sigmoid function.
+
+The two probability functions that we will use to train logistic regression models in the [next chapter](learning) are given as follows. For the first:
+
+```{prf:definition}
+
+The _model probability function for a logistic regression model_ is the conditional probability density function
+
+$$
+p\big(y \mid \bx ; \ \bbeta, \beta_0\big).
+$$
+
+On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{n}$, it is given by the formula
+
+$$
+p\big(y \mid \bx ; \ \bbeta, \beta_0\big) = \phi^y (1-\phi)^{1-y}
+$$
+
+where $\phi = \sigma(\bx \bbeta + \beta_0)$.
+```
+
+As with linear regression models, the second probability function is obtained from the plated version of a logistic regression model:
+
+```{image} ../img/log-reg-00-plated.svg
+:width: 50%
+:align: center
+```
+&nbsp;
+
+Then:
+
+```{prf:definition}
+:label: logreg-data-pf-def
+
+Given a dataset
+
+$$
+(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \{0,1\},
+$$
+
+the _data probability function for a logistic regression model_ is the conditional probability density function
+
+$$
+p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \bbeta, \beta_0\big) = \prod_{i=1}^m p\big(y^{(i)} \mid \bx^{(i)} ; \ \bbeta, \beta_0\big).
+$$ (log-reg-data-pf-eqn)
+```
+
+As in {prf:ref}`lin-reg-data-pf-def`, one may _prove_ that the data probability function of a logistic regression model is given by the product of model probability functions in {eq}`log-reg-data-pf-eqn`.
+
+Let's return to our toy dataset introduced at the beginning of the section. To aid with training, it is often helpful to _standardize_ the predictor features
+
+$$
+\bx^{(1)},\ldots,\bx^{(m)} \in \bbr^n.
+$$
+
+Precisely, this means that we compute the (empirical) mean $\bar{x}_j$ and standard deviation $s_j$ of each sequence
+
+$$
+x_j^{(1)},\ldots,x_j^{(m)} \in \bbr
+$$
+
+of components, and then replace each $x_j^{(i)}$ with
+
+$$
+\frac{x_j^{(i)} - \bar{x}_j}{s_j}.
+$$
+
+It is convenient to visualize this process in terms of the so-called _design matrix_
+
+$$
+\mathcal{X} = \begin{bmatrix} x_1^{(1)} & \cdots & x_n^{(1)} \\
+\vdots & \ddots & \vdots \\
+x_1^{(m)} & \cdots & x_n^{(m)}
+\end{bmatrix}
+$$
+
+whose rows are the transposes $\bx^{(i)T}$. Then the empirical means $\bar{x}_j$ and standard deviations $s_j$ are precisely the means and standard deviations of the columns.
+
+If we standardize our toy dataset, we get the following:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+# import scaler from scikit-learn
+from sklearn.preprocessing import StandardScaler
+
+# convert the data to numpy arrays
+X = df[['x_1', 'x_2']].to_numpy()
+y = df['y'].to_numpy()
+
+# scale the input data
+ss = StandardScaler()
+X = ss.fit_transform(X=X)
+
+# replaced the columns of the dataframe with the transformed data
+df['x_1'] = X[:, 0]
+df['x_2'] = X[:, 1]
+
+# plot the scaled data
+g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
+
+# change the default seaborn legend
+g.legend_.set_title(None)
+new_labels = ['class 0', 'class 1']
+for t, l in zip(g.legend_.texts, new_labels):
+    t.set_text(l)
+
+plt.xlabel('$x_1$')
+plt.ylabel('$x_2$')
+plt.gcf().set_size_inches(w=5, h=3)
+plt.tight_layout()
+```
+
+Notice that the values of the two features $x_1$ and $x_2$ now lie in comparable ranges, while the overall _shape_ of the dataset has not changed.
+
+Along with linear regression models, in the [next chapter](learning) we will see how to learn optimal values of the parameters $\beta_0$ and $\bbeta$ from data. With these parameters in hand, one way to check how well a logistic regression model captures the data is to draw the _decision boundary_. To define it, we first note that a logistic regression model may be turned into a _predictor_ by thresholding the outputs of the sigmoid function at $0.5$. Precisely, we define
+
+$$
+f:\bbr^n \to \{0,1\}, \quad f(\bx) = \begin{cases}
+0 & : \sigma(\beta_0 + \bx^T\bbeta) < 0.5, \\
+1 & : \sigma(\beta_0 + \bx^T\bbeta) \geq 0.5. \\
+\end{cases}
+$$
+
+The value $\phi = \sigma(\beta_0 + \bx^T \bbeta)$ evaluated at a vector $\bx$ should be thought of as the probability that $\bx$ belongs to class $1$; if this probability is $\geq 0.5$, then the predictor $f$ assigns $\bx$ to class $1$. Otherwise, it assigns $\bx$ to class $0$. Then the _decision boundary_ is exactly the hypersurface in $\bbr^n$ consisting of those $\bx$ for which the predictor $f$ is "flipping a coin," i.e., it consists of those points $\bx$ such that
+
+$$
+\sigma(\beta_0 + \bx^T \bbeta) = 0.5,
+$$
+
+which is equivalent to
+
+$$
+\beta_0 + \bx^T \bbeta = 0.
+$$
+
+Notice that this defines a hyper**plane** that separates $\bbr^n$ into two unbounded regions based on whether
+
+$$
+\beta_0 + \bx^T \bbeta > 0 \quad \text{or} \quad \beta_0 + \bx^T \bbeta < 0.
+$$
+
+Those vectors $\bx$ satisfying the first inequality would be predicted to belong to class $1$, while those satisfying the latter inequality would be predicted to belong to class $0$. In the case of our toy $2$-dimensional dataset from above, the decision boundary is a line in $\bbr^2$. It appears as the green line in:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -625,27 +779,23 @@ plt.tight_layout()
 # import logistic regression model from scikit-learn
 from sklearn.linear_model import LogisticRegression
 
-# pull out the 'x' columns and the 'y' column, and convert to numpy arrays
-x = df[['x_1', 'x_2']].to_numpy()
-y = df['y'].to_numpy()
-
 # instantiate a logistic regression model
-lr = LogisticRegression()
+model = LogisticRegression()
 
 # train the model
-lr.fit(X=x, y=y)
+model.fit(X=X, y=y)
 
 # begin code to plot decision boundary. define resolution of grid.
 resolution = 1000
 
 # define grid
-x_1 = np.linspace(-1, 3, resolution)
-x_2 = np.linspace(-30, 40, resolution)
+x_1 = np.linspace(-2, 2, resolution)
+x_2 = np.linspace(-4, 4, resolution)
 grid_1, grid_2 = np.meshgrid(x_1, x_2)
 grid = np.column_stack((grid_1.reshape((resolution ** 2, -1)), grid_2.reshape((resolution ** 2, -1))))
 
 # apply the fitted model to the grid
-z = lr.predict(grid)
+z = model.predict(grid)
 
 # plot the decision boundary and colors
 z = z.reshape((resolution, resolution))
@@ -664,11 +814,18 @@ for t, l in zip(g.legend_.texts, new_labels):
 
 plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
-plt.xlim(-1.1, 3.1)
-plt.ylim(-32, 42)
-plt.gcf().set_size_inches(w=5, h=4)
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
+
+As is evident from the plot, our logistic regression model is doing its best to accurately classify as many data points as possible, but our model is handicapped by the fact it will _always_ produce a linear decision boundary.
+
+
+
+
+
+
+
 
 
 
@@ -676,6 +833,9 @@ plt.tight_layout()
 
 (nn-sec)=
 ## Neural network models
+
+The desired to obtain _nonlinear_ decision boundaries is (in part) the motivation for the probabilistic graphical models studied in this section.
+
 
 ````{prf:definition}
 
@@ -687,26 +847,26 @@ A _neural network model_ is a probabilistic graphical model whose underlying gra
 ```
 &nbsp;
 
-where $\bX \in \mathbb{R}^{1\times n}$ and $\mathbf{z}\in \mathbb{R}^{1\times k}$. The model has the following parameters:
+where $\bX$ is $n$-dimensional and $\mathbf{z}\in \mathbb{R}^{k}$. The model has the following parameters:
 
-* A parameter matrix $\boldsymbol\alpha \in \mathbb{R}^{n\times k}$.
+* A parameter vector $\boldsymbol\alpha_0 \in \mathbb{R}^{k}$.
 
-* A parameter vector $\boldsymbol\alpha_0 \in \mathbb{R}^{1\times k}$.
-
-* A parameter vector $\boldsymbol\beta \in \mathbb{R}^{k\times 1}$.
+* A parameter matrix $\mathcal{A} \in \mathbb{R}^{n\times k}$.
 
 * A real parameter $\beta_0 \in \mathbb{R}$.
+
+* A parameter vector $\bbeta \in \mathbb{R}^{k}$.
 
 The link function at $\mathbf{z}$ is given by
 
 $$
-\mathbf{z} = \rho(\mathbf{x}\boldsymbol\alpha + \boldsymbol\alpha_0),
+\mathbf{z}^T = \rho(\balpha_0^T + \mathbf{x}^T\mathcal{A}),
 $$
 
 while the link function at $Y$ is given by
 
 $$
-\phi = \sigma(\mathbf{z}\boldsymbol\beta + \beta_0), \quad \text{where} \quad Y ;\  \mathbf{z}, \boldsymbol\beta,\beta_0 \sim \mathcal{B}er\big(\phi\big).
+\phi = \sigma(\beta_0 + \mathbf{z}^T\bbeta), \quad \text{where} \quad Y ;\  \mathbf{z}, \beta_0,\bbeta \sim \mathcal{B}er\big(\phi\big).
 $$
 ````
 
@@ -718,7 +878,7 @@ $$
     p\big(y \mid \bx ; \ \balpha, \balpha_0, \bbeta, \beta_0\big).
     $$
 
-    On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{1\times n}$, it is given by the formula
+    On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{n}$, it is given by the formula
 
     $$
     p\big(y \mid \bx ; \ \bbeta, \beta_0\big) = \phi^y (1-\phi)^{1-y}
@@ -729,7 +889,7 @@ $$
 2. Given a dataset
 
     $$
-    (\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \{0,1\},
+    (\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \{0,1\},
     $$
 
     the _data conditional probability function for a neural network model_ is the conditional probability density function
@@ -749,36 +909,35 @@ $$
 :   figure:
 :       align: center
 
-# import pytorch
 import torch
 
 # convert the data to torch tensors
-x = torch.tensor(data=x, dtype=torch.float32)
+X = torch.tensor(data=X, dtype=torch.float32)
 y = torch.tensor(data=y, dtype=torch.float32)
 
 # define the neural network model architecture
 torch.manual_seed(42)
-net = torch.nn.Sequential(torch.nn.Linear(in_features=2, out_features=16),
+model = torch.nn.Sequential(torch.nn.Linear(in_features=2, out_features=16),
                    torch.nn.ReLU(),
                    torch.nn.Linear(in_features=16, out_features=1),
                    torch.nn.Sigmoid())
 
 # define the loss function and optimizer
 loss_fn = torch.nn.BCELoss()
-optimizer = torch.optim.Adam(net.parameters())
+optimizer = torch.optim.Adam(model.parameters())
 
 # train the model
 num_epochs = 8000
 for _ in range(num_epochs):
     optimizer.zero_grad()
-    y_hat = net(x)
+    y_hat = model(X)
     loss = loss_fn(y_hat.squeeze(), y)
     loss.backward()
     optimizer.step()
 
 # apply the fitted model to the grid
 grid = torch.tensor(data=grid, dtype=torch.float32)
-z = (net(grid) >= 0.5).to(torch.int32)
+z = (model(grid) >= 0.5).to(torch.int32)
 
 # plot the decision boundary and colors
 z = z.reshape((resolution, resolution))
@@ -797,9 +956,7 @@ for t, l in zip(g.legend_.texts, new_labels):
 
 plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
-plt.xlim(-1.1, 3.1)
-plt.ylim(-32, 42)
-plt.gcf().set_size_inches(w=5, h=4)
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
