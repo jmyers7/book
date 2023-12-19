@@ -39,7 +39,7 @@ called a _link function_. It will be convenient to depict this situation graphic
 
 Very often, the label $g$ on the link function will be omitted.
 
-It could be the case that flow of influence is parametrized. For example, $g$ might be a linear transformation that is represented by a matrix $\balpha \in \bbr^{m\times n}$, with the entries in the matrix serving as parameters for the flow. We would represent this situation as
+It could be the case that flow of influence is parametrized. For example, $g$ might be a linear transformation that is represented by a matrix $\mathcal{A} \in \bbr^{m\times n}$, with the entries in the matrix serving as parameters for the flow. We would represent this situation as
 
 ```{image} ../img/det-link-2.svg
 :width: 30%
@@ -60,10 +60,10 @@ For a more complex example, consider the following graph:
 This might represent a link function of the form
 
 $$
-\bz = \balpha \bx + \bbeta \by, \quad \bx \in \bbr^n, \ \by\in \bbr^k, \ \bz \in \bbr^m,
+\bz = \mathcal{A} \bx + \mathcal{B} \by, \quad \bx \in \bbr^{n\times 1}, \ \by\in \bbr^{k\times 1}, \ \bz \in \bbr^{m\times 1},
 $$
 
-which is parametrized by matrices $\balpha \in \bbr^{m\times n}$ and $\bbeta \in \bbr^{m\times k}$.
+which is parametrized by matrices $\mathcal{A} \in \bbr^{m\times n}$ and $\mathcal{B} \in \bbr^{m\times k}$.
 
 The vectors in our discussion might be random, rather than deterministic, say $\bX$ and $\bY$. In this case, a _stochastic flow of influence_ from $\bX$ to $\bY$ would be visualized just as before:
 
@@ -76,7 +76,7 @@ The vectors in our discussion might be random, rather than deterministic, say $\
 
 This flow is represented mathematically via a _link function_ $\btheta = g(\bx)$ where $\bx$ is an observed value of $\bX$ and $\btheta$ is a parameter that uniquely determines the probability distribution of $\bY$. So, in this case, an observed value $\bx$ does _not_ determine a particular observed value $\by$ of $Y$, but rather an entire probability distribution over the $\by$'s. This probability distribution is conditioned on $\bX$, so the link function is often specified by giving the functional form of the conditional probability function $p(\by | \bx)$. Notice that only observed values $\bx$ of $\bX$ are used to determine the distribution of $\bY$ through the link---the distribution of $\bX$ itself plays no role.
 
-These stochastic flows might be parametrized. For example, suppose $\bY$ is $1$-dimensional, equal to a random variable $Y$, while $\bX\in \mathbb{R}^{n}$ is an $n$-dimensional random vector. Then, a particular example of a stochastic flow of influence is given by the graph
+These stochastic flows might be parametrized. For example, suppose $\bY$ is $1$-dimensional, equal to a random variable $Y$, while $\bX\in \mathbb{R}^{1\times n}$ is an $n$-dimensional random row vector. Then, a particular example of a stochastic flow of influence is given by the graph
 
 
 ```{image} ../img/lin-reg-0.svg
@@ -85,10 +85,10 @@ These stochastic flows might be parametrized. For example, suppose $\bY$ is $1$-
 ```
 &nbsp;
 
-The parameters consist of a real number $\beta_0 \in \bbr$, a vector $\bbeta \in \bbr^{n}$, and a positive number $\sigma^2 >0$. A complete description of the link function at $Y$ is given by
+The parameters consist of a real number $\beta_0 \in \bbr$, a column vector $\bbeta \in \bbr^{n\times 1}$, and a positive number $\sigma^2 >0$. A complete description of the link function at $Y$ is given by
 
 $$
-\mu \stackrel{\text{def}}{=} \beta_0 + \bx^T \bbeta, \quad \text{where} \quad Y \mid \bX; \ \beta_0, \bbeta,\sigma^2 \sim \mathcal{N}(\mu, \sigma^2).
+\mu \stackrel{\text{def}}{=} \beta_0 + \bx \bbeta, \quad \text{where} \quad Y \mid \bX; \ \beta_0, \bbeta,\sigma^2 \sim \mathcal{N}(\mu, \sigma^2).
 $$
 
 In fact, this is exactly a _linear regression model_, which we will see again in {numref}`lin-reg-sec` below, as well as in {numref}`Chapters %s <learning>` and {numref}`%s <lin-reg>`.
@@ -102,9 +102,9 @@ We shall take a flow of influence of the form
 ```
 &nbsp;
 
-from a deterministic vector $\bx$ to a stochastic one $\bY$ to mean only one thing: There is a link function $\btheta = g(\bx)$ where $\btheta$ is a parameter that uniquely determines the distribution of $\bY$. Such a link function is often specified by giving the functional form of the parametrized probability function $p(\by; \bx)$.
+from a deterministic vector $\bx$ to a stochastic one $\bY$ to mean that there is a link function $\btheta = g(\bx)$ where $\btheta$ is a parameter that uniquely determines the distribution of $\bY$. Such a link function is often specified by giving the functional form of the parametrized probability function $p(\by; \bx)$.
 
-On the other hand, a flow of influence from a random vector $\bX$ to a deterministic vector $\by$ might mean one of two things. The more common situation is depicted graphically with a solid arrow as
+A flow of influence of the form
 
 ```{image} ../img/mixed-2.svg
 :width: 30%
@@ -112,15 +112,7 @@ On the other hand, a flow of influence from a random vector $\bX$ to a determini
 ```
 &nbsp;
 
-In this situation, we mean simply that there is a link function of the form $\by = g(\bx)$, so that observed values of $\bX$ uniquely determine values of $\by$. The other situation is depicted graphically with a dashed arrow as
-
-```{image} ../img/mixed-3.svg
-:width: 30%
-:align: center
-```
-&nbsp;
-
-Here, we mean that the probability distribution $P_\bX$ itself uniquely determines a value $\by$. For example, we might consider the flow where $\bX$ and $\by$ have the same dimension and are linked via the function $\by = E(\bX)$.
+from a random vector $\bX$ to a deterministic vector $\by$ means that there is a link function of the form $\by = g(\bx)$, so that observed values of $\bX$ uniquely determine values of $\by$.
 
 The probabilistic graphical models that we will study in this chapter are meant to model real-world datasets. These datasets will often be conceptualized as observations of random or deterministic vectors, and these vectors are then integrated into a graphical model. These vectors are called _observed_ or _visible_, while all others are called _latent_ or _hidden_. To visually represent observed vectors in the graph structure, their nodes will be shaded; the nodes associated with _hidden_ vectors are left unshaded. For example, if we draw
 
@@ -140,7 +132,7 @@ It is important to note that for the simple types of models we consider in this 
 ```
 &nbsp;
 
-with two observed random vectors $\bY$ and $\bZ$ and one hidden. Then, by saying that $\bY$ and $\bZ$ are observed, we mean that we have in possession a pair $(\by, \bz) $ consisting of an observed values of $\bY$ and $\bZ$.
+with two observed random vectors $\bY$ and $\bZ$ and one hidden. Then, by saying that $\bY$ and $\bZ$ are observed, we mean that we have in possession a pair $(\by, \bz) $ consisting of observed values of $\bY$ and $\bZ$.
 
 We may integrate IID random samples into our graphical framework as follows. Suppose that instead of a single copy of the graph above, we have a collection of graphs
 
@@ -166,17 +158,17 @@ which explicitly shows that $\bX$, $\balpha$, and $\bbeta$ are shared across all
 ```
 &nbsp;
 
-This is called _plate notation_, where the rectangle is called the _plate_. The visible nodes in the plate are assumed to be grouped as a pair $(\bY^{(i)},\bZ^{(i)})$, and altogether they form an IID random sample
+This is called _plate notation_, where the rectangle is called the _plate_. The visible nodes in the plate are assumed to be grouped as pairs $(\bY^{(i)},\bZ^{(i)})$, and altogether they form an IID random sample
 
 $$
 (\bY^{(1)},\bZ^{(1)}),\ldots,(\bY^{(m)},\bZ^{(m)}).
 $$
 
-We now have everything that we need to define _probabilistic graphical models_ (*PGM*s) in general. After the definition, the remaining sections in this chapter are devoted to the study of particular examples of such models.
+We now have everything that we need to define _probabilistic graphical models_ in general. After the definition, the remaining sections in this chapter are devoted to the study of particular examples of such models.
 
 ```{prf:definition}
 
-A _probabilistic graphical model_ consists of the following:
+A _probabilistic graphical model_ (_PGM_) consists of the following:
 
 1. A set of vectors, some random and some deterministic, and some marked as observed and all others as hidden.
 
@@ -213,7 +205,7 @@ A _probabilistic graphical model_ consists of the following:
 The type of PGM defined in this section is one of the simplest, but also one of the most important. Its goal is to model an observed dataset
 
 $$
-(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \bbr
+(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr
 $$
 
 where we believe that
@@ -221,10 +213,10 @@ where we believe that
 ```{math}
 :label: approx-linear-eqn
 
-y^{(i)} \approx \beta_0 + \bx^{(i)T} \bbeta
+y^{(i)} \approx \beta_0 + \bx^{(i)}\bbeta
 ```
 
-for some parameters $\beta_0 \in \bbr$ and $\bbeta \in \bbr^n$. For example, let's consider the Ames housing dataset from the <a href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and {numref}`Chapter %s <random-vectors>`; it consists of $m=2{,}930$ bivariate observations
+for some parameters $\beta_0 \in \bbr$ and $\bbeta \in \bbr^{n\times 1}$. For example, let's consider the Ames housing dataset from the <a href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and {numref}`Chapter %s <random-vectors>`; it consists of $m=2{,}930$ bivariate observations
 
 $$
 (x^{(1)}, y^{(1)}), (x^{(2)},y^{(2)}),\ldots, (x^{(m)},y^{(m)}) \in \bbr^2
@@ -304,18 +296,18 @@ A _linear regression model_ is a probabilistic graphical model whose underlying 
 ```
 &nbsp;
 
-where $\bX$ is $n$-dimensional. The model has the following parameters:
+where $\bX\in \bbr^{1\times n}$. The model has the following parameters:
 
 * A real parameter $\beta_0\in \mathbb{R}$.
 
-* A parameter vector $\boldsymbol\beta \in \mathbb{R}^{n\times 1}$.
+* A parameter vector $\bbeta \in \mathbb{R}^{n\times 1}$.
 
 * A positive real parameter $\sigma^2>0$.
 
 The link function at $Y$ is given by
 
 $$
-\mu \stackrel{\text{def}}{=} \beta_0 + \bx^{T} \bbeta, \quad \text{where} \quad Y \mid \bX; \ \beta_0,\bbeta,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big).
+Y \mid \bX; \ \beta_0,\bbeta,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big), \quad \text{where} \quad \mu = \beta_0 + \bx \bbeta.
 $$
 ````
 
@@ -329,13 +321,13 @@ $$
 p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big).
 $$
 
-On its support consisting of all $y\in \bbr$ and $\bx \in \bbr^{n}$, it is given by the formula
+On its support consisting of all $y\in \bbr$ and $\bx \in \bbr^{1\times n}$, it is given by the formula
 
 $$
 p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} ( y - \mu)^2 \right),
 $$
 
-where $\mu = \beta_0 + \bx^T \bbeta$.
+where $\mu = \beta_0 + \bx \bbeta$.
 ```
 
 The second important probability density function is obtained from the plated version of a linear regression model:
@@ -354,7 +346,7 @@ Observations of the visible nodes correspond to an observed dataset. Then:
 Given an observed dataset
 
 $$
-(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \bbr,
+(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr,
 $$
 
 the _data probability function for a linear regression model_ is the conditional probability density function
@@ -377,13 +369,13 @@ The components of the vector $\bX$ are referred to as _predictors_, _regressors_
 Note that
 
 $$
-E\big(Y \mid \bX = \bx \big) = \mu = \beta_0 + \bx^T \bbeta,
+E\big(Y \mid \bX = \bx \big) = \mu = \beta_0 + \bx \bbeta,
 $$
 
 and so a linear regression model assumes (among other things) that the conditional mean of the response variable is linearly related to the regressors through the link function
 
 $$
-\mu = \beta_0 + \bx^T \bbeta.
+\mu = \beta_0 + \bx \bbeta.
 $$ (lin-reg-line-eqn)
 
 The parameter $\beta_0$ is often called the _intercept_ or _bias term_, while the other $\beta_j$'s (for $j>0$) are called _weights_ or _slope coefficients_ since they are exactly the (infinitesimal) slopes:
@@ -395,13 +387,13 @@ $$
 The random variable
 
 $$
-\dev \stackrel{\text{def}}{=} Y - \beta_0 - \bX^T\bbeta
+\dev \stackrel{\text{def}}{=} Y - \beta_0 - \bX\bbeta
 $$
 
 in a linear regression model is called the _error term_; note then that
 
 $$
-Y = \beta_0 + \bX^T\bbeta + \dev \quad \text{and} \quad \dev \sim \mathcal{N}(0, \sigma^2).
+Y = \beta_0 + \bX\bbeta + \dev \quad \text{and} \quad \dev \sim \mathcal{N}(0, \sigma^2).
 $$ (random-lin-rel-eqn)
 
 This is the manifestation in terms of random vectors and variables of the approximate linear relationship {eq}`approx-linear-eqn` described at the beginning of this section.
@@ -409,13 +401,13 @@ This is the manifestation in terms of random vectors and variables of the approx
 Suppose we are given an observed dataset
 
 $$
-(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \bbr.
+(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr.
 $$
 
 If for each $i=1,\ldots,m$, we define the _predicted values_
 
 $$
-\hat{y}^{(i)} = \beta_0 + \bx^{(i)T}\bbeta
+\hat{y}^{(i)} = \beta_0 + \bx^{(i)}\bbeta
 $$
 
 and the _residuals_
@@ -427,7 +419,7 @@ $$
 then from {eq}`random-lin-rel-eqn` we get
 
 $$
-y^{(i)} = \beta_0 + \bx^{(i)T} \bbeta + \dev^{(i)}.
+y^{(i)} = \beta_0 + \bx^{(i)} \bbeta + \dev^{(i)}.
 $$
 
 This shows that the residuals $\dev^{(i)}$ are observations of the error term $\dev \sim \mathcal{N}(0,\sigma^2)$. Thus, in a linear regression model, all residuals from a dataset are assumed to be modeled by a normal distribution with mean $0$ and a _fixed_ variance; the fixed-variance assumption is sometimes called _homoscedasticity_.
@@ -534,7 +526,7 @@ For smaller values of area, the distribution of the true prices is narrower comp
 The types of models studied in this section are closely related to the linear regression models in the previous, but here the goal is to model a dataset of the form
 
 $$
-(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \{0,1\}.
+(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \{0,1\}.
 $$
 
 Such datasets arise naturally in _binary classification problems_, where we aim to determine which of two classes a given object lies in based on predictor features. The true class of the $i$-th object is indicated by the value of $y^{(i)}$, while the vector $\bx^{(i)}$ consists of the predictor features.
@@ -568,12 +560,18 @@ plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
-The points represent the $2$-dimensional predictors $\bx^{(i)} = (x^{(i)}_1, x^{(i)}_2)$, while the color indicates the class $y^{(i)} \in \{0,1\}$. Our goal in this section is to capture the evident pattern in the data using a _logistic regression model_.
+The points represent the $2$-dimensional predictors
+
+$$
+\bx^{(i)} = \begin{bmatrix} x^{(i)}_1 & x^{(i)}_2 \end{bmatrix},
+$$
+
+while the color indicates the class $y^{(i)} \in \{0,1\}$. Our goal in this section is to capture the evident pattern in the data using a _logistic regression model_.
 
 To define these models, we first need to discuss the important _sigmoid function_, defined as
 
 $$
-\sigma: \bbr \to (0,1), \quad \sigma(z) = \frac{1}{1+e^{-z}}.
+\sigma: \bbr \to (0,1), \quad \sigma(x) = \frac{1}{1+e^{-x}}.
 $$
 
 Its graph is:
@@ -590,8 +588,8 @@ import torch.nn.functional as F
 grid = torch.linspace(start=-10, end=10, steps=300)
 plt.plot(grid, F.sigmoid(grid))
 plt.gcf().set_size_inches(w=5, h=3)
-plt.xlabel('$z$')
-plt.ylabel('$\sigma(z)$')
+plt.xlabel('$x$')
+plt.ylabel('$\sigma(x)$')
 plt.tight_layout()
 ```
 
@@ -608,22 +606,22 @@ A _logistic regression model_ is a probabilistic graphical model whose underlyin
 ```
 &nbsp;
 
-where $\bX$ is $n$-dimensional. The model has the following parameters:
+where $\bX\in \bbr^{1\times n}$. The model has the following parameters:
 
 * A real parameter $\beta_0\in \mathbb{R}$.
 
-* A parameter vector $\boldsymbol\beta \in \mathbb{R}^{n}$.
+* A parameter vector $\bbeta \in \mathbb{R}^{n\times 1}$.
 
 The link function at $Y$ is given by
 
 $$
-\phi = \sigma(\beta_0 + \bx^T\bbeta), \quad \text{where} \quad Y \mid \bX; \ \beta_0,\bbeta \sim \mathcal{B}er(\phi),
+Y \mid \bX; \ \beta_0,\bbeta \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx\bbeta),
 $$
 
-where $\sigma$ is the sigmoid function.
+and where $\sigma$ is the sigmoid function.
 ````
 
-Notice that the link function $\phi = \sigma(\beta_0 + \bx^T\bbeta)$ is precisely the affine link function $\mu = \beta_0 + \bx^T\bbeta$ of a linear regression model composed with the sigmoid function.
+Notice that the link function $\phi = \sigma(\beta_0 + \bx\bbeta)$ in a logistic regression model is precisely the affine link function $\mu = \beta_0 + \bx\bbeta$ of a linear regression model composed with the sigmoid function.
 
 The two probability functions that we will use to train logistic regression models in the [next chapter](learning) are given as follows. For the first:
 
@@ -632,16 +630,16 @@ The two probability functions that we will use to train logistic regression mode
 The _model probability function for a logistic regression model_ is the conditional probability density function
 
 $$
-p\big(y \mid \bx ; \ \bbeta, \beta_0\big).
+p\big(y \mid \bx ; \ \beta_0, \bbeta\big).
 $$
 
-On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{n}$, it is given by the formula
+On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{1\times n}$, it is given by the formula
 
 $$
-p\big(y \mid \bx ; \ \bbeta, \beta_0\big) = \phi^y (1-\phi)^{1-y}
+p\big(y \mid \bx ; \ \beta_0, \bbeta\big) = \phi^y (1-\phi)^{1-y}
 $$
 
-where $\phi = \sigma(\bx \bbeta + \beta_0)$.
+where $\phi = \sigma(\beta_0 + \bx \bbeta)$.
 ```
 
 As with linear regression models, the second probability function is obtained from the plated version of a logistic regression model:
@@ -660,13 +658,13 @@ Then:
 Given a dataset
 
 $$
-(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \{0,1\},
+(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \{0,1\},
 $$
 
 the _data probability function for a logistic regression model_ is the conditional probability density function
 
 $$
-p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \bbeta, \beta_0\big) = \prod_{i=1}^m p\big(y^{(i)} \mid \bx^{(i)} ; \ \bbeta, \beta_0\big).
+p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \beta_0, \bbeta\big) = \prod_{i=1}^m p\big(y^{(i)} \mid \bx^{(i)} ; \ \beta_0, \bbeta\big).
 $$ (log-reg-data-pf-eqn)
 ```
 
@@ -675,10 +673,10 @@ As in {prf:ref}`lin-reg-data-pf-def`, one may _prove_ that the data probability 
 Let's return to our toy dataset introduced at the beginning of the section. To aid with training, it is often helpful to _standardize_ the predictor features
 
 $$
-\bx^{(1)},\ldots,\bx^{(m)} \in \bbr^n.
+\bx^{(1)},\ldots,\bx^{(m)} \in \bbr^{1\times n}.
 $$
 
-Precisely, this means that we compute the (empirical) mean $\bar{x}_j$ and standard deviation $s_j$ of each sequence
+This means that we compute the (empirical) mean $\bar{x}_j$ and standard deviation $s_j$ of each sequence
 
 $$
 x_j^{(1)},\ldots,x_j^{(m)} \in \bbr
@@ -693,13 +691,13 @@ $$
 It is convenient to visualize this process in terms of the so-called _design matrix_
 
 $$
-\mathcal{X} = \begin{bmatrix} x_1^{(1)} & \cdots & x_n^{(1)} \\
+\mathcal{X} = \begin{bmatrix} \leftarrow & \bx^{(1)} & \rightarrow \\ \vdots & \vdots & \vdots \\ \leftarrow & \bx^{(m)} & \rightarrow \end{bmatrix} = \begin{bmatrix} x_1^{(1)} & \cdots & x_n^{(1)} \\
 \vdots & \ddots & \vdots \\
 x_1^{(m)} & \cdots & x_n^{(m)}
-\end{bmatrix}
+\end{bmatrix}.
 $$
 
-whose rows are the transposes $\bx^{(i)T}$. Then the empirical means $\bar{x}_j$ and standard deviations $s_j$ are precisely the means and standard deviations of the columns.
+Then the empirical means $\bar{x}_j$ and standard deviations $s_j$ are precisely the means and standard deviations of the columns.
 
 If we standardize our toy dataset, we get the following:
 
@@ -744,28 +742,28 @@ Notice that the values of the two features $x_1$ and $x_2$ now lie in comparable
 Along with linear regression models, in the [next chapter](learning) we will see how to learn optimal values of the parameters $\beta_0$ and $\bbeta$ from data. With these parameters in hand, one way to check how well a logistic regression model captures the data is to draw the _decision boundary_. To define it, we first note that a logistic regression model may be turned into a _predictor_ by thresholding the outputs of the sigmoid function at $0.5$. Precisely, we define
 
 $$
-f:\bbr^n \to \{0,1\}, \quad f(\bx) = \begin{cases}
-0 & : \sigma(\beta_0 + \bx^T\bbeta) < 0.5, \\
-1 & : \sigma(\beta_0 + \bx^T\bbeta) \geq 0.5. \\
+f:\bbr^{1\times n} \to \{0,1\}, \quad f(\bx) = \begin{cases}
+0 & : \sigma(\beta_0 + \bx\bbeta) < 0.5, \\
+1 & : \sigma(\beta_0 + \bx\bbeta) \geq 0.5. \\
 \end{cases}
 $$
 
-The value $\phi = \sigma(\beta_0 + \bx^T \bbeta)$ evaluated at a vector $\bx$ should be thought of as the probability that $\bx$ belongs to class $1$; if this probability is $\geq 0.5$, then the predictor $f$ assigns $\bx$ to class $1$. Otherwise, it assigns $\bx$ to class $0$. Then the _decision boundary_ is exactly the hypersurface in $\bbr^n$ consisting of those $\bx$ for which the predictor $f$ is "flipping a coin," i.e., it consists of those points $\bx$ such that
+The value $\phi = \sigma(\beta_0 + \bx \bbeta)$ evaluated at a vector $\bx$ should be thought of as the probability that $\bx$ belongs to class $1$; if this probability is $\geq 0.5$, then the predictor $f$ assigns $\bx$ to class $1$. Otherwise, it assigns $\bx$ to class $0$. Then the _decision boundary_ is exactly the hypersurface in $\bbr^n$ consisting of those $\bx$ for which the predictor $f$ is "flipping a coin," i.e., it consists of those points $\bx$ such that
 
 $$
-\sigma(\beta_0 + \bx^T \bbeta) = 0.5,
+\sigma(\beta_0 + \bx \bbeta) = 0.5,
 $$
 
 which is equivalent to
 
 $$
-\beta_0 + \bx^T \bbeta = 0.
+\beta_0 + \bx \bbeta = 0.
 $$
 
 Notice that this defines a hyper**plane** that separates $\bbr^n$ into two unbounded regions based on whether
 
 $$
-\beta_0 + \bx^T \bbeta > 0 \quad \text{or} \quad \beta_0 + \bx^T \bbeta < 0.
+\beta_0 + \bx \bbeta > 0 \quad \text{or} \quad \beta_0 + \bx \bbeta < 0.
 $$
 
 Those vectors $\bx$ satisfying the first inequality would be predicted to belong to class $1$, while those satisfying the latter inequality would be predicted to belong to class $0$. In the case of our toy $2$-dimensional dataset from above, the decision boundary is a line in $\bbr^2$. It appears as the green line in:
@@ -834,12 +832,42 @@ As is evident from the plot, our logistic regression model is doing its best to 
 (nn-sec)=
 ## Neural network models
 
-The desired to obtain _nonlinear_ decision boundaries is (in part) the motivation for the probabilistic graphical models studied in this section.
+The desire to obtain _nonlinear_ decision boundaries is (in part) the motivation for the probabilistic graphical models studied in this section, called _neural networks_. While there are many (_many!_) different types of neural network architectures in current use, the particular type that we shall begin our study with are _fully-connected, feedforward neural networks with one hidden layer_.
+
+Essentially, these types of neural networks are logistic regression models with a hidden deterministic node $\bz$ sandwiched between the predictor features $\bX$ and the response variable $Y$. The link from $\bz$ to $Y$ goes through the same sigmoid function used in the definition of logistic regression models, but the link from $\bX$ to $\bz$ goes through a function called the _rectified linear unit_ (_ReLU_), defined as
+
+$$
+\rho: \bbr \to [0,\infty), \quad \rho(x) = \max\{0, x\}.
+$$
+
+The ReLU function is piecewise linear, with a graph of the form:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+relu_grid = torch.linspace(start=-2, end=2, steps=200)
+plt.plot(relu_grid, F.relu(relu_grid))
+plt.gcf().set_size_inches(w=5, h=3)
+plt.xlabel('$x$')
+plt.ylabel('$\\rho(x)$')
+plt.tight_layout()
+```
+
+We may apply the ReLU function to vectors $\bx\in \bbr^{1\times n}$ by "vectorization" (in pythonic language), which just means that we apply it componentwise:
+
+$$
+\rho(\bx) \def \begin{bmatrix} \rho(x_1) & \cdots & \rho(x_n) \end{bmatrix}.
+$$
+
+Using these pieces, we now state the official definition in the case that the neural network has one hidden layer; later, we shall indicate how one obtains "deeper" neural networks by adding additional hidden layers.
 
 
 ````{prf:definition}
 
-A _neural network model_ is a probabilistic graphical model whose underlying graph is of the form
+A _(fully-connected, feedforward) neural network with one hidden layer_ is a probabilistic graphical model whose underlying graph is of the form
 
 ```{image} ../img/nn-00.svg
 :width: 50%
@@ -847,59 +875,152 @@ A _neural network model_ is a probabilistic graphical model whose underlying gra
 ```
 &nbsp;
 
-where $\bX$ is $n$-dimensional and $\mathbf{z}\in \mathbb{R}^{k}$. The model has the following parameters:
+where $\bX\in \bbr^{1\times n}$ and $\bz \in \bbr^{1\times k}$. The model has the following parameters:
 
-* A parameter vector $\boldsymbol\alpha_0 \in \mathbb{R}^{k}$.
+* A parameter matrix $\mathcal{W} \in \mathbb{R}^{n\times k}$.
 
-* A parameter matrix $\mathcal{A} \in \mathbb{R}^{n\times k}$.
+* A parameter vector $\bb \in \mathbb{R}^{1\times k}$.
 
-* A real parameter $\beta_0 \in \mathbb{R}$.
+* A parameter vector $\bw \in \mathbb{R}^{k\times 1}$.
 
-* A parameter vector $\bbeta \in \mathbb{R}^{k}$.
+* A real parameter $b \in \mathbb{R}$.
 
 The link function at $\mathbf{z}$ is given by
 
 $$
-\mathbf{z}^T = \rho(\balpha_0^T + \mathbf{x}^T\mathcal{A}),
+\mathbf{z} = \rho(\mathbf{x}\mathcal{W} + \bb),
 $$
 
 while the link function at $Y$ is given by
 
 $$
-\phi = \sigma(\beta_0 + \mathbf{z}^T\bbeta), \quad \text{where} \quad Y ;\  \mathbf{z}, \beta_0,\bbeta \sim \mathcal{B}er\big(\phi\big).
+Y ;\  \mathbf{z}, \bw, b \sim \mathcal{B}er\big(\phi\big), \quad \text{where} \quad \phi = \sigma(\bz\bw + b).
 $$
+
+Here, $\rho$ is the ReLU function and $\sigma$ is the sigmoid function.
 ````
+
+The name "neural network" comes from a loose analogy with networks of biological neurons in the human brain. For this reason, sometimes the neural networks just defined are called _artificial neural networks_ (*ANN*s).
+
+Following the pattern begun with linear and logistic regression models, we first want to give the probability functions that we will use in the [next chapter](learning) to train neural network models. The first one is:
 
 ```{prf:definition}
 
-1. The _model conditional probability function for a neural network model_ is the conditional probability density function
+The _model probability function for a neural network model_ is the conditional probability density function
 
-    $$
-    p\big(y \mid \bx ; \ \balpha, \balpha_0, \bbeta, \beta_0\big).
-    $$
+$$
+p\big(y \mid \bx ; \ \mathcal{W}, \bb, \bw, b \big).
+$$
 
-    On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{n}$, it is given by the formula
+On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{1\times n}$, it is given by the formula
 
-    $$
-    p\big(y \mid \bx ; \ \bbeta, \beta_0\big) = \phi^y (1-\phi)^{1-y}
-    $$
+$$
+p\big(y \mid \bx ; \ \mathcal{W}, \bb, \bw, b \big) = \phi^y (1-\phi)^{1-y}
+$$
 
-    where $\phi = \sigma(\bz \bbeta + \beta_0)$ and $\bz = \sigma(\bx \balpha + \balpha_0)$.
-
-2. Given a dataset
-
-    $$
-    (\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \{0,1\},
-    $$
-
-    the _data conditional probability function for a neural network model_ is the conditional probability density function
-
-    $$
-    p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \balpha, \balpha_0, \bbeta, \beta_0\big) = \prod_{i=1}^m p\big(y^{(i)} \mid \bx^{(i)} ; \ \balpha, \balpha_0, \bbeta, \beta_0\big).
-    $$
-
+where $\phi = \sigma(\bz \bw + b)$ and $\bz = \sigma(\bx \mathcal{W} + \bb)$.
 ```
 
+The second probability function is obtained from the plated version of a neural network:
+
+```{image} ../img/nn-00-plated.svg
+:width: 50%
+:align: center
+```
+&nbsp;
+
+Then:
+
+```{prf:definition}
+
+Given a dataset
+
+$$
+(\bx^{(1)}, y^{(1)}), (\bx^{(2)},y^{(2)}),\ldots, (\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \{0,1\},
+$$
+
+the _data probability function for a neural network model_ is the conditional probability density function
+
+$$
+p\big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \mathcal{W}, \bb, \bw, b\big) = \prod_{i=1}^m p\big(y^{(i)} \mid \bx^{(i)} ; \ \mathcal{W}, \bb, \bw, b\big).
+$$
+```
+
+Very often, one sees the underlying graph of a neural network displayed in terms of the components of the vectors (with the parameters omitted). For example, in the case that $\bX$ is $3$-dimensional and $\bz$ is $4$-dimensional, we might see the graph of the neural network drawn as
+
+```{image} ../img/nn-neuron.svg
+:width: 60%
+:align: center
+```
+&nbsp;
+
+In this format, the nodes are often called _(artificial) neurons_ or _units_. The visible neurons $X_1,X_2,X_3$ are said to comprise the _input layer_ of the network, the hidden neurons $z_1,z_2,z_3,z_4$ make up a _hidden layer_, and the single visible neuron $Y$ makes up the _output layer_. The network is called _fully-connected_ because there is a link function at a given neuron _from_ every neuron in the previous layer and _to_ every neuron in the subsequent layer; it is called a _feedfoward_ network because the link functions only go in one direction, with no feedback links. The link function at $z_j$ is of the form
+
+$$
+z_j = \rho(\bx \bw_j + b_j),
+$$
+
+where
+
+$$
+\mathcal{W} = \begin{bmatrix} \uparrow & \uparrow & \uparrow & \uparrow \\ \bw_1 & \bw_2 & \bw_3 & \bw_4 \\
+\downarrow & \downarrow & \downarrow & \downarrow \end{bmatrix} \quad \text{and} \quad \bb = \begin{bmatrix} b_{1} & b_2 & b_3 & b_{4} \end{bmatrix}.
+$$
+
+The link function at $Y$ is given by the same formula as before using the sigmoid function. In the literature, the ReLU function $\rho$ and the sigmoid function $\sigma$ are often called _activation functions_ of the network. The parameters $\mathcal{W}$ and $\bw$ are called _weights_, while the parameters $\bb$ and $b$ are called _biases_.
+
+From our networks with just one hidden layer, it is easy to imagine how we might obtain "deeper" networks by adding additional hidden layers; for example, a network with two hidden layers might look like this:
+
+```{image} ../img/nn-neuron-02.svg
+:width: 80%
+:align: center
+```
+&nbsp;
+
+If we collapse the neurons into vectors and bring in the parameters, this network would be drawn as
+
+```{image} ../img/nn-02.svg
+:width: 65%
+:align: center
+```
+&nbsp;
+
+There are now _two_ weight matrices $\mathcal{W}^{[1]}$ and $\mathcal{W}^{[2]}$, along with _two_ bias vectors $\bb^{[1]}$ and $\bb^{[2]}$. The link functions at $\bz^{[1]}$ and $\bz^{[2]}$ are given by
+
+$$
+\bz^{[i]} = \rho\big(\bz^{[i-1]} \mathcal{W}^{[i]} + \bb^{[i]} \big) \quad \text{for $i=1,2$,}
+$$
+
+where we set $\bz^{[0]} = \bx$. The link function at $Y$ is the same as it was before:
+
+$$
+Y; \ \bz^{[2]}, \bw, b \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \bz^{[2]} \bw + b\big).
+$$
+
+The _depth_ of a neural network is defined to be one less than the total number of layers. The "one less" convention is due to the fact that only the hidden and output layers are associated with trainable parameters. Equivalently, the _depth_ is the number of "layers" of link functions (with trainable parameters). The _widths_ of a network are defined to be the dimensions of the hidden vectors.
+
+Our goal in the [next chapter](learning) is to study how to train a neural network on a dataset in order to learn its parameters. As with logistic regression models, we can check the fit of a neural network by converting it into a _predictor_ and drawing the _decision boundary_. Thus, assuming all parameters have been learned, we define the function
+
+$$
+f: \bbr^{1\times n} \to \{0,1\}, \quad f(\bx) = \begin{cases}
+0 & : \sigma(\bz\bw + b) < 0.5, \\
+1 & : \sigma(\bz\bw + b) \geq 0.5,
+\end{cases}
+$$
+
+where we've restricted our attention to a network with one hidden layer for simplicity (so $\bz = \rho(\bx\mathcal{W} + \bb)$). Then the _decision boundary_ is defined just as it was before, consisting of all those points $\bx$ for which
+
+$$
+\bz \bw + b = 0
+$$
+
+where $\bz = \rho(\bx\mathcal{W}+\bb)$. This boundary divides $\bbr^n$ into two regions where
+
+$$
+\bz \bw + b >0 \quad \text{or} \quad \bz \bw + b < 0.
+$$
+
+Those points $\bx$ satisfying the first inequality are predicted to lie in class $1$, while those satisfying the second inequality are predicted to lie in class $0$.
 
 
 
@@ -908,8 +1029,6 @@ $$
 :mystnb:
 :   figure:
 :       align: center
-
-import torch
 
 # convert the data to torch tensors
 X = torch.tensor(data=X, dtype=torch.float32)
@@ -924,10 +1043,11 @@ model = torch.nn.Sequential(torch.nn.Linear(in_features=2, out_features=16),
 
 # define the loss function and optimizer
 loss_fn = torch.nn.BCELoss()
-optimizer = torch.optim.Adam(model.parameters())
+#optimizer = torch.optim.Adam(model.parameters())
+optimizer = torch.optim.SGD(params=model.parameters(), lr=5e-1)
 
 # train the model
-num_epochs = 8000
+num_epochs = 750
 for _ in range(num_epochs):
     optimizer.zero_grad()
     y_hat = model(X)
