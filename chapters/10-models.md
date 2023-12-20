@@ -234,6 +234,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as clr
+import matplotlib as mpl
 import matplotlib_inline.backend_inline
 import seaborn as sns
 import scipy as sp
@@ -739,34 +740,7 @@ plt.tight_layout()
 
 Notice that the values of the two features $x_1$ and $x_2$ now lie in comparable ranges, while the overall _shape_ of the dataset has not changed.
 
-Along with linear regression models, in the [next chapter](learning) we will see how to learn optimal values of the parameters $\beta_0$ and $\bbeta$ from data. With these parameters in hand, one way to check how well a logistic regression model captures the data is to draw the _decision boundary_. To define it, we first note that a logistic regression model may be turned into a _predictor_ by thresholding the outputs of the sigmoid function at $0.5$. Precisely, we define
-
-$$
-f:\bbr^{1\times n} \to \{0,1\}, \quad f(\bx) = \begin{cases}
-0 & : \sigma(\beta_0 + \bx\bbeta) < 0.5, \\
-1 & : \sigma(\beta_0 + \bx\bbeta) \geq 0.5. \\
-\end{cases}
-$$
-
-The value $\phi = \sigma(\beta_0 + \bx \bbeta)$ evaluated at a vector $\bx$ should be thought of as the probability that $\bx$ belongs to class $1$; if this probability is $\geq 0.5$, then the predictor $f$ assigns $\bx$ to class $1$. Otherwise, it assigns $\bx$ to class $0$. Then the _decision boundary_ is exactly the hypersurface in $\bbr^n$ consisting of those $\bx$ for which the predictor $f$ is "flipping a coin," i.e., it consists of those points $\bx$ such that
-
-$$
-\sigma(\beta_0 + \bx \bbeta) = 0.5,
-$$
-
-which is equivalent to
-
-$$
-\beta_0 + \bx \bbeta = 0.
-$$
-
-Notice that this defines a hyper**plane** that separates $\bbr^n$ into two unbounded regions based on whether
-
-$$
-\beta_0 + \bx \bbeta > 0 \quad \text{or} \quad \beta_0 + \bx \bbeta < 0.
-$$
-
-Those vectors $\bx$ satisfying the first inequality would be predicted to belong to class $1$, while those satisfying the latter inequality would be predicted to belong to class $0$. In the case of our toy $2$-dimensional dataset from above, the decision boundary is a line in $\bbr^2$. It appears as the green line in:
+Along with linear regression models, in the [next chapter](learning) we will see how to learn optimal values of the parameters $\beta_0$ and $\bbeta$ from data. With these parameters in hand, one way to check how well a logistic regression model captures the data is to draw a contour plot of the function $\phi = \sigma( \beta_0 + \bx \bbeta)$. This contour plot appears on the left in the following:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -783,40 +757,69 @@ model = LogisticRegression()
 # train the model
 model.fit(X=X, y=y)
 
-# begin code to plot decision boundary. define resolution of grid.
+# get the grid for the contour plot
 resolution = 1000
+x_1 = (-2, 2)
+x_2 = (-4, 4)
+grid_1, grid_2 = torch.meshgrid(torch.linspace(*x_1, resolution), torch.linspace(*x_2, resolution))
+grid = torch.column_stack((grid_1.reshape((resolution ** 2, -1)), grid_2.reshape((resolution ** 2, -1))))
 
-# define grid
-x_1 = np.linspace(-2, 2, resolution)
-x_2 = np.linspace(-4, 4, resolution)
-grid_1, grid_2 = np.meshgrid(x_1, x_2)
-grid = np.column_stack((grid_1.reshape((resolution ** 2, -1)), grid_2.reshape((resolution ** 2, -1))))
+# define colormaps for the contour plots
+desat_blue = '#7F93FF'
+desat_magenta = '#FF7CFE'
+diverging_cmap = clr.LinearSegmentedColormap.from_list(name='diverging', colors=[desat_blue, 'white', desat_magenta], N=10)
+binary_cmap = clr.LinearSegmentedColormap.from_list(name='binary', colors=[desat_blue, desat_magenta], N=2)
 
-# apply the fitted model to the grid
+_, axes = plt.subplots(ncols=3, figsize=(10, 4), width_ratios=[10, 10, 1])
+
+# generate the contour plots
+z = model.predict_proba(grid)[:, 1]
+z = z.reshape(resolution, resolution)
+axes[0].contourf(grid_1, grid_2, z, cmap=diverging_cmap, levels=diverging_cmap.N)
+
 z = model.predict(grid)
+z = z.reshape(resolution, resolution)
+axes[1].contourf(grid_1, grid_2, z, cmap=binary_cmap, levels=binary_cmap.N)
 
-# plot the decision boundary and colors
-z = z.reshape((resolution, resolution))
-cmap = clr.LinearSegmentedColormap.from_list('custom', [blue, magenta], N=2)
-plt.contourf(grid_1, grid_2, z, cmap=cmap, alpha=0.45)
-plt.contour(grid_1, grid_2, z)
+plt.colorbar(mpl.cm.ScalarMappable(cmap=diverging_cmap), cax=axes[2], orientation='vertical')
 
 # plot the data
-g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
+for axis in axes[:-1]:
+    sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axis, legend=False)
+    axis.set_xlabel('$x_1$')
+    axis.set_ylabel('$x_2$')
 
-# change the default seaborn legend
-g.legend_.set_title(None)
-new_labels = ['class 0', 'class 1']
-for t, l in zip(g.legend_.texts, new_labels):
-    t.set_text(l)
-
-plt.xlabel('$x_1$')
-plt.ylabel('$x_2$')
-plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
-As is evident from the plot, our logistic regression model is doing its best to accurately classify as many data points as possible, but our model is handicapped by the fact it will _always_ produce a linear decision boundary.
+To interpret this plot, remember that $\phi = \sigma( \beta_0 + \bx \bbeta)$ is the probability parameter for the class indicator variable $Y \sim \Ber(\phi)$, so we should interpret $\phi$ as the probability that the point $\bx$ is in class $1$ (corresponding to $y=1$). In the right-hand plot, we have "thresholded" the probability $\phi$ at $0.5$, creating a _predictor function_
+
+$$
+f:\bbr^{1\times 2} \to \{0,1\}, \quad f(\bx) = \begin{cases}
+0 & : \sigma(\beta_0 + \bx\bbeta) < 0.5, \\
+1 & : \sigma(\beta_0 + \bx\bbeta) \geq 0.5. \\
+\end{cases}
+$$
+
+The _decision boundary_ is exactly the curve in $\bbr^2$ consisting of those $\bx$ for which the predictor $f$ is "flipping a coin," i.e., it consists of those points $\bx$ such that
+
+$$
+\sigma(\beta_0 + \bx \bbeta) = 0.5,
+$$
+
+which is equivalent to
+
+$$
+\beta_0 + \bx \bbeta = 0.
+$$
+
+Notice that this defines a _linear_ decision boundary that separates $\bbr^2$ into two unbounded half planes based on whether
+
+$$
+\beta_0 + \bx \bbeta > 0 \quad \text{or} \quad \beta_0 + \bx \bbeta < 0.
+$$
+
+Those vectors $\bx$ satisfying the first inequality would be predicted to belong to class $1$, while those satisfying the latter inequality would be predicted to belong to class $0$. As is evident from the plots, our logistic regression model is doing its best to accurately classify as many data points as possible, but our model is handicapped by the fact it will _always_ produce a linear decision boundary.
 
 
 
@@ -999,29 +1002,122 @@ $$
 
 The _depth_ of a neural network is defined to be one less than the total number of layers. The "one less" convention is due to the fact that only the hidden and output layers are associated with trainable parameters. Equivalently, the _depth_ is the number of "layers" of link functions (with trainable parameters). The _widths_ of a network are defined to be the dimensions of the hidden vectors.
 
-Our goal in the [next chapter](learning) is to study how to train a neural network on a dataset in order to learn its parameters. As with logistic regression models, we can check the fit of a neural network by converting it into a _predictor_ and drawing the _decision boundary_. Thus, assuming all parameters have been learned, we define the function
+Let's return to our toy dataset from the [previous section](log-reg-sec):
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+# plot the data
+g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
+
+# change the default seaborn legend
+g.legend_.set_title(None)
+new_labels = ['class 0', 'class 1']
+for t, k2 in zip(g.legend_.texts, new_labels):
+    t.set_text(k2)
+
+plt.xlabel('$x_1$')
+plt.ylabel('$x_2$')
+plt.gcf().set_size_inches(w=5, h=3)
+plt.tight_layout()
+```
+
+Trained on this dataset, we saw that a logistic regression model produces a _linear_ decision boundary and thus misclassifies a nontrivial number of data points. Using the techniques in the [next chapter](learning), we trained a neural network on this dataset with _three_ hidden layers of widths $8$, $8$, and $4$. A contour plot of
 
 $$
-f: \bbr^{1\times n} \to \{0,1\}, \quad f(\bx) = \begin{cases}
-0 & : \sigma(\bz\bw + b) < 0.5, \\
-1 & : \sigma(\bz\bw + b) \geq 0.5,
-\end{cases}
+\phi = \sigma\big(\bz^{[3]}\bw + b\big)
 $$
 
-where we've restricted our attention to a network with one hidden layer for simplicity (so $\bz = \rho(\bx\mathcal{W} + \bb)$). Then the _decision boundary_ is defined just as it was before, consisting of all those points $\bx$ for which
+appears on the left-hand side of the following figure, while the "thresholded" version (at $0.5$) appears on the right-hand side displaying the (nonlinear!) decision boundary:
 
-$$
-\bz \bw + b = 0
-$$
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
 
-where $\bz = \rho(\bx\mathcal{W}+\bb)$. This boundary divides $\bbr^n$ into two regions where
+import torch.nn as nn
 
-$$
-\bz \bw + b >0 \quad \text{or} \quad \bz \bw + b < 0.
-$$
+# convert the data to torch tensors
+X = torch.tensor(data=X, dtype=torch.float32)
+y = torch.tensor(data=y, dtype=torch.float32)
 
-Those points $\bx$ satisfying the first inequality are predicted to lie in class $1$, while those satisfying the second inequality are predicted to lie in class $0$.
+# define the neural network model architecture
+torch.manual_seed(42)
+k1 = 8 # width of first hidden layer
+k2 = 8 # width of second hidden layer
+k3 = 4 # width of third hidden layer
 
+class NeuralNetwork(nn.Module):
+    def __init__(self, input_dimension):
+        super().__init__()
+
+        # three hidden layers...
+        self.hidden1_linear = nn.Linear(in_features=input_dimension, out_features=k1)
+        self.hidden1_act = nn.ReLU()
+        self.hidden2_linear = nn.Linear(in_features=k1, out_features=k2)
+        self.hidden2_act = nn.ReLU()
+        self.hidden3_linear = nn.Linear(in_features=k2, out_features=k3)
+        self.hidden3_act = nn.ReLU()
+        
+        # ...and one output layer
+        self.output_linear = nn.Linear(in_features=k3, out_features=1)
+        self.output_act = nn.Sigmoid()
+
+    def forward(self, X):
+        X = self.hidden1_act(self.hidden1_linear(X))
+        hidden_output_1 = X
+        X = self.hidden2_act(self.hidden2_linear(X))
+        hidden_output_2 = X
+        X = self.hidden3_act(self.hidden3_linear(X))
+        hidden_output_3 = X
+        X = self.output_act(self.output_linear(X))
+
+        return X, hidden_output_1, hidden_output_2, hidden_output_3
+    
+model = NeuralNetwork(input_dimension=2)
+
+# define the loss function and optimizer
+loss_fn = torch.nn.BCELoss()
+optimizer = torch.optim.SGD(params=model.parameters(), lr=5e-1)
+
+# train the model
+num_epochs = 4000
+for _ in range(num_epochs):
+    optimizer.zero_grad()
+    y_hat = model(X)[0]
+    loss = loss_fn(y_hat.squeeze(), y)
+    loss.backward()
+    optimizer.step()
+
+_, axes = plt.subplots(ncols=3, figsize=(10, 4), width_ratios=[10, 10, 1])
+
+# generate the contour plots
+model.eval()
+grid_outputs = model(grid)
+z = grid_outputs[0].detach().numpy()
+z = z.reshape(resolution, resolution)
+axes[0].contourf(grid_1, grid_2, z, cmap=diverging_cmap, levels=diverging_cmap.N)
+
+z = grid_outputs[0] >= 0.5
+z = z.reshape(resolution, resolution)
+axes[1].contourf(grid_1, grid_2, z, cmap=binary_cmap, levels=binary_cmap.N)
+
+plt.colorbar(mpl.cm.ScalarMappable(cmap=diverging_cmap), cax=axes[2], orientation='vertical')
+
+# plot the data
+for axis in axes[:-1]:
+    sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axis, legend=False)
+    axis.set_xlabel('$x_1$')
+    axis.set_ylabel('$x_2$')
+
+plt.tight_layout()
+```
+
+Notice that the band of white (representing values $\phi \approx 0.5$) in the left-hand plot is much narrower compared to the same plot for the logistic regression model. This indicates that the neural network is making much more confident predictions up to its decision boundary (displayed in the right-hand plot) compared to the logistic regression model.
 
 
 ```{code-cell} ipython3
@@ -1030,56 +1126,44 @@ Those points $\bx$ satisfying the first inequality are predicted to lie in class
 :   figure:
 :       align: center
 
-# convert the data to torch tensors
-X = torch.tensor(data=X, dtype=torch.float32)
-y = torch.tensor(data=y, dtype=torch.float32)
+fig = plt.figure(constrained_layout=True, figsize=(14, 15))
+subfigs = fig.subfigures(ncols=2, nrows=3, hspace=0.03, height_ratios=[2, 2, 1], width_ratios=[18, 1])
 
-# define the neural network model architecture
-torch.manual_seed(42)
-model = torch.nn.Sequential(torch.nn.Linear(in_features=2, out_features=16),
-                   torch.nn.ReLU(),
-                   torch.nn.Linear(in_features=16, out_features=1),
-                   torch.nn.Sigmoid())
+light_cmap = clr.LinearSegmentedColormap.from_list(name='light', colors=['white', magenta], N=16)
 
-# define the loss function and optimizer
-loss_fn = torch.nn.BCELoss()
-#optimizer = torch.optim.Adam(model.parameters())
-optimizer = torch.optim.SGD(params=model.parameters(), lr=5e-1)
+for l, subfig in enumerate(subfigs[:2, 0]):
+    subfig.suptitle(f'neurons in hidden layer {l + 1}')
+    axes = subfig.subplots(nrows=2, ncols=4, sharex=True, sharey=True)
+    
+    for j, axis in enumerate(axes.flatten()):
+        z = grid_outputs[l + 1][:, j].detach().numpy()
+        z = z.reshape(resolution, resolution)
+        contour = axis.contourf(grid_1, grid_2, z, cmap=light_cmap, levels=light_cmap.N, vmin=0, vmax=10)
+        
+        sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axis, legend=False, zorder=3)
+        axis.set_title(f'neuron {j + 1}')
+        axis.set_xlabel('$x_1$')
+        axis.set_ylabel('$x_2$')
+    
+for subfig in subfigs[:, 1]:
+    axis = subfig.subplots()
+    cbar = subfig.colorbar(mpl.cm.ScalarMappable(cmap=light_cmap), cax=axis, orientation='vertical')
+    cbar.set_ticklabels([round(2 * k, 1) for k in range(5)] + ['>10.0'])
 
-# train the model
-num_epochs = 750
-for _ in range(num_epochs):
-    optimizer.zero_grad()
-    y_hat = model(X)
-    loss = loss_fn(y_hat.squeeze(), y)
-    loss.backward()
-    optimizer.step()
+subfig = subfigs[2, 0]
+subfig.suptitle('neurons in hidden layer 3')
+axes = subfig.subplots(nrows=1, ncols=4, sharex=True, sharey=True)
 
-# apply the fitted model to the grid
-grid = torch.tensor(data=grid, dtype=torch.float32)
-z = (model(grid) >= 0.5).to(torch.int32)
+for j, axis in enumerate(axes.flatten()):
+    z = grid_outputs[3][:, j].detach().numpy()
+    z = z.reshape(resolution, resolution)
+    axis.contourf(grid_1, grid_2, z, cmap=light_cmap, levels=light_cmap.N, vmin=0, vamx=10)
 
-# plot the decision boundary and colors
-z = z.reshape((resolution, resolution))
-cmap = clr.LinearSegmentedColormap.from_list('custom', [blue, magenta], N=2)
-plt.contourf(grid_1, grid_2, z, cmap=cmap, alpha=0.45)
-plt.contour(grid_1, grid_2, z)
-
-# plot the data
-g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
-
-# change the default seaborn legend
-g.legend_.set_title(None)
-new_labels = ['class 0', 'class 1']
-for t, l in zip(g.legend_.texts, new_labels):
-    t.set_text(l)
-
-plt.xlabel('$x_1$')
-plt.ylabel('$x_2$')
-plt.gcf().set_size_inches(w=5, h=3)
-plt.tight_layout()
+    sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axis, legend=False, zorder=3)
+    axis.set_title(f'neuron {j + 1}')
+    axis.set_xlabel('$x_1$')
+    axis.set_ylabel('$x_2$')
 ```
-
 
 
 
