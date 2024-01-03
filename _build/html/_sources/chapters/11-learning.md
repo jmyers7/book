@@ -52,7 +52,7 @@ $$
 This is a very simple example of a probabilistic graphical model whose underlying graph consists of only two nodes, one for the parameter $\theta$ and one for the (observed) random variable $X$:
 
 ```{image} ../img/bern-pgm.svg
-:width: 17%
+:width: 25%
 :align: center
 ```
 &nbsp;
@@ -89,7 +89,7 @@ $$
 p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.22 \times 10^{-3}.
 $$
 
-Thus, it is five orders of magnitude more likely to observe a dataset with $x=7$ for $\theta=0.7$ compared to $\theta=0.1$. In fact, when $\Sigma x=7$ and $m=10$, the value $\theta = 0.7$ is a global maximizer of {eq}`likelihood-bern-eqn` as a function of $\theta$, which may be verified by inspecting the graph:
+Thus, it is five orders of magnitude more likely to observe our dataset when $\theta=0.7$ compared to $\theta=0.1$. In fact, the value $\theta = 0.7$ is a global maximizer of {eq}`likelihood-bern-eqn` as a function of $\theta$, which may be verified by inspecting the graph:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -236,7 +236,7 @@ $$
 \mathcal{L}\big(\theta; x^{(1)},\ldots,x^{(m)}\big) = p\big(x^{(1)},\ldots,x^{(m)};\theta\big)
 $$
 
-is exactly the _data joint probability function_, in the language of {numref}`Chapter %s <prob-models>`. The latter is the product
+is exactly the _data probability function_, in the language of {numref}`Chapter %s <prob-models>`. The latter is the product
 
 $$
 p\big(x^{(1)},\ldots,x^{(m)};\theta\big) = \prod_{i=1}^m p\big(x^{(i)};\theta\big)
@@ -262,7 +262,7 @@ $$
 
 the _model log-likelihood function_. When the data point $x$ does not need to be mentioned explicitly, we will write $\mathcal{L}(\theta)$ and $\ell(\theta)$ in place of $\mathcal{L}(\theta;x)$ and $\ell(\theta;x)$. Note that this clashes with our usage of $\mathcal{L}(\theta)$ and $\ell(\theta)$ to represent the _data_ likelihood and log-likelihood functions when the dataset is not made explicit. You will need to rely on context to clarify which of the two types of likelihood functions (data or model) is meant when we write $\mathcal{L}(\theta)$ or $\ell(\theta)$.
 
-It will be convenient to describe an optimization problem involving the _model_ likelihood function that is equivalent to MLE. Here, _equivalence_ means that the two optimization problems have the same solutions. This new (but equivalent!) optimization problem is appealing in part because it directly uses the empirical probability distribution of the dataset and thus more closely aligns us with the intuitive scheme described in the introduction to this chapter, that the goal of parameter learning is to minimize the "distance" (or "discrepancy") between the model distribution and the empirical distribution. This optimization problem is also useful because it opens the door for the _stochastic gradient descent algorithm_ from {numref}`Chapter %s <optim>` when closed form solutions are not available.
+It will be convenient to describe an optimization problem involving the _model_ likelihood function that is equivalent to MLE. Here, _equivalence_ means that the two optimization problems have the same solutions. This new (but equivalent!) optimization problem is appealing in part because it directly uses the empirical probability distribution of the dataset and thus more closely aligns with the intuitive scheme described in the introduction to this chapter, that the goal of parameter learning is to minimize the "distance" (or "discrepancy") between the model distribution and the empirical distribution. This optimization problem is also useful because it opens the door for the _stochastic gradient descent algorithm_ from {numref}`Chapter %s <optim>` when closed form solutions are not available.
 
 To describe the new optimization problem, let's consider again our Bernoulli model. Let $\hat{p}(x)$ be the empirical mass function of the dataset
 
@@ -320,7 +320,7 @@ Our description of likelihood-based learning methods thus far has focused on the
 
 To be more precise, we need to distinguish between two types of models. The [linear regression](lin-reg-sec), [logistic regression](log-reg-sec), and [neural network models](nn-sec) that we studied in the previous chapter will all be trained as _fully-observed discriminative models_. This means two things: (1) all stochastic nodes in the underlying graphs are observed, and (2) the likelihood functions are obtained from the _conditional_ probability functions of the models. The [Gaussian mixture models](gmm-sec) will be trained as _partially-observed generative models_, which means that the straightfoward MLE algorithm will need to be replaced with the _expectation maximization_ (or _EM_) algorithm. We will address the EM algorithm separately in {numref}`em-gmm-sec` below.
 
-To describe the MLE algorithm for the first type of models, we need to define the likelihood-based objective functions. Note that these functions are all defined in terms of the data and model conditional probability functions from {numref}`prob-models`.
+To describe the MLE algorithm for fully-observed discriminative models, we need to define the likelihood-based objective functions. These functions are all defined in terms of the data and model probability functions from {numref}`prob-models`.
 
 ```{prf:definition} MLE training objectives for fully-observed discriminative models
 :label: mle-training-objectives-def
@@ -445,16 +445,16 @@ Therefore, the underlying graph of the linear regression model is of the form
 ```
 &nbsp;
 
-where $\beta_0 \in \bbr$ and $\bbeta \in \mathbb{R}^{n}$ are the only parameters. The link function at $Y$ is still given by
+where $\beta_0 \in \bbr$ and $\bbeta \in \mathbb{R}^{n\times 1}$ are the only parameters. The link function at $Y$ is still given by
 
 $$
-\mu = \beta_0 + \bx^T\bbeta, \quad \text{where} \quad Y \mid \bX ; \ \beta_0,\bbeta \sim \mathcal{N}(\mu, \sigma^2).
+Y \mid \bX ; \ \beta_0,\bbeta \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu = \beta_0 + \bx \bbeta.
 $$
 
 Then, given a dataset
 
 $$
-(\bx^{(1)},y^{(1)}),\ldots,(\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \bbr,
+(\bx^{(1)},y^{(1)}),\ldots,(\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr,
 $$
 
 we may retrieve the data log-likelihood function from {numref}`lin-reg-sec`:
@@ -464,7 +464,7 @@ we may retrieve the data log-likelihood function from {numref}`lin-reg-sec`:
 &= - m\log{\sqrt{2\pi\sigma^2}} - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2,
 \end{align*}
 
-where $\mu^{(i)} = \beta_0 + \bx^{(i)T} \bbeta $ for each $i=1,\ldots,m$.
+where $\mu^{(i)} = \beta_0 + \bx^{(i)} \bbeta $ for each $i=1,\ldots,m$.
 
 The maximizers of $\ell(\beta_0,\bbeta)$ will occur at those parameter values for which $\nabla \ell(\beta_0, \bbeta)=0$. Since $-m\log{\sqrt{2\pi\sigma^2}}$ is constant with respect to the parameters, it may be dropped, leaving the equivalent objective function
 
@@ -486,17 +486,17 @@ Using this latter objective function, we obtain:
 Let the notation be as above, and let
 
 $$
-\boldsymbol\delta = \begin{bmatrix}
+\mathcal{X} = \begin{bmatrix}
 1 & x^{(1)}_1 & \cdots & x^{(1)}_n \\
 \vdots & \vdots & \ddots & \vdots \\
 1 & x^{(m)}_1 & \cdots & x^{(m)}_n
 \end{bmatrix}, \quad \by = \begin{bmatrix} y^{(1)} \\ \vdots \\ y^{(m)} \end{bmatrix}, \quad \btheta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_n \end{bmatrix}
 $$
 
-where $\bbeta^T = (\beta_1,\ldots,\beta_n)$. Provided that the $(n+1) \times (n+1)$ square matrix $\boldsymbol\delta^T \boldsymbol\delta$ is invertible, the maximum likelihood estimates for the parameters $\bbeta$ and $\beta_0$ are given by
+where $\bbeta^T = (\beta_1,\ldots,\beta_n)$. Provided that the $(n+1) \times (n+1)$ square matrix $\mathcal{X}^T \mathcal{X}$ is invertible, the maximum likelihood estimates for the parameters $\bbeta$ and $\beta_0$ are given by
 
 $$
-\btheta = \left(\boldsymbol\delta^T \boldsymbol\delta\right)^{-1}\boldsymbol\delta^T \by.
+\btheta = \left(\mathcal{X}^T \mathcal{X}\right)^{-1}\mathcal{X}^T \by.
 $$
 ```
 
@@ -504,31 +504,31 @@ $$
 As we noted above, the MLEs may be obtained by maximizing the function $J(\btheta)$ given in {eq}`lin-reg-mle-objective-eqn`, which may be rewritten as
 
 $$
-J(\btheta) = -\frac{1}{2} \left( \by - \boldsymbol\delta\btheta\right)^T\left( \by - \boldsymbol\delta\btheta\right).
+J(\btheta) = -\frac{1}{2} \left( \by - \mathcal{X}\btheta\right)^T\left( \by - \mathcal{X}\btheta\right).
 $$
 
 But as you will prove in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-1-solution), taking the gradient gives
 
 $$
-\nabla J(\btheta) = - \left( \by - \boldsymbol\delta\btheta\right)^T \text{Jac}\left(\by - \boldsymbol\delta\btheta \right),
+\nabla J(\btheta) = - \left( \by - \mathcal{X}\btheta\right)^T \text{Jac}\left(\by - \mathcal{X}\btheta \right),
 $$
 
-where $\text{Jac}\left(\by - \boldsymbol\delta\btheta \right)$ is the Jacobian matrix of the function
+where $\text{Jac}\left(\by - \mathcal{X}\btheta \right)$ is the Jacobian matrix of the function
 
 $$
-\bbr^{n+1} \to \bbr^m, \quad \btheta \mapsto \by - \boldsymbol\delta\btheta.
+\bbr^{n+1} \to \bbr^m, \quad \btheta \mapsto \by - \mathcal{X}\btheta.
 $$
 
-But it is easy to show that $\text{Jac}\left(\by - \boldsymbol\delta\btheta \right) = - \boldsymbol\delta$, and so
+But it is easy to show that $\text{Jac}\left(\by - \mathcal{X}\btheta \right) = - \mathcal{X}$, and so
 
 $$
-\nabla J(\btheta) =  \left( \by - \boldsymbol\delta\btheta\right)^T \boldsymbol\delta.
+\nabla J(\btheta) =  \left( \by - \mathcal{X}\btheta\right)^T \mathcal{X}.
 $$
 
 Setting the gradient to zero and solving gives
 
 $$
-\boldsymbol\delta^T \boldsymbol\delta \btheta = \boldsymbol\delta^T \by,
+\mathcal{X}^T \mathcal{X} \btheta = \mathcal{X}^T \by,
 $$
 
 from which the desired equation follows. The only thing that is left to prove is that we have actually obtained a _maximizer_. This follows from concavity of the objective function $J(\btheta)$, which you will establish in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-2-solution). Q.E.D.
@@ -576,25 +576,25 @@ where $\bar{x} = \frac{1}{m} \sum_{i=1}^m x^{(i)}$ and $\bar{y} = \frac{1}{m} \s
 First note that
 
 $$
-\boldsymbol\delta^T \boldsymbol\delta = \begin{bmatrix} m & m \bar{x} \\ m \bar{x} & \sum_{i=1}^m {x^{(i)}}^2 \end{bmatrix}.
+\mathcal{X}^T \mathcal{X} = \begin{bmatrix} m & m \bar{x} \\ m \bar{x} & \sum_{i=1}^m {x^{(i)}}^2 \end{bmatrix}.
 $$
 
-Assuming this matrix has nonzero determinant $m \sum_{i=1}^m {x^{(i)}}^2 - m^2 \bar{x}^2\neq 0$, we have
+Assuming this matrix has nonzero determinant, we have
 
 $$
-\left(\boldsymbol\delta^T \boldsymbol\delta \right)^{-1} = \frac{1}{m \sum_{i=1}^m {x^{(i)}}^2 - m^2 \bar{x}^2} \begin{bmatrix} \sum_{i=1}^m {x^{(i)}}^2 & -m \bar{x} \\ -m \bar{x} & m \end{bmatrix}.
+\left(\mathcal{X}^T \mathcal{X} \right)^{-1} = \frac{1}{m \sum_{i=1}^m {x^{(i)}}^2 - m^2 \bar{x}^2} \begin{bmatrix} \sum_{i=1}^m {x^{(i)}}^2 & -m \bar{x} \\ -m \bar{x} & m \end{bmatrix}.
 $$
 
 But
 
 $$
-\boldsymbol\delta^T \by = \begin{bmatrix} m \bar{y} \\ \sum_{i=1}^m x^{(i)} y^{(i)} \end{bmatrix},
+\mathcal{X}^T \by = \begin{bmatrix} m \bar{y} \\ \sum_{i=1}^m x^{(i)} y^{(i)} \end{bmatrix},
 $$
 
 and so from
 
 $$
-\begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \btheta =  \left(\boldsymbol\delta^T \boldsymbol\delta\right)^{-1}\boldsymbol\delta^T \by
+\begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \btheta =  \left(\mathcal{X}^T \mathcal{X}\right)^{-1}\mathcal{X}^T \by
 $$
 
 we conclude
@@ -618,7 +618,7 @@ $$
 from which the desired equation for $\beta_1$ follows. To obtain the equation for $\beta_0$, note that
 
 $$
-\boldsymbol\delta^T \boldsymbol\delta \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \boldsymbol\delta^T \by 
+\mathcal{X}^T \mathcal{X} \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \mathcal{X}^T \by 
 $$
 
 implies $m \beta_0  + m \beta_1 \bar{x} = m \bar{y}$, and so $\beta_0 = \bar{y} - \beta_1 \bar{x}$. Q.E.D.
@@ -697,10 +697,10 @@ Recall from {numref}`log-reg-sec` that the underlying graph of a logistic regres
 ```
 &nbsp;
 
-where $\beta_0 \in \bbr$ is the bias term and $\bbeta \in \mathbb{R}^{n}$ is the weight vector. The link function at $Y$ is given by
+where $\beta_0 \in \bbr$ is the bias term and $\bbeta \in \mathbb{R}^{n\times 1}$ is the weight vector. The link function at $Y$ is given by
 
 $$
-\phi = \sigma( \beta_0 + \bx^T\bbeta) \quad \text{where} \quad Y \mid \bX ; \ \beta_0,\bbeta \sim \Ber(\phi),
+Y \mid \bX ; \ \beta_0,\bbeta \sim \Ber(\phi) \quad \text{where} \quad \phi = \sigma( \beta_0 + \bx\bbeta),
 $$
 
 and
@@ -712,7 +712,7 @@ $$
 is the _sigmoid function_. Given a dataset
 
 $$
-(\bx^{(1)},y^{(1)}),\ldots,(\bx^{(m)},y^{(m)}) \in \bbr^{n} \times \{0,1\},
+(\bx^{(1)},y^{(1)}),\ldots,(\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \{0,1\},
 $$
 
 the data log-likelihood function is given by
@@ -722,7 +722,7 @@ the data log-likelihood function is given by
 &= \sum_{i=1}^m \left[ y^{(i)} \log{\phi^{(i)}} + \big( 1-y^{(i)}\big) \log{ \big( 1- \phi^{(i)} \big)}  \right]
 \end{align*}
 
-where $\phi^{(i)} = \sigma \big(\beta_0 + \bx^{(i)T} \bbeta\big)$ for each $i=1,\ldots,m$.
+where $\phi^{(i)} = \sigma \big(\beta_0 + \bx^{(i)} \bbeta\big)$ for each $i=1,\ldots,m$.
 
 As always, maximizers of $\ell(\beta_0,\bbeta)$ will occur at places where the gradient vanishes, $\nabla \ell(\beta_0,\bbeta)=0$. Unlike linear regression models, closed form solutions to this latter equation are not available in general, so numerical approximation algorithms like those studied in {numref}`Chapter %s <optim>` are needed. However, linear and logistic regression models _do_ have the following important property in common:
 
@@ -733,6 +733,7 @@ The data log-likelihood function $\ell(\beta_0,\bbeta)$ for a logistic regressio
 
 You will prove this in the suggested problems for this section.
 
+In {numref}`log-reg-sec`, we used a black-box learning algorithm to train a logistic regression model on the following dataset:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -740,9 +741,28 @@ You will prove this in the suggested problems for this section.
 :   figure:
 :       align: center
 
+# import scaler from scikit-learn
+from sklearn.preprocessing import StandardScaler
+
 # import the data
 url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch10-book-data-01.csv'
 df = pd.read_csv(url)
+
+# convert the data to numpy arrays
+X = df[['x_1', 'x_2']].to_numpy()
+y = df['y'].to_numpy()
+
+# scale the input data
+ss = StandardScaler()
+X = ss.fit_transform(X=X)
+
+# replaced the columns of the dataframe with the transformed data
+df['x_1'] = X[:, 0]
+df['x_2'] = X[:, 1]
+
+# convert the data to tensors
+X = torch.tensor(data=X, dtype=torch.float32)
+y = torch.tensor(data=y, dtype=torch.float32)
 
 # plot the data
 g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
@@ -750,31 +770,32 @@ g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
 # change the default seaborn legend
 g.legend_.set_title(None)
 new_labels = ['class 0', 'class 1']
-for t, l in zip(g.legend_.texts, new_labels):
-    t.set_text(l)
+for t, k2 in zip(g.legend_.texts, new_labels):
+    t.set_text(k2)
 
 plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
-plt.xlim(-1.1, 3.1)
-plt.ylim(-32, 42)
-plt.gcf().set_size_inches(w=5, h=4)
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
+Now, however, we may train a logistic regression model from scratch using MLE. In the following series of plots, we compute the (approximate) MLE using batch gradient descent to find the (approximate) minimizer of the negative stochastic objective function
 
+$$
+- J(\beta_0, \bbeta) =  - E\big( \ell(\beta_0,\bbeta; \widehat{\bX}, \widehat{Y}) \big) =  -\frac{1}{m} \sum_{i=1}^m \left[ y^{(i)} \log{\phi^{(i)}} + \big( 1-y^{(i)}\big) \log{ \big( 1- \phi^{(i)} \big)}  \right]
+$$
+
+where $\hat{p}(\bx, y)$ is the empirical mass function of the dataset, $\widehat{\bX},\widehat{Y}\sim \hat{p}(\bx, y)$, and $\phi^{(i)} = \sigma \big(\beta_0 + \bx^{(i)} \bbeta\big)$ for each $i=1,\ldots,m$. The plots in the first column show the values of the objective function $J(\beta_0,\bbeta)$ versus the gradient steps. The plots in the second column show the decision boundary at the given point in the execution of the algorithm represented by the large magenta dots in the plots in the first column. As the algorithm executes, we can _see_ the decision boundary moving to the optimal position.
 
 
 ```{code-cell} ipython3
-:tags: [hide-input, full-width]
+:tags: [hide-input]
 :mystnb:
 :   figure:
 :       align: center
 
-# import scaler from scikit-learn
-from sklearn.preprocessing import StandardScaler
-
 # define the SGD function
-def SGD(parameters, J, X, num_epochs, batch_size, lr, tracking='epoch', y=None, decay=0, max_steps=-1, J_args=None, shuffle=True, random_state=None):
+def SGD(parameters, J, X, num_epochs, batch_size, lr, maximize=False, tracking='epoch', y=None, decay=0, max_steps=-1, J_args=None, shuffle=True, random_state=None):
 
     # if no arguments to the objective are passed, set `J_args` to the empty dictionary
     J_args = {} if J_args is None else J_args
@@ -824,7 +845,10 @@ def SGD(parameters, J, X, num_epochs, batch_size, lr, tracking='epoch', y=None, 
             with torch.no_grad():
                 for parameter in parameters.values():
                     g = ((1 - decay) ** (t + 1)) * parameter.grad
-                    parameter -= lr * g
+                    if maximize:
+                        parameter += lr * g
+                    else:
+                        parameter -= lr * g
             
             # zero out the gradients to prepare for the next iteration
             for parameter in parameters.values():
@@ -852,108 +876,84 @@ def SGD(parameters, J, X, num_epochs, batch_size, lr, tracking='epoch', y=None, 
 
     return dict(running_parameters), running_objectives
 
-# convert the data to numpy arrays
-X = df[['x_1', 'x_2']].to_numpy()
-y = df['y'].to_numpy()
-
-# scale the input data
-ss = StandardScaler()
-X = ss.fit_transform(X=X)
-
-# convert the data to tensors
-X = torch.tensor(data=X, dtype=torch.float32)
-y = torch.tensor(data=y, dtype=torch.float32).reshape(-1, 1)
-
-# define the objective function for logistic regression
-def J(X, y, parameters):
+def phi(X, parameters):
     beta = parameters['beta']
     beta0 = parameters['beta0']
-    phi = torch.sigmoid(X @ beta + beta0)
-    return -1 * torch.mean(y * torch.log(phi) + (1 - y) * torch.log(1 - phi))
+    return torch.sigmoid(X @ beta + beta0).squeeze()
 
 # define the logistic regression model
 def model(X, parameters):
-    beta = parameters['beta']
-    beta0 = parameters['beta0']
-    phi = torch.sigmoid(X @ beta + beta0)
-    return (phi >= 0.5).to(torch.int)
+    probs = phi(X, parameters)
+    return (probs >= 0.5).to(torch.int)
+
+# define the objective function for logistic regression
+def J(X, y, parameters):
+    probs = phi(X, parameters)
+    return torch.mean(y * torch.log(probs) + (1 - y) * torch.log(1 - probs))
+
+# initialize the parameters
+torch.manual_seed(42)
+beta = torch.normal(mean=0, std=1e-1, size=(2, 1)).requires_grad_(True)
+beta0 = torch.normal(mean=0, std=1e-1, size=(1,)).requires_grad_(True)
+parameters = {'beta': beta, 'beta0': beta0}
 
 # define parameters for SGD
-sgd_parameters = {'num_epochs': [60, 10, 50],
-                  'batch_size': [1024, 8, 1],
-                  'lr': [1, 1e-1, 1e-1],
-                  'decay': [0, 0, 1e-1]}
+sgd_parameters = {'parameters': parameters,
+                  'J': J,
+                  'X': X,
+                  'y': y,
+                  'num_epochs': 50,
+                  'batch_size': 1024,
+                  'lr': 1,
+                  'maximize': True,
+                  'tracking': 'gd_step'}
+
+# run SGD
+running_parameters, running_objectives = SGD(**sgd_parameters)
 
 # define grid for contour plot
 resolution = 1000
-x1_grid = np.linspace(-1, 3, resolution)
-x2_grid = np.linspace(-30, 40, resolution)
-x1_grid, x2_grid = np.meshgrid(x1_grid, x2_grid)
-predict_grid = np.column_stack((x1_grid.reshape((resolution ** 2, -1)), x2_grid.reshape((resolution ** 2, -1))))
-predict_grid = ss.transform(X=predict_grid)
-predict_grid = torch.tensor(data=predict_grid, dtype=torch.float32)
+x1_grid = torch.linspace(-2, 2, resolution)
+x2_grid = torch.linspace(-4, 4, resolution)
+x1_grid, x2_grid = torch.meshgrid(x1_grid, x2_grid)
+grid = torch.column_stack((x1_grid.reshape((resolution ** 2, -1)), x2_grid.reshape((resolution ** 2, -1))))
 
-# define color map for contour plot
-cmap = clr.LinearSegmentedColormap.from_list('custom', [blue, magenta], N=2)
+# define colormap for the contour plots
+desat_blue = '#7F93FF'
+desat_magenta = '#FF7CFE'
+binary_cmap = clr.LinearSegmentedColormap.from_list(name='binary', colors=[desat_blue, desat_magenta], N=2)
 
-# define the figure and subfigures
-fig = plt.figure(constrained_layout=True, figsize=(10, 10))
-subfigs = fig.subfigures(ncols=1, nrows=3)
+epoch_list = [0, 3, sgd_parameters['num_epochs'] - 1]
+_, axes = plt.subplots(ncols=2, nrows=len(epoch_list), figsize=(10, 9))
 
-for i, subfig in enumerate(subfigs):
-
-    # grab SGD parameters
-    sgd_parameters_slice = {name: parameter[i] for name, parameter in sgd_parameters.items()}
-    batch_size = sgd_parameters_slice['batch_size']
-    lr = sgd_parameters_slice['lr']
-    decay = sgd_parameters_slice['decay']
-    subfig.suptitle(f'batch size$={batch_size}$, $\\alpha = {lr}$, $\\gamma = {decay}$')
-
-    # define the axes per row
-    axes = subfig.subplots(ncols=2, nrows=1)
-
-    # initialize the parameters
-    torch.manual_seed(42)
-    beta = torch.normal(mean=0, std=1e-1, size=(2, 1)).requires_grad_(True)
-    beta0 = torch.normal(mean=0, std=1e-1, size=(1,)).requires_grad_(True)
-    parameters = {'beta': beta, 'beta0': beta0}
-
-    # run SGD
-    running_parameters, running_objectives = SGD(parameters=parameters,
-                                                 J=J,
-                                                 X=X,
-                                                 y=y,
-                                                 tracking='epoch',
-                                                 **sgd_parameters_slice)
-
-    # plot the objective function
-    axes[0].plot(range(len(running_objectives)), running_objectives)
-    axes[0].set_xlabel('epochs')
-    axes[0].set_ylabel('objective $J(\\theta)$')
+for i, epoch in enumerate(epoch_list):
+    parameters = {key: value[epoch] for key, value in running_parameters.items()}
     
-    # grab the learned parameters
-    learned_parameters = {name: parameter[-1] for name, parameter in running_parameters.items()}
+    # plot the objective function
+    axes[i, 0].plot(range(len(running_objectives)), running_objectives)
+    axes[i, 0].set_xlabel('gradient steps')
+    axes[i, 0].set_ylabel('objective $J(\\theta)$')
+    axes[i, 0].scatter(epoch_list[i], running_objectives[epoch], color=magenta, s=50, zorder=3)
 
     # apply the fitted model to the grid
-    z = model(X=predict_grid, parameters=learned_parameters)
+    z = model(X=grid, parameters=parameters)
 
     # plot the decision boundary and colors
     z = z.reshape(shape=(resolution, resolution))
-    axes[1].contourf(x1_grid, x2_grid, z, cmap=cmap, alpha=0.45)
-    axes[1].contour(x1_grid, x2_grid, z)
-    axes[1].set_xlabel('$x_1$')
-    axes[1].set_ylabel('$x_2$')
-    axes[1].set_xlim(-1.1, 3.1)
-    axes[1].set_ylim(-32, 42)
+    axes[i, 1].contourf(x1_grid, x2_grid, z, cmap=binary_cmap)
+    axes[i, 1].set_xlabel('$x_1$')
+    axes[i, 1].set_ylabel('$x_2$')
 
     # plot the data
-    g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axes[1])
+    g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axes[i, 1])
 
     # change the default seaborn legend
     g.legend_.set_title(None)
     new_labels = ['class 0', 'class 1']
     for t, l in zip(g.legend_.texts, new_labels):
         t.set_text(l)
+    
+plt.tight_layout()
 ```
 
 
@@ -972,105 +972,7 @@ for i, subfig in enumerate(subfigs):
 ## MLE for neural networks
 
 
-```{code-cell} ipython3
-:tags: [hide-input, full-width]
-:mystnb:
-:   figure:
-:       align: center
 
-# define the objective function for neural network
-def J(X, y, parameters):
-    alpha = parameters['alpha']
-    alpha0 = parameters['alpha0']
-    beta = parameters['beta']
-    beta0 = parameters['beta0']
-    Z = F.relu(X @ alpha + alpha0)
-    phi = torch.sigmoid(Z @ beta + beta0)
-    epsilon = 1e-5
-    phi = torch.clamp(input=phi, min=epsilon, max=1 - epsilon)
-    return -1 * torch.mean(y * torch.log(phi) + (1 - y) * torch.log(1 - phi))
-
-# define the neural network model
-def model(X, parameters):
-    alpha = parameters['alpha']
-    alpha0 = parameters['alpha0']
-    beta = parameters['beta']
-    beta0 = parameters['beta0']
-    Z = F.relu(X @ alpha + alpha0)
-    phi = torch.sigmoid(Z @ beta + beta0)
-    return (phi >= 0.5).to(torch.int)
-
-# define parameters for SGD
-sgd_parameters = {'num_epochs': [750, 40, 25],
-                  'batch_size': [1024, 8, 1],
-                  'lr': [5e-1, 1e-1, 1e-1],
-                  'decay': [0, 0, 1e-1]}
-
-# define the figure and subfigures
-fig = plt.figure(constrained_layout=True, figsize=(10, 10))
-subfigs = fig.subfigures(ncols=1, nrows=3)
-
-for i, subfig in enumerate(subfigs):
-
-    # grab SGD parameters
-    sgd_parameters_slice = {name: parameter[i] for name, parameter in sgd_parameters.items()}
-    batch_size = sgd_parameters_slice['batch_size']
-    lr = sgd_parameters_slice['lr']
-    decay = sgd_parameters_slice['decay']
-    subfig.suptitle(f'batch size$={batch_size}$, $\\alpha = {lr}$, $\\gamma = {decay}$')
-
-    # define the axes per row
-    axes = subfig.subplots(ncols=2, nrows=1)
-
-    # initialize the parameters
-    torch.manual_seed(42)
-    k = 16
-    alpha = torch.normal(mean=0, std=1e-1, size=(2, k)).requires_grad_(True)
-    alpha0 = torch.normal(mean=0, std=1e-1, size=(1, k)).requires_grad_(True)
-    beta = torch.normal(mean=0, std=1e-1, size=(k, 1)).requires_grad_(True)
-    beta0 = torch.normal(mean=0, std=1e-1, size=(1,)).requires_grad_(True)
-    parameters = {'alpha': alpha,
-                  'alpha0': alpha0,
-                  'beta': beta,
-                  'beta0': beta0}
-
-    # run SGD
-    running_parameters, running_objectives = SGD(parameters=parameters,
-                                                 J=J,
-                                                 X=X,
-                                                 y=y,
-                                                 tracking='epoch',
-                                                 **sgd_parameters_slice)
-
-    # plot the objective function
-    axes[0].plot(range(len(running_objectives)), running_objectives)
-    axes[0].set_xlabel('epochs')
-    axes[0].set_ylabel('objective $J(\\theta)$')
-    
-    # grab the learned parameters
-    learned_parameters = {name: parameter[-1] for name, parameter in running_parameters.items()}
-
-    # apply the fitted model to the grid
-    z = model(X=predict_grid, parameters=learned_parameters)
-
-    # plot the decision boundary and colors
-    z = z.reshape(shape=(resolution, resolution))
-    axes[1].contourf(x1_grid, x2_grid, z, cmap=cmap, alpha=0.45)
-    axes[1].contour(x1_grid, x2_grid, z)
-    axes[1].set_xlabel('$x_1$')
-    axes[1].set_ylabel('$x_2$')
-    axes[1].set_xlim(-1.1, 3.1)
-    axes[1].set_ylim(-32, 42)
-
-    # plot the data
-    g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axes[1])
-
-    # change the default seaborn legend
-    g.legend_.set_title(None)
-    new_labels = ['class 0', 'class 1']
-    for t, l in zip(g.legend_.texts, new_labels):
-        t.set_text(l)
-```
 
 
 
@@ -1084,155 +986,3 @@ for i, subfig in enumerate(subfigs):
 ## Expectation maximization for Gaussian mixture models
 
 
-```{code-cell} ipython3
-:tags: [hide-input, full-width]
-:mystnb:
-:   figure:
-:       align: center
-
-url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch10-book-data-02.csv'
-df = pd.read_csv(url)
-X = torch.tensor(data=df['x'], dtype=torch.float32).reshape(-1, 1)
-
-#
-def parameter_transform(parameters):    
-    return_dict = {'mu0': parameters['mu0'],
-                   'mu1': parameters['mu1'],
-                   'sigma0': torch.exp(parameters['sigma0_trans']),
-                   'sigma1': torch.exp(parameters['sigma1_trans']),
-                   'phi': torch.sigmoid(parameters['phi_trans'])}
-    return return_dict
-
-#
-def log_joint(x, z, parameters):
-    mu0, mu1, sigma0, sigma1, phi = parameters.values()
-    mu = z * mu1 + (1 - z) * mu0
-    sigma = z * sigma1 + (1 - z) * sigma0
-    return Normal(loc=mu, scale=sigma).log_prob(x) + Bernoulli(probs=phi).log_prob(z)
-
-def joint(x, z, parameters):
-    return torch.exp(log_joint(x, z, parameters))
-
-def log_marginal(x, parameters):
-    z_zeros = torch.zeros(size=(len(x), 1))
-    z_ones = torch.ones(size=(len(x), 1))
-    return torch.log(joint(x, z_zeros, parameters) + joint(x, z_ones, parameters))
-
-def log_posterior(z, x, parameters):
-    return log_joint(x, z, parameters) - log_marginal(x, parameters)
-
-def posterior(z, x, parameters):
-    return torch.exp(log_posterior(z, x, parameters))
-
-#
-def sample_posterior(X, parameters, size=1, random_state=None):
-    if random_state is not None:
-        torch.manual_seed(42)
-    trans_parameters = parameter_transform(parameters)
-    z_ones = torch.ones(size=(len(X), 1))
-    probs = posterior(z=z_ones, x=X, parameters=trans_parameters)
-    epsilon = 1e-5
-    probs = torch.clamp(input=probs, min=epsilon, max=1 - epsilon)
-    return Bernoulli(probs=probs.squeeze()).sample((size,)).T
-
-def J(X, parameters, sample):
-    trans_parameters = parameter_transform(parameters)
-    return -1 * torch.sum(log_joint(x=X, z=sample, parameters=trans_parameters), dim=0).mean()
-
-# define the EM function
-def EM(parameters, J, X, num_e_steps, sample_fn, sample_size, sgd_parameters, random_state=None):
-    
-    # initialize lists to track objective values and parameters
-    running_objectives = []
-    running_parameters = defaultdict(list)
-
-    # begin loop for e-steps
-    for _ in range(num_e_steps):
-
-        # get a random sample to approximate the expectation
-        sample = sample_fn(parameters=parameters, X=X, size=sample_size, random_state=random_state)
-
-        # define arguments for the objective function to be passed into gradient descent
-        J_args = {'sample': sample}
-
-        # m-step (gradient descent)
-        per_step_parameters, per_step_objectives = SGD(parameters=parameters,
-                                                       J=J,
-                                                       X=X,
-                                                       J_args=J_args,
-                                                       shuffle=False,
-                                                       **sgd_parameters)
-
-        # collect per-e-step objectives and parameters into the running list
-        running_objectives.extend(per_step_objectives)
-        for key in per_step_parameters.keys():
-            running_parameters[key].extend(per_step_parameters[key])
-
-    return dict(running_parameters), running_objectives
-
-# 
-parameters = {'mu0': torch.tensor([-2.], requires_grad=True),
-              'mu1': torch.tensor([7.], requires_grad=True),
-              'sigma0_trans': torch.tensor([0.], requires_grad=True),
-              'sigma1_trans': torch.tensor([0.], requires_grad=True),
-              'phi_trans': torch.tensor([0.], requires_grad=True)}
-em_parameters = {'num_e_steps': 5,
-                 'sample_size': 32,
-                 'random_state': 42}
-sgd_parameters = {'num_epochs': 5,
-                  'batch_size': 1024,
-                  'lr': 1e-3,
-                  'decay': 0}
-
-running_parameters, running_objectives = EM(parameters=parameters,
-                                            J=J,
-                                            X=X,
-                                            sample_fn=sample_posterior,
-                                            sgd_parameters=sgd_parameters,
-                                            **em_parameters)
-
-# the parameters are returned transformed, so we need to transform them back
-transformed_dict = parameter_transform({key: torch.tensor(value) for key, value in running_parameters.items()})
-running_parameters = {key: [parameter for parameter in value] for key, value in transformed_dict.items()}
-
-num_e_steps = em_parameters['num_e_steps']
-num_epochs = sgd_parameters['num_epochs']
-
-blues = sns.color_palette('blend:#D4E1FB,#486AFB', n_colors=num_e_steps * num_epochs)
-magentas = sns.color_palette('blend:#FDD9FC,#FD46FC', n_colors=num_e_steps * num_epochs)
-
-_, axes = plt.subplots(nrows=2, ncols=2, figsize=(12, 10))
-grid_0 = np.linspace(-5, 5, num=300)
-grid_1 = np.linspace(0, 11, num=300)
-grid_0_1 = np.linspace(-5, 11, num=300)
-
-for i in range(num_e_steps * num_epochs):
-    mu0 = running_parameters['mu0'][i].item()
-    mu1 = running_parameters['mu1'][i].item()
-    sigma0 = running_parameters['sigma0'][i].item()
-    sigma1 = running_parameters['sigma1'][i].item()
-
-    X_0 = sp.stats.norm(loc=mu0, scale=sigma0)
-    X_1 = sp.stats.norm(loc=mu1, scale=sigma1)
-    
-    axes[0, 0].plot(grid_0, X_0.pdf(grid_0), color=blues.as_hex()[i])
-    axes[0, 1].plot(grid_1, X_1.pdf(grid_1), color=magentas.as_hex()[i])
-    axes[1, 0].plot(grid_0_1, X_0.pdf(grid_0_1), color=blues.as_hex()[i])
-    axes[1, 0].plot(grid_0_1, X_1.pdf(grid_0_1), color=magentas.as_hex()[i])
-
-axes[0, 0].set_xlabel('$x$')
-axes[0, 0].set_ylabel('density')
-axes[0, 1].set_xlabel('$x$')
-axes[0, 1].set_ylabel('density')
-axes[1, 0].set_xlabel('$x$')
-axes[1, 0].set_ylabel('density')
-axes[1, 1].plot(range(num_e_steps * num_epochs), -torch.row_stack(running_objectives))
-axes[1, 1].set_xlabel('gradient steps')
-axes[1, 1].set_ylabel('objective')
-
-axes[0, 0].set_title('component 0')
-axes[0, 1].set_title('component 1')
-axes[1, 0].set_title('both components')
-axes[1, 1].set_title('objective function vs. gradient steps')
-plt.tight_layout()
-```

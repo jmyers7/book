@@ -555,8 +555,6 @@ for t, l in zip(g.legend_.texts, new_labels):
 
 plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
-plt.xlim(-1.1, 3.1)
-plt.ylim(-32, 42)
 plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
@@ -760,9 +758,9 @@ model.fit(X=X, y=y)
 # get the grid for the contour plot
 resolution = 1000
 x_1 = (-2, 2)
-x_2 = (-4, 4)
-grid_1, grid_2 = torch.meshgrid(torch.linspace(*x_1, resolution), torch.linspace(*x_2, resolution))
-grid = torch.column_stack((grid_1.reshape((resolution ** 2, -1)), grid_2.reshape((resolution ** 2, -1))))
+x_2 = (-3.5, 3.5)
+x1_grid, x2_grid = torch.meshgrid(torch.linspace(*x_1, resolution), torch.linspace(*x_2, resolution))
+grid = torch.column_stack((x1_grid.reshape((resolution ** 2, -1)), x2_grid.reshape((resolution ** 2, -1))))
 
 # define colormaps for the contour plots
 desat_blue = '#7F93FF'
@@ -770,17 +768,17 @@ desat_magenta = '#FF7CFE'
 diverging_cmap = clr.LinearSegmentedColormap.from_list(name='diverging', colors=[desat_blue, 'white', desat_magenta], N=10)
 binary_cmap = clr.LinearSegmentedColormap.from_list(name='binary', colors=[desat_blue, desat_magenta], N=2)
 
-_, axes = plt.subplots(ncols=3, figsize=(10, 4), width_ratios=[10, 10, 1])
+_, axes = plt.subplots(ncols=3, figsize=(10, 3), width_ratios=[10, 10, 1])
 
 # generate the contour plots
 z = model.predict_proba(grid)[:, 1]
 z = z.reshape(resolution, resolution)
-axes[0].contourf(grid_1, grid_2, z, cmap=diverging_cmap, levels=diverging_cmap.N)
-
+axes[0].contourf(x1_grid, x2_grid, z, cmap=diverging_cmap, levels=diverging_cmap.N)
 z = model.predict(grid)
 z = z.reshape(resolution, resolution)
-axes[1].contourf(grid_1, grid_2, z, cmap=binary_cmap, levels=binary_cmap.N)
+axes[1].contourf(x1_grid, x2_grid, z, cmap=binary_cmap, levels=binary_cmap.N)
 
+# create the colorbar
 plt.colorbar(mpl.cm.ScalarMappable(cmap=diverging_cmap), cax=axes[2], orientation='vertical')
 
 # plot the data
@@ -903,7 +901,7 @@ $$
 Here, $\rho$ is the ReLU function and $\sigma$ is the sigmoid function.
 ````
 
-The name "neural network" comes from a loose analogy with networks of biological neurons in the human brain. For this reason, sometimes the neural networks just defined are called _artificial neural networks_ (*ANN*s).
+The name "neural network" comes from a loose analogy with networks of biological neurons in the human brain. For this reason, sometimes neural networks just defined are called _artificial neural networks_ (*ANN*s).
 
 Following the pattern begun with linear and logistic regression models, we first want to give the probability functions that we will use in the [next chapter](learning) to train neural network models. The first one is:
 
@@ -1002,13 +1000,32 @@ $$
 
 The _depth_ of a neural network is defined to be one less than the total number of layers. The "one less" convention is due to the fact that only the hidden and output layers are associated with trainable parameters. Equivalently, the _depth_ is the number of "layers" of link functions (with trainable parameters). The _widths_ of a network are defined to be the dimensions of the hidden vectors.
 
-Let's return to our toy dataset from the [previous section](log-reg-sec):
+Let's return to our toy dataset from the [previous section](log-reg-sec), but with an extra four "blobs" of data just to make things interesting:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
 :mystnb:
 :   figure:
 :       align: center
+
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch10-book-data-03.csv'
+df = pd.read_csv(url)
+
+# convert the data to numpy arrays
+X = df[['x_1', 'x_2']].to_numpy()
+y = df['y'].to_numpy()
+
+# scale the input data
+ss = StandardScaler()
+X = ss.fit_transform(X=X)
+
+# replaced the columns of the dataframe with the transformed data
+df['x_1'] = X[:, 0]
+df['x_2'] = X[:, 1]
+
+# convert the data to torch tensors
+X = torch.tensor(data=X, dtype=torch.float32)
+y = torch.tensor(data=y, dtype=torch.float32)
 
 # plot the data
 g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
@@ -1025,13 +1042,13 @@ plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
-Trained on this dataset, we saw that a logistic regression model produces a _linear_ decision boundary and thus misclassifies a nontrivial number of data points. Using the techniques in the [next chapter](learning), we trained a neural network on this dataset with _three_ hidden layers of widths $8$, $8$, and $4$. A contour plot of
+Trained on the original dataset (without the "blobs"), we saw that a logistic regression model produces a _linear_ decision boundary and thus misclassifies a nontrivial number of data points. In comparison, not only will a neural network produce a nonlinear decision boundary dividing the data in the original dataset, it will also correctly classify the data in the four new "blobs." Indeed, using the techniques in the [next chapter](learning), we trained a neural network on the new dataset with _three_ hidden layers of widths $8$, $8$, and $4$. Then, a contour plot of the function
 
 $$
 \phi = \sigma\big(\bz^{[3]}\bw + b\big)
 $$
 
-appears on the left-hand side of the following figure, while the "thresholded" version (at $0.5$) appears on the right-hand side displaying the (nonlinear!) decision boundary:
+appears on the left-hand side of the following figure, while the "thresholded" version (at $0.5$) appears on the right-hand side displaying the (nonlinear!) decision boundaries:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1040,10 +1057,6 @@ appears on the left-hand side of the following figure, while the "thresholded" v
 :       align: center
 
 import torch.nn as nn
-
-# convert the data to torch tensors
-X = torch.tensor(data=X, dtype=torch.float32)
-y = torch.tensor(data=y, dtype=torch.float32)
 
 # define the neural network model architecture
 torch.manual_seed(42)
@@ -1095,17 +1108,23 @@ for _ in range(num_epochs):
 
 _, axes = plt.subplots(ncols=3, figsize=(10, 4), width_ratios=[10, 10, 1])
 
-# generate the contour plots
-model.eval()
-grid_outputs = model(grid)
-z = grid_outputs[0].detach().numpy()
-z = z.reshape(resolution, resolution)
-axes[0].contourf(grid_1, grid_2, z, cmap=diverging_cmap, levels=diverging_cmap.N)
+# get the grid for the contour plot
+resolution = 1000
+x1_grid = torch.linspace(-1.75, 1.75, resolution)
+x2_grid = torch.linspace(-1.5, 1.5, resolution)
+x1_grid, x2_grid = torch.meshgrid(x1_grid, x2_grid)
+grid = torch.column_stack((x1_grid.reshape((resolution ** 2, -1)), x2_grid.reshape((resolution ** 2, -1))))
 
+# generate the contour plots
+grid_outputs = model(grid)
+z = grid_outputs[0].detach()
+z = z.reshape(resolution, resolution)
+axes[0].contourf(x1_grid, x2_grid, z, cmap=diverging_cmap, levels=diverging_cmap.N)
 z = grid_outputs[0] >= 0.5
 z = z.reshape(resolution, resolution)
-axes[1].contourf(grid_1, grid_2, z, cmap=binary_cmap, levels=binary_cmap.N)
+axes[1].contourf(x1_grid, x2_grid, z, cmap=binary_cmap, levels=binary_cmap.N)
 
+# create the colorbar
 plt.colorbar(mpl.cm.ScalarMappable(cmap=diverging_cmap), cax=axes[2], orientation='vertical')
 
 # plot the data
@@ -1117,7 +1136,7 @@ for axis in axes[:-1]:
 plt.tight_layout()
 ```
 
-Notice that the band of white (representing values $\phi \approx 0.5$) in the left-hand plot is much narrower compared to the same plot for the logistic regression model. This indicates that the neural network is making much more confident predictions up to its decision boundary (displayed in the right-hand plot) compared to the logistic regression model.
+Notice that the band of white dividing the original dataset (representing values $\phi \approx 0.5$) in the left-hand plot is much narrower compared to the same plot for the logistic regression model. This indicates that the neural network is making much more confident predictions up to its decision boundary (displayed in the right-hand plot) compared to the logistic regression model.
 
 
 ```{code-cell} ipython3
@@ -1126,29 +1145,40 @@ Notice that the band of white (representing values $\phi \approx 0.5$) in the le
 :   figure:
 :       align: center
 
-fig = plt.figure(constrained_layout=True, figsize=(14, 15))
+fig = plt.figure(constrained_layout=True, figsize=(14, 14))
 subfigs = fig.subfigures(ncols=2, nrows=3, hspace=0.03, height_ratios=[2, 2, 1], width_ratios=[18, 1])
 
 light_cmap = clr.LinearSegmentedColormap.from_list(name='light', colors=['white', magenta], N=16)
 
-for l, subfig in enumerate(subfigs[:2, 0]):
-    subfig.suptitle(f'neurons in hidden layer {l + 1}')
-    axes = subfig.subplots(nrows=2, ncols=4, sharex=True, sharey=True)
+# hidden layer 1, with 8 neurons
+subfig = subfigs[0, 0]
+subfig.suptitle(f'neurons in hidden layer 1')
+axes = subfig.subplots(nrows=2, ncols=4, sharex=True, sharey=True)
     
-    for j, axis in enumerate(axes.flatten()):
-        z = grid_outputs[l + 1][:, j].detach().numpy()
-        z = z.reshape(resolution, resolution)
-        contour = axis.contourf(grid_1, grid_2, z, cmap=light_cmap, levels=light_cmap.N, vmin=0, vmax=10)
-        
-        sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axis, legend=False, zorder=3)
-        axis.set_title(f'neuron {j + 1}')
-        axis.set_xlabel('$x_1$')
-        axis.set_ylabel('$x_2$')
+for j, axis in enumerate(axes.flatten()):
+    z = grid_outputs[1][:, j].detach().numpy()
+    z = z.reshape(resolution, resolution)
+    contour = axis.contourf(x1_grid, x2_grid, z, cmap=light_cmap, levels=light_cmap.N, vmin=0, vmax=3)
     
-for subfig in subfigs[:, 1]:
-    axis = subfig.subplots()
-    cbar = subfig.colorbar(mpl.cm.ScalarMappable(cmap=light_cmap), cax=axis, orientation='vertical')
-    cbar.set_ticklabels([round(2 * k, 1) for k in range(5)] + ['>10.0'])
+    sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axis, legend=False, zorder=3)
+    axis.set_title(f'neuron {j + 1}')
+    axis.set_xlabel('$x_1$')
+    axis.set_ylabel('$x_2$')
+
+# hidden layer 2, with 4 neurons
+subfig = subfigs[1, 0]
+subfig.suptitle(f'neurons in hidden layer 2')
+axes = subfig.subplots(nrows=2, ncols=4, sharex=True, sharey=True)
+
+for j, axis in enumerate(axes.flatten()):
+    z = grid_outputs[2][:, j].detach().numpy()
+    z = z.reshape(resolution, resolution)
+    axis.contourf(x1_grid, x2_grid, z, cmap=light_cmap, levels=light_cmap.N, vmin=0, vamx=3)
+
+    sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axis, legend=False, zorder=3)
+    axis.set_title(f'neuron {j + 1}')
+    axis.set_xlabel('$x_1$')
+    axis.set_ylabel('$x_2$')
 
 subfig = subfigs[2, 0]
 subfig.suptitle('neurons in hidden layer 3')
@@ -1157,13 +1187,25 @@ axes = subfig.subplots(nrows=1, ncols=4, sharex=True, sharey=True)
 for j, axis in enumerate(axes.flatten()):
     z = grid_outputs[3][:, j].detach().numpy()
     z = z.reshape(resolution, resolution)
-    axis.contourf(grid_1, grid_2, z, cmap=light_cmap, levels=light_cmap.N, vmin=0, vamx=10)
+    axis.contourf(x1_grid, x2_grid, z, cmap=light_cmap, levels=light_cmap.N, vmin=0, vamx=10)
 
     sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axis, legend=False, zorder=3)
     axis.set_title(f'neuron {j + 1}')
     axis.set_xlabel('$x_1$')
     axis.set_ylabel('$x_2$')
+
+# plot the colorbars
+for subfig in subfigs[:, 1]:
+    axis = subfig.subplots()
+    cbar = subfig.colorbar(mpl.cm.ScalarMappable(cmap=light_cmap), cax=axis, orientation='vertical')
+    cbar.set_ticklabels([round(3 / 5 * k, 1) for k in range(5)] + ['>5.0'])
 ```
+
+
+
+
+
+
 
 
 
