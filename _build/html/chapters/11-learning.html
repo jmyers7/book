@@ -68,7 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/11-learning';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="12. Large sample theory" href="12-asymptotic.html" />
+    <link rel="next" title="12. Bayesian parameter estimation" href="12-stats-estimators.html" />
     <link rel="prev" title="10. Probabilistic models" href="10-models.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -183,8 +183,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="09-optim.html">9. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10-models.html">10. Probabilistic models</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">11. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-asymptotic.html">12. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-stats-estimators.html">13. Statistics and estimators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-stats-estimators.html">12. Bayesian parameter estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-asymptotic.html">13. Large sample theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14-more-samp-dist.html">14. More sampling distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="15-CIs.html">15. Confidence intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16-hyp-test.html">16. Hypothesis testing</a></li>
@@ -465,7 +465,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/cc0ff51125f6519d1982572b04ee2aa66a5ab3ea473c1f64782731e51b82b597.svg" src="../_images/cc0ff51125f6519d1982572b04ee2aa66a5ab3ea473c1f64782731e51b82b597.svg" /></figure>
+<img alt="../_images/7e41186c6c83238d760cee1bb9b441252b3170e9b08cb400a4c361d6d8e58aaa.svg" src="../_images/7e41186c6c83238d760cee1bb9b441252b3170e9b08cb400a4c361d6d8e58aaa.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -502,7 +502,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/f3b5b91706d4f96075dfac30689677f8c7b3eb408f78657a5fda1750edea2dc0.svg" src="../_images/f3b5b91706d4f96075dfac30689677f8c7b3eb408f78657a5fda1750edea2dc0.svg" /></figure>
+<img alt="../_images/67bf4cdc0a4e26ba5ab4f30c7bc5f251a67784129a19f275007a87d5a215f718.svg" src="../_images/67bf4cdc0a4e26ba5ab4f30c7bc5f251a67784129a19f275007a87d5a215f718.svg" /></figure>
 </div>
 </div>
 <p>This often leads to difficulties when implementing MLE in computer algorithms due to numerical round-off. The machine is liable to round very small numbers to <span class="math notranslate nohighlight">\(0\)</span>. For this reason (and others), we often work with the (base-<span class="math notranslate nohighlight">\(e\)</span>) logarithm of the data likelihood function, denoted by</p>
@@ -540,7 +540,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/395360cb2817edf53a7cdfe1f708d7bf694c8c692fc69c53cc556495877bc67f.svg" src="../_images/395360cb2817edf53a7cdfe1f708d7bf694c8c692fc69c53cc556495877bc67f.svg" /></figure>
+<img alt="../_images/35037343915db27068305e4d2a0caf202bd60477679672cfc8e4c10b58392c9b.svg" src="../_images/35037343915db27068305e4d2a0caf202bd60477679672cfc8e4c10b58392c9b.svg" /></figure>
 </div>
 </div>
 <p>Notice that the values of <span class="math notranslate nohighlight">\(\ell(\theta)\)</span> are on a much more manageable scale compared to the values of <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span>, and that the two functions have the same global maximizer at <span class="math notranslate nohighlight">\(\theta=0.7\)</span>.</p>
@@ -931,7 +931,7 @@ y^{(i)} - \mu^{(i)} = y^{(i)} - \beta_0 - \beta_1 x_1^{(i)} - \cdots - \beta_n x
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/b4889793f432ccd7705d7c01dd2c8f49cff6ccec130c80b04e7005714f3a739d.svg" src="../_images/b4889793f432ccd7705d7c01dd2c8f49cff6ccec130c80b04e7005714f3a739d.svg" /></figure>
+<img alt="../_images/be9c14147163e5aac298be375e87a69379d50d344fc2dba02e3091a3d3ab5539.svg" src="../_images/be9c14147163e5aac298be375e87a69379d50d344fc2dba02e3091a3d3ab5539.svg" /></figure>
 </div>
 </div>
 <p>You will compute the maximum likelihood estimates for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span> in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-4">suggested problems</a>.</p>
@@ -1020,7 +1020,7 @@ Y \mid \bX ; \ \beta_0,\bbeta \sim \Ber(\phi) \quad \text{where} \quad \phi = \s
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/1f8153ff6eb0a1c18bfca3d38fde7223ab6a43e85c515035ee93297947f94b1e.svg" src="../_images/1f8153ff6eb0a1c18bfca3d38fde7223ab6a43e85c515035ee93297947f94b1e.svg" /></figure>
+<img alt="../_images/38797e1d331388c32961718af84160feb521ce19d3deb06b5af67f9b9f0c5232.svg" src="../_images/38797e1d331388c32961718af84160feb521ce19d3deb06b5af67f9b9f0c5232.svg" /></figure>
 </div>
 </div>
 <p>Now, however, we may train a logistic regression model from scratch using MLE. In the following series of plots, we compute the (approximate) MLE using batch gradient descent to find the (approximate) minimizer of the negative stochastic objective function</p>
@@ -1202,7 +1202,7 @@ Y \mid \bX ; \ \beta_0,\bbeta \sim \Ber(\phi) \quad \text{where} \quad \phi = \s
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/25f97689ef3876b8ebb9d60b16e170770b39325efe499dc1700d4fac5dcaf75c.svg" src="../_images/25f97689ef3876b8ebb9d60b16e170770b39325efe499dc1700d4fac5dcaf75c.svg" /></figure>
+<img alt="../_images/fc728ac468fd4f3bfa3721b3324223f91a47b77d5e0eb7d00bdb415e226becf5.svg" src="../_images/fc728ac468fd4f3bfa3721b3324223f91a47b77d5e0eb7d00bdb415e226becf5.svg" /></figure>
 </div>
 </div>
 </section>
@@ -1254,11 +1254,11 @@ Y \mid \bX ; \ \beta_0,\bbeta \sim \Ber(\phi) \quad \text{where} \quad \phi = \s
       </div>
     </a>
     <a class="right-next"
-       href="12-asymptotic.html"
+       href="12-stats-estimators.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">12. </span>Large sample theory</p>
+        <p class="prev-next-title"><span class="section-number">12. </span>Bayesian parameter estimation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

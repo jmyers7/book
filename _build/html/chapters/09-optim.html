@@ -183,8 +183,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">9. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10-models.html">10. Probabilistic models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11-learning.html">11. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-asymptotic.html">12. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-stats-estimators.html">13. Statistics and estimators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-stats-estimators.html">12. Bayesian parameter estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-asymptotic.html">13. Large sample theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14-more-samp-dist.html">14. More sampling distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="15-CIs.html">15. Confidence intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16-hyp-test.html">16. Hypothesis testing</a></li>
@@ -425,7 +425,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/38223312a48ef159aa9ab1d34b67a71da7ea3f2b4bb40e1ae41984da87048de3.svg" src="../_images/38223312a48ef159aa9ab1d34b67a71da7ea3f2b4bb40e1ae41984da87048de3.svg" /></figure>
+<img alt="../_images/16837fb29c13503551f3d095dbf84d8d8950f8623790dc24f382c2c368958d91.svg" src="../_images/16837fb29c13503551f3d095dbf84d8d8950f8623790dc24f382c2c368958d91.svg" /></figure>
 </div>
 </div>
 <p>From the graph, we see that the objective function has minimums of approximately <span class="math notranslate nohighlight">\(J(0.5)\)</span> and <span class="math notranslate nohighlight">\(J(2.7)\)</span>. By definition, a number <span class="math notranslate nohighlight">\(\theta^\star\)</span> is a <em>local minimizer</em> of <span class="math notranslate nohighlight">\(J(\theta)\)</span> provided that</p>
@@ -498,7 +498,7 @@ J(\theta^\star) \leq J(\theta)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/75a50adee2fbff3789056f065a45257d18fdb6b73551e80317599da77ff840f8.svg" src="../_images/75a50adee2fbff3789056f065a45257d18fdb6b73551e80317599da77ff840f8.svg" /></figure>
+<img alt="../_images/e07d5c13664d93bd5392d52297d4ffe3ee44eed5012b208eac01f6e97b8aa280.svg" src="../_images/e07d5c13664d93bd5392d52297d4ffe3ee44eed5012b208eac01f6e97b8aa280.svg" /></figure>
 </div>
 </div>
 <p>In this plot, we’ve drawn the tangent lines to the graph of <span class="math notranslate nohighlight">\(J(\theta)\)</span> at two initial values <span class="math notranslate nohighlight">\(\theta_0=-0.4\)</span> and <span class="math notranslate nohighlight">\(\theta_0=3.3\)</span>. Since the derivatives are the slopes of these tangent lines, the sign of the derivative is negative when <span class="math notranslate nohighlight">\(\theta_0=-0.4\)</span> and positive when <span class="math notranslate nohighlight">\(\theta_0 = 3.3\)</span>. In the first case, we have</p>
@@ -596,7 +596,7 @@ J(\theta^\star) \leq J(\theta)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a95f080013eed3ba944cedba311354a6430c036d645455e81c01c2a4fa639364.svg" src="../_images/a95f080013eed3ba944cedba311354a6430c036d645455e81c01c2a4fa639364.svg" /></figure>
+<img alt="../_images/565e5c3aca76505f8895227209e0e054ee213b5270a8479d166ee22e97f6fb93.svg" src="../_images/565e5c3aca76505f8895227209e0e054ee213b5270a8479d166ee22e97f6fb93.svg" /></figure>
 </div>
 </div>
 <p>In all four plots, the large magenta dot represents the initial point <span class="math notranslate nohighlight">\((\theta_0,J(\theta_0))\)</span>, while the smaller dots represent the points</p>
@@ -634,7 +634,7 @@ J(\theta^\star) \leq J(\theta)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/6fde94880fbf948f0df06835369e657493a7c788af8cced0855331c6020b3e74.svg" src="../_images/6fde94880fbf948f0df06835369e657493a7c788af8cced0855331c6020b3e74.svg" /></figure>
+<img alt="../_images/2e5ed23e594a4e2af441d3cd35c1941af0251a5549b46e82bd10a0d53d8967aa.svg" src="../_images/2e5ed23e594a4e2af441d3cd35c1941af0251a5549b46e82bd10a0d53d8967aa.svg" /></figure>
 </div>
 </div>
 <p>We see already that <span class="math notranslate nohighlight">\(J(\theta_3) \approx 10^7\)</span>; in fact, we have <span class="math notranslate nohighlight">\(J(\theta_t) \to \infty\)</span> as <span class="math notranslate nohighlight">\(t\to\infty\)</span> for these particular parameters. Of course, one can often prevent divergence by simply using a smaller learning rate, but sometimes a large <em>initial</em> learning rate is desirable to help the algorithm quickly find the neighborhood of a minimizer. So, what we desire is a scheme to shrink the learning rate from (relatively) large values to (relatively) smaller ones as the algorithm runs. This scheme is called <em>learning rate decay</em> or <em>rate decay</em>.</p>
@@ -682,7 +682,7 @@ J(\theta^\star) \leq J(\theta)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c6c648931a4544a191cc0b56146898303b1bcf6eaa2122e28c0d1d8c26c45537.svg" src="../_images/c6c648931a4544a191cc0b56146898303b1bcf6eaa2122e28c0d1d8c26c45537.svg" /></figure>
+<img alt="../_images/06d64fa2944e31138e132d5041b2258f7b0c29c2bd4adf144d9c10e2de0270e7.svg" src="../_images/06d64fa2944e31138e132d5041b2258f7b0c29c2bd4adf144d9c10e2de0270e7.svg" /></figure>
 </div>
 </div>
 <p>We have carried out <span class="math notranslate nohighlight">\(N=8\)</span> gradient steps, and it appears that the algorithm has successfully located the minimizer <span class="math notranslate nohighlight">\(\theta^\star \approx 2.7\)</span>.</p>
@@ -721,7 +721,7 @@ J(\theta^\star) \leq J(\theta)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ecb0f26c2e43699df1b90483b47bdcc104408d53dbb77b9e836e8236c4095c7e.svg" src="../_images/ecb0f26c2e43699df1b90483b47bdcc104408d53dbb77b9e836e8236c4095c7e.svg" /></figure>
+<img alt="../_images/5b0d472e773204b6396210384a36a85e5f59f337ec2bfa7c01d01798b9b3ba47.svg" src="../_images/5b0d472e773204b6396210384a36a85e5f59f337ec2bfa7c01d01798b9b3ba47.svg" /></figure>
 </div>
 </div>
 <p>One may use this plot to decide on the total number <span class="math notranslate nohighlight">\(N\)</span> of gradient steps; simply choose <span class="math notranslate nohighlight">\(N\)</span> large enough to reach a point where the plot “plateaus” or “levels out,” indicating that the algorithm is converging on a minimizer. Alternatively, the analyst may build an automatic stopping condition into the algorithm that halts when the magnitude between successive objective values is less than some chosen threshold, say</p>
@@ -781,7 +781,7 @@ J'(\theta^\star)=0.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/7f22278069e320ccd061f3196a88f3642984bc8d031772b6efc7d3b0d3b20790.svg" src="../_images/7f22278069e320ccd061f3196a88f3642984bc8d031772b6efc7d3b0d3b20790.svg" /></figure>
+<img alt="../_images/5751bf7901379f7e6187bc007a854ecd275cfa7571698be7f5f5239e95f9f301.svg" src="../_images/5751bf7901379f7e6187bc007a854ecd275cfa7571698be7f5f5239e95f9f301.svg" /></figure>
 </div>
 </div>
 <p>To see <em>why</em> second derivatives encode local curvature, let’s suppose <span class="math notranslate nohighlight">\(J''(\theta^\star) &gt;0\)</span> at some point <span class="math notranslate nohighlight">\(\theta^\star\)</span>. Then continuity of <span class="math notranslate nohighlight">\(J''\)</span> means that there is a number <span class="math notranslate nohighlight">\(\dev&gt;0\)</span> such that <span class="math notranslate nohighlight">\(J''(\theta)&gt;0\)</span> for all <span class="math notranslate nohighlight">\(\theta\)</span> in the open interval <span class="math notranslate nohighlight">\(I = (\theta^\star - \dev, \theta^\star + \dev)\)</span> centered at <span class="math notranslate nohighlight">\(\theta^\star\)</span>. But the second derivative is the first derivative of the first derivative, and thus positivity of <span class="math notranslate nohighlight">\(J''\)</span> over <span class="math notranslate nohighlight">\(I\)</span> means that <span class="math notranslate nohighlight">\(J'\)</span> is increasing over <span class="math notranslate nohighlight">\(I\)</span>. But the first derivative <span class="math notranslate nohighlight">\(J'\)</span> measures the slope of the graph of <span class="math notranslate nohighlight">\(J\)</span>, and thus these slopes must increase as we move from left to right over <span class="math notranslate nohighlight">\(I\)</span>. But this must mean that <span class="math notranslate nohighlight">\(J\)</span> is convex!</p>
@@ -938,7 +938,7 @@ J(\btheta) = c
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2db13a11b000088c22a29fbfb21512298adffedcdcabe443a2b573fc071148bb.svg" src="../_images/2db13a11b000088c22a29fbfb21512298adffedcdcabe443a2b573fc071148bb.svg" /></figure>
+<img alt="../_images/28fae5e7650d87c1c8794efb29081ada3d7536bd4d66d2cdece6374c46deeca0.svg" src="../_images/28fae5e7650d87c1c8794efb29081ada3d7536bd4d66d2cdece6374c46deeca0.svg" /></figure>
 </div>
 </div>
 <p>In the case that <span class="math notranslate nohighlight">\(n=2\)</span>, the fact that the gradient vector points in the direction of maximum rate of change is often described by saying that it points in the direction of the steepest ascent, visualizing the graph of <span class="math notranslate nohighlight">\(J\)</span> as a series of hills and valleys. In our contour plot above, we have drawn a gradient vector with its tail on a level curve. The straight line is the tangent line to the level curve, and it appears that the gradient is indeed orthogonal to this latter line.</p>
@@ -1138,7 +1138,7 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/5ef2ccbff87018d99bfa82975828c1c77f5518bf66b452e97d8a66b5afb260b6.svg" src="../_images/5ef2ccbff87018d99bfa82975828c1c77f5518bf66b452e97d8a66b5afb260b6.svg" /></figure>
+<img alt="../_images/427d7b0a01176b198896ce22ed1dd029797eb9996d3a9cafa268a43b6ef92bf6.svg" src="../_images/427d7b0a01176b198896ce22ed1dd029797eb9996d3a9cafa268a43b6ef92bf6.svg" /></figure>
 </div>
 </div>
 <p>Let’s run the GD algorithm four times beginning with <em>no</em> rate decay, and track the approximations <span class="math notranslate nohighlight">\(\btheta_t\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> plotted over the contours of <span class="math notranslate nohighlight">\(J(\btheta)\)</span>:</p>
@@ -1181,7 +1181,7 @@ J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/149108db1c7e3afcb72768724de81eb0e7f489772a82e37ccac00c07d58a544f.svg" src="../_images/149108db1c7e3afcb72768724de81eb0e7f489772a82e37ccac00c07d58a544f.svg" /></figure>
+<img alt="../_images/23244b308adc0a992e540252c3e42b969ea09609cfb3e18022ab314f9c11de09.svg" src="../_images/23244b308adc0a992e540252c3e42b969ea09609cfb3e18022ab314f9c11de09.svg" /></figure>
 </div>
 </div>
 <p>The large magenta dots in the plots indicate the initial guesses <span class="math notranslate nohighlight">\(\btheta_0\)</span>, while the smaller dots indicate the approximations <span class="math notranslate nohighlight">\(\btheta_t\)</span> for <span class="math notranslate nohighlight">\(t&gt;0\)</span>. The algorithm appears to be converging nicely to the minimizer <span class="math notranslate nohighlight">\(\btheta^\star = (1,1)\)</span> in the upper-left plot, while in the other three plots, the algorithm finds a neighborhood of a minimizer, but then oscillates back and forth and never appears to settle down. This is due jointly to the elliptical (non-circular) shape of the contours, the choice of initial values, and poorly chosen learning rates.</p>
@@ -1283,7 +1283,7 @@ J(\btheta) = \frac{1}{2}\btheta^\intercal A \btheta + \bb^\intercal \btheta + c,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/b851bb554c8562f321c596d5c97fafbddbe34ee3234d9ad659118000983d7eac.svg" src="../_images/b851bb554c8562f321c596d5c97fafbddbe34ee3234d9ad659118000983d7eac.svg" /></figure>
+<img alt="../_images/8152857e45c06996662d2ccfd520dd65ee631d9aef3d7f4fde40fa44f6af2c43.svg" src="../_images/8152857e45c06996662d2ccfd520dd65ee631d9aef3d7f4fde40fa44f6af2c43.svg" /></figure>
 </div>
 </div>
 <p>Now, the learning rate <span class="math notranslate nohighlight">\(\alpha = 0.005\)</span> in the first plot appears to be much too small causing the gradient steps to shrink too fast before the algorithm converges. On the other hand, the algorithm in the other three plots appears to be nicely converging to minimizers. We have effectively “dampened out” the wild oscillations in the first four plots above.</p>
@@ -1321,7 +1321,7 @@ J(\btheta) = \frac{1}{2}\btheta^\intercal A \btheta + \bb^\intercal \btheta + c,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/83c45bf0396bc2b97097344cae4cf98779e38f4b39fd0697ace59f87aba69bc3.svg" src="../_images/83c45bf0396bc2b97097344cae4cf98779e38f4b39fd0697ace59f87aba69bc3.svg" /></figure>
+<img alt="../_images/b9a556b5678fbf6578028ee1cc712a6a4c2b858bbef13e4e2b04ca5bb6805032.svg" src="../_images/b9a556b5678fbf6578028ee1cc712a6a4c2b858bbef13e4e2b04ca5bb6805032.svg" /></figure>
 </div>
 </div>
 <p>Notice the initial “overshoot” in the plot in the bottom left, causing the objective function <span class="math notranslate nohighlight">\(J(\btheta)\)</span> to <em>increase</em> after the first gradient step. Recall also that the initial value <span class="math notranslate nohighlight">\(\btheta_0\)</span> in the bottom right plot is near the saddle point <span class="math notranslate nohighlight">\((0.5,0.5)\)</span>, causing <span class="math notranslate nohighlight">\(\nabla J(\btheta_0) \approx 0\)</span>. This accounts for the small initial changes in the objective function <span class="math notranslate nohighlight">\(J(\btheta)\)</span> indicated by the (nearly) horizontal stretch early in the run of the algorithm.</p>
@@ -1379,7 +1379,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g\big(\mathbf{x}^{(i)}; \btheta \big).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/84e288c8194fee6575b92af2a9c0402fdda441318c614dae4822b2eff7a2b859.svg" src="../_images/84e288c8194fee6575b92af2a9c0402fdda441318c614dae4822b2eff7a2b859.svg" /></figure>
+<img alt="../_images/1cd71728225cc059109076f5a028820cbe28775c7c5ef31173ec713b79850435.svg" src="../_images/1cd71728225cc059109076f5a028820cbe28775c7c5ef31173ec713b79850435.svg" /></figure>
 </div>
 </div>
 <p>Then, two runs of the batch gradient descent algorithm produce the following plots of the objective function versus gradient steps:</p>
@@ -1524,7 +1524,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g\big(\mathbf{x}^{(i)}; \btheta \big).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/6f713c10fc6c81db41a06448127fdf039e236fd525276e7791f0e2f2cc1f4b87.svg" src="../_images/6f713c10fc6c81db41a06448127fdf039e236fd525276e7791f0e2f2cc1f4b87.svg" /></figure>
+<img alt="../_images/7ab1814c4ee9e6e43d4b97a8f2769c9746c5271ae3345d0e8eda80317d7f32c4.svg" src="../_images/7ab1814c4ee9e6e43d4b97a8f2769c9746c5271ae3345d0e8eda80317d7f32c4.svg" /></figure>
 </div>
 </div>
 <p>If we track the parameters <span class="math notranslate nohighlight">\(\btheta = (\theta_1,\theta_2)\)</span> during the runs, we get the following:</p>
@@ -1557,7 +1557,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g\big(\mathbf{x}^{(i)}; \btheta \big).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e5bf47e1c9214e3b68714cbc33e60dff22d9feb1d22c108abbecc7837f58c1c1.svg" src="../_images/e5bf47e1c9214e3b68714cbc33e60dff22d9feb1d22c108abbecc7837f58c1c1.svg" /></figure>
+<img alt="../_images/f9bb19027d042ce69f2d74ab820126b1f77bd1cdb44f0b33181b25c18aec7637.svg" src="../_images/f9bb19027d042ce69f2d74ab820126b1f77bd1cdb44f0b33181b25c18aec7637.svg" /></figure>
 </div>
 </div>
 <p>In both cases, notice that the algorithm is nicely converging toward the minimizer at <span class="math notranslate nohighlight">\(\btheta^\star \approx (0,0)\)</span>.</p>
@@ -1648,7 +1648,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\btheta^{(i)};\btheta \big), \quad 
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/400a9345765c41d6f54115a68286eccad7d5ed43beefd1e8e591d3c30e5083f6.svg" src="../_images/400a9345765c41d6f54115a68286eccad7d5ed43beefd1e8e591d3c30e5083f6.svg" /></figure>
+<img alt="../_images/0fc5d2424b36aab391e079fbf4295c80653dbdad82c1cbc7f42e6a4a08b19f1d.svg" src="../_images/0fc5d2424b36aab391e079fbf4295c80653dbdad82c1cbc7f42e6a4a08b19f1d.svg" /></figure>
 </div>
 </div>
 <p>The plots are very noisy, especially for large numbers of gradient steps. However, a slight downward trend in objective values is detectable, indicating that the algorithm is locating the minimizer. The trace of the algorithm through parameter space is shown in:</p>
@@ -1682,7 +1682,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\btheta^{(i)};\btheta \big), \quad 
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/d48c491a057753e9195f565930f963d9563a5c318fc2d3475732314ed7633d3e.svg" src="../_images/d48c491a057753e9195f565930f963d9563a5c318fc2d3475732314ed7633d3e.svg" /></figure>
+<img alt="../_images/26de210d8a717ee1c5f75b89495445c0f3801dffe169f278c0f6072cf52e5a58.svg" src="../_images/26de210d8a717ee1c5f75b89495445c0f3801dffe169f278c0f6072cf52e5a58.svg" /></figure>
 </div>
 </div>
 <p>The traces are very noisy, especially in the first row with the large learning rate <span class="math notranslate nohighlight">\(\alpha=0.1\)</span>. Nevertheless, it is clear that the algorithm has found the neighborhood of the minimizer at <span class="math notranslate nohighlight">\((0,0)\)</span>. We might try to tame the noise in these plots by increasing the decay rate, but according to our implementation, that would be equivalent to simply decreasing the learning rate since none of these four runs of the algorithm completes a full epoch. Indeed, notice that the power <span class="math notranslate nohighlight">\(t\)</span> in the expression <span class="math notranslate nohighlight">\((1-\gamma)^t\)</span> in the <a class="reference internal" href="#sgd-alg">statement</a> of the algorithm counts the number of epochs.</p>
@@ -1736,7 +1736,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\btheta^{(i)};\btheta \big), \quad 
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a2c5a7423676e5a69b68161a67da427029de8758f25b5a91f2cbaddf9b22322b.svg" src="../_images/a2c5a7423676e5a69b68161a67da427029de8758f25b5a91f2cbaddf9b22322b.svg" /></figure>
+<img alt="../_images/094ce15fb9eced9382715ed11187726743ea6e292d26ca6bb2e99394966c2d06.svg" src="../_images/094ce15fb9eced9382715ed11187726743ea6e292d26ca6bb2e99394966c2d06.svg" /></figure>
 </div>
 </div>
 <p>Mini-batch GD parameters:</p>
@@ -1772,7 +1772,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\btheta^{(i)};\btheta \big), \quad 
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/9120992d06bde5ee69398932effe538bc2bf277156cbda5a7e64c6ae489808b7.svg" src="../_images/9120992d06bde5ee69398932effe538bc2bf277156cbda5a7e64c6ae489808b7.svg" /></figure>
+<img alt="../_images/6442098fa385b32f999c0f260dfe282f2f6577702eb339c04a8630f249687f3b.svg" src="../_images/6442098fa385b32f999c0f260dfe282f2f6577702eb339c04a8630f249687f3b.svg" /></figure>
 </div>
 </div>
 </section>

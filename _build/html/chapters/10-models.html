@@ -183,8 +183,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="09-optim.html">9. Optimization</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">10. Probabilistic models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11-learning.html">11. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-asymptotic.html">12. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-stats-estimators.html">13. Statistics and estimators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-stats-estimators.html">12. Bayesian parameter estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-asymptotic.html">13. Large sample theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14-more-samp-dist.html">14. More sampling distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="15-CIs.html">15. Confidence intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16-hyp-test.html">16. Hypothesis testing</a></li>
@@ -531,7 +531,7 @@ g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/9e9ae6c5e42973a47bc43592a3d9b44673aaf3b53f95684b0da29d975f97e5c5.svg" src="../_images/9e9ae6c5e42973a47bc43592a3d9b44673aaf3b53f95684b0da29d975f97e5c5.svg" /></figure>
+<img alt="../_images/4e8d83578dbb8f31da4c26bcea930e448fd6a6ce09a6d065ad7a74abf92747eb.svg" src="../_images/4e8d83578dbb8f31da4c26bcea930e448fd6a6ce09a6d065ad7a74abf92747eb.svg" /></figure>
 </div>
 </div>
 <p>The positively-sloped line is used to visualize the approximate linear relationship <a class="reference internal" href="#equation-approx-linear-eqn">(10.1)</a>. This is a so-called <em>least squares line</em> or <em>regression line</em>; we will learn how to compute them in <a class="reference internal" href="11-learning.html#learning"><span class="std std-numref">Chapter 11</span></a>.</p>
@@ -669,7 +669,7 @@ y^{(i)} = \beta_0 + \bx^{(i)} \bbeta + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/3b33ffa79d25098dd9207fb43108fa9d144925b1779c8d36a33efdc90c1c33a6.svg" src="../_images/3b33ffa79d25098dd9207fb43108fa9d144925b1779c8d36a33efdc90c1c33a6.svg" /></figure>
+<img alt="../_images/00b499346539a95c69d4bf50dfe311227321fc60875595b7b1155913fc0fe4f7.svg" src="../_images/00b499346539a95c69d4bf50dfe311227321fc60875595b7b1155913fc0fe4f7.svg" /></figure>
 </div>
 </div>
 <p>It is evident from this plot that the homoscedasticity assumption is violated since the distributions of the residuals appear to widen as the area variable increases.</p>
@@ -714,7 +714,7 @@ y^{(i)} = \beta_0 + \bx^{(i)} \bbeta + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/142033ed6e4b98eceab80766a6ef29b6a69b69ae8507e8527aed820c73e89025.svg" src="../_images/142033ed6e4b98eceab80766a6ef29b6a69b69ae8507e8527aed820c73e89025.svg" /></figure>
+<img alt="../_images/7b07d002d205d56c69ff3b9f9fd31b24ee38facceefb838c71c2b9d2276aed04.svg" src="../_images/7b07d002d205d56c69ff3b9f9fd31b24ee38facceefb838c71c2b9d2276aed04.svg" /></figure>
 </div>
 </div>
 <p>To compare this simulated dataset against the real one, let’s compare KDEs:</p>
@@ -742,7 +742,7 @@ y^{(i)} = \beta_0 + \bx^{(i)} \bbeta + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/3a7b0486e38c7bb95fa20ffba475318349384644c6697aa99fba4d14b8b738d2.svg" src="../_images/3a7b0486e38c7bb95fa20ffba475318349384644c6697aa99fba4d14b8b738d2.svg" /></figure>
+<img alt="../_images/f25bebdaff6f700a069e85eeb37a7a8a1110d25bfef5e569f5f84dd6668ca62c.svg" src="../_images/f25bebdaff6f700a069e85eeb37a7a8a1110d25bfef5e569f5f84dd6668ca62c.svg" /></figure>
 </div>
 </div>
 <p>For smaller values of area, the distribution of the true prices is narrower compared to the simulated prices, while for larger values of area, the distribution of the true prices is wider.</p>
@@ -786,7 +786,7 @@ y^{(i)} = \beta_0 + \bx^{(i)} \bbeta + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/fb95e0f8e92fae294f11c9113584f3c97579d24a649a4365c76ab43379ad585b.svg" src="../_images/fb95e0f8e92fae294f11c9113584f3c97579d24a649a4365c76ab43379ad585b.svg" /></figure>
+<img alt="../_images/c86acc6c332fd6c303b5905c55de2cdd296d50c80d2b158eb1def0272908b1b6.svg" src="../_images/c86acc6c332fd6c303b5905c55de2cdd296d50c80d2b158eb1def0272908b1b6.svg" /></figure>
 </div>
 </div>
 <p>The points represent the <span class="math notranslate nohighlight">\(2\)</span>-dimensional predictors</p>
@@ -823,7 +823,7 @@ y^{(i)} = \beta_0 + \bx^{(i)} \bbeta + \dev^{(i)}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/34702abe1a5c0e02281a468c103cebfdbb68d44689b72905a9f8452f526a6d28.svg" src="../_images/34702abe1a5c0e02281a468c103cebfdbb68d44689b72905a9f8452f526a6d28.svg" /></figure>
+<img alt="../_images/c29d4ed15c880859df635c3721e854a218ee45034006e560e785e29814f66dc6.svg" src="../_images/c29d4ed15c880859df635c3721e854a218ee45034006e560e785e29814f66dc6.svg" /></figure>
 </div>
 </div>
 <p>Since the outputs of the sigmoid function land in the open interval <span class="math notranslate nohighlight">\((0,1)\)</span>, we may use it to convert <em>any</em> real number into a <em>probability</em>. Indeed, this is precisely its role in a <em>logistic regression model</em>:</p>
@@ -947,7 +947,7 @@ x_1^{(m)} &amp; \cdots &amp; x_n^{(m)}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/01c91f02e87c2e16d62976814a9f9f22151ef06328c5d6cd62e2678c4b5787a6.svg" src="../_images/01c91f02e87c2e16d62976814a9f9f22151ef06328c5d6cd62e2678c4b5787a6.svg" /></figure>
+<img alt="../_images/65b220e0306d2c82d14d3131d72fff49a25cf618247e068dce37e30bca7b339c.svg" src="../_images/65b220e0306d2c82d14d3131d72fff49a25cf618247e068dce37e30bca7b339c.svg" /></figure>
 </div>
 </div>
 <p>Notice that the values of the two features <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> now lie in comparable ranges, while the overall <em>shape</em> of the dataset has not changed.</p>
@@ -1007,7 +1007,7 @@ x_1^{(m)} &amp; \cdots &amp; x_n^{(m)}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ad19633b9a86736e197dcc3157b230fcb7025419b102b630091f4087e0509454.svg" src="../_images/ad19633b9a86736e197dcc3157b230fcb7025419b102b630091f4087e0509454.svg" /></figure>
+<img alt="../_images/4cf8a0d90a32818da683fc08b943aaa743b37dbb3819cd6072c2ebab106745e8.svg" src="../_images/4cf8a0d90a32818da683fc08b943aaa743b37dbb3819cd6072c2ebab106745e8.svg" /></figure>
 </div>
 </div>
 <p>To interpret this plot, remember that <span class="math notranslate nohighlight">\(\phi = \sigma( \beta_0 + \bx \bbeta)\)</span> is the probability parameter for the class indicator variable <span class="math notranslate nohighlight">\(Y \sim \Ber(\phi)\)</span>, so we should interpret <span class="math notranslate nohighlight">\(\phi\)</span> as the probability that the point <span class="math notranslate nohighlight">\(\bx\)</span> is in class <span class="math notranslate nohighlight">\(1\)</span> (corresponding to <span class="math notranslate nohighlight">\(y=1\)</span>). In the right-hand plot, we have “thresholded” the probability <span class="math notranslate nohighlight">\(\phi\)</span> at <span class="math notranslate nohighlight">\(0.5\)</span>, creating a <em>predictor function</em></p>
@@ -1063,7 +1063,7 @@ f:\bbr^{1\times 2} \to \{0,1\}, \quad f(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/86a4c7daa73308e3e402a63c9643722968445ccf6f0b143a8e9412424677f278.svg" src="../_images/86a4c7daa73308e3e402a63c9643722968445ccf6f0b143a8e9412424677f278.svg" /></figure>
+<img alt="../_images/103de8f346c2b28bb9e69bb2fb811b72f1c50246f204197b80e5472f01a9d69d.svg" src="../_images/103de8f346c2b28bb9e69bb2fb811b72f1c50246f204197b80e5472f01a9d69d.svg" /></figure>
 </div>
 </div>
 <p>We may apply the ReLU function to vectors <span class="math notranslate nohighlight">\(\bx\in \bbr^{1\times n}\)</span> by “vectorization” (in pythonic language), which just means that we apply it componentwise:</p>
@@ -1210,7 +1210,7 @@ Y; \ \bz^{[2]}, \bw, b \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a19ec9d81dec305e4025632b1ab623f4de37d6fb2fd7ce383e2cb1b552468de5.svg" src="../_images/a19ec9d81dec305e4025632b1ab623f4de37d6fb2fd7ce383e2cb1b552468de5.svg" /></figure>
+<img alt="../_images/7c8af20779b0f38132c1401e2dc907fef38807409116f0dc403027a55fc1e871.svg" src="../_images/7c8af20779b0f38132c1401e2dc907fef38807409116f0dc403027a55fc1e871.svg" /></figure>
 </div>
 </div>
 <p>Trained on the original dataset (without the “blobs”), we saw that a logistic regression model produces a <em>linear</em> decision boundary and thus misclassifies a nontrivial number of data points. In comparison, not only will a neural network produce a nonlinear decision boundary dividing the data in the original dataset, it will also correctly classify the data in the four new “blobs.” Indeed, using the techniques in the <a class="reference internal" href="11-learning.html#learning"><span class="std std-ref">next chapter</span></a>, we trained a neural network on the new dataset with <em>three</em> hidden layers of widths <span class="math notranslate nohighlight">\(8\)</span>, <span class="math notranslate nohighlight">\(8\)</span>, and <span class="math notranslate nohighlight">\(4\)</span>. Then, a contour plot of the function</p>
@@ -1310,7 +1310,7 @@ Y; \ \bz^{[2]}, \bw, b \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a6d5a4b7c7f4be8fcfbfb8aee0b2f275036fad108d49bbf80c760d14ff0339f5.svg" src="../_images/a6d5a4b7c7f4be8fcfbfb8aee0b2f275036fad108d49bbf80c760d14ff0339f5.svg" /></figure>
+<img alt="../_images/f4c4c16f194f8007d904789cdf6b453c65af3f47a3cf2df780ea3ffd3c6d45af.svg" src="../_images/f4c4c16f194f8007d904789cdf6b453c65af3f47a3cf2df780ea3ffd3c6d45af.svg" /></figure>
 </div>
 </div>
 <p>Notice that the band of white dividing the original dataset (representing values <span class="math notranslate nohighlight">\(\phi \approx 0.5\)</span>) in the left-hand plot is much narrower compared to the same plot for the logistic regression model. This indicates that the neural network is making much more confident predictions up to its decision boundary (displayed in the right-hand plot) compared to the logistic regression model.</p>
@@ -1381,7 +1381,7 @@ Y; \ \bz^{[2]}, \bw, b \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/b0b8c70de89295accc8bf417b67a7a62eb8dc735fa3aecd9825e4c7805e9640c.svg" src="../_images/b0b8c70de89295accc8bf417b67a7a62eb8dc735fa3aecd9825e4c7805e9640c.svg" /></figure>
+<img alt="../_images/9991207dfde6057a97d2f5f040da8e616fbcbf279dcb7f5045709a9a4ed8e3c4.svg" src="../_images/9991207dfde6057a97d2f5f040da8e616fbcbf279dcb7f5045709a9a4ed8e3c4.svg" /></figure>
 </div>
 </div>
 </section>
@@ -1490,7 +1490,7 @@ X \mid Z; \ \mu_0,\sigma_0^2,\mu_1, \sigma^2_1 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/3a9ed6760734e0e3b269df8bfb0451505a9f881cfa2d93c62702624a2a3a86c2.svg" src="../_images/3a9ed6760734e0e3b269df8bfb0451505a9f881cfa2d93c62702624a2a3a86c2.svg" /></figure>
+<img alt="../_images/cd6cdce00cb505a424c9c9a93a3fbef1c9592fc6971f2240a14e66c468c3d989.svg" src="../_images/cd6cdce00cb505a424c9c9a93a3fbef1c9592fc6971f2240a14e66c468c3d989.svg" /></figure>
 </div>
 </div>
 </section>
