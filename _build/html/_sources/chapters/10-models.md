@@ -10,10 +10,12 @@ kernelspec:
   name: python3
 ---
 
+**THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!**
+
 (prob-models)=
 # Probabilistic models
 
-**THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!**
+
 
 
 

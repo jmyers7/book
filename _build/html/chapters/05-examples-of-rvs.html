@@ -63,7 +63,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bb": "\\mathbf{b}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "be": "\\mathbf{e}", "bg": "\\mathbf{g}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/05-examples-of-rvs';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -183,8 +183,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="09-optim.html">9. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10-models.html">10. Probabilistic models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11-learning.html">11. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-stats-estimators.html">12. Statistics and estimators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-asymptotic.html">13. Large sample theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-asymptotic.html">12. Large sample theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-stats-estimators.html">13. Statistics and estimators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14-more-samp-dist.html">14. More sampling distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="15-CIs.html">15. Confidence intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16-hyp-test.html">16. Hypothesis testing</a></li>
@@ -743,8 +743,8 @@ E(X) = \frac{1}{\theta} \quad \text{and} \quad V(X) = \frac{1-\theta}{\theta^2}.
 <p class="admonition-title"><span class="caption-number">Definition 5.4 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(M\geq 0\)</span> be an integer, and let <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(N\)</span> be integers with <span class="math notranslate nohighlight">\(0\leq n,N\leq M\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>hypergeometric distribution</em> with parameters <span class="math notranslate nohighlight">\(M\)</span>, <span class="math notranslate nohighlight">\(n\)</span>, and <span class="math notranslate nohighlight">\(N\)</span>, denoted</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0d09b837-719e-4eef-8534-28ad6e91a89a">
-<span class="eqno">(5.7)<a class="headerlink" href="#equation-0d09b837-719e-4eef-8534-28ad6e91a89a" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
+<div class="amsmath math notranslate nohighlight" id="equation-ae190bad-2808-4fc4-99ed-be1bdc8434bb">
+<span class="eqno">(5.7)<a class="headerlink" href="#equation-ae190bad-2808-4fc4-99ed-be1bdc8434bb" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
 Y \sim \mathcal{HG}eo(M,n,N),
 \end{equation}\]</div>
 <p>if its probability mass function is given by</p>

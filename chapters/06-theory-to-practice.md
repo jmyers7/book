@@ -190,7 +190,7 @@ Why have two different types of random samples? Answers:
 
 
 
-
+(prob-models-emp-sec)=
 ## Probabilistic models and empirical distributions
 
 Suppose we conceptualize our Airbnb dataset $x_1,x_2,\ldots,x_m$ as an observation of a random sample $X_1,X_2,\ldots,X_m$. Since the random variables in the random sample are identically distributed, they all induce the _same_ probability distribution on $\mathbb{R}$. _But what is this distribution?_

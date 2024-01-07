@@ -63,7 +63,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bb": "\\mathbf{b}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "be": "\\mathbf{e}", "bg": "\\mathbf{g}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/06-theory-to-practice';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -183,8 +183,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="09-optim.html">9. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10-models.html">10. Probabilistic models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11-learning.html">11. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-stats-estimators.html">12. Statistics and estimators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-asymptotic.html">13. Large sample theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-asymptotic.html">12. Large sample theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-stats-estimators.html">13. Statistics and estimators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14-more-samp-dist.html">14. More sampling distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="15-CIs.html">15. Confidence intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16-hyp-test.html">16. Hypothesis testing</a></li>
@@ -498,7 +498,7 @@ P(X_1\in A) = P(X_2\in A) = \cdots = P(X_m\in A)
 </div>
 </section>
 <section id="probabilistic-models-and-empirical-distributions">
-<h2><span class="section-number">6.2. </span>Probabilistic models and empirical distributions<a class="headerlink" href="#probabilistic-models-and-empirical-distributions" title="Permalink to this heading">#</a></h2>
+<span id="prob-models-emp-sec"></span><h2><span class="section-number">6.2. </span>Probabilistic models and empirical distributions<a class="headerlink" href="#probabilistic-models-and-empirical-distributions" title="Permalink to this heading">#</a></h2>
 <p>Suppose we conceptualize our Airbnb dataset <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> as an observation of a random sample <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span>. Since the random variables in the random sample are identically distributed, they all induce the <em>same</em> probability distribution on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. <em>But what is this distribution?</em></p>
 <p>Whatever it is, it is <em>not</em> completely and uniquely determined by the dataset. Its specific identity is chosen by the analyst. Many factors are considered in this choice, but the most important is to pick a distribution that closely <em>fits</em> the empirical distribution of the dataset. This is the modeling process in a nutshell.</p>
 <p>Let’s introduce some notation and terminology. Suppose that <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> is <em>any</em> random sample. If the common probability distribution among the <span class="math notranslate nohighlight">\(X_i\)</span>’s comes from one of the families studied in <a class="reference internal" href="05-examples-of-rvs.html#examples"><span class="std std-numref">Chapter 5</span></a>—for example, a normal distribution—we will write the usual</p>
@@ -547,7 +547,7 @@ F(x) = \sum_{x^\star\leq x} p(x^\star) = \frac{\text{number of data points $x_i$
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/0d7153c24ed76d70c2857e55b11bede9a0b095753eab3b002cd9efda7c9efeb1.svg"><img alt="../_images/0d7153c24ed76d70c2857e55b11bede9a0b095753eab3b002cd9efda7c9efeb1.svg" src="../_images/0d7153c24ed76d70c2857e55b11bede9a0b095753eab3b002cd9efda7c9efeb1.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/fd6aa0f1619ab2bb59c8efe17c95d837d3f06e87081f0b7aea92198a6eddebb6.svg"><img alt="../_images/fd6aa0f1619ab2bb59c8efe17c95d837d3f06e87081f0b7aea92198a6eddebb6.svg" src="../_images/fd6aa0f1619ab2bb59c8efe17c95d837d3f06e87081f0b7aea92198a6eddebb6.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -587,7 +587,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/a2719ba7d86ea3ea3936bccc7e97a777a35874b8f4b7a71825804eabe73a5dcf.svg"><img alt="../_images/a2719ba7d86ea3ea3936bccc7e97a777a35874b8f4b7a71825804eabe73a5dcf.svg" src="../_images/a2719ba7d86ea3ea3936bccc7e97a777a35874b8f4b7a71825804eabe73a5dcf.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/8ab531d4a4738bbdd9ca9d2475fb14d0e40e9a90427da601820362a0353fbc32.svg"><img alt="../_images/8ab531d4a4738bbdd9ca9d2475fb14d0e40e9a90427da601820362a0353fbc32.svg" src="../_images/8ab531d4a4738bbdd9ca9d2475fb14d0e40e9a90427da601820362a0353fbc32.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -627,7 +627,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/1f2952e1f23382f798e4d0124516ad9c0d6f085238223bfe7c62aa1567fe8167.svg"><img alt="../_images/1f2952e1f23382f798e4d0124516ad9c0d6f085238223bfe7c62aa1567fe8167.svg" src="../_images/1f2952e1f23382f798e4d0124516ad9c0d6f085238223bfe7c62aa1567fe8167.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/576ab146a78c95a242658c7b448a070b3878049263d357ea5e975375c0b4cc90.svg"><img alt="../_images/576ab146a78c95a242658c7b448a070b3878049263d357ea5e975375c0b4cc90.svg" src="../_images/576ab146a78c95a242658c7b448a070b3878049263d357ea5e975375c0b4cc90.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -672,7 +672,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/e0dbd92b30552b2f3a1225f9173c789febb9ad98946662ab032cb700f770d1b3.svg"><img alt="../_images/e0dbd92b30552b2f3a1225f9173c789febb9ad98946662ab032cb700f770d1b3.svg" src="../_images/e0dbd92b30552b2f3a1225f9173c789febb9ad98946662ab032cb700f770d1b3.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/132fd200d0dac33dfb1590e89f2b2cbb210ddf9021eec003e55afe8ab6f7dd73.svg"><img alt="../_images/132fd200d0dac33dfb1590e89f2b2cbb210ddf9021eec003e55afe8ab6f7dd73.svg" src="../_images/132fd200d0dac33dfb1590e89f2b2cbb210ddf9021eec003e55afe8ab6f7dd73.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -695,7 +695,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/bcb8b3839035e81d5b8eb80a80159454606810319f3300d252e3e98a874a6562.svg"><img alt="../_images/bcb8b3839035e81d5b8eb80a80159454606810319f3300d252e3e98a874a6562.svg" src="../_images/bcb8b3839035e81d5b8eb80a80159454606810319f3300d252e3e98a874a6562.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/c8539451ea8604c43534aaa0e2b99a82782ff256a8b6dac6c72db099f87ea1b4.svg"><img alt="../_images/c8539451ea8604c43534aaa0e2b99a82782ff256a8b6dac6c72db099f87ea1b4.svg" src="../_images/c8539451ea8604c43534aaa0e2b99a82782ff256a8b6dac6c72db099f87ea1b4.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -718,7 +718,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/1aed4fe475482482321bdbca05879cfb5cdf08ca3068f5a6781e5c5779a16807.svg"><img alt="../_images/1aed4fe475482482321bdbca05879cfb5cdf08ca3068f5a6781e5c5779a16807.svg" src="../_images/1aed4fe475482482321bdbca05879cfb5cdf08ca3068f5a6781e5c5779a16807.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/704b9199423a755f6ca384a3ff4a522540c55f318c5deeabcac1bf7bf5a67f0d.svg"><img alt="../_images/704b9199423a755f6ca384a3ff4a522540c55f318c5deeabcac1bf7bf5a67f0d.svg" src="../_images/704b9199423a755f6ca384a3ff4a522540c55f318c5deeabcac1bf7bf5a67f0d.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -751,7 +751,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/de8634f1a26bebba4c86da4cbfb9b8802d1e601898651c3f10b6fec78ae77937.svg"><img alt="../_images/de8634f1a26bebba4c86da4cbfb9b8802d1e601898651c3f10b6fec78ae77937.svg" src="../_images/de8634f1a26bebba4c86da4cbfb9b8802d1e601898651c3f10b6fec78ae77937.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/dfb7e7dba798a56022033411dc2c5157fd137a07d3fa968d952ac8bbfd4cb71d.svg"><img alt="../_images/dfb7e7dba798a56022033411dc2c5157fd137a07d3fa968d952ac8bbfd4cb71d.svg" src="../_images/dfb7e7dba798a56022033411dc2c5157fd137a07d3fa968d952ac8bbfd4cb71d.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -815,7 +815,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/47c32722bbd330a52ee0a94d801065c0e0d357591791dd270f79220ac0ddb01e.svg"><img alt="../_images/47c32722bbd330a52ee0a94d801065c0e0d357591791dd270f79220ac0ddb01e.svg" src="../_images/47c32722bbd330a52ee0a94d801065c0e0d357591791dd270f79220ac0ddb01e.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/87012178e5aa01121b11e9bcaed4654ae34befd63d14497cf6f4c99fe84e8f4a.svg"><img alt="../_images/87012178e5aa01121b11e9bcaed4654ae34befd63d14497cf6f4c99fe84e8f4a.svg" src="../_images/87012178e5aa01121b11e9bcaed4654ae34befd63d14497cf6f4c99fe84e8f4a.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -851,7 +851,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/e8a71e0f9400aee51e1413720c566c40a3e80b705bd6f216a3c5fb4c3e9df135.svg"><img alt="../_images/e8a71e0f9400aee51e1413720c566c40a3e80b705bd6f216a3c5fb4c3e9df135.svg" src="../_images/e8a71e0f9400aee51e1413720c566c40a3e80b705bd6f216a3c5fb4c3e9df135.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/7c0a0fc1f54d26d6547d588fb8fed18880bacb40e5c1c9ba2a2c04be6a1ab100.svg"><img alt="../_images/7c0a0fc1f54d26d6547d588fb8fed18880bacb40e5c1c9ba2a2c04be6a1ab100.svg" src="../_images/7c0a0fc1f54d26d6547d588fb8fed18880bacb40e5c1c9ba2a2c04be6a1ab100.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1041,7 +1041,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/5e747e1bbb083a63facf4da2092e1a73beb4812da56ea50186a619fac66b8e02.svg"><img alt="../_images/5e747e1bbb083a63facf4da2092e1a73beb4812da56ea50186a619fac66b8e02.svg" src="../_images/5e747e1bbb083a63facf4da2092e1a73beb4812da56ea50186a619fac66b8e02.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/0ec4c079253092867d5e065dcc206080e0fc37c6a7271d490d5e8ed570828d75.svg"><img alt="../_images/0ec4c079253092867d5e065dcc206080e0fc37c6a7271d490d5e8ed570828d75.svg" src="../_images/0ec4c079253092867d5e065dcc206080e0fc37c6a7271d490d5e8ed570828d75.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1071,7 +1071,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/2276cf64a41830423da4bf4a763f3d77d3b5dcb7c7b3ae39a6edac449a9d0441.svg"><img alt="../_images/2276cf64a41830423da4bf4a763f3d77d3b5dcb7c7b3ae39a6edac449a9d0441.svg" src="../_images/2276cf64a41830423da4bf4a763f3d77d3b5dcb7c7b3ae39a6edac449a9d0441.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/55359c83a84d0c7d439ec42a98e68d1ac1c7abecec58e9f5800f538ad31b6336.svg"><img alt="../_images/55359c83a84d0c7d439ec42a98e68d1ac1c7abecec58e9f5800f538ad31b6336.svg" src="../_images/55359c83a84d0c7d439ec42a98e68d1ac1c7abecec58e9f5800f538ad31b6336.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1121,7 +1121,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/c8c77cd66393cea1b0e84df3a7ead0bc1780c7262efc7310da0d89a3a14bb811.svg"><img alt="../_images/c8c77cd66393cea1b0e84df3a7ead0bc1780c7262efc7310da0d89a3a14bb811.svg" src="../_images/c8c77cd66393cea1b0e84df3a7ead0bc1780c7262efc7310da0d89a3a14bb811.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/4627c88685ad4ee3ff75f9329ecfbaa4d98b888154899cbd83db81d0525ef707.svg"><img alt="../_images/4627c88685ad4ee3ff75f9329ecfbaa4d98b888154899cbd83db81d0525ef707.svg" src="../_images/4627c88685ad4ee3ff75f9329ecfbaa4d98b888154899cbd83db81d0525ef707.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1173,7 +1173,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/a60851fa496011cb0ae910cb43504947072b3977b3719e35dda9d09b661b2f70.svg"><img alt="../_images/a60851fa496011cb0ae910cb43504947072b3977b3719e35dda9d09b661b2f70.svg" src="../_images/a60851fa496011cb0ae910cb43504947072b3977b3719e35dda9d09b661b2f70.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/7c9ac4ed04b6ac6883ff167602dcb9c2aef3ec36624da9e9a91ae1a2a91375f2.svg"><img alt="../_images/7c9ac4ed04b6ac6883ff167602dcb9c2aef3ec36624da9e9a91ae1a2a91375f2.svg" src="../_images/7c9ac4ed04b6ac6883ff167602dcb9c2aef3ec36624da9e9a91ae1a2a91375f2.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1198,7 +1198,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/bbbed259fa0434551b63ae4fe2fa6dc39fc26048ae9a53a93009b74662e113ec.svg"><img alt="../_images/bbbed259fa0434551b63ae4fe2fa6dc39fc26048ae9a53a93009b74662e113ec.svg" src="../_images/bbbed259fa0434551b63ae4fe2fa6dc39fc26048ae9a53a93009b74662e113ec.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/996ed517edfc30177e02f357ab7a0d3da596daf8224383c7a397464506cb4cb9.svg"><img alt="../_images/996ed517edfc30177e02f357ab7a0d3da596daf8224383c7a397464506cb4cb9.svg" src="../_images/996ed517edfc30177e02f357ab7a0d3da596daf8224383c7a397464506cb4cb9.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1224,7 +1224,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ebc7b809dfdb57656d781a0a6ddac8cd8b9b9c2603ae490d3fdf0aabaac0b464.svg"><img alt="../_images/ebc7b809dfdb57656d781a0a6ddac8cd8b9b9c2603ae490d3fdf0aabaac0b464.svg" src="../_images/ebc7b809dfdb57656d781a0a6ddac8cd8b9b9c2603ae490d3fdf0aabaac0b464.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/9c6b0a3d24009caa384750525246f9ab7d18f0f60f92e997ca2b2866b0e86010.svg"><img alt="../_images/9c6b0a3d24009caa384750525246f9ab7d18f0f60f92e997ca2b2866b0e86010.svg" src="../_images/9c6b0a3d24009caa384750525246f9ab7d18f0f60f92e997ca2b2866b0e86010.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1260,7 +1260,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ad116fe67bb9d3328408c637b254c95a7597e7722a331eb2ea14ec119bebb479.svg"><img alt="../_images/ad116fe67bb9d3328408c637b254c95a7597e7722a331eb2ea14ec119bebb479.svg" src="../_images/ad116fe67bb9d3328408c637b254c95a7597e7722a331eb2ea14ec119bebb479.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/2e95bd2506ccdd295ff2f6aebe90d9f8831588ba57884fe3132a0deb299a2503.svg"><img alt="../_images/2e95bd2506ccdd295ff2f6aebe90d9f8831588ba57884fe3132a0deb299a2503.svg" src="../_images/2e95bd2506ccdd295ff2f6aebe90d9f8831588ba57884fe3132a0deb299a2503.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1283,7 +1283,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ad188cb5ce6290849d835f140f60b9dd9ceb49012c3fb6b1d31075eaae257786.svg"><img alt="../_images/ad188cb5ce6290849d835f140f60b9dd9ceb49012c3fb6b1d31075eaae257786.svg" src="../_images/ad188cb5ce6290849d835f140f60b9dd9ceb49012c3fb6b1d31075eaae257786.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/0fd9af51d8c1eb8971f9c6ed3fc263c5f718b78ead054c3a6e19d8b380a8ff6f.svg"><img alt="../_images/0fd9af51d8c1eb8971f9c6ed3fc263c5f718b78ead054c3a6e19d8b380a8ff6f.svg" src="../_images/0fd9af51d8c1eb8971f9c6ed3fc263c5f718b78ead054c3a6e19d8b380a8ff6f.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
