@@ -638,9 +638,7 @@ E(X) = \frac{Nn}{M} \quad \text{and} \quad V(X) = \left(\frac{M-N}{M-1}\right) \
 $$
 ```
 
-We will derive these formulas when we learn about linear combinations of random variables in a [later](fun-rvs) section.
-
-The effect of the parameters on the mean is clear, since it is jointly proportional to $N$ and $n$, while being inversely proportional to $M$. On the other hand, the formula for $V(X)$ is quite opaque, and it is difficult to extract much intuition from it. We will not prove these formulas here. We *might* prove them once we talk about *joint distributions* later. Perhaps. If we feel like it.
+We will not attempt to derive these formulas. If you want to see one possible derivation, wait until we talk about {prf:ref}`linear-exp-thm` and {prf:ref}`bilinear-thm`, and then have a look at Example 5.19 in {cite}`Devore2021`.
 
 ```{admonition} Problem Prompt
 
@@ -1025,7 +1023,7 @@ E(X) = \mu \quad \text{and} \quad V(X) = \sigma^2.
 $$
 ```
 
-We will prove this [later](mgf) when we discuss moment generating functions.
+We will derive these formulas later in the worksheet problems to {numref}`mgf`.
 
 ```{admonition} Problem Prompt
 
