@@ -743,8 +743,8 @@ E(X) = \frac{1}{\theta} \quad \text{and} \quad V(X) = \frac{1-\theta}{\theta^2}.
 <p class="admonition-title"><span class="caption-number">Definition 5.4 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(M\geq 0\)</span> be an integer, and let <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(N\)</span> be integers with <span class="math notranslate nohighlight">\(0\leq n,N\leq M\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>hypergeometric distribution</em> with parameters <span class="math notranslate nohighlight">\(M\)</span>, <span class="math notranslate nohighlight">\(n\)</span>, and <span class="math notranslate nohighlight">\(N\)</span>, denoted</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9ee820f2-9499-4ba9-a211-fcb82262b62a">
-<span class="eqno">(5.7)<a class="headerlink" href="#equation-9ee820f2-9499-4ba9-a211-fcb82262b62a" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
+<div class="amsmath math notranslate nohighlight" id="equation-560ddf6e-199c-40f8-9ed1-997b301e0746">
+<span class="eqno">(5.7)<a class="headerlink" href="#equation-560ddf6e-199c-40f8-9ed1-997b301e0746" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
 Y \sim \mathcal{HG}eo(M,n,N),
 \end{equation}\]</div>
 <p>if its probability mass function is given by</p>
@@ -881,8 +881,7 @@ P(X=x) = \frac{\binom{n}{x} \binom{M-n}{N-x}}{\binom{M}{N}},
 E(X) = \frac{Nn}{M} \quad \text{and} \quad V(X) = \left(\frac{M-N}{M-1}\right) \cdot N \cdot \frac{n}{M} \left(1- \frac{n}{M} \right).
 \]</div>
 </section>
-</div><p>We will derive these formulas when we learn about linear combinations of random variables in a <a class="reference internal" href="08-more-prob.html#fun-rvs"><span class="std std-ref">later</span></a> section.</p>
-<p>The effect of the parameters on the mean is clear, since it is jointly proportional to <span class="math notranslate nohighlight">\(N\)</span> and <span class="math notranslate nohighlight">\(n\)</span>, while being inversely proportional to <span class="math notranslate nohighlight">\(M\)</span>. On the other hand, the formula for <span class="math notranslate nohighlight">\(V(X)\)</span> is quite opaque, and it is difficult to extract much intuition from it. We will not prove these formulas here. We <em>might</em> prove them once we talk about <em>joint distributions</em> later. Perhaps. If we feel like it.</p>
+</div><p>We will not attempt to derive these formulas. If you want to see one possible derivation, wait until we talk about <a class="reference internal" href="08-more-prob.html#linear-exp-thm">Theorem 8.3</a> and <a class="reference internal" href="08-more-prob.html#bilinear-thm">Theorem 8.12</a>, and then have a look at Example 5.19 in <span id="id7">[<a class="reference internal" href="bib.html#id6" title="J. L. Devore, K. N. Berk, and M. A. Carlton. Modern mathematical statistics with applications. Springer Texts in Statistics. Springer, Cham, third edition, 2021.">DBC21</a>]</span>.</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problems 5 and 6 on the worksheet.</p>
@@ -943,7 +942,7 @@ p(x;\mu) = \frac{\mu^x}{x!}e^{-\mu}
 <p>The archetypical scenarios for Bernoulli, binomial, and geometric random variables involved coin flips, which model different types of repeated scenario with binary and independent outcomes. The archetypical scenario for hypergeometric variables involved selecting balls from an urn. The justifications that each of these scenarios could be modeled by the claimed distributions relied essentially on basic combinatorics. But, as you are about to see, the justification that our archetypical Poisson scenario really <em>can</em> be modeled by a Poisson random variable is of a very different flavor.</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>My description of this particular scenario, as well as the continuations below (<a class="reference internal" href="#exp-scenario"><span class="std std-ref">here</span></a> and <a class="reference internal" href="#gamma-scenario"><span class="std std-ref">here</span></a>) follows the extremely well-written Chapter 12 in <span id="id7">[<a class="reference internal" href="bib.html#id3" title="F. M. Dekking, C. Kraaikamp, H. P. Lopuhaä, and L. E. Meester. A modern introduction to probability and statistics. Springer Texts in Statistics. Springer-Verlag London, Ltd., London, 2005.">DKLopuhaaM05</a>]</span>.</p>
+<p>My description of this particular scenario, as well as the continuations below (<a class="reference internal" href="#exp-scenario"><span class="std std-ref">here</span></a> and <a class="reference internal" href="#gamma-scenario"><span class="std std-ref">here</span></a>) follows the extremely well-written Chapter 12 in <span id="id8">[<a class="reference internal" href="bib.html#id3" title="F. M. Dekking, C. Kraaikamp, H. P. Lopuhaä, and L. E. Meester. A modern introduction to probability and statistics. Springer Texts in Statistics. Springer-Verlag London, Ltd., London, 2005.">DKLopuhaaM05</a>]</span>.</p>
 </aside>
 <div class="admonition-an-archetypical-poisson-scenario admonition" id="poisson-scenario">
 <p class="admonition-title">An archetypical Poisson scenario</p>
@@ -1189,7 +1188,7 @@ P(u \leq Y \leq v) &amp;= P\left((u-b)/a \leq X \leq (v-b)/a\right) \\
 E(X) = \mu \quad \text{and} \quad V(X) = \sigma^2.
 \]</div>
 </section>
-</div><p>We will prove this <a class="reference internal" href="08-more-prob.html#mgf"><span class="std std-ref">later</span></a> when we discuss moment generating functions.</p>
+</div><p>We will derive these formulas later in the worksheet problems to <a class="reference internal" href="08-more-prob.html#mgf"><span class="std std-numref">Section 8.4</span></a>.</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problems 10-13 on the worksheet.</p>
@@ -1559,7 +1558,7 @@ f(x;\alpha,\beta) \propto x^{\alpha-1} (1-x)^{\beta-1},
 E(X) = \frac{\alpha}{\alpha+\beta} \quad \text{and} \quad V(X) = \frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}.
 \]</div>
 </section>
-</div><p>These formulas may be derived using computations very similar to those for deriving the means and variances of gamma variables in <a class="reference internal" href="#gam-exp-thm">Theorem 5.11</a>. I suggest that you try to derive them on your own; if you have trouble, take a look at Theorem 5.8.3 in <span id="id8">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span></p>
+</div><p>These formulas may be derived using computations very similar to those for deriving the means and variances of gamma variables in <a class="reference internal" href="#gam-exp-thm">Theorem 5.11</a>. I suggest that you try to derive them on your own; if you have trouble, take a look at Theorem 5.8.3 in <span id="id9">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span></p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problem 16 on the worksheet.</p>

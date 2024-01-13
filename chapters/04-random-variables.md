@@ -972,7 +972,7 @@ Do problems 18 and 19 on the worksheet.
 
 
 
-
+(linear-of-exp)=
 ## Linearity of expectation
 
 We've learned that if $X$ and $Y$ are two random variables, then their pointwise sum $Z=X+Y$ is also a random variable. In the discrete case, we may compute the expectations of $X$ and $Y$, respectively, via the definition as
@@ -989,7 +989,7 @@ $$ (huh2-eqn)
 
 But it is not clear at first glance that there is any sort of simple relationship between the three expectations in {eq}`huh1-eqn` and {eq}`huh2-eqn`. Nevertheless, as I will explain in a later chapter---after we've learned about *joint distributions*---these expectations are related through the first equation in:
 
-```{prf:theorem} Linearity of Expectations
+```{prf:theorem} Linearity of Expectation
 :label: linearity-init-thm
 
 Let $X$ and $Y$ be two random variables and let $c\in \mathbb{R}$ be a constant. Then:
@@ -1011,7 +1011,7 @@ However, we *can* prove {eq}`homog-eqn` quite easily: Just use the LotUS with th
 
 Now, even though we can't prove {eq}`linear-eqn` at this point, we won't need it quite yet, so we're not in any danger. Instead, the following "weak" form of linearity is all we need. (For convenience, I've taken the identity {eq}`homog-eqn`---which you *just* proved---and included it in this special case.)
 
-```{prf:theorem} "Weak" Linearity of Expectations
+```{prf:theorem} "Weak" Linearity of Expectation
 :label: weak-linear-thm
 
 Let $X$ be a discrete or continuous random variable, let $y=g_1(x)$ and $y=g_2(x)$ be two real-valued functions, and let $c\in \mathbb{R}$ be a constant. Then:

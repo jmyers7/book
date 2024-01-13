@@ -15,11 +15,435 @@ kernelspec:
 
 # More probability theory
 
+## Expectations and joint distributions
+
+To motivate the considerations in this section, suppose that we have two random variables $X$ and $Y$ defined on a probability space $S$ and a real-valued function $g:\bbr^2 \to \bbr$. We may then "transform" the random variables to obtain the random variable
+
+$$
+g(X,Y): S \xrightarrow{(X,Y)} \bbr^2 \xrightarrow{g} \bbr,
+$$
+
+where $(X,Y)$ denotes the $2$-dimensional random vector with $X$ and $Y$ as its components. Notice that the notation $g(X,Y)$ strictly interpreted is an abuse of notation; as the arrows above indicate, this notation actually stands for the composite $g\circ (X,Y)$, where we view $(X,Y)$ as a function in accordance with {prf:ref}`two-dim-vector-def`.
+
+In any case, provided that this "transformed" random variable $Z = g(X,Y)$ is continuous (say) with density $f_{g(X,Y)}(z)$, we may compute its expectation (according to the definition!) as
+
+$$
+E(g(X,Y)) = \int_{\bbr} z f_{g(X,Y)}(z) \ \text{d}z.
+$$
+
+However, this formula is quite inconvenient to use in practice, due to the necessity of the density $f_{g(X,Y)}(z)$. We wonder if there is an alternate method to compute this expectation, one that uses the joint density $f(x,y)$. Indeed, there is! It is outlined in the following bivariate generalization of the LotUS from {prf:ref}`lotus-thm`.
+
+```{prf:theorem} Bivariate Law of the Unconscious Statistician (LoTUS)
+:label: bivariate-lotus-thm
+
+Let $X$ and $Y$ be two random variables and $g:\mathbb{R}^2 \to \mathbb{R}$ a function.
+
+1. If $X$ and $Y$ are jointly discrete with mass function $p(x,y)$, then
+
+    $$
+    E\left(g(X,Y)\right) = \sum_{(x,y)\in\mathbb{R}^2} g(x,y) p(x,y).
+    $$
+
+2. If $X$ and $Y$ are jointly continuous with density function $f(x,y)$, then
+
+    $$
+    E\left(g(X,Y)\right) = \iint_{\mathbb{R}^2} g(x,y) f(x,y) \ \text{d}x \text{d}y.
+    $$
+```
+
+Though the argument in the discrete case is very similar to the one given for the univariate version of {prf:ref}`lotus-thm`, we will not give it here. See if you can work it out on your own. You can imagine that the univariate and bivariate LoTUS's are special cases of a general multivariate LoTUS that computes expecations of random variables of the form $g(X_1,\ldots,X_n)$, where each $X_i$ is a random variable and $n\geq 1$. I will leave you to imagine what the statement of this multivariate LoTUS looks like. For those who might be interested, in the most general case, all of these "Law of the Unconscious Statistician" theorems are consequences of the general [change-of-variables formula](https://en.wikipedia.org/wiki/Pushforward_measure#Main_property:_change-of-variables_formula) for Lebesgue integrals.
+
+Our first application of the bivariate LoTUS is to show that the expectation operator is multiplicative on independent random variables:
+
+```{prf:theorem} Independence and expectations
+:label: ind-expect-thm
+
+If $X$ and $Y$ are independent random variables, then $E(XY) = E(X) E(Y)$.
+```
+
+```{prf:proof}
+The proof follows from the bivariate LotUS and the Mass/Density Criteria for Independence stated in {prf:ref}`mass-density-ind-thm`. Here's the argument in the case that $X$ and $Y$ are jointly continuous:
+
+\begin{align*}
+E(XY) &= \iint_{\mathbb{R}^2} xy f(x,y) \ \text{d} x \text{d}y \\
+&= \iint_{\mathbb{R}^2} xy f(x)f(y) \ \text{d} x \text{d}y \\
+&= \int_{\mathbb{R}}x f(x) \ \text{d} x \int_{\mathbb{R}} y f(y) \ \text{d}y \\
+&= E(X) E(Y).
+\end{align*}
+```
+
+Our second application of the bivariate LoTUS is to tie up a loose end from {numref}`linear-of-exp` and prove the full-strength version of "linearity of expectation."
+
+```{prf:theorem} Linearity of Expectations
+:label: linear-exp-thm
+
+Let $X$ and $Y$ be two random variables and let $c\in \mathbb{R}$ be a constant. Then:
+
+$$
+E(X+Y) = E(X) + E(Y),
+$$ (target-eqn)
+
+and
+
+$$
+E(cX) = c E(X).
+$$ (scalar-eqn)
+```
+
+```{prf:proof}
+The proof of the second equation {eq}`scalar-eqn` was already handled back in the proof of {prf:ref}`weak-linear-thm`. For the proof of the first equation {eq}`target-eqn` (in the continuous case), we apply the bivariate LotUS:
+
+\begin{align*}
+E(X+Y) &= \iint_{\mathbb{R}^2} (x+y) f(x,y) \ \text{d}x \text{d}y \\
+&= \int_{\mathbb{R}} x\left[ \int_{\mathbb{R}} f(x,y) \ \text{d}y\right] \ \text{d}x + \int_{\mathbb{R}} y\left[ \int_{\mathbb{R}} f(x,y) \ \text{d}x\right] \ \text{d}y \\
+&= \int_{\mathbb{R}} xf(x) \ \text{d}x + \int_{\mathbb{R}} y f(y) \ \text{d}y \\
+&= E(X) + E(Y).
+\end{align*}
+```
+
+
+Let's finish off the section by working through an example problem:
+
+```{admonition} Problem Prompt
+
+Do problem 1 on the worksheet.
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+(cond-expect)=
+## Expectations and conditional distributions
+
+In the previous section, we learned how to use joint distributions in computations of expectations. In this section, we define _new_ types of expectations using conditional distributions.
+
+```{margin}
+
+There is also a conditional version of variance. Can you guess how it might be defined? Take a look at Section 4.7 in {cite}`DeGrootSchervish2014` to learn more.
+```
+
+```{prf:definition}
+:label: conditional-exp-def
+
+Let $X$ and $Y$ be two random variables.
+
+1. If $Y$ and $X$ are jointly discrete with conditional mass function $p(y|x)$, then the _conditional expected value_ of $Y$ given $X=x$ is the sum
+
+    $$
+    E(Y\mid X=x) \def \sum_{y\in \mathbb{R}} y p(y|x).
+    $$
+
+2. If $Y$ and $X$ are jointly continuous with conditional density function $f(y|x)$, then the _conditional expected value_ of $Y$ given $X=x$ is the integral
+
+    $$
+    E(Y\mid X=x) \def \int_{\mathbb{R}} y f(y|x) \ \text{d}y.
+    $$
+
+```
+
+In both cases, notice that conditional expected values depend on the particular choice of observed value $x$. This means that these conditional expectations yield _functions_:
+
+$$
+h:A \to \bbr, \quad x\mapsto h(x) = E(Y\mid X=x),
+$$
+
+where $A$ is the subset of $\bbr$ consisting of all $x$ for which either the conditional mass function $p(y|x)$ or density function $f(y|x)$ exists. There is a bit of notational awkwardness here, since I rather arbitrarily chose the name $h$ for this function. It would be much preferable to have notation that is somehow built from $E(Y \mid X=x)$, but there isn't a commonly accepted one.
+
+Let's take a look at a practice problem before proceeding.
+
+```{admonition} Problem Prompt
+
+Do problem 2 on the worksheet.
+```
+
+The input $x$ to the conditional expectation function
+
+$$
+h(x) = E(Y\mid X=x)
+$$
+
+is an observation of a random variable, and thus this function is also "random." To make this precise, let's suppose for simplicity that $h$ is defined for all $x\in \bbr$, so that $h:\bbr \to \bbr$. Then, if $S$ is the probability space on which $X$ and $Y$ are defined, we may form the function
+
+$$
+E(Y \mid X) : S \xrightarrow{X} \bbr \xrightarrow{h} \bbr
+$$
+
+obtained as the composite $E(Y \mid X) \def h \circ X$. Note that $E(Y\mid X)$ is a real-valued function defined on a probability space and thus (by definition!) it is a random variable. This is a bit confusing the first time you see it, so make sure to pause and ponder it for bit! To help, let's take a look at a simple example problem where we unwind everything:
+
+```{admonition} Problem Prompt
+
+Do problem 3 on the worksheet.
+```
+
+Now, since $Z = E(Y\mid X)$ is a random variable, it has an expected value. Provided that it is continuous (for example) with density function $f_{E(Y\mid X)}(z)$,  we would compute it (by definition!) as the integral
+
+$$
+E\big[ E(Y \mid X) \big] = \int_\bbr z f_{E(Y\mid X)}(z) \ \text{d} z.
+$$ (ah-eqn)
+
+However, this formula is of little practical value, since we would need to compute the density $f_{E(Y\mid X)}(z)$ which can be quite difficult. So, we wonder: Is there an alternate way to compute this expectation? In fact there is, and the expectation turns out to reduce to the expectation of $Y$! The key is to _not_ compute the expctation according to the definition {eq}`ah-eqn`, but rather to use the LoTUS.
+
+```{margin}
+This law is also often called The Law of Iterated Expecation, among a bunch of [other names](https://en.wikipedia.org/wiki/Law_of_total_expectation).
+```
+
+```{prf:theorem} The Law of Total Expectation
+:label: law-of-total-exp-thm
+
+Let $X$ and $Y$ be two random variables that are either jointly discrete or jointly continuous. Then
+
+$$
+E\big[ E(Y \mid X) \big] = E(Y).
+$$
+```
+
+```{prf:proof}
+
+Let's consider the case that the variables are jointly continuous. Beginning with the LoTUS, we compute:
+
+\begin{align*}
+E\big[ E(Y \mid X) \big] &= \int_{\bbr} E(Y \mid X=x) f(x) \ \text{d}x \\
+&= \int_\bbr \int_\bbr y f(y|x) f(x) \ \text{d}y \text{d}x \\
+&= \int_\bbr \int_\bbr y f(x,y) \ \text{d}y \text{d}x \\
+&= \int_\bbr y f(y) \ \text{d} y \\
+&= E(Y).
+\end{align*}
+
+Besides the LoTUS in the first line, notice that in going from the third line to the fourth, we integrated out the dependence on $x$ of the joint density $f(x,y)$ to obtain the marginal $f(y)$. Q.E.D.
+```
+
+```{admonition} Problem Prompt
+
+Do problem 4 on the worksheet.
+```
+
+
+
+
+
+(fun-rvs)=
+## Computations with random variables
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(mgf)=
+## Moment generating functions
+
+```{prf:definition}
+:label: moments-def
+
+Let $k\geq 1$ be an integer and $X$ a random variable.
+
+* The *$k$-th moment* of $X$ is the expectation $E(X^k)$.
+
+* The *$k$-th central moment* of $X$ is the expectation $E\left( (X-\mu)^k \right)$, where $\mu = E(X)$.
+```
+
+Take care to notice that I am not claiming that _all_ of these moments exist for _all_ random variables. Notice also that the first moment of $X$ is precisely its expectation, while its second central moment is its variance. The "higher moments" are more difficult to interpret. The situation with them is analogous to the "higher derivatives" of a function $y=f(x)$. I have good intuition for what the first two derivatives $f'(x)$ and $f''(x)$ measure, but I have much less intuition for what the thirty-first derivative $f^{(31)}(x)$ measures!
+
+Actually, this analogy with derivatives can be carried further, so let's leave the world of probability theory for a moment and return to calculus. Indeed, as you well know, if a function $y=f(x)$ has derivatives of all orders at $x=0$, then we can form its Taylor series centered at $x=0$:
+
+$$
+f(0) + f'(0) x + \frac{f''(0)}{2!}x^2 + \cdots = \sum_{k=0}^\infty \frac{f^{(k)}(0)}{k!}x^k.
+$$ (taylor-eqn)
+
+You also learned that this series may, or may *not*, converge to the original function $y=f(x)$ on an open interval about $x=0$. For example, the Taylor series of $y=e^x$ actually converges to $y=e^x$ *everywhere*:
+
+$$
+e^x = \sum_{k=0}^\infty \frac{x^k}{k!}.
+$$
+
+On the other hand, [there exist](https://en.wikipedia.org/wiki/Non-analytic_smooth_function) functions for which the Taylor series {eq}`taylor-eqn` exists and converges *everywhere*, but does *not* converge to the function on *any* open interval around $x=0$.
+
+```{prf:theorem} Taylor Series Uniqueness Theorem
+:label: taylor-thm
+
+Suppose $y=f(x)$ and $y=g(x)$ are two functions whose Taylor series (centered at $x=0$) converge to $f$ and $g$ on open intervals containing $x=0$. Then the following statements are equivalent:
+
+1. $f(x)=g(x)$ for all $x$ in an open interval containing $x=0$.
+
+2. $f^{(k)}(0) = g^{(k)}(0)$ for all $k\geq 0$.
+
+3. The Taylor series for $f$ and $g$ (centered at $x=0$) are equal coefficient-wise.
+```
+
+What this Uniqueness Theorem tells us is that complete knowledge of *all* the values $f^{(k)}(0)$ determines the function $y=f(x)$ uniquely, at least locally near $x=0$. Therefore, even though we don't have good intuition for what all the higher derivatives $f^{(k)}(0)$ *mean*, they are still incredibly important and useful objects. Just think about it: If the Taylor series of $f(x)$ converges to $f(x)$ on an open interval containing $x=0$, then _uncountably_ many functional values $f(x)$ are determined by a _countable_ list of numbers $f(0),f'(0),f''(0),\ldots$. There is an incredible amount of information encoded in these derivatives.
+
+Now, hold this lesson in your mind for just a bit as we return to probability theory. We are about to see something *very similar* occur in the context of moments of random variables. The gadget that is going to play the role for random variables analogous to Taylor series is defined in:
+
+```{prf:definition}
+:label: mgf-def
+
+Let $X$ be a random variable. The *moment generating function* (*MGF*) of $X$ is defined to be
+
+$$
+\psi(t) = E(e^{tX}).
+$$
+
+We shall say the moment generating function *exists* if $\psi(t)$ is finite for all $t$ in an open interval containing $t=0$.
+```
+
+The reason that the function $\psi(t)$ is said to _generate_ the moments is encapsulated in:
+
+```{prf:theorem} Derivatives of Moment Generating Functions
+:label: derivatives-mgf-thm
+
+Let $X$ be a random variable whose moment generating function $\psi(t)$ exists. Then the moments $E(X^k)$ are finite for all $k\geq 1$, and $\psi^{(k)}(0) = E(X^k)$.
+```
+
+Thus, the moments $E(X^k)$ may be extracted from the moment generating function $\psi(t)$ simply by taking derivatives and evaluating at $t=0$. In this sense, the function $\psi (t)$ _generates_ the moments.
+
+
+```{prf:proof}
+Let's prove the theorem in the case that $X$ is continuous with density $f(x)$. Supposing that all the moments are finite (which I will *not* prove; see instead Theorem 4.4.2 in {cite}`DeGrootSchervish2014`) and that we can pull derivatives under integral signs, for all $k\geq 1$ we have:
+
+\begin{align*}
+\psi^{(k)}(0) &= \frac{\text{d}^k}{\text{d}t^k} \int_\bbr e^{tx} f(x) \ \text{d}x \Bigg|_{t=0} \\
+&= \int_\bbr \frac{\partial^k}{\partial t^k} e^{tx} f(x) \ \text{d} x \Bigg|_{t=0} \\
+&= \int_\bbr x^k e^{tx} f(x) \ \text{d} x \Bigg|_{t=9} \\
+&= \int_\bbr x^k f(x) \ \text{d} x \\
+&= E(X^k)
+\end{align*}
+
+Notice that we used the LotUS in the first line. Q.E.D.
+```
+
+```{admonition} Problem Prompt
+
+Do problem 5 on the worksheet.
+```
+
+
+Now, the true power of moment generating functions comes from the following extremely important and useful theorem, which may be seen as an analog of the Taylor Series Uniqueness Theorem stated above as {prf:ref}`taylor-thm`. It essentially says that: *If you know all the moments, then you know the distribution.*
+
+```{prf:theorem} Moment Generating Function Uniqueness Theorem
+:label: mgf-uniqueness-thm
+
+Suppose $X$ and $Y$ are two random variables whose moment generating functions $\psi_X(t)$ and $\psi_Y(t)$ exist. Then the following statements are equivalent:
+
+1. The distributions of $X$ and $Y$ are equal
+
+2. $E(X^k) = E(Y^k)$ for all $k\geq 1$.
+
+3. The moment generating functions $\psi_X(t)$ and $\psi_Y(t)$ are equal for all $t$ in an open interval containing $t=0$.
+```
+
+```{prf:proof}
+Here is a very brief sketch of the proof: The implication $(1) \Rightarrow (2)$ follows from the fact that distributions determine moments. The implication $(3) \Rightarrow (2)$ follows from the observation that if $\psi_X(t) = \psi_Y(t)$ for all $t$ near $0$, then certainly
+
+$$
+E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
+$$
+
+for all $k\geq 1$. Assuming that $X$ is continuous with density $f(x)$, the implication $(2) \Rightarrow (3)$ follows from the computations:
+
+\begin{align*}
+\psi_X(t) &= \int_\bbr e^{xt} f(x) \ \text{d} x \\
+&= \int_\bbr \left( \sum_{k=0}^\infty \frac{(tx)^k}{k!} \right) f(x) \ \text{d} x \\
+&= \sum_{k=0}^\infty  \left( \int_\bbr x^k f(x) \ \text{d} x \right)\frac{t^k}{k!} \\
+&= \sum_{k=0}^\infty \frac{E(X^k)}{k!} t^k,
+\end{align*}
+
+and similarly $\psi_Y(t) = \sum_{k=0}^\infty \frac{E(Y^k)}{k!} t^k$. Thus, if the moments of $X$ and $Y$ are all equal, then so too $\psi_X(t)$ and $\psi_Y(t)$ are equal, at least near $t=0$.
+
+Then, the *hard* part of the proof is showing that $(2) \Rightarrow (1)$ (or $(3) \Rightarrow (1)$). *This*, unfortunately, we cannot do in this course, since it uses some [rather sophisticated things](https://en.wikipedia.org/wiki/Characteristic_function_(probability_theory)). In any case, we declare: Q.E.D.
+```
+
+To illustrate how this theorem may be used, we will establish the fundamental fact that sums of independent normal random variables are normal; this is stated officially in the second part of the following theorem.
+
+```{prf:theorem} Moment generating functions of normal random variables
+:label: mgf-norm-thm
+
+1. If $X \sim \calN(\mu,\sigma^2)$, then its moment generating function is given by
+
+    $$
+    \psi(t) = \exp \left[ \mu t + \frac{1}{2} \sigma^2 t^2 \right]
+    $$ 
+
+    for all $t\in \bbr$.
+
+2. Let $X_1,\ldots,X_m$ be independent random variables such that $X_i \sim \calN(\mu_i,\sigma^2_i)$ for each $i=1,\ldots,m$. Then the sum
+
+    $$
+    Y = X_1 + \cdots + X_m
+    $$
+
+    is normal with mean $\mu = \mu_1+\cdots + \mu_m$ and variance $\sigma^2 = \sigma_1^2 + \cdots + \sigma_m^2$.
+```
+
+```{prf:proof}
+
+We will only prove the second part; for the proof of the first (which isn't hard), see Theorem 5.6.2 in {cite}`DeGrootSchervish2014`. So, we begin our computations:
+
+\begin{align*}
+\psi_Y(t) &= E\big( e^{tX_1} \cdots e^{tX_m}\big) \\
+&= E(e^{tX_1}) \cdots E(e^{tX_m}) \\
+&= \prod_{i=1}^m \exp \left[ \mu_i t + \frac{1}{2} \sigma_i^2 t^2 \right] \\
+&= \exp \left[ \left(\sum_{i=1}^m \mu_i\right) t + \frac{1}{2} \left( \sum_{i=1}^m \sigma_i^2\right) t^2 \right].
+\end{align*}
+
+The second line follows from the first by independence, {prf:ref}`invar-independent-thm`, and {prf:ref}`ind-expect-thm`, while we obtain the third line from the first part of this theorem. But notice that the expression on the last line is exactly the moment generating function of a $\calN(\mu,\sigma^2)$ random variable (by the first part), where $\mu$ and $\sigma^2$ are as in the statement of the theorem. By {prf:ref}`mgf-uniqueness-thm`, it follows that $Y \sim \calN(\mu,\sigma^2)$ as well. Q.E.D.
+```
+
+Before turning to the worksheet to finish this section, it is worth extracting one of the steps used in the previous proof and putting it in its own theorem:
+
+
+```{prf:theorem} Moment generating functions of sums of independent variables
+:label: mgf-sum-eqn
+
+Suppose that $X_1,\ldots,X_m$ are independent random variables with moment generating functions $\psi_i(t)$ and let $Y = X_1 + \cdots + X_m$. Then
+
+$$
+\psi_Y(t) = \psi_1(t) \cdots \psi_m(t)
+$$
+
+for all $t$ such that each $\psi_i(t)$ is finite.
+```
+
+Now, let's do an example:
+
+
+```{admonition} Problem Prompt
+
+Do problem 6 on the worksheet.
+```
+
+
+
+
+
+
+
+
+
 ## Covariance and correlation
 
-If two random variables $X$ and $Y$ are _not_ [independent](independence), then (naturally) they are called _dependent_. Though our goal in this chapter is to study a _particular type_ of dependence between random variables, I think it will benefit us by first discussing dependence in general.
+If two random variables $X$ and $Y$ are _not_ [independent](independence), then (naturally) they are called _dependent_. Our goal in this section is to study two quantities, called _covariance_ and _correlation_, that measure the strength of the _linear_ dependence between $X$ and $Y$. An alternate measure of more general dependence, called _mutual information_, will be studied in the [next chapter](information-theory).
 
-A natural source of examples of dependent random variables are those which are *functionally* dependent in the sense of the following theorem:
+To initiate our study of _covariance_ and _correlation_, let's begin by discussing a pair of _functionally_ dependent random variables $X$ and $Y$, by which I mean that $Y = h(X)$ for some function $h$. In this case, observed values $x$ deterministically yield observed values $y=h(x)$, and it would therefore make sense that $X$ and $Y$ are dependent. This suspicion is confirmed in the following simple result:
 
 ```{prf:theorem} Functional dependence $\Rightarrow$ dependence
 :label: functional-dep-thm
@@ -27,13 +451,15 @@ A natural source of examples of dependent random variables are those which are *
 Let $X$ and $Y$ be random variables. If $Y = h(X)$ for some function $h:\mathbb{R} \to \mathbb{R}$, then $X$ and $Y$ are dependent.
 ```
 
+```{prf:proof}
+
 In order to prove this, we need to make the (mild) assumption that there is an event $B\subset \mathbb{R}$ with
 
 $$
 0<P(Y\in B)<1.
 $$ (middle-eqn)
 
-In this case, we set $A = f^{-1}(B)^c$ and observe that
+In this case, we set $A = h^{-1}(B)^c$ and observe that
 
 $$
 P(X\in A, \ Y\in B) = P(\emptyset) =0.
@@ -54,10 +480,11 @@ $$
 by {eq}`middle-eqn`. But then
 
 $$
-P(X\in A, \ Y\in B) \neq P(X\in A) P(Y\in B),
+P(X\in A, \ Y\in B) = 0 \neq P(X\in A) P(Y\in B),
 $$
 
-which proves $X$ and $Y$ are dependent.
+which proves $X$ and $Y$ are dependent. Q.E.D.
+```
 
 What does a pair of functionally dependent random variables look like? For an example, let's suppose that
 
@@ -108,9 +535,7 @@ plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
-The plot looks exactly like we would expect: A bunch of points lying on the graph of the function $y=h(x)$.
-
-However, very often with real-world data, an **exact** functional dependence $Y = h(X)$ does not truly hold. Instead, the functional relationship is "noisy", resulting in scatter plots that look like this:
+The plot looks exactly like we would expect: A bunch of points lying on the graph of the function $y=h(x)$. However, very often with real-world data, an **exact** functional dependence $Y = h(X)$ does not truly hold. Instead, the functional relationship is "noisy", resulting in scatter plots that look like this:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -194,14 +619,14 @@ The line in this plot that the data clusters along is called the _linear-regress
 
 There appears to be a "noisy" linear dependence between the size of a house $X$ and its selling price $Y$. Moreover, the line that the data naturally clusters along has positive slope, which indicates that as the size of a house increases, its selling price tends to increase as well.
 
-Our goal in this section of the chapter is to uncover ways to _quantify_ or _measure_ the strength of "noisy" linear dependencies between random variables. We will discover that there are two such measures: _Covariance_ and _correlation_.
+As I mentioned in the introduction, our goal in this section is to uncover ways to _quantify_ or _measure_ the strength of "noisy" linear dependencies between random variables. We will discover that there are two such measures, called _covariance_ and _correlation_.
 
 The definition of _covariance_ is based on the following pair of basic observations:
 
-> 1. If the observed values of two random variables $X$ and $Y$ cluster along a line of _positive_ slope, then $x$ and $y$ in a data point $(x,y)$ tend to be large (and small) at the same time.
+> 1. If the observed values of two random variables $X$ and $Y$ cluster along a line of _positive_ slope, then $x$ and $y$ in a data point $(x,y)$ tend to be large (or small) at the same time.
 > 2. If the observed values of two random variables $X$ and $Y$ cluster along a line of _negative_ slope, then a large value $x$ tends to be paired with a small value $y$ in a data point $(x,y)$, while a small value of $x$ tends to be paired with a large value $y$.
 
-In order to make something useful from these observations, it is convenient to "center" the dataset by subtracting off the means:
+In order to extract something useful from these observations, it is convenient to "center" the dataset by subtracting off the means:
 
 $$
 X \xrightarrow{\text{replace with}} X - \mu_X \quad \text{and} \quad Y \xrightarrow{\text{replace with}} Y - \mu_Y.
@@ -253,11 +678,10 @@ $$
 \sigma_{XX} = E \left[ (X-\mu_X)^2\right] = V(X).
 $$
 
-Before we look at examples, it will be convenient to state and prove the following:
+Before we look at an example, it will be convenient to state and prove the following generalization of {prf:ref}`shortcut-var-thm`:
 
 ```{prf:theorem} Shortcut Formula for Covariance
 :label: shortcut-covar-thm
-
 
 Let $X$ and $Y$ be two random variables. Then
 
@@ -266,6 +690,7 @@ $$
 $$
 ```
 
+```{prf:proof}
 The proof is a triviality, given all the properties that we already know about expectations:
 
 \begin{align*}
@@ -273,6 +698,8 @@ The proof is a triviality, given all the properties that we already know about e
 &= E(XY) - 2\mu_X\mu_Y + \mu_X\mu_Y \\
 &= E(XY) - E(X) E(Y).
 \end{align*}
+
+```
 
 Now, armed with this formula, let's do some problems:
 
@@ -316,6 +743,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i) + 2\sum_{1 \leq i < j \
 $$
 ```
 
+```{prf:proof}
 The proof is an application of bilinearity of covariance:
 
 \begin{align*}
@@ -323,6 +751,7 @@ V(a_1X_1 + \cdots + a_m X_m) &= \sigma\Big(\sum_{i=1}^m a_i X_i, \sum_{j=1}^m a_
 &= \sum_{i,j=1}^m a_i a_j \sigma(X_i,X_j) \\
 &= \sum_{i=1}^m a_i^2 V(X_i) + 2\sum_{1 \leq i < j \leq m }a_ia_j \sigma(X_i,X_j).
 \end{align*}
+```
 
 In particular, we see that if $\sigma(X_i,X_j)=0$ for all $i\neq j$ (i.e., if the random variables are pairwise _uncorrelated_; see below), the formula simplifies to:
 
@@ -389,11 +818,13 @@ $$
 $$
 ```
 
+```{prf:proof}
 The proof is a simple computation, similar to the proof of scale invariance from above:
 
 $$
 \rho(X,aX+b) = \frac{a\sigma(X,X)+\sigma(X,b)}{\sigma_X\sigma_{aX+b}} = \frac{a V(X)}{\sqrt{V(X)}\sqrt{a^2V(X)}} = \frac{a}{|a|}.
 $$
+```
 
 We give a name to two random variables whose correlation is zero:
 
@@ -436,292 +867,6 @@ and then $\rho_{XY} = \sigma_{XY} / (\sigma_X \sigma_Y) = 0$.
 
 
 ## Multivariate normal distributions
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Expectations and joint distributions
-
-The following is a bivariate generalization of the LotUS from {prf:ref}`lotus-thm`.
-
-```{prf:theorem} Bivariate Law of the Unconscious Statistician
-:label: bivariate-lotus-thm
-
-Let $X$ and $Y$ be two random variables and $g:\mathbb{R}^2 \to \mathbb{R}$ a function.
-
-1. If $X$ and $Y$ are jointly discrete with mass function $p(x,y)$, then
-
-    $$
-    E\left(g(X,Y)\right) = \sum_{(x,y)\in\mathbb{R}^2} g(x,y) p(x,y).
-    $$
-
-2. If $X$ and $Y$ are jointly continuous with density function $f(x,y)$, then
-
-    $$
-    E\left(g(X,Y)\right) = \iint_{\mathbb{R}^2} g(x,y) f(x,y) \ \text{d}x \text{d}y.
-    $$
-```
-
-```{prf:theorem} Independence and expectations
-:label: ind-expect-thm
-
-If $X$ and $Y$ are independent random variables, then $E(XY) = E(X) E(Y)$.
-```
-
-The proof follows from the bivariate LotUS and the Mass/Density Criteria for Independence stated in {prf:ref}`mass-density-ind-thm`. Here's the argument in the case that $X$ and $Y$ are jointly continuous:
-
-\begin{align*}
-E(XY) &= \iint_{\mathbb{R}^2} xy f(x,y) \ \text{d} x \text{d}y \\
-&= \iint_{\mathbb{R}^2} xy f(x)f(y) \ \text{d} x \text{d}y \\
-&= \int_{\mathbb{R}}x f(x) \ \text{d} x \int_{\mathbb{R}} y f(y) \ \text{d}y \\
-&= E(X) E(Y).
-\end{align*}
-
-
-Using the bivariate LotUS, we may upgrade our statement of "weak" linearity in {prf:ref}`weak-linear-thm` to the full-strength version:
-
-```{prf:theorem} Linearity of Expectations
-:label: linear-exp-thm
-
-Let $X$ and $Y$ be two random variables and let $c\in \mathbb{R}$ be a constant. Then:
-
-$$
-E(X+Y) = E(X) + E(Y),
-$$ (target-eqn)
-
-and
-
-$$
-E(cX) = c E(X).
-$$ (scalar-eqn)
-```
-
-The proof of the second equation {eq}`scalar-eqn` was already handled back in the proof of {prf:ref}`weak-linear-thm`. For the proof of the first equation {eq}`target-eqn` (in the continuous case), we apply the bivariate LotUS:
-
-\begin{align*}
-E(X+Y) &= \iint_{\mathbb{R}^2} (x+y) f(x,y) \ \text{d}x \text{d}y \\
-&= \int_{\mathbb{R}} x\left[ \int_{\mathbb{R}} f(x,y) \ \text{d}y\right] \ \text{d}x + \int_{\mathbb{R}} y\left[ \int_{\mathbb{R}} f(x,y) \ \text{d}x\right] \ \text{d}y \\
-&= \int_{\mathbb{R}} xf(x) \ \text{d}x + \int_{\mathbb{R}} y f(y) \ \text{d}y \\
-&= E(X) + E(Y).
-\end{align*}
-
-Note the marginalizations of the joint density function in passing from the second line to the third.
-
-
-
-
-
-
-(cond-expect)=
-## Expectations and conditional distributions
-
-```{prf:definition}
-:label: conditional-exp-def
-
-Let $X$ and $Y$ be two random variables.
-
-1. If $Y$ and $X$ are jointly discrete with conditional mass function $p(y|x)$, then the _conditional expected value_ of $Y$ given $X=x$, denoted either by $E(Y|X=x)$ or $E(Y|x)$, is the sum
-
-    $$
-    E(Y|X=x) = \sum_{y\in \mathbb{R}} y p(y|x).
-    $$
-
-2. If $Y$ and $X$ are jointly continuous with conditional density function $f(y|x)$, then we define the _conditional expected value_ of $Y$ given $X=x$, denoted either by $E(Y|X=x)$ or $E(Y|x)$, is the integral
-
-    $$
-    E(Y|X=x) = \int_{\mathbb{R}} y f(y|x) \ \text{d}y.
-    $$
-
-In both cases, notice that conditional expected values are **functions** of $x$, defined for all values of $x$ for which the conditional mass or density function exists.
-```
-
-
-
-
-
-
-
-
-
-(mgf)=
-## Moment generating functions
-
-```{prf:definition}
-:label: moments-def
-
-Let $k\geq 1$ be an integer and $X$ a random variable.
-
-* The *$k$-th moment* of $X$ is the expectation $E(X^k)$.
-
-* The *$k$-th central moment* of $X$ is the expectation $E\left( (X-\mu)^k \right)$, where $\mu = E(X)$.
-```
-
-Notice that the first moment of $X$ is precisely its expectation, while its second central moment is its variance. The "higher moments" are more difficult to interpret. The situation with them is analogous to the "higher derivatives" of a function $y=f(x)$. I have good intuition for what the first two derivatives $f'(x)$ and $f''(x)$ measure, but I have much less intuition for what the $31$-st derivative $f^{(31)}(x)$ measures!
-
-Actually, this analogy with derivatives can be carried further. Indeed, as you learned in calculus, if a function $y=f(x)$ has derivatives of all orders at $x=0$, then we can form its Taylor series centered at $x=0$:
-
-$$
-f(0) + f'(0) x + \frac{f''(0)}{2!}x^2 + \cdots = \sum_{k=0}^\infty \frac{f^{(k)}(0)}{k!}x^k.
-$$ (taylor-eqn)
-
-You also learned that this series may, or may *not*, converge to the original function $y=f(x)$ on an open interval about $x=0$. For example, the Taylor series of $y=e^x$ actually converges to $y=e^x$ *everywhere*:
-
-$$
-e^x = \sum_{k=0}^\infty \frac{x^k}{k!}.
-$$
-
-On the other hand, [there exist](https://en.wikipedia.org/wiki/Non-analytic_smooth_function) functions for which the Taylor series {eq}`taylor-eqn` exists and converges *everywhere*, but does *not* converge to the function on *any* open interval around $x=0$.
-
-Here's the point:
-
-```{prf:theorem} Taylor Series Uniqueness Theorem
-:label: taylor-thm
-
-Suppose $y=f(x)$ and $y=g(x)$ are two functions whose Taylor series (centered at $x=0$) converge to $f$ and $g$ on open intervals containing $x=0$. Then the following statements are equivalent:
-
-1. $f(x)=g(x)$ for all $x$ in an open interval containing $x=0$.
-
-2. $f^{(k)}(0) = g^{(k)}(0)$ for all $k\geq 0$.
-
-3. The Taylor series for $f$ and $g$ (centered at $x=0$) are equal coefficient-wise.
-```
-
-The proof of this "theorem" is a triviality. I will leave you to figure out the proof.
-
-So, what this Uniqueness Theorem tells us is that complete knowledge of *all* the values $f^{(k)}(0)$ determines the function $y=f(x)$ uniquely, at least locally near $x=0$. Therefore, even though we don't have good intuition for what all the higher derivatives $f^{(k)}(0)$ *mean*, they are still incredibly important and useful objects.
-
-Hold this lesson in your mind for just a little bit, because we are about to see something *very similar* occur in the context of moments of random variables.
-
-The gadget that is going to play the role for random variables analogous to Taylor series is defined in:
-
-```{prf:definition}
-:label: mgf-def
-
-Let $X$ be a random variable. The *moment generating function* (*MGF*) of $X$ is defined to be
-
-$$
-\psi(t) = E(e^{tX}).
-$$
-
-We shall say the moment generating function *exists* if $\psi(t)$ is finite for all $t$ in an open interval containing $t=0$.
-```
-
-The reason that the function $\psi(t)$ is said to "generate" the moments is encapsulated in:
-
-```{prf:theorem} Derivatives of Moment Generating Functions
-:label: derivatives-mgf-thm
-
-Let $X$ be a random variable whose moment generating function $\psi(t)$ exists. Then the moments $E(X^k)$ are finite for all $k\geq 1$, and
-
-$$
-\psi^{(k)}(0) = E(X^k).
-$$
-```
-
-Thus, the moments $E(X^k)$ may be extracted from the moment generating function $\psi(t)$ simply by taking derivatives and evaluating at $t=0$.
-
-*But why*?
-
-Here's a quick explanation, restricted only to the first two moments when $k=1$ and $k=2$. Supposing that all the moments are finite (which I will *not* prove), we simply differentiate:
-
-$$
-\psi'(t) = \frac{\text{d}}{\text{d} t} \left[E(e^{tX}) \right] = \frac{\text{d}}{\text{d} t} \sum_{x\in \mathbb{R}} e^{tx} p(x) = \sum_{x\in \mathbb{R}} \frac{\partial}{\partial t} \left[e^{tx} p(x)\right] = \sum_{x\in \mathbb{R}} x e^{tx} p(x).
-$$
-
-Notice that we used the LotUS in the second equality. Then:
-
-$$
-\psi'(0) = \sum_{x\in \mathbb{R}} x p(x) = E(X),
-$$
-
-which is what we wanted to prove. Differentiating one more time gives
-
-$$
-\psi''(t) = \sum_{x\in \mathbb{R}} x^2 e^{tx} p(x),
-$$
-
-and so
-
-$$
-\psi''(0) = \sum_{x\in\mathbb{R}} x^2 p(x) = E(X^2).
-$$
-
-Now, the true power of moment generating functions comes from the following extremely important and useful theorem, which may be seen as an analog of the Taylor Series Uniqueness Theorem stated above as {prf:ref}`taylor-thm`. It essentially says that: *If you know all the moments, then you know the distribution.*
-
-```{prf:theorem} Moment Generating Function Uniqueness Theorem
-:label: mgf-uniqueness-thm
-
-Suppose $X$ and $Y$ are two random variables whose moment generating functions $\psi_X(t)$ and $\psi_Y(t)$ exist. Then the following statements are equivalent:
-
-1. The distributions of $X$ and $Y$ are equal
-
-2. $E(X^k) = E(Y^k)$ for all $k\geq 1$.
-
-3. The moment generating functions $\psi_X(t)$ and $\psi_Y(t)$ are equal for all $t$ in an open interval containing $t=0$.
-```
-
-Here is a very brief sketch of the proof: The implication $(1) \Rightarrow (2)$ follows from the fact that distributions determine moments. The implication $(3) \Rightarrow (2)$ follows from the observation that if $\psi_X(t) = \psi_Y(t)$ for all $t$ near $0$, then
-
-$$
-E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
-$$
-
-for all $k\geq 1$. The implication $(2) \Rightarrow (3)$ follows from the expansions
-
-\begin{align*}
-\psi_X(t) &= \sum_{x\in \mathbb{R}} e^{xt} p(x) \\
-&= \sum_{x\in \mathbb{R}} \left( \sum_{k=0}^\infty \frac{(tx)^k}{k!} \right)p(x) \\
-&= \sum_{k=0}^\infty  \left( \sum_{x\in \mathbb{R}} t^k p(x) \right)\frac{t^k}{k!} \\
-&= \sum_{k=0}^\infty \frac{E(X^k)}{k!} t^k,
-\end{align*}
-
-and similarly
-
-$$
-\psi_Y(t) = \sum_{k=0}^\infty \frac{E(Y^k)}{k!} t^k.
-$$
-
-Thus, if the moments of $X$ and $Y$ are all equal, then so too $\psi_X(t)$ and $\psi_Y(t)$ are equal, at least near $t=0$. Then, the *hard* part of the proof is showing that $(2) \Rightarrow (1)$ (or $(3) \Rightarrow (1)$). *This*, unfortunately, we cannot do in this course, since it uses some [rather sophisticated things](https://en.wikipedia.org/wiki/Characteristic_function_(probability_theory)).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-(fun-rvs)=
-## Computations with random variables
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

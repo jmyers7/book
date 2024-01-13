@@ -1093,7 +1093,7 @@ E(g(X)) &amp;= \sum_{y\in \mathbb{R}} y\cdot P\left(g(X)=y\right) \\
 </div>
 </section>
 <section id="linearity-of-expectation">
-<h2><span class="section-number">4.9. </span>Linearity of expectation<a class="headerlink" href="#linearity-of-expectation" title="Permalink to this heading">#</a></h2>
+<span id="linear-of-exp"></span><h2><span class="section-number">4.9. </span>Linearity of expectation<a class="headerlink" href="#linearity-of-expectation" title="Permalink to this heading">#</a></h2>
 <p>We’ve learned that if <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are two random variables, then their pointwise sum <span class="math notranslate nohighlight">\(Z=X+Y\)</span> is also a random variable. In the discrete case, we may compute the expectations of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, respectively, via the definition as</p>
 <div class="math notranslate nohighlight" id="equation-huh1-eqn">
 <span class="eqno">(4.12)<a class="headerlink" href="#equation-huh1-eqn" title="Permalink to this equation">#</a></span>\[
@@ -1106,7 +1106,7 @@ E(X+Y) = \sum_{z\in \mathbb{R}} z \cdot P(X+Y=z).
 \]</div>
 <p>But it is not clear at first glance that there is any sort of simple relationship between the three expectations in <a class="reference internal" href="#equation-huh1-eqn">(4.12)</a> and <a class="reference internal" href="#equation-huh2-eqn">(4.13)</a>. Nevertheless, as I will explain in a later chapter—after we’ve learned about <em>joint distributions</em>—these expectations are related through the first equation in:</p>
 <div class="proof theorem admonition" id="linearity-init-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 4.2 </span> (Linearity of Expectations)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 4.2 </span> (Linearity of Expectation)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables and let <span class="math notranslate nohighlight">\(c\in \mathbb{R}\)</span> be a constant. Then:</p>
 <div class="math notranslate nohighlight" id="equation-linear-eqn">
@@ -1119,11 +1119,11 @@ E(X+Y) = E(X) + E(Y),
 E(cX) = c E(X).
 \]</div>
 </section>
-</div><p>You couldn’t possibly hope for any simpler relationship than <a class="reference internal" href="#equation-linear-eqn">(4.14)</a>! But as I just mentioned, I can’t yet explain <em>why</em> this equation holds. The explanation will come later, in the form of <a class="reference internal" href="08-more-prob.html#linear-exp-thm">Theorem 8.10</a>.</p>
+</div><p>You couldn’t possibly hope for any simpler relationship than <a class="reference internal" href="#equation-linear-eqn">(4.14)</a>! But as I just mentioned, I can’t yet explain <em>why</em> this equation holds. The explanation will come later, in the form of <a class="reference internal" href="08-more-prob.html#linear-exp-thm">Theorem 8.3</a>.</p>
 <p>However, we <em>can</em> prove <a class="reference internal" href="#equation-homog-eqn">(4.15)</a> quite easily: Just use the LotUS with the function <span class="math notranslate nohighlight">\(g(x) = cx\)</span>. Can you supply the details to this argument?</p>
 <p>Now, even though we can’t prove <a class="reference internal" href="#equation-linear-eqn">(4.14)</a> at this point, we won’t need it quite yet, so we’re not in any danger. Instead, the following “weak” form of linearity is all we need. (For convenience, I’ve taken the identity <a class="reference internal" href="#equation-homog-eqn">(4.15)</a>—which you <em>just</em> proved—and included it in this special case.)</p>
 <div class="proof theorem admonition" id="weak-linear-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 4.3 </span> (“Weak” Linearity of Expectations)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 4.3 </span> (“Weak” Linearity of Expectation)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a discrete or continuous random variable, let <span class="math notranslate nohighlight">\(y=g_1(x)\)</span> and <span class="math notranslate nohighlight">\(y=g_2(x)\)</span> be two real-valued functions, and let <span class="math notranslate nohighlight">\(c\in \mathbb{R}\)</span> be a constant. Then:</p>
 <div class="math notranslate nohighlight">
@@ -1297,8 +1297,8 @@ g(x) = ax+b,
 <p class="admonition-title"><span class="caption-number">Theorem 4.6 </span> (Variance of an Affine Transformation)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable and <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> constants. Then</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e2285731-df40-4526-8196-3b022775ed24">
-<span class="eqno">(4.18)<a class="headerlink" href="#equation-e2285731-df40-4526-8196-3b022775ed24" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
+<div class="amsmath math notranslate nohighlight" id="equation-d08830a5-b2e0-431c-944a-b5e367640385">
+<span class="eqno">(4.18)<a class="headerlink" href="#equation-d08830a5-b2e0-431c-944a-b5e367640385" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
 V(aX +b) = a^2 V(X).
 \end{equation}\]</div>
 </section>

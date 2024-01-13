@@ -353,12 +353,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-and-correlation">8.1. Covariance and correlation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-normal-distributions">8.2. Multivariate normal distributions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-and-joint-distributions">8.3. Expectations and joint distributions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-and-conditional-distributions">8.4. Expectations and conditional distributions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moment-generating-functions">8.5. Moment generating functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-random-variables">8.6. Computations with random variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-and-joint-distributions">8.1. Expectations and joint distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-and-conditional-distributions">8.2. Expectations and conditional distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-random-variables">8.3. Computations with random variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moment-generating-functions">8.4. Moment generating functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-and-correlation">8.5. Covariance and correlation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-normal-distributions">8.6. Multivariate normal distributions</a></li>
 </ul>
             </nav>
         </div>
@@ -373,21 +373,339 @@ document.write(`
   <p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
 <section class="tex2jax_ignore mathjax_ignore" id="more-probability-theory">
 <h1><span class="section-number">8. </span>More probability theory<a class="headerlink" href="#more-probability-theory" title="Permalink to this heading">#</a></h1>
+<section id="expectations-and-joint-distributions">
+<h2><span class="section-number">8.1. </span>Expectations and joint distributions<a class="headerlink" href="#expectations-and-joint-distributions" title="Permalink to this heading">#</a></h2>
+<p>To motivate the considerations in this section, suppose that we have two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> defined on a probability space <span class="math notranslate nohighlight">\(S\)</span> and a real-valued function <span class="math notranslate nohighlight">\(g:\bbr^2 \to \bbr\)</span>. We may then “transform” the random variables to obtain the random variable</p>
+<div class="math notranslate nohighlight">
+\[
+g(X,Y): S \xrightarrow{(X,Y)} \bbr^2 \xrightarrow{g} \bbr,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\((X,Y)\)</span> denotes the <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vector with <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> as its components. Notice that the notation <span class="math notranslate nohighlight">\(g(X,Y)\)</span> strictly interpreted is an abuse of notation; as the arrows above indicate, this notation actually stands for the composite <span class="math notranslate nohighlight">\(g\circ (X,Y)\)</span>, where we view <span class="math notranslate nohighlight">\((X,Y)\)</span> as a function in accordance with <a class="reference internal" href="07-random-vectors.html#two-dim-vector-def">Definition 7.1</a>.</p>
+<p>In any case, provided that this “transformed” random variable <span class="math notranslate nohighlight">\(Z = g(X,Y)\)</span> is continuous (say) with density <span class="math notranslate nohighlight">\(f_{g(X,Y)}(z)\)</span>, we may compute its expectation (according to the definition!) as</p>
+<div class="math notranslate nohighlight">
+\[
+E(g(X,Y)) = \int_{\bbr} z f_{g(X,Y)}(z) \ \text{d}z.
+\]</div>
+<p>However, this formula is quite inconvenient to use in practice, due to the necessity of the density <span class="math notranslate nohighlight">\(f_{g(X,Y)}(z)\)</span>. We wonder if there is an alternate method to compute this expectation, one that uses the joint density <span class="math notranslate nohighlight">\(f(x,y)\)</span>. Indeed, there is! It is outlined in the following bivariate generalization of the LotUS from <a class="reference internal" href="04-random-variables.html#lotus-thm">Theorem 4.1</a>.</p>
+<div class="proof theorem admonition" id="bivariate-lotus-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 8.1 </span> (Bivariate Law of the Unconscious Statistician (LoTUS))</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables and <span class="math notranslate nohighlight">\(g:\mathbb{R}^2 \to \mathbb{R}\)</span> a function.</p>
+<ol class="arabic">
+<li><p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly discrete with mass function <span class="math notranslate nohighlight">\(p(x,y)\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+    E\left(g(X,Y)\right) = \sum_{(x,y)\in\mathbb{R}^2} g(x,y) p(x,y).
+    \]</div>
+</li>
+<li><p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly continuous with density function <span class="math notranslate nohighlight">\(f(x,y)\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+    E\left(g(X,Y)\right) = \iint_{\mathbb{R}^2} g(x,y) f(x,y) \ \text{d}x \text{d}y.
+    \]</div>
+</li>
+</ol>
+</section>
+</div><p>Though the argument in the discrete case is very similar to the one given for the univariate version of <a class="reference internal" href="04-random-variables.html#lotus-thm">Theorem 4.1</a>, we will not give it here. See if you can work it out on your own. You can imagine that the univariate and bivariate LoTUS’s are special cases of a general multivariate LoTUS that computes expecations of random variables of the form <span class="math notranslate nohighlight">\(g(X_1,\ldots,X_n)\)</span>, where each <span class="math notranslate nohighlight">\(X_i\)</span> is a random variable and <span class="math notranslate nohighlight">\(n\geq 1\)</span>. I will leave you to imagine what the statement of this multivariate LoTUS looks like. For those who might be interested, in the most general case, all of these “Law of the Unconscious Statistician” theorems are consequences of the general <a class="reference external" href="https://en.wikipedia.org/wiki/Pushforward_measure#Main_property:_change-of-variables_formula">change-of-variables formula</a> for Lebesgue integrals.</p>
+<p>Our first application of the bivariate LoTUS is to show that the expectation operator is multiplicative on independent random variables:</p>
+<div class="proof theorem admonition" id="ind-expect-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 8.2 </span> (Independence and expectations)</p>
+<section class="theorem-content" id="proof-content">
+<p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent random variables, then <span class="math notranslate nohighlight">\(E(XY) = E(X) E(Y)\)</span>.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. The proof follows from the bivariate LotUS and the Mass/Density Criteria for Independence stated in <a class="reference internal" href="07-random-vectors.html#mass-density-ind-thm">Theorem 7.7</a>. Here’s the argument in the case that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly continuous:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+E(XY) &amp;= \iint_{\mathbb{R}^2} xy f(x,y) \ \text{d} x \text{d}y \\
+&amp;= \iint_{\mathbb{R}^2} xy f(x)f(y) \ \text{d} x \text{d}y \\
+&amp;= \int_{\mathbb{R}}x f(x) \ \text{d} x \int_{\mathbb{R}} y f(y) \ \text{d}y \\
+&amp;= E(X) E(Y).
+\end{align*}\]</div>
+</div>
+<p>Our second application of the bivariate LoTUS is to tie up a loose end from <a class="reference internal" href="04-random-variables.html#linear-of-exp"><span class="std std-numref">Section 4.9</span></a> and prove the full-strength version of “linearity of expectation.”</p>
+<div class="proof theorem admonition" id="linear-exp-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 8.3 </span> (Linearity of Expectations)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables and let <span class="math notranslate nohighlight">\(c\in \mathbb{R}\)</span> be a constant. Then:</p>
+<div class="math notranslate nohighlight" id="equation-target-eqn">
+<span class="eqno">(8.1)<a class="headerlink" href="#equation-target-eqn" title="Permalink to this equation">#</a></span>\[
+E(X+Y) = E(X) + E(Y),
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight" id="equation-scalar-eqn">
+<span class="eqno">(8.2)<a class="headerlink" href="#equation-scalar-eqn" title="Permalink to this equation">#</a></span>\[
+E(cX) = c E(X).
+\]</div>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. The proof of the second equation <a class="reference internal" href="#equation-scalar-eqn">(8.2)</a> was already handled back in the proof of <a class="reference internal" href="04-random-variables.html#weak-linear-thm">Theorem 4.3</a>. For the proof of the first equation <a class="reference internal" href="#equation-target-eqn">(8.1)</a> (in the continuous case), we apply the bivariate LotUS:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+E(X+Y) &amp;= \iint_{\mathbb{R}^2} (x+y) f(x,y) \ \text{d}x \text{d}y \\
+&amp;= \int_{\mathbb{R}} x\left[ \int_{\mathbb{R}} f(x,y) \ \text{d}y\right] \ \text{d}x + \int_{\mathbb{R}} y\left[ \int_{\mathbb{R}} f(x,y) \ \text{d}x\right] \ \text{d}y \\
+&amp;= \int_{\mathbb{R}} xf(x) \ \text{d}x + \int_{\mathbb{R}} y f(y) \ \text{d}y \\
+&amp;= E(X) + E(Y).
+\end{align*}\]</div>
+</div>
+<p>Let’s finish off the section by working through an example problem:</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 1 on the worksheet.</p>
+</div>
+</section>
+<section id="expectations-and-conditional-distributions">
+<span id="cond-expect"></span><h2><span class="section-number">8.2. </span>Expectations and conditional distributions<a class="headerlink" href="#expectations-and-conditional-distributions" title="Permalink to this heading">#</a></h2>
+<p>In the previous section, we learned how to use joint distributions in computations of expectations. In this section, we define <em>new</em> types of expectations using conditional distributions.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>There is also a conditional version of variance. Can you guess how it might be defined? Take a look at Section 4.7 in <span id="id1">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span> to learn more.</p>
+</aside>
+<div class="proof definition admonition" id="conditional-exp-def">
+<p class="admonition-title"><span class="caption-number">Definition 8.1 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables.</p>
+<ol class="arabic">
+<li><p>If <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(X\)</span> are jointly discrete with conditional mass function <span class="math notranslate nohighlight">\(p(y|x)\)</span>, then the <em>conditional expected value</em> of <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(X=x\)</span> is the sum</p>
+<div class="math notranslate nohighlight">
+\[
+    E(Y\mid X=x) \def \sum_{y\in \mathbb{R}} y p(y|x).
+    \]</div>
+</li>
+<li><p>If <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(X\)</span> are jointly continuous with conditional density function <span class="math notranslate nohighlight">\(f(y|x)\)</span>, then the <em>conditional expected value</em> of <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(X=x\)</span> is the integral</p>
+<div class="math notranslate nohighlight">
+\[
+    E(Y\mid X=x) \def \int_{\mathbb{R}} y f(y|x) \ \text{d}y.
+    \]</div>
+</li>
+</ol>
+</section>
+</div><p>In both cases, notice that conditional expected values depend on the particular choice of observed value <span class="math notranslate nohighlight">\(x\)</span>. This means that these conditional expectations yield <em>functions</em>:</p>
+<div class="math notranslate nohighlight">
+\[
+h:A \to \bbr, \quad x\mapsto h(x) = E(Y\mid X=x),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(A\)</span> is the subset of <span class="math notranslate nohighlight">\(\bbr\)</span> consisting of all <span class="math notranslate nohighlight">\(x\)</span> for which either the conditional mass function <span class="math notranslate nohighlight">\(p(y|x)\)</span> or density function <span class="math notranslate nohighlight">\(f(y|x)\)</span> exists. There is a bit of notational awkwardness here, since I rather arbitrarily chose the name <span class="math notranslate nohighlight">\(h\)</span> for this function. It would be much preferable to have notation that is somehow built from <span class="math notranslate nohighlight">\(E(Y \mid X=x)\)</span>, but there isn’t a commonly accepted one.</p>
+<p>Let’s take a look at a practice problem before proceeding.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 2 on the worksheet.</p>
+</div>
+<p>The input <span class="math notranslate nohighlight">\(x\)</span> to the conditional expectation function</p>
+<div class="math notranslate nohighlight">
+\[
+h(x) = E(Y\mid X=x)
+\]</div>
+<p>is an observation of a random variable, and thus this function is also “random.” To make this precise, let’s suppose for simplicity that <span class="math notranslate nohighlight">\(h\)</span> is defined for all <span class="math notranslate nohighlight">\(x\in \bbr\)</span>, so that <span class="math notranslate nohighlight">\(h:\bbr \to \bbr\)</span>. Then, if <span class="math notranslate nohighlight">\(S\)</span> is the probability space on which <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are defined, we may form the function</p>
+<div class="math notranslate nohighlight">
+\[
+E(Y \mid X) : S \xrightarrow{X} \bbr \xrightarrow{h} \bbr
+\]</div>
+<p>obtained as the composite <span class="math notranslate nohighlight">\(E(Y \mid X) \def h \circ X\)</span>. Note that <span class="math notranslate nohighlight">\(E(Y\mid X)\)</span> is a real-valued function defined on a probability space and thus (by definition!) it is a random variable. This is a bit confusing the first time you see it, so make sure to pause and ponder it for bit! To help, let’s take a look at a simple example problem where we unwind everything:</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 3 on the worksheet.</p>
+</div>
+<p>Now, since <span class="math notranslate nohighlight">\(Z = E(Y\mid X)\)</span> is a random variable, it has an expected value. Provided that it is continuous (for example) with density function <span class="math notranslate nohighlight">\(f_{E(Y\mid X)}(z)\)</span>,  we would compute it (by definition!) as the integral</p>
+<div class="math notranslate nohighlight" id="equation-ah-eqn">
+<span class="eqno">(8.3)<a class="headerlink" href="#equation-ah-eqn" title="Permalink to this equation">#</a></span>\[
+E\big[ E(Y \mid X) \big] = \int_\bbr z f_{E(Y\mid X)}(z) \ \text{d} z.
+\]</div>
+<p>However, this formula is of little practical value, since we would need to compute the density <span class="math notranslate nohighlight">\(f_{E(Y\mid X)}(z)\)</span> which can be quite difficult. So, we wonder: Is there an alternate way to compute this expectation? In fact there is, and the expectation turns out to reduce to the expectation of <span class="math notranslate nohighlight">\(Y\)</span>! The key is to <em>not</em> compute the expctation according to the definition <a class="reference internal" href="#equation-ah-eqn">(8.3)</a>, but rather to use the LoTUS.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>This law is also often called The Law of Iterated Expecation, among a bunch of <a class="reference external" href="https://en.wikipedia.org/wiki/Law_of_total_expectation">other names</a>.</p>
+</aside>
+<div class="proof theorem admonition" id="law-of-total-exp-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 8.4 </span> (The Law of Total Expectation)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables that are either jointly discrete or jointly continuous. Then</p>
+<div class="math notranslate nohighlight">
+\[
+E\big[ E(Y \mid X) \big] = E(Y).
+\]</div>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. Let’s consider the case that the variables are jointly continuous. Beginning with the LoTUS, we compute:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+E\big[ E(Y \mid X) \big] &amp;= \int_{\bbr} E(Y \mid X=x) f(x) \ \text{d}x \\
+&amp;= \int_\bbr \int_\bbr y f(y|x) f(x) \ \text{d}y \text{d}x \\
+&amp;= \int_\bbr \int_\bbr y f(x,y) \ \text{d}y \text{d}x \\
+&amp;= \int_\bbr y f(y) \ \text{d} y \\
+&amp;= E(Y).
+\end{align*}\]</div>
+<p>Besides the LoTUS in the first line, notice that in going from the third line to the fourth, we integrated out the dependence on <span class="math notranslate nohighlight">\(x\)</span> of the joint density <span class="math notranslate nohighlight">\(f(x,y)\)</span> to obtain the marginal <span class="math notranslate nohighlight">\(f(y)\)</span>. Q.E.D.</p>
+</div>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 4 on the worksheet.</p>
+</div>
+</section>
+<section id="computations-with-random-variables">
+<span id="fun-rvs"></span><h2><span class="section-number">8.3. </span>Computations with random variables<a class="headerlink" href="#computations-with-random-variables" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="moment-generating-functions">
+<span id="mgf"></span><h2><span class="section-number">8.4. </span>Moment generating functions<a class="headerlink" href="#moment-generating-functions" title="Permalink to this heading">#</a></h2>
+<div class="proof definition admonition" id="moments-def">
+<p class="admonition-title"><span class="caption-number">Definition 8.2 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(k\geq 1\)</span> be an integer and <span class="math notranslate nohighlight">\(X\)</span> a random variable.</p>
+<ul class="simple">
+<li><p>The <em><span class="math notranslate nohighlight">\(k\)</span>-th moment</em> of <span class="math notranslate nohighlight">\(X\)</span> is the expectation <span class="math notranslate nohighlight">\(E(X^k)\)</span>.</p></li>
+<li><p>The <em><span class="math notranslate nohighlight">\(k\)</span>-th central moment</em> of <span class="math notranslate nohighlight">\(X\)</span> is the expectation <span class="math notranslate nohighlight">\(E\left( (X-\mu)^k \right)\)</span>, where <span class="math notranslate nohighlight">\(\mu = E(X)\)</span>.</p></li>
+</ul>
+</section>
+</div><p>Take care to notice that I am not claiming that <em>all</em> of these moments exist for <em>all</em> random variables. Notice also that the first moment of <span class="math notranslate nohighlight">\(X\)</span> is precisely its expectation, while its second central moment is its variance. The “higher moments” are more difficult to interpret. The situation with them is analogous to the “higher derivatives” of a function <span class="math notranslate nohighlight">\(y=f(x)\)</span>. I have good intuition for what the first two derivatives <span class="math notranslate nohighlight">\(f'(x)\)</span> and <span class="math notranslate nohighlight">\(f''(x)\)</span> measure, but I have much less intuition for what the thirty-first derivative <span class="math notranslate nohighlight">\(f^{(31)}(x)\)</span> measures!</p>
+<p>Actually, this analogy with derivatives can be carried further, so let’s leave the world of probability theory for a moment and return to calculus. Indeed, as you well know, if a function <span class="math notranslate nohighlight">\(y=f(x)\)</span> has derivatives of all orders at <span class="math notranslate nohighlight">\(x=0\)</span>, then we can form its Taylor series centered at <span class="math notranslate nohighlight">\(x=0\)</span>:</p>
+<div class="math notranslate nohighlight" id="equation-taylor-eqn">
+<span class="eqno">(8.4)<a class="headerlink" href="#equation-taylor-eqn" title="Permalink to this equation">#</a></span>\[
+f(0) + f'(0) x + \frac{f''(0)}{2!}x^2 + \cdots = \sum_{k=0}^\infty \frac{f^{(k)}(0)}{k!}x^k.
+\]</div>
+<p>You also learned that this series may, or may <em>not</em>, converge to the original function <span class="math notranslate nohighlight">\(y=f(x)\)</span> on an open interval about <span class="math notranslate nohighlight">\(x=0\)</span>. For example, the Taylor series of <span class="math notranslate nohighlight">\(y=e^x\)</span> actually converges to <span class="math notranslate nohighlight">\(y=e^x\)</span> <em>everywhere</em>:</p>
+<div class="math notranslate nohighlight">
+\[
+e^x = \sum_{k=0}^\infty \frac{x^k}{k!}.
+\]</div>
+<p>On the other hand, <a class="reference external" href="https://en.wikipedia.org/wiki/Non-analytic_smooth_function">there exist</a> functions for which the Taylor series <a class="reference internal" href="#equation-taylor-eqn">(8.4)</a> exists and converges <em>everywhere</em>, but does <em>not</em> converge to the function on <em>any</em> open interval around <span class="math notranslate nohighlight">\(x=0\)</span>.</p>
+<div class="proof theorem admonition" id="taylor-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 8.5 </span> (Taylor Series Uniqueness Theorem)</p>
+<section class="theorem-content" id="proof-content">
+<p>Suppose <span class="math notranslate nohighlight">\(y=f(x)\)</span> and <span class="math notranslate nohighlight">\(y=g(x)\)</span> are two functions whose Taylor series (centered at <span class="math notranslate nohighlight">\(x=0\)</span>) converge to <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> on open intervals containing <span class="math notranslate nohighlight">\(x=0\)</span>. Then the following statements are equivalent:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(f(x)=g(x)\)</span> for all <span class="math notranslate nohighlight">\(x\)</span> in an open interval containing <span class="math notranslate nohighlight">\(x=0\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f^{(k)}(0) = g^{(k)}(0)\)</span> for all <span class="math notranslate nohighlight">\(k\geq 0\)</span>.</p></li>
+<li><p>The Taylor series for <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> (centered at <span class="math notranslate nohighlight">\(x=0\)</span>) are equal coefficient-wise.</p></li>
+</ol>
+</section>
+</div><p>What this Uniqueness Theorem tells us is that complete knowledge of <em>all</em> the values <span class="math notranslate nohighlight">\(f^{(k)}(0)\)</span> determines the function <span class="math notranslate nohighlight">\(y=f(x)\)</span> uniquely, at least locally near <span class="math notranslate nohighlight">\(x=0\)</span>. Therefore, even though we don’t have good intuition for what all the higher derivatives <span class="math notranslate nohighlight">\(f^{(k)}(0)\)</span> <em>mean</em>, they are still incredibly important and useful objects. Just think about it: If the Taylor series of <span class="math notranslate nohighlight">\(f(x)\)</span> converges to <span class="math notranslate nohighlight">\(f(x)\)</span> on an open interval containing <span class="math notranslate nohighlight">\(x=0\)</span>, then <em>uncountably</em> many functional values <span class="math notranslate nohighlight">\(f(x)\)</span> are determined by a <em>countable</em> list of numbers <span class="math notranslate nohighlight">\(f(0),f'(0),f''(0),\ldots\)</span>. There is an incredible amount of information encoded in these derivatives.</p>
+<p>Now, hold this lesson in your mind for just a bit as we return to probability theory. We are about to see something <em>very similar</em> occur in the context of moments of random variables. The gadget that is going to play the role for random variables analogous to Taylor series is defined in:</p>
+<div class="proof definition admonition" id="mgf-def">
+<p class="admonition-title"><span class="caption-number">Definition 8.3 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable. The <em>moment generating function</em> (<em>MGF</em>) of <span class="math notranslate nohighlight">\(X\)</span> is defined to be</p>
+<div class="math notranslate nohighlight">
+\[
+\psi(t) = E(e^{tX}).
+\]</div>
+<p>We shall say the moment generating function <em>exists</em> if <span class="math notranslate nohighlight">\(\psi(t)\)</span> is finite for all <span class="math notranslate nohighlight">\(t\)</span> in an open interval containing <span class="math notranslate nohighlight">\(t=0\)</span>.</p>
+</section>
+</div><p>The reason that the function <span class="math notranslate nohighlight">\(\psi(t)\)</span> is said to <em>generate</em> the moments is encapsulated in:</p>
+<div class="proof theorem admonition" id="derivatives-mgf-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 8.6 </span> (Derivatives of Moment Generating Functions)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable whose moment generating function <span class="math notranslate nohighlight">\(\psi(t)\)</span> exists. Then the moments <span class="math notranslate nohighlight">\(E(X^k)\)</span> are finite for all <span class="math notranslate nohighlight">\(k\geq 1\)</span>, and <span class="math notranslate nohighlight">\(\psi^{(k)}(0) = E(X^k)\)</span>.</p>
+</section>
+</div><p>Thus, the moments <span class="math notranslate nohighlight">\(E(X^k)\)</span> may be extracted from the moment generating function <span class="math notranslate nohighlight">\(\psi(t)\)</span> simply by taking derivatives and evaluating at <span class="math notranslate nohighlight">\(t=0\)</span>. In this sense, the function <span class="math notranslate nohighlight">\(\psi (t)\)</span> <em>generates</em> the moments.</p>
+<div class="proof admonition" id="proof">
+<p>Proof. Let’s prove the theorem in the case that <span class="math notranslate nohighlight">\(X\)</span> is continuous with density <span class="math notranslate nohighlight">\(f(x)\)</span>. Supposing that all the moments are finite (which I will <em>not</em> prove; see instead Theorem 4.4.2 in <span id="id2">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>) and that we can pull derivatives under integral signs, for all <span class="math notranslate nohighlight">\(k\geq 1\)</span> we have:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\psi^{(k)}(0) &amp;= \frac{\text{d}^k}{\text{d}t^k} \int_\bbr e^{tx} f(x) \ \text{d}x \Bigg|_{t=0} \\
+&amp;= \int_\bbr \frac{\partial^k}{\partial t^k} e^{tx} f(x) \ \text{d} x \Bigg|_{t=0} \\
+&amp;= \int_\bbr x^k e^{tx} f(x) \ \text{d} x \Bigg|_{t=9} \\
+&amp;= \int_\bbr x^k f(x) \ \text{d} x \\
+&amp;= E(X^k)
+\end{align*}\]</div>
+<p>Notice that we used the LotUS in the first line. Q.E.D.</p>
+</div>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 5 on the worksheet.</p>
+</div>
+<p>Now, the true power of moment generating functions comes from the following extremely important and useful theorem, which may be seen as an analog of the Taylor Series Uniqueness Theorem stated above as <a class="reference internal" href="#taylor-thm">Theorem 8.5</a>. It essentially says that: <em>If you know all the moments, then you know the distribution.</em></p>
+<div class="proof theorem admonition" id="mgf-uniqueness-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 8.7 </span> (Moment Generating Function Uniqueness Theorem)</p>
+<section class="theorem-content" id="proof-content">
+<p>Suppose <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are two random variables whose moment generating functions <span class="math notranslate nohighlight">\(\psi_X(t)\)</span> and <span class="math notranslate nohighlight">\(\psi_Y(t)\)</span> exist. Then the following statements are equivalent:</p>
+<ol class="arabic simple">
+<li><p>The distributions of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are equal</p></li>
+<li><p><span class="math notranslate nohighlight">\(E(X^k) = E(Y^k)\)</span> for all <span class="math notranslate nohighlight">\(k\geq 1\)</span>.</p></li>
+<li><p>The moment generating functions <span class="math notranslate nohighlight">\(\psi_X(t)\)</span> and <span class="math notranslate nohighlight">\(\psi_Y(t)\)</span> are equal for all <span class="math notranslate nohighlight">\(t\)</span> in an open interval containing <span class="math notranslate nohighlight">\(t=0\)</span>.</p></li>
+</ol>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. Here is a very brief sketch of the proof: The implication <span class="math notranslate nohighlight">\((1) \Rightarrow (2)\)</span> follows from the fact that distributions determine moments. The implication <span class="math notranslate nohighlight">\((3) \Rightarrow (2)\)</span> follows from the observation that if <span class="math notranslate nohighlight">\(\psi_X(t) = \psi_Y(t)\)</span> for all <span class="math notranslate nohighlight">\(t\)</span> near <span class="math notranslate nohighlight">\(0\)</span>, then certainly</p>
+<div class="math notranslate nohighlight">
+\[
+E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
+\]</div>
+<p>for all <span class="math notranslate nohighlight">\(k\geq 1\)</span>. Assuming that <span class="math notranslate nohighlight">\(X\)</span> is continuous with density <span class="math notranslate nohighlight">\(f(x)\)</span>, the implication <span class="math notranslate nohighlight">\((2) \Rightarrow (3)\)</span> follows from the computations:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\psi_X(t) &amp;= \int_\bbr e^{xt} f(x) \ \text{d} x \\
+&amp;= \int_\bbr \left( \sum_{k=0}^\infty \frac{(tx)^k}{k!} \right) f(x) \ \text{d} x \\
+&amp;= \sum_{k=0}^\infty  \left( \int_\bbr x^k f(x) \ \text{d} x \right)\frac{t^k}{k!} \\
+&amp;= \sum_{k=0}^\infty \frac{E(X^k)}{k!} t^k,
+\end{align*}\]</div>
+<p>and similarly <span class="math notranslate nohighlight">\(\psi_Y(t) = \sum_{k=0}^\infty \frac{E(Y^k)}{k!} t^k\)</span>. Thus, if the moments of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are all equal, then so too <span class="math notranslate nohighlight">\(\psi_X(t)\)</span> and <span class="math notranslate nohighlight">\(\psi_Y(t)\)</span> are equal, at least near <span class="math notranslate nohighlight">\(t=0\)</span>.</p>
+<p>Then, the <em>hard</em> part of the proof is showing that <span class="math notranslate nohighlight">\((2) \Rightarrow (1)\)</span> (or <span class="math notranslate nohighlight">\((3) \Rightarrow (1)\)</span>). <em>This</em>, unfortunately, we cannot do in this course, since it uses some <a class="reference external" href="https://en.wikipedia.org/wiki/Characteristic_function_(probability_theory)">rather sophisticated things</a>. In any case, we declare: Q.E.D.</p>
+</div>
+<p>To illustrate how this theorem may be used, we will establish the fundamental fact that sums of independent normal random variables are normal; this is stated officially in the second part of the following theorem.</p>
+<div class="proof theorem admonition" id="mgf-norm-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 8.8 </span> (Moment generating functions of normal random variables)</p>
+<section class="theorem-content" id="proof-content">
+<ol class="arabic">
+<li><p>If <span class="math notranslate nohighlight">\(X \sim \calN(\mu,\sigma^2)\)</span>, then its moment generating function is given by</p>
+<div class="math notranslate nohighlight">
+\[
+    \psi(t) = \exp \left[ \mu t + \frac{1}{2} \sigma^2 t^2 \right]
+    \]</div>
+<p>for all <span class="math notranslate nohighlight">\(t\in \bbr\)</span>.</p>
+</li>
+<li><p>Let <span class="math notranslate nohighlight">\(X_1,\ldots,X_m\)</span> be independent random variables such that <span class="math notranslate nohighlight">\(X_i \sim \calN(\mu_i,\sigma^2_i)\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>. Then the sum</p>
+<div class="math notranslate nohighlight">
+\[
+    Y = X_1 + \cdots + X_m
+    \]</div>
+<p>is normal with mean <span class="math notranslate nohighlight">\(\mu = \mu_1+\cdots + \mu_m\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2 = \sigma_1^2 + \cdots + \sigma_m^2\)</span>.</p>
+</li>
+</ol>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. We will only prove the second part; for the proof of the first (which isn’t hard), see Theorem 5.6.2 in <span id="id3">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>. So, we begin our computations:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\psi_Y(t) &amp;= E\big( e^{tX_1} \cdots e^{tX_m}\big) \\
+&amp;= E(e^{tX_1}) \cdots E(e^{tX_m}) \\
+&amp;= \prod_{i=1}^m \exp \left[ \mu_i t + \frac{1}{2} \sigma_i^2 t^2 \right] \\
+&amp;= \exp \left[ \left(\sum_{i=1}^m \mu_i\right) t + \frac{1}{2} \left( \sum_{i=1}^m \sigma_i^2\right) t^2 \right].
+\end{align*}\]</div>
+<p>The second line follows from the first by independence, <a class="reference internal" href="07-random-vectors.html#invar-independent-thm">Theorem 7.8</a>, and <a class="reference internal" href="#ind-expect-thm">Theorem 8.2</a>, while we obtain the third line from the first part of this theorem. But notice that the expression on the last line is exactly the moment generating function of a <span class="math notranslate nohighlight">\(\calN(\mu,\sigma^2)\)</span> random variable (by the first part), where <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> are as in the statement of the theorem. By <a class="reference internal" href="#mgf-uniqueness-thm">Theorem 8.7</a>, it follows that <span class="math notranslate nohighlight">\(Y \sim \calN(\mu,\sigma^2)\)</span> as well. Q.E.D.</p>
+</div>
+<p>Before turning to the worksheet to finish this section, it is worth extracting one of the steps used in the previous proof and putting it in its own theorem:</p>
+<div class="proof theorem admonition" id="mgf-sum-eqn">
+<p class="admonition-title"><span class="caption-number">Theorem 8.9 </span> (Moment generating functions of sums of independent variables)</p>
+<section class="theorem-content" id="proof-content">
+<p>Suppose that <span class="math notranslate nohighlight">\(X_1,\ldots,X_m\)</span> are independent random variables with moment generating functions <span class="math notranslate nohighlight">\(\psi_i(t)\)</span> and let <span class="math notranslate nohighlight">\(Y = X_1 + \cdots + X_m\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[
+\psi_Y(t) = \psi_1(t) \cdots \psi_m(t)
+\]</div>
+<p>for all <span class="math notranslate nohighlight">\(t\)</span> such that each <span class="math notranslate nohighlight">\(\psi_i(t)\)</span> is finite.</p>
+</section>
+</div><p>Now, let’s do an example:</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 6 on the worksheet.</p>
+</div>
+</section>
 <section id="covariance-and-correlation">
-<h2><span class="section-number">8.1. </span>Covariance and correlation<a class="headerlink" href="#covariance-and-correlation" title="Permalink to this heading">#</a></h2>
-<p>If two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <em>not</em> <a class="reference internal" href="07-random-vectors.html#independence"><span class="std std-ref">independent</span></a>, then (naturally) they are called <em>dependent</em>. Though our goal in this chapter is to study a <em>particular type</em> of dependence between random variables, I think it will benefit us by first discussing dependence in general.</p>
-<p>A natural source of examples of dependent random variables are those which are <em>functionally</em> dependent in the sense of the following theorem:</p>
+<h2><span class="section-number">8.5. </span>Covariance and correlation<a class="headerlink" href="#covariance-and-correlation" title="Permalink to this heading">#</a></h2>
+<p>If two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <em>not</em> <a class="reference internal" href="07-random-vectors.html#independence"><span class="std std-ref">independent</span></a>, then (naturally) they are called <em>dependent</em>. Our goal in this section is to study two quantities, called <em>covariance</em> and <em>correlation</em>, that measure the strength of the <em>linear</em> dependence between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. An alternate measure of more general dependence, called <em>mutual information</em>, will be studied in the <a class="reference internal" href="09-information-theory.html#information-theory"><span class="std std-ref">next chapter</span></a>.</p>
+<p>To initiate our study of <em>covariance</em> and <em>correlation</em>, let’s begin by discussing a pair of <em>functionally</em> dependent random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, by which I mean that <span class="math notranslate nohighlight">\(Y = h(X)\)</span> for some function <span class="math notranslate nohighlight">\(h\)</span>. In this case, observed values <span class="math notranslate nohighlight">\(x\)</span> deterministically yield observed values <span class="math notranslate nohighlight">\(y=h(x)\)</span>, and it would therefore make sense that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are dependent. This suspicion is confirmed in the following simple result:</p>
 <div class="proof theorem admonition" id="functional-dep-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.1 </span> (Functional dependence <span class="math notranslate nohighlight">\(\Rightarrow\)</span> dependence)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 8.10 </span> (Functional dependence <span class="math notranslate nohighlight">\(\Rightarrow\)</span> dependence)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be random variables. If <span class="math notranslate nohighlight">\(Y = h(X)\)</span> for some function <span class="math notranslate nohighlight">\(h:\mathbb{R} \to \mathbb{R}\)</span>, then <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are dependent.</p>
 </section>
-</div><p>In order to prove this, we need to make the (mild) assumption that there is an event <span class="math notranslate nohighlight">\(B\subset \mathbb{R}\)</span> with</p>
+</div><div class="proof admonition" id="proof">
+<p>Proof. In order to prove this, we need to make the (mild) assumption that there is an event <span class="math notranslate nohighlight">\(B\subset \mathbb{R}\)</span> with</p>
 <div class="math notranslate nohighlight" id="equation-middle-eqn">
-<span class="eqno">(8.1)<a class="headerlink" href="#equation-middle-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.5)<a class="headerlink" href="#equation-middle-eqn" title="Permalink to this equation">#</a></span>\[
 0&lt;P(Y\in B)&lt;1.
 \]</div>
-<p>In this case, we set <span class="math notranslate nohighlight">\(A = f^{-1}(B)^c\)</span> and observe that</p>
+<p>In this case, we set <span class="math notranslate nohighlight">\(A = h^{-1}(B)^c\)</span> and observe that</p>
 <div class="math notranslate nohighlight">
 \[
 P(X\in A, \ Y\in B) = P(\emptyset) =0.
@@ -402,12 +720,13 @@ P(X\in A) = 1 - P(Y\in B),
 \[
 P(X\in A) P(Y\in B) = (1 - P(Y\in B))P(Y\in B) \neq 0
 \]</div>
-<p>by <a class="reference internal" href="#equation-middle-eqn">(8.1)</a>. But then</p>
+<p>by <a class="reference internal" href="#equation-middle-eqn">(8.5)</a>. But then</p>
 <div class="math notranslate nohighlight">
 \[
-P(X\in A, \ Y\in B) \neq P(X\in A) P(Y\in B),
+P(X\in A, \ Y\in B) = 0 \neq P(X\in A) P(Y\in B),
 \]</div>
-<p>which proves <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are dependent.</p>
+<p>which proves <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are dependent. Q.E.D.</p>
+</div>
 <p>What does a pair of functionally dependent random variables look like? For an example, let’s suppose that</p>
 <div class="math notranslate nohighlight">
 \[
@@ -459,11 +778,10 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/06e7cc47ebb3e4681cef969bf24f452bcae436df2d6e68420f2a5c9a3e4c6531.svg" src="../_images/06e7cc47ebb3e4681cef969bf24f452bcae436df2d6e68420f2a5c9a3e4c6531.svg" /></figure>
+<img alt="../_images/96dbe67c86fce34c525c2342fe1d33413fa01461a00a120fcc7def02ff6baa70.svg" src="../_images/96dbe67c86fce34c525c2342fe1d33413fa01461a00a120fcc7def02ff6baa70.svg" /></figure>
 </div>
 </div>
-<p>The plot looks exactly like we would expect: A bunch of points lying on the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span>.</p>
-<p>However, very often with real-world data, an <strong>exact</strong> functional dependence <span class="math notranslate nohighlight">\(Y = h(X)\)</span> does not truly hold. Instead, the functional relationship is “noisy”, resulting in scatter plots that look like this:</p>
+<p>The plot looks exactly like we would expect: A bunch of points lying on the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span>. However, very often with real-world data, an <strong>exact</strong> functional dependence <span class="math notranslate nohighlight">\(Y = h(X)\)</span> does not truly hold. Instead, the functional relationship is “noisy”, resulting in scatter plots that look like this:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -492,7 +810,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/274fe771d0dd83161bbc993f09128c6d1de93c6ff168114438a96692ed0e323f.svg" src="../_images/274fe771d0dd83161bbc993f09128c6d1de93c6ff168114438a96692ed0e323f.svg" /></figure>
+<img alt="../_images/758ec25d14dbda93cdca039ad66c81c4588436cbcd7edea805e347217018438d.svg" src="../_images/758ec25d14dbda93cdca039ad66c81c4588436cbcd7edea805e347217018438d.svg" /></figure>
 </div>
 </div>
 <p>The “noisy” functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span> for reference. Instead of lying directly on the graph of <span class="math notranslate nohighlight">\(y=h(x)\)</span>, the data is clustered along the graph.</p>
@@ -526,7 +844,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/909ceba54c9325964871f4ff2ebf3ac9627906d177e9f68893c7b629762ed7cf.svg" src="../_images/909ceba54c9325964871f4ff2ebf3ac9627906d177e9f68893c7b629762ed7cf.svg" /></figure>
+<img alt="../_images/9c02ca2fdceb617033ce66dbe32f8673fc33c7fb9aa10147c800e0f4362b7e33.svg" src="../_images/9c02ca2fdceb617033ce66dbe32f8673fc33c7fb9aa10147c800e0f4362b7e33.svg" /></figure>
 </div>
 </div>
 <p>We have already seen scatter plots like this before! Indeed, recall Ames housing dataset from the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and the <a class="reference internal" href="07-random-vectors.html#motivation"><span class="std std-ref">beginning</span></a> of the previous chapter consisting of pairs</p>
@@ -556,7 +874,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/41437496f4b75b095ff3fde88e122e5db74bfd53d3263947377ee5034ea35662.svg" src="../_images/41437496f4b75b095ff3fde88e122e5db74bfd53d3263947377ee5034ea35662.svg" /></figure>
+<img alt="../_images/9883e331199e98892fac9b05d052dc3dd8d2fe801877a71b2f45344a46d50b02.svg" src="../_images/9883e331199e98892fac9b05d052dc3dd8d2fe801877a71b2f45344a46d50b02.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -564,15 +882,15 @@ h(x) = x(x-1)(x-2)
 <p>The line in this plot that the data clusters along is called the <em>linear-regression line</em>. We will study these in <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapters 11</span></a> and <a class="reference internal" href="17-lin-reg.html#lin-reg"><span class="std std-numref">17</span></a>.</p>
 </aside>
 <p>There appears to be a “noisy” linear dependence between the size of a house <span class="math notranslate nohighlight">\(X\)</span> and its selling price <span class="math notranslate nohighlight">\(Y\)</span>. Moreover, the line that the data naturally clusters along has positive slope, which indicates that as the size of a house increases, its selling price tends to increase as well.</p>
-<p>Our goal in this section of the chapter is to uncover ways to <em>quantify</em> or <em>measure</em> the strength of “noisy” linear dependencies between random variables. We will discover that there are two such measures: <em>Covariance</em> and <em>correlation</em>.</p>
+<p>As I mentioned in the introduction, our goal in this section is to uncover ways to <em>quantify</em> or <em>measure</em> the strength of “noisy” linear dependencies between random variables. We will discover that there are two such measures, called <em>covariance</em> and <em>correlation</em>.</p>
 <p>The definition of <em>covariance</em> is based on the following pair of basic observations:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li><p>If the observed values of two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> cluster along a line of <em>positive</em> slope, then <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> in a data point <span class="math notranslate nohighlight">\((x,y)\)</span> tend to be large (and small) at the same time.</p></li>
+<li><p>If the observed values of two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> cluster along a line of <em>positive</em> slope, then <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> in a data point <span class="math notranslate nohighlight">\((x,y)\)</span> tend to be large (or small) at the same time.</p></li>
 <li><p>If the observed values of two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> cluster along a line of <em>negative</em> slope, then a large value <span class="math notranslate nohighlight">\(x\)</span> tends to be paired with a small value <span class="math notranslate nohighlight">\(y\)</span> in a data point <span class="math notranslate nohighlight">\((x,y)\)</span>, while a small value of <span class="math notranslate nohighlight">\(x\)</span> tends to be paired with a large value <span class="math notranslate nohighlight">\(y\)</span>.</p></li>
 </ol>
 </div></blockquote>
-<p>In order to make something useful from these observations, it is convenient to “center” the dataset by subtracting off the means:</p>
+<p>In order to extract something useful from these observations, it is convenient to “center” the dataset by subtracting off the means:</p>
 <div class="math notranslate nohighlight">
 \[
 X \xrightarrow{\text{replace with}} X - \mu_X \quad \text{and} \quad Y \xrightarrow{\text{replace with}} Y - \mu_Y.
@@ -601,7 +919,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2adee0d2dfd49889c1712d7549513f1ab2dfe1fc865589b35cf11ff0f3b47021.svg" src="../_images/2adee0d2dfd49889c1712d7549513f1ab2dfe1fc865589b35cf11ff0f3b47021.svg" /></figure>
+<img alt="../_images/42a15eccead4ff5fbf3550e437ab390d59917d8434c23503a656fc0849d220f9.svg" src="../_images/42a15eccead4ff5fbf3550e437ab390d59917d8434c23503a656fc0849d220f9.svg" /></figure>
 </div>
 </div>
 <p>You can see that the dataset has not changed its shape—it has only shifted so that its “center” is at the origin <span class="math notranslate nohighlight">\((0,0)\)</span>.</p>
@@ -614,7 +932,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </div></blockquote>
 <p>Essentially, the next definition takes the average value of the product <span class="math notranslate nohighlight">\(xy\)</span>, as <span class="math notranslate nohighlight">\((x,y)\)</span> ranges over observed pairs of values of a pair <span class="math notranslate nohighlight">\((X,Y)\)</span> of <strong>centered</strong> random variables. If this average value is positive, it suggests a (noisy) linear dependence with positive slope; if it is negative, it suggests a (noisy) linear dependence with negative slope. A larger average (in either direction—positive or negative) tends to indicate a <em>stronger</em> dependency. If the random variables are not centered, then we subtract off their means before computing the product and taking its average value.</p>
 <div class="proof definition admonition" id="covar-def">
-<p class="admonition-title"><span class="caption-number">Definition 8.1 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 8.4 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables with expectations <span class="math notranslate nohighlight">\(\mu_X = E(X)\)</span> and <span class="math notranslate nohighlight">\(\mu_Y = E(Y)\)</span>. The <em>covariance</em> of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, denoted either by <span class="math notranslate nohighlight">\(\sigma(X,Y)\)</span> or <span class="math notranslate nohighlight">\(\sigma_{XY}\)</span>, is defined via the equation</p>
 <div class="math notranslate nohighlight">
@@ -627,9 +945,9 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 \[
 \sigma_{XX} = E \left[ (X-\mu_X)^2\right] = V(X).
 \]</div>
-<p>Before we look at examples, it will be convenient to state and prove the following:</p>
+<p>Before we look at an example, it will be convenient to state and prove the following generalization of <a class="reference internal" href="04-random-variables.html#shortcut-var-thm">Theorem 4.5</a>:</p>
 <div class="proof theorem admonition" id="shortcut-covar-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.2 </span> (Shortcut Formula for Covariance)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 8.11 </span> (Shortcut Formula for Covariance)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables. Then</p>
 <div class="math notranslate nohighlight">
@@ -637,13 +955,15 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 \sigma_{XY} = E(XY) - E(X) E(Y).
 \]</div>
 </section>
-</div><p>The proof is a triviality, given all the properties that we already know about expectations:</p>
+</div><div class="proof admonition" id="proof">
+<p>Proof. The proof is a triviality, given all the properties that we already know about expectations:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 \sigma_{XY} &amp;= E\left(XY - \mu_Y X - \mu_X Y + \mu_X \mu_Y \right) \\
 &amp;= E(XY) - 2\mu_X\mu_Y + \mu_X\mu_Y \\
 &amp;= E(XY) - E(X) E(Y).
 \end{align*}\]</div>
+</div>
 <p>Now, armed with this formula, let’s do some problems:</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
@@ -651,13 +971,13 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </div>
 <p>A pair of very useful properties of covariance are listed in the following:</p>
 <div class="proof theorem admonition" id="bilinear-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.3 </span> (Covariance = symmetric bilinear form)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 8.12 </span> (Covariance = symmetric bilinear form)</p>
 <section class="theorem-content" id="proof-content">
 <ol class="arabic">
 <li><p><em>Symmetry</em>. If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are random variables, then <span class="math notranslate nohighlight">\(\sigma_{XY} = \sigma_{YX}\)</span>.</p></li>
 <li><p><em>Bilinearity</em>. Let <span class="math notranslate nohighlight">\(X_1,\ldots,X_m\)</span> and <span class="math notranslate nohighlight">\(Y_1,\ldots,Y_n\)</span> be sequences of random variables, and <span class="math notranslate nohighlight">\(a_1,\ldots,a_m\)</span> and <span class="math notranslate nohighlight">\(b_1,\ldots,b_n\)</span> sequences of real numbers. Then:</p>
 <div class="math notranslate nohighlight" id="equation-bilinear-eqn">
-<span class="eqno">(8.2)<a class="headerlink" href="#equation-bilinear-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.6)<a class="headerlink" href="#equation-bilinear-eqn" title="Permalink to this equation">#</a></span>\[
     \sigma\Big( \sum_{i=1}^m a_i X_i, \sum_{j=1}^n b_j Y_j\Big) = \sum_{i=1}^m \sum_{j=1}^n a_i b_j \sigma(X_i,Y_j).
     \]</div>
 </li>
@@ -668,10 +988,10 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 \[
 \sigma\Big( \sum_{i=1}^m a_i X_i, Y\Big) = \sum_{i=1}^m a_i \sigma(X_i,Y)
 \]</div>
-<p>by induction on <span class="math notranslate nohighlight">\(m\)</span>. Then, use this special case and symmetry to obtain the general result <a class="reference internal" href="#equation-bilinear-eqn">(8.2)</a>.</p>
+<p>by induction on <span class="math notranslate nohighlight">\(m\)</span>. Then, use this special case and symmetry to obtain the general result <a class="reference internal" href="#equation-bilinear-eqn">(8.6)</a>.</p>
 <p>Bilinearity of covariance allows us to generalize <a class="reference internal" href="04-random-variables.html#var-affine-thm">Theorem 4.6</a> on the variance of an affine transformation of a random variable:</p>
 <div class="proof theorem admonition" id="variance-lin-combo-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.4 </span> (Variance of a linear combination)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 8.13 </span> (Variance of a linear combination)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X_1,\ldots,X_m\)</span> be a sequence of random variables and <span class="math notranslate nohighlight">\(a_1,\ldots,a_m\)</span> a sequence of real numbers. Then:</p>
 <div class="math notranslate nohighlight">
@@ -679,19 +999,21 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i) + 2\sum_{1 \leq i &lt; j \leq m }a_ia_j \sigma(X_i,X_j).
 \]</div>
 </section>
-</div><p>The proof is an application of bilinearity of covariance:</p>
+</div><div class="proof admonition" id="proof">
+<p>Proof. The proof is an application of bilinearity of covariance:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 V(a_1X_1 + \cdots + a_m X_m) &amp;= \sigma\Big(\sum_{i=1}^m a_i X_i, \sum_{j=1}^m a_j X_j \Big)  \\
 &amp;= \sum_{i,j=1}^m a_i a_j \sigma(X_i,X_j) \\
 &amp;= \sum_{i=1}^m a_i^2 V(X_i) + 2\sum_{1 \leq i &lt; j \leq m }a_ia_j \sigma(X_i,X_j).
 \end{align*}\]</div>
+</div>
 <p>In particular, we see that if <span class="math notranslate nohighlight">\(\sigma(X_i,X_j)=0\)</span> for all <span class="math notranslate nohighlight">\(i\neq j\)</span> (i.e., if the random variables are pairwise <em>uncorrelated</em>; see below), the formula simplifies to:</p>
 <div class="math notranslate nohighlight">
 \[
 V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 \]</div>
-<p>While the signs of covariances are significant, their precise numerical values may be less so. One reason for this is that covariances are unbounded, in the sense that they may take any value from <span class="math notranslate nohighlight">\(-\infty\)</span> to <span class="math notranslate nohighlight">\(+\infty\)</span>. They are also sensitive to the scales on which the variables are measured. For example, in the housing dataset that we considered in the previous section, suppose that <span class="math notranslate nohighlight">\(Z\)</span> represents the size of a house measured in <em>hundreds</em> of square feet; then <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> are related via the equation <span class="math notranslate nohighlight">\(Z = X/100\)</span>. But then, according to <a class="reference internal" href="#bilinear-thm">Theorem 8.3</a>, we have</p>
+<p>While the signs of covariances are significant, their precise numerical values may be less so. One reason for this is that covariances are unbounded, in the sense that they may take any value from <span class="math notranslate nohighlight">\(-\infty\)</span> to <span class="math notranslate nohighlight">\(+\infty\)</span>. They are also sensitive to the scales on which the variables are measured. For example, in the housing dataset that we considered in the previous section, suppose that <span class="math notranslate nohighlight">\(Z\)</span> represents the size of a house measured in <em>hundreds</em> of square feet; then <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> are related via the equation <span class="math notranslate nohighlight">\(Z = X/100\)</span>. But then, according to <a class="reference internal" href="#bilinear-thm">Theorem 8.12</a>, we have</p>
 <div class="math notranslate nohighlight">
 \[
 \sigma_{ZY} = \frac{1}{100} \sigma_{XY},
@@ -699,7 +1021,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 <p>so the covariance between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> is <em>different</em> from the covariance between <span class="math notranslate nohighlight">\(Z\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. The fact that covariances are unbounded and sensitive to scale means that the precise values of covariances can be hard to interpret.</p>
 <p>The remedy is to define a “normalized” measure of linear dependence:</p>
 <div class="proof definition admonition" id="correlation-def">
-<p class="admonition-title"><span class="caption-number">Definition 8.2 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 8.5 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables. The <em>correlation</em> of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, denoted by either <span class="math notranslate nohighlight">\(\rho(X,Y)\)</span> or <span class="math notranslate nohighlight">\(\rho_{XY}\)</span>, is defined via the equation</p>
 <div class="math notranslate nohighlight">
@@ -709,7 +1031,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 </section>
 </div><p>The key properties of correlation are given in the following:</p>
 <div class="proof theorem admonition" id="prop-correlation-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.5 </span> (Properties of correlation)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 8.14 </span> (Properties of correlation)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be random variables.</p>
 <ol class="arabic">
@@ -726,10 +1048,10 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 <li><p><em>Normalization</em>. We have <span class="math notranslate nohighlight">\(|\rho(X,Y)| \leq 1\)</span>.</p></li>
 </ol>
 </section>
-</div><p>The symmetry property of correlation follows from the same property of covariance in <a class="reference internal" href="#bilinear-thm">Theorem 8.3</a>. Scale invariance follows from bilinearity of covariance, as well as the equality <span class="math notranslate nohighlight">\(\sigma_{aX} = |a| \sigma_X\)</span> established in <a class="reference internal" href="04-random-variables.html#var-affine-thm">Theorem 4.6</a> (or its generalization <a class="reference internal" href="#variance-lin-combo-thm">Theorem 8.4</a>). The proof of normalization is a bit more involved but still not very difficult. It requires the Cauchy-Schwarz inequality; see the proof in Section 4.6 of <span id="id1">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>, for example.</p>
+</div><p>The symmetry property of correlation follows from the same property of covariance in <a class="reference internal" href="#bilinear-thm">Theorem 8.12</a>. Scale invariance follows from bilinearity of covariance, as well as the equality <span class="math notranslate nohighlight">\(\sigma_{aX} = |a| \sigma_X\)</span> established in <a class="reference internal" href="04-random-variables.html#var-affine-thm">Theorem 4.6</a> (or its generalization <a class="reference internal" href="#variance-lin-combo-thm">Theorem 8.13</a>). The proof of normalization is a bit more involved but still not very difficult. It requires the Cauchy-Schwarz inequality; see the proof in Section 4.6 of <span id="id4">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>, for example.</p>
 <p>Remember, covariance and correlation were cooked up to measure linear dependencies between random variables. We wonder, then, what is the correlation between two random variables that are <em>perfectly</em> linearly dependent? Answer:</p>
 <div class="proof theorem admonition" id="linearity-correlation-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.6 </span></p>
+<p class="admonition-title"><span class="caption-number">Theorem 8.15 </span></p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable and <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> constants with <span class="math notranslate nohighlight">\(a\neq 0\)</span>. Then</p>
 <div class="math notranslate nohighlight">
@@ -740,20 +1062,22 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 \end{cases}
 \end{split}\]</div>
 </section>
-</div><p>The proof is a simple computation, similar to the proof of scale invariance from above:</p>
+</div><div class="proof admonition" id="proof">
+<p>Proof. The proof is a simple computation, similar to the proof of scale invariance from above:</p>
 <div class="math notranslate nohighlight">
 \[
 \rho(X,aX+b) = \frac{a\sigma(X,X)+\sigma(X,b)}{\sigma_X\sigma_{aX+b}} = \frac{a V(X)}{\sqrt{V(X)}\sqrt{a^2V(X)}} = \frac{a}{|a|}.
 \]</div>
+</div>
 <p>We give a name to two random variables whose correlation is zero:</p>
 <div class="proof definition admonition" id="uncorrelated-def">
-<p class="admonition-title"><span class="caption-number">Definition 8.3 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 8.6 </span></p>
 <section class="definition-content" id="proof-content">
 <p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are two random variables with <span class="math notranslate nohighlight">\(\rho(X,Y)=0\)</span>, then we say <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <em>uncorrelated</em>. Otherwise, they are said to be <em>(linearly) correlated</em>.</p>
 </section>
 </div><p>You should think of independence as a strong form of uncorrelated-ness. This is the content of the first part of the following result:</p>
 <div class="proof theorem admonition" id="ind-vs-correlation-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.7 </span> (Dependence and correlation)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 8.16 </span> (Dependence and correlation)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be random variables.</p>
 <ol class="arabic simple">
@@ -761,7 +1085,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 <li><p>However, there exist dependent <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> that are uncorrelated.</p></li>
 </ol>
 </section>
-</div><p>The proof of the first statement is a simple application of <a class="reference internal" href="#ind-expect-thm">Theorem 8.9</a> from below and the Shortcut Formula for Covariance in <a class="reference internal" href="#shortcut-covar-thm">Theorem 8.2</a>. Indeed, we have</p>
+</div><p>The proof of the first statement is a simple application of <a class="reference internal" href="#ind-expect-thm">Theorem 8.2</a> from below and the Shortcut Formula for Covariance in <a class="reference internal" href="#shortcut-covar-thm">Theorem 8.11</a>. Indeed, we have</p>
 <div class="math notranslate nohighlight">
 \[
 \sigma_{XY} = E(XY) - E(X)E(Y) = E(X)E(Y) - E(X) E(Y) =0,
@@ -769,204 +1093,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 <p>and then <span class="math notranslate nohighlight">\(\rho_{XY} = \sigma_{XY} / (\sigma_X \sigma_Y) = 0\)</span>.</p>
 </section>
 <section id="multivariate-normal-distributions">
-<h2><span class="section-number">8.2. </span>Multivariate normal distributions<a class="headerlink" href="#multivariate-normal-distributions" title="Permalink to this heading">#</a></h2>
-</section>
-<section id="expectations-and-joint-distributions">
-<h2><span class="section-number">8.3. </span>Expectations and joint distributions<a class="headerlink" href="#expectations-and-joint-distributions" title="Permalink to this heading">#</a></h2>
-<p>The following is a bivariate generalization of the LotUS from <a class="reference internal" href="04-random-variables.html#lotus-thm">Theorem 4.1</a>.</p>
-<div class="proof theorem admonition" id="bivariate-lotus-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.8 </span> (Bivariate Law of the Unconscious Statistician)</p>
-<section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables and <span class="math notranslate nohighlight">\(g:\mathbb{R}^2 \to \mathbb{R}\)</span> a function.</p>
-<ol class="arabic">
-<li><p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly discrete with mass function <span class="math notranslate nohighlight">\(p(x,y)\)</span>, then</p>
-<div class="math notranslate nohighlight">
-\[
-    E\left(g(X,Y)\right) = \sum_{(x,y)\in\mathbb{R}^2} g(x,y) p(x,y).
-    \]</div>
-</li>
-<li><p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly continuous with density function <span class="math notranslate nohighlight">\(f(x,y)\)</span>, then</p>
-<div class="math notranslate nohighlight">
-\[
-    E\left(g(X,Y)\right) = \iint_{\mathbb{R}^2} g(x,y) f(x,y) \ \text{d}x \text{d}y.
-    \]</div>
-</li>
-</ol>
-</section>
-</div><div class="proof theorem admonition" id="ind-expect-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.9 </span> (Independence and expectations)</p>
-<section class="theorem-content" id="proof-content">
-<p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent random variables, then <span class="math notranslate nohighlight">\(E(XY) = E(X) E(Y)\)</span>.</p>
-</section>
-</div><p>The proof follows from the bivariate LotUS and the Mass/Density Criteria for Independence stated in <a class="reference internal" href="07-random-vectors.html#mass-density-ind-thm">Theorem 7.7</a>. Here’s the argument in the case that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly continuous:</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{align*}
-E(XY) &amp;= \iint_{\mathbb{R}^2} xy f(x,y) \ \text{d} x \text{d}y \\
-&amp;= \iint_{\mathbb{R}^2} xy f(x)f(y) \ \text{d} x \text{d}y \\
-&amp;= \int_{\mathbb{R}}x f(x) \ \text{d} x \int_{\mathbb{R}} y f(y) \ \text{d}y \\
-&amp;= E(X) E(Y).
-\end{align*}\]</div>
-<p>Using the bivariate LotUS, we may upgrade our statement of “weak” linearity in <a class="reference internal" href="04-random-variables.html#weak-linear-thm">Theorem 4.3</a> to the full-strength version:</p>
-<div class="proof theorem admonition" id="linear-exp-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.10 </span> (Linearity of Expectations)</p>
-<section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables and let <span class="math notranslate nohighlight">\(c\in \mathbb{R}\)</span> be a constant. Then:</p>
-<div class="math notranslate nohighlight" id="equation-target-eqn">
-<span class="eqno">(8.3)<a class="headerlink" href="#equation-target-eqn" title="Permalink to this equation">#</a></span>\[
-E(X+Y) = E(X) + E(Y),
-\]</div>
-<p>and</p>
-<div class="math notranslate nohighlight" id="equation-scalar-eqn">
-<span class="eqno">(8.4)<a class="headerlink" href="#equation-scalar-eqn" title="Permalink to this equation">#</a></span>\[
-E(cX) = c E(X).
-\]</div>
-</section>
-</div><p>The proof of the second equation <a class="reference internal" href="#equation-scalar-eqn">(8.4)</a> was already handled back in the proof of <a class="reference internal" href="04-random-variables.html#weak-linear-thm">Theorem 4.3</a>. For the proof of the first equation <a class="reference internal" href="#equation-target-eqn">(8.3)</a> (in the continuous case), we apply the bivariate LotUS:</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{align*}
-E(X+Y) &amp;= \iint_{\mathbb{R}^2} (x+y) f(x,y) \ \text{d}x \text{d}y \\
-&amp;= \int_{\mathbb{R}} x\left[ \int_{\mathbb{R}} f(x,y) \ \text{d}y\right] \ \text{d}x + \int_{\mathbb{R}} y\left[ \int_{\mathbb{R}} f(x,y) \ \text{d}x\right] \ \text{d}y \\
-&amp;= \int_{\mathbb{R}} xf(x) \ \text{d}x + \int_{\mathbb{R}} y f(y) \ \text{d}y \\
-&amp;= E(X) + E(Y).
-\end{align*}\]</div>
-<p>Note the marginalizations of the joint density function in passing from the second line to the third.</p>
-</section>
-<section id="expectations-and-conditional-distributions">
-<span id="cond-expect"></span><h2><span class="section-number">8.4. </span>Expectations and conditional distributions<a class="headerlink" href="#expectations-and-conditional-distributions" title="Permalink to this heading">#</a></h2>
-<div class="proof definition admonition" id="conditional-exp-def">
-<p class="admonition-title"><span class="caption-number">Definition 8.4 </span></p>
-<section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables.</p>
-<ol class="arabic">
-<li><p>If <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(X\)</span> are jointly discrete with conditional mass function <span class="math notranslate nohighlight">\(p(y|x)\)</span>, then the <em>conditional expected value</em> of <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(X=x\)</span>, denoted either by <span class="math notranslate nohighlight">\(E(Y|X=x)\)</span> or <span class="math notranslate nohighlight">\(E(Y|x)\)</span>, is the sum</p>
-<div class="math notranslate nohighlight">
-\[
-    E(Y|X=x) = \sum_{y\in \mathbb{R}} y p(y|x).
-    \]</div>
-</li>
-<li><p>If <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(X\)</span> are jointly continuous with conditional density function <span class="math notranslate nohighlight">\(f(y|x)\)</span>, then we define the <em>conditional expected value</em> of <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(X=x\)</span>, denoted either by <span class="math notranslate nohighlight">\(E(Y|X=x)\)</span> or <span class="math notranslate nohighlight">\(E(Y|x)\)</span>, is the integral</p>
-<div class="math notranslate nohighlight">
-\[
-    E(Y|X=x) = \int_{\mathbb{R}} y f(y|x) \ \text{d}y.
-    \]</div>
-</li>
-</ol>
-<p>In both cases, notice that conditional expected values are <strong>functions</strong> of <span class="math notranslate nohighlight">\(x\)</span>, defined for all values of <span class="math notranslate nohighlight">\(x\)</span> for which the conditional mass or density function exists.</p>
-</section>
-</div></section>
-<section id="moment-generating-functions">
-<span id="mgf"></span><h2><span class="section-number">8.5. </span>Moment generating functions<a class="headerlink" href="#moment-generating-functions" title="Permalink to this heading">#</a></h2>
-<div class="proof definition admonition" id="moments-def">
-<p class="admonition-title"><span class="caption-number">Definition 8.5 </span></p>
-<section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(k\geq 1\)</span> be an integer and <span class="math notranslate nohighlight">\(X\)</span> a random variable.</p>
-<ul class="simple">
-<li><p>The <em><span class="math notranslate nohighlight">\(k\)</span>-th moment</em> of <span class="math notranslate nohighlight">\(X\)</span> is the expectation <span class="math notranslate nohighlight">\(E(X^k)\)</span>.</p></li>
-<li><p>The <em><span class="math notranslate nohighlight">\(k\)</span>-th central moment</em> of <span class="math notranslate nohighlight">\(X\)</span> is the expectation <span class="math notranslate nohighlight">\(E\left( (X-\mu)^k \right)\)</span>, where <span class="math notranslate nohighlight">\(\mu = E(X)\)</span>.</p></li>
-</ul>
-</section>
-</div><p>Notice that the first moment of <span class="math notranslate nohighlight">\(X\)</span> is precisely its expectation, while its second central moment is its variance. The “higher moments” are more difficult to interpret. The situation with them is analogous to the “higher derivatives” of a function <span class="math notranslate nohighlight">\(y=f(x)\)</span>. I have good intuition for what the first two derivatives <span class="math notranslate nohighlight">\(f'(x)\)</span> and <span class="math notranslate nohighlight">\(f''(x)\)</span> measure, but I have much less intuition for what the <span class="math notranslate nohighlight">\(31\)</span>-st derivative <span class="math notranslate nohighlight">\(f^{(31)}(x)\)</span> measures!</p>
-<p>Actually, this analogy with derivatives can be carried further. Indeed, as you learned in calculus, if a function <span class="math notranslate nohighlight">\(y=f(x)\)</span> has derivatives of all orders at <span class="math notranslate nohighlight">\(x=0\)</span>, then we can form its Taylor series centered at <span class="math notranslate nohighlight">\(x=0\)</span>:</p>
-<div class="math notranslate nohighlight" id="equation-taylor-eqn">
-<span class="eqno">(8.5)<a class="headerlink" href="#equation-taylor-eqn" title="Permalink to this equation">#</a></span>\[
-f(0) + f'(0) x + \frac{f''(0)}{2!}x^2 + \cdots = \sum_{k=0}^\infty \frac{f^{(k)}(0)}{k!}x^k.
-\]</div>
-<p>You also learned that this series may, or may <em>not</em>, converge to the original function <span class="math notranslate nohighlight">\(y=f(x)\)</span> on an open interval about <span class="math notranslate nohighlight">\(x=0\)</span>. For example, the Taylor series of <span class="math notranslate nohighlight">\(y=e^x\)</span> actually converges to <span class="math notranslate nohighlight">\(y=e^x\)</span> <em>everywhere</em>:</p>
-<div class="math notranslate nohighlight">
-\[
-e^x = \sum_{k=0}^\infty \frac{x^k}{k!}.
-\]</div>
-<p>On the other hand, <a class="reference external" href="https://en.wikipedia.org/wiki/Non-analytic_smooth_function">there exist</a> functions for which the Taylor series <a class="reference internal" href="#equation-taylor-eqn">(8.5)</a> exists and converges <em>everywhere</em>, but does <em>not</em> converge to the function on <em>any</em> open interval around <span class="math notranslate nohighlight">\(x=0\)</span>.</p>
-<p>Here’s the point:</p>
-<div class="proof theorem admonition" id="taylor-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.11 </span> (Taylor Series Uniqueness Theorem)</p>
-<section class="theorem-content" id="proof-content">
-<p>Suppose <span class="math notranslate nohighlight">\(y=f(x)\)</span> and <span class="math notranslate nohighlight">\(y=g(x)\)</span> are two functions whose Taylor series (centered at <span class="math notranslate nohighlight">\(x=0\)</span>) converge to <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> on open intervals containing <span class="math notranslate nohighlight">\(x=0\)</span>. Then the following statements are equivalent:</p>
-<ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\(f(x)=g(x)\)</span> for all <span class="math notranslate nohighlight">\(x\)</span> in an open interval containing <span class="math notranslate nohighlight">\(x=0\)</span>.</p></li>
-<li><p><span class="math notranslate nohighlight">\(f^{(k)}(0) = g^{(k)}(0)\)</span> for all <span class="math notranslate nohighlight">\(k\geq 0\)</span>.</p></li>
-<li><p>The Taylor series for <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> (centered at <span class="math notranslate nohighlight">\(x=0\)</span>) are equal coefficient-wise.</p></li>
-</ol>
-</section>
-</div><p>The proof of this “theorem” is a triviality. I will leave you to figure out the proof.</p>
-<p>So, what this Uniqueness Theorem tells us is that complete knowledge of <em>all</em> the values <span class="math notranslate nohighlight">\(f^{(k)}(0)\)</span> determines the function <span class="math notranslate nohighlight">\(y=f(x)\)</span> uniquely, at least locally near <span class="math notranslate nohighlight">\(x=0\)</span>. Therefore, even though we don’t have good intuition for what all the higher derivatives <span class="math notranslate nohighlight">\(f^{(k)}(0)\)</span> <em>mean</em>, they are still incredibly important and useful objects.</p>
-<p>Hold this lesson in your mind for just a little bit, because we are about to see something <em>very similar</em> occur in the context of moments of random variables.</p>
-<p>The gadget that is going to play the role for random variables analogous to Taylor series is defined in:</p>
-<div class="proof definition admonition" id="mgf-def">
-<p class="admonition-title"><span class="caption-number">Definition 8.6 </span></p>
-<section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable. The <em>moment generating function</em> (<em>MGF</em>) of <span class="math notranslate nohighlight">\(X\)</span> is defined to be</p>
-<div class="math notranslate nohighlight">
-\[
-\psi(t) = E(e^{tX}).
-\]</div>
-<p>We shall say the moment generating function <em>exists</em> if <span class="math notranslate nohighlight">\(\psi(t)\)</span> is finite for all <span class="math notranslate nohighlight">\(t\)</span> in an open interval containing <span class="math notranslate nohighlight">\(t=0\)</span>.</p>
-</section>
-</div><p>The reason that the function <span class="math notranslate nohighlight">\(\psi(t)\)</span> is said to “generate” the moments is encapsulated in:</p>
-<div class="proof theorem admonition" id="derivatives-mgf-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.12 </span> (Derivatives of Moment Generating Functions)</p>
-<section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable whose moment generating function <span class="math notranslate nohighlight">\(\psi(t)\)</span> exists. Then the moments <span class="math notranslate nohighlight">\(E(X^k)\)</span> are finite for all <span class="math notranslate nohighlight">\(k\geq 1\)</span>, and</p>
-<div class="math notranslate nohighlight">
-\[
-\psi^{(k)}(0) = E(X^k).
-\]</div>
-</section>
-</div><p>Thus, the moments <span class="math notranslate nohighlight">\(E(X^k)\)</span> may be extracted from the moment generating function <span class="math notranslate nohighlight">\(\psi(t)\)</span> simply by taking derivatives and evaluating at <span class="math notranslate nohighlight">\(t=0\)</span>.</p>
-<p><em>But why</em>?</p>
-<p>Here’s a quick explanation, restricted only to the first two moments when <span class="math notranslate nohighlight">\(k=1\)</span> and <span class="math notranslate nohighlight">\(k=2\)</span>. Supposing that all the moments are finite (which I will <em>not</em> prove), we simply differentiate:</p>
-<div class="math notranslate nohighlight">
-\[
-\psi'(t) = \frac{\text{d}}{\text{d} t} \left[E(e^{tX}) \right] = \frac{\text{d}}{\text{d} t} \sum_{x\in \mathbb{R}} e^{tx} p(x) = \sum_{x\in \mathbb{R}} \frac{\partial}{\partial t} \left[e^{tx} p(x)\right] = \sum_{x\in \mathbb{R}} x e^{tx} p(x).
-\]</div>
-<p>Notice that we used the LotUS in the second equality. Then:</p>
-<div class="math notranslate nohighlight">
-\[
-\psi'(0) = \sum_{x\in \mathbb{R}} x p(x) = E(X),
-\]</div>
-<p>which is what we wanted to prove. Differentiating one more time gives</p>
-<div class="math notranslate nohighlight">
-\[
-\psi''(t) = \sum_{x\in \mathbb{R}} x^2 e^{tx} p(x),
-\]</div>
-<p>and so</p>
-<div class="math notranslate nohighlight">
-\[
-\psi''(0) = \sum_{x\in\mathbb{R}} x^2 p(x) = E(X^2).
-\]</div>
-<p>Now, the true power of moment generating functions comes from the following extremely important and useful theorem, which may be seen as an analog of the Taylor Series Uniqueness Theorem stated above as <a class="reference internal" href="#taylor-thm">Theorem 8.11</a>. It essentially says that: <em>If you know all the moments, then you know the distribution.</em></p>
-<div class="proof theorem admonition" id="mgf-uniqueness-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.13 </span> (Moment Generating Function Uniqueness Theorem)</p>
-<section class="theorem-content" id="proof-content">
-<p>Suppose <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are two random variables whose moment generating functions <span class="math notranslate nohighlight">\(\psi_X(t)\)</span> and <span class="math notranslate nohighlight">\(\psi_Y(t)\)</span> exist. Then the following statements are equivalent:</p>
-<ol class="arabic simple">
-<li><p>The distributions of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are equal</p></li>
-<li><p><span class="math notranslate nohighlight">\(E(X^k) = E(Y^k)\)</span> for all <span class="math notranslate nohighlight">\(k\geq 1\)</span>.</p></li>
-<li><p>The moment generating functions <span class="math notranslate nohighlight">\(\psi_X(t)\)</span> and <span class="math notranslate nohighlight">\(\psi_Y(t)\)</span> are equal for all <span class="math notranslate nohighlight">\(t\)</span> in an open interval containing <span class="math notranslate nohighlight">\(t=0\)</span>.</p></li>
-</ol>
-</section>
-</div><p>Here is a very brief sketch of the proof: The implication <span class="math notranslate nohighlight">\((1) \Rightarrow (2)\)</span> follows from the fact that distributions determine moments. The implication <span class="math notranslate nohighlight">\((3) \Rightarrow (2)\)</span> follows from the observation that if <span class="math notranslate nohighlight">\(\psi_X(t) = \psi_Y(t)\)</span> for all <span class="math notranslate nohighlight">\(t\)</span> near <span class="math notranslate nohighlight">\(0\)</span>, then</p>
-<div class="math notranslate nohighlight">
-\[
-E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
-\]</div>
-<p>for all <span class="math notranslate nohighlight">\(k\geq 1\)</span>. The implication <span class="math notranslate nohighlight">\((2) \Rightarrow (3)\)</span> follows from the expansions</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{align*}
-\psi_X(t) &amp;= \sum_{x\in \mathbb{R}} e^{xt} p(x) \\
-&amp;= \sum_{x\in \mathbb{R}} \left( \sum_{k=0}^\infty \frac{(tx)^k}{k!} \right)p(x) \\
-&amp;= \sum_{k=0}^\infty  \left( \sum_{x\in \mathbb{R}} t^k p(x) \right)\frac{t^k}{k!} \\
-&amp;= \sum_{k=0}^\infty \frac{E(X^k)}{k!} t^k,
-\end{align*}\]</div>
-<p>and similarly</p>
-<div class="math notranslate nohighlight">
-\[
-\psi_Y(t) = \sum_{k=0}^\infty \frac{E(Y^k)}{k!} t^k.
-\]</div>
-<p>Thus, if the moments of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are all equal, then so too <span class="math notranslate nohighlight">\(\psi_X(t)\)</span> and <span class="math notranslate nohighlight">\(\psi_Y(t)\)</span> are equal, at least near <span class="math notranslate nohighlight">\(t=0\)</span>. Then, the <em>hard</em> part of the proof is showing that <span class="math notranslate nohighlight">\((2) \Rightarrow (1)\)</span> (or <span class="math notranslate nohighlight">\((3) \Rightarrow (1)\)</span>). <em>This</em>, unfortunately, we cannot do in this course, since it uses some <a class="reference external" href="https://en.wikipedia.org/wiki/Characteristic_function_(probability_theory)">rather sophisticated things</a>.</p>
-</section>
-<section id="computations-with-random-variables">
-<span id="fun-rvs"></span><h2><span class="section-number">8.6. </span>Computations with random variables<a class="headerlink" href="#computations-with-random-variables" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">8.6. </span>Multivariate normal distributions<a class="headerlink" href="#multivariate-normal-distributions" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -1033,12 +1160,12 @@ E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-and-correlation">8.1. Covariance and correlation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-normal-distributions">8.2. Multivariate normal distributions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-and-joint-distributions">8.3. Expectations and joint distributions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-and-conditional-distributions">8.4. Expectations and conditional distributions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moment-generating-functions">8.5. Moment generating functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-random-variables">8.6. Computations with random variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-and-joint-distributions">8.1. Expectations and joint distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-and-conditional-distributions">8.2. Expectations and conditional distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-random-variables">8.3. Computations with random variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moment-generating-functions">8.4. Moment generating functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-and-correlation">8.5. Covariance and correlation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-normal-distributions">8.6. Multivariate normal distributions</a></li>
 </ul>
   </nav></div>
 

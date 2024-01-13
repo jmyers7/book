@@ -18,6 +18,7 @@ latex:
 sphinx:
   extra_extensions:
     - sphinx_proof
+    - sphinx_togglebutton
   config:
     mathjax_config:
       tex:
