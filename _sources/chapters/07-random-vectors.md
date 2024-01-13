@@ -116,6 +116,8 @@ To reiterate:
 So, what do you get when you want to combine two random variables into a single object? Here's the answer:
 
 ```{prf:definition}
+:label: two-dim-vector-def
+
 Let $S$ be a probability space. A _$2$-dimensional random vector_ is a function
 
 $$
@@ -146,6 +148,8 @@ Here is the official definition. It will be worth comparing this to {prf:ref}`pr
 
 
 ```{prf:definition}
+:label: prob-measure-two-dim-def
+
 Let $(X,Y):S \to \mathbb{R}^2$ be a $2$-dimensional random vector on a probability space $S$ with probability measure $P$. We define the _probability measure_ of $(X,Y)$, denoted $P_{XY}$, via the formula
 
 $$
@@ -198,6 +202,8 @@ Do problem 1 on the worksheet.
 Before continuing, it might be worth briefly reviewing the definitions of _discrete_ and _bivariate continuous probability distributions_ (see {numref}`discrete-prob` for the first, and {numref}`bivar-cont-prob` for the second). The first types of distributions were defined in terms of the existence of probability mass functions, while the second were defined in terms of the existence of probability density functions. We use these definitions in:
 
 ```{prf:definition}
+:label: discrete-cont-two-dim-vec-def
+
 Let $(X,Y)$ be a $2$-dimensional random vector.
 
 * We shall say $(X,Y)$ is _discrete_, or that $X$ and $Y$ are _jointly discrete_, if the joint probability distribution $P_{XY}$ is discrete. In other words, we require that there exists a _joint probability mass function_ $p(x,y)$ such that
@@ -219,7 +225,9 @@ Let $(X,Y)$ be a $2$-dimensional random vector.
 
 So, the component random variables $X$ and $Y$ of a random vector $(X,Y)$ may be discrete or continuous, and the random vector $(X,Y)$ _itself_ may be discrete or continuous. What are the relations between these properties? Answer:
 
-```{prf:theorem} 
+```{prf:theorem}
+:label: joint-cont-cont-thm
+
 Let $(X,Y)$ be a $2$-dimensional random vector.
 
 1. The random vector $(X,Y)$ is discrete if and only if both $X$ and $Y$ are discrete.
@@ -274,6 +282,8 @@ Do problems 2-4 on the worksheet.
 We now generalize the cumulative distribution functions from {numref}`dist-func-rv` to $2$-dimensional random vectors.
 
 ```{prf:definition}
+:label: cdf-vector-def
+
 Let $(X,Y)$ be a $2$-dimensional random vector. The _distribution function_ of $(X,Y)$ is the function $F:\mathbb{R}^2 \to \mathbb{R}$ defined by
 
 $$
@@ -385,6 +395,7 @@ where the first equality follows from _the definition_ of $P_X$ while the last e
 
 ```{prf:theorem}
 :label: marg-thm
+
 Let $(X,Y)$ be a $2$-dimensional random vector with induced probability measure $P_{XY}$. Then the measures $P_X$ and $P_Y$ may be obtained via the formulas
 
 $$
@@ -416,6 +427,8 @@ In this scenario, the distributions $P_X$ and $P_Y$ have special names:
 
 
 ```{prf:definition}
+:label: marginal-def
+
 Let $(X,Y)$ be a $2$-dimensional random vector. Then the distributions $P_X$ and $P_Y$ are called the _marginal distributions_ of $(X,Y)$.
 ```
 
@@ -538,6 +551,8 @@ Thus, it might be more natural to say that our housing data constitutes an obser
 Adapting the definition of empirical distributions of univariate datasets from the [previous chapter](theory-to-practice) is also easy:
 
 ```{prf:definition}
+:label: empirical-bivar-def
+
 Let $(x_1,y_1),(x_2,y_2),\ldots,(x_m,y_m)$ be an observed bivariate random sample, i.e., a bivariate dataset. The _empirical distribution_ of the dataset is the discrete probability measure on $\mathbb{R}^2$ with joint probability mass function
 
 $$
@@ -703,6 +718,8 @@ At the most general level, defining _conditional distributions_ is surprisingly 
 Alright. We're ready for the definitions. At this level, it turns out that the easiest way to define conditional distributions is via mass and density functions:
 
 ```{prf:definition}
+:label: conditional-prob-functions-def
+
 Let $X$ and $Y$ be random variables.
 
 * Suppose $(X,Y)$ is discrete, so that both $X$ and $Y$ are discrete as well. The _conditional probability mass function of $X$ given $Y$_ is the function
@@ -732,6 +749,8 @@ Do problems 8 and 9 on the worksheet.
 Just _calling_ $p_{X|Y}(x|y)$ a probability mass function does not _make_ it so, and similarly for $f_{X|Y}(x|y)$. So, in what sense do these define probability measures?
 
 ```{prf:theorem}
+:label: conditionals-measures-thm
+
 Let $X$ and $Y$ be random variables.
 
 * In the case that $(X,Y)$ is discrete, for fixed $y$ with $p_Y(y)\neq 0$, the function $p_{X|Y}(x|y)$ is a probability mass function in the variable $x$. In particular, we have
@@ -818,6 +837,7 @@ Do problems 10 and 11 on the worksheet.
 Back in {numref}`total-prob-bayes`, we studied the Law of Total Probability and Bayes' Theorem for arbitrary probability measures. In this section, we adapt these results to the probability measures induced by random variables.
 
 ```{prf:theorem} The Law of Total Probability (for random variables)
+:label: law-of-total-prob-rvs-thm
 
 Let $X$ and $Y$ be random variables.
 
@@ -847,6 +867,7 @@ $$
 We used the definition of the conditional density in moving from the first integral to the second, while the second equality follows from {prf:ref}`marginal-thm`.
 
 ```{prf:theorem} Bayes' Theorem (for random variables)
+:label: bayes-rvs-thm
 
 Let $X$ and $Y$ be random variables.
 
@@ -900,6 +921,7 @@ Do problem 12 on the worksheet.
 Up till now in this chapter, we have studied pairs of random variables $X$ and $Y$, or what is the same thing, $2$-dimensional random vectors $(X,Y)$. But there's an obvious generalization of these considerations to higher dimensions:
 
 ```{prf:definition}
+:label: multi-dim-def
 
 Let $S$ be a probability space and $n\geq 1$ an integer. An _$n$-dimensional random vector_ is a function
 
@@ -919,6 +941,8 @@ for each sample point $s\in S$. When we do so, the functions $X_1,X_2,\ldots,X_n
 Random vectors in dimensions $>2$ induce joint probability distributions, just like their $2$-dimensional relatives:
 
 ```{prf:definition}
+:label: prob-measure-multi-def
+
 Let $(X_1,X_2,\ldots,X_n):S \to \mathbb{R}^n$ be an $n$-dimensional random vector on a probability space $S$ with probability measure $P$. We define the _probability measure_ of the random vector, denoted $P_{X_1X_2\cdots X_n}$, via the formula
 
 $$
@@ -1079,6 +1103,7 @@ P\big( g_1(\mathbf{X}_1)\in C_1,\ldots, g_m(\mathbf{X}_m)\in C_m \big) &= P\big(
 An immediate corollary of this theorem is the following result that shows independence of the components of random vectors follows from independence of the random vectors themselves.
 
 ```{prf:corollary} Independence of Components
+:label: ind-components-cor
 
 Suppose $\bX_1,\bX_2,\ldots,\bX_m$ are independent random vectors. Then all sequences
 
@@ -1107,6 +1132,7 @@ where each $g_i$ is the canonical projection just defined.
 Before moving on to the worksheet problems, we state a "random variable" version of the equation {eq}`cond-ind-eqn` describing independent events in terms of conditional probabilities.
 
 ```{prf:theorem} Conditional Criteria for Independence
+:label: conditional-ind-rvs-thm
 
 Let $X$ and $Y$ be two random variables.
 

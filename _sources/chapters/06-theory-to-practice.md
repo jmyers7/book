@@ -190,7 +190,7 @@ Why have two different types of random samples? Answers:
 
 
 
-
+(prob-models-emp-sec)=
 ## Probabilistic models and empirical distributions
 
 Suppose we conceptualize our Airbnb dataset $x_1,x_2,\ldots,x_m$ as an observation of a random sample $X_1,X_2,\ldots,X_m$. Since the random variables in the random sample are identically distributed, they all induce the _same_ probability distribution on $\mathbb{R}$. _But what is this distribution?_
@@ -650,6 +650,8 @@ x_1,x_2,\ldots,x_m,
 how might we estimate the unknown model parameters $\mu$ and $\sigma$?
 
 ```{prf:definition}
+:label: empirical-stats-def
+
 The *empirical mean* of a dataset $x_1,x_2,\ldots,x_m$ is defined to be the number
 
 \begin{equation*}
@@ -679,6 +681,7 @@ Though the empirical quantities $\bar{x}$, $s^2$, and $s$ all have definitions t
 
 ````{prf:definition}
 :label: emp-quantile-defn
+
 Let $x_1,x_2,\ldots,x_m$ be a dataset, written in non-decreasing order:
 
 ```{math}
@@ -709,6 +712,7 @@ Along with the empirical quartiles, you also see that this method from the Panda
 The range over which the middle 50% of a dataset sits is defined in:
 
 ```{prf:definition}
+:label: empirical-iqr-def
 
 The _empirical interquartile range_ (_empirical IQR_) of a dataset $x_1,x_2,\ldots,x_m$ is the difference
 
@@ -729,6 +733,8 @@ iqr_airbnb
 With the definition of _empirical IQR_ in hand, we may now define _outliers_:
 
 ```{prf:definition}
+:label: outlier-def
+
 Let $x_1,x_2,\ldots,x_m$ be a dataset. Then a data point $x_i$ is called an _outlier_ if it is above an upper threshold value
 
 \begin{equation*}
