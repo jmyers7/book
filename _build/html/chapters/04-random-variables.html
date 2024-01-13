@@ -63,7 +63,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "be": "\\mathbf{e}", "bg": "\\mathbf{g}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bTheta": "\\boldsymbol\\Theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bg": "\\mathbf{g}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bS": "\\mathbf{S}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/04-random-variables';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -180,12 +180,12 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="06-theory-to-practice.html">6. Connecting theory to practice: a first look at model building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="07-random-vectors.html">7. Random vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="08-more-prob.html">8. More probability theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09-optim.html">9. Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="10-models.html">10. Probabilistic models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="11-learning.html">11. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-stats-estimators.html">12. Bayesian parameter estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-asymptotic.html">13. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-more-samp-dist.html">14. More sampling distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-information-theory.html">9. Information theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-optim.html">10. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-models.html">11. Probabilistic graphical models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-learning.html">12. Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-stats-estimators.html">13. Statistics and general parameter estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-asymptotic.html">14. Large sample theory and more sampling distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="15-CIs.html">15. Confidence intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16-hyp-test.html">16. Hypothesis testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17-lin-reg.html">17. Linear regression</a></li>
@@ -425,7 +425,7 @@ document.write(`
 \[I:S \to \mathbb{R} \quad \text{and} \quad A: S \to \mathbb{R}.\]</div>
 <p>This means that the domain of both <span class="math notranslate nohighlight">\(I\)</span> and <span class="math notranslate nohighlight">\(A\)</span> is the population <span class="math notranslate nohighlight">\(S\)</span>, while the outputs lie in the set <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> of real numbers.</p>
 <p>So, does this mean that a <em>random variable</em> is secretly just a function? Yup! Here’s the definition:</p>
-<div class="proof definition admonition" id="definition-0">
+<div class="proof definition admonition" id="random-var-def">
 <p class="admonition-title"><span class="caption-number">Definition 4.1 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(S\)</span> be a probability space. A <em>random variable</em> on <span class="math notranslate nohighlight">\(S\)</span> is a function <span class="math notranslate nohighlight">\(X:S \to \mathbb{R}\)</span>.</p>
@@ -499,8 +499,8 @@ P(\{\text{people with annual income 45}\}) &amp;= 12/32 \approx 0.38, \\
 P(\{\text{people with annual income 50}\}) &amp;= 5/32 \approx 0.16.
 \end{align*}\]</div>
 <p>Now, remember that in addition to the probability measure <span class="math notranslate nohighlight">\(P\)</span> on <span class="math notranslate nohighlight">\(S\)</span>, there is supposed to be a <em>second</em> probability measure <span class="math notranslate nohighlight">\(P_X\)</span> on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. It turns out, however, that these previous four probabilities <em>are</em> the probabilities that come from <span class="math notranslate nohighlight">\(P_X\)</span>, by definition! Indeed, we <em>define</em> the probability measure <span class="math notranslate nohighlight">\(P_X\)</span> on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> by setting</p>
-<div class="math notranslate nohighlight" id="equation-inv-eqn">
-<span class="eqno">(4.1)<a class="headerlink" href="#equation-inv-eqn" title="Permalink to this equation">#</a></span>\[P_X(\{x\}) = P(\{\text{people with annual income $x$}\})\]</div>
+<div class="math notranslate nohighlight" id="equation-inv-01-eqn">
+<span class="eqno">(4.1)<a class="headerlink" href="#equation-inv-01-eqn" title="Permalink to this equation">#</a></span>\[P_X(\{x\}) = P(\{\text{people with annual income $x$}\})\]</div>
 <p>for each <span class="math notranslate nohighlight">\(x\in \mathbb{R}\)</span>, so that we may rewrite the above equations using <span class="math notranslate nohighlight">\(P_X\)</span> as:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
@@ -509,7 +509,7 @@ P_X(\{40\}) &amp;= 8/32 = 0.25, \\
 P_X(\{45\}) &amp;= 12/32 \approx 0.38, \\
 P_X(\{50\}) &amp;= 5/32 \approx 0.16.
 \end{align*}\]</div>
-<p>The equation <a class="reference internal" href="#equation-inv-eqn">(4.1)</a> is the fundamental bridge that relates the two probability measures <span class="math notranslate nohighlight">\(P\)</span> (on <span class="math notranslate nohighlight">\(S\)</span>) and <span class="math notranslate nohighlight">\(P_X\)</span> (on <span class="math notranslate nohighlight">\(\mathbb{R})\)</span>, so make sure that you understand it! (It will reappear below in the abstract definitions.)</p>
+<p>The equation <a class="reference internal" href="#equation-inv-01-eqn">(4.1)</a> is the fundamental bridge that relates the two probability measures <span class="math notranslate nohighlight">\(P\)</span> (on <span class="math notranslate nohighlight">\(S\)</span>) and <span class="math notranslate nohighlight">\(P_X\)</span> (on <span class="math notranslate nohighlight">\(\mathbb{R})\)</span>, so make sure that you understand it! (It will reappear below in the abstract definitions.)</p>
 <p>The probability measure <span class="math notranslate nohighlight">\(P\)</span> lives on the original probability space <span class="math notranslate nohighlight">\(S\)</span>, so we can’t really <em>visualize</em> it since <span class="math notranslate nohighlight">\(S\)</span> doesn’t have a nice linear structure like <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. However, the probability measure <span class="math notranslate nohighlight">\(P_X\)</span> lives on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, so we <em>can</em> visualize <em>it</em> using a probability histogram:</p>
 <a class="reference internal image-reference" href="../_images/discretedist.svg"><img alt="../_images/discretedist.svg" class="align-center" src="../_images/discretedist.svg" width="90%" /></a>
 <p> </p>
@@ -558,7 +558,7 @@ P_X(\{50\}) &amp;= 5/32 \approx 0.16.
 <section id="discrete-and-continuous-random-variables">
 <h2><span class="section-number">4.3. </span>Discrete and continuous random variables<a class="headerlink" href="#discrete-and-continuous-random-variables" title="Permalink to this heading">#</a></h2>
 <p>Two types of random variables will be the ones that are most frequently encountered in this class. Their definitions follow below. Before reading them, however, it might be worth reviewing our discussions of discrete and continuous probability measures in <a class="reference internal" href="02-prob-spaces.html#discrete-prob"><span class="std std-numref">Sections 2.6</span></a> and <a class="reference internal" href="02-prob-spaces.html#cont-prob"><span class="std std-numref">2.8</span></a>.</p>
-<div class="proof definition admonition" id="definition-2">
+<div class="proof definition admonition" id="discrete-continuous-rv-def">
 <p class="admonition-title"><span class="caption-number">Definition 4.3 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X:S\to \mathbb{R}\)</span> be a random variable.</p>
@@ -595,7 +595,7 @@ P_X(\{50\}) &amp;= 5/32 \approx 0.16.
 <section id="distribution-and-quantile-functions">
 <span id="dist-func-rv"></span><h2><span class="section-number">4.4. </span>Distribution and quantile functions<a class="headerlink" href="#distribution-and-quantile-functions" title="Permalink to this heading">#</a></h2>
 <p>If <span class="math notranslate nohighlight">\(X\)</span> is any type of random variable (discrete, continuous, or neither), then its probability measure <span class="math notranslate nohighlight">\(P_X\)</span> lives on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. As such, it has both distribution and quantile functions. We studied these latter types of functions in <a class="reference internal" href="02-prob-spaces.html#dist-quant"><span class="std std-numref">Section 2.10</span></a>. But in case you forgot their definitions, we review them in this section in the context of random variables.</p>
-<div class="proof definition admonition" id="definition-3">
+<div class="proof definition admonition" id="cdf-rv-def">
 <p class="admonition-title"><span class="caption-number">Definition 4.4 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable. The <em>distribution function of <span class="math notranslate nohighlight">\(X\)</span></em> is the function <span class="math notranslate nohighlight">\(F:\mathbb{R} \to \mathbb{R}\)</span> defined by</p>
@@ -621,7 +621,7 @@ F(x) = P(X \leq x).
 </ol>
 </section>
 </div><p>And here’s the definition of quantile functions:</p>
-<div class="proof definition admonition" id="definition-4">
+<div class="proof definition admonition" id="quantile-rv-def">
 <p class="admonition-title"><span class="caption-number">Definition 4.5 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable with distribution function <span class="math notranslate nohighlight">\(F:\mathbb{R} \to [0,1]\)</span>. The <em>quantile function of <span class="math notranslate nohighlight">\(X\)</span></em> is the function <span class="math notranslate nohighlight">\(Q: [0,1] \to \mathbb{R}\)</span> defined so that</p>
@@ -822,14 +822,14 @@ X: S \to \mathbb{R}, \quad X = \text{ largest of two numbers}.
 </div>
 <p>Notice that the mean values of the random variables <span class="math notranslate nohighlight">\(X_1\)</span> and <span class="math notranslate nohighlight">\(X_2\)</span> in the first row are “pulled” in the direction of higher “probability mass,” while the mean values of <span class="math notranslate nohighlight">\(X_3\)</span> and <span class="math notranslate nohighlight">\(X_4\)</span> in the second row lie on the “axes of symmetry” of the probability distributions. Think of the mean value of a random variable as the “center of mass” of its probability distribution.</p>
 <p>Before giving you the precise definitions, you need to know that mean values are also called <em>expected values</em>. (Quantum physicists also call them <em>expectation values</em>.) So, in the official, technical lingo, what we were computing above was the <em>expected value</em> of the random variable <span class="math notranslate nohighlight">\(X\)</span>.</p>
-<div class="proof definition admonition" id="definition-5">
+<div class="proof definition admonition" id="expected-val-rv-def">
 <p class="admonition-title"><span class="caption-number">Definition 4.6 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable.</p>
 <ul>
 <li><p>If <span class="math notranslate nohighlight">\(X\)</span> is discrete with probability mass function <span class="math notranslate nohighlight">\(p(x)\)</span>, then its <em>expected value</em>, denoted <span class="math notranslate nohighlight">\(E(X)\)</span>, is the sum</p>
-<div class="math notranslate nohighlight" id="equation-sum-eqn">
-<span class="eqno">(4.3)<a class="headerlink" href="#equation-sum-eqn" title="Permalink to this equation">#</a></span>\[
+<div class="math notranslate nohighlight" id="equation-sum-01-eqn">
+<span class="eqno">(4.3)<a class="headerlink" href="#equation-sum-01-eqn" title="Permalink to this equation">#</a></span>\[
   E(X) = \sum_{x\in \mathbb{R}} x\cdot p(x).
   \]</div>
 </li>
@@ -847,7 +847,7 @@ X: S \to \mathbb{R}, \quad X = \text{ largest of two numbers}.
 <p class="sidebar-title">Looking beyond…</p>
 <p>Though I have only defined expected values of discrete and continuous random variables, technically <em>all</em> random variables have expected values (though there may be convergence issues). However, in order to even <a href="https://en.wikipedia.org/wiki/Expected_value#Arbitrary_real-valued_random_variables"><em>define</em></a> these expected values, we would need the theory of Lebesgue integration that I mentioned above.</p>
 </aside>
-<p>Now, the sum <span class="math notranslate nohighlight">\(\sum_{x\in \mathbb{R}}\)</span> in <a class="reference internal" href="#equation-sum-eqn">(4.3)</a> simply means that we are adding up all terms of the form <span class="math notranslate nohighlight">\(x\cdot p(x)\)</span>, as <span class="math notranslate nohighlight">\(x\)</span> ranges over all real numbers in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. But remember, the random variable <span class="math notranslate nohighlight">\(X\)</span> is assumed to be <em>discrete</em>, so there are actually either only finitely many <span class="math notranslate nohighlight">\(p(x)\)</span>’s that are nonzero—in which case the sum is actually finite—or there are a countable infinity that are nonzero—in which case the sum is of the form <span class="math notranslate nohighlight">\(\sum_{n=1}^\infty\)</span>. In the latter case, there is the possibility that the expected value <span class="math notranslate nohighlight">\(E(X)\)</span> doesn’t exist, because the infinite series doesn’t converge. However, at this level, except for a few special cases, we won’t worry about such things. We shall <em>always</em> assume in this class that the infinite series converge and all our expected values exist. Even more, we shall assume that the series converge <em>absolutely</em>, which you might(?) remember means that the series of absolute values</p>
+<p>Now, the sum <span class="math notranslate nohighlight">\(\sum_{x\in \mathbb{R}}\)</span> in <a class="reference internal" href="#equation-sum-01-eqn">(4.3)</a> simply means that we are adding up all terms of the form <span class="math notranslate nohighlight">\(x\cdot p(x)\)</span>, as <span class="math notranslate nohighlight">\(x\)</span> ranges over all real numbers in <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. But remember, the random variable <span class="math notranslate nohighlight">\(X\)</span> is assumed to be <em>discrete</em>, so there are actually either only finitely many <span class="math notranslate nohighlight">\(p(x)\)</span>’s that are nonzero—in which case the sum is actually finite—or there are a countable infinity that are nonzero—in which case the sum is of the form <span class="math notranslate nohighlight">\(\sum_{n=1}^\infty\)</span>. In the latter case, there is the possibility that the expected value <span class="math notranslate nohighlight">\(E(X)\)</span> doesn’t exist, because the infinite series doesn’t converge. However, at this level, except for a few special cases, we won’t worry about such things. We shall <em>always</em> assume in this class that the infinite series converge and all our expected values exist. Even more, we shall assume that the series converge <em>absolutely</em>, which you might(?) remember means that the series of absolute values</p>
 <div class="math notranslate nohighlight">
 \[
 \sum_{x\in \mathbb{R}} |x\cdot p(x)| = \sum_{x\in \mathbb{R}} |x|\cdot p(x)
@@ -1105,7 +1105,7 @@ E(X) = \sum_{x\in \mathbb{R}}x\cdot P(X=x) \quad \text{and} \quad E(Y) = \sum_{y
 E(X+Y) = \sum_{z\in \mathbb{R}} z \cdot P(X+Y=z).
 \]</div>
 <p>But it is not clear at first glance that there is any sort of simple relationship between the three expectations in <a class="reference internal" href="#equation-huh1-eqn">(4.12)</a> and <a class="reference internal" href="#equation-huh2-eqn">(4.13)</a>. Nevertheless, as I will explain in a later chapter—after we’ve learned about <em>joint distributions</em>—these expectations are related through the first equation in:</p>
-<div class="proof theorem admonition" id="theorem-7">
+<div class="proof theorem admonition" id="linearity-init-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 4.2 </span> (Linearity of Expectations)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables and let <span class="math notranslate nohighlight">\(c\in \mathbb{R}\)</span> be a constant. Then:</p>
@@ -1155,7 +1155,7 @@ E(g_1(X) + g_2(X)) &amp;= E(g(X)) \notag \\
 <a class="reference internal image-reference" href="../_images/constant.svg"><img alt="../_images/constant.svg" class="align-center" src="../_images/constant.svg" width="50%" /></a>
 <p> </p>
 <p>Thus, every constant <span class="math notranslate nohighlight">\(c\in \mathbb{R}\)</span> may be considered a <em>constant</em> random variable. Your intuition would then suggest that the mean value of a <em>constant</em> random variable should be pretty easy to compute. And you’d be right!</p>
-<div class="proof theorem admonition" id="theorem-9">
+<div class="proof theorem admonition" id="expectation-constant-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 4.4 </span> (Expectations of Constants)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(c\in \mathbb{R}\)</span> be a constant, viewed as a constant random variable. Then <span class="math notranslate nohighlight">\(E(c) = c\)</span>.</p>
@@ -1239,7 +1239,7 @@ E(|X-\mu|) \approx \begin{cases} 0.08 &amp; : \text{left distribution}, \\ 0.18 
 \end{split}\]</div>
 <p>So, according to the dispersion measure <a class="reference internal" href="#equation-disp-eqn">(4.16)</a>, the right-hand distribution is, in fact, more spread out than the left-hand distribution. This is precisely what we expected!</p>
 <p>But while <a class="reference internal" href="#equation-disp-eqn">(4.16)</a> is a perfectly good measure of dispersion, for certain technical reasons it is not the one most often used. (For example, the function <span class="math notranslate nohighlight">\(g(x) = |x-\mu|\)</span> is not differentiable at <span class="math notranslate nohighlight">\(x=\mu\)</span>, which can complicate some things.) Instead, we don’t look at the average <em>actual</em> distance to the mean, rather we look at the average <em>squared distance</em> to the mean:</p>
-<div class="proof definition admonition" id="definition-10">
+<div class="proof definition admonition" id="variance-rv-def">
 <p class="admonition-title"><span class="caption-number">Definition 4.7 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable with expected value <span class="math notranslate nohighlight">\(\mu = E(X)\)</span>. The <em>variance</em> of <span class="math notranslate nohighlight">\(X\)</span>, denoted <span class="math notranslate nohighlight">\(V(X)\)</span>, is given by</p>
@@ -1252,7 +1252,7 @@ V(X) = E\left( (X-\mu)^2 \right).
 </div><p>As with expected values, there is the question of whether the variance actually <em>exists</em>. Moreover, technically we have only defined expected values for discrete and continuous random variables, so I <em>should</em> insert those qualifiers in the definition. But we don’t worry about these technicalities at this level.</p>
 <p>One of the advantages that the variance <a class="reference internal" href="#equation-var-eqn">(4.17)</a> has over <a class="reference internal" href="#equation-disp-eqn">(4.16)</a> is that the quadratic function <span class="math notranslate nohighlight">\(g(x) = (x-\mu)^2\)</span> is nice and smooth, whereas the absolute value function <span class="math notranslate nohighlight">\(g(x) = |x-\mu|\)</span> is not. Further differences can be uncovered by considering the graphs of these two functions: The first gives more weight to <span class="math notranslate nohighlight">\(x\)</span>-values far away from <span class="math notranslate nohighlight">\(\mu\)</span> as compared to the second, while it gives less weight to <span class="math notranslate nohighlight">\(x\)</span>-values close to <span class="math notranslate nohighlight">\(\mu\)</span> as compared to the second. (Draw the graphs!) These types of considerations are important when one studies <a href="https://en.wikipedia.org/wiki/Loss_function">loss, cost and error functions</a>.</p>
 <p>Due to the squaring operation, the units of the variance <span class="math notranslate nohighlight">\(V(X)\)</span> are the units of <span class="math notranslate nohighlight">\(X\)</span> <em>squared</em>. This is sometimes undesirable—for example, if <span class="math notranslate nohighlight">\(X\)</span> is measured in degrees Fahrenheit, then <span class="math notranslate nohighlight">\(V(X)\)</span> is measured in degrees Fahrenheit <em>squared</em>. So, in order to compare apples to apples, sometimes it is more useful to consider the following related measure of dispersion:</p>
-<div class="proof definition admonition" id="definition-11">
+<div class="proof definition admonition" id="std-rv-def">
 <p class="admonition-title"><span class="caption-number">Definition 4.8 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable. The <em>standard deviation</em> of <span class="math notranslate nohighlight">\(X\)</span>, denoted <span class="math notranslate nohighlight">\(\sigma_X\)</span> or just <span class="math notranslate nohighlight">\(\sigma\)</span>, is the positive square root of the variance:</p>
@@ -1297,8 +1297,8 @@ g(x) = ax+b,
 <p class="admonition-title"><span class="caption-number">Theorem 4.6 </span> (Variance of an Affine Transformation)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable and <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> constants. Then</p>
-<div class="amsmath math notranslate nohighlight" id="equation-05e74351-10f1-44c1-8472-b918c053ec40">
-<span class="eqno">(4.18)<a class="headerlink" href="#equation-05e74351-10f1-44c1-8472-b918c053ec40" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
+<div class="amsmath math notranslate nohighlight" id="equation-e2285731-df40-4526-8196-3b022775ed24">
+<span class="eqno">(4.18)<a class="headerlink" href="#equation-e2285731-df40-4526-8196-3b022775ed24" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
 V(aX +b) = a^2 V(X).
 \end{equation}\]</div>
 </section>

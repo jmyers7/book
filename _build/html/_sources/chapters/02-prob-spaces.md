@@ -32,6 +32,7 @@ We often make probabilistic statements in our everyday conversation, such as, "I
 These subjective probabilities may also change over time as new information arrives. If, for example, I initially believe that I have a 75% chance of failing my final exam, but then I surprise myself with a grade of 95% on the midterm, then I will likely decrease my assessment of the probability that I fail the final exam from 75% to a figure much smaller.
 
 ```{prf:definition}
+:label: prob-initial-def
 
 The interpretation that conceptualizes probabilities as measurements of _degrees of belief_ is called the _subjective_ (or _personal_) _interpretation_ of probability.
 ```
@@ -39,7 +40,7 @@ The interpretation that conceptualizes probabilities as measurements of _degrees
 If probabilities are inherently subjective, then the 'mathematical theory of probability' seems to be a contradiction in terms. After all, mathematics is supposed to be the most logically rigorous of all the sciences, so how could probability and mathematics ever be brought together?
 
 ```{margin}
-If you're interested in different interpretations of probability, you might find the [Wikipedia article](https://en.wikipedia.org/wiki/Probability_interpretations#) interesting.
+If you're interested in these different interpretations of probability, you might find the [Wikipedia article](https://en.wikipedia.org/wiki/Probability_interpretations#) interesting.
 ```
 
 This question is a difficult one, and we will uncover answers in due time. But there are other interpretations of probability with which we will begin our course.
@@ -65,6 +66,7 @@ But _why_ this particular value? Perhaps this:
 This invokes the following interpretation of probability:
 
 ```{prf:definition}
+:label: classical-prob-def
 
 The interpretation of probability whose characteristc qualities are appeals to "symmetry" and decompositions of events into "equally likely outcomes" is called the _classical interpretation_ of probability.
 ```
@@ -146,6 +148,7 @@ Now we can _really_ see that the relative frequency of $4$s is approaching the r
 This demonstration suggests that if we wanted a justification for the value $1/6$ for $P(4)$ that does not rely upon symmetries of the die, we might explain this value as the long-run relative frequency of the number of $4$s rolled. This hints at a _third_ interpretation of probability:
 
 ```{prf:definition}
+:label: frequentist-prob
 
 The interpretation that conceptualizes probabilities as long-run relative frequencies is called the _frequentist interpretation_ of probability.
 ```
@@ -324,6 +327,8 @@ The first task that we set out for ourselves is to recast the three (informally 
 First:
 
 ```{prf:definition}
+:label: set-defn
+
 A *set* is a set.
 ```
 
@@ -484,6 +489,7 @@ This equation simply says that the set of elements that are in $A$ and $B$ is em
 This leads us to make a definition of a term that we saw in the previous section:
 
 ```{prf:definition}
+:label: disjoint-def
 
 Two sets $A$ and $B$ are called *disjoint* if their intersection is empty, i.e., $A \cap B = \emptyset$.
 ```
@@ -581,12 +587,13 @@ Technically, this definition of an _event_ is _almost_ correct. There's actually
 ```
 
 ```{prf:definition}
+:label: prob-space-def
 
 A _probability space_ consists of three things:
 
 1. A set $S$ called the _sample space_.
     
-    * A sample space $S$ often consists of all possible outcomes of a process or experiment, or it is the population under study (as defined back in {prf:ref}`population-def`).
+    * A sample space $S$ often consists of all possible outcomes of a process or experiment, or it is the population under study.
     
     * The elements of $S$ are called _sample points_ or _outcomes_.
 
@@ -628,6 +635,7 @@ Do problems 4-6 on the worksheet.
 Before we move on to talk about the third ingredient in a probability space, let me add one important thing about events:
 
 ````{prf:theorem} Properties of Events
+:label: prob-events-thm
 
 Let $S$ be a sample space.
 
@@ -677,6 +685,7 @@ Now, even though it might not be clear at first glance, these defining axioms of
 In fact, not only do our three probability axioms flow from them, but a few other nice properties of probability too:
 
 ```{prf:theorem} Properties of Probability Measures
+:label: prop-measures-thm
 
 Let $P$ be a probability measure on a sample space $S$.
 
@@ -768,6 +777,8 @@ So, let's begin filling up our probabilistic toolkit!
 The first types of probability measures that we shall study are the _discrete_ ones. To define them, first we need a definition:
 
 ```{prf:definition}
+:label: support-def
+
 Let $S$ be any set and $p:S\to \mathbb{R}$ a function.
 
 1. The _support_ of $p$ is the set of all points $s\in S$ where $p(s)$ is nonzero, i.e., it is the set
@@ -780,6 +791,7 @@ Let $S$ be any set and $p:S\to \mathbb{R}$ a function.
 But wait a minute! What does "countably infinite" mean?
 
 ```{prf:definition} sort of
+:label: countable-def
 
 A set $A$ is *countably infinite* if, given an infinite amount of time, I could count the elements of $A$ one at a time, counting one element per second.
 ```
@@ -809,6 +821,8 @@ Indeed, if we are counting the numbers in $[0,1]$ from left to right, we would b
 We are now ready to define _discrete probability measures_:
 
 ```{prf:definition}
+:label: discrete-measure-def
+
 Let $P$ be a probability measure on a sample space $S$. We shall say $P$ is _discrete_ if every subset $A\subset S$ is an event and there is a function $p:S\to \mathbb{R}$ with discrete support such that
 
 $$P(A) = \sum_{s\in A} p(s),$$(disc-eqn)
@@ -831,6 +845,8 @@ Do problems 7 and 8 on the worksheet.
 Now, I want to state some properties of probability functions:
 
 ```{prf:theorem} Properties of Probability Mass Functions
+:label: prop-pmf-thm
+
 Let $p(s)$ be the probability mass function of a discrete probability measure $P$. Then:
 
 1. $p(s) \geq 0$ for all $s\in S$, and
@@ -851,6 +867,7 @@ You might be concerned that I did not mention explicitly that $p(s) \leq 1$ (for
 The two properties of probability functions identified above are very important, because they essentially characterize _all_ functions that can serve as probability functions for _some_ discrete probability measure. This is the content of the following important result that we will use over and over:
 
 ```{prf:theorem} Discrete Probability Construction Lemma
+:label: discrete-construction-thm
 
 Let $S$ be a set and $p:S \to \mathbb{R}$ a function with discrete support. If
 
@@ -888,6 +905,8 @@ Not so bad, right? The Discrete Probability Construction Lemma might look intimi
 There are _even simpler_ versions of discrete probability measures!
 
 ```{prf:definition}
+:label: uniform-def
+
 Let $P$ be a discrete probability measure on a sample space $S$ with probability mass function $p(s)$. Then $P$ is called a _uniform probability measure_ if the support of $p(s)$ has finite cardinality $n>0$, and if
 
 $$p(s) = \frac{1}{n}$$
@@ -1040,6 +1059,8 @@ which shows---as I mentioned above---that the probability of an individual sampl
 This discussion leads us to:
 
 ```{prf:definition}
+:label: continuous-measure-def
+
 Let $P$ be a probability measure on $\mathbb{R}$. We shall say $P$ is *continuous* if there is a function $f:\mathbb{R} \to \mathbb{R}$ such that
 
 $$P\big( A \big) = \int_A f(s) \ \text{d} s $$ (cont-eqn)
@@ -1076,6 +1097,7 @@ Do problems 12 and 13 on the worksheet.
 It turns out that probability density functions have similar properties compared to probability mass functions:
 
 ```{prf:theorem} Properties of Probability Density Functions (univariate version)
+:label: prop-pdf-thm
 
 Let $f(s)$ be the probability density function of a continuous probability measure $P$ on $\mathbb{R}$. Then:
 
@@ -1087,6 +1109,7 @@ Let $f(s)$ be the probability density function of a continuous probability measu
 Conversely, any function $f$ with these two properties defines a unique continuous probability measure:
 
 ```{prf:theorem} Continuous Probability Construction Lemma (univariate version)
+:label: continuous-construction-thm
 
 Let $f:\mathbb{R} \to \mathbb{R}$ be a function such that
 
@@ -1233,6 +1256,7 @@ $$P\big( [2,4] \big) = \int_2^4 f(s) \ \text{d} s = \frac{1}{4}.$$
 We have seen that discrete probability measures have their probability mass functions, while continuous probability measures (on $\mathbb{R}$) have their probability density functions. In this section, we study a type of function called a _distribution function_ that may be associated with _any_ probability measure on $\mathbb{R}$, whether the measure is discrete, continuous, or neither.
 
 ````{prf:definition}
+:label: distribution-function-def
 
 A _distribution function_ of a probability measure $P$ on $\mathbb{R}$ is the function $F:\mathbb{R} \to \mathbb{R}$ such that
 
@@ -1417,6 +1441,7 @@ plt.tight_layout()
 In contrast to the distribution function above, notice that this one is _continuous_. So, we have noted that the _discrete_ probability measure above has a distribution function which is a step function, while the _continuous_ probability measure above has a distribution function which is itself continuous. These are _not_ coincidences! In fact:
 
 ```{prf:theorem} Properties of Distribution Functions
+:label: prop-cdf-thm
 
 Let $F(s)$ be the distribution function of a probability measure $P$ on $\mathbb{R}$. Then:
 
@@ -1459,6 +1484,7 @@ Time for some practice with distribution functions. Do problems 15 and 16 on the
 It turns out that there is a very tight connection between distribution functions of continuous probability measures on $\mathbb{R}$ and density functions. This connection is expressed in:
 
 ```{prf:theorem} The Fundamental Theorem of Calculus (probability version)
+:label: ftc-thm
 
 Let $F(s)$ be the distribution function of a probability measure $P$ on $\mathbb{R}$. If $F(s)$ is continuous, then:
 
@@ -1493,6 +1519,7 @@ Do problem 17 on the worksheet.
 Having studied distribution functions, we now study their (almost) inverses:
 
 ```{prf:definition}
+:label: quantile-function-def
 
 Let $P$ be a probability measure on $\mathbb{R}$ with distribution function $F:\mathbb{R} \to [0,1]$. The _quantile function_ $Q: (0,1) \to \mathbb{R}$ is defined so that
 
@@ -1676,6 +1703,7 @@ Having studied continuous probability measures on the real line $\mathbb{R}$, it
 Here's the definition:
 
 ```{prf:definition}
+:label: bivariate-continuous-def
 
 Let $P$ be a probability measure on $\mathbb{R}^2$. We shall say $P$ is _continuous_ if there is a function $f:\mathbb{R}^2 \to \mathbb{R}$ such that
 
@@ -1693,6 +1721,7 @@ Do problems 20 and 21 on the worksheet.
 We have the following list of properties of bivariate density functions. This is now the *third* version of this same list of properties!
 
 ```{prf:theorem} Properties of Probability Density Functions (bivariate version)
+:label: prop-bi-pdf-thm
 
 Let $f(s,t)$ be the probability density function of a continuous probability measure $P$ on $\mathbb{R}^2$. Then:
 
@@ -1704,6 +1733,7 @@ Let $f(s,t)$ be the probability density function of a continuous probability mea
 And we also have a *third* version of the Probability Construction Lemma. (Are you detecting the pattern yet...?)
 
 ```{prf:theorem} Continuous Probability Construction Lemma (bivariate version)
+:label: continuous-bi-construction-thm
 
 Let $f:\mathbb{R}^2 \to \mathbb{R}$ be a function such that
 

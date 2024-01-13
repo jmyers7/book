@@ -63,12 +63,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "be": "\\mathbf{e}", "bg": "\\mathbf{g}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bTheta": "\\boldsymbol\\Theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bg": "\\mathbf{g}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bS": "\\mathbf{S}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/08-more-prob';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="9. Optimization" href="09-optim.html" />
+    <link rel="next" title="9. Information theory" href="09-information-theory.html" />
     <link rel="prev" title="7. Random vectors" href="07-random-vectors.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -180,12 +180,12 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="06-theory-to-practice.html">6. Connecting theory to practice: a first look at model building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="07-random-vectors.html">7. Random vectors</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">8. More probability theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09-optim.html">9. Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="10-models.html">10. Probabilistic models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="11-learning.html">11. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-stats-estimators.html">12. Bayesian parameter estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-asymptotic.html">13. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-more-samp-dist.html">14. More sampling distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-information-theory.html">9. Information theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-optim.html">10. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-models.html">11. Probabilistic graphical models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-learning.html">12. Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-stats-estimators.html">13. Statistics and general parameter estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-asymptotic.html">14. Large sample theory and more sampling distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="15-CIs.html">15. Confidence intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16-hyp-test.html">16. Hypothesis testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17-lin-reg.html">17. Linear regression</a></li>
@@ -353,20 +353,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-and-correlation">8.1. Covariance and correlation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functional-dependence-of-random-variables">8.1.1. Functional dependence of random variables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance">8.1.2. Covariance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation">8.1.3. Correlation</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-and-correlation">8.1. Covariance and correlation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-normal-distributions">8.2. Multivariate normal distributions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-and-joint-distributions">8.3. Expectations and joint distributions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-and-conditional-distributions">8.4. Expectations and conditional distributions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moment-generating-functions">8.5. Moment generating functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-brief-return-to-calculus">8.5.1. A brief return to calculus</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-definition-and-uniqueness-theorem">8.5.2. The definition and uniqueness theorem</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moment-generating-functions">8.5. Moment generating functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-random-variables">8.6. Computations with random variables</a></li>
 </ul>
             </nav>
@@ -379,16 +370,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="more-probability-theory">
+  <p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
+<section class="tex2jax_ignore mathjax_ignore" id="more-probability-theory">
 <h1><span class="section-number">8. </span>More probability theory<a class="headerlink" href="#more-probability-theory" title="Permalink to this heading">#</a></h1>
-<p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
 <section id="covariance-and-correlation">
 <h2><span class="section-number">8.1. </span>Covariance and correlation<a class="headerlink" href="#covariance-and-correlation" title="Permalink to this heading">#</a></h2>
-<section id="functional-dependence-of-random-variables">
-<h3><span class="section-number">8.1.1. </span>Functional dependence of random variables<a class="headerlink" href="#functional-dependence-of-random-variables" title="Permalink to this heading">#</a></h3>
 <p>If two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <em>not</em> <a class="reference internal" href="07-random-vectors.html#independence"><span class="std std-ref">independent</span></a>, then (naturally) they are called <em>dependent</em>. Though our goal in this chapter is to study a <em>particular type</em> of dependence between random variables, I think it will benefit us by first discussing dependence in general.</p>
 <p>A natural source of examples of dependent random variables are those which are <em>functionally</em> dependent in the sense of the following theorem:</p>
-<div class="proof theorem admonition" id="theorem-0">
+<div class="proof theorem admonition" id="functional-dep-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.1 </span> (Functional dependence <span class="math notranslate nohighlight">\(\Rightarrow\)</span> dependence)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be random variables. If <span class="math notranslate nohighlight">\(Y = h(X)\)</span> for some function <span class="math notranslate nohighlight">\(h:\mathbb{R} \to \mathbb{R}\)</span>, then <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are dependent.</p>
@@ -438,21 +427,23 @@ h(x) = x(x-1)(x-2)
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">matplotlib_inline.backend_inline</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">600</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
-
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">blue</span> <span class="o">=</span> <span class="s1">&#39;#486AFB&#39;</span>
+<span class="n">magenta</span> <span class="o">=</span> <span class="s1">&#39;#FD46FC&#39;</span>
 
 <span class="k">def</span> <span class="nf">h</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
 
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">h</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
@@ -460,7 +451,7 @@ h(x) = x(x-1)(x-2)
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y=h(x)$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -468,8 +459,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/156e85ef56eae6b6b05ccd04ee9da0ac30a86d6f9bf22e417790e0ff3d5ce0e3.png"><img alt="../_images/156e85ef56eae6b6b05ccd04ee9da0ac30a86d6f9bf22e417790e0ff3d5ce0e3.png" src="../_images/156e85ef56eae6b6b05ccd04ee9da0ac30a86d6f9bf22e417790e0ff3d5ce0e3.png" style="width: 80%;" /></a>
-</figure>
+<img alt="../_images/06e7cc47ebb3e4681cef969bf24f452bcae436df2d6e68420f2a5c9a3e4c6531.svg" src="../_images/06e7cc47ebb3e4681cef969bf24f452bcae436df2d6e68420f2a5c9a3e4c6531.svg" /></figure>
 </div>
 </div>
 <p>The plot looks exactly like we would expect: A bunch of points lying on the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span>.</p>
@@ -484,7 +474,7 @@ h(x) = x(x-1)(x-2)
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 <span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
-<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
@@ -502,8 +492,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/3fb167f344634793c034311aff283f9a3a8036cfb72df240c2b4d9b319a9c6bf.png"><img alt="../_images/3fb167f344634793c034311aff283f9a3a8036cfb72df240c2b4d9b319a9c6bf.png" src="../_images/3fb167f344634793c034311aff283f9a3a8036cfb72df240c2b4d9b319a9c6bf.png" style="width: 100%;" /></a>
-</figure>
+<img alt="../_images/274fe771d0dd83161bbc993f09128c6d1de93c6ff168114438a96692ed0e323f.svg" src="../_images/274fe771d0dd83161bbc993f09128c6d1de93c6ff168114438a96692ed0e323f.svg" /></figure>
 </div>
 </div>
 <p>The “noisy” functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span> for reference. Instead of lying directly on the graph of <span class="math notranslate nohighlight">\(y=h(x)\)</span>, the data is clustered along the graph.</p>
@@ -519,7 +508,7 @@ h(x) = x(x-1)(x-2)
 <span class="n">epsilon</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 <span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
-<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">epsilon</span>
@@ -537,8 +526,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/d494f65fb91e5b31237c3106043afba73f27667082e3c19097980b9540be5a4d.png"><img alt="../_images/d494f65fb91e5b31237c3106043afba73f27667082e3c19097980b9540be5a4d.png" src="../_images/d494f65fb91e5b31237c3106043afba73f27667082e3c19097980b9540be5a4d.png" style="width: 100%;" /></a>
-</figure>
+<img alt="../_images/909ceba54c9325964871f4ff2ebf3ac9627906d177e9f68893c7b629762ed7cf.svg" src="../_images/909ceba54c9325964871f4ff2ebf3ac9627906d177e9f68893c7b629762ed7cf.svg" /></figure>
 </div>
 </div>
 <p>We have already seen scatter plots like this before! Indeed, recall Ames housing dataset from the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and the <a class="reference internal" href="07-random-vectors.html#motivation"><span class="std std-ref">beginning</span></a> of the previous chapter consisting of pairs</p>
@@ -560,6 +548,7 @@ h(x) = x(x-1)(x-2)
 <span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span> <span class="p">:</span> <span class="mf">0.3</span><span class="p">},</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span> <span class="p">:</span> <span class="s1">&#39;#FD46FC&#39;</span><span class="p">})</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -567,19 +556,15 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/4844ca562f1cfb883992bbc207ac8b12bbe8d6d25b7b8ae375935816a8c78287.png"><img alt="../_images/4844ca562f1cfb883992bbc207ac8b12bbe8d6d25b7b8ae375935816a8c78287.png" src="../_images/4844ca562f1cfb883992bbc207ac8b12bbe8d6d25b7b8ae375935816a8c78287.png" style="width: 80%;" /></a>
-</figure>
+<img alt="../_images/41437496f4b75b095ff3fde88e122e5db74bfd53d3263947377ee5034ea35662.svg" src="../_images/41437496f4b75b095ff3fde88e122e5db74bfd53d3263947377ee5034ea35662.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>The line in this plot that the data clusters along is called the <em>linear-regression line</em>. We will study these in <a class="reference internal" href="10-models.html#prob-models"><span class="std std-numref">Chapters 10</span></a> and <a class="reference internal" href="17-lin-reg.html#lin-reg"><span class="std std-numref">17</span></a>.</p>
+<p>The line in this plot that the data clusters along is called the <em>linear-regression line</em>. We will study these in <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapters 11</span></a> and <a class="reference internal" href="17-lin-reg.html#lin-reg"><span class="std std-numref">17</span></a>.</p>
 </aside>
 <p>There appears to be a “noisy” linear dependence between the size of a house <span class="math notranslate nohighlight">\(X\)</span> and its selling price <span class="math notranslate nohighlight">\(Y\)</span>. Moreover, the line that the data naturally clusters along has positive slope, which indicates that as the size of a house increases, its selling price tends to increase as well.</p>
 <p>Our goal in this section of the chapter is to uncover ways to <em>quantify</em> or <em>measure</em> the strength of “noisy” linear dependencies between random variables. We will discover that there are two such measures: <em>Covariance</em> and <em>correlation</em>.</p>
-</section>
-<section id="covariance">
-<h3><span class="section-number">8.1.2. </span>Covariance<a class="headerlink" href="#covariance" title="Permalink to this heading">#</a></h3>
 <p>The definition of <em>covariance</em> is based on the following pair of basic observations:</p>
 <blockquote>
 <div><ol class="arabic simple">
@@ -608,6 +593,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span> <span class="p">:</span> <span class="mf">0.3</span><span class="p">},</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span> <span class="p">:</span> <span class="s1">&#39;#FD46FC&#39;</span><span class="p">})</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;shifted area&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;shifted price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -615,8 +601,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/43705c0a7cc82c57b198e919de06852551a298cdd8786f50063c91fd9198a497.png"><img alt="../_images/43705c0a7cc82c57b198e919de06852551a298cdd8786f50063c91fd9198a497.png" src="../_images/43705c0a7cc82c57b198e919de06852551a298cdd8786f50063c91fd9198a497.png" style="width: 80%;" /></a>
-</figure>
+<img alt="../_images/2adee0d2dfd49889c1712d7549513f1ab2dfe1fc865589b35cf11ff0f3b47021.svg" src="../_images/2adee0d2dfd49889c1712d7549513f1ab2dfe1fc865589b35cf11ff0f3b47021.svg" /></figure>
 </div>
 </div>
 <p>You can see that the dataset has not changed its shape—it has only shifted so that its “center” is at the origin <span class="math notranslate nohighlight">\((0,0)\)</span>.</p>
@@ -628,7 +613,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </ol>
 </div></blockquote>
 <p>Essentially, the next definition takes the average value of the product <span class="math notranslate nohighlight">\(xy\)</span>, as <span class="math notranslate nohighlight">\((x,y)\)</span> ranges over observed pairs of values of a pair <span class="math notranslate nohighlight">\((X,Y)\)</span> of <strong>centered</strong> random variables. If this average value is positive, it suggests a (noisy) linear dependence with positive slope; if it is negative, it suggests a (noisy) linear dependence with negative slope. A larger average (in either direction—positive or negative) tends to indicate a <em>stronger</em> dependency. If the random variables are not centered, then we subtract off their means before computing the product and taking its average value.</p>
-<div class="proof definition admonition" id="definition-1">
+<div class="proof definition admonition" id="covar-def">
 <p class="admonition-title"><span class="caption-number">Definition 8.1 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables with expectations <span class="math notranslate nohighlight">\(\mu_X = E(X)\)</span> and <span class="math notranslate nohighlight">\(\mu_Y = E(Y)\)</span>. The <em>covariance</em> of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, denoted either by <span class="math notranslate nohighlight">\(\sigma(X,Y)\)</span> or <span class="math notranslate nohighlight">\(\sigma_{XY}\)</span>, is defined via the equation</p>
@@ -706,9 +691,6 @@ V(a_1X_1 + \cdots + a_m X_m) &amp;= \sigma\Big(\sum_{i=1}^m a_i X_i, \sum_{j=1}^
 \[
 V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 \]</div>
-</section>
-<section id="correlation">
-<h3><span class="section-number">8.1.3. </span>Correlation<a class="headerlink" href="#correlation" title="Permalink to this heading">#</a></h3>
 <p>While the signs of covariances are significant, their precise numerical values may be less so. One reason for this is that covariances are unbounded, in the sense that they may take any value from <span class="math notranslate nohighlight">\(-\infty\)</span> to <span class="math notranslate nohighlight">\(+\infty\)</span>. They are also sensitive to the scales on which the variables are measured. For example, in the housing dataset that we considered in the previous section, suppose that <span class="math notranslate nohighlight">\(Z\)</span> represents the size of a house measured in <em>hundreds</em> of square feet; then <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> are related via the equation <span class="math notranslate nohighlight">\(Z = X/100\)</span>. But then, according to <a class="reference internal" href="#bilinear-thm">Theorem 8.3</a>, we have</p>
 <div class="math notranslate nohighlight">
 \[
@@ -716,7 +698,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 \]</div>
 <p>so the covariance between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> is <em>different</em> from the covariance between <span class="math notranslate nohighlight">\(Z\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. The fact that covariances are unbounded and sensitive to scale means that the precise values of covariances can be hard to interpret.</p>
 <p>The remedy is to define a “normalized” measure of linear dependence:</p>
-<div class="proof definition admonition" id="definition-5">
+<div class="proof definition admonition" id="correlation-def">
 <p class="admonition-title"><span class="caption-number">Definition 8.2 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables. The <em>correlation</em> of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, denoted by either <span class="math notranslate nohighlight">\(\rho(X,Y)\)</span> or <span class="math notranslate nohighlight">\(\rho_{XY}\)</span>, is defined via the equation</p>
@@ -726,7 +708,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 \]</div>
 </section>
 </div><p>The key properties of correlation are given in the following:</p>
-<div class="proof theorem admonition" id="theorem-6">
+<div class="proof theorem admonition" id="prop-correlation-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.5 </span> (Properties of correlation)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be random variables.</p>
@@ -746,7 +728,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 </section>
 </div><p>The symmetry property of correlation follows from the same property of covariance in <a class="reference internal" href="#bilinear-thm">Theorem 8.3</a>. Scale invariance follows from bilinearity of covariance, as well as the equality <span class="math notranslate nohighlight">\(\sigma_{aX} = |a| \sigma_X\)</span> established in <a class="reference internal" href="04-random-variables.html#var-affine-thm">Theorem 4.6</a> (or its generalization <a class="reference internal" href="#variance-lin-combo-thm">Theorem 8.4</a>). The proof of normalization is a bit more involved but still not very difficult. It requires the Cauchy-Schwarz inequality; see the proof in Section 4.6 of <span id="id1">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>, for example.</p>
 <p>Remember, covariance and correlation were cooked up to measure linear dependencies between random variables. We wonder, then, what is the correlation between two random variables that are <em>perfectly</em> linearly dependent? Answer:</p>
-<div class="proof theorem admonition" id="theorem-7">
+<div class="proof theorem admonition" id="linearity-correlation-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.6 </span></p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable and <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> constants with <span class="math notranslate nohighlight">\(a\neq 0\)</span>. Then</p>
@@ -764,13 +746,13 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 \rho(X,aX+b) = \frac{a\sigma(X,X)+\sigma(X,b)}{\sigma_X\sigma_{aX+b}} = \frac{a V(X)}{\sqrt{V(X)}\sqrt{a^2V(X)}} = \frac{a}{|a|}.
 \]</div>
 <p>We give a name to two random variables whose correlation is zero:</p>
-<div class="proof definition admonition" id="definition-8">
+<div class="proof definition admonition" id="uncorrelated-def">
 <p class="admonition-title"><span class="caption-number">Definition 8.3 </span></p>
 <section class="definition-content" id="proof-content">
 <p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are two random variables with <span class="math notranslate nohighlight">\(\rho(X,Y)=0\)</span>, then we say <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <em>uncorrelated</em>. Otherwise, they are said to be <em>(linearly) correlated</em>.</p>
 </section>
 </div><p>You should think of independence as a strong form of uncorrelated-ness. This is the content of the first part of the following result:</p>
-<div class="proof theorem admonition" id="theorem-9">
+<div class="proof theorem admonition" id="ind-vs-correlation-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.7 </span> (Dependence and correlation)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be random variables.</p>
@@ -786,14 +768,13 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 \]</div>
 <p>and then <span class="math notranslate nohighlight">\(\rho_{XY} = \sigma_{XY} / (\sigma_X \sigma_Y) = 0\)</span>.</p>
 </section>
-</section>
 <section id="multivariate-normal-distributions">
 <h2><span class="section-number">8.2. </span>Multivariate normal distributions<a class="headerlink" href="#multivariate-normal-distributions" title="Permalink to this heading">#</a></h2>
 </section>
 <section id="expectations-and-joint-distributions">
 <h2><span class="section-number">8.3. </span>Expectations and joint distributions<a class="headerlink" href="#expectations-and-joint-distributions" title="Permalink to this heading">#</a></h2>
 <p>The following is a bivariate generalization of the LotUS from <a class="reference internal" href="04-random-variables.html#lotus-thm">Theorem 4.1</a>.</p>
-<div class="proof theorem admonition" id="theorem-10">
+<div class="proof theorem admonition" id="bivariate-lotus-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.8 </span> (Bivariate Law of the Unconscious Statistician)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables and <span class="math notranslate nohighlight">\(g:\mathbb{R}^2 \to \mathbb{R}\)</span> a function.</p>
@@ -852,7 +833,7 @@ E(X+Y) &amp;= \iint_{\mathbb{R}^2} (x+y) f(x,y) \ \text{d}x \text{d}y \\
 </section>
 <section id="expectations-and-conditional-distributions">
 <span id="cond-expect"></span><h2><span class="section-number">8.4. </span>Expectations and conditional distributions<a class="headerlink" href="#expectations-and-conditional-distributions" title="Permalink to this heading">#</a></h2>
-<div class="proof definition admonition" id="definition-13">
+<div class="proof definition admonition" id="conditional-exp-def">
 <p class="admonition-title"><span class="caption-number">Definition 8.4 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables.</p>
@@ -875,9 +856,7 @@ E(X+Y) &amp;= \iint_{\mathbb{R}^2} (x+y) f(x,y) \ \text{d}x \text{d}y \\
 </div></section>
 <section id="moment-generating-functions">
 <span id="mgf"></span><h2><span class="section-number">8.5. </span>Moment generating functions<a class="headerlink" href="#moment-generating-functions" title="Permalink to this heading">#</a></h2>
-<section id="a-brief-return-to-calculus">
-<h3><span class="section-number">8.5.1. </span>A brief return to calculus<a class="headerlink" href="#a-brief-return-to-calculus" title="Permalink to this heading">#</a></h3>
-<div class="proof definition admonition" id="definition-14">
+<div class="proof definition admonition" id="moments-def">
 <p class="admonition-title"><span class="caption-number">Definition 8.5 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(k\geq 1\)</span> be an integer and <span class="math notranslate nohighlight">\(X\)</span> a random variable.</p>
@@ -912,11 +891,8 @@ e^x = \sum_{k=0}^\infty \frac{x^k}{k!}.
 </div><p>The proof of this “theorem” is a triviality. I will leave you to figure out the proof.</p>
 <p>So, what this Uniqueness Theorem tells us is that complete knowledge of <em>all</em> the values <span class="math notranslate nohighlight">\(f^{(k)}(0)\)</span> determines the function <span class="math notranslate nohighlight">\(y=f(x)\)</span> uniquely, at least locally near <span class="math notranslate nohighlight">\(x=0\)</span>. Therefore, even though we don’t have good intuition for what all the higher derivatives <span class="math notranslate nohighlight">\(f^{(k)}(0)\)</span> <em>mean</em>, they are still incredibly important and useful objects.</p>
 <p>Hold this lesson in your mind for just a little bit, because we are about to see something <em>very similar</em> occur in the context of moments of random variables.</p>
-</section>
-<section id="the-definition-and-uniqueness-theorem">
-<h3><span class="section-number">8.5.2. </span>The definition and uniqueness theorem<a class="headerlink" href="#the-definition-and-uniqueness-theorem" title="Permalink to this heading">#</a></h3>
 <p>The gadget that is going to play the role for random variables analogous to Taylor series is defined in:</p>
-<div class="proof definition admonition" id="definition-16">
+<div class="proof definition admonition" id="mgf-def">
 <p class="admonition-title"><span class="caption-number">Definition 8.6 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable. The <em>moment generating function</em> (<em>MGF</em>) of <span class="math notranslate nohighlight">\(X\)</span> is defined to be</p>
@@ -927,7 +903,7 @@ e^x = \sum_{k=0}^\infty \frac{x^k}{k!}.
 <p>We shall say the moment generating function <em>exists</em> if <span class="math notranslate nohighlight">\(\psi(t)\)</span> is finite for all <span class="math notranslate nohighlight">\(t\)</span> in an open interval containing <span class="math notranslate nohighlight">\(t=0\)</span>.</p>
 </section>
 </div><p>The reason that the function <span class="math notranslate nohighlight">\(\psi(t)\)</span> is said to “generate” the moments is encapsulated in:</p>
-<div class="proof theorem admonition" id="theorem-17">
+<div class="proof theorem admonition" id="derivatives-mgf-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.12 </span> (Derivatives of Moment Generating Functions)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable whose moment generating function <span class="math notranslate nohighlight">\(\psi(t)\)</span> exists. Then the moments <span class="math notranslate nohighlight">\(E(X^k)\)</span> are finite for all <span class="math notranslate nohighlight">\(k\geq 1\)</span>, and</p>
@@ -959,7 +935,7 @@ e^x = \sum_{k=0}^\infty \frac{x^k}{k!}.
 \psi''(0) = \sum_{x\in\mathbb{R}} x^2 p(x) = E(X^2).
 \]</div>
 <p>Now, the true power of moment generating functions comes from the following extremely important and useful theorem, which may be seen as an analog of the Taylor Series Uniqueness Theorem stated above as <a class="reference internal" href="#taylor-thm">Theorem 8.11</a>. It essentially says that: <em>If you know all the moments, then you know the distribution.</em></p>
-<div class="proof theorem admonition" id="theorem-18">
+<div class="proof theorem admonition" id="mgf-uniqueness-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.13 </span> (Moment Generating Function Uniqueness Theorem)</p>
 <section class="theorem-content" id="proof-content">
 <p>Suppose <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are two random variables whose moment generating functions <span class="math notranslate nohighlight">\(\psi_X(t)\)</span> and <span class="math notranslate nohighlight">\(\psi_Y(t)\)</span> exist. Then the following statements are equivalent:</p>
@@ -988,7 +964,6 @@ E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
 \psi_Y(t) = \sum_{k=0}^\infty \frac{E(Y^k)}{k!} t^k.
 \]</div>
 <p>Thus, if the moments of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are all equal, then so too <span class="math notranslate nohighlight">\(\psi_X(t)\)</span> and <span class="math notranslate nohighlight">\(\psi_Y(t)\)</span> are equal, at least near <span class="math notranslate nohighlight">\(t=0\)</span>. Then, the <em>hard</em> part of the proof is showing that <span class="math notranslate nohighlight">\((2) \Rightarrow (1)\)</span> (or <span class="math notranslate nohighlight">\((3) \Rightarrow (1)\)</span>). <em>This</em>, unfortunately, we cannot do in this course, since it uses some <a class="reference external" href="https://en.wikipedia.org/wiki/Characteristic_function_(probability_theory)">rather sophisticated things</a>.</p>
-</section>
 </section>
 <section id="computations-with-random-variables">
 <span id="fun-rvs"></span><h2><span class="section-number">8.6. </span>Computations with random variables<a class="headerlink" href="#computations-with-random-variables" title="Permalink to this heading">#</a></h2>
@@ -1035,11 +1010,11 @@ E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
       </div>
     </a>
     <a class="right-next"
-       href="09-optim.html"
+       href="09-information-theory.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">9. </span>Optimization</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Information theory</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1058,20 +1033,11 @@ E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-and-correlation">8.1. Covariance and correlation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functional-dependence-of-random-variables">8.1.1. Functional dependence of random variables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance">8.1.2. Covariance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation">8.1.3. Correlation</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-and-correlation">8.1. Covariance and correlation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-normal-distributions">8.2. Multivariate normal distributions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-and-joint-distributions">8.3. Expectations and joint distributions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-and-conditional-distributions">8.4. Expectations and conditional distributions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moment-generating-functions">8.5. Moment generating functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-brief-return-to-calculus">8.5.1. A brief return to calculus</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-definition-and-uniqueness-theorem">8.5.2. The definition and uniqueness theorem</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moment-generating-functions">8.5. Moment generating functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-random-variables">8.6. Computations with random variables</a></li>
 </ul>
   </nav></div>

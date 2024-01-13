@@ -105,6 +105,7 @@ This means that the domain of both $I$ and $A$ is the population $S$, while the 
 So, does this mean that a _random variable_ is secretly just a function? Yup! Here's the definition:
 
 ```{prf:definition}
+:label: random-var-def
 
 Let $S$ be a probability space. A _random variable_ on $S$ is a function $X:S \to \mathbb{R}$.
 ```
@@ -214,7 +215,7 @@ P(\{\text{people with annual income 50}\}) &= 5/32 \approx 0.16.
 
 Now, remember that in addition to the probability measure $P$ on $S$, there is supposed to be a *second* probability measure $P_X$ on $\mathbb{R}$. It turns out, however, that these previous four probabilities _are_ the probabilities that come from $P_X$, by definition! Indeed, we _define_ the probability measure $P_X$ on $\mathbb{R}$ by setting
 
-$$P_X(\{x\}) = P(\{\text{people with annual income $x$}\})$$ (inv-eqn)
+$$P_X(\{x\}) = P(\{\text{people with annual income $x$}\})$$ (inv-01-eqn)
 
 for each $x\in \mathbb{R}$, so that we may rewrite the above equations using $P_X$ as:
 
@@ -225,7 +226,7 @@ P_X(\{45\}) &= 12/32 \approx 0.38, \\
 P_X(\{50\}) &= 5/32 \approx 0.16.
 \end{align*}
 
-The equation {eq}`inv-eqn` is the fundamental bridge that relates the two probability measures $P$ (on $S$) and $P_X$ (on $\mathbb{R})$, so make sure that you understand it! (It will reappear below in the abstract definitions.)
+The equation {eq}`inv-01-eqn` is the fundamental bridge that relates the two probability measures $P$ (on $S$) and $P_X$ (on $\mathbb{R})$, so make sure that you understand it! (It will reappear below in the abstract definitions.)
 
 The probability measure $P$ lives on the original probability space $S$, so we can't really *visualize* it since $S$ doesn't have a nice linear structure like $\mathbb{R}$. However, the probability measure $P_X$ lives on $\mathbb{R}$, so we _can_ visualize _it_ using a probability histogram:
 
@@ -304,6 +305,7 @@ Let's practice! Have a go at problems 5-7 on the worksheet.
 Two types of random variables will be the ones that are most frequently encountered in this class. Their definitions follow below. Before reading them, however, it might be worth reviewing our discussions of discrete and continuous probability measures in {numref}`Sections %s <discrete-prob>` and {numref}`%s <cont-prob>`.
 
 ```{prf:definition}
+:label: discrete-continuous-rv-def
 
 Let $X:S\to \mathbb{R}$ be a random variable.
 
@@ -361,6 +363,7 @@ As I mentioned, discrete and continuous random variables will be the only types 
 If $X$ is any type of random variable (discrete, continuous, or neither), then its probability measure $P_X$ lives on $\mathbb{R}$. As such, it has both distribution and quantile functions. We studied these latter types of functions in {numref}`Section %s <dist-quant>`. But in case you forgot their definitions, we review them in this section in the context of random variables.
 
 ```{prf:definition}
+:label: cdf-rv-def
 
 Let $X$ be a random variable. The *distribution function of $X$* is the function $F:\mathbb{R} \to \mathbb{R}$ defined by
 
@@ -388,6 +391,7 @@ In particular:
 And here's the definition of quantile functions:
 
 ```{prf:definition}
+:label: quantile-rv-def
 
 Let $X$ be a random variable with distribution function $F:\mathbb{R} \to [0,1]$. The *quantile function of $X$* is the function $Q: [0,1] \to \mathbb{R}$ defined so that
 
@@ -581,13 +585,15 @@ Notice that the mean values of the random variables $X_1$ and $X_2$ in the first
 Before giving you the precise definitions, you need to know that mean values are also called *expected values*. (Quantum physicists also call them *expectation values*.) So, in the official, technical lingo, what we were computing above was the *expected value* of the random variable $X$.
 
 ```{prf:definition}
+:label: expected-val-rv-def
+
 Let $X$ be a random variable.
 
 * If $X$ is discrete with probability mass function $p(x)$, then its *expected value*, denoted $E(X)$, is the sum
   
   $$
   E(X) = \sum_{x\in \mathbb{R}} x\cdot p(x).
-  $$ (sum-eqn)
+  $$ (sum-01-eqn)
 
 * If $X$ is continuous with probability density function $f(x)$, then its *expected value*, denoted $E(X)$, is the integral
   
@@ -605,7 +611,7 @@ Here we see the "sum vs. integral" dichotomy between discrete and continuous ran
 Though I have only defined expected values of discrete and continuous random variables, technically *all* random variables have expected values (though there may be convergence issues). However, in order to even <a href="https://en.wikipedia.org/wiki/Expected_value#Arbitrary_real-valued_random_variables">*define*</a> these expected values, we would need the theory of Lebesgue integration that I mentioned above.
 ```
 
-Now, the sum $\sum_{x\in \mathbb{R}}$ in {eq}`sum-eqn` simply means that we are adding up all terms of the form $x\cdot p(x)$, as $x$ ranges over all real numbers in $\mathbb{R}$. But remember, the random variable $X$ is assumed to be *discrete*, so there are actually either only finitely many $p(x)$'s that are nonzero---in which case the sum is actually finite---or there are a countable infinity that are nonzero---in which case the sum is of the form $\sum_{n=1}^\infty$. In the latter case, there is the possibility that the expected value $E(X)$ doesn't exist, because the infinite series doesn't converge. However, at this level, except for a few special cases, we won't worry about such things. We shall *always* assume in this class that the infinite series converge and all our expected values exist. Even more, we shall assume that the series converge *absolutely*, which you might(?) remember means that the series of absolute values
+Now, the sum $\sum_{x\in \mathbb{R}}$ in {eq}`sum-01-eqn` simply means that we are adding up all terms of the form $x\cdot p(x)$, as $x$ ranges over all real numbers in $\mathbb{R}$. But remember, the random variable $X$ is assumed to be *discrete*, so there are actually either only finitely many $p(x)$'s that are nonzero---in which case the sum is actually finite---or there are a countable infinity that are nonzero---in which case the sum is of the form $\sum_{n=1}^\infty$. In the latter case, there is the possibility that the expected value $E(X)$ doesn't exist, because the infinite series doesn't converge. However, at this level, except for a few special cases, we won't worry about such things. We shall *always* assume in this class that the infinite series converge and all our expected values exist. Even more, we shall assume that the series converge *absolutely*, which you might(?) remember means that the series of absolute values
 
 $$
 \sum_{x\in \mathbb{R}} |x\cdot p(x)| = \sum_{x\in \mathbb{R}} |x|\cdot p(x)
@@ -984,6 +990,7 @@ $$ (huh2-eqn)
 But it is not clear at first glance that there is any sort of simple relationship between the three expectations in {eq}`huh1-eqn` and {eq}`huh2-eqn`. Nevertheless, as I will explain in a later chapter---after we've learned about *joint distributions*---these expectations are related through the first equation in:
 
 ```{prf:theorem} Linearity of Expectations
+:label: linearity-init-thm
 
 Let $X$ and $Y$ be two random variables and let $c\in \mathbb{R}$ be a constant. Then:
 
@@ -1049,6 +1056,7 @@ We need just one more fact before proceeding to practice problems. To state it, 
 Thus, every constant $c\in \mathbb{R}$ may be considered a *constant* random variable. Your intuition would then suggest that the mean value of a *constant* random variable should be pretty easy to compute. And you'd be right!
 
 ```{prf:theorem} Expectations of Constants
+:label: expectation-constant-thm
 
 Let $c\in \mathbb{R}$ be a constant, viewed as a constant random variable. Then $E(c) = c$.
 ```
@@ -1149,6 +1157,7 @@ So, according to the dispersion measure {eq}`disp-eqn`, the right-hand distribut
 But while {eq}`disp-eqn` is a perfectly good measure of dispersion, for certain technical reasons it is not the one most often used. (For example, the function $g(x) = |x-\mu|$ is not differentiable at $x=\mu$, which can complicate some things.) Instead, we don't look at the average *actual* distance to the mean, rather we look at the average *squared distance* to the mean:
 
 ```{prf:definition}
+:label: variance-rv-def
 
 Let $X$ be a random variable with expected value $\mu = E(X)$. The *variance* of $X$, denoted $V(X)$, is given by
 
@@ -1166,6 +1175,7 @@ One of the advantages that the variance {eq}`var-eqn` has over {eq}`disp-eqn` is
 Due to the squaring operation, the units of the variance $V(X)$ are the units of $X$ *squared*. This is sometimes undesirable---for example, if $X$ is measured in degrees Fahrenheit, then $V(X)$ is measured in degrees Fahrenheit *squared*. So, in order to compare apples to apples, sometimes it is more useful to consider the following related measure of dispersion:
 
 ```{prf:definition}
+:label: std-rv-def
 
 Let $X$ be a random variable. The *standard deviation* of $X$, denoted $\sigma_X$ or just $\sigma$, is the positive square root of the variance:
 

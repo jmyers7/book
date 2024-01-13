@@ -10,26 +10,19 @@ kernelspec:
   name: python3
 ---
 
-# More probability theory
-
 **THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!**
 
+
+# More probability theory
+
 ## Covariance and correlation
-
-
-
-
-
-
-
-
-### Functional dependence of random variables
 
 If two random variables $X$ and $Y$ are _not_ [independent](independence), then (naturally) they are called _dependent_. Though our goal in this chapter is to study a _particular type_ of dependence between random variables, I think it will benefit us by first discussing dependence in general.
 
 A natural source of examples of dependent random variables are those which are *functionally* dependent in the sense of the following theorem:
 
 ```{prf:theorem} Functional dependence $\Rightarrow$ dependence
+:label: functional-dep-thm
 
 Let $X$ and $Y$ be random variables. If $Y = h(X)$ for some function $h:\mathbb{R} \to \mathbb{R}$, then $X$ and $Y$ are dependent.
 ```
@@ -85,25 +78,25 @@ to obtain the associated $y$-values, and then produce a scatter plot:
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 80%
 
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib as mpl
-import seaborn as sns
 import scipy as sp
+import seaborn as sns
 import pandas as pd
+import matplotlib.pyplot as plt
+import scipy as sp
+import matplotlib_inline.backend_inline
 import warnings
 plt.style.use('../aux-files/custom_style_light.mplstyle')
-mpl.rcParams['figure.dpi'] = 600
-warnings.filterwarnings("ignore")
-
-np.random.seed(42)
+matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
+warnings.filterwarnings('ignore')
+blue = '#486AFB'
+magenta = '#FD46FC'
 
 def h(x):
     return x * (x - 1) * (x - 2)
 
+np.random.seed(42)
 x = sp.stats.norm.rvs(loc=1, scale=0.5, size=1000)
 y = h(x)
 
@@ -111,7 +104,7 @@ sns.scatterplot(x=x, y=y)
 plt.xlabel('$x$')
 plt.ylabel('$y=h(x)$')
 plt.ylim(-1.5, 1.5)
-plt.gcf().set_size_inches(w=6, h=3)
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
@@ -124,13 +117,11 @@ However, very often with real-world data, an **exact** functional dependence $Y 
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 100%
 
 epsilon = sp.stats.norm.rvs(scale=0.15, size=1000)
 grid = np.linspace(-0.5, 3)
 
-_, ax = plt.subplots(ncols=2, figsize=(6, 3), sharey=True)
+_, ax = plt.subplots(ncols=2, figsize=(7, 3), sharey=True)
 
 sns.scatterplot(x=x, y=y + epsilon, ax=ax[0])
 ax[0].set_ylim(-1.5, 1.5)
@@ -153,14 +144,12 @@ The goal in this chapter is to study "noisy" _linear_ dependencies between rando
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 100%
 
 grid = np.linspace(-2.5, 2.5)
 epsilon = sp.stats.norm.rvs(scale=0.3, size=500)
 m = [1, 0, -1]
 x = sp.stats.norm.rvs(size=500)
-_, ax = plt.subplots(ncols=3, figsize=(15, 5), sharey=True, sharex=True)
+_, ax = plt.subplots(ncols=3, figsize=(10, 3), sharey=True, sharex=True)
 
 for i, m in enumerate(m):
     y = m * x + epsilon
@@ -187,8 +176,6 @@ where $x_i$ is the area of the $i$-th house (in ft$^2$) and $y_i$ is the selling
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 80%
 
 url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/data-3-1.csv'
 df = pd.read_csv(url, usecols=['area', 'price'])
@@ -196,6 +183,7 @@ df = pd.read_csv(url, usecols=['area', 'price'])
 sns.regplot(data=df, x='area', y='price', ci=None, scatter_kws={'alpha' : 0.3}, line_kws={'color' : '#FD46FC'})
 plt.xlabel('area')
 plt.ylabel('price')
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
@@ -207,16 +195,6 @@ The line in this plot that the data clusters along is called the _linear-regress
 There appears to be a "noisy" linear dependence between the size of a house $X$ and its selling price $Y$. Moreover, the line that the data naturally clusters along has positive slope, which indicates that as the size of a house increases, its selling price tends to increase as well.
 
 Our goal in this section of the chapter is to uncover ways to _quantify_ or _measure_ the strength of "noisy" linear dependencies between random variables. We will discover that there are two such measures: _Covariance_ and _correlation_.
-
-
-
-
-
-
-
-
-
-### Covariance
 
 The definition of _covariance_ is based on the following pair of basic observations:
 
@@ -242,12 +220,11 @@ and similarly $E(Y-\mu_Y) = 0$, so that when we carry out these replacements, we
 :mystnb:
 :   figure:
 :       align: center
-:   image:
-:       width: 80%
 
 sns.regplot(data=df - df.mean(), x='area', y='price', ci=None, scatter_kws={'alpha' : 0.3}, line_kws={'color' : '#FD46FC'})
 plt.xlabel('shifted area')
 plt.ylabel('shifted price')
+plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
@@ -261,6 +238,7 @@ The reason that we "center" the data is because it allows us to conveniently rep
 Essentially, the next definition takes the average value of the product $xy$, as $(x,y)$ ranges over observed pairs of values of a pair $(X,Y)$ of **centered** random variables. If this average value is positive, it suggests a (noisy) linear dependence with positive slope; if it is negative, it suggests a (noisy) linear dependence with negative slope. A larger average (in either direction---positive or negative) tends to indicate a *stronger* dependency. If the random variables are not centered, then we subtract off their means before computing the product and taking its average value.
 
 ```{prf:definition}
+:label: covar-def
 
 Let $X$ and $Y$ be two random variables with expectations $\mu_X = E(X)$ and $\mu_Y = E(Y)$. The _covariance_ of $X$ and $Y$, denoted either by $\sigma(X,Y)$ or $\sigma_{XY}$, is defined via the equation
 
@@ -353,10 +331,6 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 $$
 
 
-
-### Correlation
-
-
 While the signs of covariances are significant, their precise numerical values may be less so. One reason for this is that covariances are unbounded, in the sense that they may take any value from $-\infty$ to $+\infty$. They are also sensitive to the scales on which the variables are measured. For example, in the housing dataset that we considered in the previous section, suppose that $Z$ represents the size of a house measured in _hundreds_ of square feet; then $X$ and $Z$ are related via the equation $Z = X/100$. But then, according to {prf:ref}`bilinear-thm`, we have
 
 $$
@@ -368,6 +342,7 @@ so the covariance between $X$ and $Y$ is _different_ from the covariance between
 The remedy is to define a "normalized" measure of linear dependence:
 
 ```{prf:definition}
+:label: correlation-def
 
 Let $X$ and $Y$ be two random variables. The _correlation_ of $X$ and $Y$, denoted by either $\rho(X,Y)$ or $\rho_{XY}$, is defined via the equation
 
@@ -379,6 +354,7 @@ $$
 The key properties of correlation are given in the following:
 
 ```{prf:theorem} Properties of correlation
+:label: prop-correlation-thm
 
 Let $X$ and $Y$ be random variables.
 
@@ -401,6 +377,7 @@ The symmetry property of correlation follows from the same property of covarianc
 Remember, covariance and correlation were cooked up to measure linear dependencies between random variables. We wonder, then, what is the correlation between two random variables that are _perfectly_ linearly dependent? Answer:
 
 ```{prf:theorem}
+:label: linearity-correlation-thm
 
 Let $X$ be a random variable and $a$ and $b$ constants with $a\neq 0$. Then
 
@@ -421,6 +398,7 @@ $$
 We give a name to two random variables whose correlation is zero:
 
 ```{prf:definition}
+:label: uncorrelated-def
 
 If $X$ and $Y$ are two random variables with $\rho(X,Y)=0$, then we say $X$ and $Y$ are _uncorrelated_. Otherwise, they are said to be _(linearly) correlated_.
 ```
@@ -428,6 +406,8 @@ If $X$ and $Y$ are two random variables with $\rho(X,Y)=0$, then we say $X$ and 
 You should think of independence as a strong form of uncorrelated-ness. This is the content of the first part of the following result:
 
 ```{prf:theorem} Dependence and correlation
+:label: ind-vs-correlation-thm
+
 
 Let $X$ and $Y$ be random variables.
 
@@ -474,6 +454,7 @@ and then $\rho_{XY} = \sigma_{XY} / (\sigma_X \sigma_Y) = 0$.
 The following is a bivariate generalization of the LotUS from {prf:ref}`lotus-thm`.
 
 ```{prf:theorem} Bivariate Law of the Unconscious Statistician
+:label: bivariate-lotus-thm
 
 Let $X$ and $Y$ be two random variables and $g:\mathbb{R}^2 \to \mathbb{R}$ a function.
 
@@ -544,6 +525,7 @@ Note the marginalizations of the joint density function in passing from the seco
 ## Expectations and conditional distributions
 
 ```{prf:definition}
+:label: conditional-exp-def
 
 Let $X$ and $Y$ be two random variables.
 
@@ -573,9 +555,8 @@ In both cases, notice that conditional expected values are **functions** of $x$,
 (mgf)=
 ## Moment generating functions
 
-### A brief return to calculus
-
 ```{prf:definition}
+:label: moments-def
 
 Let $k\geq 1$ be an integer and $X$ a random variable.
 
@@ -620,11 +601,10 @@ So, what this Uniqueness Theorem tells us is that complete knowledge of *all* th
 
 Hold this lesson in your mind for just a little bit, because we are about to see something *very similar* occur in the context of moments of random variables.
 
-### The definition and uniqueness theorem
-
 The gadget that is going to play the role for random variables analogous to Taylor series is defined in:
 
 ```{prf:definition}
+:label: mgf-def
 
 Let $X$ be a random variable. The *moment generating function* (*MGF*) of $X$ is defined to be
 
@@ -638,6 +618,7 @@ We shall say the moment generating function *exists* if $\psi(t)$ is finite for 
 The reason that the function $\psi(t)$ is said to "generate" the moments is encapsulated in:
 
 ```{prf:theorem} Derivatives of Moment Generating Functions
+:label: derivatives-mgf-thm
 
 Let $X$ be a random variable whose moment generating function $\psi(t)$ exists. Then the moments $E(X^k)$ are finite for all $k\geq 1$, and
 
@@ -677,6 +658,7 @@ $$
 Now, the true power of moment generating functions comes from the following extremely important and useful theorem, which may be seen as an analog of the Taylor Series Uniqueness Theorem stated above as {prf:ref}`taylor-thm`. It essentially says that: *If you know all the moments, then you know the distribution.*
 
 ```{prf:theorem} Moment Generating Function Uniqueness Theorem
+:label: mgf-uniqueness-thm
 
 Suppose $X$ and $Y$ are two random variables whose moment generating functions $\psi_X(t)$ and $\psi_Y(t)$ exist. Then the following statements are equivalent:
 

@@ -74,6 +74,7 @@ Our first family of distributions are certainly the simplest. But don't let thei
 
 
 ```{prf:definition}
+:label: bernoulli-def
 
 Let $\theta$ be a real number with $0\leq \theta \leq 1$. A discrete random variable $X$ is said to have a *Bernoulli distribution* with parameter $\theta$, denoted
 
@@ -153,6 +154,7 @@ It's pretty obvious that $X$ is distributed as a Bernoulli random variable, righ
 Clearly, any scenario which results in a binary outcome with fixed probabilities may be modeled using a Bernoulli random variable. We will explore a few such scenarios in the worksheet problems when we get to the Problem Prompt below. But first, let's state the expectations and variances of Bernoulli variables:
 
 ```{prf:theorem} Expectations and variances of Bernoulli variables
+:label: exp-var-bernoulli-thm
 
 If $X\sim \mathcal{B}er(\theta)$, then
 
@@ -190,6 +192,7 @@ Notice, in particular, that the mean of a variable $X\sim \mathcal{B}er(\theta)$
 Next come distributions whose probability mass functions look a lot like the probability functions of Bernoulli random variables.
 
 ```{prf:definition}
+:label: binomial-def
 
 Let $n\geq 0$ be an integer and let $\theta$ be a real number with $0\leq \theta \leq 1$. A discrete random variable $X$ is said to have a *binomial distribution* with parameters $n$ and $\theta$, denoted
 
@@ -272,6 +275,7 @@ Beyond just flipping coins, binomial random variables may be used to model any s
 Let's now give the expectations and variances of binomial variables:
 
 ```{prf:theorem} Expectations and variances of binomial variables
+:label: exp-var-binomial-thm
 
 If $X\sim \mathcal{B}in(n,\theta)$, then
 
@@ -369,6 +373,7 @@ Do problems 1 and 2 on the worksheet.
 The supports of Bernoulli and binomial random variables are finite. Now, we turn our attention toward a class of random variables with countably infinite supports:
 
 ```{prf:definition}
+:label: geometric-def
 
 Let $\theta$ be a real number with $0\leq \theta \leq 1$. A discrete random variable $X$ is said to have a *geometric distribution* with parameter $\theta$, denoted
 
@@ -445,6 +450,7 @@ so that $X\sim \mathcal{G}eo(\theta)$.
 Like Bernoulli and binomial random variables, geometric random variables do not *only* apply in scenarios that involve coin flips. Indeed, the coin flips in our archetypical scenario can represent the binary outcomes of any scenario, as long as they are independent (when performed one after another) and have fixed probabilities.
 
 ```{prf:theorem} Expectations and variances of geometric variables
+:label: exp-var-geometric-thm
 
 If $X\sim \mathcal{G}eo(\theta)$, then
 
@@ -478,6 +484,7 @@ Do problems 3 and 4 on the worksheet.
 The distributions in this section definitely have the most complicated expressions so far for their probability functions (they require *three* parameters!), but as we will see in our archetypical scenario, these distributions arise quite naturally.
 
 ```{prf:definition}
+:label: hypergeometric-def
 
 Let $M\geq 0$ be an integer, and let $n$ and $N$ be integers with $0\leq n,N\leq M$. A discrete random variable $X$ is said to have a *hypergeometric distribution* with parameters $M$, $n$, and $N$, denoted
 
@@ -622,6 +629,7 @@ says that you cannot have more black balls in your selection than the total numb
 Now, hold on to your hats, because here come the formulas for the expectations and variances of hypergeometric random variables:
 
 ```{prf:theorem} Expectations and variances of hypergeometric variables
+:label: exp-var-hypergeometric-thm
 
 If $X\sim \mathcal{HG}eo(M,n,N)$, then
 
@@ -656,6 +664,7 @@ Do problems 5 and 6 on the worksheet.
 We've reached the last of our discrete distributions, before we move onto continuous ones.
 
 ```{prf:definition}
+:label: poisson-def
 
 Let $\mu>0$ be a real number. A discrete random variable $X$ is said to have a *Poisson distribution* with parameter $\mu$, denoted
 
@@ -815,6 +824,7 @@ We will carry this email scenario over to our discussions below of archetypical 
 In fact, these variables not only model random and independent events occurring over _time_, but also over _space_ and other continuous dimensions. We will see examples of this in the Problem Prompt [below](pois-pp). But first, let's show that the name of the parameter $\mu$ is well-chosen; that it is, in fact, the mean of the distribution.
 
 ```{prf:theorem} Expectations and variances of Poisson variables
+:label: exp-var-poisson-thm
 
 If $X\sim \mathcal{P}ois(\mu)$, then
 
@@ -882,6 +892,7 @@ Do problems 7-9 on the worksheet.
 The distributions studied in this section are often said to be the most important in probability and statistics. This is primarily due to their ubiquity, occurring in all sorts of varied applications and scenarios. Indeed, these distributions will be with us constantly throughout the rest of the course. These are also the first distributions that we study in this chapter that are continuous, rather than discrete.
 
 ```{prf:definition}
+:label: gaussian-def
 
 Let $\mu$ and $\sigma$ be real numbers with $\sigma>0$. A continuous random variable $X$ is said to have a *normal distribution* (or _Gaussian distribution_) with parameters $\mu$ and $\sigma$, denoted
 
@@ -931,6 +942,7 @@ plt.tight_layout()
 Notice that the parameters of the distribution in the upper-left are $(\mu,\sigma) = (0, 1)$, so the displayed density is the _standard_ normal one. It is a {prf:ref}`corollary <standardization-cor>` of the next general result that _every_ normally distributed variable may be transformed into a _standard_ normal variable via an affine transformation.
 
 ```{prf:theorem} Affine transformations of normal variables
+:label: affine-gaussian-thm
 
 Let $X\sim \mathcal{N}(\mu,\sigma^2)$ and $a$ and $b$ be two constants with $a\neq 0$. Then $Y = aX+b$ is a normal random variable with $\mu_Y = a\mu + b$ and $\sigma_Y = |a|\sigma$.
 ```
@@ -958,6 +970,7 @@ As the subtitle of the corollary shows, the process of transforming a normal var
 The CDF of a standard normal variable is so important that it gets its own notation described in the next definition. In it, we also define special _critical values_ that will be used later when we discuss [hypothesis tests](hyp-test).
 
 ```{prf:definition}
+:label: std-normal-stuff-def
 
 Let $Z\sim \mathcal{N}(0,1)$ be a standard normal random variable.
 
@@ -1003,6 +1016,7 @@ Can you see where the critical value $z_{0.5}$ would be? Since the standard norm
 Now, let's formally state that the parameters of the normal distributions really are the means and standard deviations:
 
 ```{prf:theorem} Expectations and variances of normal variables
+:label: exp-var-gaussian-thm
 
 If $X\sim \mathcal{N}(\mu,\sigma^2)$, then
 
@@ -1033,6 +1047,7 @@ Do problems 10-13 on the worksheet.
 The next family of distributions is strongly related to the discrete Poisson variables that we saw above, as well as to the _gamma distributions_ in the next section.
 
 ```{prf:definition}
+:label: exponential-def
 
 Let $\lambda>0$ be a real number. A continuous random variable $X$ is said to have an *exponential distribution* with parameter $\lambda$, denoted
 
@@ -1152,6 +1167,7 @@ If $I_k$ denotes the $k$-th arrival time in our archetypical exponential scenari
 ```
 
 ```{prf:theorem} Expectations and variances of exponential variables
+:label: exp-var-exponential-thm
 
 If $X\sim \mathcal{E}xp(\lambda)$, then
 
@@ -1385,6 +1401,7 @@ Do problem 15 on the worksheet.
 All the continuous random variables studied so far have unbounded supports. However, the next type of random variables have their supports inside the open interval $(0,1)$ which makes them particularly useful for modeling proportions and probabilities. They are parametrized by $\alpha$'s and $\beta$'s just like the gamma variables, and they also have gamma functions in their PDF's.
 
 ```{prf:definition}
+:label: beta-def
 
 Let $\alpha,\beta>0$ be real numbers. A continuous random variable $X$ is said to have a *beta distribution* with parameters $\alpha$ and $\beta$, denoted
 

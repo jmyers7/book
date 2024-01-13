@@ -63,8 +63,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "be": "\\mathbf{e}", "bg": "\\mathbf{g}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/01-preview';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -180,12 +178,12 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="06-theory-to-practice.html">6. Connecting theory to practice: a first look at model building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="07-random-vectors.html">7. Random vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="08-more-prob.html">8. More probability theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09-optim.html">9. Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="10-models.html">10. Probabilistic models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="11-learning.html">11. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-stats-estimators.html">12. Bayesian parameter estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-asymptotic.html">13. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-more-samp-dist.html">14. More sampling distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-information-theory.html">9. Information theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-optim.html">10. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-models.html">11. Probabilistic graphical models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-learning.html">12. Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-stats-estimators.html">13. Statistics and general parameter estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-asymptotic.html">14. Large sample theory and more sampling distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="15-CIs.html">15. Confidence intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16-hyp-test.html">16. Hypothesis testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17-lin-reg.html">17. Linear regression</a></li>
@@ -330,9 +328,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -348,16 +344,6 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-goal-of-inferential-statistics">1.1. The goal of inferential statistics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-the-speed-of-light-and-statistical-estimators">1.2. Case study: the speed of light and statistical estimators</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">1.3. Summary</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -367,372 +353,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="preview">
+  <p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
+<section class="tex2jax_ignore mathjax_ignore" id="preview">
 <span id="introduction"></span><h1><span class="section-number">1. </span>Preview<a class="headerlink" href="#preview" title="Permalink to this heading">#</a></h1>
-<p>Most textbooks in mathematical statistics spend a considerable amount of time in the early chapters developing a theoretical foundation in probability theory before moving on to applications. As you can see from the menu to the left, this book is not an exception. While this order of topics is based on logical necessity, it might also give readers the false impression that mathematical statistics is just another abstract mathematical theory with little connection to their real-world interests.</p>
-<p>One of my goals in writing this book is to connect the theory to applications as early as possible, beginning in earnest in <a class="reference internal" href="06-theory-to-practice.html#theory-to-practice"><span class="std std-numref">Chapter 6</span></a>. The first few <a class="reference external" href="https://github.com/jmyers7/stats-book-materials">programming assignments</a> in the Jupyter notebooks are also useful in this respect, giving the reader <em>something</em> hands-on and tangible to do in the early chapters while we’re studying obscure probability distributions and integrating one contrived density function after another.</p>
-<p>But still, the reader may have <em>no idea</em> where the book is headed! This brief “Preview” chapter is intended to give the reader some indication of our direction and goal, by describing <em>inferential statistics</em> and <em>statistical estimators</em>, topics that we will cover beginning in <a class="reference internal" href="12-stats-estimators.html#stats-estimators"><span class="std std-numref">Chapter 12</span></a> and continuing through the end of the book. The reader should understand that the theory in the first part of the book is built to serve as a foundation for the tools and techniques in these latter chapters.</p>
-<p>So, this initial chapter offers the opportunity to survey some beautiful concepts and ideas without getting sidetracked into technical theory. I will introduce several big-picture ideas and some key terminology. The reader should not be nervous or anxious about understanding everything in this chapter <em>in depth</em>, and should rest assured that we will cover all the concepts in much more detail later. Remember, this is only a preview!</p>
-<section id="the-goal-of-inferential-statistics">
-<h2><span class="section-number">1.1. </span>The goal of inferential statistics<a class="headerlink" href="#the-goal-of-inferential-statistics" title="Permalink to this heading">#</a></h2>
-<p>Our story begins here:</p>
-<blockquote>
-<div><p>Neither perfect precision nor absolute certainty exist, in all cases, in the real world.</p>
-</div></blockquote>
-<p>No deep philosophical meaning is intended with this comment; rather, I’m just highlighting the obvious fact that in the real world we often only have access to incomplete information and limited data. Nevertheless, in such situations we often still need to make decisions, predictions, or inferences.</p>
-<p>As a very simple example, suppose that we would like to determine the average height of the current population of the planet earth. One way to do this is to conduct a massive planet-wide census of every living person and record their height. We would then have <em>all</em> the data we need in order to find the <em>exact</em> average height—there would be no problem arising from limited data.</p>
-<p>But clearly such a census would never <em>actually</em> be conducted due to the enormous(!) cost, among many other reasons. Rather, we might instead proceed by taking a <em>sample</em> of the population:</p>
-<a class="reference internal image-reference" href="../_images/people.svg"><img alt="../_images/people.svg" class="align-center" src="../_images/people.svg" width="70%" /></a>
-<p> </p>
-<p>We would then use the average height of the individuals in the sample as a proxy or estimate for the true average height of the population. And as long as our sample is chosen “randomly,” we would expect that our sample average is likely close to the true population average.</p>
-<p>Here are some other examples along these same lines:</p>
-<ol class="arabic simple">
-<li><p>We estimate the median GPA of <em>all</em> incoming freshmen at a certain university based on a sample of incoming freshmen.</p></li>
-<li><p>We estimate the likelihood that a sports team with a given record wins a championship based on the winning records of past champions.</p></li>
-<li><p>We estimate the likelihood that a tumor of a certain size is malignant or benign based on the diagnoses of past tumors and their sizes.</p></li>
-<li><p>We predict the next word in a new sentence fragment based on a sample of similar, complete sentences. (This is, in essence, the goal of so-called <em>large language models</em> in artificial intelligence.)</p></li>
-<li><p>We estimate the true speed of light based on a sample of measurements obtained in a laboratory.</p></li>
-</ol>
-<p>The characteristic that each of these examples share is the goal of making an inference or prediction about a population based on a sample. Note that, here, I’m using the word <em>population</em> in a broader sense compared to its typical usage in everyday language. Indeed, the <em>populations</em> in these examples might be the following:</p>
-<ol class="arabic simple">
-<li><p>All incoming freshmen.</p></li>
-<li><p>All win-loss records.</p></li>
-<li><p>All tumor sizes.</p></li>
-<li><p>All words.</p></li>
-<li><p>All speeds.</p></li>
-</ol>
-<p>Thus, a <em>population</em> in probability and statistics need not consist of a population of <em>people</em>, as it often does in everyday language.</p>
-<div class="proof definition admonition" id="population-def">
-<p class="admonition-title"><span class="caption-number">Definition 1.1 </span></p>
-<section class="definition-content" id="proof-content">
-<p>The <em>population</em> in a given scenario is the collection of all items or objects under consideration.</p>
-</section>
-</div><p>Continuing with our five examples, let’s now identify <em>precisely</em> what features or characteristics of each of the populations we aim to predict or estimate:</p>
-<ol class="arabic simple">
-<li><p>The median GPA of the population. (A <em>single</em> number.)</p></li>
-<li><p>A probability for each win-loss record. (A <em>collection</em> of numbers.)</p></li>
-<li><p>A probability for each tumor size. (A <em>collection</em> of numbers.)</p></li>
-<li><p>A probability for each word. (A <em>collection</em> of numbers.)</p></li>
-<li><p>The value of the single “true” speed of light. (A <em>single</em> number.)</p></li>
-</ol>
-<p>In examples (2)-(4), we are attempting to estimate an entire <em>probability distribution</em>, which are some of the most important objects in this course. We will talk about them in much more detail beginning in the <a class="reference internal" href="02-prob-spaces.html#prob-spaces"><span class="std std-ref">next</span></a> chapter.</p>
-<p>In all the examples, the things that we aim to estimate are called <em>population parameters</em>. Using this language, we may state:</p>
-<blockquote>
-<div><p>The <strong>goal of inferential statistics</strong> is to estimate population parameters based on samples and datasets.</p>
-</div></blockquote>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<p>We will discuss samples and datasets beginning in <a class="reference internal" href="06-theory-to-practice.html#theory-to-practice"><span class="std std-numref">Chapter 6</span></a>, while our treatment of inference will begin properly in <a class="reference internal" href="12-stats-estimators.html#stats-estimators"><span class="std std-numref">Chapter 12</span></a>.</p>
-</aside>
-<p>The process of collecting data is called <em>sampling</em>, which passes from the population to the sample. You should then conceptualize <em>inference</em> as a process that goes in the opposite direction:</p>
-<a class="reference internal image-reference" href="../_images/inferential.svg"><img alt="../_images/inferential.svg" class="align-center" src="../_images/inferential.svg" width="70%" /></a>
-<p> </p>
-<p>A good part of inferential statistics is devoted to cooking up clever methods and algorithms for estimating population parameters and characteristics. You should conceptualize these methods as “machines” that take datasets as input, and spit out estimates for whatever population parameter the machine is built for. Such machines are called <em>estimators</em>:</p>
-<a class="reference internal image-reference" href="../_images/inference.svg"><img alt="../_images/inference.svg" class="align-center" src="../_images/inference.svg" width="70%" /></a>
-<p> </p>
-<p>For some estimators, you can write down simple formulas that completely describe them. Others might be much more complicated, and are better conceptualized as multistep algorithms. If your “machine” (i.e., estimator) is capable of “learning” how to make good estimates all on its own, then you’ve entered the world of <em>machine learning</em>.</p>
-</section>
-<section id="case-study-the-speed-of-light-and-statistical-estimators">
-<h2><span class="section-number">1.2. </span>Case study: the speed of light and statistical estimators<a class="headerlink" href="#case-study-the-speed-of-light-and-statistical-estimators" title="Permalink to this heading">#</a></h2>
-<p>Now that we know a little about the goal of inferential statistics and estimators, I can describe one of the roles that probability theory plays in statistics:</p>
-<blockquote>
-<div><p>Probability theory gives us the tools to <em>quantify</em> our confidence in our estimators.</p>
-</div></blockquote>
-<p>To help illustrate, let’s return to one of our examples from above: The speed of light!</p>
-<p>The first thing to know is that light travels very, <em>very</em> fast—on the order of 300,000 km/s, in fact. This is so <em>incredibly fast</em> that a beam of light would circle the earth about 7.5 times per second:</p>
-<a class="reference internal image-reference" href="../_images/light.svg"><img alt="../_images/light.svg" class="align-center" src="../_images/light.svg" width="70%" /></a>
-<p> </p>
-<p>In 1897, American physicist <a href="https://en.wikipedia.org/wiki/Albert_A._Michelson">Albert Michelson</a> set out to improve upon the best estimate of the speed of light at that time. Here is his data:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../aux-files/light_speeds.csv&#39;</span><span class="p">)</span>
-<span class="n">df</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<figure class="align-center">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>speeds</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>850</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1000</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>960</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>830</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>880</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>95</th>
-      <td>840</td>
-    </tr>
-    <tr>
-      <th>96</th>
-      <td>760</td>
-    </tr>
-    <tr>
-      <th>97</th>
-      <td>780</td>
-    </tr>
-    <tr>
-      <th>98</th>
-      <td>850</td>
-    </tr>
-    <tr>
-      <th>99</th>
-      <td>870</td>
-    </tr>
-  </tbody>
-</table>
-<p>100 rows × 1 columns</p>
-</div></div></figure>
-</div>
-</div>
-<p>You can see that there are 100 measurements in the dataset. To save us from having to write big numbers over and over, each data point is in the following format:</p>
-<div class="math notranslate nohighlight">
-\[
-\text{(data point)} = \text{(estimated speed of light)} - 299{,}000.
-\]</div>
-<p>So, if you want to recover the estimates of the speed of light from Michelson’s data in the format above, you need to add 299,000 km/s to each value.</p>
-<p>As we mentioned above, you should conceptualize Michelson’s dataset as a sample from the larger <em>population</em> (in the technical sense) of all the possible speeds that he <em>could</em> have measured:</p>
-<a class="reference internal image-reference" href="../_images/speed_pop.svg"><img alt="../_images/speed_pop.svg" class="align-center" src="../_images/speed_pop.svg" width="70%" /></a>
-<p> </p>
-<p>We then imagine that somewhere in the big population of speeds is the “true” speed of light.</p>
-<p>The population of speeds is technically the open interval <span class="math notranslate nohighlight">\((0,\infty)\)</span> since Michelson could have (theoretically) obtained any positive number, though some numbers—like an estimate of 5 km/s—are far less likely to have been measured compared to others. If we take advantage of the linear ordering of <span class="math notranslate nohighlight">\((0,\infty)\)</span>, we can <em>visualize</em> Michelson’s dataset as:</p>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<p>This plot is closely related to the <em>probability histograms</em> of <em>empirical probability distributions</em>; we will study these in detail in <a class="reference internal" href="06-theory-to-practice.html#theory-to-practice"><span class="std std-numref">Chapter 6</span></a>.</p>
-</aside>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
-
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span> 
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">600</span>
-
-<span class="c1"># custom function for probability histograms and bar plots</span>
-<span class="k">def</span> <span class="nf">prob_hist</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">yvals</span><span class="p">,</span> <span class="n">stemwidth</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span>
-              <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;probability&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">vline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">hline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-              <span class="n">ymax</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">set_xticks</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    
-    <span class="n">_</span><span class="p">,</span> <span class="n">stems</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">yvals</span><span class="p">,</span> <span class="n">basefmt</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">markerfmt</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">stems</span><span class="p">,</span> <span class="s1">&#39;linewidth&#39;</span><span class="p">,</span> <span class="n">stemwidth</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">ymax</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymax</span><span class="o">=</span><span class="n">ymax</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">set_xticks</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xvals</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">size</span> <span class="o">!=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">vline</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">vline</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">hline</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">hline</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;speeds&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
-<span class="n">speeds</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-<span class="n">counts</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-
-<span class="n">prob_hist</span><span class="p">(</span><span class="n">speeds</span><span class="p">,</span> <span class="n">counts</span><span class="p">,</span> <span class="n">stemwidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;michelson</span><span class="se">\&#39;</span><span class="s1">s data&#39;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;speeds&#39;</span><span class="p">,</span>
-          <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;counts&#39;</span><span class="p">,</span> <span class="n">set_xticks</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<figure class="align-center">
-<a class="reference internal image-reference" href="../_images/bac33ad1265da9ef7454407d63795c140ff0f6c40cece04d5ac188baf561790e.png"><img alt="../_images/bac33ad1265da9ef7454407d63795c140ff0f6c40cece04d5ac188baf561790e.png" src="../_images/bac33ad1265da9ef7454407d63795c140ff0f6c40cece04d5ac188baf561790e.png" style="width: 80%;" /></a>
-</figure>
-</div>
-</div>
-<p>Notice that the horizontal axis is the “speed” axis, while the vertical axis counts how many times a certain speed appears in Michelson’s dataset. Thus, we see that two speeds of <span class="math notranslate nohighlight">\(\approx 810\)</span> and <span class="math notranslate nohighlight">\(\approx 880\)</span> were measured most often, each ten times.</p>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<p>Perhaps this choice of estimator isn’t as “obvious” as I say it is. :) For example: Why not use the sample <em>median</em> as our estimator?</p>
-</aside>
-<p>Now, in order to estimate the “true” speed of light from Michelson’s dataset, we need an estimator! We need some sort of machine that will take Michelson’s dataset as input and return an estimate for the “true” speed of light. But there’s an obvious choice for such an estimate, right? The sample mean!</p>
-<p>If we compute the mean value of Michelson’s data, we get a value of</p>
-<div class="math notranslate nohighlight">
-\[
-\bar{x} \stackrel{\text{def}}{=} 852.4,
-\]</div>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<p>It is helpful to think of the <em>variability</em> of an estimator as a measure of <a class="reference external" href="https://en.wikipedia.org/wiki/Accuracy_and_precision"><em>precision</em></a>; this will be the focus of our current discussion. The <em>accuracy</em> of an estimator is then measured by something called <em>bias</em>. We will dicuss both these concepts in much more detail in <code class="xref std std-numref docutils literal notranslate"><span class="pre">Chapter</span> <span class="pre">%s</span></code>.</p>
-</aside>
-<p>which we will take as our official estimate for the “true” speed of light. But how confident are we in the quality of our estimator? We might imagine that if Michelson were to take all the measurements again, obtaining another 100-sample dataset, then the estimate <span class="math notranslate nohighlight">\(\bar{x}\)</span> would be <em>different</em>. This variation might be due to systematic deficiencies in Michelson’s measuring apparatus and experimental setup (i.e., bad data collection), it might be due to plain random error, but it might <em>also</em> be due to a bad choice of estimator on our part. In general, all of these factors conspire together to affect the variability of our estimates, and it can be difficult to isolate and assign blame to any one <em>specific</em> factor over the others. So, when we talk about the “quality” of our estimator in terms of variability, one needs to remember that this variability comes from many sources.</p>
-<p>Keeping these caveats and cautions in mind, let me make the central point:</p>
-<blockquote>
-<div><p>Since the dataset has variability, so too does our estimator.</p>
-</div></blockquote>
-<p>Remember, an estimator is just a fancy function that takes datasets as input. So, this statement simply says that the output of a function changes when the input does (duh). But the key question is: <em>By how much</em>? If we were able to quantify this variability in some way, then smaller measures of variability might indicate a higher level of confidence in our estimator.</p>
-<p>But <em>how</em> exactly might one quantify variability? This is where probability theory enters!</p>
-<p>Here’s what we do: Imagine that it is somehow possible to repeat Michelson’s procedure an infinite number of times, producing an infinite collection of 100-sample datasets under the exact same conditions as the original procedure. Of course, this is purely a thought exercise, because it isn’t <em>actually</em> possible to repeat a process an infinite number of times. Nevertheless, as we go along, we imagine computing the means of each of the new datasets; these means will <em>not</em> all be the same due to the variability that I mentioned above. In the “limit,” we obtain a distribution of mean values that looks roughly something like this:</p>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<p>The bar plot is a <em>probability histogram</em> of the <em>sampling distribution</em> for our estimator; the latter objects will be studied in <a class="reference internal" href="12-stats-estimators.html#stats-estimators"><span class="std std-numref">Chapter 12</span></a>. The smooth curve is a <em>kernel density estimate</em> (<em>KDE</em>) for the sampling distribution; these will be studied in <a class="reference internal" href="06-theory-to-practice.html#theory-to-practice"><span class="std std-numref">Chapter 6</span></a>.</p>
-</aside>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">k</span> <span class="o">=</span> <span class="mi">1000</span> <span class="c1"># number of replicate means</span>
-<span class="n">replicates</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
-    <span class="n">boot_sample</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;speeds&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">replicates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">boot_sample</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
-
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">replicates</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;sampling distribution for the estimator&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;speeds&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<figure class="align-center">
-<a class="reference internal image-reference" href="../_images/4a1f92aabd56a2c983161105336e9911b618976703a6b32c5c5e8fd93b432048.png"><img alt="../_images/4a1f92aabd56a2c983161105336e9911b618976703a6b32c5c5e8fd93b432048.png" src="../_images/4a1f92aabd56a2c983161105336e9911b618976703a6b32c5c5e8fd93b432048.png" style="width: 80%;" /></a>
-</figure>
-</div>
-</div>
-<p>Along the horizontal axis we see speeds, as with the plot we saw previously. However, along the vertical axis we now see “probability density” instead of count values. This just means that areas under the curve (which are <span class="math notranslate nohighlight">\(\approx\)</span> the areas of the rectangles) represent probability. Intervals of speeds along the horizontal axis that lie underneath large amounts of area represent values that are more likely to be outputs of our estimator; for example, according to the figure, it is <em>much</em> more likely for our estimator to output a value in the interval <span class="math notranslate nohighlight">\([845,855]\)</span> compared to the interval <span class="math notranslate nohighlight">\([820,830]\)</span>.</p>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<p>This interval is an example of a <em>95%-confidence interval</em>. These will be studied in <a class="reference internal" href="15-CIs.html#cis"><span class="std std-numref">Chapter 15</span></a>.</p>
-</aside>
-<p>Now, a <em>specific</em> measure of the variability of our estimator is the interval of values over which 95% of the probability (<span class="math notranslate nohighlight">\(=\)</span> area!) sits. It is possible to have a computer find this interval for us:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">replicates</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.975</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The interval is [</span><span class="si">{</span><span class="n">ci</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">].&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The interval is [836.795, 867.31].
-</pre></div>
-</div>
-</div>
-</div>
-<p>If we put vertical lines on our probability density plot representing the endpoints of this interval, we get:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">replicates</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;density&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;sampling distribution for the estimator w/95</span><span class="si">%-c</span><span class="s1">i&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;speeds&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">ci</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">ci</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<figure class="align-center">
-<a class="reference internal image-reference" href="../_images/e29efad8fdbbbac53a4526889eecb17c1809654eed9b3f3600898412405f85aa.png"><img alt="../_images/e29efad8fdbbbac53a4526889eecb17c1809654eed9b3f3600898412405f85aa.png" src="../_images/e29efad8fdbbbac53a4526889eecb17c1809654eed9b3f3600898412405f85aa.png" style="width: 80%;" /></a>
-</figure>
-</div>
-</div>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<p>Does this mean that we may conclude with 95% probability that the “true” speed of light is in the interval between the two vertical lines? I encourage you to think <em>very carefully</em> about this question. We will discuss the answer later in <a class="reference internal" href="15-CIs.html#cis"><span class="std std-numref">Chapter 15</span></a>.</p>
-</aside>
-<p>Since 95% of the probability (<span class="math notranslate nohighlight">\(=\)</span> area!) sits over the interval between the two vertical lines, if we feed a 100-sample dataset into our estimator, we expect it to output values in that interval with 95% probability. The length of this interval is about 30 km/s, and since we are dealing with numbers on the order of 300,000 km/s, that length is 1 part in 10,000 relative to the order of magnitude of the data. We would need an experimental physicist to contextualize these numbers for us, but it seems (in my completely uninformed opinion) like that’s a pretty small error! (Remember, it was 1897!) This leads us to:</p>
-<blockquote>
-<div><p>The variability in our estimator is relatively small-ish, which is evidence for a high-ish level of confidence in our estimator.</p>
-</div></blockquote>
-<p>We can’t <em>decisively</em> conclude that our estimator is a good one just from this analysis alone; after all, there might be other metrics for “goodness” that paint a dimmer picture. We will discuss these matters in much more detail later in <code class="xref std std-numref docutils literal notranslate"><span class="pre">Chapter</span> <span class="pre">%s</span></code>; this discussion is only meant as a preview, and also to indicate how probability theory fits in with the program of inferential statistics.</p>
-</section>
-<section id="summary">
-<h2><span class="section-number">1.3. </span>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
-<p>Let’s wrap up by zooming out and summarizing the higher-level concepts and workflow described in our speed of light example. There are really two things going on in most statistical inference tasks:</p>
-<ul class="simple">
-<li><p>First, one must construct an estimator for the target population parameter.</p></li>
-</ul>
-<p>In our speed of light example, constructing the estimator was easy: We simply defined our estimator to compute sample means. But in general, constructing good estimators might be much more difficult. In some situations, there are general principles that help guide the design of estimators; in others, it’s more art than science, and the analyst gets the opportunity to flex their creative skills!</p>
-<ul class="simple">
-<li><p>Then, one conducts a statistical and probabilistic analysis to describe the variability (i.e., precision), the bias (i.e., accuracy) and other properties of the estimator. These metrics serve as measures for our “confidence” in an estimator’s outputs and allow us to compare one estimator to another.</p></li>
-</ul>
-<p>As we will see in <code class="xref std std-numref docutils literal notranslate"><span class="pre">Chapter</span> <span class="pre">%s</span></code>, there is an extensive theory built around the statistical analysis of an estimator, and that our analysis in the speed of light example is only the beginning of the story.</p>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -789,22 +412,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-goal-of-inferential-statistics">1.1. The goal of inferential statistics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-study-the-speed-of-light-and-statistical-estimators">1.2. Case study: the speed of light and statistical estimators</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">1.3. Summary</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>

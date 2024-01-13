@@ -182,12 +182,12 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="chapters/06-theory-to-practice.html">6. Connecting theory to practice: a first look at model building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/07-random-vectors.html">7. Random vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/08-more-prob.html">8. More probability theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/09-optim.html">9. Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/10-models.html">10. Probabilistic models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/11-learning.html">11. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/12-stats-estimators.html">12. Bayesian parameter estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/13-asymptotic.html">13. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/14-more-samp-dist.html">14. More sampling distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/09-information-theory.html">9. Information theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/10-optim.html">10. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/11-models.html">11. Probabilistic graphical models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/12-learning.html">12. Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/13-stats-estimators.html">13. Statistics and general parameter estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/14-asymptotic.html">14. Large sample theory and more sampling distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/15-CIs.html">15. Confidence intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/16-hyp-test.html">16. Hypothesis testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/17-lin-reg.html">17. Linear regression</a></li>
@@ -313,116 +313,237 @@ document.write(`
    <h1>Proof Index</h1>
 
    <div class="modindex-jumpbox">
-   <a href="#cap-algorithm-0"><strong>algorithm-0</strong></a> | 
-   <a href="#cap-algorithm-10"><strong>algorithm-10</strong></a> | 
+   <a href="#cap-affine-gaussian-thm"><strong>affine-gaussian-thm</strong></a> | 
+   <a href="#cap-batch-gd-def"><strong>batch-gd-def</strong></a> | 
+   <a href="#cap-bayes-estimator-def"><strong>bayes-estimator-def</strong></a> | 
+   <a href="#cap-bayes-estimator-example-thm"><strong>bayes-estimator-example-thm</strong></a> | 
+   <a href="#cap-bayes-event-thm"><strong>bayes-event-thm</strong></a> | 
+   <a href="#cap-bayes-risk-def"><strong>bayes-risk-def</strong></a> | 
+   <a href="#cap-bayes-rvs-thm"><strong>bayes-rvs-thm</strong></a> | 
    <a href="#cap-bern-bin-thm"><strong>bern-bin-thm</strong></a> | 
    <a href="#cap-bern-mle-1-thm"><strong>bern-mle-1-thm</strong></a> | 
    <a href="#cap-bern-mle-2-thm"><strong>bern-mle-2-thm</strong></a> | 
+   <a href="#cap-bernoulli-def"><strong>bernoulli-def</strong></a> | 
+   <a href="#cap-beta-def"><strong>beta-def</strong></a> | 
    <a href="#cap-bilinear-thm"><strong>bilinear-thm</strong></a> | 
-   <a href="#cap-corollary-19"><strong>corollary-19</strong></a> | 
-   <a href="#cap-corollary-7"><strong>corollary-7</strong></a> | 
-   <a href="#cap-definition-0"><strong>definition-0</strong></a> | 
-   <a href="#cap-definition-1"><strong>definition-1</strong></a> | 
-   <a href="#cap-definition-10"><strong>definition-10</strong></a> | 
-   <a href="#cap-definition-11"><strong>definition-11</strong></a> | 
-   <a href="#cap-definition-12"><strong>definition-12</strong></a> | 
-   <a href="#cap-definition-13"><strong>definition-13</strong></a> | 
-   <a href="#cap-definition-14"><strong>definition-14</strong></a> | 
-   <a href="#cap-definition-15"><strong>definition-15</strong></a> | 
-   <a href="#cap-definition-16"><strong>definition-16</strong></a> | 
-   <a href="#cap-definition-17"><strong>definition-17</strong></a> | 
-   <a href="#cap-definition-18"><strong>definition-18</strong></a> | 
-   <a href="#cap-definition-2"><strong>definition-2</strong></a> | 
-   <a href="#cap-definition-21"><strong>definition-21</strong></a> | 
-   <a href="#cap-definition-24"><strong>definition-24</strong></a> | 
-   <a href="#cap-definition-25"><strong>definition-25</strong></a> | 
-   <a href="#cap-definition-3"><strong>definition-3</strong></a> | 
-   <a href="#cap-definition-4"><strong>definition-4</strong></a> | 
-   <a href="#cap-definition-5"><strong>definition-5</strong></a> | 
-   <a href="#cap-definition-6"><strong>definition-6</strong></a> | 
-   <a href="#cap-definition-7"><strong>definition-7</strong></a> | 
-   <a href="#cap-definition-8"><strong>definition-8</strong></a> | 
-   <a href="#cap-definition-9"><strong>definition-9</strong></a> | 
+   <a href="#cap-binomial-def"><strong>binomial-def</strong></a> | 
+   <a href="#cap-bivariate-continuous-def"><strong>bivariate-continuous-def</strong></a> | 
+   <a href="#cap-bivariate-lotus-thm"><strong>bivariate-lotus-thm</strong></a> | 
+   <a href="#cap-cdf-rv-def"><strong>cdf-rv-def</strong></a> | 
+   <a href="#cap-cdf-vector-def"><strong>cdf-vector-def</strong></a> | 
+   <a href="#cap-classical-prob-def"><strong>classical-prob-def</strong></a> | 
+   <a href="#cap-combination-def"><strong>combination-def</strong></a> | 
+   <a href="#cap-condition-event-def"><strong>condition-event-def</strong></a> | 
+   <a href="#cap-conditional-exp-def"><strong>conditional-exp-def</strong></a> | 
+   <a href="#cap-conditional-ind-rvs-thm"><strong>conditional-ind-rvs-thm</strong></a> | 
+   <a href="#cap-conditional-ind-thm"><strong>conditional-ind-thm</strong></a> | 
+   <a href="#cap-conditional-prob-functions-def"><strong>conditional-prob-functions-def</strong></a> | 
+   <a href="#cap-conditionals-measures-thm"><strong>conditionals-measures-thm</strong></a> | 
+   <a href="#cap-continuous-bi-construction-thm"><strong>continuous-bi-construction-thm</strong></a> | 
+   <a href="#cap-continuous-construction-thm"><strong>continuous-construction-thm</strong></a> | 
+   <a href="#cap-continuous-measure-def"><strong>continuous-measure-def</strong></a> | 
+   <a href="#cap-correlation-def"><strong>correlation-def</strong></a> | 
+   <a href="#cap-countable-def"><strong>countable-def</strong></a> | 
+   <a href="#cap-counting-combo-thm"><strong>counting-combo-thm</strong></a> | 
+   <a href="#cap-counting-perm-thm"><strong>counting-perm-thm</strong></a> | 
+   <a href="#cap-covar-def"><strong>covar-def</strong></a> | 
+   <a href="#cap-definite-def"><strong>definite-def</strong></a> | 
+   <a href="#cap-derivatives-mgf-thm"><strong>derivatives-mgf-thm</strong></a> | 
+   <a href="#cap-directional-der-def"><strong>directional-der-def</strong></a> | 
    <a href="#cap-directional-der-grad-thm"><strong>directional-der-grad-thm</strong></a> | 
+   <a href="#cap-discrete-construction-thm"><strong>discrete-construction-thm</strong></a> | 
+   <a href="#cap-discrete-cont-two-dim-vec-def"><strong>discrete-cont-two-dim-vec-def</strong></a> | 
+   <a href="#cap-discrete-continuous-rv-def"><strong>discrete-continuous-rv-def</strong></a> | 
+   <a href="#cap-discrete-measure-def"><strong>discrete-measure-def</strong></a> | 
+   <a href="#cap-disjoint-def"><strong>disjoint-def</strong></a> | 
+   <a href="#cap-distribution-function-def"><strong>distribution-function-def</strong></a> | 
    <a href="#cap-emp-dist-defn"><strong>emp-dist-defn</strong></a> | 
    <a href="#cap-emp-quantile-defn"><strong>emp-quantile-defn</strong></a> | 
+   <a href="#cap-empirical-bivar-def"><strong>empirical-bivar-def</strong></a> | 
+   <a href="#cap-empirical-iqr-def"><strong>empirical-iqr-def</strong></a> | 
+   <a href="#cap-empirical-stats-def"><strong>empirical-stats-def</strong></a> | 
    <a href="#cap-exp-beta-thm"><strong>exp-beta-thm</strong></a> | 
+   <a href="#cap-exp-var-bernoulli-thm"><strong>exp-var-bernoulli-thm</strong></a> | 
+   <a href="#cap-exp-var-binomial-thm"><strong>exp-var-binomial-thm</strong></a> | 
+   <a href="#cap-exp-var-exponential-thm"><strong>exp-var-exponential-thm</strong></a> | 
+   <a href="#cap-exp-var-gaussian-thm"><strong>exp-var-gaussian-thm</strong></a> | 
+   <a href="#cap-exp-var-geometric-thm"><strong>exp-var-geometric-thm</strong></a> | 
+   <a href="#cap-exp-var-hypergeometric-thm"><strong>exp-var-hypergeometric-thm</strong></a> | 
+   <a href="#cap-exp-var-poisson-thm"><strong>exp-var-poisson-thm</strong></a> | 
+   <a href="#cap-expectation-constant-thm"><strong>expectation-constant-thm</strong></a> | 
+   <a href="#cap-expected-val-rv-def"><strong>expected-val-rv-def</strong></a> | 
+   <a href="#cap-exponential-def"><strong>exponential-def</strong></a> | 
+   <a href="#cap-freq-risk-def"><strong>freq-risk-def</strong></a> | 
+   <a href="#cap-frequentist-prob"><strong>frequentist-prob</strong></a> | 
+   <a href="#cap-ftc-thm"><strong>ftc-thm</strong></a> | 
+   <a href="#cap-functional-dep-thm"><strong>functional-dep-thm</strong></a> | 
    <a href="#cap-gam-defn"><strong>gam-defn</strong></a> | 
    <a href="#cap-gam-exp-thm"><strong>gam-exp-thm</strong></a> | 
+   <a href="#cap-gaussian-def"><strong>gaussian-def</strong></a> | 
+   <a href="#cap-gd-alg"><strong>gd-alg</strong></a> | 
    <a href="#cap-gd-obs"><strong>gd-obs</strong></a> | 
+   <a href="#cap-gen-para-model-def"><strong>gen-para-model-def</strong></a> | 
+   <a href="#cap-geometric-def"><strong>geometric-def</strong></a> | 
+   <a href="#cap-gmm-def"><strong>gmm-def</strong></a> | 
+   <a href="#cap-gmm-pf-def"><strong>gmm-pf-def</strong></a> | 
+   <a href="#cap-grad-uphill-def"><strong>grad-uphill-def</strong></a> | 
+   <a href="#cap-grad-vec-def"><strong>grad-vec-def</strong></a> | 
+   <a href="#cap-hypergeometric-def"><strong>hypergeometric-def</strong></a> | 
+   <a href="#cap-ind-components-cor"><strong>ind-components-cor</strong></a> | 
    <a href="#cap-ind-expect-thm"><strong>ind-expect-thm</strong></a> | 
+   <a href="#cap-ind-vs-correlation-thm"><strong>ind-vs-correlation-thm</strong></a> | 
    <a href="#cap-independence-defn"><strong>independence-defn</strong></a> | 
+   <a href="#cap-independent-event-def"><strong>independent-event-def</strong></a> | 
    <a href="#cap-invar-independent-thm"><strong>invar-independent-thm</strong></a> | 
+   <a href="#cap-joint-cont-cont-thm"><strong>joint-cont-cont-thm</strong></a> | 
+   <a href="#cap-law-of-total-prob-event-thm"><strong>law-of-total-prob-event-thm</strong></a> | 
+   <a href="#cap-law-of-total-prob-rvs-thm"><strong>law-of-total-prob-rvs-thm</strong></a> | 
+   <a href="#cap-law-of-total-prob-two-event-thm"><strong>law-of-total-prob-two-event-thm</strong></a> | 
    <a href="#cap-lin-reg-data-pf-def"><strong>lin-reg-data-pf-def</strong></a> | 
    <a href="#cap-linear-exp-thm"><strong>linear-exp-thm</strong></a> | 
+   <a href="#cap-linear-reg-def"><strong>linear-reg-def</strong></a> | 
+   <a href="#cap-linear-reg-pf-def"><strong>linear-reg-pf-def</strong></a> | 
+   <a href="#cap-linearity-correlation-thm"><strong>linearity-correlation-thm</strong></a> | 
+   <a href="#cap-linearity-init-thm"><strong>linearity-init-thm</strong></a> | 
+   <a href="#cap-log-reg-def"><strong>log-reg-def</strong></a> | 
+   <a href="#cap-log-reg-pf-def"><strong>log-reg-pf-def</strong></a> | 
    <a href="#cap-logreg-data-pf-def"><strong>logreg-data-pf-def</strong></a> | 
+   <a href="#cap-loss-example-def"><strong>loss-example-def</strong></a> | 
+   <a href="#cap-loss-func-def"><strong>loss-func-def</strong></a> | 
    <a href="#cap-lotus-thm"><strong>lotus-thm</strong></a> | 
    <a href="#cap-marg-thm"><strong>marg-thm</strong></a> | 
+   <a href="#cap-marginal-def"><strong>marginal-def</strong></a> | 
    <a href="#cap-marginal-thm"><strong>marginal-thm</strong></a> | 
    <a href="#cap-mass-density-ind-thm"><strong>mass-density-ind-thm</strong></a> | 
+   <a href="#cap-mgf-def"><strong>mgf-def</strong></a> | 
+   <a href="#cap-mgf-uniqueness-thm"><strong>mgf-uniqueness-thm</strong></a> | 
+   <a href="#cap-mle-formulas-thm"><strong>mle-formulas-thm</strong></a> | 
+   <a href="#cap-mle-fully-observed-def"><strong>mle-fully-observed-def</strong></a> | 
+   <a href="#cap-mle-lin-reg-thm"><strong>mle-lin-reg-thm</strong></a> | 
+   <a href="#cap-mle-log-reg-thm"><strong>mle-log-reg-thm</strong></a> | 
+   <a href="#cap-mle-simple-lin-reg-cor"><strong>mle-simple-lin-reg-cor</strong></a> | 
    <a href="#cap-mle-training-objectives-def"><strong>mle-training-objectives-def</strong></a> | 
-   <a href="#cap-population-def"><strong>population-def</strong></a> | 
+   <a href="#cap-moments-def"><strong>moments-def</strong></a> | 
+   <a href="#cap-multi-dim-def"><strong>multi-dim-def</strong></a> | 
+   <a href="#cap-neural-net-data-pf-def"><strong>neural-net-data-pf-def</strong></a> | 
+   <a href="#cap-neural-net-def"><strong>neural-net-def</strong></a> | 
+   <a href="#cap-neural-net-pf-def"><strong>neural-net-pf-def</strong></a> | 
+   <a href="#cap-outlier-def"><strong>outlier-def</strong></a> | 
+   <a href="#cap-para-model-def"><strong>para-model-def</strong></a> | 
+   <a href="#cap-param-est-def"><strong>param-est-def</strong></a> | 
+   <a href="#cap-permutation-def"><strong>permutation-def</strong></a> | 
+   <a href="#cap-pgm-def"><strong>pgm-def</strong></a> | 
+   <a href="#cap-poisson-def"><strong>poisson-def</strong></a> | 
+   <a href="#cap-prob-events-thm"><strong>prob-events-thm</strong></a> | 
+   <a href="#cap-prob-initial-def"><strong>prob-initial-def</strong></a> | 
    <a href="#cap-prob-measure-X-defn"><strong>prob-measure-X-defn</strong></a> | 
    <a href="#cap-prob-measure-def"><strong>prob-measure-def</strong></a> | 
+   <a href="#cap-prob-measure-multi-def"><strong>prob-measure-multi-def</strong></a> | 
+   <a href="#cap-prob-measure-two-dim-def"><strong>prob-measure-two-dim-def</strong></a> | 
+   <a href="#cap-prob-space-def"><strong>prob-space-def</strong></a> | 
    <a href="#cap-prob1-axiom"><strong>prob1-axiom</strong></a> | 
    <a href="#cap-prob2-axiom"><strong>prob2-axiom</strong></a> | 
    <a href="#cap-prob3-axiom"><strong>prob3-axiom</strong></a> | 
+   <a href="#cap-product-rule-counting-thm"><strong>product-rule-counting-thm</strong></a> | 
+   <a href="#cap-product-rule-prob-thm"><strong>product-rule-prob-thm</strong></a> | 
+   <a href="#cap-prop-bi-pdf-thm"><strong>prop-bi-pdf-thm</strong></a> | 
+   <a href="#cap-prop-cdf-thm"><strong>prop-cdf-thm</strong></a> | 
+   <a href="#cap-prop-correlation-thm"><strong>prop-correlation-thm</strong></a> | 
+   <a href="#cap-prop-measures-thm"><strong>prop-measures-thm</strong></a> | 
+   <a href="#cap-prop-pdf-thm"><strong>prop-pdf-thm</strong></a> | 
+   <a href="#cap-prop-pmf-thm"><strong>prop-pmf-thm</strong></a> | 
+   <a href="#cap-prop-sample-mean-thm"><strong>prop-sample-mean-thm</strong></a> | 
+   <a href="#cap-quantile-function-def"><strong>quantile-function-def</strong></a> | 
+   <a href="#cap-quantile-rv-def"><strong>quantile-rv-def</strong></a> | 
    <a href="#cap-random-sample-defn"><strong>random-sample-defn</strong></a> | 
    <a href="#cap-random-sample-vec-defn"><strong>random-sample-vec-defn</strong></a> | 
+   <a href="#cap-random-var-def"><strong>random-var-def</strong></a> | 
    <a href="#cap-recur-gamma-thm"><strong>recur-gamma-thm</strong></a> | 
+   <a href="#cap-samp-dist-def"><strong>samp-dist-def</strong></a> | 
+   <a href="#cap-sample-mean-var-def"><strong>sample-mean-var-def</strong></a> | 
+   <a href="#cap-second-der-test-thm"><strong>second-der-test-thm</strong></a> | 
+   <a href="#cap-set-defn"><strong>set-defn</strong></a> | 
    <a href="#cap-sgd-alg"><strong>sgd-alg</strong></a> | 
    <a href="#cap-shortcut-covar-thm"><strong>shortcut-covar-thm</strong></a> | 
    <a href="#cap-shortcut-var-thm"><strong>shortcut-var-thm</strong></a> | 
+   <a href="#cap-single-var-gd-alg"><strong>single-var-gd-alg</strong></a> | 
    <a href="#cap-single-variable-gd-alg"><strong>single-variable-gd-alg</strong></a> | 
    <a href="#cap-spectral-thm"><strong>spectral-thm</strong></a> | 
    <a href="#cap-standardization-cor"><strong>standardization-cor</strong></a> | 
+   <a href="#cap-statistic-def"><strong>statistic-def</strong></a> | 
+   <a href="#cap-std-normal-stuff-def"><strong>std-normal-stuff-def</strong></a> | 
+   <a href="#cap-std-rv-def"><strong>std-rv-def</strong></a> | 
+   <a href="#cap-sum-rule-counting-thm"><strong>sum-rule-counting-thm</strong></a> | 
+   <a href="#cap-sum-rule-prob-thm"><strong>sum-rule-prob-thm</strong></a> | 
+   <a href="#cap-support-def"><strong>support-def</strong></a> | 
    <a href="#cap-taylor-thm"><strong>taylor-thm</strong></a> | 
-   <a href="#cap-theorem-0"><strong>theorem-0</strong></a> | 
-   <a href="#cap-theorem-1"><strong>theorem-1</strong></a> | 
-   <a href="#cap-theorem-10"><strong>theorem-10</strong></a> | 
-   <a href="#cap-theorem-11"><strong>theorem-11</strong></a> | 
-   <a href="#cap-theorem-12"><strong>theorem-12</strong></a> | 
-   <a href="#cap-theorem-13"><strong>theorem-13</strong></a> | 
-   <a href="#cap-theorem-15"><strong>theorem-15</strong></a> | 
-   <a href="#cap-theorem-16"><strong>theorem-16</strong></a> | 
-   <a href="#cap-theorem-17"><strong>theorem-17</strong></a> | 
-   <a href="#cap-theorem-18"><strong>theorem-18</strong></a> | 
-   <a href="#cap-theorem-19"><strong>theorem-19</strong></a> | 
-   <a href="#cap-theorem-20"><strong>theorem-20</strong></a> | 
-   <a href="#cap-theorem-22"><strong>theorem-22</strong></a> | 
-   <a href="#cap-theorem-23"><strong>theorem-23</strong></a> | 
-   <a href="#cap-theorem-26"><strong>theorem-26</strong></a> | 
-   <a href="#cap-theorem-27"><strong>theorem-27</strong></a> | 
-   <a href="#cap-theorem-3"><strong>theorem-3</strong></a> | 
-   <a href="#cap-theorem-4"><strong>theorem-4</strong></a> | 
-   <a href="#cap-theorem-5"><strong>theorem-5</strong></a> | 
-   <a href="#cap-theorem-6"><strong>theorem-6</strong></a> | 
-   <a href="#cap-theorem-7"><strong>theorem-7</strong></a> | 
-   <a href="#cap-theorem-8"><strong>theorem-8</strong></a> | 
-   <a href="#cap-theorem-9"><strong>theorem-9</strong></a> | 
    <a href="#cap-three-mle-thm"><strong>three-mle-thm</strong></a> | 
+   <a href="#cap-two-dim-vector-def"><strong>two-dim-vector-def</strong></a> | 
+   <a href="#cap-uncorrelated-def"><strong>uncorrelated-def</strong></a> | 
+   <a href="#cap-uniform-def"><strong>uniform-def</strong></a> | 
    <a href="#cap-var-affine-thm"><strong>var-affine-thm</strong></a> | 
    <a href="#cap-variance-lin-combo-thm"><strong>variance-lin-combo-thm</strong></a> | 
+   <a href="#cap-variance-rv-def"><strong>variance-rv-def</strong></a> | 
    <a href="#cap-weak-linear-thm"><strong>weak-linear-thm</strong></a>
    </div>
 
    <table class="indextable modindextable">
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-algorithm-0"><td></td><td>
-       <strong>algorithm-0</strong></td><td></td></tr>
+     <tr class="cap" id="cap-affine-gaussian-thm"><td></td><td>
+       <strong>affine-gaussian-thm</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/09-optim.html#algorithm-0"><code class="xref">algorithm-0</code></a> <em>(chapters/09-optim)</em></td><td>
-       <em>algorithm</em></td></tr>
+       <a href="chapters/05-examples-of-rvs.html#affine-gaussian-thm"><code class="xref">affine-gaussian-thm</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-algorithm-10"><td></td><td>
-       <strong>algorithm-10</strong></td><td></td></tr>
+     <tr class="cap" id="cap-batch-gd-def"><td></td><td>
+       <strong>batch-gd-def</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/09-optim.html#algorithm-10"><code class="xref">algorithm-10</code></a> <em>(chapters/09-optim)</em></td><td>
-       <em>algorithm</em></td></tr>
+       <a href="chapters/10-optim.html#batch-gd-def"><code class="xref">batch-gd-def</code></a> <em>(chapters/10-optim)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-bayes-estimator-def"><td></td><td>
+       <strong>bayes-estimator-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-stats-estimators.html#bayes-estimator-def"><code class="xref">bayes-estimator-def</code></a> <em>(chapters/13-stats-estimators)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-bayes-estimator-example-thm"><td></td><td>
+       <strong>bayes-estimator-example-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-stats-estimators.html#bayes-estimator-example-thm"><code class="xref">bayes-estimator-example-thm</code></a> <em>(chapters/13-stats-estimators)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-bayes-event-thm"><td></td><td>
+       <strong>bayes-event-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/03-rules-of-prob.html#bayes-event-thm"><code class="xref">bayes-event-thm</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-bayes-risk-def"><td></td><td>
+       <strong>bayes-risk-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-stats-estimators.html#bayes-risk-def"><code class="xref">bayes-risk-def</code></a> <em>(chapters/13-stats-estimators)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-bayes-rvs-thm"><td></td><td>
+       <strong>bayes-rvs-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/07-random-vectors.html#bayes-rvs-thm"><code class="xref">bayes-rvs-thm</code></a> <em>(chapters/07-random-vectors)</em></td><td>
+       <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-bern-bin-thm"><td></td><td>
        <strong>bern-bin-thm</strong></td><td></td></tr>
@@ -437,7 +558,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/11-learning.html#bern-mle-1-thm"><code class="xref">bern-mle-1-thm</code></a> <em>(chapters/11-learning)</em></td><td>
+       <a href="chapters/12-learning.html#bern-mle-1-thm"><code class="xref">bern-mle-1-thm</code></a> <em>(chapters/12-learning)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-bern-mle-2-thm"><td></td><td>
@@ -445,8 +566,24 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/11-learning.html#bern-mle-2-thm"><code class="xref">bern-mle-2-thm</code></a> <em>(chapters/11-learning)</em></td><td>
+       <a href="chapters/12-learning.html#bern-mle-2-thm"><code class="xref">bern-mle-2-thm</code></a> <em>(chapters/12-learning)</em></td><td>
        <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-bernoulli-def"><td></td><td>
+       <strong>bernoulli-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/05-examples-of-rvs.html#bernoulli-def"><code class="xref">bernoulli-def</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-beta-def"><td></td><td>
+       <strong>beta-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/05-examples-of-rvs.html#beta-def"><code class="xref">beta-def</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-bilinear-thm"><td></td><td>
        <strong>bilinear-thm</strong></td><td></td></tr>
@@ -456,196 +593,196 @@ document.write(`
        <a href="chapters/08-more-prob.html#bilinear-thm"><code class="xref">bilinear-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-corollary-19"><td></td><td>
-       <strong>corollary-19</strong></td><td></td></tr>
+     <tr class="cap" id="cap-binomial-def"><td></td><td>
+       <strong>binomial-def</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/07-random-vectors.html#corollary-19"><code class="xref">corollary-19</code></a> <em>(chapters/07-random-vectors)</em></td><td>
-       <em>corollary</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-corollary-7"><td></td><td>
-       <strong>corollary-7</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/11-learning.html#corollary-7"><code class="xref">corollary-7</code></a> <em>(chapters/11-learning)</em></td><td>
-       <em>corollary</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-0"><td></td><td>
-       <strong>definition-0</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/10-models.html#definition-0"><code class="xref">definition-0</code></a> <em>(chapters/10-models)</em></td><td>
+       <a href="chapters/05-examples-of-rvs.html#binomial-def"><code class="xref">binomial-def</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-1"><td></td><td>
-       <strong>definition-1</strong></td><td></td></tr>
+     <tr class="cap" id="cap-bivariate-continuous-def"><td></td><td>
+       <strong>bivariate-continuous-def</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/10-models.html#definition-1"><code class="xref">definition-1</code></a> <em>(chapters/10-models)</em></td><td>
+       <a href="chapters/02-prob-spaces.html#bivariate-continuous-def"><code class="xref">bivariate-continuous-def</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-10"><td></td><td>
-       <strong>definition-10</strong></td><td></td></tr>
+     <tr class="cap" id="cap-bivariate-lotus-thm"><td></td><td>
+       <strong>bivariate-lotus-thm</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/10-models.html#definition-10"><code class="xref">definition-10</code></a> <em>(chapters/10-models)</em></td><td>
+       <a href="chapters/08-more-prob.html#bivariate-lotus-thm"><code class="xref">bivariate-lotus-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-cdf-rv-def"><td></td><td>
+       <strong>cdf-rv-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/04-random-variables.html#cdf-rv-def"><code class="xref">cdf-rv-def</code></a> <em>(chapters/04-random-variables)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-11"><td></td><td>
-       <strong>definition-11</strong></td><td></td></tr>
+     <tr class="cap" id="cap-cdf-vector-def"><td></td><td>
+       <strong>cdf-vector-def</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/10-models.html#definition-11"><code class="xref">definition-11</code></a> <em>(chapters/10-models)</em></td><td>
+       <a href="chapters/07-random-vectors.html#cdf-vector-def"><code class="xref">cdf-vector-def</code></a> <em>(chapters/07-random-vectors)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-12"><td></td><td>
-       <strong>definition-12</strong></td><td></td></tr>
+     <tr class="cap" id="cap-classical-prob-def"><td></td><td>
+       <strong>classical-prob-def</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/02-prob-spaces.html#definition-12"><code class="xref">definition-12</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <a href="chapters/02-prob-spaces.html#classical-prob-def"><code class="xref">classical-prob-def</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-13"><td></td><td>
-       <strong>definition-13</strong></td><td></td></tr>
+     <tr class="cap" id="cap-combination-def"><td></td><td>
+       <strong>combination-def</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/08-more-prob.html#definition-13"><code class="xref">definition-13</code></a> <em>(chapters/08-more-prob)</em></td><td>
+       <a href="chapters/03-rules-of-prob.html#combination-def"><code class="xref">combination-def</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-14"><td></td><td>
-       <strong>definition-14</strong></td><td></td></tr>
+     <tr class="cap" id="cap-condition-event-def"><td></td><td>
+       <strong>condition-event-def</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/08-more-prob.html#definition-14"><code class="xref">definition-14</code></a> <em>(chapters/08-more-prob)</em></td><td>
+       <a href="chapters/03-rules-of-prob.html#condition-event-def"><code class="xref">condition-event-def</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-15"><td></td><td>
-       <strong>definition-15</strong></td><td></td></tr>
+     <tr class="cap" id="cap-conditional-exp-def"><td></td><td>
+       <strong>conditional-exp-def</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/07-random-vectors.html#definition-15"><code class="xref">definition-15</code></a> <em>(chapters/07-random-vectors)</em></td><td>
+       <a href="chapters/08-more-prob.html#conditional-exp-def"><code class="xref">conditional-exp-def</code></a> <em>(chapters/08-more-prob)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-16"><td></td><td>
-       <strong>definition-16</strong></td><td></td></tr>
+     <tr class="cap" id="cap-conditional-ind-rvs-thm"><td></td><td>
+       <strong>conditional-ind-rvs-thm</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/08-more-prob.html#definition-16"><code class="xref">definition-16</code></a> <em>(chapters/08-more-prob)</em></td><td>
+       <a href="chapters/07-random-vectors.html#conditional-ind-rvs-thm"><code class="xref">conditional-ind-rvs-thm</code></a> <em>(chapters/07-random-vectors)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-conditional-ind-thm"><td></td><td>
+       <strong>conditional-ind-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/03-rules-of-prob.html#conditional-ind-thm"><code class="xref">conditional-ind-thm</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-conditional-prob-functions-def"><td></td><td>
+       <strong>conditional-prob-functions-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/07-random-vectors.html#conditional-prob-functions-def"><code class="xref">conditional-prob-functions-def</code></a> <em>(chapters/07-random-vectors)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-17"><td></td><td>
-       <strong>definition-17</strong></td><td></td></tr>
+     <tr class="cap" id="cap-conditionals-measures-thm"><td></td><td>
+       <strong>conditionals-measures-thm</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/02-prob-spaces.html#definition-17"><code class="xref">definition-17</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <a href="chapters/07-random-vectors.html#conditionals-measures-thm"><code class="xref">conditionals-measures-thm</code></a> <em>(chapters/07-random-vectors)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-continuous-bi-construction-thm"><td></td><td>
+       <strong>continuous-bi-construction-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#continuous-bi-construction-thm"><code class="xref">continuous-bi-construction-thm</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-continuous-construction-thm"><td></td><td>
+       <strong>continuous-construction-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#continuous-construction-thm"><code class="xref">continuous-construction-thm</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-continuous-measure-def"><td></td><td>
+       <strong>continuous-measure-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#continuous-measure-def"><code class="xref">continuous-measure-def</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-18"><td></td><td>
-       <strong>definition-18</strong></td><td></td></tr>
+     <tr class="cap" id="cap-correlation-def"><td></td><td>
+       <strong>correlation-def</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/02-prob-spaces.html#definition-18"><code class="xref">definition-18</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <a href="chapters/08-more-prob.html#correlation-def"><code class="xref">correlation-def</code></a> <em>(chapters/08-more-prob)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-2"><td></td><td>
-       <strong>definition-2</strong></td><td></td></tr>
+     <tr class="cap" id="cap-countable-def"><td></td><td>
+       <strong>countable-def</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/10-models.html#definition-2"><code class="xref">definition-2</code></a> <em>(chapters/10-models)</em></td><td>
+       <a href="chapters/02-prob-spaces.html#countable-def"><code class="xref">countable-def</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-21"><td></td><td>
-       <strong>definition-21</strong></td><td></td></tr>
+     <tr class="cap" id="cap-counting-combo-thm"><td></td><td>
+       <strong>counting-combo-thm</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/05-examples-of-rvs.html#definition-21"><code class="xref">definition-21</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <a href="chapters/03-rules-of-prob.html#counting-combo-thm"><code class="xref">counting-combo-thm</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-counting-perm-thm"><td></td><td>
+       <strong>counting-perm-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/03-rules-of-prob.html#counting-perm-thm"><code class="xref">counting-perm-thm</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-covar-def"><td></td><td>
+       <strong>covar-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/08-more-prob.html#covar-def"><code class="xref">covar-def</code></a> <em>(chapters/08-more-prob)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-24"><td></td><td>
-       <strong>definition-24</strong></td><td></td></tr>
+     <tr class="cap" id="cap-definite-def"><td></td><td>
+       <strong>definite-def</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/02-prob-spaces.html#definition-24"><code class="xref">definition-24</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <a href="chapters/10-optim.html#definite-def"><code class="xref">definite-def</code></a> <em>(chapters/10-optim)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-25"><td></td><td>
-       <strong>definition-25</strong></td><td></td></tr>
+     <tr class="cap" id="cap-derivatives-mgf-thm"><td></td><td>
+       <strong>derivatives-mgf-thm</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/02-prob-spaces.html#definition-25"><code class="xref">definition-25</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
-       <em>definition</em></td></tr>
+       <a href="chapters/08-more-prob.html#derivatives-mgf-thm"><code class="xref">derivatives-mgf-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
+       <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-3"><td></td><td>
-       <strong>definition-3</strong></td><td></td></tr>
+     <tr class="cap" id="cap-directional-der-def"><td></td><td>
+       <strong>directional-der-def</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/09-optim.html#definition-3"><code class="xref">definition-3</code></a> <em>(chapters/09-optim)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-4"><td></td><td>
-       <strong>definition-4</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/10-models.html#definition-4"><code class="xref">definition-4</code></a> <em>(chapters/10-models)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-5"><td></td><td>
-       <strong>definition-5</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/11-learning.html#definition-5"><code class="xref">definition-5</code></a> <em>(chapters/11-learning)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-6"><td></td><td>
-       <strong>definition-6</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/07-random-vectors.html#definition-6"><code class="xref">definition-6</code></a> <em>(chapters/07-random-vectors)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-7"><td></td><td>
-       <strong>definition-7</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/10-models.html#definition-7"><code class="xref">definition-7</code></a> <em>(chapters/10-models)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-8"><td></td><td>
-       <strong>definition-8</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/10-models.html#definition-8"><code class="xref">definition-8</code></a> <em>(chapters/10-models)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-9"><td></td><td>
-       <strong>definition-9</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/10-models.html#definition-9"><code class="xref">definition-9</code></a> <em>(chapters/10-models)</em></td><td>
+       <a href="chapters/10-optim.html#directional-der-def"><code class="xref">directional-der-def</code></a> <em>(chapters/10-optim)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-directional-der-grad-thm"><td></td><td>
@@ -653,8 +790,56 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/09-optim.html#directional-der-grad-thm"><code class="xref">directional-der-grad-thm</code></a> <em>(chapters/09-optim)</em></td><td>
+       <a href="chapters/10-optim.html#directional-der-grad-thm"><code class="xref">directional-der-grad-thm</code></a> <em>(chapters/10-optim)</em></td><td>
        <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-discrete-construction-thm"><td></td><td>
+       <strong>discrete-construction-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#discrete-construction-thm"><code class="xref">discrete-construction-thm</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-discrete-cont-two-dim-vec-def"><td></td><td>
+       <strong>discrete-cont-two-dim-vec-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/07-random-vectors.html#discrete-cont-two-dim-vec-def"><code class="xref">discrete-cont-two-dim-vec-def</code></a> <em>(chapters/07-random-vectors)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-discrete-continuous-rv-def"><td></td><td>
+       <strong>discrete-continuous-rv-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/04-random-variables.html#discrete-continuous-rv-def"><code class="xref">discrete-continuous-rv-def</code></a> <em>(chapters/04-random-variables)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-discrete-measure-def"><td></td><td>
+       <strong>discrete-measure-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#discrete-measure-def"><code class="xref">discrete-measure-def</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-disjoint-def"><td></td><td>
+       <strong>disjoint-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#disjoint-def"><code class="xref">disjoint-def</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-distribution-function-def"><td></td><td>
+       <strong>distribution-function-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#distribution-function-def"><code class="xref">distribution-function-def</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-emp-dist-defn"><td></td><td>
        <strong>emp-dist-defn</strong></td><td></td></tr>
@@ -672,12 +857,148 @@ document.write(`
        <a href="chapters/06-theory-to-practice.html#emp-quantile-defn"><code class="xref">emp-quantile-defn</code></a> <em>(chapters/06-theory-to-practice)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-empirical-bivar-def"><td></td><td>
+       <strong>empirical-bivar-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/07-random-vectors.html#empirical-bivar-def"><code class="xref">empirical-bivar-def</code></a> <em>(chapters/07-random-vectors)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-empirical-iqr-def"><td></td><td>
+       <strong>empirical-iqr-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/06-theory-to-practice.html#empirical-iqr-def"><code class="xref">empirical-iqr-def</code></a> <em>(chapters/06-theory-to-practice)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-empirical-stats-def"><td></td><td>
+       <strong>empirical-stats-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/06-theory-to-practice.html#empirical-stats-def"><code class="xref">empirical-stats-def</code></a> <em>(chapters/06-theory-to-practice)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-exp-beta-thm"><td></td><td>
        <strong>exp-beta-thm</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
        <a href="chapters/05-examples-of-rvs.html#exp-beta-thm"><code class="xref">exp-beta-thm</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-exp-var-bernoulli-thm"><td></td><td>
+       <strong>exp-var-bernoulli-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/05-examples-of-rvs.html#exp-var-bernoulli-thm"><code class="xref">exp-var-bernoulli-thm</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-exp-var-binomial-thm"><td></td><td>
+       <strong>exp-var-binomial-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/05-examples-of-rvs.html#exp-var-binomial-thm"><code class="xref">exp-var-binomial-thm</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-exp-var-exponential-thm"><td></td><td>
+       <strong>exp-var-exponential-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/05-examples-of-rvs.html#exp-var-exponential-thm"><code class="xref">exp-var-exponential-thm</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-exp-var-gaussian-thm"><td></td><td>
+       <strong>exp-var-gaussian-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/05-examples-of-rvs.html#exp-var-gaussian-thm"><code class="xref">exp-var-gaussian-thm</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-exp-var-geometric-thm"><td></td><td>
+       <strong>exp-var-geometric-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/05-examples-of-rvs.html#exp-var-geometric-thm"><code class="xref">exp-var-geometric-thm</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-exp-var-hypergeometric-thm"><td></td><td>
+       <strong>exp-var-hypergeometric-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/05-examples-of-rvs.html#exp-var-hypergeometric-thm"><code class="xref">exp-var-hypergeometric-thm</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-exp-var-poisson-thm"><td></td><td>
+       <strong>exp-var-poisson-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/05-examples-of-rvs.html#exp-var-poisson-thm"><code class="xref">exp-var-poisson-thm</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-expectation-constant-thm"><td></td><td>
+       <strong>expectation-constant-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/04-random-variables.html#expectation-constant-thm"><code class="xref">expectation-constant-thm</code></a> <em>(chapters/04-random-variables)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-expected-val-rv-def"><td></td><td>
+       <strong>expected-val-rv-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/04-random-variables.html#expected-val-rv-def"><code class="xref">expected-val-rv-def</code></a> <em>(chapters/04-random-variables)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-exponential-def"><td></td><td>
+       <strong>exponential-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/05-examples-of-rvs.html#exponential-def"><code class="xref">exponential-def</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-freq-risk-def"><td></td><td>
+       <strong>freq-risk-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-stats-estimators.html#freq-risk-def"><code class="xref">freq-risk-def</code></a> <em>(chapters/13-stats-estimators)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-frequentist-prob"><td></td><td>
+       <strong>frequentist-prob</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#frequentist-prob"><code class="xref">frequentist-prob</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ftc-thm"><td></td><td>
+       <strong>ftc-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#ftc-thm"><code class="xref">ftc-thm</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-functional-dep-thm"><td></td><td>
+       <strong>functional-dep-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/08-more-prob.html#functional-dep-thm"><code class="xref">functional-dep-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-gam-defn"><td></td><td>
@@ -696,13 +1017,93 @@ document.write(`
        <a href="chapters/05-examples-of-rvs.html#gam-exp-thm"><code class="xref">gam-exp-thm</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-gaussian-def"><td></td><td>
+       <strong>gaussian-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/05-examples-of-rvs.html#gaussian-def"><code class="xref">gaussian-def</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-gd-alg"><td></td><td>
+       <strong>gd-alg</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/10-optim.html#gd-alg"><code class="xref">gd-alg</code></a> <em>(chapters/10-optim)</em></td><td>
+       <em>algorithm</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-gd-obs"><td></td><td>
        <strong>gd-obs</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/09-optim.html#gd-obs"><code class="xref">gd-obs</code></a> <em>(chapters/09-optim)</em></td><td>
+       <a href="chapters/10-optim.html#gd-obs"><code class="xref">gd-obs</code></a> <em>(chapters/10-optim)</em></td><td>
        <em>observation</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-gen-para-model-def"><td></td><td>
+       <strong>gen-para-model-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-stats-estimators.html#gen-para-model-def"><code class="xref">gen-para-model-def</code></a> <em>(chapters/13-stats-estimators)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-geometric-def"><td></td><td>
+       <strong>geometric-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/05-examples-of-rvs.html#geometric-def"><code class="xref">geometric-def</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-gmm-def"><td></td><td>
+       <strong>gmm-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/11-models.html#gmm-def"><code class="xref">gmm-def</code></a> <em>(chapters/11-models)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-gmm-pf-def"><td></td><td>
+       <strong>gmm-pf-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/11-models.html#gmm-pf-def"><code class="xref">gmm-pf-def</code></a> <em>(chapters/11-models)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-grad-uphill-def"><td></td><td>
+       <strong>grad-uphill-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/10-optim.html#grad-uphill-def"><code class="xref">grad-uphill-def</code></a> <em>(chapters/10-optim)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-grad-vec-def"><td></td><td>
+       <strong>grad-vec-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/10-optim.html#grad-vec-def"><code class="xref">grad-vec-def</code></a> <em>(chapters/10-optim)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-hypergeometric-def"><td></td><td>
+       <strong>hypergeometric-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/05-examples-of-rvs.html#hypergeometric-def"><code class="xref">hypergeometric-def</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ind-components-cor"><td></td><td>
+       <strong>ind-components-cor</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/07-random-vectors.html#ind-components-cor"><code class="xref">ind-components-cor</code></a> <em>(chapters/07-random-vectors)</em></td><td>
+       <em>corollary</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-ind-expect-thm"><td></td><td>
        <strong>ind-expect-thm</strong></td><td></td></tr>
@@ -710,6 +1111,14 @@ document.write(`
        <td></td>
        <td>
        <a href="chapters/08-more-prob.html#ind-expect-thm"><code class="xref">ind-expect-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ind-vs-correlation-thm"><td></td><td>
+       <strong>ind-vs-correlation-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/08-more-prob.html#ind-vs-correlation-thm"><code class="xref">ind-vs-correlation-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-independence-defn"><td></td><td>
@@ -720,6 +1129,14 @@ document.write(`
        <a href="chapters/07-random-vectors.html#independence-defn"><code class="xref">independence-defn</code></a> <em>(chapters/07-random-vectors)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-independent-event-def"><td></td><td>
+       <strong>independent-event-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/03-rules-of-prob.html#independent-event-def"><code class="xref">independent-event-def</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-invar-independent-thm"><td></td><td>
        <strong>invar-independent-thm</strong></td><td></td></tr>
      <tr>
@@ -728,12 +1145,44 @@ document.write(`
        <a href="chapters/07-random-vectors.html#invar-independent-thm"><code class="xref">invar-independent-thm</code></a> <em>(chapters/07-random-vectors)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-joint-cont-cont-thm"><td></td><td>
+       <strong>joint-cont-cont-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/07-random-vectors.html#joint-cont-cont-thm"><code class="xref">joint-cont-cont-thm</code></a> <em>(chapters/07-random-vectors)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-law-of-total-prob-event-thm"><td></td><td>
+       <strong>law-of-total-prob-event-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/03-rules-of-prob.html#law-of-total-prob-event-thm"><code class="xref">law-of-total-prob-event-thm</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-law-of-total-prob-rvs-thm"><td></td><td>
+       <strong>law-of-total-prob-rvs-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/07-random-vectors.html#law-of-total-prob-rvs-thm"><code class="xref">law-of-total-prob-rvs-thm</code></a> <em>(chapters/07-random-vectors)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-law-of-total-prob-two-event-thm"><td></td><td>
+       <strong>law-of-total-prob-two-event-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/03-rules-of-prob.html#law-of-total-prob-two-event-thm"><code class="xref">law-of-total-prob-two-event-thm</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-lin-reg-data-pf-def"><td></td><td>
        <strong>lin-reg-data-pf-def</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/10-models.html#lin-reg-data-pf-def"><code class="xref">lin-reg-data-pf-def</code></a> <em>(chapters/10-models)</em></td><td>
+       <a href="chapters/11-models.html#lin-reg-data-pf-def"><code class="xref">lin-reg-data-pf-def</code></a> <em>(chapters/11-models)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-linear-exp-thm"><td></td><td>
@@ -744,12 +1193,76 @@ document.write(`
        <a href="chapters/08-more-prob.html#linear-exp-thm"><code class="xref">linear-exp-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-linear-reg-def"><td></td><td>
+       <strong>linear-reg-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/11-models.html#linear-reg-def"><code class="xref">linear-reg-def</code></a> <em>(chapters/11-models)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-linear-reg-pf-def"><td></td><td>
+       <strong>linear-reg-pf-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/11-models.html#linear-reg-pf-def"><code class="xref">linear-reg-pf-def</code></a> <em>(chapters/11-models)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-linearity-correlation-thm"><td></td><td>
+       <strong>linearity-correlation-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/08-more-prob.html#linearity-correlation-thm"><code class="xref">linearity-correlation-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-linearity-init-thm"><td></td><td>
+       <strong>linearity-init-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/04-random-variables.html#linearity-init-thm"><code class="xref">linearity-init-thm</code></a> <em>(chapters/04-random-variables)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-log-reg-def"><td></td><td>
+       <strong>log-reg-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/11-models.html#log-reg-def"><code class="xref">log-reg-def</code></a> <em>(chapters/11-models)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-log-reg-pf-def"><td></td><td>
+       <strong>log-reg-pf-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/11-models.html#log-reg-pf-def"><code class="xref">log-reg-pf-def</code></a> <em>(chapters/11-models)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-logreg-data-pf-def"><td></td><td>
        <strong>logreg-data-pf-def</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/10-models.html#logreg-data-pf-def"><code class="xref">logreg-data-pf-def</code></a> <em>(chapters/10-models)</em></td><td>
+       <a href="chapters/11-models.html#logreg-data-pf-def"><code class="xref">logreg-data-pf-def</code></a> <em>(chapters/11-models)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-loss-example-def"><td></td><td>
+       <strong>loss-example-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-stats-estimators.html#loss-example-def"><code class="xref">loss-example-def</code></a> <em>(chapters/13-stats-estimators)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-loss-func-def"><td></td><td>
+       <strong>loss-func-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-stats-estimators.html#loss-func-def"><code class="xref">loss-func-def</code></a> <em>(chapters/13-stats-estimators)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-lotus-thm"><td></td><td>
@@ -768,6 +1281,14 @@ document.write(`
        <a href="chapters/07-random-vectors.html#marg-thm"><code class="xref">marg-thm</code></a> <em>(chapters/07-random-vectors)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-marginal-def"><td></td><td>
+       <strong>marginal-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/07-random-vectors.html#marginal-def"><code class="xref">marginal-def</code></a> <em>(chapters/07-random-vectors)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-marginal-thm"><td></td><td>
        <strong>marginal-thm</strong></td><td></td></tr>
      <tr>
@@ -784,20 +1305,172 @@ document.write(`
        <a href="chapters/07-random-vectors.html#mass-density-ind-thm"><code class="xref">mass-density-ind-thm</code></a> <em>(chapters/07-random-vectors)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-mgf-def"><td></td><td>
+       <strong>mgf-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/08-more-prob.html#mgf-def"><code class="xref">mgf-def</code></a> <em>(chapters/08-more-prob)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-mgf-uniqueness-thm"><td></td><td>
+       <strong>mgf-uniqueness-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/08-more-prob.html#mgf-uniqueness-thm"><code class="xref">mgf-uniqueness-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-mle-formulas-thm"><td></td><td>
+       <strong>mle-formulas-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/12-learning.html#mle-formulas-thm"><code class="xref">mle-formulas-thm</code></a> <em>(chapters/12-learning)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-mle-fully-observed-def"><td></td><td>
+       <strong>mle-fully-observed-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/12-learning.html#mle-fully-observed-def"><code class="xref">mle-fully-observed-def</code></a> <em>(chapters/12-learning)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-mle-lin-reg-thm"><td></td><td>
+       <strong>mle-lin-reg-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/12-learning.html#mle-lin-reg-thm"><code class="xref">mle-lin-reg-thm</code></a> <em>(chapters/12-learning)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-mle-log-reg-thm"><td></td><td>
+       <strong>mle-log-reg-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/12-learning.html#mle-log-reg-thm"><code class="xref">mle-log-reg-thm</code></a> <em>(chapters/12-learning)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-mle-simple-lin-reg-cor"><td></td><td>
+       <strong>mle-simple-lin-reg-cor</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/12-learning.html#mle-simple-lin-reg-cor"><code class="xref">mle-simple-lin-reg-cor</code></a> <em>(chapters/12-learning)</em></td><td>
+       <em>corollary</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-mle-training-objectives-def"><td></td><td>
        <strong>mle-training-objectives-def</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/11-learning.html#mle-training-objectives-def"><code class="xref">mle-training-objectives-def</code></a> <em>(chapters/11-learning)</em></td><td>
+       <a href="chapters/12-learning.html#mle-training-objectives-def"><code class="xref">mle-training-objectives-def</code></a> <em>(chapters/12-learning)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-population-def"><td></td><td>
-       <strong>population-def</strong></td><td></td></tr>
+     <tr class="cap" id="cap-moments-def"><td></td><td>
+       <strong>moments-def</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/01-preview.html#population-def"><code class="xref">population-def</code></a> <em>(chapters/01-preview)</em></td><td>
+       <a href="chapters/08-more-prob.html#moments-def"><code class="xref">moments-def</code></a> <em>(chapters/08-more-prob)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-multi-dim-def"><td></td><td>
+       <strong>multi-dim-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/07-random-vectors.html#multi-dim-def"><code class="xref">multi-dim-def</code></a> <em>(chapters/07-random-vectors)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-neural-net-data-pf-def"><td></td><td>
+       <strong>neural-net-data-pf-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/11-models.html#neural-net-data-pf-def"><code class="xref">neural-net-data-pf-def</code></a> <em>(chapters/11-models)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-neural-net-def"><td></td><td>
+       <strong>neural-net-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/11-models.html#neural-net-def"><code class="xref">neural-net-def</code></a> <em>(chapters/11-models)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-neural-net-pf-def"><td></td><td>
+       <strong>neural-net-pf-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/11-models.html#neural-net-pf-def"><code class="xref">neural-net-pf-def</code></a> <em>(chapters/11-models)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-outlier-def"><td></td><td>
+       <strong>outlier-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/06-theory-to-practice.html#outlier-def"><code class="xref">outlier-def</code></a> <em>(chapters/06-theory-to-practice)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-para-model-def"><td></td><td>
+       <strong>para-model-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-stats-estimators.html#para-model-def"><code class="xref">para-model-def</code></a> <em>(chapters/13-stats-estimators)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-param-est-def"><td></td><td>
+       <strong>param-est-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-stats-estimators.html#param-est-def"><code class="xref">param-est-def</code></a> <em>(chapters/13-stats-estimators)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-permutation-def"><td></td><td>
+       <strong>permutation-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/03-rules-of-prob.html#permutation-def"><code class="xref">permutation-def</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-pgm-def"><td></td><td>
+       <strong>pgm-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/11-models.html#pgm-def"><code class="xref">pgm-def</code></a> <em>(chapters/11-models)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-poisson-def"><td></td><td>
+       <strong>poisson-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/05-examples-of-rvs.html#poisson-def"><code class="xref">poisson-def</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-prob-events-thm"><td></td><td>
+       <strong>prob-events-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#prob-events-thm"><code class="xref">prob-events-thm</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-prob-initial-def"><td></td><td>
+       <strong>prob-initial-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#prob-initial-def"><code class="xref">prob-initial-def</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-prob-measure-X-defn"><td></td><td>
@@ -814,6 +1487,30 @@ document.write(`
        <td></td>
        <td>
        <a href="chapters/02-prob-spaces.html#prob-measure-def"><code class="xref">prob-measure-def</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-prob-measure-multi-def"><td></td><td>
+       <strong>prob-measure-multi-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/07-random-vectors.html#prob-measure-multi-def"><code class="xref">prob-measure-multi-def</code></a> <em>(chapters/07-random-vectors)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-prob-measure-two-dim-def"><td></td><td>
+       <strong>prob-measure-two-dim-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/07-random-vectors.html#prob-measure-two-dim-def"><code class="xref">prob-measure-two-dim-def</code></a> <em>(chapters/07-random-vectors)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-prob-space-def"><td></td><td>
+       <strong>prob-space-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#prob-space-def"><code class="xref">prob-space-def</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-prob1-axiom"><td></td><td>
@@ -840,6 +1537,94 @@ document.write(`
        <a href="chapters/02-prob-spaces.html#prob3-axiom"><code class="xref">prob3-axiom</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
        <em>axiom</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-product-rule-counting-thm"><td></td><td>
+       <strong>product-rule-counting-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/03-rules-of-prob.html#product-rule-counting-thm"><code class="xref">product-rule-counting-thm</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-product-rule-prob-thm"><td></td><td>
+       <strong>product-rule-prob-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/03-rules-of-prob.html#product-rule-prob-thm"><code class="xref">product-rule-prob-thm</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-prop-bi-pdf-thm"><td></td><td>
+       <strong>prop-bi-pdf-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#prop-bi-pdf-thm"><code class="xref">prop-bi-pdf-thm</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-prop-cdf-thm"><td></td><td>
+       <strong>prop-cdf-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#prop-cdf-thm"><code class="xref">prop-cdf-thm</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-prop-correlation-thm"><td></td><td>
+       <strong>prop-correlation-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/08-more-prob.html#prop-correlation-thm"><code class="xref">prop-correlation-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-prop-measures-thm"><td></td><td>
+       <strong>prop-measures-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#prop-measures-thm"><code class="xref">prop-measures-thm</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-prop-pdf-thm"><td></td><td>
+       <strong>prop-pdf-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#prop-pdf-thm"><code class="xref">prop-pdf-thm</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-prop-pmf-thm"><td></td><td>
+       <strong>prop-pmf-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#prop-pmf-thm"><code class="xref">prop-pmf-thm</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-prop-sample-mean-thm"><td></td><td>
+       <strong>prop-sample-mean-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-stats-estimators.html#prop-sample-mean-thm"><code class="xref">prop-sample-mean-thm</code></a> <em>(chapters/13-stats-estimators)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-quantile-function-def"><td></td><td>
+       <strong>quantile-function-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#quantile-function-def"><code class="xref">quantile-function-def</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-quantile-rv-def"><td></td><td>
+       <strong>quantile-rv-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/04-random-variables.html#quantile-rv-def"><code class="xref">quantile-rv-def</code></a> <em>(chapters/04-random-variables)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-random-sample-defn"><td></td><td>
        <strong>random-sample-defn</strong></td><td></td></tr>
      <tr>
@@ -856,6 +1641,14 @@ document.write(`
        <a href="chapters/07-random-vectors.html#random-sample-vec-defn"><code class="xref">random-sample-vec-defn</code></a> <em>(chapters/07-random-vectors)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-random-var-def"><td></td><td>
+       <strong>random-var-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/04-random-variables.html#random-var-def"><code class="xref">random-var-def</code></a> <em>(chapters/04-random-variables)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-recur-gamma-thm"><td></td><td>
        <strong>recur-gamma-thm</strong></td><td></td></tr>
      <tr>
@@ -864,12 +1657,44 @@ document.write(`
        <a href="chapters/05-examples-of-rvs.html#recur-gamma-thm"><code class="xref">recur-gamma-thm</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-samp-dist-def"><td></td><td>
+       <strong>samp-dist-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-stats-estimators.html#samp-dist-def"><code class="xref">samp-dist-def</code></a> <em>(chapters/13-stats-estimators)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-sample-mean-var-def"><td></td><td>
+       <strong>sample-mean-var-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-stats-estimators.html#sample-mean-var-def"><code class="xref">sample-mean-var-def</code></a> <em>(chapters/13-stats-estimators)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-second-der-test-thm"><td></td><td>
+       <strong>second-der-test-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/10-optim.html#second-der-test-thm"><code class="xref">second-der-test-thm</code></a> <em>(chapters/10-optim)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-set-defn"><td></td><td>
+       <strong>set-defn</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#set-defn"><code class="xref">set-defn</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-sgd-alg"><td></td><td>
        <strong>sgd-alg</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/09-optim.html#sgd-alg"><code class="xref">sgd-alg</code></a> <em>(chapters/09-optim)</em></td><td>
+       <a href="chapters/10-optim.html#sgd-alg"><code class="xref">sgd-alg</code></a> <em>(chapters/10-optim)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-shortcut-covar-thm"><td></td><td>
@@ -888,12 +1713,20 @@ document.write(`
        <a href="chapters/04-random-variables.html#shortcut-var-thm"><code class="xref">shortcut-var-thm</code></a> <em>(chapters/04-random-variables)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-single-var-gd-alg"><td></td><td>
+       <strong>single-var-gd-alg</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/10-optim.html#single-var-gd-alg"><code class="xref">single-var-gd-alg</code></a> <em>(chapters/10-optim)</em></td><td>
+       <em>algorithm</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-single-variable-gd-alg"><td></td><td>
        <strong>single-variable-gd-alg</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/09-optim.html#single-variable-gd-alg"><code class="xref">single-variable-gd-alg</code></a> <em>(chapters/09-optim)</em></td><td>
+       <a href="chapters/10-optim.html#single-variable-gd-alg"><code class="xref">single-variable-gd-alg</code></a> <em>(chapters/10-optim)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-spectral-thm"><td></td><td>
@@ -901,7 +1734,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/09-optim.html#spectral-thm"><code class="xref">spectral-thm</code></a> <em>(chapters/09-optim)</em></td><td>
+       <a href="chapters/10-optim.html#spectral-thm"><code class="xref">spectral-thm</code></a> <em>(chapters/10-optim)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-standardization-cor"><td></td><td>
@@ -912,6 +1745,54 @@ document.write(`
        <a href="chapters/05-examples-of-rvs.html#standardization-cor"><code class="xref">standardization-cor</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
        <em>corollary</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-statistic-def"><td></td><td>
+       <strong>statistic-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-stats-estimators.html#statistic-def"><code class="xref">statistic-def</code></a> <em>(chapters/13-stats-estimators)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-std-normal-stuff-def"><td></td><td>
+       <strong>std-normal-stuff-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/05-examples-of-rvs.html#std-normal-stuff-def"><code class="xref">std-normal-stuff-def</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-std-rv-def"><td></td><td>
+       <strong>std-rv-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/04-random-variables.html#std-rv-def"><code class="xref">std-rv-def</code></a> <em>(chapters/04-random-variables)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-sum-rule-counting-thm"><td></td><td>
+       <strong>sum-rule-counting-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/03-rules-of-prob.html#sum-rule-counting-thm"><code class="xref">sum-rule-counting-thm</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-sum-rule-prob-thm"><td></td><td>
+       <strong>sum-rule-prob-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/03-rules-of-prob.html#sum-rule-prob-thm"><code class="xref">sum-rule-prob-thm</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-support-def"><td></td><td>
+       <strong>support-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#support-def"><code class="xref">support-def</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-taylor-thm"><td></td><td>
        <strong>taylor-thm</strong></td><td></td></tr>
      <tr>
@@ -920,197 +1801,37 @@ document.write(`
        <a href="chapters/08-more-prob.html#taylor-thm"><code class="xref">taylor-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-0"><td></td><td>
-       <strong>theorem-0</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/08-more-prob.html#theorem-0"><code class="xref">theorem-0</code></a> <em>(chapters/08-more-prob)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-1"><td></td><td>
-       <strong>theorem-1</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/05-examples-of-rvs.html#theorem-1"><code class="xref">theorem-1</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-10"><td></td><td>
-       <strong>theorem-10</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/08-more-prob.html#theorem-10"><code class="xref">theorem-10</code></a> <em>(chapters/08-more-prob)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-11"><td></td><td>
-       <strong>theorem-11</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/07-random-vectors.html#theorem-11"><code class="xref">theorem-11</code></a> <em>(chapters/07-random-vectors)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-12"><td></td><td>
-       <strong>theorem-12</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/07-random-vectors.html#theorem-12"><code class="xref">theorem-12</code></a> <em>(chapters/07-random-vectors)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-13"><td></td><td>
-       <strong>theorem-13</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/07-random-vectors.html#theorem-13"><code class="xref">theorem-13</code></a> <em>(chapters/07-random-vectors)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-15"><td></td><td>
-       <strong>theorem-15</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/05-examples-of-rvs.html#theorem-15"><code class="xref">theorem-15</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-16"><td></td><td>
-       <strong>theorem-16</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/02-prob-spaces.html#theorem-16"><code class="xref">theorem-16</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-17"><td></td><td>
-       <strong>theorem-17</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/08-more-prob.html#theorem-17"><code class="xref">theorem-17</code></a> <em>(chapters/08-more-prob)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-18"><td></td><td>
-       <strong>theorem-18</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/08-more-prob.html#theorem-18"><code class="xref">theorem-18</code></a> <em>(chapters/08-more-prob)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-19"><td></td><td>
-       <strong>theorem-19</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/02-prob-spaces.html#theorem-19"><code class="xref">theorem-19</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-20"><td></td><td>
-       <strong>theorem-20</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/07-random-vectors.html#theorem-20"><code class="xref">theorem-20</code></a> <em>(chapters/07-random-vectors)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-22"><td></td><td>
-       <strong>theorem-22</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/02-prob-spaces.html#theorem-22"><code class="xref">theorem-22</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-23"><td></td><td>
-       <strong>theorem-23</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/02-prob-spaces.html#theorem-23"><code class="xref">theorem-23</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-26"><td></td><td>
-       <strong>theorem-26</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/02-prob-spaces.html#theorem-26"><code class="xref">theorem-26</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-27"><td></td><td>
-       <strong>theorem-27</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/02-prob-spaces.html#theorem-27"><code class="xref">theorem-27</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-3"><td></td><td>
-       <strong>theorem-3</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/07-random-vectors.html#theorem-3"><code class="xref">theorem-3</code></a> <em>(chapters/07-random-vectors)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-4"><td></td><td>
-       <strong>theorem-4</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/11-learning.html#theorem-4"><code class="xref">theorem-4</code></a> <em>(chapters/11-learning)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-5"><td></td><td>
-       <strong>theorem-5</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/03-rules-of-prob.html#theorem-5"><code class="xref">theorem-5</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-6"><td></td><td>
-       <strong>theorem-6</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/11-learning.html#theorem-6"><code class="xref">theorem-6</code></a> <em>(chapters/11-learning)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-7"><td></td><td>
-       <strong>theorem-7</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/08-more-prob.html#theorem-7"><code class="xref">theorem-7</code></a> <em>(chapters/08-more-prob)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-8"><td></td><td>
-       <strong>theorem-8</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/11-learning.html#theorem-8"><code class="xref">theorem-8</code></a> <em>(chapters/11-learning)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-theorem-9"><td></td><td>
-       <strong>theorem-9</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/08-more-prob.html#theorem-9"><code class="xref">theorem-9</code></a> <em>(chapters/08-more-prob)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-three-mle-thm"><td></td><td>
        <strong>three-mle-thm</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/11-learning.html#three-mle-thm"><code class="xref">three-mle-thm</code></a> <em>(chapters/11-learning)</em></td><td>
+       <a href="chapters/12-learning.html#three-mle-thm"><code class="xref">three-mle-thm</code></a> <em>(chapters/12-learning)</em></td><td>
        <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-two-dim-vector-def"><td></td><td>
+       <strong>two-dim-vector-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/07-random-vectors.html#two-dim-vector-def"><code class="xref">two-dim-vector-def</code></a> <em>(chapters/07-random-vectors)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-uncorrelated-def"><td></td><td>
+       <strong>uncorrelated-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/08-more-prob.html#uncorrelated-def"><code class="xref">uncorrelated-def</code></a> <em>(chapters/08-more-prob)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-uniform-def"><td></td><td>
+       <strong>uniform-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/02-prob-spaces.html#uniform-def"><code class="xref">uniform-def</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
+       <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-var-affine-thm"><td></td><td>
        <strong>var-affine-thm</strong></td><td></td></tr>
@@ -1127,6 +1848,14 @@ document.write(`
        <td>
        <a href="chapters/08-more-prob.html#variance-lin-combo-thm"><code class="xref">variance-lin-combo-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
        <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-variance-rv-def"><td></td><td>
+       <strong>variance-rv-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/04-random-variables.html#variance-rv-def"><code class="xref">variance-rv-def</code></a> <em>(chapters/04-random-variables)</em></td><td>
+       <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-weak-linear-thm"><td></td><td>
        <strong>weak-linear-thm</strong></td><td></td></tr>

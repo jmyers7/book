@@ -63,7 +63,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"Ber": "\\mathcal{B}er", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "be": "\\mathbf{e}", "bg": "\\mathbf{g}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bTheta": "\\boldsymbol\\Theta", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bg": "\\mathbf{g}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bS": "\\mathbf{S}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/05-examples-of-rvs';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -180,12 +180,12 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="06-theory-to-practice.html">6. Connecting theory to practice: a first look at model building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="07-random-vectors.html">7. Random vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="08-more-prob.html">8. More probability theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09-optim.html">9. Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="10-models.html">10. Probabilistic models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="11-learning.html">11. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-stats-estimators.html">12. Bayesian parameter estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-asymptotic.html">13. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-more-samp-dist.html">14. More sampling distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-information-theory.html">9. Information theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-optim.html">10. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-models.html">11. Probabilistic graphical models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-learning.html">12. Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-stats-estimators.html">13. Statistics and general parameter estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-asymptotic.html">14. Large sample theory and more sampling distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="15-CIs.html">15. Confidence intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16-hyp-test.html">16. Hypothesis testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17-lin-reg.html">17. Linear regression</a></li>
@@ -406,7 +406,7 @@ document.write(`
 <section id="bernoulli-distributions">
 <h2><span class="section-number">5.1. </span>Bernoulli distributions<a class="headerlink" href="#bernoulli-distributions" title="Permalink to this heading">#</a></h2>
 <p>Our first family of distributions are certainly the simplest. But don’t let their simplicity fool you—we will see soon enough that they are <em>very</em> important, since they sometimes occur as the “building blocks” of more complicated and complex distributions!</p>
-<div class="proof definition admonition" id="definition-0">
+<div class="proof definition admonition" id="bernoulli-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.1 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(\theta\)</span> be a real number with <span class="math notranslate nohighlight">\(0\leq \theta \leq 1\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>Bernoulli distribution</em> with parameter <span class="math notranslate nohighlight">\(\theta\)</span>, denoted</p>
@@ -480,7 +480,7 @@ p(x;\theta) = \begin{cases} \theta &amp; : x=1, \\ 1-\theta &amp; : x=0.\end{cas
 </div>
 <p>It’s pretty obvious that <span class="math notranslate nohighlight">\(X\)</span> is distributed as a Bernoulli random variable, right? After all, since <span class="math notranslate nohighlight">\(X\)</span> is the number of heads obtained after <em>one</em> flip, there are only two options: <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>. Moreover, they are <em>telling us</em> that <span class="math notranslate nohighlight">\(X=1\)</span> occurs with probability <span class="math notranslate nohighlight">\(\theta\)</span>, and therefore <span class="math notranslate nohighlight">\(X=0\)</span> must occur with whatever probability is “left over,” which is exactly <span class="math notranslate nohighlight">\(1-\theta\)</span>. So, the probability function of <span class="math notranslate nohighlight">\(X\)</span> must be <a class="reference internal" href="#equation-bern2-eqn">(5.3)</a>, which means <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(\theta)\)</span> by definition.</p>
 <p>Clearly, any scenario which results in a binary outcome with fixed probabilities may be modeled using a Bernoulli random variable. We will explore a few such scenarios in the worksheet problems when we get to the Problem Prompt below. But first, let’s state the expectations and variances of Bernoulli variables:</p>
-<div class="proof theorem admonition" id="theorem-1">
+<div class="proof theorem admonition" id="exp-var-bernoulli-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 5.1 </span> (Expectations and variances of Bernoulli variables)</p>
 <section class="theorem-content" id="proof-content">
 <p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(\theta)\)</span>, then</p>
@@ -504,7 +504,7 @@ V(X) = E(X^2) - E(X)^2 = 0^2 \cdot (1-\theta) + 1^2 \cdot \theta - \theta^2 = \t
 <section id="binomial-distributions">
 <h2><span class="section-number">5.2. </span>Binomial distributions<a class="headerlink" href="#binomial-distributions" title="Permalink to this heading">#</a></h2>
 <p>Next come distributions whose probability mass functions look a lot like the probability functions of Bernoulli random variables.</p>
-<div class="proof definition admonition" id="definition-2">
+<div class="proof definition admonition" id="binomial-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.2 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(n\geq 0\)</span> be an integer and let <span class="math notranslate nohighlight">\(\theta\)</span> be a real number with <span class="math notranslate nohighlight">\(0\leq \theta \leq 1\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>binomial distribution</em> with parameters <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span>, denoted</p>
@@ -579,7 +579,7 @@ P(X=x) = m \theta^x(1-\theta)^{n-x},
 <p>where <span class="math notranslate nohighlight">\(m\)</span> is the total number of <span class="math notranslate nohighlight">\(n\)</span>-tuples <a class="reference internal" href="#equation-tuple-eqn">(5.4)</a> with <span class="math notranslate nohighlight">\(x\)</span> heads. To compute <span class="math notranslate nohighlight">\(m\)</span>, we simply note that an <span class="math notranslate nohighlight">\(n\)</span>-tuple <a class="reference internal" href="#equation-tuple-eqn">(5.4)</a> with <span class="math notranslate nohighlight">\(x\)</span> heads is uniquely specified by the (left-to-right) positions of the <span class="math notranslate nohighlight">\(H\)</span>’s. For example, in <a class="reference internal" href="#equation-tuple-eqn">(5.4)</a>, an <span class="math notranslate nohighlight">\(H\)</span> occupies positions <span class="math notranslate nohighlight">\(1\)</span>, <span class="math notranslate nohighlight">\(3\)</span>, <span class="math notranslate nohighlight">\(4\)</span>, and so on. So, to specify an <span class="math notranslate nohighlight">\(n\)</span>-tuple, from all possible <span class="math notranslate nohighlight">\(n\)</span> positions we need to choose <span class="math notranslate nohighlight">\(x\)</span> of them for the <span class="math notranslate nohighlight">\(H\)</span>’s. But there are exactly <span class="math notranslate nohighlight">\(\binom{n}{x}\)</span> many ways to make these choices, and hence <span class="math notranslate nohighlight">\(m = \binom{n}{x}\)</span>, which is what we wanted to prove. Thus, <span class="math notranslate nohighlight">\(X\)</span> is indeed a <span class="math notranslate nohighlight">\(\mathcal{B}in(n,p)\)</span> random variable.</p>
 <p>Beyond just flipping coins, binomial random variables may be used to model any scenario which consists of a finite sequence of repetitions of some scenario with independent binary outcomes with fixed probabilities. Such scenarios are even called <em>binomial experiments</em> in many textbooks. We will explore additional scenarios in the Problem Prompt below.</p>
 <p>Let’s now give the expectations and variances of binomial variables:</p>
-<div class="proof theorem admonition" id="theorem-3">
+<div class="proof theorem admonition" id="exp-var-binomial-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 5.2 </span> (Expectations and variances of binomial variables)</p>
 <section class="theorem-content" id="proof-content">
 <p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{B}in(n,\theta)\)</span>, then</p>
@@ -648,7 +648,7 @@ P(X=x) = \binom{n}{y} \theta^x (1-\theta)^{n-x},
 <section id="geometric-distributions">
 <h2><span class="section-number">5.3. </span>Geometric distributions<a class="headerlink" href="#geometric-distributions" title="Permalink to this heading">#</a></h2>
 <p>The supports of Bernoulli and binomial random variables are finite. Now, we turn our attention toward a class of random variables with countably infinite supports:</p>
-<div class="proof definition admonition" id="definition-5">
+<div class="proof definition admonition" id="geometric-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.3 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(\theta\)</span> be a real number with <span class="math notranslate nohighlight">\(0\leq \theta \leq 1\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>geometric distribution</em> with parameter <span class="math notranslate nohighlight">\(\theta\)</span>, denoted</p>
@@ -720,7 +720,7 @@ P(X=x) = \theta (1-\theta)^{x-1},
 \]</div>
 <p>so that <span class="math notranslate nohighlight">\(X\sim \mathcal{G}eo(\theta)\)</span>.</p>
 <p>Like Bernoulli and binomial random variables, geometric random variables do not <em>only</em> apply in scenarios that involve coin flips. Indeed, the coin flips in our archetypical scenario can represent the binary outcomes of any scenario, as long as they are independent (when performed one after another) and have fixed probabilities.</p>
-<div class="proof theorem admonition" id="theorem-6">
+<div class="proof theorem admonition" id="exp-var-geometric-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 5.4 </span> (Expectations and variances of geometric variables)</p>
 <section class="theorem-content" id="proof-content">
 <p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{G}eo(\theta)\)</span>, then</p>
@@ -739,12 +739,12 @@ E(X) = \frac{1}{\theta} \quad \text{and} \quad V(X) = \frac{1-\theta}{\theta^2}.
 <section id="hypergeometric-distributions">
 <h2><span class="section-number">5.4. </span>Hypergeometric distributions<a class="headerlink" href="#hypergeometric-distributions" title="Permalink to this heading">#</a></h2>
 <p>The distributions in this section definitely have the most complicated expressions so far for their probability functions (they require <em>three</em> parameters!), but as we will see in our archetypical scenario, these distributions arise quite naturally.</p>
-<div class="proof definition admonition" id="definition-7">
+<div class="proof definition admonition" id="hypergeometric-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.4 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(M\geq 0\)</span> be an integer, and let <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(N\)</span> be integers with <span class="math notranslate nohighlight">\(0\leq n,N\leq M\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>hypergeometric distribution</em> with parameters <span class="math notranslate nohighlight">\(M\)</span>, <span class="math notranslate nohighlight">\(n\)</span>, and <span class="math notranslate nohighlight">\(N\)</span>, denoted</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ad63e6ee-4892-4e39-ae14-82e4632607e3">
-<span class="eqno">(5.7)<a class="headerlink" href="#equation-ad63e6ee-4892-4e39-ae14-82e4632607e3" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
+<div class="amsmath math notranslate nohighlight" id="equation-9ee820f2-9499-4ba9-a211-fcb82262b62a">
+<span class="eqno">(5.7)<a class="headerlink" href="#equation-9ee820f2-9499-4ba9-a211-fcb82262b62a" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
 Y \sim \mathcal{HG}eo(M,n,N),
 \end{equation}\]</div>
 <p>if its probability mass function is given by</p>
@@ -872,7 +872,7 @@ P(X=x) = \frac{\binom{n}{x} \binom{M-n}{N-x}}{\binom{M}{N}},
 \]</div>
 <p>says that you cannot have more black balls in your selection than the total number <span class="math notranslate nohighlight">\(M-n\)</span> of black balls.</p>
 <p>Now, hold on to your hats, because here come the formulas for the expectations and variances of hypergeometric random variables:</p>
-<div class="proof theorem admonition" id="theorem-8">
+<div class="proof theorem admonition" id="exp-var-hypergeometric-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 5.5 </span> (Expectations and variances of hypergeometric variables)</p>
 <section class="theorem-content" id="proof-content">
 <p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{HG}eo(M,n,N)\)</span>, then</p>
@@ -891,7 +891,7 @@ E(X) = \frac{Nn}{M} \quad \text{and} \quad V(X) = \left(\frac{M-N}{M-1}\right) \
 <section id="poisson-distributions">
 <h2><span class="section-number">5.5. </span>Poisson distributions<a class="headerlink" href="#poisson-distributions" title="Permalink to this heading">#</a></h2>
 <p>We’ve reached the last of our discrete distributions, before we move onto continuous ones.</p>
-<div class="proof definition admonition" id="definition-9">
+<div class="proof definition admonition" id="poisson-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.5 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(\mu&gt;0\)</span> be a real number. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>Poisson distribution</em> with parameter <span class="math notranslate nohighlight">\(\mu\)</span>, denoted</p>
@@ -1019,7 +1019,7 @@ p(x) &amp;= \binom{n}{x} \left( \frac{\lambda t}{n} \right)^x \left(1 - \frac{\l
 </ol>
 </div>
 <p>In fact, these variables not only model random and independent events occurring over <em>time</em>, but also over <em>space</em> and other continuous dimensions. We will see examples of this in the Problem Prompt <a class="reference internal" href="#pois-pp"><span class="std std-ref">below</span></a>. But first, let’s show that the name of the parameter <span class="math notranslate nohighlight">\(\mu\)</span> is well-chosen; that it is, in fact, the mean of the distribution.</p>
-<div class="proof theorem admonition" id="theorem-10">
+<div class="proof theorem admonition" id="exp-var-poisson-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 5.6 </span> (Expectations and variances of Poisson variables)</p>
 <section class="theorem-content" id="proof-content">
 <p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{P}ois(\mu)\)</span>, then</p>
@@ -1060,7 +1060,7 @@ V(X) = E(X^2) - \mu^2 = \mu,
 <section id="normal-distributions">
 <h2><span class="section-number">5.6. </span>Normal distributions<a class="headerlink" href="#normal-distributions" title="Permalink to this heading">#</a></h2>
 <p>The distributions studied in this section are often said to be the most important in probability and statistics. This is primarily due to their ubiquity, occurring in all sorts of varied applications and scenarios. Indeed, these distributions will be with us constantly throughout the rest of the course. These are also the first distributions that we study in this chapter that are continuous, rather than discrete.</p>
-<div class="proof definition admonition" id="definition-11">
+<div class="proof definition admonition" id="gaussian-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.6 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> be real numbers with <span class="math notranslate nohighlight">\(\sigma&gt;0\)</span>. A continuous random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>normal distribution</em> (or <em>Gaussian distribution</em>) with parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>, denoted</p>
@@ -1111,7 +1111,7 @@ f(x;\mu,\sigma) = \frac{1}{\sigma \sqrt{2\pi}} \exp \left[ - \frac{1}{2} \left( 
 </div>
 </div>
 <p>Notice that the parameters of the distribution in the upper-left are <span class="math notranslate nohighlight">\((\mu,\sigma) = (0, 1)\)</span>, so the displayed density is the <em>standard</em> normal one. It is a <a class="reference internal" href="#standardization-cor">corollary</a> of the next general result that <em>every</em> normally distributed variable may be transformed into a <em>standard</em> normal variable via an affine transformation.</p>
-<div class="proof theorem admonition" id="theorem-12">
+<div class="proof theorem admonition" id="affine-gaussian-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 5.7 </span> (Affine transformations of normal variables)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\sim \mathcal{N}(\mu,\sigma^2)\)</span> and <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> be two constants with <span class="math notranslate nohighlight">\(a\neq 0\)</span>. Then <span class="math notranslate nohighlight">\(Y = aX+b\)</span> is a normal random variable with <span class="math notranslate nohighlight">\(\mu_Y = a\mu + b\)</span> and <span class="math notranslate nohighlight">\(\sigma_Y = |a|\sigma\)</span>.</p>
@@ -1132,7 +1132,7 @@ P(u \leq Y \leq v) &amp;= P\left((u-b)/a \leq X \leq (v-b)/a\right) \\
 </section>
 </div><p>As the subtitle of the corollary shows, the process of transforming a normal variable to a standard normal one is called <em>standardization</em>. We will use this process constantly later in the course. To prove the corollary, simply note that <span class="math notranslate nohighlight">\(Z\)</span> is an affine transformation <span class="math notranslate nohighlight">\(aX+b\)</span> with <span class="math notranslate nohighlight">\(a=1/\sigma\)</span> and <span class="math notranslate nohighlight">\(b=-\mu/\sigma\)</span>. Then, the theorem gives <span class="math notranslate nohighlight">\(Z\sim \mathcal{N}(a\mu+b,a^2\sigma^2) = \mathcal{N}(0,1)\)</span>.</p>
 <p>The CDF of a standard normal variable is so important that it gets its own notation described in the next definition. In it, we also define special <em>critical values</em> that will be used later when we discuss <a class="reference internal" href="16-hyp-test.html#hyp-test"><span class="std std-ref">hypothesis tests</span></a>.</p>
-<div class="proof definition admonition" id="definition-14">
+<div class="proof definition admonition" id="std-normal-stuff-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.7 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(Z\sim \mathcal{N}(0,1)\)</span> be a standard normal random variable.</p>
@@ -1180,7 +1180,7 @@ P(u \leq Y \leq v) &amp;= P\left((u-b)/a \leq X \leq (v-b)/a\right) \\
 </div>
 <p>Can you see where the critical value <span class="math notranslate nohighlight">\(z_{0.5}\)</span> would be? Since the standard normal density curve is symmetric about the origin, we must have <span class="math notranslate nohighlight">\(z_{0.5}=0\)</span> since exactly half the area lies to the right of the origin.</p>
 <p>Now, let’s formally state that the parameters of the normal distributions really are the means and standard deviations:</p>
-<div class="proof theorem admonition" id="theorem-15">
+<div class="proof theorem admonition" id="exp-var-gaussian-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 5.8 </span> (Expectations and variances of normal variables)</p>
 <section class="theorem-content" id="proof-content">
 <p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{N}(\mu,\sigma^2)\)</span>, then</p>
@@ -1198,7 +1198,7 @@ E(X) = \mu \quad \text{and} \quad V(X) = \sigma^2.
 <section id="exponential-distributions">
 <h2><span class="section-number">5.7. </span>Exponential distributions<a class="headerlink" href="#exponential-distributions" title="Permalink to this heading">#</a></h2>
 <p>The next family of distributions is strongly related to the discrete Poisson variables that we saw above, as well as to the <em>gamma distributions</em> in the next section.</p>
-<div class="proof definition admonition" id="definition-16">
+<div class="proof definition admonition" id="exponential-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.8 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(\lambda&gt;0\)</span> be a real number. A continuous random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have an <em>exponential distribution</em> with parameter <span class="math notranslate nohighlight">\(\lambda\)</span>, denoted</p>
@@ -1303,7 +1303,7 @@ P(I_k \leq t) = 1- P(I_k&gt;t) = 1 - e^{-\lambda t} = F(t)
 <p class="sidebar-title"></p>
 <p>If <span class="math notranslate nohighlight">\(I_k\)</span> denotes the <span class="math notranslate nohighlight">\(k\)</span>-th arrival time in our archetypical exponential scenario, then in order for the equation <span class="math notranslate nohighlight">\(E(I_k) = 1/\lambda\)</span> to be dimensionally correct, the rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span> <em>must</em> be measured in reciprocal hours.</p>
 </aside>
-<div class="proof theorem admonition" id="theorem-17">
+<div class="proof theorem admonition" id="exp-var-exponential-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 5.9 </span> (Expectations and variances of exponential variables)</p>
 <section class="theorem-content" id="proof-content">
 <p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{E}xp(\lambda)\)</span>, then</p>
@@ -1490,7 +1490,7 @@ V(X) = E(X^2) - E(X)^2 = \frac{(\alpha+1)\alpha}{\beta^2} - \frac{\alpha^2}{\bet
 <section id="beta-distributions">
 <h2><span class="section-number">5.9. </span>Beta distributions<a class="headerlink" href="#beta-distributions" title="Permalink to this heading">#</a></h2>
 <p>All the continuous random variables studied so far have unbounded supports. However, the next type of random variables have their supports inside the open interval <span class="math notranslate nohighlight">\((0,1)\)</span> which makes them particularly useful for modeling proportions and probabilities. They are parametrized by <span class="math notranslate nohighlight">\(\alpha\)</span>’s and <span class="math notranslate nohighlight">\(\beta\)</span>’s just like the gamma variables, and they also have gamma functions in their PDF’s.</p>
-<div class="proof definition admonition" id="definition-21">
+<div class="proof definition admonition" id="beta-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.10 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(\alpha,\beta&gt;0\)</span> be real numbers. A continuous random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>beta distribution</em> with parameters <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>, denoted</p>

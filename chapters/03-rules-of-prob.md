@@ -34,11 +34,13 @@ The rest of the chapter is devoted to probability theory in which, among other t
 The main rules that we will use for counting are:
 
 ```{prf:theorem} The Product Rule for Counting
+:label: product-rule-counting-thm
 
 Suppose that a procedure can be broken down into a sequence of two tasks. If there are $m$ ways to do the first task, and for each of these ways of doing the first task there are $n$ ways to do the second task, then there are $mn$ total ways to do the procedure.
 ```
 
 ```{prf:theorem} The Sum Rule for Counting
+:label: sum-rule-counting-thm
 
 If a procedure can be done either in one of $m$ ways or in one of $n$ ways, where none of the set of $m$ ways is the same as any of the set of $n$ ways, then there are $m+n$ ways to do the procedure.
 ```
@@ -68,6 +70,7 @@ Do problem 1 on the worksheet.
 The Product Rule for Counting tells us how to count the number of ways to accomplish a task that can be broken down into a sequence of smaller, sub-tasks. One very simple (yet very important) example of such a task is choosing, in order, a collection of objects from a larger collection of objects. Such collections have names:
 
 ```{prf:definition}
+:label: permutation-def
 
 An ordered collection of $k$ distinct objects is called a _permutation_ of those objects. The number of permutations of $k$ objects selected from a collection of $n$ objects will be designated by the symbol $P^n_k$.
 ```
@@ -84,6 +87,7 @@ Mathematically, a permutation consisting of $k$ objects is often represented as 
 We will often need to count permutations:
 
 ```{prf:theorem} Formula for Counting Permutations
+:label: counting-perm-thm
 
 For $0 \leq k \leq n$, we have
 
@@ -113,6 +117,7 @@ Do problem 2 on the worksheet.
 The partners to permutations are defined in:
 
 ```{prf:definition}
+:label: combination-def
 
 An unordered collection of $k$ distinct objects is called a _combination_ of those objects. The number of combinations of $k$ objects selected from a collection of $n$ objects will be designated by the symbol $C^n_k$ or $\binom{n}{k}$.
 ```
@@ -127,6 +132,7 @@ Permutations are represented as $k$-tuples because order matters. But for combin
 
 
 ```{prf:theorem} Formula for Counting Combinations
+:label: counting-combo-thm
 
 For $0 \leq k \leq n$, we have
 
@@ -181,6 +187,7 @@ We now transition back to talking about probability theory.
 
 
 ```{prf:theorem} The Sum Rule for Probability
+:label: sum-rule-prob-thm
 
 The probability of the union of two events $A$ and $B$ is
 
@@ -321,6 +328,7 @@ $$\frac{P(A\cap B)}{P(B)}.$$
 These considerations suggest the following fundamental definition:
 
 ```{prf:definition}
+:label: condition-event-def
 
 Let $A$ and $B$ be two events in a probability space $S$. Then the _conditional probability of $A$ given $B$_ is the ratio
 
@@ -372,6 +380,7 @@ Do problems 6 and 7 on the worksheet.
 Sometimes the outcomes of two experiments or processes do not affect each other. For example, if I flip a single coin twice, then we would expect that the outcome of the first flip should have no effect on the outcome of the second flip. Such events are called _independent_, and they are defined formally in:
 
 ```{prf:definition}
+:label: independent-event-def
 
 Two events $A$ and $B$ in a sample space are _independent_ if
 
@@ -385,6 +394,7 @@ $$P(A_1 \cap A_2 \cap \cdots \cap A_n) = P(A_1)P(A_2) \cdots P(A_n).$$
 Here's a test for independence that involves conditional probabilities:
 
 ```{prf:theorem} Conditional Criterion for Independence
+:label: conditional-ind-thm
 
 Two events $A$ and $B$ with nonzero probability are independent if and only if
 
@@ -420,6 +430,7 @@ Do problems 8 and 9 on the worksheet.
 Just as the Sum Rule for Probability expresses the probability of a union $A\cup B$ of two events as a sum of probabilities, the next rule expresses the probability of an intersection $A\cap B$ as a product of probabilities:
 
 ```{prf:theorem} The Product Rule for Probability
+:label: product-rule-prob-thm
 
 The probability of the intersection of two events $A$ and $B$ is
 
@@ -471,6 +482,7 @@ There are two things required of a partition: All the sets in the partition must
 Using the concept of a partition, we may state the following law of probability:
 
 ```{prf:theorem} The Law of Total Probability
+:label: law-of-total-prob-event-thm
 
 Suppose that $\{B_1,B_2,\ldots,B_n\}$ is a partition of a sample space $S$, where each $B_k$ is an event. Then for any event $A$, we have
 
@@ -494,6 +506,7 @@ which is what we wanted to prove.
 Often times, the Law of Total Probability is applied when only *two* events are involved. In this case, the formula simplifies considerably:
 
 ```{prf:theorem} The Law of Total Probability (Two-Event Version)
+:label: law-of-total-prob-two-event-thm
 
 Let $A$ and $B$ be two events in a sample space $S$. Then
 
@@ -565,6 +578,7 @@ This problem involves reasoning about the events $D$ and $T$. Reasoning that _be
 Now, the problem statement gives us $P(T|D)=1$ and asks us to compute $P(D|T)$. Thus, we need a tool that allows us to reverse causal reasoning and turn it into evidential reasoning. This tool is precisely Bayes' Theorem!
 
 ```{prf:theorem} Bayes' Theorem
+:label: bayes-event-thm
 
 Let $A$ and $B$ be two events in a sample space $S$ with $P(B)>0$. Then
 
