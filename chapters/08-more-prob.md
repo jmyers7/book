@@ -231,7 +231,42 @@ Do problem 4 on the worksheet.
 
 
 (fun-rvs)=
-## Computations with random variables
+## Density transformations
+
+The statement of the next theorem uses the notion of the _Jacobian matrix_ of a differentiable transformation $s: \bbr^m \to \bbr^m$ on Euclidean spaces; it is defined to be the following $m\times m$ matrix of partial derivatives:
+
+$$
+\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \def \left[ \frac{\partial s_i}{\partial y_j}(\by)\right]_{ij},
+$$
+
+for $\by \in \bbr^m$.
+
+
+
+```{prf:theorem} Multivariate Density Transformation Theorem
+:label: multivar-density-trans-thm
+
+Let $\bX$ and $\bY$ be two $m$-dimensional random vectors linked through a functional dependence $\bY = r(\bX)$ where $r:\bbr^m \to \bbr^m$ is a continuously differentiable and injective function. If
+
+$$
+s:C\to \bbr^m, \quad s(\by) = (s_1(\by),\ldots,s_m(\by))
+$$
+
+is the inverse transformation defined on the image $C$ of $r$, then $f_{\bY}(\by)=0$ for all $\by\notin C$, while
+
+$$
+f_{\bY}(\by) = f_{\bX}(s(\by)) \left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right|
+$$
+
+for all $\by \in C$.
+```
+
+
+
+
+
+
+
 
 
 
@@ -374,7 +409,7 @@ Then, the *hard* part of the proof is showing that $(2) \Rightarrow (1)$ (or $(3
 
 To illustrate how this theorem may be used, we will establish the fundamental fact that sums of independent normal random variables are normal; this is stated officially in the second part of the following theorem.
 
-```{prf:theorem} Moment generating functions of normal random variables
+```{prf:theorem} Moment generating functions of normal variables
 :label: mgf-norm-thm
 
 1. If $X \sim \calN(\mu,\sigma^2)$, then its moment generating function is given by
@@ -385,13 +420,13 @@ To illustrate how this theorem may be used, we will establish the fundamental fa
 
     for all $t\in \bbr$.
 
-2. Let $X_1,\ldots,X_m$ be independent random variables such that $X_i \sim \calN(\mu_i,\sigma^2_i)$ for each $i=1,\ldots,m$. Then the sum
+2. Let $X_1,\ldots,X_m$ be independent random variables such that $X_i \sim \calN(\mu_i,\sigma^2_i)$ for each $i=1,\ldots,m$, and let $a_1,\ldots,a_m,b$ be scalars. Then the affine linear combination
 
     $$
-    Y = X_1 + \cdots + X_m
+    Y = a_1X_1 + \cdots + a_mX_m + b
     $$
 
-    is normal with mean $\mu = \mu_1+\cdots + \mu_m$ and variance $\sigma^2 = \sigma_1^2 + \cdots + \sigma_m^2$.
+    is normal with mean $\mu = a_1\mu_1+\cdots + a_m\mu_m+b$ and variance $\sigma^2 = a_1^2\sigma_1^2 + \cdots + a_m^2\sigma_m^2$.
 ```
 
 ```{prf:proof}
@@ -399,13 +434,13 @@ To illustrate how this theorem may be used, we will establish the fundamental fa
 We will only prove the second part; for the proof of the first (which isn't hard), see Theorem 5.6.2 in {cite}`DeGrootSchervish2014`. So, we begin our computations:
 
 \begin{align*}
-\psi_Y(t) &= E\big( e^{tX_1} \cdots e^{tX_m}\big) \\
-&= E(e^{tX_1}) \cdots E(e^{tX_m}) \\
-&= \prod_{i=1}^m \exp \left[ \mu_i t + \frac{1}{2} \sigma_i^2 t^2 \right] \\
-&= \exp \left[ \left(\sum_{i=1}^m \mu_i\right) t + \frac{1}{2} \left( \sum_{i=1}^m \sigma_i^2\right) t^2 \right].
+\psi_Y(t) &= E\big( e^{ta_1X_1} \cdots e^{ta_mX_m} e^{tb}\big) \\
+&= E(e^{ta_1X_1}) \cdots E(e^{ta_mX_m})e^{tb} \\
+&= \left[\prod_{i=1}^m \exp \left( a_i\mu_i t + \frac{1}{2} a_i^2\sigma_i^2 t^2 \right)\right]e^{tb} \\
+&= \exp \left[ \left(\sum_{i=1}^m a_i\mu_i + b\right) t + \frac{1}{2} \left( \sum_{i=1}^m a_i^2\sigma_i^2\right) t^2 \right].
 \end{align*}
 
-The second line follows from the first by independence, {prf:ref}`invar-independent-thm`, and {prf:ref}`ind-expect-thm`, while we obtain the third line from the first part of this theorem. But notice that the expression on the last line is exactly the moment generating function of a $\calN(\mu,\sigma^2)$ random variable (by the first part), where $\mu$ and $\sigma^2$ are as in the statement of the theorem. By {prf:ref}`mgf-uniqueness-thm`, it follows that $Y \sim \calN(\mu,\sigma^2)$ as well. Q.E.D.
+The second line follows from the first by independence, {prf:ref}`invar-independent-thm`, and {prf:ref}`ind-expect-thm`, while we obtain the third line from the first part of this theorem and {prf:ref}`affine-gaussian-thm`. But notice that the expression on the last line is exactly the moment generating function of an $\calN(\mu,\sigma^2)$ random variable (by the first part), where $\mu$ and $\sigma^2$ are as in the statement of the theorem. By {prf:ref}`mgf-uniqueness-thm`, it follows that $Y \sim \calN(\mu,\sigma^2)$ as well. Q.E.D.
 ```
 
 Before turning to the worksheet to finish this section, it is worth extracting one of the steps used in the previous proof and putting it in its own theorem:
@@ -512,6 +547,7 @@ import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 import scipy as sp
+import math
 import matplotlib_inline.backend_inline
 import warnings
 plt.style.use('../aux-files/custom_style_light.mplstyle')
@@ -759,14 +795,29 @@ $$
 V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 $$
 
+We now turn toward the other measure of linear dependence, called _correlation_. To motivate this latter measure, we note that while the signs of covariances are significant, their precise numerical values may be less so if the only thing we are using them for is to measure the strength of a linear dependence. One reason for this is that covariances are sensitive to the scales on which the variables are measured. For an example, let's return to our housing dataset with random variables $X$ (area) and $Y$ (price). If we scale both $X$ and $Y$ by a factor of $10$, we get the following new scatter plot:
 
-While the signs of covariances are significant, their precise numerical values may be less so. One reason for this is that covariances are unbounded, in the sense that they may take any value from $-\infty$ to $+\infty$. They are also sensitive to the scales on which the variables are measured. For example, in the housing dataset that we considered in the previous section, suppose that $Z$ represents the size of a house measured in _hundreds_ of square feet; then $X$ and $Z$ are related via the equation $Z = X/100$. But then, according to {prf:ref}`bilinear-thm`, we have
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+_, axes = plt.subplots(ncols=2, figsize=(8, 3))
+sns.regplot(data=df, x='area', y='price', ci=None, scatter_kws={'alpha' : 0.3}, line_kws={'color' : '#FD46FC'}, ax=axes[0])
+sns.regplot(data=df * 10, x='area', y='price', ci=None, scatter_kws={'alpha' : 0.3}, line_kws={'color' : '#FD46FC'}, ax=axes[1])
+plt.xlabel('$10\\times$area')
+plt.ylabel('$10 \\times$price')
+plt.tight_layout()
+```
+
+But according to {prf:ref}`bilinear-thm`, we have
 
 $$
-\sigma_{ZY} = \frac{1}{100} \sigma_{XY},
+\sigma(10X, 10Y) = 100 \sigma(X,Y),
 $$
 
-so the covariance between $X$ and $Y$ is _different_ from the covariance between $Z$ and $Y$. The fact that covariances are unbounded and sensitive to scale means that the precise values of covariances can be hard to interpret.
+so if we use the numerical value of the covariance to indicate the _strength_ of a linear relationship, then we should conclude that $10X$ and $10Y$ are _one hundred times_ more "linearly dependent" than $X$ and $Y$. But this is nonsense!
 
 The remedy is to define a "normalized" measure of linear dependence:
 
@@ -834,7 +885,7 @@ We give a name to two random variables whose correlation is zero:
 If $X$ and $Y$ are two random variables with $\rho(X,Y)=0$, then we say $X$ and $Y$ are _uncorrelated_. Otherwise, they are said to be _(linearly) correlated_.
 ```
 
-You should think of independence as a strong form of uncorrelated-ness. This is the content of the first part of the following result:
+You should think of independence as a strong form of uncorrelated-ness, and hence correlated-ness is also a strong form of dependence. This is the content of the first part of the following result:
 
 ```{prf:theorem} Dependence and correlation
 :label: ind-vs-correlation-thm
@@ -847,7 +898,8 @@ Let $X$ and $Y$ be random variables.
 2. However, there exist dependent $X$ and $Y$ that are uncorrelated.
 ```
 
-The proof of the first statement is a simple application of {prf:ref}`ind-expect-thm` from below and the Shortcut Formula for Covariance in {prf:ref}`shortcut-covar-thm`. Indeed, we have
+```{prf:proof}
+The proof of the first statement is a simple application of {prf:ref}`ind-expect-thm` and the Shortcut Formula for Covariance in {prf:ref}`shortcut-covar-thm`. Indeed, we have
 
 $$
 \sigma_{XY} = E(XY) - E(X)E(Y) = E(X)E(Y) - E(X) E(Y) =0,
@@ -855,6 +907,55 @@ $$
 
 and then $\rho_{XY} = \sigma_{XY} / (\sigma_X \sigma_Y) = 0$.
 
+For the second statement, take two continuous random variables $X$ and $Y$ with joint density
+
+$$
+f(x,y) = \begin{cases}
+\frac{2}{\pi}(x^2+y^2) & : x^2 + y^2 \leq 1, \\
+0 & : \text{otherwise}.
+\end{cases}
+$$
+
+By symmetry, we have $E(X) = E(Y) = E(XY)=0$, and hence $\rho_{XY}=0$ as well. However, $X$ and $Y$ are clearly depenendent since (for example) the support of $f(y|x)$ depends on $x$. Q.E.D.
+```
+
+Given a sequence $X_1,\ldots,X_m$ of random variables, we may compute the pairwise covariances $\sigma(X_i,X_j)$. If we put these into a matrix, we get the following object:
+
+```{prf:definition}
+:label: covar-matrix-def
+
+Let $\bX = (X_1,\ldots,X_d)$ be a $d$-dimensional random vector. We define its _covariance matrix_ to be the $d\times d$ matrix
+
+$$
+\bSigma_\bX \def \left[ \sigma(X_i,X_j) \right]_{ij}.
+$$
+```
+
+
+```{prf:theorem} Covariance matrices are positive semidefinite
+:label: covar-matrix-prop-thm
+
+Let $\bX = (X_1,\ldots,X_d)$ be a $d$-dimensional random vector. The covariance matrix $\bSigma = \bSigma_\bX$ is _positive semidefinite_, in the sense that
+
+$$
+\bz^\intercal \bSigma \bz\geq 0
+$$ (pos-def-covar-eq)
+
+for all $\bz \in \bbr^d$. Moreover, we have equality in {eq}`pos-def-covar-eq` if and only if the random variable $\bz^\intercal \bX$ is (almost surely) constant.
+```
+
+In the case that strict inequality holds in {eq}`pos-def-covar-eq` for all nonzero $\bz\in \bbr^d$, we say the matrix $\bSigma$ is _positive definite_; see also {prf:ref}`definite-def`.
+
+```{prf:proof}
+
+Using bilinearity of covariance (in the form of {prf:ref}`bilinear-thm`), we compute
+
+$$
+\bz^\intercal \bSigma \bz = \sum_{i,j=1}^d z_iz_j \sigma(X_i,X_j) = \sigma \left(\sum_{i=1}^d z_iX_i,\sum_{j=1}^d z_j X_j \right) = \sigma(\bz^\intercal \bX, \bz^\intercal \bX) = V(\bz^\intercal \bX) \geq 0.
+$$
+
+If we have equality, then we must have $\bz^\intercal \bX = \mu_{\bz^\intercal \bX}$ (almost surely). Q.E.D.
+```
 
 
 
@@ -868,8 +969,396 @@ and then $\rho_{XY} = \sigma_{XY} / (\sigma_X \sigma_Y) = 0$.
 
 ## Multivariate normal distributions
 
+The goal in this section is simple: Generalize the univariate normal distributions from {numref}`norm-univariate-sec` to higher dimensions. This goal needed to wait until the current chapter because our generalization will require the machinery of covariance matrices that we developed at the end of the previous section.
+
+The ultimate effect will be that the familiar "bell curves" of univariate normal densities will turn into "bell (hyper)surfaces." For example, in two dimensions we might have something like:
+
+```{image} ../img/multi-var-norm-01.png
+:width: 80%
+:align: center
+```
+&nbsp;
+
+The "isoprobability" contours of this density surface look like:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+def covar_matrix(rho, sigma1, sigma2):
+    return np.array([[sigma1 ** 2, rho * sigma1 * sigma2], [rho * sigma1 * sigma2, sigma2 ** 2]])
+
+rho = 0.0
+sigma1 = math.sqrt(2)
+sigma2 = 1
+Sigma = covar_matrix(rho, sigma1, sigma2)
+mu = np.array([1, 1])
+X = sp.stats.multivariate_normal(mean=mu, cov=Sigma)
+
+resolution = 100
+x = np.linspace(-2, 4, resolution)
+y = np.linspace(-2, 4, resolution)
+x, y = np.meshgrid(x, y)
+grid = np.column_stack((x.reshape(-1, 1), y.reshape(-1, 1)))
+z = X.pdf(grid)
+z = z.reshape(resolution, resolution)
+
+contour = plt.contour(x, y, z, colors=blue)
+plt.clabel(contour, inline=True, fontsize=8)
+plt.scatter(1, 1)
+plt.xlabel('$x$')
+plt.ylabel('$y$')
+plt.gcf().set_size_inches(w=4, h=3)
+plt.tight_layout()
+```
+
+Notice that these contours are concentric ellipses centered at the point $(1,1)\in \bbr^2$ with principal axes parallel to the coordinate $x$- and $y$-axes. In higher dimensions, the isoprobability surfaces are so-called _ellipsoids_.
+
+Actually, if we consider only this special case, i.e., when the principal axes of the isoprobability surfaces are parallel with the coordinate axes---we do not need the full strength of the machinery of covariance matrices. Studying this case will also help us gain insight into the general formula for the density of a multivariate normal distribution.
+
+So, let's begin with a sequence $X_1,\ldots,X_d$ of independent random variables such that $X_i \sim \calN(\mu_i,\sigma_i^2)$ for each $i$. Then independence gives us
+
+$$
+f(x_1,\ldots,x_d) = \prod_{i=1}^d \frac{1}{\sqrt{2\pi \sigma_i^2}} \exp \left[ -\frac{1}{2\sigma_i^2} ( x_i-\mu_i)^2\right],
+$$ 
+
+or
+
+$$
+f(x_1,\ldots,x_d) = \frac{1}{(2\pi)^{d/2} (\sigma_1^2\cdots \sigma_d^2)^{1/2}} \exp \left[- \frac{1}{2} \sum_{i=1}^d \frac{(x_i-\mu_i)^2}{\sigma_i^2} \right].
+$$ (init-multi-var-norm-eqn)
+
+As you may easily check by creating your own plots, this formula (in dimension $d=2$) produces "bell surfaces" like the one shown above whose contours are concentric ellipses centered at $(\mu_1,\mu_2)\in \bbr^2$ with their principal axes parallel with the coordinate axes.
+
+However, we shall also be interested in creating density surfaces whose contours are rotated ellipses, like the following:
+
+```{image} ../img/multi-var-norm-02.png
+:width: 80%
+:align: center
+```
+&nbsp;
+
+The isoprobability contours of this density surface are given by:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+rho = 0.5
+sigma1 = 1
+sigma2 = 2
+Sigma = covar_matrix(rho, sigma1, sigma2)
+mu = np.array([1, 1])
+X = sp.stats.multivariate_normal(mean=mu, cov=Sigma)
+
+x = np.linspace(-3, 5, resolution)
+y = np.linspace(-3, 5, resolution)
+x, y = np.meshgrid(x, y)
+grid = np.column_stack((x.reshape(-1, 1), y.reshape(-1, 1)))
+z = X.pdf(grid)
+z = z.reshape(resolution, resolution)
+
+contour = plt.contour(x, y, z, colors=blue)
+plt.clabel(contour, inline=True, fontsize=8)
+plt.scatter(1, 1)
+plt.xlabel('$x$')
+plt.ylabel('$y$')
+plt.gcf().set_size_inches(w=4, h=3)
+plt.tight_layout()
+```
+
+The key to uncovering the formula for the density in the general case begins by returning to the formula {eq}`init-multi-var-norm-eqn` and rewriting it using vector and matrix notation. Indeed, notice that if we set
+
+$$
+\bx^\intercal = (x_1,\ldots,x_d) \quad \text{and} \quad \bmu^\intercal = (\mu_1,\ldots,\mu_d)
+$$
+
+and let $\bSigma$ be the covariance matrix of the $X_i$'s, then we have
+
+$$
+f(\bx) = \frac{1}{\det(2\pi\bSigma)^{1/2}} \exp \left[ -\frac{1}{2} (\bx - \bmu)^\intercal \bSigma^{-1}(\bx - \bmu)\right],
+$$
+
+where $\det{(2\pi\bSigma)} = (2\pi)^d \det{\bSigma}$. Indeed, by independence, the covariance matrix $\bSigma$ is diagonal, with the variances $\sigma_1^2,\ldots,\sigma_d^2$ along its main diagonal. We get the general formula for the density of a multivariate normal distribution by simply letting the covariance matrix $\bSigma$ be a general positive definite matrix:
 
 
+```{prf:definition}
+:label: multivar-norm-def
+
+Let $\bmu \in \bbr^d$ and let $\bSigma\in \bbr^{d\times d}$ be a positive definite matrix. A continuous $d$-dimensional random vector $\bX$ is said to have a _multivariate normal distribution_ with parameters $\bmu$ and $\bSigma$, denoted
+
+$$
+\bX \sim \calN_d(\bmu,\bSigma),
+$$
+
+if its probability density function is given by
+
+$$
+f(\bx;\bmu,\bSigma) = \frac{1}{\det(2\pi\bSigma)^{1/2}} \exp \left[ -\frac{1}{2} (\bx - \bmu)^\intercal \bSigma^{-1}(\bx - \bmu)\right]
+$$ (multivar-norm-eqn)
+
+with support $\bbr^d$. The _standard ($d$-dimensional) multivariate normal distribution_ corresponds to the case that $\bmu^\intercal = \boldsymbol{0}$ and $\bSigma = \mathbf{I}$, where $\boldsymbol{0}$ is the $d$-dimensional zero vector and $\mathbf{I}$ is the $d\times d$ identity matrix.
+```
+
+One characterization of the class of positive definite matrices is that it consists of all symmetric matrices whose eigenvalues are real and positive. Since the determinant of a square matrix is the product of its eigenvalues, it follows that the determinant of $\bSigma$ in {eq}`multivar-norm-eqn` is positive. This shows that the square root $\det(2\pi \bSigma)^{1/2}$ is defined and the inverse $\bSigma^{-1}$ exists.
+
+To help understand the shape of the density (hyper)surfaces created by {eq}`multivar-norm-eqn`, it helps to ignore the normalizing constant and write
+
+$$
+f(\bx;\bmu,\bSigma) \propto \exp \left[ -\frac{1}{2} Q(\bx)\right],
+$$ (prop-exp-density-eq)
+
+where $Q(\bx)$ is the (inhomogeneous) degree-$2$ polynomial
+
+$$
+Q(\bx) = (\bx - \bmu)^\intercal \bSigma^{-1}(\bx - \bmu).
+$$
+
+Note that since $\bSigma$ is positive definite, so too is its inverse $\bSigma^{-1}$ since it is symmetric and has real, positive eigenvalues (can you prove this?). Thus, in the argument to the exponential function in {eq}`prop-exp-density-eq`, we have $-\frac{1}{2}Q(\bmu)=0$, while $-\frac{1}{2}Q(\bx) < 0$ for all other vectors $\bx \in \bbr^d$ different from $\bmu$. But since the exponential function $z\mapsto e^z$ is strictly increasing over the interval $(-\infty,0]$ with a global maximum at $z=0$, we see that the density $f(\bx;\bmu,\bSigma)$ has a global maximum at $\bx = \bmu$.
+
+The isoprobability contours of $f(\bx;\bmu,\bSigma)$ are the sets of solutions $\bx$ to equations of the form
+
+$$
+\exp \left[ -\frac{1}{2} Q(\bx)\right] = c,
+$$
+
+where $c$ is a constant with $0 < c \leq 1$. Or, equivalently, they are the sets of solutions to equations of the form
+
+$$
+Q(\bx) = c^2,
+$$ (mahalanobis-sphere-eq)
+
+where now $c$ is any real constant. Suppose that we then define the scalar product
+
+$$
+\left\langle \bx, \by \right\rangle_\bSigma = \bx^\intercal \bSigma^{-1}\by, \quad \bx,\by\in \bbr^d.
+$$ (inner-prod-eqn)
+
+Since $\bSigma^{-1}$ is positive definite, this is in fact an [inner product](https://en.wikipedia.org/wiki/Inner_product_space) on $\bbr^d$. The associated norm is given by
+
+$$
+||\bx||^2_\bSigma = \bx^\intercal \bSigma^{-1} \bx,
+$$ (normed-eqn)
+
+and hence the square root $\sqrt{Q(\bx)} = ||\bx - \bmu||_\bSigma$ is the distance from $\bx$ to $\bmu$ in this normed space. This distance is called the [_Mahalanobis distance_](https://en.wikipedia.org/wiki/Mahalanobis_distance), and it then follows that the isoprobability contours defined by {eq}`mahalanobis-sphere-eq` are exactly the "Mahalanobis spheres" of radius $c$. In the case that $d=2$ and
+
+$$
+\bu = \begin{bmatrix} 1 \\ 1 \end{bmatrix}, \quad \bSigma = \begin{bmatrix}
+1 & 1 \\ 1 & 4
+\end{bmatrix},
+$$ (multivar-norm-ex-eq)
+
+these "spheres" are ellipses centered at $\bmu$:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+def mahalanobis(x, mean, cov):
+    return np.diag((x - mean) @ np.linalg.inv(cov) @ (x - mean).T)
+
+x = np.linspace(-5, 7, resolution)
+y = np.linspace(-5, 7, resolution)
+x, y = np.meshgrid(x, y)
+grid = np.column_stack((x.reshape(-1, 1), y.reshape(-1, 1)))
+z = mahalanobis(x=grid, mean=mu, cov=Sigma)
+z = z.reshape(resolution, resolution)
+
+contour = plt.contour(x, y, z, colors=blue, levels=15)
+plt.clabel(contour, inline=True, fontsize=8)
+plt.scatter(1, 1)
+plt.xlabel('$x$')
+plt.ylabel('$y$')
+plt.gcf().set_size_inches(w=4, h=3)
+plt.tight_layout()
+```
+
+Let's collect our observations in the following theorem, along with a few additional facts:
+
+```{prf:theorem} Isoprobability contours of normal vectors
+:label: prop-multivar-norm-thm
+
+Suppose that $\bX \sim \calN_d(\bmu,\bSigma)$, where $\bSigma$ is a positive definite matrix with real, positive eigenvalues $\lambda_1,\ldots,\lambda_d$. Define $Q(\bx) = (\bx - \bmu)^\intercal \bSigma^{-1}(\bx - \bmu)$ for all $\bx \in \bbr^d$.
+
+1. The isoprobability contours of the density function $f(\bx;\bmu,\bSigma)$ are concentric ellipsoids centered at $\bmu$ defined by equations
+
+    $$
+    Q(\bx) = c^2
+    $$ (mahalanobis-sphere-02-eq)
+
+    for fixed $c\in \bbr$.
+
+2. For $c\neq 0$, the principal axes of the ellipsoid defined by {eq}`mahalanobis-sphere-02-eq` point along the eigenvectors of the matrix $\bSigma$. The half-lengths of the principal axes are given by $|c|\sqrt{\lambda_i}$, where $\lambda_1,\ldots,\lambda_d$ are the eigenvalues of $\bSigma$.
+
+3. In particular, if $\bSigma$ is a (positive) multiple of the identity matrix, then the isoprobability contours are concentric circles centered at $\bmu$.
+```
+
+We have already proved the first statement; for the second, see Section 4.4 in {cite}`HardleSimar2019`, for example.
+
+In the programming assignment for this chapter, you will learn how to simulate random draws from multivariate normal distributions. If we simulate $1{,}000$ such draws from the distribution with parameters given in {eq}`multivar-norm-ex-eq` and produce a scatter plot on top of the isoprobability contours, we get:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+np.random.seed(42)
+sample = X.rvs(size=1000)
+
+plt.contour(x, y, z, colors=magenta, alpha=1, levels=15)
+plt.scatter(sample[:, 0], sample[:, 1], zorder=3, alpha=0.75)
+plt.xlabel('$x$')
+plt.ylabel('$y$')
+plt.gcf().set_size_inches(w=5, h=4)
+plt.tight_layout()
+```
+
+The names of the parameters $\bmu$ and $\bSigma$ for a multivariate normal distribution $\bX \sim \calN_d(\bmu,\bSigma)$ were chosen because they turn out to contain the means and covariances of the component random variables $X_1,\ldots,X_d$. This is the content of:
+
+```{prf:theorem} Expectations and covariances for normal vectors
+:label: mean-covar-multivar-norm-thm
+
+If $\bX = (X_1,\ldots,X_d) \sim \calN_d(\bmu,\bSigma)$, then
+
+$$
+E(X_i) = \mu_i \quad \text{and} \quad \sigma(X_i,X_j) = \sigma_{ij},
+$$
+
+where $\bSigma=[\sigma_{ij}]_{ij}$.
+```
+
+We will not prove this; see instead the results in Section 4.4 of the reference {cite}`HardleSimar2019` mentioned above.
+
+Using this last result, it is easy to cook up examples of two-dimensional multivariate normal distributions $(X,Y) \sim \calN_2(\bu,\bSigma)$ of a specified shape. Indeed, by the theorem, we must have
+
+$$
+\bSigma = \begin{bmatrix}
+\sigma_X^2 & \sigma_{XY} \\ \sigma_{XY} & \sigma_Y^2
+\end{bmatrix} = \begin{bmatrix}
+\sigma_X^2 & \rho \sigma_X \sigma_Y \\ \rho\sigma_X \sigma_Y & \sigma_Y^2
+\end{bmatrix}
+$$
+
+```{margin}
+
+What goes wrong in the case that $\rho=\pm 1$?
+```
+
+where $\rho = \rho_{XY}$. One then first selects the correlation $\rho$ of the random variables $X$ and $Y$ such that $|\rho|<1$ (note the _strict_ inequality!), which rotates the principal axes of the elliptical isoprobability contours; a value of $\rho=0$ will create principal axes parallel to the $x$- and $y$-axes. Then, by choosing the standard deviations $\sigma_X$ and $\sigma_Y$, we can alter the widths of the projections of these ellipses onto the $x$- and $y$-axes. For example, the following shows the isoprobability contours for four different selections of the parameters $(\rho,\sigma_X,\sigma_Y)$ where $\bmu^\intercal = (1,1)$:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+parameters = [[0.5, 1, 2], [0.5, 1, 4], [-0.5, 1, 2], [0, 3, 2]]   # rho, sigma1, sigma2
+
+_, axes = plt.subplots(ncols=2, nrows=2, figsize=(8, 6), sharex=True, sharey=True)
+
+for parameter, axis in zip(parameters, axes.flatten()):
+    Sigma = covar_matrix(*parameter)
+    rho, sigma1, sigma2 = parameter
+    
+    z = mahalanobis(x=grid, mean=mu, cov=Sigma)
+    z = z.reshape(resolution, resolution)
+    axis.contour(x, y, z, colors=blue, levels=15)
+    axis.scatter(1, 1)
+    axis.set_xlabel('$x$')
+    axis.set_ylabel('$y$')
+    axis.set_title(f'$(\\rho,\\sigma_X,\\sigma_Y)=({rho},{sigma1},{sigma2})$')
+    
+plt.tight_layout()
+```
+
+We now turn toward a generalization of {prf:ref}`affine-gaussian-thm` that states (invertible) affine transformations of normal random variables are still normal. The same is true for normal random vectors:
+
+```{prf:theorem} Affine transformations of normal vectors
+:label: affine-trans-mutivar-norm-thm
+
+Let $\bX \sim \calN_d(\bmu,\bSigma)$, let $\bA\in \bbr^{d\times d}$ be nonsingular matrix, and let $\bb \in \bbr^d$. Then $\bY = \bA \bX + \bb$ is a normal random vector with $\bmu_\bY = \bA\bmu + \bb$ and $\bSigma_\bY = \bA\bSigma\bA^\intercal$.
+```
+
+```{prf:proof}
+
+The proof goes through {prf:ref}`multivar-density-trans-thm`. In the language and notation of that theorem, we have $r(\bx) = \bA \bx + \bb$, and so $s(\by) = \bA^{-1}(\by - \bb)$. It is easy to show that
+
+$$
+\frac{\partial(s_1,\ldots,s_d)}{\partial(y_1,\ldots,y_d)}(\by) = \bA^{-1},
+$$
+
+and so
+
+$$
+f_\bY(\by) = \frac{1}{|\det{\bA}|} f_\bX(\bA^{-1}(\by - \bb)) 
+$$
+
+for all $\by \in \bbr^d$. But then we compute
+
+\begin{align*}
+f_\bY(\by) &= \frac{1}{\det(2\pi \bA\bSigma\bA^\intercal)^{1/2}} \exp \left[ -\frac{1}{2}\left(\bA^{-1}\by - \bA^{-1}\bb - \bmu \right)^\intercal \bSigma^{-1}\left(\bA^{-1}\by - \bA^{-1}\bb - \bmu \right) \right] \\
+&= \frac{1}{\det(2\pi \bA\bSigma\bA^\intercal)^{1/2}} \exp \left[ -\frac{1}{2}\left(\by - \bb - \bA\bmu \right)^\intercal (\bA \bSigma\bA^\intercal)^{-1} \left(\by - \bb - \bA\bmu \right) \right],
+\end{align*}
+
+where we recognize the expression on the second line as the density of an $\calN(\bA\bmu+\bb, \bA\bSigma\bA^\intercal)$ random vector. Q.E.D.
+```
+
+The following corollary is a generalization of {prf:ref}`standardization-cor`, which states that we may perform an invertible affine transformation of a normal random variable to obtain a standard normal one. Again, the same is true for normal random vectors. To state this result formally, we require the concept of a [square root](https://en.wikipedia.org/wiki/Square_root_of_a_matrix#Positive_semidefinite_matrices) of a positive definite matrix $\bSigma$. This is a positive definite (and hence symmetric) matrix, denoted $\bSigma^{1/2}$, such that $\bSigma^{1/2}\bSigma^{1/2} = \bSigma$. There is only _one_ square root of $\bSigma$.
 
 
+```{prf:corollary} Standardization of normal vectors
+:label: standardize-multivar-cor
 
+If $\bX \sim \calN_d(\bmu,\bSigma)$, then $\bZ = \bSigma^{-1/2}(\bX - \bmu)$ has a ($d$-dimensional) standard normal distribution.
+```
+
+The affine transformation $\bZ = \bSigma^{-1/2}(\bx - \bmu)$ in the corollary is sometimes called a _Mahalanobis transformation_.
+
+Finally, our last result in this section shows that the component random variables of a multivariate normal random vector are themselves normal. In its proof (and statement), we use the fact that the diagonal entries of a positive definite matrix $\bSigma$ are positive. Indeed, if $\be_i$ is the $i$-th standard basis vector with a $1$ in the $i$-th entry and zeros elsewhere, then we have $\sigma_{ii} = \be_i^ \intercal \bSigma \be_i >0$, where $\bSigma = [\sigma_{ij}]_{ij}$.
+
+```{prf:theorem} Components of normal vectors
+:label: components-multivar-norm-thm
+
+Let $\bX \sim \calN_d(\bmu,\bSigma)$ and $\bX = (X_1,\ldots,X_d)$, where
+
+$$
+\bmu^\intercal = (\mu_1,\ldots,\mu_d) \quad \text{and} \quad \bSigma = \left[ \sigma_{ii} \right]_{ij}.
+$$
+
+Then each component random variable $X_i$ is normal with mean $\mu_i$ and variance $\sigma_{ii}$.
+```
+
+```{prf:proof}
+By {prf:ref}`standardize-multivar-cor`, the random vector $\bZ = \bSigma^{-1/2}(\bX - \bmu)$ is a $d$-dimensional standard normal vector. It is not difficult to show that the components of $\bZ$ are all standard normal variables:
+
+$$
+Z_1,\ldots,Z_d\sim \calN(0,1).
+$$ (z-comp-norm-eq)
+
+But $\bX = \bSigma^{1/2} \bZ + \bmu$, and so
+
+$$
+X_i = \sum_{j=1}^d \omega_{ij} Z_j + \mu_i
+$$
+
+where $\bSigma^{1/2} = [\omega_{ij}]_{ij}$. Now apply {prf:ref}`mgf-norm-thm` and use {eq}`z-comp-norm-eq` to conclude that
+
+$$
+X_i \sim \calN\left(\mu_i, \sum_{j=1}^d \omega_{ij}^2 \right).
+$$
+
+However, we have
+
+$$
+\sum_{j=1}^d \omega_{ij}^2 = \sum_{j=1}^d \omega_{ij}\omega_{ji} = \sigma_{ii}
+$$
+
+since $\bSigma^{1/2} \bSigma^{1/2} = \bSigma$ and $\bSigma^{1/2}$ is symmetric. Q.E.D.
+```

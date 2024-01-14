@@ -884,7 +884,7 @@ Do problems 7-9 on the worksheet.
 
 
 
-
+(norm-univariate-sec)=
 ## Normal distributions
 
 The distributions studied in this section are often said to be the most important in probability and statistics. This is primarily due to their ubiquity, occurring in all sorts of varied applications and scenarios. Indeed, these distributions will be with us constantly throughout the rest of the course. These are also the first distributions that we study in this chapter that are continuous, rather than discrete.
