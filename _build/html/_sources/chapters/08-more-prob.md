@@ -51,7 +51,7 @@ Let $X$ and $Y$ be two random variables and $g:\mathbb{R}^2 \to \mathbb{R}$ a fu
     $$
 ```
 
-Though the argument in the discrete case is very similar to the one given for the univariate version of {prf:ref}`lotus-thm`, we will not give it here. See if you can work it out on your own. You can imagine that the univariate and bivariate LoTUS's are special cases of a general multivariate LoTUS that computes expecations of random variables of the form $g(X_1,\ldots,X_n)$, where each $X_i$ is a random variable and $n\geq 1$. I will leave you to imagine what the statement of this multivariate LoTUS looks like. For those who might be interested, in the most general case, all of these "Law of the Unconscious Statistician" theorems are consequences of the general [change-of-variables formula](https://en.wikipedia.org/wiki/Pushforward_measure#Main_property:_change-of-variables_formula) for Lebesgue integrals.
+Though the argument in the discrete case is very similar to the one given for the univariate version of {prf:ref}`lotus-thm`, we will not give it here. See if you can work it out on your own. You can imagine that the univariate and bivariate LoTUS's are special cases of a general multivariate LoTUS that computes expecations of random variables of the form $g(X_1,\ldots,X_n)$, where each $X_i$ is a random variable and $n\geq 1$. I will leave you to imagine what the statement of this multivariate LoTUS looks like. For those who might be interested, in the most general case, all of these LoTUS's are consequences of the general [change-of-variables formula](https://en.wikipedia.org/wiki/Pushforward_measure#Main_property:_change-of-variables_formula) for Lebesgue integrals.
 
 Our first application of the bivariate LoTUS is to show that the expectation operator is multiplicative on independent random variables:
 
@@ -184,7 +184,7 @@ obtained as the composite $E(Y \mid X) \def h \circ X$. Note that $E(Y\mid X)$ i
 Do problem 3 on the worksheet.
 ```
 
-Now, since $Z = E(Y\mid X)$ is a random variable, it has an expected value. Provided that it is continuous (for example) with density function $f_{E(Y\mid X)}(z)$,  we would compute it (by definition!) as the integral
+Now, since $Z = E(Y\mid X)$ is a random variable, it has an expected value. Provided that it is continuous (for example) with density function $f_{E(Y\mid X)}(z)$, we would compute its expectation (by definition!) as the integral
 
 $$
 E\big[ E(Y \mid X) \big] = \int_\bbr z f_{E(Y\mid X)}(z) \ \text{d} z.
