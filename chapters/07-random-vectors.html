@@ -180,7 +180,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="06-theory-to-practice.html">6. Connecting theory to practice: a first look at model building</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Random vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="08-more-prob.html">8. More probability theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09-information-theory.html">9. Information theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-info-theory.html">9. Information theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10-optim.html">10. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11-models.html">11. Probabilistic graphical models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="12-learning.html">12. Learning</a></li>
@@ -498,7 +498,7 @@ x_1,x_2,\ldots,x_m \quad \text{and} \quad y_1,y_2,\ldots,y_m.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e0d684c91da3c1f24b06cb0f08d809f9923ddd43e76ec14f7fee70f74fbcd119.svg" src="../_images/e0d684c91da3c1f24b06cb0f08d809f9923ddd43e76ec14f7fee70f74fbcd119.svg" /></figure>
+<img alt="../_images/d7615163176d29b093ea0f434926cd8a4e6d1af2efcb72c7211adf5cefd832be.svg" src="../_images/d7615163176d29b093ea0f434926cd8a4e6d1af2efcb72c7211adf5cefd832be.svg" /></figure>
 </div>
 </div>
 <p>Whatever information we might glean from these histograms, the information is about the two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> <em>in isolation</em> from each other. But because we expect that the size of a house and its selling price might be (strongly) related, it might be more informative to study <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> <em>in tandem</em> with each other. One way to do this is via the scatter plots that we produced in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a>:</p>
@@ -518,7 +518,7 @@ x_1,x_2,\ldots,x_m \quad \text{and} \quad y_1,y_2,\ldots,y_m.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/f363c5d8cde58043e81d25223fc105c0b371caa7211be966ac4826add3ba4da1.svg" src="../_images/f363c5d8cde58043e81d25223fc105c0b371caa7211be966ac4826add3ba4da1.svg" /></figure>
+<img alt="../_images/5f460eb21e79b4e0a53a638d7cdd99f17df6365c178c056b7d20c89cf690916a.svg" src="../_images/5f460eb21e79b4e0a53a638d7cdd99f17df6365c178c056b7d20c89cf690916a.svg" /></figure>
 </div>
 </div>
 <p>This plot confirms exactly what we expected! Since the pattern of points generally follows a positively-sloped line, we may conclude that as the size <span class="math notranslate nohighlight">\(X\)</span> of a house increases, so too does its selling price <span class="math notranslate nohighlight">\(Y\)</span>.</p>
@@ -839,7 +839,7 @@ p(x,y) = \frac{\text{number of data points $(x_i,y_i)$ that match $(x,y)$}}{m}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/415c187d8f6293f6a74964e269e8f3d53c57faea0b8701ccd1559a50563e600a.svg" src="../_images/415c187d8f6293f6a74964e269e8f3d53c57faea0b8701ccd1559a50563e600a.svg" /></figure>
+<img alt="../_images/ca5cfe4cbe9698d00e29f31e003c27891ffe950f96d959e8e817d0b0eabaebed.svg" src="../_images/ca5cfe4cbe9698d00e29f31e003c27891ffe950f96d959e8e817d0b0eabaebed.svg" /></figure>
 </div>
 </div>
 <p>Along the top of the figure we see a histogram (with KDE) of the empirical distribution of the <span class="math notranslate nohighlight">\(x_i\)</span>’s, and along the side we see a histogram (with KDE) of the empirical distribution of the <span class="math notranslate nohighlight">\(y_i\)</span>’s.</p>
@@ -873,7 +873,7 @@ p(x,y) = \frac{\text{number of data points $(x_i,y_i)$ that match $(x,y)$}}{m}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/7ef58b31f3c742b3ab8829c59db6c9a5988390c44c6871121aceae0971ca8a90.svg" src="../_images/7ef58b31f3c742b3ab8829c59db6c9a5988390c44c6871121aceae0971ca8a90.svg" /></figure>
+<img alt="../_images/935f03a1ebb2a588b6dcc74eb5d1aa7e1b68550c1baebe6564c6e3128760fd6f.svg" src="../_images/935f03a1ebb2a588b6dcc74eb5d1aa7e1b68550c1baebe6564c6e3128760fd6f.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -908,7 +908,7 @@ p_Y(150) = \sum_{x\in \mathbb{R}} p_{XY}(x,150),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/472e7ec4aed6b67158630399fce4a21f23913beb6187d1ae308cf5b7bc03586d.svg" src="../_images/472e7ec4aed6b67158630399fce4a21f23913beb6187d1ae308cf5b7bc03586d.svg" /></figure>
+<img alt="../_images/cf21e3ef921402295284670f94f3d3481ace2a93c99e32d5b72e2ca338f24fde.svg" src="../_images/cf21e3ef921402295284670f94f3d3481ace2a93c99e32d5b72e2ca338f24fde.svg" /></figure>
 </div>
 </div>
 <p>Even though the density surface for a bivariate empirical distribution is <em>not</em> a continuous surface, if it <em>were</em>, you can imagine that the curves in the KDE on the left are its contours. In other words, these are the curves over which the density surface has constant height. It appears that the density surface has either a global minimum or global maximum near <span class="math notranslate nohighlight">\((1000,125)\)</span>, but we can’t tell which from the KDE alone because the contours are not labeled.</p>
@@ -949,7 +949,7 @@ P(A|B) = \frac{P(A\cap B)}{P(B)},
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/97adc4fae2f21fd62f17a22063ea3c11ea7c63157a53c5e5f66aef87db66cebe.svg" src="../_images/97adc4fae2f21fd62f17a22063ea3c11ea7c63157a53c5e5f66aef87db66cebe.svg" /></figure>
+<img alt="../_images/f137d51f21c030ce85932e7cc85d1910b3518435cabe0364b00db808ea091595.svg" src="../_images/f137d51f21c030ce85932e7cc85d1910b3518435cabe0364b00db808ea091595.svg" /></figure>
 </div>
 </div>
 <p>Then, after cutting down the range of <span class="math notranslate nohighlight">\(y\)</span>’s to lie in <span class="math notranslate nohighlight">\(B=\{150\}\)</span>, we wonder what the distribution over the sizes <span class="math notranslate nohighlight">\(x\)</span> looks like. Answer:</p>
@@ -975,7 +975,7 @@ P(A|B) = \frac{P(A\cap B)}{P(B)},
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a842c66c0caa40c892010d925963bc7d4a5102af91c83c3505154b8cd8157473.svg" src="../_images/a842c66c0caa40c892010d925963bc7d4a5102af91c83c3505154b8cd8157473.svg" /></figure>
+<img alt="../_images/f8f715111fffeb5f59555368aafd4101a59dcb88d654ae9c90b1b0fea7f4bf2d.svg" src="../_images/f8f715111fffeb5f59555368aafd4101a59dcb88d654ae9c90b1b0fea7f4bf2d.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -1370,7 +1370,7 @@ g_1(\mathbf{X}_1),g_2(\mathbf{X}_2),\ldots,g_m(\mathbf{X}_m)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/15dbdf4e603df5fe16a41b59674eb6e7026e28efb88796eb5d0776feaf9dd98b.svg" src="../_images/15dbdf4e603df5fe16a41b59674eb6e7026e28efb88796eb5d0776feaf9dd98b.svg" /></figure>
+<img alt="../_images/9f1e0cd772b05030cb0b9f857957a645a03cdaa63e1090425383dce424313b7e.svg" src="../_images/9f1e0cd772b05030cb0b9f857957a645a03cdaa63e1090425383dce424313b7e.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -1430,7 +1430,7 @@ f(\theta| x_1,\ldots,x_{10}) &amp;= \frac{p(x_1,\ldots,x_{10}|\theta)f(\theta)}{
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/69567add44683aeea356e4935128f9542154f49cbc77ff331061927a09fbf5d1.svg" src="../_images/69567add44683aeea356e4935128f9542154f49cbc77ff331061927a09fbf5d1.svg" /></figure>
+<img alt="../_images/8a0f7995a423eeded313d59bb40d1916ab4728df7091a2d6c50d51e0f6bd2d63.svg" src="../_images/8a0f7995a423eeded313d59bb40d1916ab4728df7091a2d6c50d51e0f6bd2d63.svg" /></figure>
 </div>
 </div>
 <p>Here’s what you should notice: For larger values of <span class="math notranslate nohighlight">\(x\)</span>, the distributions are shifted toward higher values of <span class="math notranslate nohighlight">\(\theta\)</span>, which reflects the fact that many heads suggests <span class="math notranslate nohighlight">\(\theta\)</span> is close to <span class="math notranslate nohighlight">\(1\)</span>. In the other direction, smaller values of <span class="math notranslate nohighlight">\(x\)</span> shift the distributions toward <span class="math notranslate nohighlight">\(0\)</span>.</p>

@@ -1196,7 +1196,7 @@ Suppose that $\bX \sim \calN_d(\bmu,\bSigma)$, where $\bSigma$ is a positive def
 
 2. For $c\neq 0$, the principal axes of the ellipsoid defined by {eq}`mahalanobis-sphere-02-eq` point along the eigenvectors of the matrix $\bSigma$. The half-lengths of the principal axes are given by $|c|\sqrt{\lambda_i}$, where $\lambda_1,\ldots,\lambda_d$ are the eigenvalues of $\bSigma$.
 
-3. In particular, if $\bSigma$ is a (positive) multiple of the identity matrix, then the isoprobability contours are concentric circles centered at $\bmu$.
+3. In particular, if $\bSigma$ is a (positive) multiple of the identity matrix, then the isoprobability contours are concentric spheres centered at $\bmu$.
 ```
 
 We have already proved the first statement; for the second, see Section 4.4 in {cite}`HardleSimar2019`, for example.
@@ -1307,7 +1307,7 @@ f_\bY(\by) &= \frac{1}{\det(2\pi \bA\bSigma\bA^\intercal)^{1/2}} \exp \left[ -\f
 &= \frac{1}{\det(2\pi \bA\bSigma\bA^\intercal)^{1/2}} \exp \left[ -\frac{1}{2}\left(\by - \bb - \bA\bmu \right)^\intercal (\bA \bSigma\bA^\intercal)^{-1} \left(\by - \bb - \bA\bmu \right) \right],
 \end{align*}
 
-where we recognize the expression on the second line as the density of an $\calN(\bA\bmu+\bb, \bA\bSigma\bA^\intercal)$ random vector. Q.E.D.
+where we recognize the expression on the second line as the density of an $\calN_d(\bA\bmu+\bb, \bA\bSigma\bA^\intercal)$ random vector. Q.E.D.
 ```
 
 The following corollary is a generalization of {prf:ref}`standardization-cor`, which states that we may perform an invertible affine transformation of a normal random variable to obtain a standard normal one. Again, the same is true for normal random vectors. To state this result formally, we require the concept of a [square root](https://en.wikipedia.org/wiki/Square_root_of_a_matrix#Positive_semidefinite_matrices) of a positive definite matrix $\bSigma$. This is a positive definite (and hence symmetric) matrix, denoted $\bSigma^{1/2}$, such that $\bSigma^{1/2}\bSigma^{1/2} = \bSigma$. There is only _one_ square root of $\bSigma$.

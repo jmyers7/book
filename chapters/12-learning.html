@@ -180,7 +180,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="06-theory-to-practice.html">6. Connecting theory to practice: a first look at model building</a></li>
 <li class="toctree-l1"><a class="reference internal" href="07-random-vectors.html">7. Random vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="08-more-prob.html">8. More probability theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09-information-theory.html">9. Information theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-info-theory.html">9. Information theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10-optim.html">10. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="11-models.html">11. Probabilistic graphical models</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">12. Learning</a></li>
@@ -465,7 +465,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c0a1011342ee6a31dfc560215a5171cf6f84c73fc1b180d67f09ae429f05734b.svg" src="../_images/c0a1011342ee6a31dfc560215a5171cf6f84c73fc1b180d67f09ae429f05734b.svg" /></figure>
+<img alt="../_images/7796876cfd5d7011c046a6e11a4a54b69ead8cea71136e42d556779e9a63172c.svg" src="../_images/7796876cfd5d7011c046a6e11a4a54b69ead8cea71136e42d556779e9a63172c.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -502,7 +502,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a0986fc89be09d8b09626f206b1659ffd0c34ae26e1e231fc716053fc9507c7e.svg" src="../_images/a0986fc89be09d8b09626f206b1659ffd0c34ae26e1e231fc716053fc9507c7e.svg" /></figure>
+<img alt="../_images/7fde3698ea125936a71002e03c1069b1fd8b6d0a9ca365af7d02d9b72970eaca.svg" src="../_images/7fde3698ea125936a71002e03c1069b1fd8b6d0a9ca365af7d02d9b72970eaca.svg" /></figure>
 </div>
 </div>
 <p>This often leads to difficulties when implementing MLE in computer algorithms due to numerical round-off. The machine is liable to round very small numbers to <span class="math notranslate nohighlight">\(0\)</span>. For this reason (and others), we often work with the (base-<span class="math notranslate nohighlight">\(e\)</span>) logarithm of the data likelihood function, denoted by</p>
@@ -540,7 +540,7 @@ p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e3e9c93d5bffe4db4eee0828b5188b71ff08269e13a455e8dbe19e8cf7d5e550.svg" src="../_images/e3e9c93d5bffe4db4eee0828b5188b71ff08269e13a455e8dbe19e8cf7d5e550.svg" /></figure>
+<img alt="../_images/43013759dc96b44a35b8d41f3729dfeff4696ca31a47b4746ddc0f210fb3f1b5.svg" src="../_images/43013759dc96b44a35b8d41f3729dfeff4696ca31a47b4746ddc0f210fb3f1b5.svg" /></figure>
 </div>
 </div>
 <p>Notice that the values of <span class="math notranslate nohighlight">\(\ell(\theta)\)</span> are on a much more manageable scale compared to the values of <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span>, and that the two functions have the same global maximizer at <span class="math notranslate nohighlight">\(\theta=0.7\)</span>.</p>
@@ -931,7 +931,7 @@ y^{(i)} - \mu^{(i)} = y^{(i)} - \beta_0 - \beta_1 x_1^{(i)} - \cdots - \beta_n x
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/3edcc5bbb8d340d01479e6e68ca59fd3e2d3ad2365bff02e0aea2fca7fb5821d.svg" src="../_images/3edcc5bbb8d340d01479e6e68ca59fd3e2d3ad2365bff02e0aea2fca7fb5821d.svg" /></figure>
+<img alt="../_images/60d0dd3097756ccd3ddd81e5d97b9185e8b1efaa20cda4bb93f327316a001368.svg" src="../_images/60d0dd3097756ccd3ddd81e5d97b9185e8b1efaa20cda4bb93f327316a001368.svg" /></figure>
 </div>
 </div>
 <p>You will compute the maximum likelihood estimates for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span> in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-4">suggested problems</a>.</p>
@@ -1020,7 +1020,7 @@ Y \mid \bX ; \ \beta_0,\bbeta \sim \Ber(\phi) \quad \text{where} \quad \phi = \s
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/5a27da04d2b8fe72fa8d8ce13be40974a2d72d8d15665c3b55d955fd90d07cae.svg" src="../_images/5a27da04d2b8fe72fa8d8ce13be40974a2d72d8d15665c3b55d955fd90d07cae.svg" /></figure>
+<img alt="../_images/1aaba89a63ced943f90041cb1f79bbfbae144b3fdc56c95e1d62dc2c11a635d5.svg" src="../_images/1aaba89a63ced943f90041cb1f79bbfbae144b3fdc56c95e1d62dc2c11a635d5.svg" /></figure>
 </div>
 </div>
 <p>Now, however, we may train a logistic regression model from scratch using MLE. In the following series of plots, we compute the (approximate) MLE using batch gradient descent to find the (approximate) minimizer of the negative stochastic objective function</p>
@@ -1202,7 +1202,7 @@ Y \mid \bX ; \ \beta_0,\bbeta \sim \Ber(\phi) \quad \text{where} \quad \phi = \s
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/d76d1f425588eb34d54276c154b00f226cd9593c41470fe54f6c4ba3aca613ff.svg" src="../_images/d76d1f425588eb34d54276c154b00f226cd9593c41470fe54f6c4ba3aca613ff.svg" /></figure>
+<img alt="../_images/45f63f4fd7064c7f2eb7f0f476ce1b68a50da3dfcd1569247497e99641bb2089.svg" src="../_images/45f63f4fd7064c7f2eb7f0f476ce1b68a50da3dfcd1569247497e99641bb2089.svg" /></figure>
 </div>
 </div>
 </section>
