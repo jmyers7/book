@@ -313,7 +313,8 @@ document.write(`
    <h1>Proof Index</h1>
 
    <div class="modindex-jumpbox">
-   <a href="#cap-KL-words-def"><strong>KL-words-def</strong></a> | 
+   <a href="#cap-KL-and-entropy-thm"><strong>KL-and-entropy-thm</strong></a> | 
+   <a href="#cap-KL-def"><strong>KL-def</strong></a> | 
    <a href="#cap-affine-gaussian-thm"><strong>affine-gaussian-thm</strong></a> | 
    <a href="#cap-affine-trans-mutivar-norm-thm"><strong>affine-trans-mutivar-norm-thm</strong></a> | 
    <a href="#cap-batch-gd-def"><strong>batch-gd-def</strong></a> | 
@@ -367,6 +368,7 @@ document.write(`
    <a href="#cap-empirical-bivar-def"><strong>empirical-bivar-def</strong></a> | 
    <a href="#cap-empirical-iqr-def"><strong>empirical-iqr-def</strong></a> | 
    <a href="#cap-empirical-stats-def"><strong>empirical-stats-def</strong></a> | 
+   <a href="#cap-entropy-def"><strong>entropy-def</strong></a> | 
    <a href="#cap-exp-beta-thm"><strong>exp-beta-thm</strong></a> | 
    <a href="#cap-exp-var-bernoulli-thm"><strong>exp-var-bernoulli-thm</strong></a> | 
    <a href="#cap-exp-var-binomial-thm"><strong>exp-var-binomial-thm</strong></a> | 
@@ -401,6 +403,7 @@ document.write(`
    <a href="#cap-independent-event-def"><strong>independent-event-def</strong></a> | 
    <a href="#cap-invar-independent-thm"><strong>invar-independent-thm</strong></a> | 
    <a href="#cap-joint-cont-cont-thm"><strong>joint-cont-cont-thm</strong></a> | 
+   <a href="#cap-kl-entropy-optim-thm"><strong>kl-entropy-optim-thm</strong></a> | 
    <a href="#cap-law-of-total-exp-thm"><strong>law-of-total-exp-thm</strong></a> | 
    <a href="#cap-law-of-total-prob-event-thm"><strong>law-of-total-prob-event-thm</strong></a> | 
    <a href="#cap-law-of-total-prob-rvs-thm"><strong>law-of-total-prob-rvs-thm</strong></a> | 
@@ -436,9 +439,11 @@ document.write(`
    <a href="#cap-multi-dim-def"><strong>multi-dim-def</strong></a> | 
    <a href="#cap-multivar-density-trans-thm"><strong>multivar-density-trans-thm</strong></a> | 
    <a href="#cap-multivar-norm-def"><strong>multivar-norm-def</strong></a> | 
+   <a href="#cap-mutual-info-def"><strong>mutual-info-def</strong></a> | 
    <a href="#cap-neural-net-data-pf-def"><strong>neural-net-data-pf-def</strong></a> | 
    <a href="#cap-neural-net-def"><strong>neural-net-def</strong></a> | 
    <a href="#cap-neural-net-pf-def"><strong>neural-net-pf-def</strong></a> | 
+   <a href="#cap-other-info-thm"><strong>other-info-thm</strong></a> | 
    <a href="#cap-outlier-def"><strong>outlier-def</strong></a> | 
    <a href="#cap-para-model-def"><strong>para-model-def</strong></a> | 
    <a href="#cap-param-est-def"><strong>param-est-def</strong></a> | 
@@ -502,12 +507,20 @@ document.write(`
 
    <table class="indextable modindextable">
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-KL-words-def"><td></td><td>
-       <strong>KL-words-def</strong></td><td></td></tr>
+     <tr class="cap" id="cap-KL-and-entropy-thm"><td></td><td>
+       <strong>KL-and-entropy-thm</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/09-info-theory.html#KL-words-def"><code class="xref">KL-words-def</code></a> <em>(chapters/09-info-theory)</em></td><td>
+       <a href="chapters/09-info-theory.html#KL-and-entropy-thm"><code class="xref">KL-and-entropy-thm</code></a> <em>(chapters/09-info-theory)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-KL-def"><td></td><td>
+       <strong>KL-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/09-info-theory.html#KL-def"><code class="xref">KL-def</code></a> <em>(chapters/09-info-theory)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-affine-gaussian-thm"><td></td><td>
@@ -934,6 +947,14 @@ document.write(`
        <a href="chapters/06-theory-to-practice.html#empirical-stats-def"><code class="xref">empirical-stats-def</code></a> <em>(chapters/06-theory-to-practice)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-entropy-def"><td></td><td>
+       <strong>entropy-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/09-info-theory.html#entropy-def"><code class="xref">entropy-def</code></a> <em>(chapters/09-info-theory)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-exp-beta-thm"><td></td><td>
        <strong>exp-beta-thm</strong></td><td></td></tr>
      <tr>
@@ -1204,6 +1225,14 @@ document.write(`
        <td></td>
        <td>
        <a href="chapters/07-random-vectors.html#joint-cont-cont-thm"><code class="xref">joint-cont-cont-thm</code></a> <em>(chapters/07-random-vectors)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-kl-entropy-optim-thm"><td></td><td>
+       <strong>kl-entropy-optim-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/09-info-theory.html#kl-entropy-optim-thm"><code class="xref">kl-entropy-optim-thm</code></a> <em>(chapters/09-info-theory)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-law-of-total-exp-thm"><td></td><td>
@@ -1486,6 +1515,14 @@ document.write(`
        <a href="chapters/08-more-prob.html#multivar-norm-def"><code class="xref">multivar-norm-def</code></a> <em>(chapters/08-more-prob)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-mutual-info-def"><td></td><td>
+       <strong>mutual-info-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/09-info-theory.html#mutual-info-def"><code class="xref">mutual-info-def</code></a> <em>(chapters/09-info-theory)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-neural-net-data-pf-def"><td></td><td>
        <strong>neural-net-data-pf-def</strong></td><td></td></tr>
      <tr>
@@ -1509,6 +1546,14 @@ document.write(`
        <td>
        <a href="chapters/11-models.html#neural-net-pf-def"><code class="xref">neural-net-pf-def</code></a> <em>(chapters/11-models)</em></td><td>
        <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-other-info-thm"><td></td><td>
+       <strong>other-info-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/09-info-theory.html#other-info-thm"><code class="xref">other-info-thm</code></a> <em>(chapters/09-info-theory)</em></td><td>
+       <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-outlier-def"><td></td><td>
        <strong>outlier-def</strong></td><td></td></tr>
