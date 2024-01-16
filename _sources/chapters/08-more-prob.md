@@ -969,9 +969,7 @@ If we have equality, then we must have $\bz^\intercal \bX = \mu_{\bz^\intercal \
 
 ## Multivariate normal distributions
 
-The goal in this section is simple: Generalize the univariate normal distributions from {numref}`norm-univariate-sec` to higher dimensions. This goal needed to wait until the current chapter because our generalization will require the machinery of covariance matrices that we developed at the end of the previous section.
-
-The ultimate effect will be that the familiar "bell curves" of univariate normal densities will turn into "bell (hyper)surfaces." For example, in two dimensions we might have something like:
+The goal in this section is simple: Generalize the univariate normal distributions from {numref}`norm-univariate-sec` to higher dimensions. We needed to wait until the current chapter to this because our generalization will require the machinery of covariance matrices that we developed at the end of the previous section. The ultimate effect will be that the familiar "bell curves" of univariate normal densities will turn into "bell (hyper)surfaces." For example, in two dimensions, the density surface of a bivariate normal random vector might have something like this:
 
 ```{image} ../img/multi-var-norm-01.png
 :width: 80%
@@ -979,7 +977,7 @@ The ultimate effect will be that the familiar "bell curves" of univariate normal
 ```
 &nbsp;
 
-The "isoprobability" contours of this density surface look like:
+The _isoprobability contours_ of this density surface (i.e., curves of constant probability) look like:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -987,25 +985,21 @@ The "isoprobability" contours of this density surface look like:
 :   figure:
 :       align: center
 
-def covar_matrix(rho, sigma1, sigma2):
-    return np.array([[sigma1 ** 2, rho * sigma1 * sigma2], [rho * sigma1 * sigma2, sigma2 ** 2]])
-
 rho = 0.0
 sigma1 = math.sqrt(2)
 sigma2 = 1
-Sigma = covar_matrix(rho, sigma1, sigma2)
+Sigma = np.array([[sigma1 ** 2, rho * sigma1 * sigma2], [rho * sigma1 * sigma2, sigma2 ** 2]])
 mu = np.array([1, 1])
-X = sp.stats.multivariate_normal(mean=mu, cov=Sigma)
+norm = sp.stats.multivariate_normal(mean=mu, cov=Sigma)
 
 resolution = 100
-x = np.linspace(-2, 4, resolution)
-y = np.linspace(-2, 4, resolution)
-x, y = np.meshgrid(x, y)
+linear_grid = np.linspace(-2, 4, resolution)
+x, y = np.meshgrid(linear_grid, linear_grid)
 grid = np.column_stack((x.reshape(-1, 1), y.reshape(-1, 1)))
-z = X.pdf(grid)
+z = norm.pdf(grid)
 z = z.reshape(resolution, resolution)
 
-contour = plt.contour(x, y, z, colors=blue)
+contour = plt.contour(linear_grid, linear_grid, z, colors=blue)
 plt.clabel(contour, inline=True, fontsize=8)
 plt.scatter(1, 1)
 plt.xlabel('$x$')
@@ -1016,9 +1010,7 @@ plt.tight_layout()
 
 Notice that these contours are concentric ellipses centered at the point $(1,1)\in \bbr^2$ with principal axes parallel to the coordinate $x$- and $y$-axes. In higher dimensions, the isoprobability surfaces are so-called _ellipsoids_.
 
-Actually, if we consider only this special case, i.e., when the principal axes of the isoprobability surfaces are parallel with the coordinate axes---we do not need the full strength of the machinery of covariance matrices. Studying this case will also help us gain insight into the general formula for the density of a multivariate normal distribution.
-
-So, let's begin with a sequence $X_1,\ldots,X_d$ of independent random variables such that $X_i \sim \calN(\mu_i,\sigma_i^2)$ for each $i$. Then independence gives us
+Actually, if we consider only this special case, i.e., when the principal axes of the isoprobability surfaces are parallel with the coordinate axes---we do not need the full strength of the machinery of covariance matrices. Studying this case will also help us gain insight into the general formula for the density of a multivariate normal distribution. So, let's begin with a sequence $X_1,\ldots,X_d$ of _independent_(!) random variables such that $X_i \sim \calN(\mu_i,\sigma_i^2)$ for each $i$. Then independence gives us
 
 $$
 f(x_1,\ldots,x_d) = \prod_{i=1}^d \frac{1}{\sqrt{2\pi \sigma_i^2}} \exp \left[ -\frac{1}{2\sigma_i^2} ( x_i-\mu_i)^2\right],
@@ -1030,9 +1022,7 @@ $$
 f(x_1,\ldots,x_d) = \frac{1}{(2\pi)^{d/2} (\sigma_1^2\cdots \sigma_d^2)^{1/2}} \exp \left[- \frac{1}{2} \sum_{i=1}^d \frac{(x_i-\mu_i)^2}{\sigma_i^2} \right].
 $$ (init-multi-var-norm-eqn)
 
-As you may easily check by creating your own plots, this formula (in dimension $d=2$) produces "bell surfaces" like the one shown above whose contours are concentric ellipses centered at $(\mu_1,\mu_2)\in \bbr^2$ with their principal axes parallel with the coordinate axes.
-
-However, we shall also be interested in creating density surfaces whose contours are rotated ellipses, like the following:
+As you may easily check by creating your own plots, this formula (in dimension $d=2$) produces "bell surfaces" like the one shown above whose contours are concentric ellipses centered at $(\mu_1,\mu_2)\in \bbr^2$ with their principal axes parallel with the coordinate axes. However, we shall also be interested in creating density surfaces whose isoprobability contours are rotated ellipses, like the following:
 
 ```{image} ../img/multi-var-norm-02.png
 :width: 80%
@@ -1040,7 +1030,7 @@ However, we shall also be interested in creating density surfaces whose contours
 ```
 &nbsp;
 
-The isoprobability contours of this density surface are given by:
+Indeed, the contours of this surface are given by:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1051,15 +1041,15 @@ The isoprobability contours of this density surface are given by:
 rho = 0.5
 sigma1 = 1
 sigma2 = 2
-Sigma = covar_matrix(rho, sigma1, sigma2)
+Sigma = np.array([[sigma1 ** 2, rho * sigma1 * sigma2], [rho * sigma1 * sigma2, sigma2 ** 2]])
 mu = np.array([1, 1])
-X = sp.stats.multivariate_normal(mean=mu, cov=Sigma)
+norm = sp.stats.multivariate_normal(mean=mu, cov=Sigma)
 
-x = np.linspace(-3, 5, resolution)
-y = np.linspace(-3, 5, resolution)
-x, y = np.meshgrid(x, y)
+resolution = 100
+linear_grid = np.linspace(-3, 5, resolution)
+x, y = np.meshgrid(linear_grid, linear_grid)
 grid = np.column_stack((x.reshape(-1, 1), y.reshape(-1, 1)))
-z = X.pdf(grid)
+z = norm.pdf(grid)
 z = z.reshape(resolution, resolution)
 
 contour = plt.contour(x, y, z, colors=blue)
@@ -1104,7 +1094,7 @@ $$ (multivar-norm-eqn)
 with support $\bbr^d$. The _standard ($d$-dimensional) multivariate normal distribution_ corresponds to the case that $\bmu^\intercal = \boldsymbol{0}$ and $\bSigma = \mathbf{I}$, where $\boldsymbol{0}$ is the $d$-dimensional zero vector and $\mathbf{I}$ is the $d\times d$ identity matrix.
 ```
 
-One characterization of the class of positive definite matrices is that it consists of all symmetric matrices whose eigenvalues are real and positive. Since the determinant of a square matrix is the product of its eigenvalues, it follows that the determinant of $\bSigma$ in {eq}`multivar-norm-eqn` is positive. This shows that the square root $\det(2\pi \bSigma)^{1/2}$ is defined and the inverse $\bSigma^{-1}$ exists.
+One characterization of the class of positive definite matrices is that it consists of all symmetric matrices whose eigenvalues are real and positive. Since the determinant of a square matrix is the product of its eigenvalues, it follows that the determinant of $\bSigma$ in {eq}`multivar-norm-eqn` is positive. This shows that the square root $\det(2\pi \bSigma)^{1/2}$ is defined and that the inverse $\bSigma^{-1}$ exists.
 
 To help understand the shape of the density (hyper)surfaces created by {eq}`multivar-norm-eqn`, it helps to ignore the normalizing constant and write
 
@@ -1163,9 +1153,9 @@ these "spheres" are ellipses centered at $\bmu$:
 def mahalanobis(x, mean, cov):
     return np.diag((x - mean) @ np.linalg.inv(cov) @ (x - mean).T)
 
-x = np.linspace(-5, 7, resolution)
-y = np.linspace(-5, 7, resolution)
-x, y = np.meshgrid(x, y)
+resolution = 100
+linear_grid = np.linspace(-5, 7, resolution)
+x, y = np.meshgrid(linear_grid, linear_grid)
 grid = np.column_stack((x.reshape(-1, 1), y.reshape(-1, 1)))
 z = mahalanobis(x=grid, mean=mu, cov=Sigma)
 z = z.reshape(resolution, resolution)
@@ -1198,87 +1188,9 @@ Suppose that $\bX \sim \calN_d(\bmu,\bSigma)$, where $\bSigma$ is a positive def
 
 3. In particular, if $\bSigma$ is a (positive) multiple of the identity matrix, then the isoprobability contours are concentric spheres centered at $\bmu$.
 ```
-
 We have already proved the first statement; for the second, see Section 4.4 in {cite}`HardleSimar2019`, for example.
 
-In the programming assignment for this chapter, you will learn how to simulate random draws from multivariate normal distributions. If we simulate $1{,}000$ such draws from the distribution with parameters given in {eq}`multivar-norm-ex-eq` and produce a scatter plot on top of the isoprobability contours, we get:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-
-np.random.seed(42)
-sample = X.rvs(size=1000)
-
-plt.contour(x, y, z, colors=magenta, alpha=1, levels=15)
-plt.scatter(sample[:, 0], sample[:, 1], zorder=3, alpha=0.75)
-plt.xlabel('$x$')
-plt.ylabel('$y$')
-plt.gcf().set_size_inches(w=5, h=4)
-plt.tight_layout()
-```
-
-The names of the parameters $\bmu$ and $\bSigma$ for a multivariate normal distribution $\bX \sim \calN_d(\bmu,\bSigma)$ were chosen because they turn out to contain the means and covariances of the component random variables $X_1,\ldots,X_d$. This is the content of:
-
-```{prf:theorem} Expectations and covariances for normal vectors
-:label: mean-covar-multivar-norm-thm
-
-If $\bX = (X_1,\ldots,X_d) \sim \calN_d(\bmu,\bSigma)$, then
-
-$$
-E(X_i) = \mu_i \quad \text{and} \quad \sigma(X_i,X_j) = \sigma_{ij},
-$$
-
-where $\bSigma=[\sigma_{ij}]_{ij}$.
-```
-
-We will not prove this; see instead the results in Section 4.4 of the reference {cite}`HardleSimar2019` mentioned above.
-
-Using this last result, it is easy to cook up examples of two-dimensional multivariate normal distributions $(X,Y) \sim \calN_2(\bu,\bSigma)$ of a specified shape. Indeed, by the theorem, we must have
-
-$$
-\bSigma = \begin{bmatrix}
-\sigma_X^2 & \sigma_{XY} \\ \sigma_{XY} & \sigma_Y^2
-\end{bmatrix} = \begin{bmatrix}
-\sigma_X^2 & \rho \sigma_X \sigma_Y \\ \rho\sigma_X \sigma_Y & \sigma_Y^2
-\end{bmatrix}
-$$
-
-```{margin}
-
-What goes wrong in the case that $\rho=\pm 1$?
-```
-
-where $\rho = \rho_{XY}$. One then first selects the correlation $\rho$ of the random variables $X$ and $Y$ such that $|\rho|<1$ (note the _strict_ inequality!), which rotates the principal axes of the elliptical isoprobability contours; a value of $\rho=0$ will create principal axes parallel to the $x$- and $y$-axes. Then, by choosing the standard deviations $\sigma_X$ and $\sigma_Y$, we can alter the widths of the projections of these ellipses onto the $x$- and $y$-axes. For example, the following shows the isoprobability contours for four different selections of the parameters $(\rho,\sigma_X,\sigma_Y)$ where $\bmu^\intercal = (1,1)$:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-
-parameters = [[0.5, 1, 2], [0.5, 1, 4], [-0.5, 1, 2], [0, 3, 2]]   # rho, sigma1, sigma2
-
-_, axes = plt.subplots(ncols=2, nrows=2, figsize=(8, 6), sharex=True, sharey=True)
-
-for parameter, axis in zip(parameters, axes.flatten()):
-    Sigma = covar_matrix(*parameter)
-    rho, sigma1, sigma2 = parameter
-    
-    z = mahalanobis(x=grid, mean=mu, cov=Sigma)
-    z = z.reshape(resolution, resolution)
-    axis.contour(x, y, z, colors=blue, levels=15)
-    axis.scatter(1, 1)
-    axis.set_xlabel('$x$')
-    axis.set_ylabel('$y$')
-    axis.set_title(f'$(\\rho,\\sigma_X,\\sigma_Y)=({rho},{sigma1},{sigma2})$')
-    
-plt.tight_layout()
-```
-
-We now turn toward a generalization of {prf:ref}`affine-gaussian-thm` that states (invertible) affine transformations of normal random variables are still normal. The same is true for normal random vectors:
+It will be useful to generalize a pair of important univariate results from {numref}`norm-univariate-sec` to the case of multivariate normal distributions. The first result is a generalization of {prf:ref}`affine-gaussian-thm` that states (invertible) affine transformations of normal random variables are still normal. The same is true for normal random vectors:
 
 ```{prf:theorem} Affine transformations of normal vectors
 :label: affine-trans-mutivar-norm-thm
@@ -1310,7 +1222,7 @@ f_\bY(\by) &= \frac{1}{\det(2\pi \bA\bSigma\bA^\intercal)^{1/2}} \exp \left[ -\f
 where we recognize the expression on the second line as the density of an $\calN_d(\bA\bmu+\bb, \bA\bSigma\bA^\intercal)$ random vector. Q.E.D.
 ```
 
-The following corollary is a generalization of {prf:ref}`standardization-cor`, which states that we may perform an invertible affine transformation of a normal random variable to obtain a standard normal one. Again, the same is true for normal random vectors. To state this result formally, we require the concept of a [square root](https://en.wikipedia.org/wiki/Square_root_of_a_matrix#Positive_semidefinite_matrices) of a positive definite matrix $\bSigma$. This is a positive definite (and hence symmetric) matrix, denoted $\bSigma^{1/2}$, such that $\bSigma^{1/2}\bSigma^{1/2} = \bSigma$. There is only _one_ square root of $\bSigma$.
+The second result is a generalization of {prf:ref}`standardization-cor`, which states that we may perform an invertible affine transformation of a normal random variable to obtain a standard normal one. Again, the same is true for normal random vectors. To state this generalized result formally, we require the concept of a [square root](https://en.wikipedia.org/wiki/Square_root_of_a_matrix#Positive_semidefinite_matrices) of a positive definite matrix $\bSigma$. This is a positive definite (and hence symmetric) matrix, denoted $\bSigma^{1/2}$, such that $\bSigma^{1/2}\bSigma^{1/2} = \bSigma$. There is only _one_ square root of $\bSigma$.
 
 
 ```{prf:corollary} Standardization of normal vectors
@@ -1319,9 +1231,7 @@ The following corollary is a generalization of {prf:ref}`standardization-cor`, w
 If $\bX \sim \calN_d(\bmu,\bSigma)$, then $\bZ = \bSigma^{-1/2}(\bX - \bmu)$ has a ($d$-dimensional) standard normal distribution.
 ```
 
-The affine transformation $\bZ = \bSigma^{-1/2}(\bx - \bmu)$ in the corollary is sometimes called a _Mahalanobis transformation_.
-
-Finally, our last result in this section shows that the component random variables of a multivariate normal random vector are themselves normal. In its proof (and statement), we use the fact that the diagonal entries of a positive definite matrix $\bSigma$ are positive. Indeed, if $\be_i$ is the $i$-th standard basis vector with a $1$ in the $i$-th entry and zeros elsewhere, then we have $\sigma_{ii} = \be_i^ \intercal \bSigma \be_i >0$, where $\bSigma = [\sigma_{ij}]_{ij}$.
+The affine transformation $\bZ = \bSigma^{-1/2}(\bx - \bmu)$ in the corollary is sometimes called a _Mahalanobis transformation_. We may use these transformations to help us determine the distributions of the components of a normal random vector:
 
 ```{prf:theorem} Components of normal vectors
 :label: components-multivar-norm-thm
@@ -1362,3 +1272,107 @@ $$
 
 since $\bSigma^{1/2} \bSigma^{1/2} = \bSigma$ and $\bSigma^{1/2}$ is symmetric. Q.E.D.
 ```
+
+In fact, an even stronger result than {prf:ref}`components-multivar-norm-thm` is true: Not only are the individual univariate components of a normal random vector themselves normal, but _any_ linear combination of these components is also normal. Even more surprising, this fact turns out to give a complete characterization of normal random vectors! This is the content of:
+
+```{prf:theorem} The Linear-Combination Criterion for Normal Random Vectors
+:label: char-normal-thm
+
+Let $\bX = (X_1,\ldots,X_d)$ be a $d$-dimensional random vector. Then $\bX$ is a normal random vector with parameters $\bmu$ and $\bSigma$ if and only if every linear combination
+
+$$
+a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
+$$
+
+is a normal random variable. In this case, the parameter $\bSigma$ is the covariance matrix of $\bX$, while $\bmu^\intercal = (\mu_1,\ldots,\mu_d)$ with $E(X_i) = \mu_i$ for each $i$.
+```
+
+We will not prove this, since the clearest proof (that I know of) makes use of _characteristic functions_. (See, for example, Chapter 5 in {cite}`Gut2009`.)
+
+At least in two dimensions, using the fact that the parameter $\bSigma$ in $(X,Y) \sim \calN(\bmu,\bSigma)$ is the covariance matrix of $(X,Y)$ gives us an easy method to cook up examples of bivariate normal distributions of a specified shape. Indeed, by the theorem, we must have
+
+$$
+\bSigma = \begin{bmatrix}
+\sigma_X^2 & \sigma_{XY} \\ \sigma_{XY} & \sigma_Y^2
+\end{bmatrix} = \begin{bmatrix}
+\sigma_X^2 & \rho \sigma_X \sigma_Y \\ \rho\sigma_X \sigma_Y & \sigma_Y^2
+\end{bmatrix}
+$$
+
+```{margin}
+
+What goes wrong in the case that $\rho=\pm 1$?
+```
+
+where $\rho = \rho_{XY}$. One then first selects the correlation $\rho$ of the random variables $X$ and $Y$ such that $|\rho|<1$ (note the _strict_ inequality!), which rotates the principal axes of the elliptical isoprobability contours; a value of $\rho=0$ will create principal axes parallel to the $x$- and $y$-axes. Then, by choosing the standard deviations $\sigma_X$ and $\sigma_Y$, we can alter the widths of the projections of these ellipses onto the $x$- and $y$-axes. For example, the following shows the isoprobability contours for four different selections of the parameters $(\rho,\sigma_X,\sigma_Y)$ where $\bmu^\intercal = (1,1)$:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+def covar_matrix(rho, sigma1, sigma2):
+    return np.array([[sigma1 ** 2, rho * sigma1 * sigma2], [rho * sigma1 * sigma2, sigma2 ** 2]])
+
+parameters = [[0.5, 1, 2], [0.5, 1, 4], [-0.5, 1, 2], [0, 3, 2]]   # rho, sigma1, sigma2
+
+resolution = 100
+linear_grid = np.linspace(-2, 4, resolution)
+x, y = np.meshgrid(linear_grid, linear_grid)
+grid = np.column_stack((x.reshape(-1, 1), y.reshape(-1, 1)))
+
+_, axes = plt.subplots(ncols=2, nrows=2, figsize=(8, 6), sharex=True, sharey=True)
+
+for parameter, axis in zip(parameters, axes.flatten()):
+    Sigma = covar_matrix(*parameter)
+    rho, sigma1, sigma2 = parameter
+    norm = sp.stats.multivariate_normal(mean=np.array([1, 1]), cov=Sigma)
+
+    z = norm.pdf(grid)
+    z = z.reshape(resolution, resolution)
+    axis.contour(x, y, z, colors=blue)
+    axis.scatter(1, 1)
+    axis.set_xlabel('$x$')
+    axis.set_ylabel('$y$')
+    axis.set_title(f'$(\\rho,\\sigma_X,\\sigma_Y)=({rho},{sigma1},{sigma2})$')
+    
+plt.tight_layout()
+    
+```
+
+In the [programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments) for this chapter, you will actually implement this procedure. For example, I used these methods to simulate $1{,}000$ random draws from a bivariate normal distribution with positively correlated components and which is taller than it is wide. If I plot these simulated data over top of isoprobability contours, I get this:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+rho = 0.5
+sigma1 = 1
+sigma2 = 2
+Sigma = np.array([[sigma1 ** 2, rho * sigma1 * sigma2], [rho * sigma1 * sigma2, sigma2 ** 2]])
+mu = np.array([1, 1])
+norm = sp.stats.multivariate_normal(mean=mu, cov=Sigma)
+
+np.random.seed(42)
+sample = norm.rvs(size=1000)
+
+resolution = 100
+linear_grid = np.linspace(-5, 7, resolution)
+x, y = np.meshgrid(linear_grid, linear_grid)
+grid = np.column_stack((x.reshape(-1, 1), y.reshape(-1, 1)))
+z = norm.pdf(grid)
+z = z.reshape(resolution, resolution)
+
+sns.scatterplot(x=sample[:, 0], y=sample[:, 1], alpha=0.5)
+plt.contour(x, y, z, colors=magenta)
+plt.xlabel('$x$')
+plt.ylabel('$y$')
+plt.gcf().set_size_inches(w=5, h=4)
+plt.tight_layout()
+```
+
+
+
