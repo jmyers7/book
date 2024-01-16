@@ -353,7 +353,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kl-divergence">9.1. KL divergence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kl-divergence-and-entropy">9.1. KL divergence and entropy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-coding">9.2. Source coding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-entropy-and-mutual-information">9.3. Conditional entropy and mutual information</a></li>
 </ul>
             </nav>
         </div>
@@ -368,42 +370,25 @@ document.write(`
   <p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
 <section class="tex2jax_ignore mathjax_ignore" id="information-theory">
 <span id="id1"></span><h1><span class="section-number">9. </span>Information theory<a class="headerlink" href="#information-theory" title="Permalink to this heading">#</a></h1>
-<section id="kl-divergence">
-<h2><span class="section-number">9.1. </span>KL divergence<a class="headerlink" href="#kl-divergence" title="Permalink to this heading">#</a></h2>
-<div class="proof definition admonition" id="KL-words-def">
-<p class="admonition-title"><span class="caption-number">Definition 9.1 </span></p>
-<section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be two probability measures on a finite probability space <span class="math notranslate nohighlight">\(S\)</span> with mass functions <span class="math notranslate nohighlight">\(p(s)\)</span> and <span class="math notranslate nohighlight">\(q(s)\)</span>. Then the <em>KL divergence</em> from <span class="math notranslate nohighlight">\(P\)</span> to <span class="math notranslate nohighlight">\(Q\)</span>, denoted <span class="math notranslate nohighlight">\(D(P \parallel Q)\)</span>, is the mean logarithm of the relative magnitude of <span class="math notranslate nohighlight">\(P\)</span> to <span class="math notranslate nohighlight">\(Q\)</span>. Precisely, it is given by</p>
-<div class="math notranslate nohighlight" id="equation-kl-eq">
-<span class="eqno">(9.1)<a class="headerlink" href="#equation-kl-eq" title="Permalink to this equation">#</a></span>\[
-D(P \parallel Q) = \sum_{s\in S} p(s) \log_2\left( \frac{p(s)}{q(s)} \right).
-\]</div>
-</section>
-</div><p>Notice that the word “mean” in the definition refers to the mean with respect to <span class="math notranslate nohighlight">\(P\)</span>: The right-hand side of <a class="reference internal" href="#equation-kl-eq">(9.1)</a> is a weighted sum of the log relative magnitudes with weights drawn from the mass function <span class="math notranslate nohighlight">\(p(s)\)</span>. Therefore, the KL divergence is generally <em>not</em> symmetric in the two distributions:</p>
+<section id="kl-divergence-and-entropy">
+<h2><span class="section-number">9.1. </span>KL divergence and entropy<a class="headerlink" href="#kl-divergence-and-entropy" title="Permalink to this heading">#</a></h2>
+<p>The basic measure that we use in this chapter to compare two probability measures <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> is the mean logarithmic relative magnitude of <span class="math notranslate nohighlight">\(P\)</span> to <span class="math notranslate nohighlight">\(Q\)</span>. The types of measures that we shall work with initially are ones defined on a finite probability space <span class="math notranslate nohighlight">\(S\)</span>, so that they have mass functions <span class="math notranslate nohighlight">\(p(s)\)</span> and <span class="math notranslate nohighlight">\(q(s)\)</span> with finite support.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Of course, the two notions of <em>absolute relative magnitude</em> and <em>logarithmic relative magnitude</em> make sense for any pair of numbers, not necessarily probabilities.</p>
+</aside>
+<p>The <em>absolute relative magnitude</em> of the probability <span class="math notranslate nohighlight">\(p(s)\)</span> to the probability <span class="math notranslate nohighlight">\(q(s)\)</span> ordinarily refers to the ratio <span class="math notranslate nohighlight">\(p(s)/q(s)\)</span>, while the <em>logarithmic relative magnitude</em> refers to the base-<span class="math notranslate nohighlight">\(10\)</span> logarithm of the absolute relative magnitude:</p>
 <div class="math notranslate nohighlight">
 \[
-D( P \parallel Q) \neq D(Q \parallel P).
+\log_{10}\left( \frac{p(s)}{q(s)} \right).
 \]</div>
-<p>Problems are encountered in a strict interpretation of the formula <a class="reference internal" href="#equation-kl-eq">(9.1)</a> when one or the other (or both) of the mass functions are <span class="math notranslate nohighlight">\(0\)</span>. In these cases, it is conventional to define:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-p \log_2\left( \frac{p}{q} \right) = \begin{cases}
-0 &amp; : p =0, \ q=0, \\
-0 &amp; : p = 0, \ q\neq 0, \\
-\infty &amp; : p \neq 0, \ q=0.
-\end{cases}
-\end{split}\]</div>
-<p>It might be instructive to <em>see</em> the raw parts and pieces that go into a computation of KL divergence. So, let’s suppose that we have the two random variables</p>
+<p>The intuition for this number is that it is the <em>order</em> of the absolute relative magnitude; indeed, if we have <span class="math notranslate nohighlight">\(p(s) \approx 10^k\)</span> and <span class="math notranslate nohighlight">\(q(s) \approx 10^l\)</span>, then the logarithmic relative magnitude is roughly the difference <span class="math notranslate nohighlight">\(k-l\)</span>.</p>
+<p>Perhaps the most obvious immediate benefit of introducing the logarithm is that it yields a workable number when <span class="math notranslate nohighlight">\(p(s)\)</span> and <span class="math notranslate nohighlight">\(q(s)\)</span> are each on different scales. For example, let’s suppose that the mass functions <span class="math notranslate nohighlight">\(p(s)\)</span> and <span class="math notranslate nohighlight">\(q(s)\)</span> are given by</p>
 <div class="math notranslate nohighlight">
 \[
-X\sim \Bin(10, 0.5) \quad \text{and} \quad Y \sim \Bin(10, 0.9)
+p(s) = \binom{10}{s} (0.4)^s(0.6)^{10-s} \quad \text{and} \quad q(s) = \binom{10}{s} (0.9)^s(0.1)^{10-s}
 \]</div>
-<p>with mass functions <span class="math notranslate nohighlight">\(p(x)\)</span> and <span class="math notranslate nohighlight">\(q(y)\)</span>, respectively. To compute the two KL divergences</p>
-<div class="math notranslate nohighlight">
-\[
-D(P \parallel Q) \quad \text{and} \quad D(Q \parallel P),
-\]</div>
-<p>we compute the following:</p>
+<p>for <span class="math notranslate nohighlight">\(s\in \{0,1,\ldots,10\}\)</span>; these are the mass functions of a <span class="math notranslate nohighlight">\(\Bin(10,0.4)\)</span> and <span class="math notranslate nohighlight">\(\Bin(10,0.9)\)</span> random variable, respectively. We then plot histograms for these mass functions, along with histograms of the absolute and logarithmic relative magnitudes:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -415,6 +400,8 @@ D(P \parallel Q) \quad \text{and} \quad D(Q \parallel P),
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">matplotlib_inline.backend_inline</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
@@ -424,28 +411,22 @@ D(P \parallel Q) \quad \text{and} \quad D(Q \parallel P),
 <span class="n">magenta</span> <span class="o">=</span> <span class="s1">&#39;#FD46FC&#39;</span>
 
 <span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
 <span class="n">q</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
 <span class="n">titles</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;$p(s)$&#39;</span><span class="p">,</span>
           <span class="s1">&#39;$q(s)$&#39;</span><span class="p">,</span>
-          <span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">log_2</span><span class="se">\\</span><span class="s1">left(</span><span class="se">\\</span><span class="s1">frac{p(s)}{q(s)}</span><span class="se">\\</span><span class="s1">right)$&#39;</span><span class="p">,</span>
-          <span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">log_2</span><span class="se">\\</span><span class="s1">left(</span><span class="se">\\</span><span class="s1">frac{q(s)}{p(s)}</span><span class="se">\\</span><span class="s1">right)$&#39;</span><span class="p">,</span>
-          <span class="s1">&#39;$p(s)</span><span class="se">\\</span><span class="s1">log_2</span><span class="se">\\</span><span class="s1">left(</span><span class="se">\\</span><span class="s1">frac{p(s)}{q(s)}</span><span class="se">\\</span><span class="s1">right)$&#39;</span><span class="p">,</span>
-          <span class="s1">&#39;$q(s)</span><span class="se">\\</span><span class="s1">log_2</span><span class="se">\\</span><span class="s1">left(</span><span class="se">\\</span><span class="s1">frac{q(s)}{p(s)}</span><span class="se">\\</span><span class="s1">right)$&#39;</span><span class="p">]</span>
+          <span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">frac{p(s)}{q(s)}$&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">log_</span><span class="si">{10}</span><span class="se">\\</span><span class="s1">left(</span><span class="se">\\</span><span class="s1">frac{p(s)}{q(s)}</span><span class="se">\\</span><span class="s1">right)$&#39;</span><span class="p">]</span>
 <span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">,</span>
          <span class="n">q</span><span class="p">,</span>
-         <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">p</span> <span class="o">/</span> <span class="n">q</span><span class="p">),</span>
-         <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">q</span> <span class="o">/</span> <span class="n">p</span><span class="p">),</span>
-         <span class="n">p</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">p</span> <span class="o">/</span> <span class="n">q</span><span class="p">),</span>
-         <span class="n">q</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">q</span> <span class="o">/</span> <span class="n">p</span><span class="p">)]</span>
+         <span class="n">p</span> <span class="o">/</span> <span class="n">q</span><span class="p">,</span>
+         <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">p</span> <span class="o">/</span> <span class="n">q</span><span class="p">)]</span>
 <span class="n">ylims</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),</span>
          <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),</span>
-         <span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
-         <span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
-         <span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-         <span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+         <span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mf">0.75e8</span><span class="p">),</span>
+         <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">title</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">ylim</span><span class="p">,</span> <span class="n">axis</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">titles</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">ylims</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
     <span class="n">axis</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
@@ -461,19 +442,211 @@ D(P \parallel Q) \quad \text{and} \quad D(Q \parallel P),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ac279ae65b66b35e6015fa195f7418e67210b51a21d08f8f05af4d4112663500.svg" src="../_images/ac279ae65b66b35e6015fa195f7418e67210b51a21d08f8f05af4d4112663500.svg" /></figure>
+<img alt="../_images/3d64694688c84bb5bc68e3d71b9225abeea5142a06e77d48401028084e4bb187.svg" src="../_images/3d64694688c84bb5bc68e3d71b9225abeea5142a06e77d48401028084e4bb187.svg" /></figure>
 </div>
 </div>
-<p>Notice that the two log relative magnitudes in the middle row are opposites of each other:</p>
+<p>The second row in the figure drives home the point: The absolute relative magnitudes are on such widely different scales that the plot is nearly useless, while the logarithmic relative magnitudes yield a much more informative and immediate comparison.</p>
+<p>We obtain a single-number summary of the logarithmic relative magnitudes by averaging with weights drawn from the mass function <span class="math notranslate nohighlight">\(p(s)\)</span>; this yields the number</p>
+<div class="math notranslate nohighlight" id="equation-first-kl-eq">
+<span class="eqno">(9.1)<a class="headerlink" href="#equation-first-kl-eq" title="Permalink to this equation">#</a></span>\[
+\sum_{s\in S} p(s) \log_{10}\left( \frac{p(s)}{q(s)} \right).
+\]</div>
+<p>Observe that we could have drawn the averaging weights from the mass function <span class="math notranslate nohighlight">\(q(s)\)</span> to instead obtain the single-number summary</p>
+<div class="math notranslate nohighlight" id="equation-second-kl-eq">
+<span class="eqno">(9.2)<a class="headerlink" href="#equation-second-kl-eq" title="Permalink to this equation">#</a></span>\[
+\sum_{s\in S} q(s) \log_{10}\left( \frac{p(s)}{q(s)} \right).
+\]</div>
+<p>But observe that</p>
 <div class="math notranslate nohighlight">
 \[
-\log_2\left(\frac{p(s)}{q(s)}\right) = -\log_2\left(\frac{q(s)}{p(s)}\right).
+\sum_{s\in S} q(s) \log_{10}\left( \frac{p(s)}{q(s)} \right) = - \sum_{s\in S} q(s) \log_{10}\left( \frac{q(s)}{p(s)} \right),
 \]</div>
-<p>The two KL divergences are computed by summing the (signed) heights of the bars in the last row:</p>
+<p>where the right-hand side is the negative of a number of the form <a class="reference internal" href="#equation-first-kl-eq">(9.1)</a>. So, at least up to sign, it doesn’t really matter which of the two numbers <a class="reference internal" href="#equation-first-kl-eq">(9.1)</a> or <a class="reference internal" href="#equation-second-kl-eq">(9.2)</a> we use to develop our theory. As we will see, our choice of <a class="reference internal" href="#equation-first-kl-eq">(9.1)</a> has the benefit of making the KL divergence nonnegative. Moreover, we can also alter the base of the logarithm in <a class="reference internal" href="#equation-first-kl-eq">(9.1)</a> without altering the core of the theory, since the change-of-base formula for logarithms tells us that the only difference is a multiplicative constant. In the following official definition, we will select the base-<span class="math notranslate nohighlight">\(2\)</span> logarithm to make the later connections with bit strings in coding theory more transparent.</p>
+<div class="proof definition admonition" id="KL-def">
+<p class="admonition-title"><span class="caption-number">Definition 9.1 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be two probability measures on a finite probability space <span class="math notranslate nohighlight">\(S\)</span> with mass functions <span class="math notranslate nohighlight">\(p(s)\)</span> and <span class="math notranslate nohighlight">\(q(s)\)</span>. Then the <em>Kullback-Leibler divergence</em> (or just <em>KL divergence</em>) from <span class="math notranslate nohighlight">\(P\)</span> to <span class="math notranslate nohighlight">\(Q\)</span>, denoted <span class="math notranslate nohighlight">\(D(P \parallel Q)\)</span>, is the mean order of relative magnitude of <span class="math notranslate nohighlight">\(P\)</span> to <span class="math notranslate nohighlight">\(Q\)</span>. Precisely, it is given by</p>
+<div class="math notranslate nohighlight" id="equation-kl-eq">
+<span class="eqno">(9.3)<a class="headerlink" href="#equation-kl-eq" title="Permalink to this equation">#</a></span>\[
+D(P \parallel Q) \def \sum_{s\in S} p(s) \log_2\left( \frac{p(s)}{q(s)} \right).
+\]</div>
+</section>
+</div><p>Since averages of the form <a class="reference internal" href="#equation-kl-eq">(9.3)</a> will reoccur so often in the next few chapters, it will be convenient to introduce a new notation for them. So, if <span class="math notranslate nohighlight">\(P\)</span> is a discrete probability measure with mass function <span class="math notranslate nohighlight">\(p(s)\)</span> on a sample space <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(g:S\to \bbr\)</span> is a real-valued function, we will define</p>
 <div class="math notranslate nohighlight">
 \[
-D(P \parallel Q ) \approx 7.370 \quad \text{and} \quad D(Q \parallel P) \approx 5.310.
+E_P(g(s)) \def \sum_{s\in S} g(s) p(s).
 \]</div>
+<p>Provided that it is finite, we refer to this sum as the <em>mean value</em> or <em>expected value</em> of <span class="math notranslate nohighlight">\(g(s)\)</span>. Note that this is a legitimately new usage of the expectation symbol <span class="math notranslate nohighlight">\(E\)</span>, since there is no random variable given <em>a priori</em>. To see the connection with the previous usage of <span class="math notranslate nohighlight">\(E\)</span> for a discrete random variable <span class="math notranslate nohighlight">\(X\)</span> with mass function <span class="math notranslate nohighlight">\(p_X(x)\)</span>, suppose that <span class="math notranslate nohighlight">\(g:\bbr \to \bbr\)</span> and note</p>
+<div class="math notranslate nohighlight">
+\[
+E_{P_X}(g(x)) = \sum_{x\in \bbr}g(x) p_X(x) = E(g(X)).
+\]</div>
+<p>Indeed, the first equality follows from the definition of <span class="math notranslate nohighlight">\(E_{P_X}(g(x))\)</span> given above, while the second equality follows from the LoTUS. Therefore, using this new notation, we may rewrite <a class="reference internal" href="#equation-kl-eq">(9.3)</a> as</p>
+<div class="math notranslate nohighlight">
+\[
+D(P \parallel Q) = E_P\left[ \log_2\left(\frac{p(s)}{q(s)}\right)\right].
+\]</div>
+<p>Notice again that the mean is with respect to <span class="math notranslate nohighlight">\(P\)</span>. This breaks the symmetry between <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> so that</p>
+<div class="math notranslate nohighlight">
+\[
+D( P \parallel Q) \neq D(Q \parallel P),
+\]</div>
+<p>except in special cases. Problems are encountered in a strict interpretation of the formula <a class="reference internal" href="#equation-kl-eq">(9.3)</a> when one or the other (or both) of the mass functions are <span class="math notranslate nohighlight">\(0\)</span>. In these cases, it is conventional to define:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+p \log_2\left( \frac{p}{q} \right) = \begin{cases}
+0 &amp; : p =0, \ q=0, \\
+0 &amp; : p = 0, \ q\neq 0, \\
+\infty &amp; : p \neq 0, \ q=0.
+\end{cases}
+\end{split}\]</div>
+<p>The KL divergence turns out to decompose into a sum of two of the most important quantities in information theory:</p>
+<div class="proof definition admonition" id="entropy-def">
+<p class="admonition-title"><span class="caption-number">Definition 9.2 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be two probability measures on a finite probability space <span class="math notranslate nohighlight">\(S\)</span> with mass functions <span class="math notranslate nohighlight">\(p(s)\)</span> and <span class="math notranslate nohighlight">\(q(s)\)</span>.</p>
+<ol class="arabic simple">
+<li><p>The <em>cross entropy</em> from <span class="math notranslate nohighlight">\(P\)</span> to <span class="math notranslate nohighlight">\(Q\)</span>, denoted <span class="math notranslate nohighlight">\(H(P \parallel Q)\)</span>, is the number defined by</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+  H(P \parallel Q) \def - \sum_{s\in S} p(s)\log_2(q(s)).
+  \]</div>
+<ol class="arabic" start="2">
+<li><p>The <em>entropy</em> of <span class="math notranslate nohighlight">\(P\)</span>, denoted <span class="math notranslate nohighlight">\(H(P)\)</span>, is the number given by</p>
+<div class="math notranslate nohighlight">
+\[
+    H(P) \def - \sum_{s\in S} p(s) \log_2(p(s)).
+    \]</div>
+<p>When <span class="math notranslate nohighlight">\(\bX\)</span> is a random vector with finite range, we shall often write <span class="math notranslate nohighlight">\(H(\bX)\)</span> in place of <span class="math notranslate nohighlight">\(H(P_\bX)\)</span>.</p>
+</li>
+</ol>
+</section>
+</div><p>The connection between these entropies and the KL divergence is given in the next theorem. Its proof is a triviality.</p>
+<div class="proof theorem admonition" id="KL-and-entropy-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 9.1 </span> (KL divergence and entropy)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be two probability measures on a finite probability space <span class="math notranslate nohighlight">\(S\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[
+D(P\parallel Q) = H(P \parallel Q) - H(P).
+\]</div>
+</section>
+</div><p>The inequality in the first part of the following result is perhaps the most important in the foundations of the theory and ultimately justifies our conception of the KL divergence as a “directed distance” between two probability distributions. The second part shows that the maximum-entropy distributions are exactly the uniform ones.</p>
+<div class="proof theorem admonition" id="kl-entropy-optim-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 9.2 </span> (Optimization of KL divergences and entropies)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be two probability measures on a finite probability space <span class="math notranslate nohighlight">\(S\)</span>.</p>
+<ol class="arabic">
+<li><p><em>The Information Inequality</em>. We have</p>
+<div class="math notranslate nohighlight">
+\[
+    D(P \parallel Q) = H(P \parallel Q) - H(P) \geq 0
+    \]</div>
+<p>for all <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>, with equality if and only if <span class="math notranslate nohighlight">\(P=Q\)</span>.</p>
+</li>
+<li><p>We have</p>
+<div class="math notranslate nohighlight">
+\[
+    H(P) \leq \log_2{|S|}
+    \]</div>
+<p>for all <span class="math notranslate nohighlight">\(P\)</span>, with equality if and only if <span class="math notranslate nohighlight">\(P\)</span> is uniform.</p>
+</li>
+</ol>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. For the first part, suppose that <span class="math notranslate nohighlight">\(p_1,\ldots,p_n\)</span> and <span class="math notranslate nohighlight">\(q_1,\ldots,q_n\)</span> are numbers in <span class="math notranslate nohighlight">\((0,1]\)</span> such that</p>
+<div class="math notranslate nohighlight" id="equation-constraint-lagrance-eq">
+<span class="eqno">(9.4)<a class="headerlink" href="#equation-constraint-lagrance-eq" title="Permalink to this equation">#</a></span>\[
+\sum_{i=1}^n p_i = \sum_{i=1}^n q_i = 1.
+\]</div>
+<p>It will suffice, then, to show that the objective function</p>
+<div class="math notranslate nohighlight">
+\[
+J(q_1,\ldots,q_n) \def -\sum_{i=1}^n p_i \log_2{q_i},
+\]</div>
+<p>is globally minimized when <span class="math notranslate nohighlight">\(p_i = q_i\)</span>. But it is an eaasy exercise (using Lagrange multipliers) to show that a minimum can only occur when <span class="math notranslate nohighlight">\(p_i = q_i\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,n\)</span>; one may confirm that this indeed yields a global maximum by showing that the objective function <span class="math notranslate nohighlight">\(J\)</span> is convex (its Hessian matrix is positive definite) and noticing that the second constraint in <a class="reference internal" href="#equation-constraint-lagrance-eq">(9.4)</a> is affine. (See <a class="reference external" href="https://math.stackexchange.com/a/1739181">here</a> for an explanation of the latter fact.) The proof of the second part follows the same pattern, with only the obvious changes. Q.E.D.</p>
+</div>
+<p>So, when <span class="math notranslate nohighlight">\(P\)</span> is uniform, we have</p>
+<div class="math notranslate nohighlight" id="equation-max-ent-eq">
+<span class="eqno">(9.5)<a class="headerlink" href="#equation-max-ent-eq" title="Permalink to this equation">#</a></span>\[
+H(P) = \log_2|S|.
+\]</div>
+<p>It is pleasing to compare this latter maximum-entropy equation to the <a class="reference external" href="https://en.wikipedia.org/wiki/Boltzmann%27s_entropy_formula">Boltzmann equation</a> for entropy in statistical mechanics. The definitional equation</p>
+<div class="math notranslate nohighlight">
+\[
+H(P) = - \sum_{s\in S} p(s) \log_2(p(s))
+\]</div>
+<p>is the analog of the <a class="reference external" href="https://en.wikipedia.org/wiki/Entropy_(statistical_thermodynamics)#Gibbs_entropy_formula">Gibbs equation</a> for Boltzmann entropy.</p>
+<p>In his initial paper, Shannon described entropy <span class="math notranslate nohighlight">\(H(P)\)</span> as a measure of <em>uncertainty</em>. From this perspective, the rationale behind the maximum-entropy equation <a class="reference internal" href="#equation-max-ent-eq">(9.5)</a> becomes clear: If one were to randomly draw a number from a probability distribution, the uniform distribution is the one that would result in the highest level of uncertainty regarding the outcome.</p>
+</section>
+<section id="source-coding">
+<h2><span class="section-number">9.2. </span>Source coding<a class="headerlink" href="#source-coding" title="Permalink to this heading">#</a></h2>
+<p>We now describe a coding-theoretic interpretation that sheds additional light on entropy and KL divergence. Rather than quantifying the degree of “uncertainty” present in a probability distribution, in this framework entropy gives a lower bound on the (average) minimum description length of the data modeled by a random variable or vector.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>According to our definitions, technically the codomain of a random variable must be a subset of <span class="math notranslate nohighlight">\(\bbr\)</span>; but we can get around this minor annoyance by assuming that <span class="math notranslate nohighlight">\(a=1\)</span>, <span class="math notranslate nohighlight">\(b=2\)</span>, <span class="math notranslate nohighlight">\(c=3\)</span>, and <span class="math notranslate nohighlight">\(d=4\)</span>.</p>
+</aside>
+<p>By way of introduction, suppose that <span class="math notranslate nohighlight">\(X\)</span> is a discrete random variable with range <span class="math notranslate nohighlight">\(R = \{a,b,c,d\}\)</span>. Our goal is to construct an <em>encoding</em> of <span class="math notranslate nohighlight">\(X\)</span>, by which we mean an assignment of a bit string to each symbol in <span class="math notranslate nohighlight">\(R\)</span>. For example, we might encode <span class="math notranslate nohighlight">\(X\)</span> as</p>
+<div class="math notranslate nohighlight" id="equation-encoding-eqn">
+<span class="eqno">(9.6)<a class="headerlink" href="#equation-encoding-eqn" title="Permalink to this equation">#</a></span>\[
+a \leftrightarrow 00, \quad b \leftrightarrow 011, \quad c \leftrightarrow 10, \quad d \leftrightarrow 1100.
+\]</div>
+<p>We can <em>visualize</em> this encoding by drawing a binary tree with five levels (including the root):</p>
+<a class="reference internal image-reference" href="../_images/tree-01.svg"><img alt="../_images/tree-01.svg" class="align-center" src="../_images/tree-01.svg" width="90%" /></a>
+<p> </p>
+<p>To read this tree, begin at the root node at the top; then, follow the edges downward to find the nodes labeled by the symbols in <span class="math notranslate nohighlight">\(R\)</span>. A positively sloped edge represents a <span class="math notranslate nohighlight">\(0\)</span>, while a negatively edge represents a <span class="math notranslate nohighlight">\(1\)</span>. Thus, for example, to reach <span class="math notranslate nohighlight">\(d\)</span> beginning from the root node, we follow edges labelled <span class="math notranslate nohighlight">\(1\)</span>, <span class="math notranslate nohighlight">\(1\)</span>, <span class="math notranslate nohighlight">\(0\)</span>, and <span class="math notranslate nohighlight">\(0\)</span>. This sequence of binary digits is exactly the code word for <span class="math notranslate nohighlight">\(d\)</span>, and thus paths through the tree represent code words. The numbered levels <span class="math notranslate nohighlight">\(\ell\)</span> of the tree appear along the left-hand side of the figure; notice that these numbers are also the lengths of the code words.</p>
+<p>Notice also that every path through the tree beginning at the root node and ending at a leaf in the lowest level contains at most one symbol in <span class="math notranslate nohighlight">\(R\)</span>. This is in contrast to the encoding of <span class="math notranslate nohighlight">\(X\)</span> represented by the following tree:</p>
+<a class="reference internal image-reference" href="../_images/tree-bad.svg"><img alt="../_images/tree-bad.svg" class="align-center" src="../_images/tree-bad.svg" width="90%" /></a>
+<p> </p>
+<p>with corresponding code words</p>
+<div class="math notranslate nohighlight">
+\[
+a \leftrightarrow 00, \quad b \leftrightarrow 001, \quad c \leftrightarrow 10, \quad d \leftrightarrow 1000.
+\]</div>
+<p>Indeed, in this latter encoding, there are <em>multiple</em> paths from the top to the bottom level that contain more than one symbol in <span class="math notranslate nohighlight">\(R\)</span>. These paths manifest themselves as code words that are prefixes of other code words: The code word for <span class="math notranslate nohighlight">\(a\)</span> appears as a prefix in the code word for <span class="math notranslate nohighlight">\(b\)</span>, and the code word for <span class="math notranslate nohighlight">\(c\)</span> appears as a prefix in the code word for <span class="math notranslate nohighlight">\(d\)</span>. For this reason, encodings like the first <a class="reference internal" href="#equation-encoding-eqn">(9.6)</a> are called <em>prefix-free codes</em>.</p>
+<p>Now, returning to our prefix-free code, consider the set of all descendants of symbols in <span class="math notranslate nohighlight">\(R\)</span> that are in the lowest level, including any symbols in <span class="math notranslate nohighlight">\(R\)</span> that happen to lie in the lowest level; these are all highlighted in:</p>
+<a class="reference internal image-reference" href="../_images/tree-02.svg"><img alt="../_images/tree-02.svg" class="align-center" src="../_images/tree-02.svg" width="90%" /></a>
+<p> </p>
+<p>If a symbol in <span class="math notranslate nohighlight">\(R\)</span> is on level <span class="math notranslate nohighlight">\(\ell_i\)</span>, then it has <span class="math notranslate nohighlight">\(4 - \ell_i\)</span> descendents in the lowest level. Then obviously <span class="math notranslate nohighlight">\(\sum_{i=1}^4 2^{4-\ell_i} \leq 2^{4}\)</span> (count the highlighted nodes!), and so</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^4 2^{-\ell_i} \leq 1.
+\]</div>
+<p>In fact, this latter inequality should <em>always</em> be true for <em>any</em> encoding of <span class="math notranslate nohighlight">\(X\)</span>, provided that the code is prefix free. Can you see why?</p>
+</section>
+<section id="conditional-entropy-and-mutual-information">
+<h2><span class="section-number">9.3. </span>Conditional entropy and mutual information<a class="headerlink" href="#conditional-entropy-and-mutual-information" title="Permalink to this heading">#</a></h2>
+<div class="proof definition admonition" id="mutual-info-def">
+<p class="admonition-title"><span class="caption-number">Definition 9.3 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\bX\)</span> and <span class="math notranslate nohighlight">\(\bY\)</span> be two random vectors with finite ranges. The <em>mutual information between <span class="math notranslate nohighlight">\(\bX\)</span> and <span class="math notranslate nohighlight">\(\bY\)</span></em> is the KL divergence</p>
+<div class="math notranslate nohighlight">
+\[
+I(\bX, \bY) \def D( P_{(\bX,\bY)} \parallel P_{\bX} P_{\bY}).
+\]</div>
+</section>
+</div><div class="proof theorem admonition" id="other-info-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 9.3 </span> (Mutual information and entropy)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\bX\)</span> and <span class="math notranslate nohighlight">\(\bY\)</span> be two random vectors with finite ranges. Then:</p>
+<div class="math notranslate nohighlight">
+\[
+I(\bX,\bY) = H(\bX) + H(\bY) - H(\bX,\bY).
+\]</div>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. The proof is a computation:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+I(\bX,\bY) &amp;= \sum_{\bx\in \bbr^n}\sum_{\by \in \bbr^m} p(\bx,\by) \log_2\left( \frac{p(\bx,\by)}{p(\bx)p(\by)} \right) \\
+&amp;= \sum_{\bx\in \bbr^n}\sum_{\by \in \bbr^m} p(\bx,\by) \log_2\left(p(\bx,\by)\right) - \sum_{\bx\in \bbr^n}\sum_{\by \in \bbr^m} p(\bx,\by) \log_2 \left(p(\bx)\right) \\
+&amp;\quad - \sum_{\bx\in \bbr^n}\sum_{\by \in \bbr^m} p(\bx,\by) \log_2\left(p(\by)\right) \\
+&amp;= - H(\bX,\bY) - \sum_{\bx \in \bbr^n} p(\bx) \log_2\left( p(\bx) \right) - \sum_{\by \in \bbr^m} p(\by) \log_2\left( p(\by)\right) \\
+&amp;= H(\bX) + H(\bY) - H(\bX, \bY),
+\end{align*}\]</div>
+<p>as desired. Q.E.D.</p>
+</div>
 </section>
 </section>
 
@@ -540,7 +713,9 @@ D(P \parallel Q ) \approx 7.370 \quad \text{and} \quad D(Q \parallel P) \approx 
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kl-divergence">9.1. KL divergence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kl-divergence-and-entropy">9.1. KL divergence and entropy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-coding">9.2. Source coding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-entropy-and-mutual-information">9.3. Conditional entropy and mutual information</a></li>
 </ul>
   </nav></div>
 
