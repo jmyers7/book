@@ -61,7 +61,7 @@ Our first application of the bivariate LotUS is to show that the expectation ope
 If $X$ and $Y$ are independent random variables, then $E(XY) = E(X) E(Y)$.
 ```
 
-The proof is a simple computation using the LotUS; it appears in your [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/8-homework.md) for this chapter.
+The proof is a simple computation using the LotUS; it appears in your [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/8-homework.md#problem-2-independence-and-expectations) for this chapter.
 
 Our second application of the bivariate LotUS is to tie up a loose end from {numref}`linear-of-exp` and prove the full-strength version of "linearity of expectation."
 
@@ -263,12 +263,24 @@ $$
 
 First, a reminder for the well-informed reader: According to our definitions in this book, the _support_ of a function $f:\mathcal{X} \to \bbr$ defined on a topological space $\mathcal{X}$ is simply the set of points $x\in \mathcal{X}$ such that $f(x)\neq 0$. In particular, we are _not_ taking the closure!
 
-Then, we recall that the densities of a continuous random variable are technically defined uniquely only "almost everywhere." So, if you give me a specific density of $X$ whose support contains the range of $X$, I can trivially alter the density by setting it to $0$ on a finite set of points (say) so that its support no longer contains the range of $X$.
+Then, we recall that a continuous random variable technically has infinitely many densities, and that any two are equal [almost everywhere](https://en.wikipedia.org/wiki/Almost_everywhere). So, if you give me a density of $X$ whose support contains the range of $X$, I can alter the density by setting it to $0$ on a finite set of points (say) to obtain a density whose support does _not_ contain the range of $X$.
 ```
 
-We are assuming that the support $T$ contains the range of the random variable $X$ so that the random variable $Y$ is defined; indeed, remember that $Y=r(X)$ is an abuse of notation that stands for the composite function $r\circ X$. (See the margin note directly to the right.) We will not prove the theorem, as it will end up being a special case of the generalized transformation theorem given in {prf:ref}`multivar-density-trans-thm` below. 
+We will not prove the theorem, as it will end up being a special case of the generalized transformation theorem given in {prf:ref}`multivar-density-trans-thm` below. But we should also say that there are simpler proofs of the theorem that do not use the heavy machinery that the proof of {prf:ref}`multivar-density-trans-thm` relies upon; see, for example, Section 4.7 in {cite}`Devore2021`.
 
-So, let's jump straight to some problems:
+We are assuming that the support $T$ contains the range of the random variable $X$ so that the random variable $Y$ is defined; indeed, remember that $Y=r(X)$ is an abuse of notation that stands for the composite function $r\circ X$. (See the margin note directly to the right.) 
+
+Observe that the equality {eq}`inv-s-eq` is "one half" of what it means for $s$ to be the inverse of $r$. But in fact, since the domain of $s$ is precisely the range of $r$, as you may easily check we _automatically_ have the other equality:
+
+$$
+r(s(y)) = y
+$$
+
+for all $y\in U$. Hence, $r$ is invertible with inverse function $s$.
+
+Note that we are _explicitly_ assuming that the inverse $s$ is continuously differentiable. But in other versions of the Density Transformation Theorem (and its generalization {prf:ref}`multivar-density-trans-thm` below), certain conditions are placed on $r$ that guarantee differentiability of $s$ via the [Inverse Function Theorem](https://en.wikipedia.org/wiki/Inverse_function_theorem). We have elected to give the version of the theorem presented here because in practice (or, at least in many textbook problems) it is often quicker to simply check differentiability of $s$ directly, rather than verify the preconditions of the Inverse Function Theorem hold.
+
+Let's do some examples:
 
 ```{admonition} Problem Prompt
 
@@ -328,14 +340,19 @@ f_{\bX}(s(\by)) \left| \det\displaystyle\frac{\partial(s_1,\ldots,s_m)}{\partial
 $$
  ```
 
-The following proof uses mathematics that you are likely not familiar with. Look through it if you want, but feel free to skip it as well.
+```{margin}
+
+I've included the proof only out of principle, because I could not find a proof in the standard references on my bookshelf that I liked.
+```
+
+The following proof uses mathematics that you are likely not familiar with.  Look through it if you want to get the general gist, but feel free to skip it as well.
 
 ```{prf:proof}
 
 Letting $V \subset \bbr^m$ be an open set, we compute:
 
 \begin{align*}
-P(Y\in V) &= P(X\in s(V\cap U)) \\
+P(\bY\in V) &= P(\bX\in s(V\cap U)) \\
 &= \int_{s(V\cap U)} f_\bX(\bx) \ \text{d}^m\bx \\
 &= \int_{V\cap U} f_\bX(s(\by))\left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| \ \text{d}^m \by,
 \end{align*}
@@ -343,10 +360,10 @@ P(Y\in V) &= P(X\in s(V\cap U)) \\
 where the final equality follows from the Change-of-Variables Theorem for Multiple Integrals; see Theorem 3-13 in {cite}`Spivak1965`. If we then define $f_\bY(\by)$ via the formula given in the statement of the theorem, this shows
 
 $$
-P(Y\in V) = \int_{V\cap U} f_\bX(s(\by))\left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| \ \text{d}^m \by = \int_V f_\bY(\by) \ \text{d}^m \by.
+P(\bY\in V) = \int_{V\cap U} f_\bX(s(\by))\left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| \ \text{d}^m \by = \int_V f_\bY(\by) \ \text{d}^m \by.
 $$
 
-Since a probability measure defined on the Borel algebra of $\bbr^m$ is uniquely determined by its values on open sets, this is enough to prove that $f_\bY(\by)$ is indeed a density of $\bY$. Q.E.D.
+Since a probability measure defined on the Borel algebra of $\bbr^m$ is uniquely determined by its values on open sets (via a generating class argument), this is enough to prove that $f_\bY(\by)$ is indeed a density of $\bY$. Q.E.D.
 ```
 
 
@@ -716,45 +733,15 @@ for i, m in enumerate(m):
 plt.tight_layout()
 ```
 
-We have already seen scatter plots like this before! Indeed, recall Ames housing dataset from the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments) and the [beginning](motivation) of the previous chapter consisting of pairs
-
-$$
-(x_1,y_1),(x_2,y_2),\ldots,(x_{2{,}930},y_{2{,}930}),
-$$
-
-where $x_i$ is the area of the $i$-th house (in ft$^2$) and $y_i$ is the selling price (in $1k). This was the scatter plot of the data, with a straight line superimposed for reference:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-
-url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/data-3-1.csv'
-df = pd.read_csv(url, usecols=['area', 'price'])
-
-sns.regplot(data=df, x='area', y='price', ci=None, scatter_kws={'alpha' : 0.3}, line_kws={'color' : '#FD46FC'})
-plt.xlabel('area')
-plt.ylabel('price')
-plt.gcf().set_size_inches(w=5, h=3)
-plt.tight_layout()
-```
-
-```{margin}
-
-The line in this plot that the data clusters along is called the _linear-regression line_. We will study these in {numref}`Chapters %s <prob-models>` and {numref}`%s <lin-reg>`.
-```
-
-There appears to be a "noisy" linear dependence between the size of a house $X$ and its selling price $Y$. Moreover, the line that the data naturally clusters along has positive slope, which indicates that as the size of a house increases, its selling price tends to increase as well.
-
 As I mentioned in the introduction, our goal in this section is to uncover ways to _quantify_ or _measure_ the strength of "noisy" linear dependencies between random variables. We will discover that there are two such measures, called _covariance_ and _correlation_.
 
 The definition of _covariance_ is based on the following pair of basic observations:
 
-> 1. If the observed values of two random variables $X$ and $Y$ cluster along a line of _positive_ slope, then $x$ and $y$ in a data point $(x,y)$ tend to be large (or small) at the same time.
-> 2. If the observed values of two random variables $X$ and $Y$ cluster along a line of _negative_ slope, then a large value $x$ tends to be paired with a small value $y$ in a data point $(x,y)$, while a small value of $x$ tends to be paired with a large value $y$.
+> Let $(x,y)$ be an observation of a two-dimensional random vector $(X,Y)$
+> 1. If the observed values of $(X,Y)$ cluster along a line of _positive_ slope, then $x$ and $y$ tend to be large (small) at the same time.
+> 2. If the observed values of $(X,Y)$ cluster along a line of _negative_ slope, then a large (small) value $x$ tends to be paired with a small (large) value $y$.
 
-In order to extract something useful from these observations, it is convenient to "center" the dataset by subtracting off the means:
+In order to extract something useful from these observations, it is convenient to _center_ the dataset by subtracting off the means:
 
 $$
 X \xrightarrow{\text{replace with}} X - \mu_X \quad \text{and} \quad Y \xrightarrow{\text{replace with}} Y - \mu_Y.
@@ -766,7 +753,7 @@ $$
 E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 $$
 
-and similarly $E(Y-\mu_Y) = 0$, so that when we carry out these replacements, we get random variables with mean $0$. If we center the housing data by subtracting the means and then plot, we get this:
+and similarly $E(Y-\mu_Y) = 0$, so that when we carry out these replacements, we get random variables with mean $0$. Here's an example:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -774,21 +761,40 @@ and similarly $E(Y-\mu_Y) = 0$, so that when we carry out these replacements, we
 :   figure:
 :       align: center
 
-sns.regplot(data=df - df.mean(), x='area', y='price', ci=None, scatter_kws={'alpha' : 0.3}, line_kws={'color' : '#FD46FC'})
-plt.xlabel('shifted area')
-plt.ylabel('shifted price')
-plt.gcf().set_size_inches(w=5, h=3)
+_, axes = plt.subplots(ncols=2, figsize=(8, 3), sharex=True, sharey=True)
+np.random.seed(42)
+m = 0.5
+
+x = sp.stats.norm.rvs(loc=2, scale=2, size=500)
+y = m * x + epsilon + 2
+mean = (x.mean(), y.mean())
+sns.scatterplot(x=x, y=y, ax=axes[0], alpha=0.2)
+axes[0].scatter(mean[0], mean[1], color='magenta', zorder=3, s=100)
+axes[0].set_xlim(-6, 6)
+axes[0].set_ylim(-6, 6)
+axes[0].set_title('raw data')
+axes[0].set_xlabel('$x$')
+axes[0].set_ylabel('$y$')
+
+sns.scatterplot(x=x - mean[0], y=y - mean[1], ax=axes[1], alpha=0.2)
+axes[1].scatter(0, 0, color=magenta, zorder=3, s=100)
+axes[1].set_xlim(-6, 6)
+axes[1].set_ylim(-6, 6)
+axes[1].set_title('centered data')
+axes[1].set_xlabel('$x$')
+axes[1].set_ylabel('$y$')
 plt.tight_layout()
 ```
 
-You can see that the dataset has not changed its shape---it has only shifted so that its "center" is at the origin $(0,0)$.
+You can see that the dataset has not changed its shape---it has only shifted so that its mean (represented by the magenta dot) is at the origin $(0,0)$.
 
-The reason that we "center" the data is because it allows us to conveniently rephrase our observations above in terms of signs:
+The reason that we center the data is because it allows us to conveniently rephrase our observations above in terms of signs:
 
-> 1. If the observed values of two **centered** random variables $X$ and $Y$ cluster along a line of _positive_ slope, then $x$ and $y$ in a data point $(x,y)$ tend to have the same sign, i.e., $xy>0$.
-> 2. If the observed values of two **centered** random variables $X$ and $Y$ cluster along a line of _negative_ slope, then $x$ and $y$ in a data point $(x,y)$ tend to have opposite signs, i.e., $xy < 0$.
+> Let $(x,y)$ be an observation of a **centered** two-dimensional random vector $(X,Y)$
+> 1. If the observed values of $(X,Y)$ cluster along a line of _positive_ slope, then $x$ and $y$ tend to have the same sign, i.e., $xy>0$.
+> 2. If the observed values of $(X,Y)$ cluster along a line of _negative_ slope, then $x$ and $y$ tend to have opposite signs, i.e., $xy<0$.
 
-Essentially, the next definition takes the average value of the product $xy$, as $(x,y)$ ranges over observed pairs of values of a pair $(X,Y)$ of **centered** random variables. If this average value is positive, it suggests a (noisy) linear dependence with positive slope; if it is negative, it suggests a (noisy) linear dependence with negative slope. A larger average (in either direction---positive or negative) tends to indicate a *stronger* dependency. If the random variables are not centered, then we subtract off their means before computing the product and taking its average value.
+Essentially, the next definition takes the average value of the product $xy$, as $(x,y)$ ranges over observed pairs of values of a centered random vector $(X,Y)$. If this average value is positive, it suggests a (noisy) linear dependence with positive slope; if it is negative, it suggests a (noisy) linear dependence with negative slope. If the random variables are not centered, then we subtract off their means before computing the product and taking its average value.
 
 ```{prf:definition}
 :label: covar-def
@@ -829,7 +835,7 @@ The proof is a triviality, given all the properties that we already know about e
 
 ```
 
-Now, armed with this formula, let's do some problems:
+Armed with this formula, let's do an example problem:
 
 ```{admonition} Problem Prompt
 
@@ -851,13 +857,7 @@ A pair of very useful properties of covariance are listed in the following:
 
 ```
 
-I suggest that you prove these properties on your own. The proof of symmetry is more or less trivial, while the proof of bilinearity may be established first by proving the special case
-
-$$
-\sigma\Big( \sum_{i=1}^m a_i X_i, Y\Big) = \sum_{i=1}^m a_i \sigma(X_i,Y)
-$$
-
-by induction on $m$. Then, use this special case and symmetry to obtain the general result {eq}`bilinear-eqn`.
+I suggest that you attempt to prove this theorem on your own. A special case appears in your [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/8-homework.md#problem-8-a-special-case-of-bilinearity) for this chapter.
 
 Bilinearity of covariance allows us to generalize {prf:ref}`var-affine-thm` on the variance of an affine transformation of a random variable:
 
@@ -887,7 +887,7 @@ $$
 V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 $$
 
-We now turn toward the other measure of linear dependence, called _correlation_. To motivate this latter measure, we note that while the signs of covariances are significant, their precise numerical values may be less so if the only thing we are using them for is to measure the strength of a linear dependence. One reason for this is that covariances are sensitive to the scales on which the variables are measured. For an example, let's return to our housing dataset with random variables $X$ (area) and $Y$ (price). If we scale both $X$ and $Y$ by a factor of $10$, we get the following new scatter plot:
+We now turn toward the other measure of linear dependence, called _correlation_. To motivate this latter measure, we note that while the signs of covariances are significant, their precise numerical values may be less so if the only thing we are using them for is to measure the strength of a linear dependence. One reason for this is that covariances are sensitive to the scales on which the variables are measured. For an example, consider the following two plots:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -896,20 +896,35 @@ We now turn toward the other measure of linear dependence, called _correlation_.
 :       align: center
 
 _, axes = plt.subplots(ncols=2, figsize=(8, 3))
-sns.regplot(data=df, x='area', y='price', ci=None, scatter_kws={'alpha' : 0.3}, line_kws={'color' : '#FD46FC'}, ax=axes[0])
-sns.regplot(data=df * 10, x='area', y='price', ci=None, scatter_kws={'alpha' : 0.3}, line_kws={'color' : '#FD46FC'}, ax=axes[1])
-plt.xlabel('$10\\times$area')
-plt.ylabel('$10 \\times$price')
+np.random.seed(42)
+m = 0.5
+
+x = sp.stats.norm.rvs(loc=0, scale=2, size=500)
+y = m * x + epsilon
+mean = (x.mean(), y.mean())
+sns.scatterplot(x=x, y=y, ax=axes[0], alpha=0.5)
+axes[0].set_xlim(-5, 5)
+axes[0].set_ylim(-5, 5)
+axes[0].set_title('raw data')
+axes[0].set_xlabel('$x$')
+axes[0].set_ylabel('$y$')
+
+sns.scatterplot(x=10 * x, y=10 * y, ax=axes[1], alpha=0.5)
+axes[1].set_xlim(-50, 50)
+axes[1].set_ylim(-50, 50)
+axes[1].set_title('scaled data')
+axes[1].set_xlabel('$x$')
+axes[1].set_ylabel('$y$')
 plt.tight_layout()
 ```
 
-But according to {prf:ref}`bilinear-thm`, we have
+The only difference between the two datasets is the axis scales, but the linear relationship between the $x$'s and $y$'s remains the same. In fact, the scales on the axes differ by a factor of $10$, so by {prf:ref}`bilinear-thm`, we have
 
 $$
-\sigma(10X, 10Y) = 100 \sigma(X,Y),
+\sigma(10X, 10Y) = 100 \sigma(X,Y).
 $$
 
-so if we use the numerical value of the covariance to indicate the _strength_ of a linear relationship, then we should conclude that $10X$ and $10Y$ are _one hundred times_ more "linearly dependent" than $X$ and $Y$. But this is nonsense!
+Thus, if we use the numerical value of the covariance to indicate the _strength_ of a linear relationship, then we should conclude that the data on right-hand side is _one hundred times_ more "linearly correlated" than the data on the left. But this is nonsense!
 
 The remedy is to define a "normalized" measure of linear dependence:
 
@@ -977,6 +992,13 @@ We give a name to two random variables whose correlation is zero:
 If $X$ and $Y$ are two random variables with $\rho(X,Y)=0$, then we say $X$ and $Y$ are _uncorrelated_. Otherwise, they are said to be _(linearly) correlated_.
 ```
 
+Let's take a look at an example before continuing:
+
+```{admonition} Problem Prompt
+
+Do problem 11 in the worksheet.
+```
+
 You should think of independence as a strong form of uncorrelated-ness, and hence correlated-ness is also a strong form of dependence. This is the content of the first part of the following result:
 
 ```{prf:theorem} Dependence and correlation
@@ -1011,42 +1033,80 @@ $$
 By symmetry, we have $E(X) = E(Y) = E(XY)=0$, and hence $\rho_{XY}=0$ as well. However, $X$ and $Y$ are clearly depenendent since (for example) the support of $f(y|x)$ depends on $x$. Q.E.D.
 ```
 
-Given a sequence $X_1,\ldots,X_m$ of random variables, we may compute the pairwise covariances $\sigma(X_i,X_j)$. If we put these into a matrix, we get the following object:
+We have only considered a pair $(X,Y)$ of random variables; but what if we have a $d$-dimensional random vector $\bX = (X_1,\ldots,X_d)$? Then we may compute the pairwise covariances $\sigma(X_i,X_j)$ and $\rho(X_i,X_j)$, and we can't resist the urge to put them into matrices:
+
 
 ```{prf:definition}
-:label: covar-matrix-def
+:label: covar-correl-matrix-def
 
-Let $\bX = (X_1,\ldots,X_d)$ be a $d$-dimensional random vector. We define its _covariance matrix_ to be the $d\times d$ matrix
+Let $\bX = (X_1,\ldots,X_d)$ be a $d$-dimensional random vector.
 
-$$
-\bSigma_\bX \def \left[ \sigma(X_i,X_j) \right]_{ij}.
-$$
+1. We define the _covariance matrix_ of $\bX$ to be the $d\times d$ matrix
+
+    $$
+    \bSigma_\bX \def \left[ \sigma_{ij} \right]_{ij} = \begin{bmatrix}
+    \sigma_{11} & \cdots & \sigma_{1d} \\
+    \vdots & \ddots & \vdots \\
+    \sigma_{d1} & \cdots & \sigma_{dd}
+    \end{bmatrix},
+    $$
+
+    where $\sigma_{ij} = \sigma(X_i,X_j)$.
+
+2. We define the _correlation matrix_ of $\bX$ to be the $d\times d$ matrix
+
+    $$
+    \bP_\bX \def \left[ \rho_{ij} \right]_{ij} = \begin{bmatrix}
+    \rho_{11} & \cdots & \rho_{1d} \\
+    \vdots & \ddots & \vdots \\
+    \rho_{d1} & \cdots & \rho_{dd}
+    \end{bmatrix},
+    $$
+
+    where $\rho_{ij} = \rho(X_i,X_j)$.
 ```
 
+Covariance matrices will prove especially important in the [next section](multivar-norm-sec).
 
-```{prf:theorem} Covariance matrices are positive semidefinite
+Notice that both the covariance matrix and correlation matrix of a random variable are _symmetric_, meaning that $\sigma_{ij} = \sigma_{ji}$ and $\rho_{ij} = \rho_{ji}$ for all $i$ and $j$. But symmetry is not their _only_ special property; in fact, they are both examples of _positive semidefinite_ matrices. These types of matrices will be important over the next few chapters, so let's define them:
+
+```{prf:definition}
+:label: semidefinite-def
+
+Let $\bA$ be a symmetric $d\times d$ real matrix.
+
+1. If $\bz^\intercal \bA \bz \geq 0$ for all $\bz \in \bbr^d$, then $\bA$ is called _positive semidefinite_. If the only vector for which equality holds is $\bz=\boldsymbol{0}$, then $\bA$ is called _positive definite_.
+
+1. If $\bz^\intercal \bA \bz \leq 0$ for all $\bz \in \bbr^n$, then $\bA$ is called _negative semidefinite_. If the only vector for which equality holds is $\bz=\boldsymbol{0}$, then $\bA$ is called _negative definite_.
+```
+
+With the definition in hand, let's prove that covariance and correlation matrices are positive semidefinite:
+
+```{prf:theorem} Covariance and correlation matrices are positive semidefinite
 :label: covar-matrix-prop-thm
 
-Let $\bX = (X_1,\ldots,X_d)$ be a $d$-dimensional random vector. The covariance matrix $\bSigma = \bSigma_\bX$ is _positive semidefinite_, in the sense that
+Let $\bX = (X_1,\ldots,X_d)$ be a $d$-dimensional random vector. Both the covariance matrix $\bSigma_\bX$ and the correlation matrix $\bP_\bX$ are positive semidefinite. They are positive definite if their determinants are nonzero.
 
-$$
-\bz^\intercal \bSigma \bz\geq 0
-$$ (pos-def-covar-eq)
-
-for all $\bz \in \bbr^d$. Moreover, we have equality in {eq}`pos-def-covar-eq` if and only if the random variable $\bz^\intercal \bX$ is (almost surely) constant.
 ```
-
-In the case that strict inequality holds in {eq}`pos-def-covar-eq` for all nonzero $\bz\in \bbr^d$, we say the matrix $\bSigma$ is _positive definite_; see also {prf:ref}`definite-def`.
 
 ```{prf:proof}
 
-Using bilinearity of covariance (in the form of {prf:ref}`bilinear-thm`), we compute
+We will only prove that the correlation matrix $\bP = \bP_\bX$ is positive semidefinite, leaving you to make the easy changes to cover the covariance matrix. First, we have already observed that $\bP$ is symmetric. Then, given $\bz\in \bbr^d$, we use {prf:ref}`bilinear-thm` to compute:
 
 $$
-\bz^\intercal \bSigma \bz = \sum_{i,j=1}^d z_iz_j \sigma(X_i,X_j) = \sigma \left(\sum_{i=1}^d z_iX_i,\sum_{j=1}^d z_j X_j \right) = \sigma(\bz^\intercal \bX, \bz^\intercal \bX) = V(\bz^\intercal \bX) \geq 0.
+\bz^\intercal \bP \bz = \sum_{i,j=1}^d \frac{z_i}{\sigma_i} \frac{z_j}{\sigma_j} \sigma(X_i,X_j) = \sigma \left(\sum_{i=1}^d \frac{z_i}{\sigma_i}X_i, \sum_{j=1}^d \frac{z_j}{\sigma_j} X_j \right) = V\left( \sum_{j=1}^d \frac{z_j}{\sigma_j} X_j \right) \geq 0.
 $$
 
-If we have equality, then we must have $\bz^\intercal \bX = \mu_{\bz^\intercal \bX}$ (almost surely). Q.E.D.
+This establishes that $\bP$ is positive semidefinite.
+
+To prove that a nonzero determinant implies positive definiteness, we observe that since $\bP$ is symmetric, the [Spectral Theorem](https://en.wikipedia.org/wiki/Spectral_theorem) (see also Theorem 5.8 in Chapter 7 of {cite}`Artin1991`) tells us that there is an orthonormal basis $\bv_1,\ldots,\bv_d$ of $\bbr^d$ consisting of eigevectors. So, for any $\bz\in \bbr^d$, there are scalars $a_1,\ldots,a_d\in \bbr$ such that $\bz = \sum_{i=1}^d a_i \bv_i$. Then, we compute
+
+$$
+\bz^\intercal \bP \bz = \sum_{i,j=1}^d a_i a_j \bv_i^\intercal\bP \bv_j = \sum_{i=1}^d a_i^2 \lambda_i,
+$$ (evec-eq)
+
+where we've used the eigenvector/eigenvalue equations $\bP \bv_i = \lambda_i \bv_i$ for each $i$. Regardless of whether the determinant is zero or not, this shows that all the eigenvalues must be (real and) nonnegative if $\bP$ is positive semidefinite. But if $\det{\bP}\neq 0$, then none of the eigenvalues can vanish since the determinant is the product of the eigenvalues. It then follows from {eq}`evec-eq` that $\bz^\intercal \bP \bz = 0$ implies $\bz=\boldsymbol{0}$, which is what we wanted to show. Q.E.D.
+
 ```
 
 
@@ -1058,7 +1118,7 @@ If we have equality, then we must have $\bz^\intercal \bX = \mu_{\bz^\intercal \
 
 
 
-
+(multivar-norm-sec)=
 ## Multivariate normal distributions
 
 The goal in this section is simple: Generalize the univariate normal distributions from {numref}`norm-univariate-sec` to higher dimensions. We needed to wait until the current chapter to this because our generalization will require the machinery of covariance matrices that we developed at the end of the previous section. The ultimate effect will be that the familiar "bell curves" of univariate normal densities will turn into "bell (hyper)surfaces." For example, in two dimensions, the density surface of a bivariate normal random vector might have something like this:

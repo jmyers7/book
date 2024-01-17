@@ -63,7 +63,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bA": "\\mathbf{A}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bg": "\\mathbf{g}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bS": "\\mathbf{S}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bA": "\\mathbf{A}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bg": "\\mathbf{g}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bD": "\\mathbf{D}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/08-more-prob';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -413,7 +413,7 @@ E(g(X,Y)) = \int_{\bbr} z f_{g(X,Y)}(z) \ \text{d}z.
 <section class="theorem-content" id="proof-content">
 <p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent random variables, then <span class="math notranslate nohighlight">\(E(XY) = E(X) E(Y)\)</span>.</p>
 </section>
-</div><p>The proof is a simple computation using the LotUS; it appears in your <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/8-homework.md">homework</a> for this chapter.</p>
+</div><p>The proof is a simple computation using the LotUS; it appears in your <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/8-homework.md#problem-2-independence-and-expectations">homework</a> for this chapter.</p>
 <p>Our second application of the bivariate LotUS is to tie up a loose end from <a class="reference internal" href="04-random-variables.html#linear-of-exp"><span class="std std-numref">Section 4.9</span></a> and prove the full-strength version of “linearity of expectation.”</p>
 <div class="proof theorem admonition" id="linear-exp-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.3 </span> (Linearity of Expectations)</p>
@@ -566,10 +566,18 @@ f_X(s(y)) \left| \displaystyle\frac{\text{d}s}{\text{d}y}(y) \right| &amp; : y\i
 </div><aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>First, a reminder for the well-informed reader: According to our definitions in this book, the <em>support</em> of a function <span class="math notranslate nohighlight">\(f:\mathcal{X} \to \bbr\)</span> defined on a topological space <span class="math notranslate nohighlight">\(\mathcal{X}\)</span> is simply the set of points <span class="math notranslate nohighlight">\(x\in \mathcal{X}\)</span> such that <span class="math notranslate nohighlight">\(f(x)\neq 0\)</span>. In particular, we are <em>not</em> taking the closure!</p>
-<p>Then, we recall that the densities of a continuous random variable are technically defined uniquely only “almost everywhere.” So, if you give me a specific density of <span class="math notranslate nohighlight">\(X\)</span> whose support contains the range of <span class="math notranslate nohighlight">\(X\)</span>, I can trivially alter the density by setting it to <span class="math notranslate nohighlight">\(0\)</span> on a finite set of points (say) so that its support no longer contains the range of <span class="math notranslate nohighlight">\(X\)</span>.</p>
+<p>Then, we recall that a continuous random variable technically has infinitely many densities, and that any two are equal <a class="reference external" href="https://en.wikipedia.org/wiki/Almost_everywhere">almost everywhere</a>. So, if you give me a density of <span class="math notranslate nohighlight">\(X\)</span> whose support contains the range of <span class="math notranslate nohighlight">\(X\)</span>, I can alter the density by setting it to <span class="math notranslate nohighlight">\(0\)</span> on a finite set of points (say) to obtain a density whose support does <em>not</em> contain the range of <span class="math notranslate nohighlight">\(X\)</span>.</p>
 </aside>
-<p>We are assuming that the support <span class="math notranslate nohighlight">\(T\)</span> contains the range of the random variable <span class="math notranslate nohighlight">\(X\)</span> so that the random variable <span class="math notranslate nohighlight">\(Y\)</span> is defined; indeed, remember that <span class="math notranslate nohighlight">\(Y=r(X)\)</span> is an abuse of notation that stands for the composite function <span class="math notranslate nohighlight">\(r\circ X\)</span>. (See the margin note directly to the right.) We will not prove the theorem, as it will end up being a special case of the generalized transformation theorem given in <a class="reference internal" href="#multivar-density-trans-thm">Theorem 8.6</a> below.</p>
-<p>So, let’s jump straight to some problems:</p>
+<p>We will not prove the theorem, as it will end up being a special case of the generalized transformation theorem given in <a class="reference internal" href="#multivar-density-trans-thm">Theorem 8.6</a> below. But we should also say that there are simpler proofs of the theorem that do not use the heavy machinery that the proof of <a class="reference internal" href="#multivar-density-trans-thm">Theorem 8.6</a> relies upon; see, for example, Section 4.7 in <span id="id2">[<a class="reference internal" href="bib.html#id6" title="J. L. Devore, K. N. Berk, and M. A. Carlton. Modern mathematical statistics with applications. Springer Texts in Statistics. Springer, Cham, third edition, 2021.">DBC21</a>]</span>.</p>
+<p>We are assuming that the support <span class="math notranslate nohighlight">\(T\)</span> contains the range of the random variable <span class="math notranslate nohighlight">\(X\)</span> so that the random variable <span class="math notranslate nohighlight">\(Y\)</span> is defined; indeed, remember that <span class="math notranslate nohighlight">\(Y=r(X)\)</span> is an abuse of notation that stands for the composite function <span class="math notranslate nohighlight">\(r\circ X\)</span>. (See the margin note directly to the right.)</p>
+<p>Observe that the equality <a class="reference internal" href="#equation-inv-s-eq">(8.5)</a> is “one half” of what it means for <span class="math notranslate nohighlight">\(s\)</span> to be the inverse of <span class="math notranslate nohighlight">\(r\)</span>. But in fact, since the domain of <span class="math notranslate nohighlight">\(s\)</span> is precisely the range of <span class="math notranslate nohighlight">\(r\)</span>, as you may easily check we <em>automatically</em> have the other equality:</p>
+<div class="math notranslate nohighlight">
+\[
+r(s(y)) = y
+\]</div>
+<p>for all <span class="math notranslate nohighlight">\(y\in U\)</span>. Hence, <span class="math notranslate nohighlight">\(r\)</span> is invertible with inverse function <span class="math notranslate nohighlight">\(s\)</span>.</p>
+<p>Note that we are <em>explicitly</em> assuming that the inverse <span class="math notranslate nohighlight">\(s\)</span> is continuously differentiable. But in other versions of the Density Transformation Theorem (and its generalization <a class="reference internal" href="#multivar-density-trans-thm">Theorem 8.6</a> below), certain conditions are placed on <span class="math notranslate nohighlight">\(r\)</span> that guarantee differentiability of <span class="math notranslate nohighlight">\(s\)</span> via the <a class="reference external" href="https://en.wikipedia.org/wiki/Inverse_function_theorem">Inverse Function Theorem</a>. We have elected to give the version of the theorem presented here because in practice (or, at least in many textbook problems) it is often quicker to simply check differentiability of <span class="math notranslate nohighlight">\(s\)</span> directly, rather than verify the preconditions of the Inverse Function Theorem hold.</p>
+<p>Let’s do some examples:</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problems 5 and 6 on the worksheet.</p>
@@ -592,7 +600,7 @@ s:\bbr^n\to \bbr^m, \quad s(\by) = (s_1(\by),\ldots,s_m(\by)),
 <p class="sidebar-title"></p>
 <p>If all the first-order partial derivatives of <span class="math notranslate nohighlight">\(s\)</span> exist and are continuous, then <span class="math notranslate nohighlight">\(s\)</span> is said to be <em>continuously differentiable</em>. If <span class="math notranslate nohighlight">\(s\)</span> is a funtion from <span class="math notranslate nohighlight">\(\bbr\)</span> to <span class="math notranslate nohighlight">\(\bbr\)</span>, this coincides with the definition of <em>continuously differentiable</em> given in the margin note above.</p>
 </aside>
-<p>provided that the partial derivatives exist at <span class="math notranslate nohighlight">\(\by \in \bbr^m\)</span>. The Jacobian matrix is the matrix representation (with respect to the standard bases) of the <em>derivative</em> of <span class="math notranslate nohighlight">\(s\)</span>, provided that the latter is <em>differentiable</em>. We will not talk about <em>differentiability</em> and <em>derivatives</em> in higher dimensions; for that, see Chapter 2 in <span id="id2">[<a class="reference internal" href="bib.html#id15" title="M. Spivak. Calculus on manifolds. Perseus Books Publishing, LLC, 1965.">Spi65</a>]</span>. All we will say is that existence of the partial derivatives in the Jacobian matrix is <em>necessary</em> for differentiability, but not <em>sufficient</em>. If, however, the partial derivatives are all continuous, then <span class="math notranslate nohighlight">\(s\)</span> is differentiable. (See Theorem 2-8 in <span id="id3">[<a class="reference internal" href="bib.html#id15" title="M. Spivak. Calculus on manifolds. Perseus Books Publishing, LLC, 1965.">Spi65</a>]</span>.)</p>
+<p>provided that the partial derivatives exist at <span class="math notranslate nohighlight">\(\by \in \bbr^m\)</span>. The Jacobian matrix is the matrix representation (with respect to the standard bases) of the <em>derivative</em> of <span class="math notranslate nohighlight">\(s\)</span>, provided that the latter is <em>differentiable</em>. We will not talk about <em>differentiability</em> and <em>derivatives</em> in higher dimensions; for that, see Chapter 2 in <span id="id3">[<a class="reference internal" href="bib.html#id15" title="M. Spivak. Calculus on manifolds. Perseus Books Publishing, LLC, 1965.">Spi65</a>]</span>. All we will say is that existence of the partial derivatives in the Jacobian matrix is <em>necessary</em> for differentiability, but not <em>sufficient</em>. If, however, the partial derivatives are all continuous, then <span class="math notranslate nohighlight">\(s\)</span> is differentiable. (See Theorem 2-8 in <span id="id4">[<a class="reference internal" href="bib.html#id15" title="M. Spivak. Calculus on manifolds. Perseus Books Publishing, LLC, 1965.">Spi65</a>]</span>.)</p>
 <p>The Jacobian matrix is used to define the affine <em>tangent space</em> approximation of <span class="math notranslate nohighlight">\(s\)</span> near a point of differentiability <span class="math notranslate nohighlight">\(\by^\star\)</span> via the equation</p>
 <div class="math notranslate nohighlight">
 \[
@@ -617,21 +625,25 @@ f_{\bX}(s(\by)) \left| \det\displaystyle\frac{\partial(s_1,\ldots,s_m)}{\partial
 \end{cases}
 \end{split}\]</div>
 </section>
-</div><p>The following proof uses mathematics that you are likely not familiar with. Look through it if you want, but feel free to skip it as well.</p>
+</div><aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>I’ve included the proof only out of principle, because I could not find a proof in the standard references on my bookshelf that I liked.</p>
+</aside>
+<p>The following proof uses mathematics that you are likely not familiar with.  Look through it if you want to get the general gist, but feel free to skip it as well.</p>
 <div class="proof admonition" id="proof">
 <p>Proof. Letting <span class="math notranslate nohighlight">\(V \subset \bbr^m\)</span> be an open set, we compute:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
-P(Y\in V) &amp;= P(X\in s(V\cap U)) \\
+P(\bY\in V) &amp;= P(\bX\in s(V\cap U)) \\
 &amp;= \int_{s(V\cap U)} f_\bX(\bx) \ \text{d}^m\bx \\
 &amp;= \int_{V\cap U} f_\bX(s(\by))\left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| \ \text{d}^m \by,
 \end{align*}\]</div>
-<p>where the final equality follows from the Change-of-Variables Theorem for Multiple Integrals; see Theorem 3-13 in <span id="id4">[<a class="reference internal" href="bib.html#id15" title="M. Spivak. Calculus on manifolds. Perseus Books Publishing, LLC, 1965.">Spi65</a>]</span>. If we then define <span class="math notranslate nohighlight">\(f_\bY(\by)\)</span> via the formula given in the statement of the theorem, this shows</p>
+<p>where the final equality follows from the Change-of-Variables Theorem for Multiple Integrals; see Theorem 3-13 in <span id="id5">[<a class="reference internal" href="bib.html#id15" title="M. Spivak. Calculus on manifolds. Perseus Books Publishing, LLC, 1965.">Spi65</a>]</span>. If we then define <span class="math notranslate nohighlight">\(f_\bY(\by)\)</span> via the formula given in the statement of the theorem, this shows</p>
 <div class="math notranslate nohighlight">
 \[
-P(Y\in V) = \int_{V\cap U} f_\bX(s(\by))\left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| \ \text{d}^m \by = \int_V f_\bY(\by) \ \text{d}^m \by.
+P(\bY\in V) = \int_{V\cap U} f_\bX(s(\by))\left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| \ \text{d}^m \by = \int_V f_\bY(\by) \ \text{d}^m \by.
 \]</div>
-<p>Since a probability measure defined on the Borel algebra of <span class="math notranslate nohighlight">\(\bbr^m\)</span> is uniquely determined by its values on open sets, this is enough to prove that <span class="math notranslate nohighlight">\(f_\bY(\by)\)</span> is indeed a density of <span class="math notranslate nohighlight">\(\bY\)</span>. Q.E.D.</p>
+<p>Since a probability measure defined on the Borel algebra of <span class="math notranslate nohighlight">\(\bbr^m\)</span> is uniquely determined by its values on open sets (via a generating class argument), this is enough to prove that <span class="math notranslate nohighlight">\(f_\bY(\by)\)</span> is indeed a density of <span class="math notranslate nohighlight">\(\bY\)</span>. Q.E.D.</p>
 </div>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
@@ -691,7 +703,7 @@ e^x = \sum_{k=0}^\infty \frac{x^k}{k!}.
 </section>
 </div><p>Thus, the moments <span class="math notranslate nohighlight">\(E(X^k)\)</span> may be extracted from the moment generating function <span class="math notranslate nohighlight">\(\psi(t)\)</span> simply by taking derivatives and evaluating at <span class="math notranslate nohighlight">\(t=0\)</span>. In this sense, the function <span class="math notranslate nohighlight">\(\psi (t)\)</span> <em>generates</em> the moments.</p>
 <div class="proof admonition" id="proof">
-<p>Proof. Let’s prove the theorem in the case that <span class="math notranslate nohighlight">\(X\)</span> is continuous with density <span class="math notranslate nohighlight">\(f(x)\)</span>. Supposing that all the moments are finite (which I will <em>not</em> prove; see instead Theorem 4.4.2 in <span id="id5">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>) and that we can pull derivatives under integral signs, for all <span class="math notranslate nohighlight">\(k\geq 1\)</span> we have:</p>
+<p>Proof. Let’s prove the theorem in the case that <span class="math notranslate nohighlight">\(X\)</span> is continuous with density <span class="math notranslate nohighlight">\(f(x)\)</span>. Supposing that all the moments are finite (which I will <em>not</em> prove; see instead Theorem 4.4.2 in <span id="id6">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>) and that we can pull derivatives under integral signs, for all <span class="math notranslate nohighlight">\(k\geq 1\)</span> we have:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 \psi^{(k)}(0) &amp;= \frac{\text{d}^k}{\text{d}t^k} \int_\bbr e^{tx} f(x) \ \text{d}x \Bigg|_{t=0} \\
@@ -756,7 +768,7 @@ E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
 </ol>
 </section>
 </div><div class="proof admonition" id="proof">
-<p>Proof. We will only prove the second part; for the proof of the first (which isn’t hard), see Theorem 5.6.2 in <span id="id6">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>. So, we begin our computations:</p>
+<p>Proof. We will only prove the second part; for the proof of the first (which isn’t hard), see Theorem 5.6.2 in <span id="id7">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>. So, we begin our computations:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 \psi_Y(t) &amp;= E\big( e^{ta_1X_1} \cdots e^{ta_mX_m} e^{tb}\big) \\
@@ -872,7 +884,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ed318f0af17b5886af4aa51a83b6bde3307822b79108b8ac55195e4fc8ddf340.svg" src="../_images/ed318f0af17b5886af4aa51a83b6bde3307822b79108b8ac55195e4fc8ddf340.svg" /></figure>
+<img alt="../_images/6024737b3e36c46053fa711596b6e7e1c49648a30db23e22bd02fbe6b52441e0.svg" src="../_images/6024737b3e36c46053fa711596b6e7e1c49648a30db23e22bd02fbe6b52441e0.svg" /></figure>
 </div>
 </div>
 <p>The plot looks exactly like we would expect: A bunch of points lying on the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span>. However, very often with real-world data, an <strong>exact</strong> functional dependence <span class="math notranslate nohighlight">\(Y = h(X)\)</span> does not truly hold. Instead, the functional relationship is “noisy”, resulting in scatter plots that look like this:</p>
@@ -904,7 +916,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2e02221309063820c56bd15570897e5c500e812ec552b84db05e8c2592069d6e.svg" src="../_images/2e02221309063820c56bd15570897e5c500e812ec552b84db05e8c2592069d6e.svg" /></figure>
+<img alt="../_images/fb32258589624bb5c60604e51af0da16692d198251e831bead4403e4352a92d8.svg" src="../_images/fb32258589624bb5c60604e51af0da16692d198251e831bead4403e4352a92d8.svg" /></figure>
 </div>
 </div>
 <p>The “noisy” functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span> for reference. Instead of lying directly on the graph of <span class="math notranslate nohighlight">\(y=h(x)\)</span>, the data is clustered along the graph.</p>
@@ -938,53 +950,19 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e2bf1be39b17de601ad10ff98156ce25b18e38986cd9ad9a87fefd7a18c0b6c5.svg" src="../_images/e2bf1be39b17de601ad10ff98156ce25b18e38986cd9ad9a87fefd7a18c0b6c5.svg" /></figure>
+<img alt="../_images/7b1fc807a86cdbcf8fca5bcf8728b9cb26b953ad9e3d1f17e159d9fd9d4586d6.svg" src="../_images/7b1fc807a86cdbcf8fca5bcf8728b9cb26b953ad9e3d1f17e159d9fd9d4586d6.svg" /></figure>
 </div>
 </div>
-<p>We have already seen scatter plots like this before! Indeed, recall Ames housing dataset from the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and the <a class="reference internal" href="07-random-vectors.html#motivation"><span class="std std-ref">beginning</span></a> of the previous chapter consisting of pairs</p>
-<div class="math notranslate nohighlight">
-\[
-(x_1,y_1),(x_2,y_2),\ldots,(x_{2{,}930},y_{2{,}930}),
-\]</div>
-<p>where <span class="math notranslate nohighlight">\(x_i\)</span> is the area of the <span class="math notranslate nohighlight">\(i\)</span>-th house (in ft<span class="math notranslate nohighlight">\(^2\)</span>) and <span class="math notranslate nohighlight">\(y_i\)</span> is the selling price (in $1k). This was the scatter plot of the data, with a straight line superimposed for reference:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/data-3-1.csv&#39;</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">])</span>
-
-<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span> <span class="p">:</span> <span class="mf">0.3</span><span class="p">},</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span> <span class="p">:</span> <span class="s1">&#39;#FD46FC&#39;</span><span class="p">})</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<figure class="align-center">
-<img alt="../_images/736dd2a454609043e55f58aad3a913b19800586eb0285c82407e0d2a816950f9.svg" src="../_images/736dd2a454609043e55f58aad3a913b19800586eb0285c82407e0d2a816950f9.svg" /></figure>
-</div>
-</div>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<p>The line in this plot that the data clusters along is called the <em>linear-regression line</em>. We will study these in <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapters 11</span></a> and <a class="reference internal" href="17-lin-reg.html#lin-reg"><span class="std std-numref">17</span></a>.</p>
-</aside>
-<p>There appears to be a “noisy” linear dependence between the size of a house <span class="math notranslate nohighlight">\(X\)</span> and its selling price <span class="math notranslate nohighlight">\(Y\)</span>. Moreover, the line that the data naturally clusters along has positive slope, which indicates that as the size of a house increases, its selling price tends to increase as well.</p>
 <p>As I mentioned in the introduction, our goal in this section is to uncover ways to <em>quantify</em> or <em>measure</em> the strength of “noisy” linear dependencies between random variables. We will discover that there are two such measures, called <em>covariance</em> and <em>correlation</em>.</p>
 <p>The definition of <em>covariance</em> is based on the following pair of basic observations:</p>
 <blockquote>
-<div><ol class="arabic simple">
-<li><p>If the observed values of two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> cluster along a line of <em>positive</em> slope, then <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> in a data point <span class="math notranslate nohighlight">\((x,y)\)</span> tend to be large (or small) at the same time.</p></li>
-<li><p>If the observed values of two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> cluster along a line of <em>negative</em> slope, then a large value <span class="math notranslate nohighlight">\(x\)</span> tends to be paired with a small value <span class="math notranslate nohighlight">\(y\)</span> in a data point <span class="math notranslate nohighlight">\((x,y)\)</span>, while a small value of <span class="math notranslate nohighlight">\(x\)</span> tends to be paired with a large value <span class="math notranslate nohighlight">\(y\)</span>.</p></li>
+<div><p>Let <span class="math notranslate nohighlight">\((x,y)\)</span> be an observation of a two-dimensional random vector <span class="math notranslate nohighlight">\((X,Y)\)</span></p>
+<ol class="arabic simple">
+<li><p>If the observed values of <span class="math notranslate nohighlight">\((X,Y)\)</span> cluster along a line of <em>positive</em> slope, then <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> tend to be large (small) at the same time.</p></li>
+<li><p>If the observed values of <span class="math notranslate nohighlight">\((X,Y)\)</span> cluster along a line of <em>negative</em> slope, then a large (small) value <span class="math notranslate nohighlight">\(x\)</span> tends to be paired with a small (large) value <span class="math notranslate nohighlight">\(y\)</span>.</p></li>
 </ol>
 </div></blockquote>
-<p>In order to extract something useful from these observations, it is convenient to “center” the dataset by subtracting off the means:</p>
+<p>In order to extract something useful from these observations, it is convenient to <em>center</em> the dataset by subtracting off the means:</p>
 <div class="math notranslate nohighlight">
 \[
 X \xrightarrow{\text{replace with}} X - \mu_X \quad \text{and} \quad Y \xrightarrow{\text{replace with}} Y - \mu_Y.
@@ -994,7 +972,7 @@ X \xrightarrow{\text{replace with}} X - \mu_X \quad \text{and} \quad Y \xrightar
 \[
 E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 \]</div>
-<p>and similarly <span class="math notranslate nohighlight">\(E(Y-\mu_Y) = 0\)</span>, so that when we carry out these replacements, we get random variables with mean <span class="math notranslate nohighlight">\(0\)</span>. If we center the housing data by subtracting the means and then plot, we get this:</p>
+<p>and similarly <span class="math notranslate nohighlight">\(E(Y-\mu_Y) = 0\)</span>, so that when we carry out these replacements, we get random variables with mean <span class="math notranslate nohighlight">\(0\)</span>. Here’s an example:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1002,10 +980,28 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span> <span class="p">:</span> <span class="mf">0.3</span><span class="p">},</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span> <span class="p">:</span> <span class="s1">&#39;#FD46FC&#39;</span><span class="p">})</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;shifted area&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;shifted price&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">epsilon</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="n">mean</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mean</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mean</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;magenta&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;raw data&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span> <span class="o">-</span> <span class="n">mean</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span> <span class="o">-</span> <span class="n">mean</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;centered data&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1013,18 +1009,19 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/21face5a9d5b1b3539bfcf9fed92a8d362cf429f11fb8134b3669591bdf46fec.svg" src="../_images/21face5a9d5b1b3539bfcf9fed92a8d362cf429f11fb8134b3669591bdf46fec.svg" /></figure>
+<img alt="../_images/a338095291d45d8bea8811e55d98597c26f8987aa27b75f856a1f64837167b54.svg" src="../_images/a338095291d45d8bea8811e55d98597c26f8987aa27b75f856a1f64837167b54.svg" /></figure>
 </div>
 </div>
-<p>You can see that the dataset has not changed its shape—it has only shifted so that its “center” is at the origin <span class="math notranslate nohighlight">\((0,0)\)</span>.</p>
-<p>The reason that we “center” the data is because it allows us to conveniently rephrase our observations above in terms of signs:</p>
+<p>You can see that the dataset has not changed its shape—it has only shifted so that its mean (represented by the magenta dot) is at the origin <span class="math notranslate nohighlight">\((0,0)\)</span>.</p>
+<p>The reason that we center the data is because it allows us to conveniently rephrase our observations above in terms of signs:</p>
 <blockquote>
-<div><ol class="arabic simple">
-<li><p>If the observed values of two <strong>centered</strong> random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> cluster along a line of <em>positive</em> slope, then <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> in a data point <span class="math notranslate nohighlight">\((x,y)\)</span> tend to have the same sign, i.e., <span class="math notranslate nohighlight">\(xy&gt;0\)</span>.</p></li>
-<li><p>If the observed values of two <strong>centered</strong> random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> cluster along a line of <em>negative</em> slope, then <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> in a data point <span class="math notranslate nohighlight">\((x,y)\)</span> tend to have opposite signs, i.e., <span class="math notranslate nohighlight">\(xy &lt; 0\)</span>.</p></li>
+<div><p>Let <span class="math notranslate nohighlight">\((x,y)\)</span> be an observation of a <strong>centered</strong> two-dimensional random vector <span class="math notranslate nohighlight">\((X,Y)\)</span></p>
+<ol class="arabic simple">
+<li><p>If the observed values of <span class="math notranslate nohighlight">\((X,Y)\)</span> cluster along a line of <em>positive</em> slope, then <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> tend to have the same sign, i.e., <span class="math notranslate nohighlight">\(xy&gt;0\)</span>.</p></li>
+<li><p>If the observed values of <span class="math notranslate nohighlight">\((X,Y)\)</span> cluster along a line of <em>negative</em> slope, then <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> tend to have opposite signs, i.e., <span class="math notranslate nohighlight">\(xy&lt;0\)</span>.</p></li>
 </ol>
 </div></blockquote>
-<p>Essentially, the next definition takes the average value of the product <span class="math notranslate nohighlight">\(xy\)</span>, as <span class="math notranslate nohighlight">\((x,y)\)</span> ranges over observed pairs of values of a pair <span class="math notranslate nohighlight">\((X,Y)\)</span> of <strong>centered</strong> random variables. If this average value is positive, it suggests a (noisy) linear dependence with positive slope; if it is negative, it suggests a (noisy) linear dependence with negative slope. A larger average (in either direction—positive or negative) tends to indicate a <em>stronger</em> dependency. If the random variables are not centered, then we subtract off their means before computing the product and taking its average value.</p>
+<p>Essentially, the next definition takes the average value of the product <span class="math notranslate nohighlight">\(xy\)</span>, as <span class="math notranslate nohighlight">\((x,y)\)</span> ranges over observed pairs of values of a centered random vector <span class="math notranslate nohighlight">\((X,Y)\)</span>. If this average value is positive, it suggests a (noisy) linear dependence with positive slope; if it is negative, it suggests a (noisy) linear dependence with negative slope. If the random variables are not centered, then we subtract off their means before computing the product and taking its average value.</p>
 <div class="proof definition admonition" id="covar-def">
 <p class="admonition-title"><span class="caption-number">Definition 8.4 </span></p>
 <section class="definition-content" id="proof-content">
@@ -1058,7 +1055,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 &amp;= E(XY) - E(X) E(Y).
 \end{align*}\]</div>
 </div>
-<p>Now, armed with this formula, let’s do some problems:</p>
+<p>Armed with this formula, let’s do an example problem:</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problem 10 on the worksheet.</p>
@@ -1077,12 +1074,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </li>
 </ol>
 </section>
-</div><p>I suggest that you prove these properties on your own. The proof of symmetry is more or less trivial, while the proof of bilinearity may be established first by proving the special case</p>
-<div class="math notranslate nohighlight">
-\[
-\sigma\Big( \sum_{i=1}^m a_i X_i, Y\Big) = \sum_{i=1}^m a_i \sigma(X_i,Y)
-\]</div>
-<p>by induction on <span class="math notranslate nohighlight">\(m\)</span>. Then, use this special case and symmetry to obtain the general result <a class="reference internal" href="#equation-bilinear-eqn">(8.8)</a>.</p>
+</div><p>I suggest that you attempt to prove this theorem on your own. A special case appears in your <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/8-homework.md#problem-8-a-special-case-of-bilinearity">homework</a> for this chapter.</p>
 <p>Bilinearity of covariance allows us to generalize <a class="reference internal" href="04-random-variables.html#var-affine-thm">Theorem 4.6</a> on the variance of an affine transformation of a random variable:</p>
 <div class="proof theorem admonition" id="variance-lin-combo-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.15 </span> (Variance of a linear combination)</p>
@@ -1107,7 +1099,7 @@ V(a_1X_1 + \cdots + a_m X_m) &amp;= \sigma\Big(\sum_{i=1}^m a_i X_i, \sum_{j=1}^
 \[
 V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 \]</div>
-<p>We now turn toward the other measure of linear dependence, called <em>correlation</em>. To motivate this latter measure, we note that while the signs of covariances are significant, their precise numerical values may be less so if the only thing we are using them for is to measure the strength of a linear dependence. One reason for this is that covariances are sensitive to the scales on which the variables are measured. For an example, let’s return to our housing dataset with random variables <span class="math notranslate nohighlight">\(X\)</span> (area) and <span class="math notranslate nohighlight">\(Y\)</span> (price). If we scale both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> by a factor of <span class="math notranslate nohighlight">\(10\)</span>, we get the following new scatter plot:</p>
+<p>We now turn toward the other measure of linear dependence, called <em>correlation</em>. To motivate this latter measure, we note that while the signs of covariances are significant, their precise numerical values may be less so if the only thing we are using them for is to measure the strength of a linear dependence. One reason for this is that covariances are sensitive to the scales on which the variables are measured. For an example, consider the following two plots:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1116,10 +1108,25 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span> <span class="p">:</span> <span class="mf">0.3</span><span class="p">},</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span> <span class="p">:</span> <span class="s1">&#39;#FD46FC&#39;</span><span class="p">},</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span> <span class="p">:</span> <span class="mf">0.3</span><span class="p">},</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span> <span class="p">:</span> <span class="s1">&#39;#FD46FC&#39;</span><span class="p">},</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$10</span><span class="se">\\</span><span class="s1">times$area&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$10 </span><span class="se">\\</span><span class="s1">times$price&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">epsilon</span>
+<span class="n">mean</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;raw data&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">10</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">10</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;scaled data&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1127,15 +1134,15 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/5f8eda3764d12ccb1785cfc49563f540762b077fca25ea965059c992834b5dc0.svg" src="../_images/5f8eda3764d12ccb1785cfc49563f540762b077fca25ea965059c992834b5dc0.svg" /></figure>
+<img alt="../_images/44faf5eec006eb097f365b4dc809d63f50304fff4ce85a3a84adf711f43954ee.svg" src="../_images/44faf5eec006eb097f365b4dc809d63f50304fff4ce85a3a84adf711f43954ee.svg" /></figure>
 </div>
 </div>
-<p>But according to <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>, we have</p>
+<p>The only difference between the two datasets is the axis scales, but the linear relationship between the <span class="math notranslate nohighlight">\(x\)</span>’s and <span class="math notranslate nohighlight">\(y\)</span>’s remains the same. In fact, the scales on the axes differ by a factor of <span class="math notranslate nohighlight">\(10\)</span>, so by <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>, we have</p>
 <div class="math notranslate nohighlight">
 \[
-\sigma(10X, 10Y) = 100 \sigma(X,Y),
+\sigma(10X, 10Y) = 100 \sigma(X,Y).
 \]</div>
-<p>so if we use the numerical value of the covariance to indicate the <em>strength</em> of a linear relationship, then we should conclude that <span class="math notranslate nohighlight">\(10X\)</span> and <span class="math notranslate nohighlight">\(10Y\)</span> are <em>one hundred times</em> more “linearly dependent” than <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. But this is nonsense!</p>
+<p>Thus, if we use the numerical value of the covariance to indicate the <em>strength</em> of a linear relationship, then we should conclude that the data on right-hand side is <em>one hundred times</em> more “linearly correlated” than the data on the left. But this is nonsense!</p>
 <p>The remedy is to define a “normalized” measure of linear dependence:</p>
 <div class="proof definition admonition" id="correlation-def">
 <p class="admonition-title"><span class="caption-number">Definition 8.5 </span></p>
@@ -1165,7 +1172,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 <li><p><em>Normalization</em>. We have <span class="math notranslate nohighlight">\(|\rho(X,Y)| \leq 1\)</span>.</p></li>
 </ol>
 </section>
-</div><p>The symmetry property of correlation follows from the same property of covariance in <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>. Scale invariance follows from bilinearity of covariance, as well as the equality <span class="math notranslate nohighlight">\(\sigma_{aX} = |a| \sigma_X\)</span> established in <a class="reference internal" href="04-random-variables.html#var-affine-thm">Theorem 4.6</a> (or its generalization <a class="reference internal" href="#variance-lin-combo-thm">Theorem 8.15</a>). The proof of normalization is a bit more involved but still not very difficult. It requires the Cauchy-Schwarz inequality; see the proof in Section 4.6 of <span id="id7">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>, for example.</p>
+</div><p>The symmetry property of correlation follows from the same property of covariance in <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>. Scale invariance follows from bilinearity of covariance, as well as the equality <span class="math notranslate nohighlight">\(\sigma_{aX} = |a| \sigma_X\)</span> established in <a class="reference internal" href="04-random-variables.html#var-affine-thm">Theorem 4.6</a> (or its generalization <a class="reference internal" href="#variance-lin-combo-thm">Theorem 8.15</a>). The proof of normalization is a bit more involved but still not very difficult. It requires the Cauchy-Schwarz inequality; see the proof in Section 4.6 of <span id="id8">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>, for example.</p>
 <p>Remember, covariance and correlation were cooked up to measure linear dependencies between random variables. We wonder, then, what is the correlation between two random variables that are <em>perfectly</em> linearly dependent? Answer:</p>
 <div class="proof theorem admonition" id="linearity-correlation-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.17 </span></p>
@@ -1192,7 +1199,12 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 <section class="definition-content" id="proof-content">
 <p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are two random variables with <span class="math notranslate nohighlight">\(\rho(X,Y)=0\)</span>, then we say <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <em>uncorrelated</em>. Otherwise, they are said to be <em>(linearly) correlated</em>.</p>
 </section>
-</div><p>You should think of independence as a strong form of uncorrelated-ness, and hence correlated-ness is also a strong form of dependence. This is the content of the first part of the following result:</p>
+</div><p>Let’s take a look at an example before continuing:</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 11 in the worksheet.</p>
+</div>
+<p>You should think of independence as a strong form of uncorrelated-ness, and hence correlated-ness is also a strong form of dependence. This is the content of the first part of the following result:</p>
 <div class="proof theorem admonition" id="ind-vs-correlation-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.18 </span> (Dependence and correlation)</p>
 <section class="theorem-content" id="proof-content">
@@ -1219,38 +1231,70 @@ f(x,y) = \begin{cases}
 \end{split}\]</div>
 <p>By symmetry, we have <span class="math notranslate nohighlight">\(E(X) = E(Y) = E(XY)=0\)</span>, and hence <span class="math notranslate nohighlight">\(\rho_{XY}=0\)</span> as well. However, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are clearly depenendent since (for example) the support of <span class="math notranslate nohighlight">\(f(y|x)\)</span> depends on <span class="math notranslate nohighlight">\(x\)</span>. Q.E.D.</p>
 </div>
-<p>Given a sequence <span class="math notranslate nohighlight">\(X_1,\ldots,X_m\)</span> of random variables, we may compute the pairwise covariances <span class="math notranslate nohighlight">\(\sigma(X_i,X_j)\)</span>. If we put these into a matrix, we get the following object:</p>
-<div class="proof definition admonition" id="covar-matrix-def">
+<p>We have only considered a pair <span class="math notranslate nohighlight">\((X,Y)\)</span> of random variables; but what if we have a <span class="math notranslate nohighlight">\(d\)</span>-dimensional random vector <span class="math notranslate nohighlight">\(\bX = (X_1,\ldots,X_d)\)</span>? Then we may compute the pairwise covariances <span class="math notranslate nohighlight">\(\sigma(X_i,X_j)\)</span> and <span class="math notranslate nohighlight">\(\rho(X_i,X_j)\)</span>, and we can’t resist the urge to put them into matrices:</p>
+<div class="proof definition admonition" id="covar-correl-matrix-def">
 <p class="admonition-title"><span class="caption-number">Definition 8.7 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(\bX = (X_1,\ldots,X_d)\)</span> be a <span class="math notranslate nohighlight">\(d\)</span>-dimensional random vector. We define its <em>covariance matrix</em> to be the <span class="math notranslate nohighlight">\(d\times d\)</span> matrix</p>
+<p>Let <span class="math notranslate nohighlight">\(\bX = (X_1,\ldots,X_d)\)</span> be a <span class="math notranslate nohighlight">\(d\)</span>-dimensional random vector.</p>
+<ol class="arabic">
+<li><p>We define the <em>covariance matrix</em> of <span class="math notranslate nohighlight">\(\bX\)</span> to be the <span class="math notranslate nohighlight">\(d\times d\)</span> matrix</p>
 <div class="math notranslate nohighlight">
-\[
-\bSigma_\bX \def \left[ \sigma(X_i,X_j) \right]_{ij}.
-\]</div>
+\[\begin{split}
+    \bSigma_\bX \def \left[ \sigma_{ij} \right]_{ij} = \begin{bmatrix}
+    \sigma_{11} &amp; \cdots &amp; \sigma_{1d} \\
+    \vdots &amp; \ddots &amp; \vdots \\
+    \sigma_{d1} &amp; \cdots &amp; \sigma_{dd}
+    \end{bmatrix},
+    \end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma_{ij} = \sigma(X_i,X_j)\)</span>.</p>
+</li>
+<li><p>We define the <em>correlation matrix</em> of <span class="math notranslate nohighlight">\(\bX\)</span> to be the <span class="math notranslate nohighlight">\(d\times d\)</span> matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \bP_\bX \def \left[ \rho_{ij} \right]_{ij} = \begin{bmatrix}
+    \rho_{11} &amp; \cdots &amp; \rho_{1d} \\
+    \vdots &amp; \ddots &amp; \vdots \\
+    \rho_{d1} &amp; \cdots &amp; \rho_{dd}
+    \end{bmatrix},
+    \end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\rho_{ij} = \rho(X_i,X_j)\)</span>.</p>
+</li>
+</ol>
 </section>
-</div><div class="proof theorem admonition" id="covar-matrix-prop-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.19 </span> (Covariance matrices are positive semidefinite)</p>
+</div><p>Covariance matrices will prove especially important in the <a class="reference internal" href="#multivar-norm-sec"><span class="std std-ref">next section</span></a>.</p>
+<p>Notice that both the covariance matrix and correlation matrix of a random variable are <em>symmetric</em>, meaning that <span class="math notranslate nohighlight">\(\sigma_{ij} = \sigma_{ji}\)</span> and <span class="math notranslate nohighlight">\(\rho_{ij} = \rho_{ji}\)</span> for all <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>. But symmetry is not their <em>only</em> special property; in fact, they are both examples of <em>positive semidefinite</em> matrices. These types of matrices will be important over the next few chapters, so let’s define them:</p>
+<div class="proof definition admonition" id="semidefinite-def">
+<p class="admonition-title"><span class="caption-number">Definition 8.8 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\bA\)</span> be a symmetric <span class="math notranslate nohighlight">\(d\times d\)</span> real matrix.</p>
+<ol class="arabic simple">
+<li><p>If <span class="math notranslate nohighlight">\(\bz^\intercal \bA \bz \geq 0\)</span> for all <span class="math notranslate nohighlight">\(\bz \in \bbr^d\)</span>, then <span class="math notranslate nohighlight">\(\bA\)</span> is called <em>positive semidefinite</em>. If the only vector for which equality holds is <span class="math notranslate nohighlight">\(\bz=\boldsymbol{0}\)</span>, then <span class="math notranslate nohighlight">\(\bA\)</span> is called <em>positive definite</em>.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\bz^\intercal \bA \bz \leq 0\)</span> for all <span class="math notranslate nohighlight">\(\bz \in \bbr^n\)</span>, then <span class="math notranslate nohighlight">\(\bA\)</span> is called <em>negative semidefinite</em>. If the only vector for which equality holds is <span class="math notranslate nohighlight">\(\bz=\boldsymbol{0}\)</span>, then <span class="math notranslate nohighlight">\(\bA\)</span> is called <em>negative definite</em>.</p></li>
+</ol>
+</section>
+</div><p>With the definition in hand, let’s prove that covariance and correlation matrices are positive semidefinite:</p>
+<div class="proof theorem admonition" id="covar-matrix-prop-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 8.19 </span> (Covariance and correlation matrices are positive semidefinite)</p>
 <section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(\bX = (X_1,\ldots,X_d)\)</span> be a <span class="math notranslate nohighlight">\(d\)</span>-dimensional random vector. The covariance matrix <span class="math notranslate nohighlight">\(\bSigma = \bSigma_\bX\)</span> is <em>positive semidefinite</em>, in the sense that</p>
-<div class="math notranslate nohighlight" id="equation-pos-def-covar-eq">
-<span class="eqno">(8.9)<a class="headerlink" href="#equation-pos-def-covar-eq" title="Permalink to this equation">#</a></span>\[
-\bz^\intercal \bSigma \bz\geq 0
-\]</div>
-<p>for all <span class="math notranslate nohighlight">\(\bz \in \bbr^d\)</span>. Moreover, we have equality in <a class="reference internal" href="#equation-pos-def-covar-eq">(8.9)</a> if and only if the random variable <span class="math notranslate nohighlight">\(\bz^\intercal \bX\)</span> is (almost surely) constant.</p>
+<p>Let <span class="math notranslate nohighlight">\(\bX = (X_1,\ldots,X_d)\)</span> be a <span class="math notranslate nohighlight">\(d\)</span>-dimensional random vector. Both the covariance matrix <span class="math notranslate nohighlight">\(\bSigma_\bX\)</span> and the correlation matrix <span class="math notranslate nohighlight">\(\bP_\bX\)</span> are positive semidefinite. They are positive definite if their determinants are nonzero.</p>
 </section>
-</div><p>In the case that strict inequality holds in <a class="reference internal" href="#equation-pos-def-covar-eq">(8.9)</a> for all nonzero <span class="math notranslate nohighlight">\(\bz\in \bbr^d\)</span>, we say the matrix <span class="math notranslate nohighlight">\(\bSigma\)</span> is <em>positive definite</em>; see also <a class="reference internal" href="10-optim.html#definite-def">Definition 10.3</a>.</p>
-<div class="proof admonition" id="proof">
-<p>Proof. Using bilinearity of covariance (in the form of <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>), we compute</p>
+</div><div class="proof admonition" id="proof">
+<p>Proof. We will only prove that the correlation matrix <span class="math notranslate nohighlight">\(\bP = \bP_\bX\)</span> is positive semidefinite, leaving you to make the easy changes to cover the covariance matrix. First, we have already observed that <span class="math notranslate nohighlight">\(\bP\)</span> is symmetric. Then, given <span class="math notranslate nohighlight">\(\bz\in \bbr^d\)</span>, we use <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a> to compute:</p>
 <div class="math notranslate nohighlight">
 \[
-\bz^\intercal \bSigma \bz = \sum_{i,j=1}^d z_iz_j \sigma(X_i,X_j) = \sigma \left(\sum_{i=1}^d z_iX_i,\sum_{j=1}^d z_j X_j \right) = \sigma(\bz^\intercal \bX, \bz^\intercal \bX) = V(\bz^\intercal \bX) \geq 0.
+\bz^\intercal \bP \bz = \sum_{i,j=1}^d \frac{z_i}{\sigma_i} \frac{z_j}{\sigma_j} \sigma(X_i,X_j) = \sigma \left(\sum_{i=1}^d \frac{z_i}{\sigma_i}X_i, \sum_{j=1}^d \frac{z_j}{\sigma_j} X_j \right) = V\left( \sum_{j=1}^d \frac{z_j}{\sigma_j} X_j \right) \geq 0.
 \]</div>
-<p>If we have equality, then we must have <span class="math notranslate nohighlight">\(\bz^\intercal \bX = \mu_{\bz^\intercal \bX}\)</span> (almost surely). Q.E.D.</p>
+<p>This establishes that <span class="math notranslate nohighlight">\(\bP\)</span> is positive semidefinite.</p>
+<p>To prove that a nonzero determinant implies positive definiteness, we observe that since <span class="math notranslate nohighlight">\(\bP\)</span> is symmetric, the <a class="reference external" href="https://en.wikipedia.org/wiki/Spectral_theorem">Spectral Theorem</a> (see also Theorem 5.8 in Chapter 7 of <span id="id9">[<a class="reference internal" href="bib.html#id12" title="M. Artin. Algebra. Prentice Hall, 1991.">Art91</a>]</span>) tells us that there is an orthonormal basis <span class="math notranslate nohighlight">\(\bv_1,\ldots,\bv_d\)</span> of <span class="math notranslate nohighlight">\(\bbr^d\)</span> consisting of eigevectors. So, for any <span class="math notranslate nohighlight">\(\bz\in \bbr^d\)</span>, there are scalars <span class="math notranslate nohighlight">\(a_1,\ldots,a_d\in \bbr\)</span> such that <span class="math notranslate nohighlight">\(\bz = \sum_{i=1}^d a_i \bv_i\)</span>. Then, we compute</p>
+<div class="math notranslate nohighlight" id="equation-evec-eq">
+<span class="eqno">(8.9)<a class="headerlink" href="#equation-evec-eq" title="Permalink to this equation">#</a></span>\[
+\bz^\intercal \bP \bz = \sum_{i,j=1}^d a_i a_j \bv_i^\intercal\bP \bv_j = \sum_{i=1}^d a_i^2 \lambda_i,
+\]</div>
+<p>where we’ve used the eigenvector/eigenvalue equations <span class="math notranslate nohighlight">\(\bP \bv_i = \lambda_i \bv_i\)</span> for each <span class="math notranslate nohighlight">\(i\)</span>. Regardless of whether the determinant is zero or not, this shows that all the eigenvalues must be (real and) nonnegative if <span class="math notranslate nohighlight">\(\bP\)</span> is positive semidefinite. But if <span class="math notranslate nohighlight">\(\det{\bP}\neq 0\)</span>, then none of the eigenvalues can vanish since the determinant is the product of the eigenvalues. It then follows from <a class="reference internal" href="#equation-evec-eq">(8.9)</a> that <span class="math notranslate nohighlight">\(\bz^\intercal \bP \bz = 0\)</span> implies <span class="math notranslate nohighlight">\(\bz=\boldsymbol{0}\)</span>, which is what we wanted to show. Q.E.D.</p>
 </div>
 </section>
 <section id="multivariate-normal-distributions">
-<h2><span class="section-number">8.6. </span>Multivariate normal distributions<a class="headerlink" href="#multivariate-normal-distributions" title="Permalink to this heading">#</a></h2>
+<span id="multivar-norm-sec"></span><h2><span class="section-number">8.6. </span>Multivariate normal distributions<a class="headerlink" href="#multivariate-normal-distributions" title="Permalink to this heading">#</a></h2>
 <p>The goal in this section is simple: Generalize the univariate normal distributions from <a class="reference internal" href="05-examples-of-rvs.html#norm-univariate-sec"><span class="std std-numref">Section 5.6</span></a> to higher dimensions. We needed to wait until the current chapter to this because our generalization will require the machinery of covariance matrices that we developed at the end of the previous section. The ultimate effect will be that the familiar “bell curves” of univariate normal densities will turn into “bell (hyper)surfaces.” For example, in two dimensions, the density surface of a bivariate normal random vector might have something like this:</p>
 <a class="reference internal image-reference" href="../_images/multi-var-norm-01.png"><img alt="../_images/multi-var-norm-01.png" class="align-center" src="../_images/multi-var-norm-01.png" style="width: 80%;" /></a>
 <p> </p>
@@ -1289,7 +1333,7 @@ f(x,y) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/f07bc4641a8416caf5a468a2a88cba13c35ace9836cf54c81a9173962c170515.svg" src="../_images/f07bc4641a8416caf5a468a2a88cba13c35ace9836cf54c81a9173962c170515.svg" /></figure>
+<img alt="../_images/8f93a5066a512c67a02a62160fe58bd5d3c214b6dab2dba3d52b048e4d4072ef.svg" src="../_images/8f93a5066a512c67a02a62160fe58bd5d3c214b6dab2dba3d52b048e4d4072ef.svg" /></figure>
 </div>
 </div>
 <p>Notice that these contours are concentric ellipses centered at the point <span class="math notranslate nohighlight">\((1,1)\in \bbr^2\)</span> with principal axes parallel to the coordinate <span class="math notranslate nohighlight">\(x\)</span>- and <span class="math notranslate nohighlight">\(y\)</span>-axes. In higher dimensions, the isoprobability surfaces are so-called <em>ellipsoids</em>.</p>
@@ -1341,7 +1385,7 @@ f(x_1,\ldots,x_d) = \frac{1}{(2\pi)^{d/2} (\sigma_1^2\cdots \sigma_d^2)^{1/2}} \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/7b346e170ea49ba0e8267178589e192f24d787b5412e9376d748a7fc73366a56.svg" src="../_images/7b346e170ea49ba0e8267178589e192f24d787b5412e9376d748a7fc73366a56.svg" /></figure>
+<img alt="../_images/9bf3f5be99cf5ac252832d84105734c1b1bb3eae2f3240ded0e12ff9b73b2ec5.svg" src="../_images/9bf3f5be99cf5ac252832d84105734c1b1bb3eae2f3240ded0e12ff9b73b2ec5.svg" /></figure>
 </div>
 </div>
 <p>The key to uncovering the formula for the density in the general case begins by returning to the formula <a class="reference internal" href="#equation-init-multi-var-norm-eqn">(8.10)</a> and rewriting it using vector and matrix notation. Indeed, notice that if we set</p>
@@ -1356,7 +1400,7 @@ f(\bx) = \frac{1}{\det(2\pi\bSigma)^{1/2}} \exp \left[ -\frac{1}{2} (\bx - \bmu)
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\det{(2\pi\bSigma)} = (2\pi)^d \det{\bSigma}\)</span>. Indeed, by independence, the covariance matrix <span class="math notranslate nohighlight">\(\bSigma\)</span> is diagonal, with the variances <span class="math notranslate nohighlight">\(\sigma_1^2,\ldots,\sigma_d^2\)</span> along its main diagonal. We get the general formula for the density of a multivariate normal distribution by simply letting the covariance matrix <span class="math notranslate nohighlight">\(\bSigma\)</span> be a general positive definite matrix:</p>
 <div class="proof definition admonition" id="multivar-norm-def">
-<p class="admonition-title"><span class="caption-number">Definition 8.8 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 8.9 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(\bmu \in \bbr^d\)</span> and let <span class="math notranslate nohighlight">\(\bSigma\in \bbr^{d\times d}\)</span> be a positive definite matrix. A continuous <span class="math notranslate nohighlight">\(d\)</span>-dimensional random vector <span class="math notranslate nohighlight">\(\bX\)</span> is said to have a <em>multivariate normal distribution</em> with parameters <span class="math notranslate nohighlight">\(\bmu\)</span> and <span class="math notranslate nohighlight">\(\bSigma\)</span>, denoted</p>
 <div class="math notranslate nohighlight">
@@ -1440,7 +1484,7 @@ Q(\bx) = c^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/38b6c746756c311fd673180f0c31a80d002dfa92db481e873bf49a6929ee8c11.svg" src="../_images/38b6c746756c311fd673180f0c31a80d002dfa92db481e873bf49a6929ee8c11.svg" /></figure>
+<img alt="../_images/ee5481f609bfe3b433473c31de84aacf49929df4e5e3f1e821710b6221c102c1.svg" src="../_images/ee5481f609bfe3b433473c31de84aacf49929df4e5e3f1e821710b6221c102c1.svg" /></figure>
 </div>
 </div>
 <p>Let’s collect our observations in the following theorem, along with a few additional facts:</p>
@@ -1460,7 +1504,7 @@ Q(\bx) = c^2,
 <li><p>In particular, if <span class="math notranslate nohighlight">\(\bSigma\)</span> is a (positive) multiple of the identity matrix, then the isoprobability contours are concentric spheres centered at <span class="math notranslate nohighlight">\(\bmu\)</span>.</p></li>
 </ol>
 </section>
-</div><p>We have already proved the first statement; for the second, see Section 4.4 in <span id="id8">[<a class="reference internal" href="bib.html#id20" title="W. K. Härdle and L. Simar. Applied multivariate statistical analysis. Springer Nature Switzerland, fifth edition, 2019.">HardleS19</a>]</span>, for example.</p>
+</div><p>We have already proved the first statement; for the second, see Section 4.4 in <span id="id10">[<a class="reference internal" href="bib.html#id20" title="W. K. Härdle and L. Simar. Applied multivariate statistical analysis. Springer Nature Switzerland, fifth edition, 2019.">HardleS19</a>]</span>, for example.</p>
 <p>It will be useful to generalize a pair of important univariate results from <a class="reference internal" href="05-examples-of-rvs.html#norm-univariate-sec"><span class="std std-numref">Section 5.6</span></a> to the case of multivariate normal distributions. The first result is a generalization of <a class="reference internal" href="05-examples-of-rvs.html#affine-gaussian-thm">Theorem 5.7</a> that states (invertible) affine transformations of normal random variables are still normal. The same is true for normal random vectors:</p>
 <div class="proof theorem admonition" id="affine-trans-mutivar-norm-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.21 </span> (Affine transformations of normal vectors)</p>
@@ -1537,7 +1581,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 \]</div>
 <p>is a normal random variable. In this case, the parameter <span class="math notranslate nohighlight">\(\bSigma\)</span> is the covariance matrix of <span class="math notranslate nohighlight">\(\bX\)</span>, while <span class="math notranslate nohighlight">\(\bmu^\intercal = (\mu_1,\ldots,\mu_d)\)</span> with <span class="math notranslate nohighlight">\(E(X_i) = \mu_i\)</span> for each <span class="math notranslate nohighlight">\(i\)</span>.</p>
 </section>
-</div><p>We will not prove this, since the clearest proof (that I know of) makes use of <em>characteristic functions</em>. (See, for example, Chapter 5 in <span id="id9">[<a class="reference internal" href="bib.html#id21" title="A. Gut. An intermediate course in probability. Springer Science+Business Media, LLC, second edition, 2009.">Gut09</a>]</span>.)</p>
+</div><p>We will not prove this, since the clearest proof (that I know of) makes use of <em>characteristic functions</em>. (See, for example, Chapter 5 in <span id="id11">[<a class="reference internal" href="bib.html#id21" title="A. Gut. An intermediate course in probability. Springer Science+Business Media, LLC, second edition, 2009.">Gut09</a>]</span>.)</p>
 <p>At least in two dimensions, using the fact that the parameter <span class="math notranslate nohighlight">\(\bSigma\)</span> in <span class="math notranslate nohighlight">\((X,Y) \sim \calN(\bmu,\bSigma)\)</span> is the covariance matrix of <span class="math notranslate nohighlight">\((X,Y)\)</span> gives us an easy method to cook up examples of bivariate normal distributions of a specified shape. Indeed, by the theorem, we must have</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1592,7 +1636,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/7dba9d8905545574e8aecf1dffd34abb23300cabbb4a6b3993173790e3c93be3.svg" src="../_images/7dba9d8905545574e8aecf1dffd34abb23300cabbb4a6b3993173790e3c93be3.svg" /></figure>
+<img alt="../_images/3a00b8b03091438e234e1da216391a02bf003b702e845a0565f531baf2464dea.svg" src="../_images/3a00b8b03091438e234e1da216391a02bf003b702e845a0565f531baf2464dea.svg" /></figure>
 </div>
 </div>
 <p>In the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">programming assignment</a> for this chapter, you will actually implement this procedure. For example, I used these methods to simulate <span class="math notranslate nohighlight">\(1{,}000\)</span> random draws from a bivariate normal distribution with positively correlated components and which is taller than it is wide. If I plot these simulated data over top of isoprobability contours, I get this:</p>
@@ -1632,7 +1676,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/4a4095e68871ab98a17166a7af16e8ce99636ceb8c0496298094c045fe231f7d.svg" src="../_images/4a4095e68871ab98a17166a7af16e8ce99636ceb8c0496298094c045fe231f7d.svg" /></figure>
+<img alt="../_images/53f5db8e67ba994f4b8744b337d71e16e2cc69c09d07b3ee21f122575fee94ad.svg" src="../_images/53f5db8e67ba994f4b8744b337d71e16e2cc69c09d07b3ee21f122575fee94ad.svg" /></figure>
 </div>
 </div>
 </section>
