@@ -33,7 +33,7 @@ $$
 
 However, this formula is quite inconvenient to use in practice, due to the necessity of the density $f_{g(X,Y)}(z)$. We wonder if there is an alternate method to compute this expectation, one that uses the joint density $f(x,y)$. Indeed, there is! It is outlined in the following bivariate generalization of the LotUS from {prf:ref}`lotus-thm`.
 
-```{prf:theorem} Bivariate Law of the Unconscious Statistician (LoTUS)
+```{prf:theorem} Bivariate Law of the Unconscious Statistician (LotUS)
 :label: bivariate-lotus-thm
 
 Let $X$ and $Y$ be two random variables and $g:\mathbb{R}^2 \to \mathbb{R}$ a function.
@@ -51,9 +51,9 @@ Let $X$ and $Y$ be two random variables and $g:\mathbb{R}^2 \to \mathbb{R}$ a fu
     $$
 ```
 
-Though the argument in the discrete case is very similar to the one given for the univariate version of {prf:ref}`lotus-thm`, we will not give it here. See if you can work it out on your own. You can imagine that the univariate and bivariate LoTUS's are special cases of a general multivariate LoTUS that computes expecations of random variables of the form $g(X_1,\ldots,X_n)$, where each $X_i$ is a random variable and $n\geq 1$. I will leave you to imagine what the statement of this multivariate LoTUS looks like. For those who might be interested, in the most general case, all of these LoTUS's are consequences of the general [change-of-variables formula](https://en.wikipedia.org/wiki/Pushforward_measure#Main_property:_change-of-variables_formula) for Lebesgue integrals.
+Though the argument in the discrete case is very similar to the one given for the univariate version of {prf:ref}`lotus-thm`, we will not give it here. See if you can work it out on your own. You can imagine that the univariate and bivariate LotUS's are special cases of a general multivariate LotUS that computes expecations of random variables of the form $g(X_1,\ldots,X_n)$, where each $X_i$ is a random variable and $n\geq 1$. I will leave you to imagine what the statement of this multivariate LotUS looks like. For those who might be interested, in the most general case, all of these LotUS's are consequences of the general [change-of-variables formula](https://en.wikipedia.org/wiki/Pushforward_measure#Main_property:_change-of-variables_formula) for Lebesgue integrals.
 
-Our first application of the bivariate LoTUS is to show that the expectation operator is multiplicative on independent random variables:
+Our first application of the bivariate LotUS is to show that the expectation operator is multiplicative on independent random variables:
 
 ```{prf:theorem} Independence and expectations
 :label: ind-expect-thm
@@ -72,7 +72,7 @@ E(XY) &= \iint_{\mathbb{R}^2} xy f(x,y) \ \text{d} x \text{d}y \\
 \end{align*}
 ```
 
-Our second application of the bivariate LoTUS is to tie up a loose end from {numref}`linear-of-exp` and prove the full-strength version of "linearity of expectation."
+Our second application of the bivariate LotUS is to tie up a loose end from {numref}`linear-of-exp` and prove the full-strength version of "linearity of expectation."
 
 ```{prf:theorem} Linearity of Expectations
 :label: linear-exp-thm
@@ -190,7 +190,7 @@ $$
 E\big[ E(Y \mid X) \big] = \int_\bbr z f_{E(Y\mid X)}(z) \ \text{d} z.
 $$ (ah-eqn)
 
-However, this formula is of little practical value, since we would need to compute the density $f_{E(Y\mid X)}(z)$ which can be quite difficult. So, we wonder: Is there an alternate way to compute this expectation? In fact there is, and the expectation turns out to reduce to the expectation of $Y$! The key is to _not_ compute the expctation according to the definition {eq}`ah-eqn`, but rather to use the LoTUS.
+However, this formula is of little practical value, since we would need to compute the density $f_{E(Y\mid X)}(z)$ which can be quite difficult. So, we wonder: Is there an alternate way to compute this expectation? In fact there is, and the expectation turns out to reduce to the expectation of $Y$! The key is to _not_ compute the expctation according to the definition {eq}`ah-eqn`, but rather to use the LotUS.
 
 ```{margin}
 This law is also often called The Law of Iterated Expecation, among a bunch of [other names](https://en.wikipedia.org/wiki/Law_of_total_expectation).
@@ -208,7 +208,7 @@ $$
 
 ```{prf:proof}
 
-Let's consider the case that the variables are jointly continuous. Beginning with the LoTUS, we compute:
+Let's consider the case that the variables are jointly continuous. Beginning with the LotUS, we compute:
 
 \begin{align*}
 E\big[ E(Y \mid X) \big] &= \int_{\bbr} E(Y \mid X=x) f(x) \ \text{d}x \\
@@ -218,7 +218,7 @@ E\big[ E(Y \mid X) \big] &= \int_{\bbr} E(Y \mid X=x) f(x) \ \text{d}x \\
 &= E(Y).
 \end{align*}
 
-Besides the LoTUS in the first line, notice that in going from the third line to the fourth, we integrated out the dependence on $x$ of the joint density $f(x,y)$ to obtain the marginal $f(y)$. Q.E.D.
+Besides the LotUS in the first line, notice that in going from the third line to the fourth, we integrated out the dependence on $x$ of the joint density $f(x,y)$ to obtain the marginal $f(y)$. Q.E.D.
 ```
 
 ```{admonition} Problem Prompt

@@ -185,7 +185,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="11-models.html">11. Probabilistic graphical models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="12-learning.html">12. Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="13-stats-estimators.html">13. Statistics and general parameter estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-asymptotic.html">14. Large sample theory and more sampling distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-asymptotic.html">14. Large sample theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="15-CIs.html">15. Confidence intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16-hyp-test.html">16. Hypothesis testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17-lin-reg.html">17. Linear regression</a></li>
@@ -743,8 +743,8 @@ E(X) = \frac{1}{\theta} \quad \text{and} \quad V(X) = \frac{1-\theta}{\theta^2}.
 <p class="admonition-title"><span class="caption-number">Definition 5.4 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(M\geq 0\)</span> be an integer, and let <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(N\)</span> be integers with <span class="math notranslate nohighlight">\(0\leq n,N\leq M\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>hypergeometric distribution</em> with parameters <span class="math notranslate nohighlight">\(M\)</span>, <span class="math notranslate nohighlight">\(n\)</span>, and <span class="math notranslate nohighlight">\(N\)</span>, denoted</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cc2774f0-9b90-4f7a-8dd4-9d20db6d6557">
-<span class="eqno">(5.7)<a class="headerlink" href="#equation-cc2774f0-9b90-4f7a-8dd4-9d20db6d6557" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
+<div class="amsmath math notranslate nohighlight" id="equation-74e8c593-2263-437f-9ab5-7aa191eb3dfb">
+<span class="eqno">(5.7)<a class="headerlink" href="#equation-74e8c593-2263-437f-9ab5-7aa191eb3dfb" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
 Y \sim \mathcal{HG}eo(M,n,N),
 \end{equation}\]</div>
 <p>if its probability mass function is given by</p>
@@ -1032,7 +1032,7 @@ E(X) = \mu \quad \text{and} \quad V(X) = \mu.
 \[
 E(X) = \sum_{x=1}^\infty x \frac{\mu^x}{x!}e^{-\mu} = \mu\sum_{x=1}^\infty \frac{\mu^{x-1}}{(x-1)!}e^{-\mu} = \mu \sum_{x=0}^\infty \frac{\mu^x}{x!}e^{-\mu} = \mu,
 \]</div>
-<p>since <span class="math notranslate nohighlight">\(\sum_{x=0}^\infty \mu^xe^{-\mu}/x!=1\)</span>. (Why?) Deriving the formula for the variance begins with a trick using the <a class="reference internal" href="04-random-variables.html#lotus-thm">LoTUS</a>:</p>
+<p>since <span class="math notranslate nohighlight">\(\sum_{x=0}^\infty \mu^xe^{-\mu}/x!=1\)</span>. (Why?) Deriving the formula for the variance begins with a trick using the <a class="reference internal" href="04-random-variables.html#lotus-thm">LotUS</a>:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 E\left( X(X-1) \right) &amp;= \sum_{x=2}^\infty x(x-1) \frac{\mu^x}{x!}e^{-\mu} \\

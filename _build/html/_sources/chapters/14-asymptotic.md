@@ -11,6 +11,6 @@ kernelspec:
 ---
 
 (asymptotic)=
-# Large sample theory and more sampling distributions
+# Large sample theory
 
 Coming soon!

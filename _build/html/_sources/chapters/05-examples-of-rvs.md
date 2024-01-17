@@ -837,7 +837,7 @@ $$
 E(X) = \sum_{x=1}^\infty x \frac{\mu^x}{x!}e^{-\mu} = \mu\sum_{x=1}^\infty \frac{\mu^{x-1}}{(x-1)!}e^{-\mu} = \mu \sum_{x=0}^\infty \frac{\mu^x}{x!}e^{-\mu} = \mu,
 $$
 
-since $\sum_{x=0}^\infty \mu^xe^{-\mu}/x!=1$. (Why?) Deriving the formula for the variance begins with a trick using the {prf:ref}`LoTUS <lotus-thm>`:
+since $\sum_{x=0}^\infty \mu^xe^{-\mu}/x!=1$. (Why?) Deriving the formula for the variance begins with a trick using the {prf:ref}`LotUS <lotus-thm>`:
 
 \begin{align*}
 E\left( X(X-1) \right) &= \sum_{x=2}^\infty x(x-1) \frac{\mu^x}{x!}e^{-\mu} \\
