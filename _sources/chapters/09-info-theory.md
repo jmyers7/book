@@ -134,7 +134,7 @@ $$
 E_{P_X}(g(x)) = \sum_{x\in \bbr}g(x) p_X(x) = E(g(X)).
 $$
 
-Indeed, the first equality follows from the definition of $E_{P_X}(g(x))$ given above, while the second equality follows from the LoTUS. Therefore, using this new notation, we may rewrite {eq}`kl-eq` as
+Indeed, the first equality follows from the definition of $E_{P_X}(g(x))$ given above, while the second equality follows from the LotUS. Therefore, using this new notation, we may rewrite {eq}`kl-eq` as
 
 $$
 D(P \parallel Q) = E_P\left[ \log_2\left(\frac{p(s)}{q(s)}\right)\right].

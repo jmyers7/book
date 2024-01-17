@@ -185,7 +185,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="11-models.html">11. Probabilistic graphical models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="12-learning.html">12. Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="13-stats-estimators.html">13. Statistics and general parameter estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-asymptotic.html">14. Large sample theory and more sampling distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-asymptotic.html">14. Large sample theory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="15-CIs.html">15. Confidence intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16-hyp-test.html">16. Hypothesis testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17-lin-reg.html">17. Linear regression</a></li>
@@ -388,7 +388,7 @@ E(g(X,Y)) = \int_{\bbr} z f_{g(X,Y)}(z) \ \text{d}z.
 \]</div>
 <p>However, this formula is quite inconvenient to use in practice, due to the necessity of the density <span class="math notranslate nohighlight">\(f_{g(X,Y)}(z)\)</span>. We wonder if there is an alternate method to compute this expectation, one that uses the joint density <span class="math notranslate nohighlight">\(f(x,y)\)</span>. Indeed, there is! It is outlined in the following bivariate generalization of the LotUS from <a class="reference internal" href="04-random-variables.html#lotus-thm">Theorem 4.1</a>.</p>
 <div class="proof theorem admonition" id="bivariate-lotus-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.1 </span> (Bivariate Law of the Unconscious Statistician (LoTUS))</p>
+<p class="admonition-title"><span class="caption-number">Theorem 8.1 </span> (Bivariate Law of the Unconscious Statistician (LotUS))</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables and <span class="math notranslate nohighlight">\(g:\mathbb{R}^2 \to \mathbb{R}\)</span> a function.</p>
 <ol class="arabic">
@@ -406,8 +406,8 @@ E(g(X,Y)) = \int_{\bbr} z f_{g(X,Y)}(z) \ \text{d}z.
 </li>
 </ol>
 </section>
-</div><p>Though the argument in the discrete case is very similar to the one given for the univariate version of <a class="reference internal" href="04-random-variables.html#lotus-thm">Theorem 4.1</a>, we will not give it here. See if you can work it out on your own. You can imagine that the univariate and bivariate LoTUS’s are special cases of a general multivariate LoTUS that computes expecations of random variables of the form <span class="math notranslate nohighlight">\(g(X_1,\ldots,X_n)\)</span>, where each <span class="math notranslate nohighlight">\(X_i\)</span> is a random variable and <span class="math notranslate nohighlight">\(n\geq 1\)</span>. I will leave you to imagine what the statement of this multivariate LoTUS looks like. For those who might be interested, in the most general case, all of these LoTUS’s are consequences of the general <a class="reference external" href="https://en.wikipedia.org/wiki/Pushforward_measure#Main_property:_change-of-variables_formula">change-of-variables formula</a> for Lebesgue integrals.</p>
-<p>Our first application of the bivariate LoTUS is to show that the expectation operator is multiplicative on independent random variables:</p>
+</div><p>Though the argument in the discrete case is very similar to the one given for the univariate version of <a class="reference internal" href="04-random-variables.html#lotus-thm">Theorem 4.1</a>, we will not give it here. See if you can work it out on your own. You can imagine that the univariate and bivariate LotUS’s are special cases of a general multivariate LotUS that computes expecations of random variables of the form <span class="math notranslate nohighlight">\(g(X_1,\ldots,X_n)\)</span>, where each <span class="math notranslate nohighlight">\(X_i\)</span> is a random variable and <span class="math notranslate nohighlight">\(n\geq 1\)</span>. I will leave you to imagine what the statement of this multivariate LotUS looks like. For those who might be interested, in the most general case, all of these LotUS’s are consequences of the general <a class="reference external" href="https://en.wikipedia.org/wiki/Pushforward_measure#Main_property:_change-of-variables_formula">change-of-variables formula</a> for Lebesgue integrals.</p>
+<p>Our first application of the bivariate LotUS is to show that the expectation operator is multiplicative on independent random variables:</p>
 <div class="proof theorem admonition" id="ind-expect-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.2 </span> (Independence and expectations)</p>
 <section class="theorem-content" id="proof-content">
@@ -423,7 +423,7 @@ E(XY) &amp;= \iint_{\mathbb{R}^2} xy f(x,y) \ \text{d} x \text{d}y \\
 &amp;= E(X) E(Y).
 \end{align*}\]</div>
 </div>
-<p>Our second application of the bivariate LoTUS is to tie up a loose end from <a class="reference internal" href="04-random-variables.html#linear-of-exp"><span class="std std-numref">Section 4.9</span></a> and prove the full-strength version of “linearity of expectation.”</p>
+<p>Our second application of the bivariate LotUS is to tie up a loose end from <a class="reference internal" href="04-random-variables.html#linear-of-exp"><span class="std std-numref">Section 4.9</span></a> and prove the full-strength version of “linearity of expectation.”</p>
 <div class="proof theorem admonition" id="linear-exp-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.3 </span> (Linearity of Expectations)</p>
 <section class="theorem-content" id="proof-content">
@@ -511,7 +511,7 @@ E(Y \mid X) : S \xrightarrow{X} \bbr \xrightarrow{h} \bbr
 <span class="eqno">(8.3)<a class="headerlink" href="#equation-ah-eqn" title="Permalink to this equation">#</a></span>\[
 E\big[ E(Y \mid X) \big] = \int_\bbr z f_{E(Y\mid X)}(z) \ \text{d} z.
 \]</div>
-<p>However, this formula is of little practical value, since we would need to compute the density <span class="math notranslate nohighlight">\(f_{E(Y\mid X)}(z)\)</span> which can be quite difficult. So, we wonder: Is there an alternate way to compute this expectation? In fact there is, and the expectation turns out to reduce to the expectation of <span class="math notranslate nohighlight">\(Y\)</span>! The key is to <em>not</em> compute the expctation according to the definition <a class="reference internal" href="#equation-ah-eqn">(8.3)</a>, but rather to use the LoTUS.</p>
+<p>However, this formula is of little practical value, since we would need to compute the density <span class="math notranslate nohighlight">\(f_{E(Y\mid X)}(z)\)</span> which can be quite difficult. So, we wonder: Is there an alternate way to compute this expectation? In fact there is, and the expectation turns out to reduce to the expectation of <span class="math notranslate nohighlight">\(Y\)</span>! The key is to <em>not</em> compute the expctation according to the definition <a class="reference internal" href="#equation-ah-eqn">(8.3)</a>, but rather to use the LotUS.</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>This law is also often called The Law of Iterated Expecation, among a bunch of <a class="reference external" href="https://en.wikipedia.org/wiki/Law_of_total_expectation">other names</a>.</p>
@@ -526,7 +526,7 @@ E\big[ E(Y \mid X) \big] = E(Y).
 \]</div>
 </section>
 </div><div class="proof admonition" id="proof">
-<p>Proof. Let’s consider the case that the variables are jointly continuous. Beginning with the LoTUS, we compute:</p>
+<p>Proof. Let’s consider the case that the variables are jointly continuous. Beginning with the LotUS, we compute:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 E\big[ E(Y \mid X) \big] &amp;= \int_{\bbr} E(Y \mid X=x) f(x) \ \text{d}x \\
@@ -535,7 +535,7 @@ E\big[ E(Y \mid X) \big] &amp;= \int_{\bbr} E(Y \mid X=x) f(x) \ \text{d}x \\
 &amp;= \int_\bbr y f(y) \ \text{d} y \\
 &amp;= E(Y).
 \end{align*}\]</div>
-<p>Besides the LoTUS in the first line, notice that in going from the third line to the fourth, we integrated out the dependence on <span class="math notranslate nohighlight">\(x\)</span> of the joint density <span class="math notranslate nohighlight">\(f(x,y)\)</span> to obtain the marginal <span class="math notranslate nohighlight">\(f(y)\)</span>. Q.E.D.</p>
+<p>Besides the LotUS in the first line, notice that in going from the third line to the fourth, we integrated out the dependence on <span class="math notranslate nohighlight">\(x\)</span> of the joint density <span class="math notranslate nohighlight">\(f(x,y)\)</span> to obtain the marginal <span class="math notranslate nohighlight">\(f(y)\)</span>. Q.E.D.</p>
 </div>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
@@ -883,7 +883,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/07f65a5623c6953ccc6c243d23da432443ad6e3105ab567b123c41544b3642c7.svg" src="../_images/07f65a5623c6953ccc6c243d23da432443ad6e3105ab567b123c41544b3642c7.svg" /></figure>
+<img alt="../_images/405cddcd582f6ab3bbab65482e040255e2c73999c567d8ae588ae751955960b8.svg" src="../_images/405cddcd582f6ab3bbab65482e040255e2c73999c567d8ae588ae751955960b8.svg" /></figure>
 </div>
 </div>
 <p>The plot looks exactly like we would expect: A bunch of points lying on the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span>. However, very often with real-world data, an <strong>exact</strong> functional dependence <span class="math notranslate nohighlight">\(Y = h(X)\)</span> does not truly hold. Instead, the functional relationship is “noisy”, resulting in scatter plots that look like this:</p>
@@ -915,7 +915,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c45830b5aceef89a994699f759b31dac2344103d93f6d09959c12e4727187c43.svg" src="../_images/c45830b5aceef89a994699f759b31dac2344103d93f6d09959c12e4727187c43.svg" /></figure>
+<img alt="../_images/434fecb73e311c568afd1da6b5b5a9bc62a078c6795827ffc802d4bfc76b370b.svg" src="../_images/434fecb73e311c568afd1da6b5b5a9bc62a078c6795827ffc802d4bfc76b370b.svg" /></figure>
 </div>
 </div>
 <p>The “noisy” functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span> for reference. Instead of lying directly on the graph of <span class="math notranslate nohighlight">\(y=h(x)\)</span>, the data is clustered along the graph.</p>
@@ -949,7 +949,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/29e436b085c4e22ed7f2c048a83210c9c13886ad9ff7099bb24930e11ea1c7ad.svg" src="../_images/29e436b085c4e22ed7f2c048a83210c9c13886ad9ff7099bb24930e11ea1c7ad.svg" /></figure>
+<img alt="../_images/027f48a842bd7edc4271f22aef6b3bb2d487623c035f00c1b2e1699f5f107a53.svg" src="../_images/027f48a842bd7edc4271f22aef6b3bb2d487623c035f00c1b2e1699f5f107a53.svg" /></figure>
 </div>
 </div>
 <p>We have already seen scatter plots like this before! Indeed, recall Ames housing dataset from the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and the <a class="reference internal" href="07-random-vectors.html#motivation"><span class="std std-ref">beginning</span></a> of the previous chapter consisting of pairs</p>
@@ -979,7 +979,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e25adac0d1414f33ac7a060f006a05792ba725f71f3e3f905df3b53c97e059b3.svg" src="../_images/e25adac0d1414f33ac7a060f006a05792ba725f71f3e3f905df3b53c97e059b3.svg" /></figure>
+<img alt="../_images/044d8b1801b743c3c559d32ccab852c31acd7079d3a7fca2375ed4ff529dd585.svg" src="../_images/044d8b1801b743c3c559d32ccab852c31acd7079d3a7fca2375ed4ff529dd585.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -1024,7 +1024,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/42556b525ae9c141f40dc473fb9cfe238e0e6a3ce72f23ce8decad14f298485c.svg" src="../_images/42556b525ae9c141f40dc473fb9cfe238e0e6a3ce72f23ce8decad14f298485c.svg" /></figure>
+<img alt="../_images/3e799a2a6c12aa5e821eeb065466328a1fd3a0361baf45e97b1d361d64631cef.svg" src="../_images/3e799a2a6c12aa5e821eeb065466328a1fd3a0361baf45e97b1d361d64631cef.svg" /></figure>
 </div>
 </div>
 <p>You can see that the dataset has not changed its shape—it has only shifted so that its “center” is at the origin <span class="math notranslate nohighlight">\((0,0)\)</span>.</p>
@@ -1138,7 +1138,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/9648cfda34e47e2c2e839153f5f6bfd35823ed0733b0fa06c57bc42823ee9bb9.svg" src="../_images/9648cfda34e47e2c2e839153f5f6bfd35823ed0733b0fa06c57bc42823ee9bb9.svg" /></figure>
+<img alt="../_images/dcaef8e52470c6d1c9da3505ae66d6f790da7c94b71b4846c3dc78e8fc88f2c9.svg" src="../_images/dcaef8e52470c6d1c9da3505ae66d6f790da7c94b71b4846c3dc78e8fc88f2c9.svg" /></figure>
 </div>
 </div>
 <p>But according to <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>, we have</p>
@@ -1300,7 +1300,7 @@ f(x,y) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/70a7fcc24d369c25471e6eb87d07f998455256ec85dc4dd165ffc7c9efc24052.svg" src="../_images/70a7fcc24d369c25471e6eb87d07f998455256ec85dc4dd165ffc7c9efc24052.svg" /></figure>
+<img alt="../_images/5d5f55756e154aa803bf636293d584811119116ea77500056a5c185476a00f46.svg" src="../_images/5d5f55756e154aa803bf636293d584811119116ea77500056a5c185476a00f46.svg" /></figure>
 </div>
 </div>
 <p>Notice that these contours are concentric ellipses centered at the point <span class="math notranslate nohighlight">\((1,1)\in \bbr^2\)</span> with principal axes parallel to the coordinate <span class="math notranslate nohighlight">\(x\)</span>- and <span class="math notranslate nohighlight">\(y\)</span>-axes. In higher dimensions, the isoprobability surfaces are so-called <em>ellipsoids</em>.</p>
@@ -1352,7 +1352,7 @@ f(x_1,\ldots,x_d) = \frac{1}{(2\pi)^{d/2} (\sigma_1^2\cdots \sigma_d^2)^{1/2}} \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ca6918d89fce5f540c82fa9f5246a377760172c439e4d028444ce8ac2b2d0408.svg" src="../_images/ca6918d89fce5f540c82fa9f5246a377760172c439e4d028444ce8ac2b2d0408.svg" /></figure>
+<img alt="../_images/750df976396f0cef84c6dbedb92261bcf3055723091fe32a959223c41020c0ce.svg" src="../_images/750df976396f0cef84c6dbedb92261bcf3055723091fe32a959223c41020c0ce.svg" /></figure>
 </div>
 </div>
 <p>The key to uncovering the formula for the density in the general case begins by returning to the formula <a class="reference internal" href="#equation-init-multi-var-norm-eqn">(8.8)</a> and rewriting it using vector and matrix notation. Indeed, notice that if we set</p>
@@ -1451,7 +1451,7 @@ Q(\bx) = c^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/8d8cc34efd5565ad33a3522e3c1e4b87839a2c0dee7cbec14027dcf840611a9a.svg" src="../_images/8d8cc34efd5565ad33a3522e3c1e4b87839a2c0dee7cbec14027dcf840611a9a.svg" /></figure>
+<img alt="../_images/7b44d8285b83ecbb6d3e019d0bccaba05f0b30edb78319fa84c2a8447d778bd0.svg" src="../_images/7b44d8285b83ecbb6d3e019d0bccaba05f0b30edb78319fa84c2a8447d778bd0.svg" /></figure>
 </div>
 </div>
 <p>Let’s collect our observations in the following theorem, along with a few additional facts:</p>
@@ -1471,7 +1471,7 @@ Q(\bx) = c^2,
 <li><p>In particular, if <span class="math notranslate nohighlight">\(\bSigma\)</span> is a (positive) multiple of the identity matrix, then the isoprobability contours are concentric spheres centered at <span class="math notranslate nohighlight">\(\bmu\)</span>.</p></li>
 </ol>
 </section>
-</div><p>We have already proved the first statement; for the second, see Section 4.4 in <span id="id10">[<a class="reference internal" href="bib.html#id19" title="W. K. Härdle and L. Simar. Applied multivariate statistical analysis. Springer Nature Switzerland, fifth edition, 2019.">HardleS19</a>]</span>, for example.</p>
+</div><p>We have already proved the first statement; for the second, see Section 4.4 in <span id="id10">[<a class="reference internal" href="bib.html#id20" title="W. K. Härdle and L. Simar. Applied multivariate statistical analysis. Springer Nature Switzerland, fifth edition, 2019.">HardleS19</a>]</span>, for example.</p>
 <p>It will be useful to generalize a pair of important univariate results from <a class="reference internal" href="05-examples-of-rvs.html#norm-univariate-sec"><span class="std std-numref">Section 5.6</span></a> to the case of multivariate normal distributions. The first result is a generalization of <a class="reference internal" href="05-examples-of-rvs.html#affine-gaussian-thm">Theorem 5.7</a> that states (invertible) affine transformations of normal random variables are still normal. The same is true for normal random vectors:</p>
 <div class="proof theorem admonition" id="affine-trans-mutivar-norm-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.21 </span> (Affine transformations of normal vectors)</p>
@@ -1548,7 +1548,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 \]</div>
 <p>is a normal random variable. In this case, the parameter <span class="math notranslate nohighlight">\(\bSigma\)</span> is the covariance matrix of <span class="math notranslate nohighlight">\(\bX\)</span>, while <span class="math notranslate nohighlight">\(\bmu^\intercal = (\mu_1,\ldots,\mu_d)\)</span> with <span class="math notranslate nohighlight">\(E(X_i) = \mu_i\)</span> for each <span class="math notranslate nohighlight">\(i\)</span>.</p>
 </section>
-</div><p>We will not prove this, since the clearest proof (that I know of) makes use of <em>characteristic functions</em>. (See, for example, Chapter 5 in <span id="id11">[<a class="reference internal" href="bib.html#id20" title="A. Gut. An intermediate course in probability. Springer Science+Business Media, LLC, second edition, 2009.">Gut09</a>]</span>.)</p>
+</div><p>We will not prove this, since the clearest proof (that I know of) makes use of <em>characteristic functions</em>. (See, for example, Chapter 5 in <span id="id11">[<a class="reference internal" href="bib.html#id21" title="A. Gut. An intermediate course in probability. Springer Science+Business Media, LLC, second edition, 2009.">Gut09</a>]</span>.)</p>
 <p>At least in two dimensions, using the fact that the parameter <span class="math notranslate nohighlight">\(\bSigma\)</span> in <span class="math notranslate nohighlight">\((X,Y) \sim \calN(\bmu,\bSigma)\)</span> is the covariance matrix of <span class="math notranslate nohighlight">\((X,Y)\)</span> gives us an easy method to cook up examples of bivariate normal distributions of a specified shape. Indeed, by the theorem, we must have</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1603,7 +1603,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/1e935762f25f8414c986062206683bfb2de4f82b847a1f797867be72b8c9760e.svg" src="../_images/1e935762f25f8414c986062206683bfb2de4f82b847a1f797867be72b8c9760e.svg" /></figure>
+<img alt="../_images/1149c153a83acd5dba255f8c707f6b8b9b3a18d47ff84b816b6d0373c1c4f5da.svg" src="../_images/1149c153a83acd5dba255f8c707f6b8b9b3a18d47ff84b816b6d0373c1c4f5da.svg" /></figure>
 </div>
 </div>
 <p>In the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">programming assignment</a> for this chapter, you will actually implement this procedure. For example, I used these methods to simulate <span class="math notranslate nohighlight">\(1{,}000\)</span> random draws from a bivariate normal distribution with positively correlated components and which is taller than it is wide. If I plot these simulated data over top of isoprobability contours, I get this:</p>
@@ -1643,7 +1643,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0bde37a249f2547e9318fe52aff5bac016992772fd56f516b6a67ae6e1cd4719.svg" src="../_images/0bde37a249f2547e9318fe52aff5bac016992772fd56f516b6a67ae6e1cd4719.svg" /></figure>
+<img alt="../_images/b1a30dc78bdbeeb5f91ce3d40e1d2e631b7bc0df10c272dd54fe02af5eeaf2c0.svg" src="../_images/b1a30dc78bdbeeb5f91ce3d40e1d2e631b7bc0df10c272dd54fe02af5eeaf2c0.svg" /></figure>
 </div>
 </div>
 </section>
