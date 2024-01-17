@@ -61,16 +61,7 @@ Our first application of the bivariate LotUS is to show that the expectation ope
 If $X$ and $Y$ are independent random variables, then $E(XY) = E(X) E(Y)$.
 ```
 
-```{prf:proof}
-The proof follows from the bivariate LotUS and the Mass/Density Criteria for Independence stated in {prf:ref}`mass-density-ind-thm`. Here's the argument in the case that $X$ and $Y$ are jointly continuous:
-
-\begin{align*}
-E(XY) &= \iint_{\mathbb{R}^2} xy f(x,y) \ \text{d} x \text{d}y \\
-&= \iint_{\mathbb{R}^2} xy f(x)f(y) \ \text{d} x \text{d}y \\
-&= \int_{\mathbb{R}}x f(x) \ \text{d} x \int_{\mathbb{R}} y f(y) \ \text{d}y \\
-&= E(X) E(Y).
-\end{align*}
-```
+The proof is a simple computation using the LotUS; it appears in your [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/8-homework.md) for this chapter.
 
 Our second application of the bivariate LotUS is to tie up a loose end from {numref}`linear-of-exp` and prove the full-strength version of "linearity of expectation."
 

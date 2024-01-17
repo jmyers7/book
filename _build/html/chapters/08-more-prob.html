@@ -413,16 +413,7 @@ E(g(X,Y)) = \int_{\bbr} z f_{g(X,Y)}(z) \ \text{d}z.
 <section class="theorem-content" id="proof-content">
 <p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent random variables, then <span class="math notranslate nohighlight">\(E(XY) = E(X) E(Y)\)</span>.</p>
 </section>
-</div><div class="proof admonition" id="proof">
-<p>Proof. The proof follows from the bivariate LotUS and the Mass/Density Criteria for Independence stated in <a class="reference internal" href="07-random-vectors.html#mass-density-ind-thm">Theorem 7.7</a>. Here’s the argument in the case that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly continuous:</p>
-<div class="amsmath math notranslate nohighlight">
-\[\begin{align*}
-E(XY) &amp;= \iint_{\mathbb{R}^2} xy f(x,y) \ \text{d} x \text{d}y \\
-&amp;= \iint_{\mathbb{R}^2} xy f(x)f(y) \ \text{d} x \text{d}y \\
-&amp;= \int_{\mathbb{R}}x f(x) \ \text{d} x \int_{\mathbb{R}} y f(y) \ \text{d}y \\
-&amp;= E(X) E(Y).
-\end{align*}\]</div>
-</div>
+</div><p>The proof is a simple computation using the LotUS; it appears in your <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/8-homework.md">homework</a> for this chapter.</p>
 <p>Our second application of the bivariate LotUS is to tie up a loose end from <a class="reference internal" href="04-random-variables.html#linear-of-exp"><span class="std std-numref">Section 4.9</span></a> and prove the full-strength version of “linearity of expectation.”</p>
 <div class="proof theorem admonition" id="linear-exp-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.3 </span> (Linearity of Expectations)</p>
@@ -883,7 +874,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/405cddcd582f6ab3bbab65482e040255e2c73999c567d8ae588ae751955960b8.svg" src="../_images/405cddcd582f6ab3bbab65482e040255e2c73999c567d8ae588ae751955960b8.svg" /></figure>
+<img alt="../_images/4f4c16d095dd7f67b0cec3695ec0afa55761d9831dd310067a6618ae4df7c81c.svg" src="../_images/4f4c16d095dd7f67b0cec3695ec0afa55761d9831dd310067a6618ae4df7c81c.svg" /></figure>
 </div>
 </div>
 <p>The plot looks exactly like we would expect: A bunch of points lying on the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span>. However, very often with real-world data, an <strong>exact</strong> functional dependence <span class="math notranslate nohighlight">\(Y = h(X)\)</span> does not truly hold. Instead, the functional relationship is “noisy”, resulting in scatter plots that look like this:</p>
@@ -915,7 +906,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/434fecb73e311c568afd1da6b5b5a9bc62a078c6795827ffc802d4bfc76b370b.svg" src="../_images/434fecb73e311c568afd1da6b5b5a9bc62a078c6795827ffc802d4bfc76b370b.svg" /></figure>
+<img alt="../_images/907bf916fa5910c25daa59f4f6fa3097c0f954c621e1754b31e477b9cf385659.svg" src="../_images/907bf916fa5910c25daa59f4f6fa3097c0f954c621e1754b31e477b9cf385659.svg" /></figure>
 </div>
 </div>
 <p>The “noisy” functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span> for reference. Instead of lying directly on the graph of <span class="math notranslate nohighlight">\(y=h(x)\)</span>, the data is clustered along the graph.</p>
@@ -949,7 +940,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/027f48a842bd7edc4271f22aef6b3bb2d487623c035f00c1b2e1699f5f107a53.svg" src="../_images/027f48a842bd7edc4271f22aef6b3bb2d487623c035f00c1b2e1699f5f107a53.svg" /></figure>
+<img alt="../_images/d0380fd3bf82a4b7ec00629916b30c43bbf7b22316f986502c83057bf3b2e5af.svg" src="../_images/d0380fd3bf82a4b7ec00629916b30c43bbf7b22316f986502c83057bf3b2e5af.svg" /></figure>
 </div>
 </div>
 <p>We have already seen scatter plots like this before! Indeed, recall Ames housing dataset from the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and the <a class="reference internal" href="07-random-vectors.html#motivation"><span class="std std-ref">beginning</span></a> of the previous chapter consisting of pairs</p>
@@ -979,7 +970,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/044d8b1801b743c3c559d32ccab852c31acd7079d3a7fca2375ed4ff529dd585.svg" src="../_images/044d8b1801b743c3c559d32ccab852c31acd7079d3a7fca2375ed4ff529dd585.svg" /></figure>
+<img alt="../_images/4aacb4ab8378539175b22bdf3d6de0be4320c3627a983ec61564cbf6166c54ff.svg" src="../_images/4aacb4ab8378539175b22bdf3d6de0be4320c3627a983ec61564cbf6166c54ff.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -1024,7 +1015,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/3e799a2a6c12aa5e821eeb065466328a1fd3a0361baf45e97b1d361d64631cef.svg" src="../_images/3e799a2a6c12aa5e821eeb065466328a1fd3a0361baf45e97b1d361d64631cef.svg" /></figure>
+<img alt="../_images/fe586fdd6beb91cbf1919881e4ff0b5bc45a9a9a46375325b3c0443b4ceae58a.svg" src="../_images/fe586fdd6beb91cbf1919881e4ff0b5bc45a9a9a46375325b3c0443b4ceae58a.svg" /></figure>
 </div>
 </div>
 <p>You can see that the dataset has not changed its shape—it has only shifted so that its “center” is at the origin <span class="math notranslate nohighlight">\((0,0)\)</span>.</p>
@@ -1138,7 +1129,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/dcaef8e52470c6d1c9da3505ae66d6f790da7c94b71b4846c3dc78e8fc88f2c9.svg" src="../_images/dcaef8e52470c6d1c9da3505ae66d6f790da7c94b71b4846c3dc78e8fc88f2c9.svg" /></figure>
+<img alt="../_images/3eb3ba779037913cd202dabac11b69a2cf26621dfb5183e4bdc660b5f37baf23.svg" src="../_images/3eb3ba779037913cd202dabac11b69a2cf26621dfb5183e4bdc660b5f37baf23.svg" /></figure>
 </div>
 </div>
 <p>But according to <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>, we have</p>
@@ -1300,7 +1291,7 @@ f(x,y) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/5d5f55756e154aa803bf636293d584811119116ea77500056a5c185476a00f46.svg" src="../_images/5d5f55756e154aa803bf636293d584811119116ea77500056a5c185476a00f46.svg" /></figure>
+<img alt="../_images/f01cb210efb0d19cf42924a274a42f75cf06c187bb03c7a8546ba1b19c1c4674.svg" src="../_images/f01cb210efb0d19cf42924a274a42f75cf06c187bb03c7a8546ba1b19c1c4674.svg" /></figure>
 </div>
 </div>
 <p>Notice that these contours are concentric ellipses centered at the point <span class="math notranslate nohighlight">\((1,1)\in \bbr^2\)</span> with principal axes parallel to the coordinate <span class="math notranslate nohighlight">\(x\)</span>- and <span class="math notranslate nohighlight">\(y\)</span>-axes. In higher dimensions, the isoprobability surfaces are so-called <em>ellipsoids</em>.</p>
@@ -1352,7 +1343,7 @@ f(x_1,\ldots,x_d) = \frac{1}{(2\pi)^{d/2} (\sigma_1^2\cdots \sigma_d^2)^{1/2}} \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/750df976396f0cef84c6dbedb92261bcf3055723091fe32a959223c41020c0ce.svg" src="../_images/750df976396f0cef84c6dbedb92261bcf3055723091fe32a959223c41020c0ce.svg" /></figure>
+<img alt="../_images/a3dbf8ab451a508203d08a9af5efd5cbfae12305c503b5297d47d7fe49df30af.svg" src="../_images/a3dbf8ab451a508203d08a9af5efd5cbfae12305c503b5297d47d7fe49df30af.svg" /></figure>
 </div>
 </div>
 <p>The key to uncovering the formula for the density in the general case begins by returning to the formula <a class="reference internal" href="#equation-init-multi-var-norm-eqn">(8.8)</a> and rewriting it using vector and matrix notation. Indeed, notice that if we set</p>
@@ -1451,7 +1442,7 @@ Q(\bx) = c^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/7b44d8285b83ecbb6d3e019d0bccaba05f0b30edb78319fa84c2a8447d778bd0.svg" src="../_images/7b44d8285b83ecbb6d3e019d0bccaba05f0b30edb78319fa84c2a8447d778bd0.svg" /></figure>
+<img alt="../_images/c5b1e6eb5d080b620af7672336f168b93fd98de14b083c2e15a8901e5bf41926.svg" src="../_images/c5b1e6eb5d080b620af7672336f168b93fd98de14b083c2e15a8901e5bf41926.svg" /></figure>
 </div>
 </div>
 <p>Let’s collect our observations in the following theorem, along with a few additional facts:</p>
@@ -1603,7 +1594,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/1149c153a83acd5dba255f8c707f6b8b9b3a18d47ff84b816b6d0373c1c4f5da.svg" src="../_images/1149c153a83acd5dba255f8c707f6b8b9b3a18d47ff84b816b6d0373c1c4f5da.svg" /></figure>
+<img alt="../_images/b61885ea06480ef8393dba11c541d7cdcb4a04d4dc691cfd9a6d55691563f2a8.svg" src="../_images/b61885ea06480ef8393dba11c541d7cdcb4a04d4dc691cfd9a6d55691563f2a8.svg" /></figure>
 </div>
 </div>
 <p>In the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">programming assignment</a> for this chapter, you will actually implement this procedure. For example, I used these methods to simulate <span class="math notranslate nohighlight">\(1{,}000\)</span> random draws from a bivariate normal distribution with positively correlated components and which is taller than it is wide. If I plot these simulated data over top of isoprobability contours, I get this:</p>
@@ -1643,7 +1634,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/b1a30dc78bdbeeb5f91ce3d40e1d2e631b7bc0df10c272dd54fe02af5eeaf2c0.svg" src="../_images/b1a30dc78bdbeeb5f91ce3d40e1d2e631b7bc0df10c272dd54fe02af5eeaf2c0.svg" /></figure>
+<img alt="../_images/cf7ac555b8419f55a75feaef6c695b2ccdba7d978e92178b5a1b34db292b3dfc.svg" src="../_images/cf7ac555b8419f55a75feaef6c695b2ccdba7d978e92178b5a1b34db292b3dfc.svg" /></figure>
 </div>
 </div>
 </section>
