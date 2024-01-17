@@ -181,7 +181,13 @@ $$
 E\big[ E(Y \mid X) \big] = \int_\bbr z f_{E(Y\mid X)}(z) \ \text{d} z.
 $$ (ah-eqn)
 
-However, this formula is of little practical value, since we would need to compute the density $f_{E(Y\mid X)}(z)$ which can be quite difficult. So, we wonder: Is there an alternate way to compute this expectation? In fact there is, and the expectation turns out to reduce to the expectation of $Y$! The key is to _not_ compute the expctation according to the definition {eq}`ah-eqn`, but rather to use the LotUS.
+However, this formula is of little practical value, since we would need to compute the density $f_{E(Y\mid X)}(z)$ which can be quite difficult. So, we wonder: Is there an alternate way to compute this expectation? In fact there is! The key is to _not_ compute the expectation according to the definition {eq}`ah-eqn`, but rather to use the LotUS:
+
+$$
+E\big[ E(Y \mid X) \big] = \int_\bbr E(Y \mid X=x) f(x) \ \text{d}x.
+$$ (cond-lotus-eq)
+
+However, if you push through the computations beginning with {eq}`cond-lotus-eq`, you will find that the "iterated" expectation reduces to the expectation of $Y$. This is the content of:
 
 ```{margin}
 This law is also often called The Law of Iterated Expecation, among a bunch of [other names](https://en.wikipedia.org/wiki/Law_of_total_expectation).
@@ -197,9 +203,11 @@ E\big[ E(Y \mid X) \big] = E(Y).
 $$
 ```
 
+Before we begin the proof, observe that there is a problem with the interpretation of the integral {eq}`cond-lotus-eq` since it extends over _all_ $x$-values, whereas the function $E(Y\mid X=x)$ is only defined for those $x$-values for which the conditional density $f(y|x)$ exists (at least according to the conventions we use in this class). We ran into a similar problem when we discussed the Law of Total Probability in {prf:ref}`law-of-total-prob-rvs-thm`. However, we will fix this problem by declaring $E(Y\mid X=x)=0$ for those $x$-values outside the domain of the conditional expectation.
+
 ```{prf:proof}
 
-Let's consider the case that the variables are jointly continuous. Beginning with the LotUS, we compute:
+Let's consider the case that the variables are jointly continuous. Beginning from {eq}`cond-lotus-eq`, we compute
 
 \begin{align*}
 E\big[ E(Y \mid X) \big] &= \int_{\bbr} E(Y \mid X=x) f(x) \ \text{d}x \\
