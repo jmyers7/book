@@ -232,32 +232,41 @@ Do problem 4 on the worksheet.
 (fun-rvs)=
 ## Density transformations
 
-It is very often the case that one needs to compute the density of a transformed continuous random variable. Actually, we saw such a situation already in {prf:ref}`affine-gaussian-thm` where we computed the distribution of an affine transformation of a normal random variable. We proved that theorem by explicitly computing the density of the transformed random variable, but the following important result gives us a direct formula for the transformed density.
+It is very often the case that one needs to compute the density of a transformed continuous random variable. Actually, we saw such a situation already in {prf:ref}`affine-gaussian-thm` where we computed the distribution of an affine transformation of a normal random variable. We proved that theorem by explicitly computing the density of the transformed random variable. The main result in this section gives us a direct formula:
 
 ```{margin}
 
-The function $r$ is said to be _continuously differentiable_ if it is differentiable with continuous derivative.
+A function is called _continuously differentiable_ if it has a continuous derivative.
 ```
 
 ```{prf:theorem} Density Transformation Theorem
 :label: univar-density-trans-thm
 
-Let $X$ be a continuous random variable and set $Y = r(X)$, where $r: \bbr \to \bbr$ is a one-to-one, continuously differentiable function such that $r'(x) \neq 0$ for all $x\in \bbr$. If $A$ is the range of $r$ and $s:A\to \bbr$ is the inverse function $r^{-1}$, then:
+Let $X$ be a continuous random variable and let $T$ be the support of the density $f_X(x)$. Let $r:T\to \bbr$ be a function and set $Y=r(X)$. Suppose that the range $U$ of $r$ is open in $\bbr$, and that there exists a continuously differentiable function $s:U \to \bbr$ such that
 
-1. The range $A$ is an open set in $\bbr$.
+$$
+s(r(x)) = x
+$$ (inv-s-eq)
 
-2. The inverse $s$ is differentiable at all $y\in A$ and $s'(y) \neq 0$.
-    
-3. The random variable $Y$ is continuous, and we have $f_Y(y)=0$ for all $y\notin A$, while
+for all $x\in T$. Then the random variable $Y$ is continuous, and we have
 
-    $$
-    f_Y(y) = f_X(s(y)) \left| \frac{\text{d}s}{\text{d}y}(y) \right|
-    $$
+$$
+f_Y(y) = \begin{cases}
+f_X(s(y)) \left| \displaystyle\frac{\text{d}s}{\text{d}y}(y) \right| & : y\in U, \\
+0 & : \text{otherwise}.
+\end{cases}
+$$
 
-    for all $y\in A$.
 ```
 
-The statement in the first part is a mathematical technicality that you can safely ignore if you'd like. The hypotheses on the function $r$ are required in order to prove that the inverse function $s$ is differentiable via the Inverse Function Theorem, establishing the second part. We will not prove the third part here, since it will end up being a special case of the full-strength multivariate transformation theorem below (see {prf:ref}`multivar-density-trans-thm`). However, it is certainly worth pointing out that there are alternate proofs in the univariate case (see, for example, Theorem 3.8.4 in {cite}`DeGrootSchervish2014`) that avoid the heavy machinery of the Inverse Function Theorem and Change-of-Variables Formula for Multiple Integrals that we will use in {prf:ref}`multivar-density-trans-thm` below. 
+```{margin}
+
+First, a reminder for the well-informed reader: According to our definitions in this book, the _support_ of a function $f:\mathcal{X} \to \bbr$ defined on a topological space $\mathcal{X}$ is simply the set of points $x\in \mathcal{X}$ such that $f(x)\neq 0$. In particular, we are _not_ taking the closure!
+
+Then, we recall that the densities of a continuous random variable are technically defined uniquely only "almost everywhere." So, if you give me a specific density of $X$ whose support contains the range of $X$, I can trivially alter the density by setting it to $0$ on a finite set of points (say) so that its support no longer contains the range of $X$.
+```
+
+We are assuming that the support $T$ contains the range of the random variable $X$ so that the random variable $Y$ is defined; indeed, remember that $Y=r(X)$ is an abuse of notation that stands for the composite function $r\circ X$. (See the margin note directly to the right.) We will not prove the theorem, as it will end up being a special case of the generalized transformation theorem given in {prf:ref}`multivar-density-trans-thm` below. 
 
 So, let's jump straight to some problems:
 
@@ -284,7 +293,7 @@ $$
 
 ```{margin}
 
-If all the first-order partial derivatives of $s$ exist and are continuous, then $s$ is said to be _continuously differentiable_.
+If all the first-order partial derivatives of $s$ exist and are continuous, then $s$ is said to be _continuously differentiable_. If $s$ is a funtion from $\bbr$ to $\bbr$, this coincides with the definition of _continuously differentiable_ given in the margin note above.
 ```
 
 provided that the partial derivatives exist at $\by \in \bbr^m$. The Jacobian matrix is the matrix representation (with respect to the standard bases) of the _derivative_ of $s$, provided that the latter is _differentiable_. We will not talk about _differentiability_ and _derivatives_ in higher dimensions; for that, see Chapter 2 in {cite}`Spivak1965`. All we will say is that existence of the partial derivatives in the Jacobian matrix is _necessary_ for differentiability, but not _sufficient_. If, however, the partial derivatives are all continuous, then $s$ is differentiable. (See Theorem 2-8 in {cite}`Spivak1965`.)
@@ -303,57 +312,41 @@ With Jacobian matrices in hand, we now state the generalization of {prf:ref}`uni
 ```{prf:theorem} Multivariate Density Transformation Theorem
 :label: multivar-density-trans-thm
 
-Let $\bX$ be a continuous $m$-dimensional random vector with density and set $\bY = r(\bX)$, where $r:\bbr^m \to \bbr^m$ is a one-to-one, continuously differentiable function such that
+Let $\bX$ be a continuous $m$-dimensional random vector and let $T$ be the support of the density $f_\bX(\bx)$. Let $r:T \to \bbr^m$ be a function and set $\bY = r(\bX)$. Suppose that the range $U$ of $r$ is open in $\bbr^m$, and that there exists a continuously differentiable function $s:U \to \bbr^m$ such that
 
 $$
-\det \frac{\partial(r_1,\ldots,r_m)}{\partial(x_1,\ldots,x_m)}(\bx) \neq 0
+s(r(\bx)) = \bx
 $$
 
-for all $\bx \in \bbr^m$. If $A$ is the range of $r$ and $s:A\to \bbr^m$ is the inverse function $r^{-1}$, then:
+for all $\bx\in T$. Then the random vector $\bY$ is continuous, and we have
 
-1. The range $A$ is an open set in $\bbr^m$.
+$$
+f_{\bY}(\by) = \begin{cases}
+f_{\bX}(s(\by)) \left| \det\displaystyle\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| & : \by \in U, \\
+0 & : \by \notin U.
+\end{cases}
+$$
+ ```
 
-2. The inverse $s$ is differentiable at all $\by \in A$ and
-
-    $$
-    \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \neq 0.
-    $$
-
-3. The random vector $\bY$ is continuous, and we have $f_{\bY}(\by)=0$ for all $\by\notin A$, while
-
-    $$
-    f_{\bY}(\by) = f_{\bX}(s(\by)) \left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right|
-    $$
-
-    for all $\by \in A$.
-```
-
-```{margin}
-
-For the well-informed reader, remember that our notion of _support_ does _not_ include taking the topological closure of the set of points where the density does not vanish.
-```
-
-It is very often the case that the function $r$ in the statement of the theorem is _not_ defined on all of $\bbr^m$, but rather only on the support of the density $f_\bX(\bx)$. In cases where the support is open, none of the statements in the theorem are altered in any essential way.
-
-The proof uses a considerable number of tools from multivariable calculus that you might not be familiar with. If so, feel free to skip it.
+The following proof uses mathematics that you are likely not familiar with. Look through it if you want, but feel free to skip it as well.
 
 ```{prf:proof}
 
-The first and second statements follow from the Inverse Function Theorem; see Theorem 2-11 in {cite}`Spivak1965` as well as Problem 2-36. For the third statement, we let $C \subset \bbr^m$ be an event. Then
+Letting $V \subset \bbr^m$ be an open set, we compute:
 
 \begin{align*}
-P(Y\in C) &= P(X\in s(C)) \\
-&= \int_{s(C)} f_X(\bx) \ \text{d}^m\bx \\
-&= \int_C f_X(s(\by))\left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| \ \text{d}^m \by,
+P(Y\in V) &= P(X\in s(V\cap U)) \\
+&= \int_{s(V\cap U)} f_\bX(\bx) \ \text{d}^m\bx \\
+&= \int_{V\cap U} f_\bX(s(\by))\left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| \ \text{d}^m \by,
 \end{align*}
 
-where the final equality follows from the Change-of-Variables Theorem for Multiple Integrals; see Theorem 3-13 in {cite}`Spivak1965`. This shows $Y$ is continuous; moreover, since
+where the final equality follows from the Change-of-Variables Theorem for Multiple Integrals; see Theorem 3-13 in {cite}`Spivak1965`. If we then define $f_\bY(\by)$ via the formula given in the statement of the theorem, this shows
 
 $$
-P(Y\in C) = P(Y\in C\cap A)
+P(Y\in V) = \int_{V\cap U} f_\bX(s(\by))\left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| \ \text{d}^m \by = \int_V f_\bY(\by) \ \text{d}^m \by.
 $$
 
-for all events $C$, we see that a density $f_Y(\by)$ may be obtained as in the third statement of the theorem. Q.E.D.
+Since a probability measure defined on the Borel algebra of $\bbr^m$ is uniquely determined by its values on open sets, this is enough to prove that $f_\bY(\by)$ is indeed a density of $\bY$. Q.E.D.
 ```
 
 

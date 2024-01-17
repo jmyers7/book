@@ -541,28 +541,34 @@ E\big[ E(Y \mid X) \big] &amp;= \int_{\bbr} E(Y \mid X=x) f(x) \ \text{d}x \\
 </section>
 <section id="density-transformations">
 <span id="fun-rvs"></span><h2><span class="section-number">8.3. </span>Density transformations<a class="headerlink" href="#density-transformations" title="Permalink to this heading">#</a></h2>
-<p>It is very often the case that one needs to compute the density of a transformed continuous random variable. Actually, we saw such a situation already in <a class="reference internal" href="05-examples-of-rvs.html#affine-gaussian-thm">Theorem 5.7</a> where we computed the distribution of an affine transformation of a normal random variable. We proved that theorem by explicitly computing the density of the transformed random variable, but the following important result gives us a direct formula for the transformed density.</p>
+<p>It is very often the case that one needs to compute the density of a transformed continuous random variable. Actually, we saw such a situation already in <a class="reference internal" href="05-examples-of-rvs.html#affine-gaussian-thm">Theorem 5.7</a> where we computed the distribution of an affine transformation of a normal random variable. We proved that theorem by explicitly computing the density of the transformed random variable. The main result in this section gives us a direct formula:</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>The function <span class="math notranslate nohighlight">\(r\)</span> is said to be <em>continuously differentiable</em> if it is differentiable with continuous derivative.</p>
+<p>A function is called <em>continuously differentiable</em> if it has a continuous derivative.</p>
 </aside>
 <div class="proof theorem admonition" id="univar-density-trans-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.5 </span> (Density Transformation Theorem)</p>
 <section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(X\)</span> be a continuous random variable and set <span class="math notranslate nohighlight">\(Y = r(X)\)</span>, where <span class="math notranslate nohighlight">\(r: \bbr \to \bbr\)</span> is a one-to-one, continuously differentiable function such that <span class="math notranslate nohighlight">\(r'(x) \neq 0\)</span> for all <span class="math notranslate nohighlight">\(x\in \bbr\)</span>. If <span class="math notranslate nohighlight">\(A\)</span> is the range of <span class="math notranslate nohighlight">\(r\)</span> and <span class="math notranslate nohighlight">\(s:A\to \bbr\)</span> is the inverse function <span class="math notranslate nohighlight">\(r^{-1}\)</span>, then:</p>
-<ol class="arabic">
-<li><p>The range <span class="math notranslate nohighlight">\(A\)</span> is an open set in <span class="math notranslate nohighlight">\(\bbr\)</span>.</p></li>
-<li><p>The inverse <span class="math notranslate nohighlight">\(s\)</span> is differentiable at all <span class="math notranslate nohighlight">\(y\in A\)</span> and <span class="math notranslate nohighlight">\(s'(y) \neq 0\)</span>.</p></li>
-<li><p>The random variable <span class="math notranslate nohighlight">\(Y\)</span> is continuous, and we have <span class="math notranslate nohighlight">\(f_Y(y)=0\)</span> for all <span class="math notranslate nohighlight">\(y\notin A\)</span>, while</p>
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> be a continuous random variable and let <span class="math notranslate nohighlight">\(T\)</span> be the support of the density <span class="math notranslate nohighlight">\(f_X(x)\)</span>. Let <span class="math notranslate nohighlight">\(r:T\to \bbr\)</span> be a function and set <span class="math notranslate nohighlight">\(Y=r(X)\)</span>. Suppose that the range <span class="math notranslate nohighlight">\(U\)</span> of <span class="math notranslate nohighlight">\(r\)</span> is open in <span class="math notranslate nohighlight">\(\bbr\)</span>, and that there exists a continuously differentiable function <span class="math notranslate nohighlight">\(s:U \to \bbr\)</span> such that</p>
+<div class="math notranslate nohighlight" id="equation-inv-s-eq">
+<span class="eqno">(8.5)<a class="headerlink" href="#equation-inv-s-eq" title="Permalink to this equation">#</a></span>\[
+s(r(x)) = x
+\]</div>
+<p>for all <span class="math notranslate nohighlight">\(x\in T\)</span>. Then the random variable <span class="math notranslate nohighlight">\(Y\)</span> is continuous, and we have</p>
 <div class="math notranslate nohighlight">
-\[
-    f_Y(y) = f_X(s(y)) \left| \frac{\text{d}s}{\text{d}y}(y) \right|
-    \]</div>
-<p>for all <span class="math notranslate nohighlight">\(y\in A\)</span>.</p>
-</li>
-</ol>
+\[\begin{split}
+f_Y(y) = \begin{cases}
+f_X(s(y)) \left| \displaystyle\frac{\text{d}s}{\text{d}y}(y) \right| &amp; : y\in U, \\
+0 &amp; : \text{otherwise}.
+\end{cases}
+\end{split}\]</div>
 </section>
-</div><p>The statement in the first part is a mathematical technicality that you can safely ignore if you’d like. The hypotheses on the function <span class="math notranslate nohighlight">\(r\)</span> are required in order to prove that the inverse function <span class="math notranslate nohighlight">\(s\)</span> is differentiable via the Inverse Function Theorem, establishing the second part. We will not prove the third part here, since it will end up being a special case of the full-strength multivariate transformation theorem below (see <a class="reference internal" href="#multivar-density-trans-thm">Theorem 8.6</a>). However, it is certainly worth pointing out that there are alternate proofs in the univariate case (see, for example, Theorem 3.8.4 in <span id="id2">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>) that avoid the heavy machinery of the Inverse Function Theorem and Change-of-Variables Formula for Multiple Integrals that we will use in <a class="reference internal" href="#multivar-density-trans-thm">Theorem 8.6</a> below.</p>
+</div><aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>First, a reminder for the well-informed reader: According to our definitions in this book, the <em>support</em> of a function <span class="math notranslate nohighlight">\(f:\mathcal{X} \to \bbr\)</span> defined on a topological space <span class="math notranslate nohighlight">\(\mathcal{X}\)</span> is simply the set of points <span class="math notranslate nohighlight">\(x\in \mathcal{X}\)</span> such that <span class="math notranslate nohighlight">\(f(x)\neq 0\)</span>. In particular, we are <em>not</em> taking the closure!</p>
+<p>Then, we recall that the densities of a continuous random variable are technically defined uniquely only “almost everywhere.” So, if you give me a specific density of <span class="math notranslate nohighlight">\(X\)</span> whose support contains the range of <span class="math notranslate nohighlight">\(X\)</span>, I can trivially alter the density by setting it to <span class="math notranslate nohighlight">\(0\)</span> on a finite set of points (say) so that its support no longer contains the range of <span class="math notranslate nohighlight">\(X\)</span>.</p>
+</aside>
+<p>We are assuming that the support <span class="math notranslate nohighlight">\(T\)</span> contains the range of the random variable <span class="math notranslate nohighlight">\(X\)</span> so that the random variable <span class="math notranslate nohighlight">\(Y\)</span> is defined; indeed, remember that <span class="math notranslate nohighlight">\(Y=r(X)\)</span> is an abuse of notation that stands for the composite function <span class="math notranslate nohighlight">\(r\circ X\)</span>. (See the margin note directly to the right.) We will not prove the theorem, as it will end up being a special case of the generalized transformation theorem given in <a class="reference internal" href="#multivar-density-trans-thm">Theorem 8.6</a> below.</p>
 <p>So, let’s jump straight to some problems:</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
@@ -584,9 +590,9 @@ s:\bbr^n\to \bbr^m, \quad s(\by) = (s_1(\by),\ldots,s_m(\by)),
 \end{split}\]</div>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>If all the first-order partial derivatives of <span class="math notranslate nohighlight">\(s\)</span> exist and are continuous, then <span class="math notranslate nohighlight">\(s\)</span> is said to be <em>continuously differentiable</em>.</p>
+<p>If all the first-order partial derivatives of <span class="math notranslate nohighlight">\(s\)</span> exist and are continuous, then <span class="math notranslate nohighlight">\(s\)</span> is said to be <em>continuously differentiable</em>. If <span class="math notranslate nohighlight">\(s\)</span> is a funtion from <span class="math notranslate nohighlight">\(\bbr\)</span> to <span class="math notranslate nohighlight">\(\bbr\)</span>, this coincides with the definition of <em>continuously differentiable</em> given in the margin note above.</p>
 </aside>
-<p>provided that the partial derivatives exist at <span class="math notranslate nohighlight">\(\by \in \bbr^m\)</span>. The Jacobian matrix is the matrix representation (with respect to the standard bases) of the <em>derivative</em> of <span class="math notranslate nohighlight">\(s\)</span>, provided that the latter is <em>differentiable</em>. We will not talk about <em>differentiability</em> and <em>derivatives</em> in higher dimensions; for that, see Chapter 2 in <span id="id3">[<a class="reference internal" href="bib.html#id15" title="M. Spivak. Calculus on manifolds. Perseus Books Publishing, LLC, 1965.">Spi65</a>]</span>. All we will say is that existence of the partial derivatives in the Jacobian matrix is <em>necessary</em> for differentiability, but not <em>sufficient</em>. If, however, the partial derivatives are all continuous, then <span class="math notranslate nohighlight">\(s\)</span> is differentiable. (See Theorem 2-8 in <span id="id4">[<a class="reference internal" href="bib.html#id15" title="M. Spivak. Calculus on manifolds. Perseus Books Publishing, LLC, 1965.">Spi65</a>]</span>.)</p>
+<p>provided that the partial derivatives exist at <span class="math notranslate nohighlight">\(\by \in \bbr^m\)</span>. The Jacobian matrix is the matrix representation (with respect to the standard bases) of the <em>derivative</em> of <span class="math notranslate nohighlight">\(s\)</span>, provided that the latter is <em>differentiable</em>. We will not talk about <em>differentiability</em> and <em>derivatives</em> in higher dimensions; for that, see Chapter 2 in <span id="id2">[<a class="reference internal" href="bib.html#id15" title="M. Spivak. Calculus on manifolds. Perseus Books Publishing, LLC, 1965.">Spi65</a>]</span>. All we will say is that existence of the partial derivatives in the Jacobian matrix is <em>necessary</em> for differentiability, but not <em>sufficient</em>. If, however, the partial derivatives are all continuous, then <span class="math notranslate nohighlight">\(s\)</span> is differentiable. (See Theorem 2-8 in <span id="id3">[<a class="reference internal" href="bib.html#id15" title="M. Spivak. Calculus on manifolds. Perseus Books Publishing, LLC, 1965.">Spi65</a>]</span>.)</p>
 <p>The Jacobian matrix is used to define the affine <em>tangent space</em> approximation of <span class="math notranslate nohighlight">\(s\)</span> near a point of differentiability <span class="math notranslate nohighlight">\(\by^\star\)</span> via the equation</p>
 <div class="math notranslate nohighlight">
 \[
@@ -597,49 +603,35 @@ s(\by) = s(\by^\star) + \frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)
 <div class="proof theorem admonition" id="multivar-density-trans-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.6 </span> (Multivariate Density Transformation Theorem)</p>
 <section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(\bX\)</span> be a continuous <span class="math notranslate nohighlight">\(m\)</span>-dimensional random vector with density and set <span class="math notranslate nohighlight">\(\bY = r(\bX)\)</span>, where <span class="math notranslate nohighlight">\(r:\bbr^m \to \bbr^m\)</span> is a one-to-one, continuously differentiable function such that</p>
+<p>Let <span class="math notranslate nohighlight">\(\bX\)</span> be a continuous <span class="math notranslate nohighlight">\(m\)</span>-dimensional random vector and let <span class="math notranslate nohighlight">\(T\)</span> be the support of the density <span class="math notranslate nohighlight">\(f_\bX(\bx)\)</span>. Let <span class="math notranslate nohighlight">\(r:T \to \bbr^m\)</span> be a function and set <span class="math notranslate nohighlight">\(\bY = r(\bX)\)</span>. Suppose that the range <span class="math notranslate nohighlight">\(U\)</span> of <span class="math notranslate nohighlight">\(r\)</span> is open in <span class="math notranslate nohighlight">\(\bbr^m\)</span>, and that there exists a continuously differentiable function <span class="math notranslate nohighlight">\(s:U \to \bbr^m\)</span> such that</p>
 <div class="math notranslate nohighlight">
 \[
-\det \frac{\partial(r_1,\ldots,r_m)}{\partial(x_1,\ldots,x_m)}(\bx) \neq 0
+s(r(\bx)) = \bx
 \]</div>
-<p>for all <span class="math notranslate nohighlight">\(\bx \in \bbr^m\)</span>. If <span class="math notranslate nohighlight">\(A\)</span> is the range of <span class="math notranslate nohighlight">\(r\)</span> and <span class="math notranslate nohighlight">\(s:A\to \bbr^m\)</span> is the inverse function <span class="math notranslate nohighlight">\(r^{-1}\)</span>, then:</p>
-<ol class="arabic">
-<li><p>The range <span class="math notranslate nohighlight">\(A\)</span> is an open set in <span class="math notranslate nohighlight">\(\bbr^m\)</span>.</p></li>
-<li><p>The inverse <span class="math notranslate nohighlight">\(s\)</span> is differentiable at all <span class="math notranslate nohighlight">\(\by \in A\)</span> and</p>
+<p>for all <span class="math notranslate nohighlight">\(\bx\in T\)</span>. Then the random vector <span class="math notranslate nohighlight">\(\bY\)</span> is continuous, and we have</p>
 <div class="math notranslate nohighlight">
-\[
-    \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \neq 0.
-    \]</div>
-</li>
-<li><p>The random vector <span class="math notranslate nohighlight">\(\bY\)</span> is continuous, and we have <span class="math notranslate nohighlight">\(f_{\bY}(\by)=0\)</span> for all <span class="math notranslate nohighlight">\(\by\notin A\)</span>, while</p>
-<div class="math notranslate nohighlight">
-\[
-    f_{\bY}(\by) = f_{\bX}(s(\by)) \left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right|
-    \]</div>
-<p>for all <span class="math notranslate nohighlight">\(\by \in A\)</span>.</p>
-</li>
-</ol>
+\[\begin{split}
+f_{\bY}(\by) = \begin{cases}
+f_{\bX}(s(\by)) \left| \det\displaystyle\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| &amp; : \by \in U, \\
+0 &amp; : \by \notin U.
+\end{cases}
+\end{split}\]</div>
 </section>
-</div><aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<p>For the well-informed reader, remember that our notion of <em>support</em> does <em>not</em> include taking the topological closure of the set of points where the density does not vanish.</p>
-</aside>
-<p>It is very often the case that the function <span class="math notranslate nohighlight">\(r\)</span> in the statement of the theorem is <em>not</em> defined on all of <span class="math notranslate nohighlight">\(\bbr^m\)</span>, but rather only on the support of the density <span class="math notranslate nohighlight">\(f_\bX(\bx)\)</span>. In cases where the support is open, none of the statements in the theorem are altered in any essential way.</p>
-<p>The proof uses a considerable number of tools from multivariable calculus that you might not be familiar with. If so, feel free to skip it.</p>
+</div><p>The following proof uses mathematics that you are likely not familiar with. Look through it if you want, but feel free to skip it as well.</p>
 <div class="proof admonition" id="proof">
-<p>Proof. The first and second statements follow from the Inverse Function Theorem; see Theorem 2-11 in <span id="id5">[<a class="reference internal" href="bib.html#id15" title="M. Spivak. Calculus on manifolds. Perseus Books Publishing, LLC, 1965.">Spi65</a>]</span> as well as Problem 2-36. For the third statement, we let <span class="math notranslate nohighlight">\(C \subset \bbr^m\)</span> be an event. Then</p>
+<p>Proof. Letting <span class="math notranslate nohighlight">\(V \subset \bbr^m\)</span> be an open set, we compute:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
-P(Y\in C) &amp;= P(X\in s(C)) \\
-&amp;= \int_{s(C)} f_X(\bx) \ \text{d}^m\bx \\
-&amp;= \int_C f_X(s(\by))\left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| \ \text{d}^m \by,
+P(Y\in V) &amp;= P(X\in s(V\cap U)) \\
+&amp;= \int_{s(V\cap U)} f_\bX(\bx) \ \text{d}^m\bx \\
+&amp;= \int_{V\cap U} f_\bX(s(\by))\left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| \ \text{d}^m \by,
 \end{align*}\]</div>
-<p>where the final equality follows from the Change-of-Variables Theorem for Multiple Integrals; see Theorem 3-13 in <span id="id6">[<a class="reference internal" href="bib.html#id15" title="M. Spivak. Calculus on manifolds. Perseus Books Publishing, LLC, 1965.">Spi65</a>]</span>. This shows <span class="math notranslate nohighlight">\(Y\)</span> is continuous; moreover, since</p>
+<p>where the final equality follows from the Change-of-Variables Theorem for Multiple Integrals; see Theorem 3-13 in <span id="id4">[<a class="reference internal" href="bib.html#id15" title="M. Spivak. Calculus on manifolds. Perseus Books Publishing, LLC, 1965.">Spi65</a>]</span>. If we then define <span class="math notranslate nohighlight">\(f_\bY(\by)\)</span> via the formula given in the statement of the theorem, this shows</p>
 <div class="math notranslate nohighlight">
 \[
-P(Y\in C) = P(Y\in C\cap A)
+P(Y\in V) = \int_{V\cap U} f_\bX(s(\by))\left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| \ \text{d}^m \by = \int_V f_\bY(\by) \ \text{d}^m \by.
 \]</div>
-<p>for all events <span class="math notranslate nohighlight">\(C\)</span>, we see that a density <span class="math notranslate nohighlight">\(f_Y(\by)\)</span> may be obtained as in the third statement of the theorem. Q.E.D.</p>
+<p>Since a probability measure defined on the Borel algebra of <span class="math notranslate nohighlight">\(\bbr^m\)</span> is uniquely determined by its values on open sets, this is enough to prove that <span class="math notranslate nohighlight">\(f_\bY(\by)\)</span> is indeed a density of <span class="math notranslate nohighlight">\(\bY\)</span>. Q.E.D.</p>
 </div>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
@@ -660,7 +652,7 @@ P(Y\in C) = P(Y\in C\cap A)
 </div><p>Take care to notice that I am not claiming that <em>all</em> of these moments exist for <em>all</em> random variables. Notice also that the first moment of <span class="math notranslate nohighlight">\(X\)</span> is precisely its expectation, while its second central moment is its variance. The “higher moments” are more difficult to interpret. The situation with them is analogous to the “higher derivatives” of a function <span class="math notranslate nohighlight">\(y=f(x)\)</span>. I have good intuition for what the first two derivatives <span class="math notranslate nohighlight">\(f'(x)\)</span> and <span class="math notranslate nohighlight">\(f''(x)\)</span> measure, but I have much less intuition for what the thirty-first derivative <span class="math notranslate nohighlight">\(f^{(31)}(x)\)</span> measures!</p>
 <p>Actually, this analogy with derivatives can be carried further, so let’s leave the world of probability theory for a moment and return to calculus. Indeed, as you well know, if a function <span class="math notranslate nohighlight">\(y=f(x)\)</span> has derivatives of all orders at <span class="math notranslate nohighlight">\(x=0\)</span>, then we can form its Taylor series centered at <span class="math notranslate nohighlight">\(x=0\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-taylor-eqn">
-<span class="eqno">(8.5)<a class="headerlink" href="#equation-taylor-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.6)<a class="headerlink" href="#equation-taylor-eqn" title="Permalink to this equation">#</a></span>\[
 f(0) + f'(0) x + \frac{f''(0)}{2!}x^2 + \cdots = \sum_{k=0}^\infty \frac{f^{(k)}(0)}{k!}x^k.
 \]</div>
 <p>You also learned that this series may, or may <em>not</em>, converge to the original function <span class="math notranslate nohighlight">\(y=f(x)\)</span> on an open interval about <span class="math notranslate nohighlight">\(x=0\)</span>. For example, the Taylor series of <span class="math notranslate nohighlight">\(y=e^x\)</span> actually converges to <span class="math notranslate nohighlight">\(y=e^x\)</span> <em>everywhere</em>:</p>
@@ -668,7 +660,7 @@ f(0) + f'(0) x + \frac{f''(0)}{2!}x^2 + \cdots = \sum_{k=0}^\infty \frac{f^{(k)}
 \[
 e^x = \sum_{k=0}^\infty \frac{x^k}{k!}.
 \]</div>
-<p>On the other hand, <a class="reference external" href="https://en.wikipedia.org/wiki/Non-analytic_smooth_function">there exist</a> functions for which the Taylor series <a class="reference internal" href="#equation-taylor-eqn">(8.5)</a> exists and converges <em>everywhere</em>, but does <em>not</em> converge to the function on <em>any</em> open interval around <span class="math notranslate nohighlight">\(x=0\)</span>.</p>
+<p>On the other hand, <a class="reference external" href="https://en.wikipedia.org/wiki/Non-analytic_smooth_function">there exist</a> functions for which the Taylor series <a class="reference internal" href="#equation-taylor-eqn">(8.6)</a> exists and converges <em>everywhere</em>, but does <em>not</em> converge to the function on <em>any</em> open interval around <span class="math notranslate nohighlight">\(x=0\)</span>.</p>
 <div class="proof theorem admonition" id="taylor-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.7 </span> (Taylor Series Uniqueness Theorem)</p>
 <section class="theorem-content" id="proof-content">
@@ -699,7 +691,7 @@ e^x = \sum_{k=0}^\infty \frac{x^k}{k!}.
 </section>
 </div><p>Thus, the moments <span class="math notranslate nohighlight">\(E(X^k)\)</span> may be extracted from the moment generating function <span class="math notranslate nohighlight">\(\psi(t)\)</span> simply by taking derivatives and evaluating at <span class="math notranslate nohighlight">\(t=0\)</span>. In this sense, the function <span class="math notranslate nohighlight">\(\psi (t)\)</span> <em>generates</em> the moments.</p>
 <div class="proof admonition" id="proof">
-<p>Proof. Let’s prove the theorem in the case that <span class="math notranslate nohighlight">\(X\)</span> is continuous with density <span class="math notranslate nohighlight">\(f(x)\)</span>. Supposing that all the moments are finite (which I will <em>not</em> prove; see instead Theorem 4.4.2 in <span id="id7">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>) and that we can pull derivatives under integral signs, for all <span class="math notranslate nohighlight">\(k\geq 1\)</span> we have:</p>
+<p>Proof. Let’s prove the theorem in the case that <span class="math notranslate nohighlight">\(X\)</span> is continuous with density <span class="math notranslate nohighlight">\(f(x)\)</span>. Supposing that all the moments are finite (which I will <em>not</em> prove; see instead Theorem 4.4.2 in <span id="id5">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>) and that we can pull derivatives under integral signs, for all <span class="math notranslate nohighlight">\(k\geq 1\)</span> we have:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 \psi^{(k)}(0) &amp;= \frac{\text{d}^k}{\text{d}t^k} \int_\bbr e^{tx} f(x) \ \text{d}x \Bigg|_{t=0} \\
@@ -764,7 +756,7 @@ E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
 </ol>
 </section>
 </div><div class="proof admonition" id="proof">
-<p>Proof. We will only prove the second part; for the proof of the first (which isn’t hard), see Theorem 5.6.2 in <span id="id8">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>. So, we begin our computations:</p>
+<p>Proof. We will only prove the second part; for the proof of the first (which isn’t hard), see Theorem 5.6.2 in <span id="id6">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>. So, we begin our computations:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 \psi_Y(t) &amp;= E\big( e^{ta_1X_1} \cdots e^{ta_mX_m} e^{tb}\big) \\
@@ -803,7 +795,7 @@ E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
 </div><div class="proof admonition" id="proof">
 <p>Proof. In order to prove this, we need to make the (mild) assumption that there is an event <span class="math notranslate nohighlight">\(B\subset \mathbb{R}\)</span> with</p>
 <div class="math notranslate nohighlight" id="equation-middle-eqn">
-<span class="eqno">(8.6)<a class="headerlink" href="#equation-middle-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.7)<a class="headerlink" href="#equation-middle-eqn" title="Permalink to this equation">#</a></span>\[
 0&lt;P(Y\in B)&lt;1.
 \]</div>
 <p>In this case, we set <span class="math notranslate nohighlight">\(A = h^{-1}(B)^c\)</span> and observe that</p>
@@ -821,7 +813,7 @@ P(X\in A) = 1 - P(Y\in B),
 \[
 P(X\in A) P(Y\in B) = (1 - P(Y\in B))P(Y\in B) \neq 0
 \]</div>
-<p>by <a class="reference internal" href="#equation-middle-eqn">(8.6)</a>. But then</p>
+<p>by <a class="reference internal" href="#equation-middle-eqn">(8.7)</a>. But then</p>
 <div class="math notranslate nohighlight">
 \[
 P(X\in A, \ Y\in B) = 0 \neq P(X\in A) P(Y\in B),
@@ -880,7 +872,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/8eac408a8228d38609973b775289324f70d97247afd432446488fec1cad6e8d1.svg" src="../_images/8eac408a8228d38609973b775289324f70d97247afd432446488fec1cad6e8d1.svg" /></figure>
+<img alt="../_images/ed318f0af17b5886af4aa51a83b6bde3307822b79108b8ac55195e4fc8ddf340.svg" src="../_images/ed318f0af17b5886af4aa51a83b6bde3307822b79108b8ac55195e4fc8ddf340.svg" /></figure>
 </div>
 </div>
 <p>The plot looks exactly like we would expect: A bunch of points lying on the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span>. However, very often with real-world data, an <strong>exact</strong> functional dependence <span class="math notranslate nohighlight">\(Y = h(X)\)</span> does not truly hold. Instead, the functional relationship is “noisy”, resulting in scatter plots that look like this:</p>
@@ -912,7 +904,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2947d0e675fd7c9be32fcfecae4cd958ce519d714ea0f4c77f2edfe302f86f90.svg" src="../_images/2947d0e675fd7c9be32fcfecae4cd958ce519d714ea0f4c77f2edfe302f86f90.svg" /></figure>
+<img alt="../_images/2e02221309063820c56bd15570897e5c500e812ec552b84db05e8c2592069d6e.svg" src="../_images/2e02221309063820c56bd15570897e5c500e812ec552b84db05e8c2592069d6e.svg" /></figure>
 </div>
 </div>
 <p>The “noisy” functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span> for reference. Instead of lying directly on the graph of <span class="math notranslate nohighlight">\(y=h(x)\)</span>, the data is clustered along the graph.</p>
@@ -946,7 +938,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/4c1e18da4e3c2e6d0a35cb364590c3126662861277ae1852c474112761996ef0.svg" src="../_images/4c1e18da4e3c2e6d0a35cb364590c3126662861277ae1852c474112761996ef0.svg" /></figure>
+<img alt="../_images/e2bf1be39b17de601ad10ff98156ce25b18e38986cd9ad9a87fefd7a18c0b6c5.svg" src="../_images/e2bf1be39b17de601ad10ff98156ce25b18e38986cd9ad9a87fefd7a18c0b6c5.svg" /></figure>
 </div>
 </div>
 <p>We have already seen scatter plots like this before! Indeed, recall Ames housing dataset from the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and the <a class="reference internal" href="07-random-vectors.html#motivation"><span class="std std-ref">beginning</span></a> of the previous chapter consisting of pairs</p>
@@ -976,7 +968,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/4cdc0865292294c28ed1c2116857d0051f7e3d5b734030cb595a63a2a18f5e24.svg" src="../_images/4cdc0865292294c28ed1c2116857d0051f7e3d5b734030cb595a63a2a18f5e24.svg" /></figure>
+<img alt="../_images/736dd2a454609043e55f58aad3a913b19800586eb0285c82407e0d2a816950f9.svg" src="../_images/736dd2a454609043e55f58aad3a913b19800586eb0285c82407e0d2a816950f9.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -1021,7 +1013,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/6856fba415493afc7031beb89270cb71351e97246070d726b98bb44c7acaff1b.svg" src="../_images/6856fba415493afc7031beb89270cb71351e97246070d726b98bb44c7acaff1b.svg" /></figure>
+<img alt="../_images/21face5a9d5b1b3539bfcf9fed92a8d362cf429f11fb8134b3669591bdf46fec.svg" src="../_images/21face5a9d5b1b3539bfcf9fed92a8d362cf429f11fb8134b3669591bdf46fec.svg" /></figure>
 </div>
 </div>
 <p>You can see that the dataset has not changed its shape—it has only shifted so that its “center” is at the origin <span class="math notranslate nohighlight">\((0,0)\)</span>.</p>
@@ -1079,7 +1071,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 <li><p><em>Symmetry</em>. If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are random variables, then <span class="math notranslate nohighlight">\(\sigma_{XY} = \sigma_{YX}\)</span>.</p></li>
 <li><p><em>Bilinearity</em>. Let <span class="math notranslate nohighlight">\(X_1,\ldots,X_m\)</span> and <span class="math notranslate nohighlight">\(Y_1,\ldots,Y_n\)</span> be sequences of random variables, and <span class="math notranslate nohighlight">\(a_1,\ldots,a_m\)</span> and <span class="math notranslate nohighlight">\(b_1,\ldots,b_n\)</span> sequences of real numbers. Then:</p>
 <div class="math notranslate nohighlight" id="equation-bilinear-eqn">
-<span class="eqno">(8.7)<a class="headerlink" href="#equation-bilinear-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.8)<a class="headerlink" href="#equation-bilinear-eqn" title="Permalink to this equation">#</a></span>\[
     \sigma\Big( \sum_{i=1}^m a_i X_i, \sum_{j=1}^n b_j Y_j\Big) = \sum_{i=1}^m \sum_{j=1}^n a_i b_j \sigma(X_i,Y_j).
     \]</div>
 </li>
@@ -1090,7 +1082,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 \[
 \sigma\Big( \sum_{i=1}^m a_i X_i, Y\Big) = \sum_{i=1}^m a_i \sigma(X_i,Y)
 \]</div>
-<p>by induction on <span class="math notranslate nohighlight">\(m\)</span>. Then, use this special case and symmetry to obtain the general result <a class="reference internal" href="#equation-bilinear-eqn">(8.7)</a>.</p>
+<p>by induction on <span class="math notranslate nohighlight">\(m\)</span>. Then, use this special case and symmetry to obtain the general result <a class="reference internal" href="#equation-bilinear-eqn">(8.8)</a>.</p>
 <p>Bilinearity of covariance allows us to generalize <a class="reference internal" href="04-random-variables.html#var-affine-thm">Theorem 4.6</a> on the variance of an affine transformation of a random variable:</p>
 <div class="proof theorem admonition" id="variance-lin-combo-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.15 </span> (Variance of a linear combination)</p>
@@ -1135,7 +1127,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e02c73e50ee817523678389a286de83ebd5084b041d847b928382891defbfdfd.svg" src="../_images/e02c73e50ee817523678389a286de83ebd5084b041d847b928382891defbfdfd.svg" /></figure>
+<img alt="../_images/5f8eda3764d12ccb1785cfc49563f540762b077fca25ea965059c992834b5dc0.svg" src="../_images/5f8eda3764d12ccb1785cfc49563f540762b077fca25ea965059c992834b5dc0.svg" /></figure>
 </div>
 </div>
 <p>But according to <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>, we have</p>
@@ -1173,7 +1165,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 <li><p><em>Normalization</em>. We have <span class="math notranslate nohighlight">\(|\rho(X,Y)| \leq 1\)</span>.</p></li>
 </ol>
 </section>
-</div><p>The symmetry property of correlation follows from the same property of covariance in <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>. Scale invariance follows from bilinearity of covariance, as well as the equality <span class="math notranslate nohighlight">\(\sigma_{aX} = |a| \sigma_X\)</span> established in <a class="reference internal" href="04-random-variables.html#var-affine-thm">Theorem 4.6</a> (or its generalization <a class="reference internal" href="#variance-lin-combo-thm">Theorem 8.15</a>). The proof of normalization is a bit more involved but still not very difficult. It requires the Cauchy-Schwarz inequality; see the proof in Section 4.6 of <span id="id9">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>, for example.</p>
+</div><p>The symmetry property of correlation follows from the same property of covariance in <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>. Scale invariance follows from bilinearity of covariance, as well as the equality <span class="math notranslate nohighlight">\(\sigma_{aX} = |a| \sigma_X\)</span> established in <a class="reference internal" href="04-random-variables.html#var-affine-thm">Theorem 4.6</a> (or its generalization <a class="reference internal" href="#variance-lin-combo-thm">Theorem 8.15</a>). The proof of normalization is a bit more involved but still not very difficult. It requires the Cauchy-Schwarz inequality; see the proof in Section 4.6 of <span id="id7">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span>, for example.</p>
 <p>Remember, covariance and correlation were cooked up to measure linear dependencies between random variables. We wonder, then, what is the correlation between two random variables that are <em>perfectly</em> linearly dependent? Answer:</p>
 <div class="proof theorem admonition" id="linearity-correlation-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.17 </span></p>
@@ -1242,12 +1234,12 @@ f(x,y) = \begin{cases}
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(\bX = (X_1,\ldots,X_d)\)</span> be a <span class="math notranslate nohighlight">\(d\)</span>-dimensional random vector. The covariance matrix <span class="math notranslate nohighlight">\(\bSigma = \bSigma_\bX\)</span> is <em>positive semidefinite</em>, in the sense that</p>
 <div class="math notranslate nohighlight" id="equation-pos-def-covar-eq">
-<span class="eqno">(8.8)<a class="headerlink" href="#equation-pos-def-covar-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.9)<a class="headerlink" href="#equation-pos-def-covar-eq" title="Permalink to this equation">#</a></span>\[
 \bz^\intercal \bSigma \bz\geq 0
 \]</div>
-<p>for all <span class="math notranslate nohighlight">\(\bz \in \bbr^d\)</span>. Moreover, we have equality in <a class="reference internal" href="#equation-pos-def-covar-eq">(8.8)</a> if and only if the random variable <span class="math notranslate nohighlight">\(\bz^\intercal \bX\)</span> is (almost surely) constant.</p>
+<p>for all <span class="math notranslate nohighlight">\(\bz \in \bbr^d\)</span>. Moreover, we have equality in <a class="reference internal" href="#equation-pos-def-covar-eq">(8.9)</a> if and only if the random variable <span class="math notranslate nohighlight">\(\bz^\intercal \bX\)</span> is (almost surely) constant.</p>
 </section>
-</div><p>In the case that strict inequality holds in <a class="reference internal" href="#equation-pos-def-covar-eq">(8.8)</a> for all nonzero <span class="math notranslate nohighlight">\(\bz\in \bbr^d\)</span>, we say the matrix <span class="math notranslate nohighlight">\(\bSigma\)</span> is <em>positive definite</em>; see also <a class="reference internal" href="10-optim.html#definite-def">Definition 10.3</a>.</p>
+</div><p>In the case that strict inequality holds in <a class="reference internal" href="#equation-pos-def-covar-eq">(8.9)</a> for all nonzero <span class="math notranslate nohighlight">\(\bz\in \bbr^d\)</span>, we say the matrix <span class="math notranslate nohighlight">\(\bSigma\)</span> is <em>positive definite</em>; see also <a class="reference internal" href="10-optim.html#definite-def">Definition 10.3</a>.</p>
 <div class="proof admonition" id="proof">
 <p>Proof. Using bilinearity of covariance (in the form of <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>), we compute</p>
 <div class="math notranslate nohighlight">
@@ -1297,7 +1289,7 @@ f(x,y) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e52caf040d51c0b5395a54a04f3bec0147f9cc3bc44744a994981e0c263ee2ec.svg" src="../_images/e52caf040d51c0b5395a54a04f3bec0147f9cc3bc44744a994981e0c263ee2ec.svg" /></figure>
+<img alt="../_images/f07bc4641a8416caf5a468a2a88cba13c35ace9836cf54c81a9173962c170515.svg" src="../_images/f07bc4641a8416caf5a468a2a88cba13c35ace9836cf54c81a9173962c170515.svg" /></figure>
 </div>
 </div>
 <p>Notice that these contours are concentric ellipses centered at the point <span class="math notranslate nohighlight">\((1,1)\in \bbr^2\)</span> with principal axes parallel to the coordinate <span class="math notranslate nohighlight">\(x\)</span>- and <span class="math notranslate nohighlight">\(y\)</span>-axes. In higher dimensions, the isoprobability surfaces are so-called <em>ellipsoids</em>.</p>
@@ -1308,7 +1300,7 @@ f(x_1,\ldots,x_d) = \prod_{i=1}^d \frac{1}{\sqrt{2\pi \sigma_i^2}} \exp \left[ -
 \]</div>
 <p>or</p>
 <div class="math notranslate nohighlight" id="equation-init-multi-var-norm-eqn">
-<span class="eqno">(8.9)<a class="headerlink" href="#equation-init-multi-var-norm-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.10)<a class="headerlink" href="#equation-init-multi-var-norm-eqn" title="Permalink to this equation">#</a></span>\[
 f(x_1,\ldots,x_d) = \frac{1}{(2\pi)^{d/2} (\sigma_1^2\cdots \sigma_d^2)^{1/2}} \exp \left[- \frac{1}{2} \sum_{i=1}^d \frac{(x_i-\mu_i)^2}{\sigma_i^2} \right].
 \]</div>
 <p>As you may easily check by creating your own plots, this formula (in dimension <span class="math notranslate nohighlight">\(d=2\)</span>) produces “bell surfaces” like the one shown above whose contours are concentric ellipses centered at <span class="math notranslate nohighlight">\((\mu_1,\mu_2)\in \bbr^2\)</span> with their principal axes parallel with the coordinate axes. However, we shall also be interested in creating density surfaces whose isoprobability contours are rotated ellipses, like the following:</p>
@@ -1349,10 +1341,10 @@ f(x_1,\ldots,x_d) = \frac{1}{(2\pi)^{d/2} (\sigma_1^2\cdots \sigma_d^2)^{1/2}} \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c6aa51e5627c2a358996f387898e3c14e7c54db3aea56fe3f041c0154f1ddf2c.svg" src="../_images/c6aa51e5627c2a358996f387898e3c14e7c54db3aea56fe3f041c0154f1ddf2c.svg" /></figure>
+<img alt="../_images/7b346e170ea49ba0e8267178589e192f24d787b5412e9376d748a7fc73366a56.svg" src="../_images/7b346e170ea49ba0e8267178589e192f24d787b5412e9376d748a7fc73366a56.svg" /></figure>
 </div>
 </div>
-<p>The key to uncovering the formula for the density in the general case begins by returning to the formula <a class="reference internal" href="#equation-init-multi-var-norm-eqn">(8.9)</a> and rewriting it using vector and matrix notation. Indeed, notice that if we set</p>
+<p>The key to uncovering the formula for the density in the general case begins by returning to the formula <a class="reference internal" href="#equation-init-multi-var-norm-eqn">(8.10)</a> and rewriting it using vector and matrix notation. Indeed, notice that if we set</p>
 <div class="math notranslate nohighlight">
 \[
 \bx^\intercal = (x_1,\ldots,x_d) \quad \text{and} \quad \bmu^\intercal = (\mu_1,\ldots,\mu_d)
@@ -1373,15 +1365,15 @@ f(\bx) = \frac{1}{\det(2\pi\bSigma)^{1/2}} \exp \left[ -\frac{1}{2} (\bx - \bmu)
 \]</div>
 <p>if its probability density function is given by</p>
 <div class="math notranslate nohighlight" id="equation-multivar-norm-eqn">
-<span class="eqno">(8.10)<a class="headerlink" href="#equation-multivar-norm-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.11)<a class="headerlink" href="#equation-multivar-norm-eqn" title="Permalink to this equation">#</a></span>\[
 f(\bx;\bmu,\bSigma) = \frac{1}{\det(2\pi\bSigma)^{1/2}} \exp \left[ -\frac{1}{2} (\bx - \bmu)^\intercal \bSigma^{-1}(\bx - \bmu)\right]
 \]</div>
 <p>with support <span class="math notranslate nohighlight">\(\bbr^d\)</span>. The <em>standard (<span class="math notranslate nohighlight">\(d\)</span>-dimensional) multivariate normal distribution</em> corresponds to the case that <span class="math notranslate nohighlight">\(\bmu^\intercal = \boldsymbol{0}\)</span> and <span class="math notranslate nohighlight">\(\bSigma = \mathbf{I}\)</span>, where <span class="math notranslate nohighlight">\(\boldsymbol{0}\)</span> is the <span class="math notranslate nohighlight">\(d\)</span>-dimensional zero vector and <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> is the <span class="math notranslate nohighlight">\(d\times d\)</span> identity matrix.</p>
 </section>
-</div><p>One characterization of the class of positive definite matrices is that it consists of all symmetric matrices whose eigenvalues are real and positive. Since the determinant of a square matrix is the product of its eigenvalues, it follows that the determinant of <span class="math notranslate nohighlight">\(\bSigma\)</span> in <a class="reference internal" href="#equation-multivar-norm-eqn">(8.10)</a> is positive. This shows that the square root <span class="math notranslate nohighlight">\(\det(2\pi \bSigma)^{1/2}\)</span> is defined and that the inverse <span class="math notranslate nohighlight">\(\bSigma^{-1}\)</span> exists.</p>
-<p>To help understand the shape of the density (hyper)surfaces created by <a class="reference internal" href="#equation-multivar-norm-eqn">(8.10)</a>, it helps to ignore the normalizing constant and write</p>
+</div><p>One characterization of the class of positive definite matrices is that it consists of all symmetric matrices whose eigenvalues are real and positive. Since the determinant of a square matrix is the product of its eigenvalues, it follows that the determinant of <span class="math notranslate nohighlight">\(\bSigma\)</span> in <a class="reference internal" href="#equation-multivar-norm-eqn">(8.11)</a> is positive. This shows that the square root <span class="math notranslate nohighlight">\(\det(2\pi \bSigma)^{1/2}\)</span> is defined and that the inverse <span class="math notranslate nohighlight">\(\bSigma^{-1}\)</span> exists.</p>
+<p>To help understand the shape of the density (hyper)surfaces created by <a class="reference internal" href="#equation-multivar-norm-eqn">(8.11)</a>, it helps to ignore the normalizing constant and write</p>
 <div class="math notranslate nohighlight" id="equation-prop-exp-density-eq">
-<span class="eqno">(8.11)<a class="headerlink" href="#equation-prop-exp-density-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.12)<a class="headerlink" href="#equation-prop-exp-density-eq" title="Permalink to this equation">#</a></span>\[
 f(\bx;\bmu,\bSigma) \propto \exp \left[ -\frac{1}{2} Q(\bx)\right],
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(Q(\bx)\)</span> is the (inhomogeneous) degree-<span class="math notranslate nohighlight">\(2\)</span> polynomial</p>
@@ -1389,7 +1381,7 @@ f(\bx;\bmu,\bSigma) \propto \exp \left[ -\frac{1}{2} Q(\bx)\right],
 \[
 Q(\bx) = (\bx - \bmu)^\intercal \bSigma^{-1}(\bx - \bmu).
 \]</div>
-<p>Note that since <span class="math notranslate nohighlight">\(\bSigma\)</span> is positive definite, so too is its inverse <span class="math notranslate nohighlight">\(\bSigma^{-1}\)</span> since it is symmetric and has real, positive eigenvalues (can you prove this?). Thus, in the argument to the exponential function in <a class="reference internal" href="#equation-prop-exp-density-eq">(8.11)</a>, we have <span class="math notranslate nohighlight">\(-\frac{1}{2}Q(\bmu)=0\)</span>, while <span class="math notranslate nohighlight">\(-\frac{1}{2}Q(\bx) &lt; 0\)</span> for all other vectors <span class="math notranslate nohighlight">\(\bx \in \bbr^d\)</span> different from <span class="math notranslate nohighlight">\(\bmu\)</span>. But since the exponential function <span class="math notranslate nohighlight">\(z\mapsto e^z\)</span> is strictly increasing over the interval <span class="math notranslate nohighlight">\((-\infty,0]\)</span> with a global maximum at <span class="math notranslate nohighlight">\(z=0\)</span>, we see that the density <span class="math notranslate nohighlight">\(f(\bx;\bmu,\bSigma)\)</span> has a global maximum at <span class="math notranslate nohighlight">\(\bx = \bmu\)</span>.</p>
+<p>Note that since <span class="math notranslate nohighlight">\(\bSigma\)</span> is positive definite, so too is its inverse <span class="math notranslate nohighlight">\(\bSigma^{-1}\)</span> since it is symmetric and has real, positive eigenvalues (can you prove this?). Thus, in the argument to the exponential function in <a class="reference internal" href="#equation-prop-exp-density-eq">(8.12)</a>, we have <span class="math notranslate nohighlight">\(-\frac{1}{2}Q(\bmu)=0\)</span>, while <span class="math notranslate nohighlight">\(-\frac{1}{2}Q(\bx) &lt; 0\)</span> for all other vectors <span class="math notranslate nohighlight">\(\bx \in \bbr^d\)</span> different from <span class="math notranslate nohighlight">\(\bmu\)</span>. But since the exponential function <span class="math notranslate nohighlight">\(z\mapsto e^z\)</span> is strictly increasing over the interval <span class="math notranslate nohighlight">\((-\infty,0]\)</span> with a global maximum at <span class="math notranslate nohighlight">\(z=0\)</span>, we see that the density <span class="math notranslate nohighlight">\(f(\bx;\bmu,\bSigma)\)</span> has a global maximum at <span class="math notranslate nohighlight">\(\bx = \bmu\)</span>.</p>
 <p>The isoprobability contours of <span class="math notranslate nohighlight">\(f(\bx;\bmu,\bSigma)\)</span> are the sets of solutions <span class="math notranslate nohighlight">\(\bx\)</span> to equations of the form</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1397,22 +1389,22 @@ Q(\bx) = (\bx - \bmu)^\intercal \bSigma^{-1}(\bx - \bmu).
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(c\)</span> is a constant with <span class="math notranslate nohighlight">\(0 &lt; c \leq 1\)</span>. Or, equivalently, they are the sets of solutions to equations of the form</p>
 <div class="math notranslate nohighlight" id="equation-mahalanobis-sphere-eq">
-<span class="eqno">(8.12)<a class="headerlink" href="#equation-mahalanobis-sphere-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.13)<a class="headerlink" href="#equation-mahalanobis-sphere-eq" title="Permalink to this equation">#</a></span>\[
 Q(\bx) = c^2,
 \]</div>
 <p>where now <span class="math notranslate nohighlight">\(c\)</span> is any real constant. Suppose that we then define the scalar product</p>
 <div class="math notranslate nohighlight" id="equation-inner-prod-eqn">
-<span class="eqno">(8.13)<a class="headerlink" href="#equation-inner-prod-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.14)<a class="headerlink" href="#equation-inner-prod-eqn" title="Permalink to this equation">#</a></span>\[
 \left\langle \bx, \by \right\rangle_\bSigma = \bx^\intercal \bSigma^{-1}\by, \quad \bx,\by\in \bbr^d.
 \]</div>
 <p>Since <span class="math notranslate nohighlight">\(\bSigma^{-1}\)</span> is positive definite, this is in fact an <a class="reference external" href="https://en.wikipedia.org/wiki/Inner_product_space">inner product</a> on <span class="math notranslate nohighlight">\(\bbr^d\)</span>. The associated norm is given by</p>
 <div class="math notranslate nohighlight" id="equation-normed-eqn">
-<span class="eqno">(8.14)<a class="headerlink" href="#equation-normed-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.15)<a class="headerlink" href="#equation-normed-eqn" title="Permalink to this equation">#</a></span>\[
 ||\bx||^2_\bSigma = \bx^\intercal \bSigma^{-1} \bx,
 \]</div>
-<p>and hence the square root <span class="math notranslate nohighlight">\(\sqrt{Q(\bx)} = ||\bx - \bmu||_\bSigma\)</span> is the distance from <span class="math notranslate nohighlight">\(\bx\)</span> to <span class="math notranslate nohighlight">\(\bmu\)</span> in this normed space. This distance is called the <a class="reference external" href="https://en.wikipedia.org/wiki/Mahalanobis_distance"><em>Mahalanobis distance</em></a>, and it then follows that the isoprobability contours defined by <a class="reference internal" href="#equation-mahalanobis-sphere-eq">(8.12)</a> are exactly the “Mahalanobis spheres” of radius <span class="math notranslate nohighlight">\(c\)</span>. In the case that <span class="math notranslate nohighlight">\(d=2\)</span> and</p>
+<p>and hence the square root <span class="math notranslate nohighlight">\(\sqrt{Q(\bx)} = ||\bx - \bmu||_\bSigma\)</span> is the distance from <span class="math notranslate nohighlight">\(\bx\)</span> to <span class="math notranslate nohighlight">\(\bmu\)</span> in this normed space. This distance is called the <a class="reference external" href="https://en.wikipedia.org/wiki/Mahalanobis_distance"><em>Mahalanobis distance</em></a>, and it then follows that the isoprobability contours defined by <a class="reference internal" href="#equation-mahalanobis-sphere-eq">(8.13)</a> are exactly the “Mahalanobis spheres” of radius <span class="math notranslate nohighlight">\(c\)</span>. In the case that <span class="math notranslate nohighlight">\(d=2\)</span> and</p>
 <div class="math notranslate nohighlight" id="equation-multivar-norm-ex-eq">
-<span class="eqno">(8.15)<a class="headerlink" href="#equation-multivar-norm-ex-eq" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(8.16)<a class="headerlink" href="#equation-multivar-norm-ex-eq" title="Permalink to this equation">#</a></span>\[\begin{split}
 \bu = \begin{bmatrix} 1 \\ 1 \end{bmatrix}, \quad \bSigma = \begin{bmatrix}
 1 &amp; 1 \\ 1 &amp; 4
 \end{bmatrix},
@@ -1448,7 +1440,7 @@ Q(\bx) = c^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0955cede17c443e8e6fcf86e4ad031579255acf43173910cc88473d5ceb206eb.svg" src="../_images/0955cede17c443e8e6fcf86e4ad031579255acf43173910cc88473d5ceb206eb.svg" /></figure>
+<img alt="../_images/38b6c746756c311fd673180f0c31a80d002dfa92db481e873bf49a6929ee8c11.svg" src="../_images/38b6c746756c311fd673180f0c31a80d002dfa92db481e873bf49a6929ee8c11.svg" /></figure>
 </div>
 </div>
 <p>Let’s collect our observations in the following theorem, along with a few additional facts:</p>
@@ -1459,16 +1451,16 @@ Q(\bx) = c^2,
 <ol class="arabic">
 <li><p>The isoprobability contours of the density function <span class="math notranslate nohighlight">\(f(\bx;\bmu,\bSigma)\)</span> are concentric ellipsoids centered at <span class="math notranslate nohighlight">\(\bmu\)</span> defined by equations</p>
 <div class="math notranslate nohighlight" id="equation-mahalanobis-sphere-02-eq">
-<span class="eqno">(8.16)<a class="headerlink" href="#equation-mahalanobis-sphere-02-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.17)<a class="headerlink" href="#equation-mahalanobis-sphere-02-eq" title="Permalink to this equation">#</a></span>\[
     Q(\bx) = c^2
     \]</div>
 <p>for fixed <span class="math notranslate nohighlight">\(c\in \bbr\)</span>.</p>
 </li>
-<li><p>For <span class="math notranslate nohighlight">\(c\neq 0\)</span>, the principal axes of the ellipsoid defined by <a class="reference internal" href="#equation-mahalanobis-sphere-02-eq">(8.16)</a> point along the eigenvectors of the matrix <span class="math notranslate nohighlight">\(\bSigma\)</span>. The half-lengths of the principal axes are given by <span class="math notranslate nohighlight">\(|c|\sqrt{\lambda_i}\)</span>, where <span class="math notranslate nohighlight">\(\lambda_1,\ldots,\lambda_d\)</span> are the eigenvalues of <span class="math notranslate nohighlight">\(\bSigma\)</span>.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\(c\neq 0\)</span>, the principal axes of the ellipsoid defined by <a class="reference internal" href="#equation-mahalanobis-sphere-02-eq">(8.17)</a> point along the eigenvectors of the matrix <span class="math notranslate nohighlight">\(\bSigma\)</span>. The half-lengths of the principal axes are given by <span class="math notranslate nohighlight">\(|c|\sqrt{\lambda_i}\)</span>, where <span class="math notranslate nohighlight">\(\lambda_1,\ldots,\lambda_d\)</span> are the eigenvalues of <span class="math notranslate nohighlight">\(\bSigma\)</span>.</p></li>
 <li><p>In particular, if <span class="math notranslate nohighlight">\(\bSigma\)</span> is a (positive) multiple of the identity matrix, then the isoprobability contours are concentric spheres centered at <span class="math notranslate nohighlight">\(\bmu\)</span>.</p></li>
 </ol>
 </section>
-</div><p>We have already proved the first statement; for the second, see Section 4.4 in <span id="id10">[<a class="reference internal" href="bib.html#id20" title="W. K. Härdle and L. Simar. Applied multivariate statistical analysis. Springer Nature Switzerland, fifth edition, 2019.">HardleS19</a>]</span>, for example.</p>
+</div><p>We have already proved the first statement; for the second, see Section 4.4 in <span id="id8">[<a class="reference internal" href="bib.html#id20" title="W. K. Härdle and L. Simar. Applied multivariate statistical analysis. Springer Nature Switzerland, fifth edition, 2019.">HardleS19</a>]</span>, for example.</p>
 <p>It will be useful to generalize a pair of important univariate results from <a class="reference internal" href="05-examples-of-rvs.html#norm-univariate-sec"><span class="std std-numref">Section 5.6</span></a> to the case of multivariate normal distributions. The first result is a generalization of <a class="reference internal" href="05-examples-of-rvs.html#affine-gaussian-thm">Theorem 5.7</a> that states (invertible) affine transformations of normal random variables are still normal. The same is true for normal random vectors:</p>
 <div class="proof theorem admonition" id="affine-trans-mutivar-norm-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.21 </span> (Affine transformations of normal vectors)</p>
@@ -1514,7 +1506,7 @@ f_\bY(\by) &amp;= \frac{1}{\det(2\pi \bA\bSigma\bA^\intercal)^{1/2}} \exp \left[
 </div><div class="proof admonition" id="proof">
 <p>Proof. By <a class="reference internal" href="#standardize-multivar-cor">Corollary 8.1</a>, the random vector <span class="math notranslate nohighlight">\(\bZ = \bSigma^{-1/2}(\bX - \bmu)\)</span> is a <span class="math notranslate nohighlight">\(d\)</span>-dimensional standard normal vector. It is not difficult to show that the components of <span class="math notranslate nohighlight">\(\bZ\)</span> are all standard normal variables:</p>
 <div class="math notranslate nohighlight" id="equation-z-comp-norm-eq">
-<span class="eqno">(8.17)<a class="headerlink" href="#equation-z-comp-norm-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.18)<a class="headerlink" href="#equation-z-comp-norm-eq" title="Permalink to this equation">#</a></span>\[
 Z_1,\ldots,Z_d\sim \calN(0,1).
 \]</div>
 <p>But <span class="math notranslate nohighlight">\(\bX = \bSigma^{1/2} \bZ + \bmu\)</span>, and so</p>
@@ -1522,7 +1514,7 @@ Z_1,\ldots,Z_d\sim \calN(0,1).
 \[
 X_i = \sum_{j=1}^d \omega_{ij} Z_j + \mu_i
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\bSigma^{1/2} = [\omega_{ij}]_{ij}\)</span>. Now apply <a class="reference internal" href="#mgf-norm-thm">Theorem 8.10</a> and use <a class="reference internal" href="#equation-z-comp-norm-eq">(8.17)</a> to conclude that</p>
+<p>where <span class="math notranslate nohighlight">\(\bSigma^{1/2} = [\omega_{ij}]_{ij}\)</span>. Now apply <a class="reference internal" href="#mgf-norm-thm">Theorem 8.10</a> and use <a class="reference internal" href="#equation-z-comp-norm-eq">(8.18)</a> to conclude that</p>
 <div class="math notranslate nohighlight">
 \[
 X_i \sim \calN\left(\mu_i, \sum_{j=1}^d \omega_{ij}^2 \right).
@@ -1545,7 +1537,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 \]</div>
 <p>is a normal random variable. In this case, the parameter <span class="math notranslate nohighlight">\(\bSigma\)</span> is the covariance matrix of <span class="math notranslate nohighlight">\(\bX\)</span>, while <span class="math notranslate nohighlight">\(\bmu^\intercal = (\mu_1,\ldots,\mu_d)\)</span> with <span class="math notranslate nohighlight">\(E(X_i) = \mu_i\)</span> for each <span class="math notranslate nohighlight">\(i\)</span>.</p>
 </section>
-</div><p>We will not prove this, since the clearest proof (that I know of) makes use of <em>characteristic functions</em>. (See, for example, Chapter 5 in <span id="id11">[<a class="reference internal" href="bib.html#id21" title="A. Gut. An intermediate course in probability. Springer Science+Business Media, LLC, second edition, 2009.">Gut09</a>]</span>.)</p>
+</div><p>We will not prove this, since the clearest proof (that I know of) makes use of <em>characteristic functions</em>. (See, for example, Chapter 5 in <span id="id9">[<a class="reference internal" href="bib.html#id21" title="A. Gut. An intermediate course in probability. Springer Science+Business Media, LLC, second edition, 2009.">Gut09</a>]</span>.)</p>
 <p>At least in two dimensions, using the fact that the parameter <span class="math notranslate nohighlight">\(\bSigma\)</span> in <span class="math notranslate nohighlight">\((X,Y) \sim \calN(\bmu,\bSigma)\)</span> is the covariance matrix of <span class="math notranslate nohighlight">\((X,Y)\)</span> gives us an easy method to cook up examples of bivariate normal distributions of a specified shape. Indeed, by the theorem, we must have</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1600,7 +1592,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/76dbe168697c4cfaa882b38f4a5222ee552fd9a29b3d8355ea8594b9904f7f6c.svg" src="../_images/76dbe168697c4cfaa882b38f4a5222ee552fd9a29b3d8355ea8594b9904f7f6c.svg" /></figure>
+<img alt="../_images/7dba9d8905545574e8aecf1dffd34abb23300cabbb4a6b3993173790e3c93be3.svg" src="../_images/7dba9d8905545574e8aecf1dffd34abb23300cabbb4a6b3993173790e3c93be3.svg" /></figure>
 </div>
 </div>
 <p>In the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">programming assignment</a> for this chapter, you will actually implement this procedure. For example, I used these methods to simulate <span class="math notranslate nohighlight">\(1{,}000\)</span> random draws from a bivariate normal distribution with positively correlated components and which is taller than it is wide. If I plot these simulated data over top of isoprobability contours, I get this:</p>
@@ -1640,7 +1632,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/051c9a9244ace7d2adf6eb68757ed49f5ea8104bab496855b2c3451c7bb2bcd1.svg" src="../_images/051c9a9244ace7d2adf6eb68757ed49f5ea8104bab496855b2c3451c7bb2bcd1.svg" /></figure>
+<img alt="../_images/4a4095e68871ab98a17166a7af16e8ce99636ceb8c0496298094c045fe231f7d.svg" src="../_images/4a4095e68871ab98a17166a7af16e8ce99636ceb8c0496298094c045fe231f7d.svg" /></figure>
 </div>
 </div>
 </section>
