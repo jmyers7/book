@@ -338,7 +338,7 @@ f_{\bX}(s(\by)) \left| \det\displaystyle\frac{\partial(s_1,\ldots,s_m)}{\partial
 $$
 ```
 
-The following proof uses mathematics that is likely unfamiliar. Look through it if you like, but also feel free to skip it as well. I've included it really only out of principle, because I could not find a satisfactory proof in the standard references on my bookshelf.
+The following proof uses mathematics that are likely unfamiliar. Look through it if you like, but also feel free to skip it as well. I've included it really only out of principle, because I could not find a satisfactory proof in the standard references on my bookshelf.
 
 ```{prf:proof}
 
@@ -783,7 +783,7 @@ plt.tight_layout()
 
 You can see that the dataset has not changed its shape---it has only shifted so that its mean (represented by the magenta dot) is at the origin $(0,0)$.
 
-The reason that we center the data is because it allows us to conveniently rephrase our observations above in terms of signs:
+The reason that we center the data is that it allows us to conveniently rephrase our observations above in terms of signs:
 
 > Let $(x,y)$ be an observation of a **centered** two-dimensional random vector $(X,Y)$
 > 1. If the observed values of $(X,Y)$ cluster along a line of _positive_ slope, then $x$ and $y$ tend to have the same sign, i.e., $xy>0$.
