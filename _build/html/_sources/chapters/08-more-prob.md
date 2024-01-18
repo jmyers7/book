@@ -12,7 +12,9 @@ kernelspec:
 
 # More probability theory
 
-Introduction to be written later... Beware that this is a first draft of the chapter...
+Introduction to be written later... Beware that this is a first draft of the chapter. To do:
+
+1. Rewrite section on moment generating functions.
 
 ## Expectations and joint distributions
 
