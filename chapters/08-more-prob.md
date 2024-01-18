@@ -10,10 +10,9 @@ kernelspec:
   name: python3
 ---
 
-**THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!**
-
-
 # More probability theory
+
+Introduction to be written later... Beware that this is a first draft of the chapter...
 
 ## Expectations and joint distributions
 
@@ -390,6 +389,8 @@ Do problem 7 in the worksheet.
 (mgf)=
 ## Moment generating functions
 
+We begin with:
+
 ```{prf:definition}
 :label: moments-def
 
@@ -402,7 +403,7 @@ Let $k\geq 1$ be an integer and $X$ a random variable.
 
 Take care to notice that I am not claiming that _all_ of these moments exist for _all_ random variables. Notice also that the first moment of $X$ is precisely its expectation, while its second central moment is its variance. The "higher moments" are more difficult to interpret. The situation with them is analogous to the "higher derivatives" of a function $y=f(x)$. I have good intuition for what the first two derivatives $f'(x)$ and $f''(x)$ measure, but I have much less intuition for what the thirty-first derivative $f^{(31)}(x)$ measures!
 
-Actually, this analogy with derivatives can be carried further, so let's leave the world of probability theory for a moment and return to calculus. Indeed, as you well know, if a function $y=f(x)$ has derivatives of all orders at $x=0$, then we can form its Taylor series centered at $x=0$:
+Actually, this analogy with derivatives can be carried further, so let's leave the world of probability theory for a moment and return to calculus. Indeed, as you well know if a function $y=f(x)$ has derivatives of all orders at $x=0$, then we can form its Taylor series centered at $x=0$:
 
 $$
 f(0) + f'(0) x + \frac{f''(0)}{2!}x^2 + \cdots = \sum_{k=0}^\infty \frac{f^{(k)}(0)}{k!}x^k.
@@ -1000,10 +1001,11 @@ You should think of independence as a strong form of non-correlation, and hence 
 ```{prf:theorem} Dependence and correlation
 :label: ind-vs-correlation-thm
 
-
 Let $X$ and $Y$ be random variables.
 
 1. If $X$ and $Y$ are independent, then they are uncorrelated.
+
+2. If $X$ and $Y$ are correlated, then they are dependent.
 
 2. However, there exist dependent $X$ and $Y$ that are uncorrelated.
 ```
@@ -1015,7 +1017,7 @@ $$
 \sigma_{XY} = E(XY) - E(X)E(Y) = E(X)E(Y) - E(X) E(Y) =0,
 $$
 
-and then $\rho_{XY} = \sigma_{XY} / (\sigma_X \sigma_Y) = 0$.
+and then $\rho_{XY} = \sigma_{XY} / (\sigma_X \sigma_Y) = 0$. The second statement is just the contrapositive of the first.
 
 For the second statement, take two continuous random variables $X$ and $Y$ with joint density
 
@@ -1135,7 +1137,7 @@ We are now ready to prove the main result regarding covariance and correlation m
 ```{prf:theorem} Covariance and correlation matrices are positive semidefinite
 :label: covar-matrix-prop-thm
 
-Let $\bX = (X_1,\ldots,X_d)$ be a $d$-dimensional random vector. Both the covariance matrix $\bSigma_\bX$ and the correlation matrix $\bP_\bX$ are positive semidefinite. They are positive definite if their determinants are nonzero.
+Let $\bX = (X_1,\ldots,X_d)$ be a $d$-dimensional random vector. Both the covariance matrix $\bSigma_\bX$ and the correlation matrix $\bP_\bX$ are positive semidefinite. They are positive definite if and only if their determinants are nonzero.
 
 ```
 
@@ -1147,7 +1149,7 @@ $$
 \bv^\intercal \bP \bv = \sum_{i,j=1}^d \frac{v_i}{\sigma_i} \frac{v_j}{\sigma_j} \sigma(X_i,X_j) = \sigma \left(\sum_{i=1}^d \frac{v_i}{\sigma_i}X_i, \sum_{j=1}^d \frac{v_j}{\sigma_j} X_j \right) = V\left( \sum_{j=1}^d \frac{v_j}{\sigma_j} X_j \right) \geq 0.
 $$
 
-This establishes that $\bP$ is positive semidefinite. To see that a nonzero determinant implies that $\bP$ is positive definite, recall that the determinant is the product of the eigenvalues. Then use the characterization of positive definite matrices given in {prf:ref}`psd-char-thm`. Q.E.D.
+This establishes that $\bP$ is positive semidefinite. To see that a nonzero determinant is equivalent to positive definiteness, recall that the determinant is the product of the eigenvalues. Then use the characterization of positive definite matrices given in {prf:ref}`psd-char-thm`. Q.E.D.
 
 ```
 
@@ -1163,7 +1165,7 @@ This establishes that $\bP$ is positive semidefinite. To see that a nonzero dete
 (multivar-norm-sec)=
 ## Multivariate normal distributions
 
-The goal in this section is simple: Generalize the univariate normal distributions from {numref}`norm-univariate-sec` to higher dimensions. We needed to wait until the current chapter to this because our generalization will require the machinery of covariance matrices that we developed at the end of the previous section. The ultimate effect will be that the familiar "bell curves" of univariate normal densities will turn into "bell (hyper)surfaces." For example, in two dimensions, the density surface of a bivariate normal random vector might have something like this:
+The goal in this section is simple: Generalize the univariate normal distributions from {numref}`norm-univariate-sec` to higher dimensions. We needed to wait until the current chapter to do this because our generalization will require the machinery of covariance matrices that we developed at the end of the previous section. The ultimate effect will be that the familiar "bell curves" of univariate normal densities will turn into "bell (hyper)surfaces." For example, in two dimensions, the density surface of a bivariate normal random vector might look something like this:
 
 ```{image} ../img/multi-var-norm-01.png
 :width: 80%
@@ -1288,7 +1290,7 @@ $$ (multivar-norm-eqn)
 with support $\bbr^d$. The _standard ($d$-dimensional) multivariate normal distribution_ corresponds to the case that $\bmu^\intercal = \boldsymbol{0}$ and $\bSigma = \mathbf{I}$, where $\boldsymbol{0}$ is the $d$-dimensional zero vector and $\mathbf{I}$ is the $d\times d$ identity matrix.
 ```
 
-One characterization of the class of positive definite matrices is that it consists of all symmetric matrices whose eigenvalues are real and positive. Since the determinant of a square matrix is the product of its eigenvalues, it follows that the determinant of $\bSigma$ in {eq}`multivar-norm-eqn` is positive. This shows that the square root $\det(2\pi \bSigma)^{1/2}$ is defined and that the inverse $\bSigma^{-1}$ exists.
+Since $\bSigma$ is positive definite and its determinant is the product of its eigenvalues, we must have $\det(2\pi\bSigma) = (2\pi)^d \det{\bSigma} >0$ by {prf:ref}`psd-char-thm`. Thus, the square root $\det(2\pi\bSigma)^{1/2}$ is real and positive, and the inverse $\bSigma^{-1}$ exists.
 
 To help understand the shape of the density (hyper)surfaces created by {eq}`multivar-norm-eqn`, it helps to ignore the normalizing constant and write
 
@@ -1378,7 +1380,7 @@ Suppose that $\bX \sim \calN_d(\bmu,\bSigma)$, where $\bSigma$ is a positive def
 
     for fixed $c\in \bbr$.
 
-2. For $c\neq 0$, the principal axes of the ellipsoid defined by {eq}`mahalanobis-sphere-02-eq` point along the eigenvectors of the matrix $\bSigma$. The half-lengths of the principal axes are given by $|c|\sqrt{\lambda_i}$, where $\lambda_1,\ldots,\lambda_d$ are the eigenvalues of $\bSigma$.
+2. For $c\neq 0$, the principal axes of the ellipsoid defined by {eq}`mahalanobis-sphere-02-eq` point along the eigenvectors of the matrix $\bSigma$. The half-lengths of the principal axes are given by $|c|\sqrt{\lambda_i}$.
 
 3. In particular, if $\bSigma$ is a (positive) multiple of the identity matrix, then the isoprobability contours are concentric spheres centered at $\bmu$.
 ```
@@ -1416,7 +1418,7 @@ f_\bY(\by) &= \frac{1}{\det(2\pi \bA\bSigma\bA^\intercal)^{1/2}} \exp \left[ -\f
 where we recognize the expression on the second line as the density of an $\calN_d(\bA\bmu+\bb, \bA\bSigma\bA^\intercal)$ random vector. Q.E.D.
 ```
 
-The second result is a generalization of {prf:ref}`standardization-cor`, which states that we may perform an invertible affine transformation of a normal random variable to obtain a standard normal one. Again, the same is true for normal random vectors. To state this generalized result formally, we require the concept of a [square root](https://en.wikipedia.org/wiki/Square_root_of_a_matrix#Positive_semidefinite_matrices) of a positive definite matrix $\bSigma$. This is a positive definite (and hence symmetric) matrix, denoted $\bSigma^{1/2}$, such that $\bSigma^{1/2}\bSigma^{1/2} = \bSigma$. There is only _one_ square root of $\bSigma$.
+The second result is a generalization of {prf:ref}`standardization-cor`, which states that we may perform an invertible affine transformation of a normal random variable to obtain a standard normal one. Again, the same is true for normal random vectors. To state this generalized result formally, we require the concept of the _square root_ of a positive definite matrix that we introduced in {prf:ref}`psd-char-thm`.
 
 
 ```{prf:corollary} Standardization of normal vectors
@@ -1570,3 +1572,9 @@ plt.tight_layout()
 
 
 
+Let's finish off this long chapter with an example problem:
+
+```{admonition} Problem Prompt
+
+Do problem 12 on the worksheet.
+```
