@@ -370,9 +370,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
-<section class="tex2jax_ignore mathjax_ignore" id="more-probability-theory">
+  <section class="tex2jax_ignore mathjax_ignore" id="more-probability-theory">
 <h1><span class="section-number">8. </span>More probability theory<a class="headerlink" href="#more-probability-theory" title="Permalink to this heading">#</a></h1>
+<p>Introduction to be written later… Beware that this is a first draft of the chapter…</p>
 <section id="expectations-and-joint-distributions">
 <h2><span class="section-number">8.1. </span>Expectations and joint distributions<a class="headerlink" href="#expectations-and-joint-distributions" title="Permalink to this heading">#</a></h2>
 <p>To motivate the considerations in this section, suppose that we have two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> defined on a probability space <span class="math notranslate nohighlight">\(S\)</span> and a real-valued function <span class="math notranslate nohighlight">\(g:\bbr^2 \to \bbr\)</span>. We may then “transform” the random variables to obtain the random variable</p>
@@ -648,6 +648,7 @@ P(\bY\in V) = \int_{V\cap U} f_\bX(s(\by))\left| \det\frac{\partial(s_1,\ldots,s
 </section>
 <section id="moment-generating-functions">
 <span id="mgf"></span><h2><span class="section-number">8.4. </span>Moment generating functions<a class="headerlink" href="#moment-generating-functions" title="Permalink to this heading">#</a></h2>
+<p>We begin with:</p>
 <div class="proof definition admonition" id="moments-def">
 <p class="admonition-title"><span class="caption-number">Definition 8.2 </span></p>
 <section class="definition-content" id="proof-content">
@@ -658,7 +659,7 @@ P(\bY\in V) = \int_{V\cap U} f_\bX(s(\by))\left| \det\frac{\partial(s_1,\ldots,s
 </ul>
 </section>
 </div><p>Take care to notice that I am not claiming that <em>all</em> of these moments exist for <em>all</em> random variables. Notice also that the first moment of <span class="math notranslate nohighlight">\(X\)</span> is precisely its expectation, while its second central moment is its variance. The “higher moments” are more difficult to interpret. The situation with them is analogous to the “higher derivatives” of a function <span class="math notranslate nohighlight">\(y=f(x)\)</span>. I have good intuition for what the first two derivatives <span class="math notranslate nohighlight">\(f'(x)\)</span> and <span class="math notranslate nohighlight">\(f''(x)\)</span> measure, but I have much less intuition for what the thirty-first derivative <span class="math notranslate nohighlight">\(f^{(31)}(x)\)</span> measures!</p>
-<p>Actually, this analogy with derivatives can be carried further, so let’s leave the world of probability theory for a moment and return to calculus. Indeed, as you well know, if a function <span class="math notranslate nohighlight">\(y=f(x)\)</span> has derivatives of all orders at <span class="math notranslate nohighlight">\(x=0\)</span>, then we can form its Taylor series centered at <span class="math notranslate nohighlight">\(x=0\)</span>:</p>
+<p>Actually, this analogy with derivatives can be carried further, so let’s leave the world of probability theory for a moment and return to calculus. Indeed, as you well know if a function <span class="math notranslate nohighlight">\(y=f(x)\)</span> has derivatives of all orders at <span class="math notranslate nohighlight">\(x=0\)</span>, then we can form its Taylor series centered at <span class="math notranslate nohighlight">\(x=0\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-taylor-eqn">
 <span class="eqno">(8.6)<a class="headerlink" href="#equation-taylor-eqn" title="Permalink to this equation">#</a></span>\[
 f(0) + f'(0) x + \frac{f''(0)}{2!}x^2 + \cdots = \sum_{k=0}^\infty \frac{f^{(k)}(0)}{k!}x^k.
@@ -880,7 +881,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/378ffe0e8e697431568b34011cbfa2c3da3d129f3c444f50e4c37eea4e4d62c1.svg" src="../_images/378ffe0e8e697431568b34011cbfa2c3da3d129f3c444f50e4c37eea4e4d62c1.svg" /></figure>
+<img alt="../_images/425ee19b754f7529e25feed0723a601b9f756f49949551051f30c3c72e246413.svg" src="../_images/425ee19b754f7529e25feed0723a601b9f756f49949551051f30c3c72e246413.svg" /></figure>
 </div>
 </div>
 <p>The plot looks exactly like we would expect: A bunch of points lying on the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span>. However, very often with real-world data, an <em>exact</em> functional dependence <span class="math notranslate nohighlight">\(Y = h(X)\)</span> does not truly hold. Instead, the functional relationship is “noisy”, resulting in scatter plots that look like this:</p>
@@ -912,7 +913,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/565dbb91a7097cacc97186a077f6b8d5ae2e581077a5f2e8673bbe5337a4e979.svg" src="../_images/565dbb91a7097cacc97186a077f6b8d5ae2e581077a5f2e8673bbe5337a4e979.svg" /></figure>
+<img alt="../_images/149a3396ee75943d6d4fdef1629f4a6fa305137712f1f79bd42615c0877d01ba.svg" src="../_images/149a3396ee75943d6d4fdef1629f4a6fa305137712f1f79bd42615c0877d01ba.svg" /></figure>
 </div>
 </div>
 <p>The “noisy” functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span> for reference. Instead of lying directly on the graph of <span class="math notranslate nohighlight">\(y=h(x)\)</span>, the data is clustered along the graph.</p>
@@ -946,7 +947,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/9fa1e2b8c2720bffc63f6c293e38f90ab56e000a675f57fa01e20076a8791b20.svg" src="../_images/9fa1e2b8c2720bffc63f6c293e38f90ab56e000a675f57fa01e20076a8791b20.svg" /></figure>
+<img alt="../_images/74f770e20aee77c364e1265e711d9ae6c12274d717d27493bb0156d7e11ee7a6.svg" src="../_images/74f770e20aee77c364e1265e711d9ae6c12274d717d27493bb0156d7e11ee7a6.svg" /></figure>
 </div>
 </div>
 <p>As I mentioned in the introduction, our goal in this section is to uncover ways to <em>quantify</em> or <em>measure</em> the strength of “noisy” linear dependencies between random variables. We will discover that there are two such measures, called <em>covariance</em> and <em>correlation</em>.</p>
@@ -1005,7 +1006,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/fa033695b15b38efe306bd9801a81d17febf7d90d65914ae6d579666bc2b0775.svg" src="../_images/fa033695b15b38efe306bd9801a81d17febf7d90d65914ae6d579666bc2b0775.svg" /></figure>
+<img alt="../_images/06945b2c553ec2551e707b829da93cad6429603fb71a52a1d768ae19ffa1abf6.svg" src="../_images/06945b2c553ec2551e707b829da93cad6429603fb71a52a1d768ae19ffa1abf6.svg" /></figure>
 </div>
 </div>
 <p>You can see that the dataset has not changed its shape—it has only shifted so that its mean (represented by the magenta dot) is at the origin <span class="math notranslate nohighlight">\((0,0)\)</span>.</p>
@@ -1130,7 +1131,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/8fb1a891d18533f7130da54f650b276f22acd26b031e68ea44df78f6b16cc22c.svg" src="../_images/8fb1a891d18533f7130da54f650b276f22acd26b031e68ea44df78f6b16cc22c.svg" /></figure>
+<img alt="../_images/b5786cf666bc4eeba44edabee4b79a2447068d68719fbc4919c81ed27ffcde61.svg" src="../_images/b5786cf666bc4eeba44edabee4b79a2447068d68719fbc4919c81ed27ffcde61.svg" /></figure>
 </div>
 </div>
 <p>The only difference between the two datasets is the axis scales, but the linear relationship between the <span class="math notranslate nohighlight">\(x\)</span>’s and <span class="math notranslate nohighlight">\(y\)</span>’s remains the same. In fact, the scales on the axes differ by a factor of <span class="math notranslate nohighlight">\(10\)</span>, so by <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>, we have</p>
@@ -1209,6 +1210,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be random variables.</p>
 <ol class="arabic simple">
 <li><p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent, then they are uncorrelated.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are correlated, then they are dependent.</p></li>
 <li><p>However, there exist dependent <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> that are uncorrelated.</p></li>
 </ol>
 </section>
@@ -1218,7 +1220,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 \[
 \sigma_{XY} = E(XY) - E(X)E(Y) = E(X)E(Y) - E(X) E(Y) =0,
 \]</div>
-<p>and then <span class="math notranslate nohighlight">\(\rho_{XY} = \sigma_{XY} / (\sigma_X \sigma_Y) = 0\)</span>.</p>
+<p>and then <span class="math notranslate nohighlight">\(\rho_{XY} = \sigma_{XY} / (\sigma_X \sigma_Y) = 0\)</span>. The second statement is just the contrapositive of the first.</p>
 <p>For the second statement, take two continuous random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> with joint density</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1316,7 +1318,7 @@ f(x,y) = \begin{cases}
 <div class="proof theorem admonition" id="covar-matrix-prop-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.20 </span> (Covariance and correlation matrices are positive semidefinite)</p>
 <section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(\bX = (X_1,\ldots,X_d)\)</span> be a <span class="math notranslate nohighlight">\(d\)</span>-dimensional random vector. Both the covariance matrix <span class="math notranslate nohighlight">\(\bSigma_\bX\)</span> and the correlation matrix <span class="math notranslate nohighlight">\(\bP_\bX\)</span> are positive semidefinite. They are positive definite if their determinants are nonzero.</p>
+<p>Let <span class="math notranslate nohighlight">\(\bX = (X_1,\ldots,X_d)\)</span> be a <span class="math notranslate nohighlight">\(d\)</span>-dimensional random vector. Both the covariance matrix <span class="math notranslate nohighlight">\(\bSigma_\bX\)</span> and the correlation matrix <span class="math notranslate nohighlight">\(\bP_\bX\)</span> are positive semidefinite. They are positive definite if and only if their determinants are nonzero.</p>
 </section>
 </div><div class="proof admonition" id="proof">
 <p>Proof. We will only prove that the correlation matrix <span class="math notranslate nohighlight">\(\bP = \bP_\bX\)</span> is positive semidefinite, leaving you to make the easy changes to cover the covariance matrix. First, we have already observed that <span class="math notranslate nohighlight">\(\bP\)</span> is symmetric. Then, given <span class="math notranslate nohighlight">\(\bv\in \bbr^d\)</span>, we use <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a> to compute:</p>
@@ -1324,12 +1326,12 @@ f(x,y) = \begin{cases}
 \[
 \bv^\intercal \bP \bv = \sum_{i,j=1}^d \frac{v_i}{\sigma_i} \frac{v_j}{\sigma_j} \sigma(X_i,X_j) = \sigma \left(\sum_{i=1}^d \frac{v_i}{\sigma_i}X_i, \sum_{j=1}^d \frac{v_j}{\sigma_j} X_j \right) = V\left( \sum_{j=1}^d \frac{v_j}{\sigma_j} X_j \right) \geq 0.
 \]</div>
-<p>This establishes that <span class="math notranslate nohighlight">\(\bP\)</span> is positive semidefinite. To see that a nonzero determinant implies that <span class="math notranslate nohighlight">\(\bP\)</span> is positive definite, recall that the determinant is the product of the eigenvalues. Then use the characterization of positive definite matrices given in <a class="reference internal" href="#psd-char-thm">Theorem 8.19</a>. Q.E.D.</p>
+<p>This establishes that <span class="math notranslate nohighlight">\(\bP\)</span> is positive semidefinite. To see that a nonzero determinant is equivalent to positive definiteness, recall that the determinant is the product of the eigenvalues. Then use the characterization of positive definite matrices given in <a class="reference internal" href="#psd-char-thm">Theorem 8.19</a>. Q.E.D.</p>
 </div>
 </section>
 <section id="multivariate-normal-distributions">
 <span id="multivar-norm-sec"></span><h2><span class="section-number">8.6. </span>Multivariate normal distributions<a class="headerlink" href="#multivariate-normal-distributions" title="Permalink to this heading">#</a></h2>
-<p>The goal in this section is simple: Generalize the univariate normal distributions from <a class="reference internal" href="05-examples-of-rvs.html#norm-univariate-sec"><span class="std std-numref">Section 5.6</span></a> to higher dimensions. We needed to wait until the current chapter to this because our generalization will require the machinery of covariance matrices that we developed at the end of the previous section. The ultimate effect will be that the familiar “bell curves” of univariate normal densities will turn into “bell (hyper)surfaces.” For example, in two dimensions, the density surface of a bivariate normal random vector might have something like this:</p>
+<p>The goal in this section is simple: Generalize the univariate normal distributions from <a class="reference internal" href="05-examples-of-rvs.html#norm-univariate-sec"><span class="std std-numref">Section 5.6</span></a> to higher dimensions. We needed to wait until the current chapter to do this because our generalization will require the machinery of covariance matrices that we developed at the end of the previous section. The ultimate effect will be that the familiar “bell curves” of univariate normal densities will turn into “bell (hyper)surfaces.” For example, in two dimensions, the density surface of a bivariate normal random vector might look something like this:</p>
 <a class="reference internal image-reference" href="../_images/multi-var-norm-01.png"><img alt="../_images/multi-var-norm-01.png" class="align-center" src="../_images/multi-var-norm-01.png" style="width: 80%;" /></a>
 <p> </p>
 <p>The <em>isoprobability contours</em> of this density surface (i.e., curves of constant probability) look like:</p>
@@ -1367,7 +1369,7 @@ f(x,y) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/f03b5360a7606bf61585960d5feb0b11dc5d098e6b41418b5ca5b4c3787094be.svg" src="../_images/f03b5360a7606bf61585960d5feb0b11dc5d098e6b41418b5ca5b4c3787094be.svg" /></figure>
+<img alt="../_images/f806122b8b08034c032bc88e2c7c4db89f3b8de72243627ade3827084c597694.svg" src="../_images/f806122b8b08034c032bc88e2c7c4db89f3b8de72243627ade3827084c597694.svg" /></figure>
 </div>
 </div>
 <p>Notice that these contours are concentric ellipses centered at the point <span class="math notranslate nohighlight">\((1,1)\in \bbr^2\)</span> with principal axes parallel to the coordinate <span class="math notranslate nohighlight">\(x\)</span>- and <span class="math notranslate nohighlight">\(y\)</span>-axes. In higher dimensions, the isoprobability surfaces are so-called <em>ellipsoids</em>.</p>
@@ -1419,7 +1421,7 @@ f(x_1,\ldots,x_d) = \frac{1}{(2\pi)^{d/2} (\sigma_1^2\cdots \sigma_d^2)^{1/2}} \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0d46a63097dc54b880daeb2ad673658bf1d128b20f6985b87dbb124aca24387a.svg" src="../_images/0d46a63097dc54b880daeb2ad673658bf1d128b20f6985b87dbb124aca24387a.svg" /></figure>
+<img alt="../_images/c6fb3e3cd89ede35ca798a249ff3e786aca5defd39f37de7bd305d91b412dcfd.svg" src="../_images/c6fb3e3cd89ede35ca798a249ff3e786aca5defd39f37de7bd305d91b412dcfd.svg" /></figure>
 </div>
 </div>
 <p>The key to uncovering the formula for the density in the general case begins by returning to the formula <a class="reference internal" href="#equation-init-multi-var-norm-eqn">(8.11)</a> and rewriting it using vector and matrix notation. Indeed, notice that if we set</p>
@@ -1448,7 +1450,7 @@ f(\bx;\bmu,\bSigma) = \frac{1}{\det(2\pi\bSigma)^{1/2}} \exp \left[ -\frac{1}{2}
 \]</div>
 <p>with support <span class="math notranslate nohighlight">\(\bbr^d\)</span>. The <em>standard (<span class="math notranslate nohighlight">\(d\)</span>-dimensional) multivariate normal distribution</em> corresponds to the case that <span class="math notranslate nohighlight">\(\bmu^\intercal = \boldsymbol{0}\)</span> and <span class="math notranslate nohighlight">\(\bSigma = \mathbf{I}\)</span>, where <span class="math notranslate nohighlight">\(\boldsymbol{0}\)</span> is the <span class="math notranslate nohighlight">\(d\)</span>-dimensional zero vector and <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> is the <span class="math notranslate nohighlight">\(d\times d\)</span> identity matrix.</p>
 </section>
-</div><p>One characterization of the class of positive definite matrices is that it consists of all symmetric matrices whose eigenvalues are real and positive. Since the determinant of a square matrix is the product of its eigenvalues, it follows that the determinant of <span class="math notranslate nohighlight">\(\bSigma\)</span> in <a class="reference internal" href="#equation-multivar-norm-eqn">(8.12)</a> is positive. This shows that the square root <span class="math notranslate nohighlight">\(\det(2\pi \bSigma)^{1/2}\)</span> is defined and that the inverse <span class="math notranslate nohighlight">\(\bSigma^{-1}\)</span> exists.</p>
+</div><p>Since <span class="math notranslate nohighlight">\(\bSigma\)</span> is positive definite and its determinant is the product of its eigenvalues, we must have <span class="math notranslate nohighlight">\(\det(2\pi\bSigma) = (2\pi)^d \det{\bSigma} &gt;0\)</span> by <a class="reference internal" href="#psd-char-thm">Theorem 8.19</a>. Thus, the square root <span class="math notranslate nohighlight">\(\det(2\pi\bSigma)^{1/2}\)</span> is real and positive, and the inverse <span class="math notranslate nohighlight">\(\bSigma^{-1}\)</span> exists.</p>
 <p>To help understand the shape of the density (hyper)surfaces created by <a class="reference internal" href="#equation-multivar-norm-eqn">(8.12)</a>, it helps to ignore the normalizing constant and write</p>
 <div class="math notranslate nohighlight" id="equation-prop-exp-density-eq">
 <span class="eqno">(8.13)<a class="headerlink" href="#equation-prop-exp-density-eq" title="Permalink to this equation">#</a></span>\[
@@ -1518,7 +1520,7 @@ Q(\bx) = c^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/b32b8e551139c7333f46c819ec75f576dac2b0ef79042ecf714d274c1716f141.svg" src="../_images/b32b8e551139c7333f46c819ec75f576dac2b0ef79042ecf714d274c1716f141.svg" /></figure>
+<img alt="../_images/1384a7a4d3603837646b1cb47b4fb16f06f5fed112a71a7cb315cc361144d8d0.svg" src="../_images/1384a7a4d3603837646b1cb47b4fb16f06f5fed112a71a7cb315cc361144d8d0.svg" /></figure>
 </div>
 </div>
 <p>Let’s collect our observations in the following theorem, along with a few additional facts:</p>
@@ -1534,7 +1536,7 @@ Q(\bx) = c^2,
     \]</div>
 <p>for fixed <span class="math notranslate nohighlight">\(c\in \bbr\)</span>.</p>
 </li>
-<li><p>For <span class="math notranslate nohighlight">\(c\neq 0\)</span>, the principal axes of the ellipsoid defined by <a class="reference internal" href="#equation-mahalanobis-sphere-02-eq">(8.18)</a> point along the eigenvectors of the matrix <span class="math notranslate nohighlight">\(\bSigma\)</span>. The half-lengths of the principal axes are given by <span class="math notranslate nohighlight">\(|c|\sqrt{\lambda_i}\)</span>, where <span class="math notranslate nohighlight">\(\lambda_1,\ldots,\lambda_d\)</span> are the eigenvalues of <span class="math notranslate nohighlight">\(\bSigma\)</span>.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\(c\neq 0\)</span>, the principal axes of the ellipsoid defined by <a class="reference internal" href="#equation-mahalanobis-sphere-02-eq">(8.18)</a> point along the eigenvectors of the matrix <span class="math notranslate nohighlight">\(\bSigma\)</span>. The half-lengths of the principal axes are given by <span class="math notranslate nohighlight">\(|c|\sqrt{\lambda_i}\)</span>.</p></li>
 <li><p>In particular, if <span class="math notranslate nohighlight">\(\bSigma\)</span> is a (positive) multiple of the identity matrix, then the isoprobability contours are concentric spheres centered at <span class="math notranslate nohighlight">\(\bmu\)</span>.</p></li>
 </ol>
 </section>
@@ -1564,7 +1566,7 @@ f_\bY(\by) &amp;= \frac{1}{\det(2\pi \bA\bSigma\bA^\intercal)^{1/2}} \exp \left[
 \end{align*}\]</div>
 <p>where we recognize the expression on the second line as the density of an <span class="math notranslate nohighlight">\(\calN_d(\bA\bmu+\bb, \bA\bSigma\bA^\intercal)\)</span> random vector. Q.E.D.</p>
 </div>
-<p>The second result is a generalization of <a class="reference internal" href="05-examples-of-rvs.html#standardization-cor">Corollary 5.1</a>, which states that we may perform an invertible affine transformation of a normal random variable to obtain a standard normal one. Again, the same is true for normal random vectors. To state this generalized result formally, we require the concept of a <a class="reference external" href="https://en.wikipedia.org/wiki/Square_root_of_a_matrix#Positive_semidefinite_matrices">square root</a> of a positive definite matrix <span class="math notranslate nohighlight">\(\bSigma\)</span>. This is a positive definite (and hence symmetric) matrix, denoted <span class="math notranslate nohighlight">\(\bSigma^{1/2}\)</span>, such that <span class="math notranslate nohighlight">\(\bSigma^{1/2}\bSigma^{1/2} = \bSigma\)</span>. There is only <em>one</em> square root of <span class="math notranslate nohighlight">\(\bSigma\)</span>.</p>
+<p>The second result is a generalization of <a class="reference internal" href="05-examples-of-rvs.html#standardization-cor">Corollary 5.1</a>, which states that we may perform an invertible affine transformation of a normal random variable to obtain a standard normal one. Again, the same is true for normal random vectors. To state this generalized result formally, we require the concept of the <em>square root</em> of a positive definite matrix that we introduced in <a class="reference internal" href="#psd-char-thm">Theorem 8.19</a>.</p>
 <div class="proof corollary admonition" id="standardize-multivar-cor">
 <p class="admonition-title"><span class="caption-number">Corollary 8.1 </span> (Standardization of normal vectors)</p>
 <section class="corollary-content" id="proof-content">
@@ -1670,7 +1672,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/7791f5162d2c582d053b6fe14294987e811b031e063106b00825f39767dd6e8a.svg" src="../_images/7791f5162d2c582d053b6fe14294987e811b031e063106b00825f39767dd6e8a.svg" /></figure>
+<img alt="../_images/e6107fff7e75a13a751da1ed6a6ea05a5fd0bdd8279da4d39e695b436a4747ab.svg" src="../_images/e6107fff7e75a13a751da1ed6a6ea05a5fd0bdd8279da4d39e695b436a4747ab.svg" /></figure>
 </div>
 </div>
 <p>In the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">programming assignment</a> for this chapter, you will actually implement this procedure. For example, I used these methods to simulate <span class="math notranslate nohighlight">\(1{,}000\)</span> random draws from a bivariate normal distribution with positively correlated components and which is taller than it is wide. If I plot these simulated data over top of isoprobability contours, I get this:</p>
@@ -1710,8 +1712,13 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/665d83ce37b51949c0c73a7579bd2ada9e2c628d8a1f3f5af4ad183b35b3a108.svg" src="../_images/665d83ce37b51949c0c73a7579bd2ada9e2c628d8a1f3f5af4ad183b35b3a108.svg" /></figure>
+<img alt="../_images/82860a8a172960ca3b9a689a88c6180206c52bb6769804c963183bc1ff0def00.svg" src="../_images/82860a8a172960ca3b9a689a88c6180206c52bb6769804c963183bc1ff0def00.svg" /></figure>
 </div>
+</div>
+<p>Let’s finish off this long chapter with an example problem:</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 12 on the worksheet.</p>
 </div>
 </section>
 </section>
