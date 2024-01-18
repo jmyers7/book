@@ -296,7 +296,7 @@ $$
 on Euclidean spaces, which is the $m\times n$ matrix of partial derivatives
 
 $$
-\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \def \left[ \frac{\partial s_i}{\partial y_j}(\by)\right]_{ij} = \begin{bmatrix}
+\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \def \left[ \frac{\partial s_i}{\partial y_j}(\by)\right] = \begin{bmatrix}
 \frac{\partial s_1}{\partial y_1}(\by) & \cdots & \frac{\partial s_1}{\partial y_n}(\by) \\
 \vdots & \ddots & \vdots \\
 \frac{\partial s_m}{\partial y_1}(\by) & \cdots & \frac{\partial s_m}{\partial y_n}(\by)
@@ -320,7 +320,6 @@ Notice the similarity to the affine _tangent line_ approximation studied in sing
 
 With Jacobian matrices in hand, we now state the generalization of {prf:ref}`univar-density-trans-thm`:
 
-
 ```{prf:theorem} Multivariate Density Transformation Theorem
 :label: multivar-density-trans-thm
 
@@ -338,14 +337,9 @@ f_{\bX}(s(\by)) \left| \det\displaystyle\frac{\partial(s_1,\ldots,s_m)}{\partial
 0 & : \by \notin U.
 \end{cases}
 $$
- ```
-
-```{margin}
-
-I've included the proof only out of principle, because I could not find a proof in the standard references on my bookshelf that I liked.
 ```
 
-The following proof uses mathematics that you are likely not familiar with.  Look through it if you want to get the general gist, but feel free to skip it as well.
+The following proof uses mathematics that is likely unfamiliar. Look through it if you like, but also feel free to skip it as well. I've included it really only out of principle, because I could not find a satisfactory proof in the standard references on my bookshelf.
 
 ```{prf:proof}
 
@@ -603,7 +597,7 @@ $$
 0<P(Y\in B)<1.
 $$ (middle-eqn)
 
-In this case, we set $A = h^{-1}(B)^c$ and observe that
+(This doesn't _always_ have to be true. For example, what happens if $h$ is constant?) In this case, we set $A = h^{-1}(B)^c$ and observe that
 
 $$
 P(X\in A, \ Y\in B) = P(\emptyset) =0.
@@ -680,7 +674,7 @@ plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
-The plot looks exactly like we would expect: A bunch of points lying on the graph of the function $y=h(x)$. However, very often with real-world data, an **exact** functional dependence $Y = h(X)$ does not truly hold. Instead, the functional relationship is "noisy", resulting in scatter plots that look like this:
+The plot looks exactly like we would expect: A bunch of points lying on the graph of the function $y=h(x)$. However, very often with real-world data, an *exact* functional dependence $Y = h(X)$ does not truly hold. Instead, the functional relationship is "noisy", resulting in scatter plots that look like this:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -887,7 +881,7 @@ $$
 V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 $$
 
-We now turn toward the other measure of linear dependence, called _correlation_. To motivate this latter measure, we note that while the signs of covariances are significant, their precise numerical values may be less so if the only thing we are using them for is to measure the strength of a linear dependence. One reason for this is that covariances are sensitive to the scales on which the variables are measured. For an example, consider the following two plots:
+We now turn toward the other measure of linear dependence, called _correlation_. To motivate this latter measure, we note that while the signs of covariances are significant, their precise numerical values may be less so, if we are attempting to use them to measure the strength of a linear dependence. One reason for this is that covariances are sensitive to the scales on which the variables are measured. For an example, consider the following two plots:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -938,7 +932,7 @@ $$
 $$
 ```
 
-The key properties of correlation are given in the following:
+The correlation $\rho_{XY}$ is also sometimes called the [Pearson (product-moment) correlation coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient), to distinguish it from other types of correlation measures. Its key properties are given in the following:
 
 ```{prf:theorem} Properties of correlation
 :label: prop-correlation-thm
@@ -959,7 +953,9 @@ Let $X$ and $Y$ be random variables.
 3. _Normalization_. We have $|\rho(X,Y)| \leq 1$.
 ```
 
-The symmetry property of correlation follows from the same property of covariance in {prf:ref}`bilinear-thm`. Scale invariance follows from bilinearity of covariance, as well as the equality $\sigma_{aX} = |a| \sigma_X$ established in {prf:ref}`var-affine-thm` (or its generalization {prf:ref}`variance-lin-combo-thm`). The proof of normalization is a bit more involved but still not very difficult. It requires the Cauchy-Schwarz inequality; see the proof in Section 4.6 of {cite}`DeGrootSchervish2014`, for example.
+```{prf:proof}
+The symmetry property of correlation follows from the same property of covariance in {prf:ref}`bilinear-thm`. Scale invariance follows from bilinearity of covariance, as well as the equality $\sigma_{aX} = |a| \sigma_X$ established in {prf:ref}`var-affine-thm` (or its generalization {prf:ref}`variance-lin-combo-thm`). The proof of normalization is a bit more involved but still not very difficult. It requires the Cauchy-Schwarz inequality; see the proof in Section 4.6 of {cite}`DeGrootSchervish2014`, for example. Q.E.D.
+```
 
 Remember, covariance and correlation were cooked up to measure linear dependencies between random variables. We wonder, then, what is the correlation between two random variables that are _perfectly_ linearly dependent? Answer:
 
@@ -999,7 +995,7 @@ Let's take a look at an example before continuing:
 Do problem 11 in the worksheet.
 ```
 
-You should think of independence as a strong form of uncorrelated-ness, and hence correlated-ness is also a strong form of dependence. This is the content of the first part of the following result:
+You should think of independence as a strong form of non-correlation, and hence correlation is also a strong form of dependence. This is the content of the first part of the following result:
 
 ```{prf:theorem} Dependence and correlation
 :label: ind-vs-correlation-thm
@@ -1044,7 +1040,7 @@ Let $\bX = (X_1,\ldots,X_d)$ be a $d$-dimensional random vector.
 1. We define the _covariance matrix_ of $\bX$ to be the $d\times d$ matrix
 
     $$
-    \bSigma_\bX \def \left[ \sigma_{ij} \right]_{ij} = \begin{bmatrix}
+    \bSigma_\bX \def \left[ \sigma_{ij} \right] = \begin{bmatrix}
     \sigma_{11} & \cdots & \sigma_{1d} \\
     \vdots & \ddots & \vdots \\
     \sigma_{d1} & \cdots & \sigma_{dd}
@@ -1056,7 +1052,7 @@ Let $\bX = (X_1,\ldots,X_d)$ be a $d$-dimensional random vector.
 2. We define the _correlation matrix_ of $\bX$ to be the $d\times d$ matrix
 
     $$
-    \bP_\bX \def \left[ \rho_{ij} \right]_{ij} = \begin{bmatrix}
+    \bP_\bX \def \left[ \rho_{ij} \right] = \begin{bmatrix}
     \rho_{11} & \cdots & \rho_{1d} \\
     \vdots & \ddots & \vdots \\
     \rho_{d1} & \cdots & \rho_{dd}
@@ -1068,19 +1064,73 @@ Let $\bX = (X_1,\ldots,X_d)$ be a $d$-dimensional random vector.
 
 Covariance matrices will prove especially important in the [next section](multivar-norm-sec).
 
-Notice that both the covariance matrix and correlation matrix of a random variable are _symmetric_, meaning that $\sigma_{ij} = \sigma_{ji}$ and $\rho_{ij} = \rho_{ji}$ for all $i$ and $j$. But symmetry is not their _only_ special property; in fact, they are both examples of _positive semidefinite_ matrices. These types of matrices will be important over the next few chapters, so let's define them:
+Notice that both the covariance matrix and correlation matrix of a random vector are _symmetric_, meaning $\sigma_{ij} = \sigma_{ji}$ and $\rho_{ij} = \rho_{ji}$ for all $i$ and $j$. But symmetry is not their _only_ special property; in fact, they are both examples of _positive semidefinite_ matrices. These types of matrices will be important over the next few chapters, so let's define them:
 
 ```{prf:definition}
-:label: semidefinite-def
+:label: first-semidefinite-def
 
-Let $\bA$ be a symmetric $d\times d$ real matrix.
+Let $\bA$ be a symmetric matrix of size $d\times d$.
 
-1. If $\bz^\intercal \bA \bz \geq 0$ for all $\bz \in \bbr^d$, then $\bA$ is called _positive semidefinite_. If the only vector for which equality holds is $\bz=\boldsymbol{0}$, then $\bA$ is called _positive definite_.
+1. If $\bv^\intercal \bA \bv \geq 0$ for all $\bv \in \bbr^d$, then $\bA$ is called _positive semidefinite_. If the only vector for which equality holds is $\bv=\boldsymbol{0}$, then $\bA$ is called _positive definite_.
 
-1. If $\bz^\intercal \bA \bz \leq 0$ for all $\bz \in \bbr^n$, then $\bA$ is called _negative semidefinite_. If the only vector for which equality holds is $\bz=\boldsymbol{0}$, then $\bA$ is called _negative definite_.
+1. If $\bv^\intercal \bA \bv \leq 0$ for all $\bv \in \bbr^n$, then $\bA$ is called _negative semidefinite_. If the only vector for which equality holds is $\bv=\boldsymbol{0}$, then $\bA$ is called _negative definite_.
 ```
 
-With the definition in hand, let's prove that covariance and correlation matrices are positive semidefinite:
+It will be convenient to have alternate characterizations of definite and semidefinite matrices:
+
+```{prf:theorem}
+:label: psd-char-thm
+
+Let $\bA$ be a symmetric matrix of size $d\times d$. Then:
+
+1. The matrix $\bA$ is positive semidefinite (definite) if and only if all its eigenvalues are nonnegative (positive).
+
+2. The matrix $\bA$ is positive semidefinite if and only if there is a positive semidefinite matrix $\bB$ such that $\bA = \bB^2$. Moreover, the matrix $\bB$ is the unique positive semidefinite matrix with this property.
+```
+
+The matrix $\bB$ in the second part is, for obvious reasons, called the _square root_ of $\bA$ and is often denoted $\bA^{1/2}$. The proof of this theorem is quite lengthy in comparison to the other proofs in this book. It is not essential reading, so you may safely skip it if you desire to get back quickly to the main thread of the section.
+
+```{prf:proof}
+Implicit in both characterizations are the claims that the eigenvalues of $\bA$ are real. To see this, let $\lambda$ be an eigenvalue with eigenvector $\bv$. It is convenient to introduce the [conjugate transpose](https://en.wikipedia.org/wiki/Conjugate_transpose) $(-)^\ast$. Then
+
+$$
+\lambda ||\bv||^2 = \lambda \bv^\ast \bv = \bv^\ast \bA \bv = (\bA \bv)^\ast \bv = (\lambda \bv)^\ast \bv = \bar{\lambda}\bv^\ast\bv = \bar{\lambda} ||\bv||^2,
+$$
+
+where $\bar{\lambda}$ denotes the complex conjugate of $\lambda$. Note that we used symmetry of $\bA$ in the third equality. Since $\bv$ is not zero, we may divide out the squared norm on the far ends of the sequence of equalities to obtain $\lambda = \bar{\lambda}$. But this shows $\lambda$ is real.
+
+Now, since $\bA$ is symmetric, by the [Spectral Theorem](https://en.wikipedia.org/wiki/Spectral_theorem) (see also Theorem 5.8 in Chapter 7 of {cite}`Artin1991`) there exists an orthogonal matrix $\bQ$ and a diagonal matrix $\bD$ such that
+
+$$
+\bA = \bQ \bD \bQ^\intercal.
+$$ (diag-eq)
+
+The columns of $\bQ$ are necessarily eigenvectors $\bv_1,\ldots,\bv_d$ of $\bA$ while the main diagonal entries of $\bD$ are the eigenvalues $\lambda_1,\ldots,\lambda_d$, with $\bA \bv_i = \lambda_i \bv_i$ for each $i$. If for each $i=1,\ldots,d$ we write $\bE_i$ for the diagonal matrix with a $1$ in the $(i,i)$-th position and zeros elsewhere, then {eq}`diag-eq` may be rewritten as
+
+$$
+\bA = \lambda_1 \bP_1 + \cdots + \lambda_d \bP_d
+$$ (spectral-decomp-eq)
+
+where $\bP_i = \bQ \bE_i \bQ^\intercal$. This is the so-called _spectral decomposition_ of $\bA$ into a linear combination of rank-$1$ projection matrices. Note that $\bP_i\bP_j = \boldsymbol{0}$ if $i\neq j$, $\bP_i^2 = \bP_i$ for each $i$, and $\bP_iv_i = v_i$ for each $i$.
+
+The eigenvectors of $\bA$ form an orthonormal basis of $\bbr^d$ since $\bQ$ is orthongal. So, given $\bv\in \bbr^d$, we may write $\bv = b_1 \bv_1 + \cdots + b_d \bv_d$ for some scalars $b_1,\ldots,b_d$. Then, from {eq}`spectral-decomp-eq`, we get
+
+$$
+\bv^\intercal\bA\bv = b_1^2 \lambda_1 + \cdots + b_d^2 \lambda_d.
+$$
+
+The characterizations in the first statement of the theorem follow immediately.
+
+Turning toward the second statement, suppose that $\bA$ is positive semidefinite. We then define
+
+$$
+\bB = \sqrt{\lambda_1} P_1 + \cdots + \sqrt{\lambda_n}P_n.
+$$
+
+Notice that the square roots are real, since the eigenvalues are (real) nonnegative. You may easily check that $\bA = \bB^2$, and that $\bB$ is positive semidefinite. I will leave you to prove the converse, that if such a $\bB$ exists, then $\bA$ is necessarily positive semidefinite. We will not address uniqueness of $\bB$ here; for that, see, for example, Theorem 7.2.6 in {cite}`HornJohnson1985`. Q.E.D.
+```
+
+We are now ready to prove the main result regarding covariance and correlation matrices:
 
 ```{prf:theorem} Covariance and correlation matrices are positive semidefinite
 :label: covar-matrix-prop-thm
@@ -1091,21 +1141,13 @@ Let $\bX = (X_1,\ldots,X_d)$ be a $d$-dimensional random vector. Both the covari
 
 ```{prf:proof}
 
-We will only prove that the correlation matrix $\bP = \bP_\bX$ is positive semidefinite, leaving you to make the easy changes to cover the covariance matrix. First, we have already observed that $\bP$ is symmetric. Then, given $\bz\in \bbr^d$, we use {prf:ref}`bilinear-thm` to compute:
+We will only prove that the correlation matrix $\bP = \bP_\bX$ is positive semidefinite, leaving you to make the easy changes to cover the covariance matrix. First, we have already observed that $\bP$ is symmetric. Then, given $\bv\in \bbr^d$, we use {prf:ref}`bilinear-thm` to compute:
 
 $$
-\bz^\intercal \bP \bz = \sum_{i,j=1}^d \frac{z_i}{\sigma_i} \frac{z_j}{\sigma_j} \sigma(X_i,X_j) = \sigma \left(\sum_{i=1}^d \frac{z_i}{\sigma_i}X_i, \sum_{j=1}^d \frac{z_j}{\sigma_j} X_j \right) = V\left( \sum_{j=1}^d \frac{z_j}{\sigma_j} X_j \right) \geq 0.
+\bv^\intercal \bP \bv = \sum_{i,j=1}^d \frac{v_i}{\sigma_i} \frac{v_j}{\sigma_j} \sigma(X_i,X_j) = \sigma \left(\sum_{i=1}^d \frac{v_i}{\sigma_i}X_i, \sum_{j=1}^d \frac{v_j}{\sigma_j} X_j \right) = V\left( \sum_{j=1}^d \frac{v_j}{\sigma_j} X_j \right) \geq 0.
 $$
 
-This establishes that $\bP$ is positive semidefinite.
-
-To prove that a nonzero determinant implies positive definiteness, we observe that since $\bP$ is symmetric, the [Spectral Theorem](https://en.wikipedia.org/wiki/Spectral_theorem) (see also Theorem 5.8 in Chapter 7 of {cite}`Artin1991`) tells us that there is an orthonormal basis $\bv_1,\ldots,\bv_d$ of $\bbr^d$ consisting of eigevectors. So, for any $\bz\in \bbr^d$, there are scalars $a_1,\ldots,a_d\in \bbr$ such that $\bz = \sum_{i=1}^d a_i \bv_i$. Then, we compute
-
-$$
-\bz^\intercal \bP \bz = \sum_{i,j=1}^d a_i a_j \bv_i^\intercal\bP \bv_j = \sum_{i=1}^d a_i^2 \lambda_i,
-$$ (evec-eq)
-
-where we've used the eigenvector/eigenvalue equations $\bP \bv_i = \lambda_i \bv_i$ for each $i$. Regardless of whether the determinant is zero or not, this shows that all the eigenvalues must be (real and) nonnegative if $\bP$ is positive semidefinite. But if $\det{\bP}\neq 0$, then none of the eigenvalues can vanish since the determinant is the product of the eigenvalues. It then follows from {eq}`evec-eq` that $\bz^\intercal \bP \bz = 0$ implies $\bz=\boldsymbol{0}$, which is what we wanted to show. Q.E.D.
+This establishes that $\bP$ is positive semidefinite. To see that a nonzero determinant implies that $\bP$ is positive definite, recall that the determinant is the product of the eigenvalues. Then use the characterization of positive definite matrices given in {prf:ref}`psd-char-thm`. Q.E.D.
 
 ```
 
@@ -1391,7 +1433,7 @@ The affine transformation $\bZ = \bSigma^{-1/2}(\bx - \bmu)$ in the corollary is
 Let $\bX \sim \calN_d(\bmu,\bSigma)$ and $\bX = (X_1,\ldots,X_d)$, where
 
 $$
-\bmu^\intercal = (\mu_1,\ldots,\mu_d) \quad \text{and} \quad \bSigma = \left[ \sigma_{ii} \right]_{ij}.
+\bmu^\intercal = (\mu_1,\ldots,\mu_d) \quad \text{and} \quad \bSigma = \left[ \sigma_{ij} \right].
 $$
 
 Then each component random variable $X_i$ is normal with mean $\mu_i$ and variance $\sigma_{ii}$.
@@ -1410,7 +1452,7 @@ $$
 X_i = \sum_{j=1}^d \omega_{ij} Z_j + \mu_i
 $$
 
-where $\bSigma^{1/2} = [\omega_{ij}]_{ij}$. Now apply {prf:ref}`mgf-norm-thm` and use {eq}`z-comp-norm-eq` to conclude that
+where $\bSigma^{1/2} = [\omega_{ij}]$. Now apply {prf:ref}`mgf-norm-thm` and use {eq}`z-comp-norm-eq` to conclude that
 
 $$
 X_i \sim \calN\left(\mu_i, \sum_{j=1}^d \omega_{ij}^2 \right).
