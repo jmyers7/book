@@ -1190,14 +1190,11 @@ Sigma = np.array([[sigma1 ** 2, rho * sigma1 * sigma2], [rho * sigma1 * sigma2, 
 mu = np.array([1, 1])
 norm = sp.stats.multivariate_normal(mean=mu, cov=Sigma)
 
-resolution = 100
-linear_grid = np.linspace(-2, 4, resolution)
-x, y = np.meshgrid(linear_grid, linear_grid)
-grid = np.column_stack((x.reshape(-1, 1), y.reshape(-1, 1)))
+x, y = np.mgrid[-2:4:0.1, -2:4:0.1]
+grid = np.dstack((x, y))
 z = norm.pdf(grid)
-z = z.reshape(resolution, resolution)
 
-contour = plt.contour(linear_grid, linear_grid, z, colors=blue)
+contour = plt.contour(x, y, z, colors=blue)
 plt.clabel(contour, inline=True, fontsize=8)
 plt.scatter(1, 1)
 plt.xlabel('$x$')
@@ -1243,12 +1240,9 @@ Sigma = np.array([[sigma1 ** 2, rho * sigma1 * sigma2], [rho * sigma1 * sigma2, 
 mu = np.array([1, 1])
 norm = sp.stats.multivariate_normal(mean=mu, cov=Sigma)
 
-resolution = 100
-linear_grid = np.linspace(-3, 5, resolution)
-x, y = np.meshgrid(linear_grid, linear_grid)
-grid = np.column_stack((x.reshape(-1, 1), y.reshape(-1, 1)))
+x, y = np.mgrid[-3:5:0.1, -3:5:0.1]
+grid = np.dstack((x, y))
 z = norm.pdf(grid)
-z = z.reshape(resolution, resolution)
 
 contour = plt.contour(x, y, z, colors=blue)
 plt.clabel(contour, inline=True, fontsize=8)
@@ -1349,14 +1343,11 @@ these "spheres" are ellipses centered at $\bmu$:
 :       align: center
 
 def mahalanobis(x, mean, cov):
-    return np.diag((x - mean) @ np.linalg.inv(cov) @ (x - mean).T)
+    return np.sum(np.matmul(x - mean, np.linalg.inv(cov)) * (x - mean), axis=-1)
 
-resolution = 100
-linear_grid = np.linspace(-5, 7, resolution)
-x, y = np.meshgrid(linear_grid, linear_grid)
-grid = np.column_stack((x.reshape(-1, 1), y.reshape(-1, 1)))
+x, y = np.mgrid[-5:7:0.1, -5:7:0.1]
+grid = np.dstack((x, y))
 z = mahalanobis(x=grid, mean=mu, cov=Sigma)
-z = z.reshape(resolution, resolution)
 
 contour = plt.contour(x, y, z, colors=blue, levels=15)
 plt.clabel(contour, inline=True, fontsize=8)
@@ -1515,10 +1506,8 @@ def covar_matrix(rho, sigma1, sigma2):
 
 parameters = [[0.5, 1, 2], [0.5, 1, 4], [-0.5, 1, 2], [0, 3, 2]]   # rho, sigma1, sigma2
 
-resolution = 100
-linear_grid = np.linspace(-2, 4, resolution)
-x, y = np.meshgrid(linear_grid, linear_grid)
-grid = np.column_stack((x.reshape(-1, 1), y.reshape(-1, 1)))
+x, y = np.mgrid[-2:4:0.1, -2:4:0.1]
+grid = np.dstack((x, y))
 
 _, axes = plt.subplots(ncols=2, nrows=2, figsize=(8, 6), sharex=True, sharey=True)
 
@@ -1528,7 +1517,6 @@ for parameter, axis in zip(parameters, axes.flatten()):
     norm = sp.stats.multivariate_normal(mean=np.array([1, 1]), cov=Sigma)
 
     z = norm.pdf(grid)
-    z = z.reshape(resolution, resolution)
     axis.contour(x, y, z, colors=blue)
     axis.scatter(1, 1)
     axis.set_xlabel('$x$')
@@ -1557,15 +1545,12 @@ norm = sp.stats.multivariate_normal(mean=mu, cov=Sigma)
 np.random.seed(42)
 sample = norm.rvs(size=1000)
 
-resolution = 100
-linear_grid = np.linspace(-5, 7, resolution)
-x, y = np.meshgrid(linear_grid, linear_grid)
-grid = np.column_stack((x.reshape(-1, 1), y.reshape(-1, 1)))
+x, y = np.mgrid[-5:7:0.1, -5:7:0.1]
+grid = np.dstack((x, y))
 z = norm.pdf(grid)
-z = z.reshape(resolution, resolution)
 
 sns.scatterplot(x=sample[:, 0], y=sample[:, 1], alpha=0.5)
-plt.contour(x, y, z, colors=magenta)
+plt.contour(x, y, z, colors=magenta, alpha=1)
 plt.xlabel('$x$')
 plt.ylabel('$y$')
 plt.gcf().set_size_inches(w=5, h=4)
