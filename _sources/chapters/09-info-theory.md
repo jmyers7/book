@@ -15,11 +15,11 @@ kernelspec:
 (information-theory)=
 # Information theory
 
-This chapter marks a pivotal shift in the book, moving from our focused exploration of abstract probability theory to practicalities of building and training probabilistic models. Subsequent chapters construct estimators and statistics and develop their theories, all of this with the overarching goal of leveraging these newfound tools to discover answers to specific questions or inquiries of particular interest. Most texts on mathematical statistics make a similar transition to similar material that they call _inferential statistics_---but whatever it might be called, the end goal is the same: _Learn from data_.
+This chapter marks a pivotal shift in the book, moving from our focused exploration of abstract probability theory to practicalities of building and training probabilistic models. Subsequent chapters construct estimators and statistics and develop their theories, all of this with the overarching goal of leveraging these newfound tools to discover answers to specific questions or inquiries of particular interest. Most texts on mathematical statistics make a similar transition to similar material that they call _inferential statistics_---but whatever it might be called, we are trying to do the same thing: _Learn from data_.
 
 The current chapter describes tools and techniques drawn from the _theory of information_, which is a charming amalgamation of practical engineering and theoretical mathematics. Among other things, this theory provides us with a method for measuring a particular form of _information_, but it also gives us techniques for quantifying related degrees of _surprise_, _uncertainty_, and _entropy_. In the upcoming chapters, our primary use for these measures will be to train and choose probabilistic models, but the theory reaches way beyond into physics, coding theory, computer science, neuroscience, biology, economics, the theory of complex systems, and even philosophy.
 
-We will begin the chapter with a motivational section to help introduce the very specific type of _information_ that this theory purports to study. While the hurried reader may skip this initial section if they so choose, they should also be warned that the abstract definitions in later sections will be quite difficult to "grok" at first sight without the context and setting provided by the first section. Throughout the remaining sections in the chapter, we will try to hit all the highlights of the theory, but we will fall well short of comprehensive coverage. But fortunately, there are several textbook-length treatments of information theory that are very approachable---the standard reference seems to be {cite}`CoverThomas2006`, though my preferences lean much more toward {cite}`MacKay2003`. I also quite enjoy {cite}`Ash2012`, though it is much older than the other two references and is written in the definition-theorem-proof style of pure mathematics (which some appreciate, some don't).
+We will begin the chapter with a motivational section to help introduce the very specific type of _information_ that this theory purports to study. While the hurried reader may skip this initial section if they so choose, they should also be warned that the abstract definitions in later sections will be quite difficult to "grok" at first sight without the context and setting provided by the first section. Throughout the remaining sections in the chapter, we will try to hit many of the highlights of the theory, but we will fall well short of comprehensive coverage. But fortunately, there are several textbook-length treatments of information theory that are very approachable---the standard references are {cite}`CoverThomas2006` and {cite}`MacKay2003`. I also quite enjoy {cite}`Ash2012`, though it is much older than the other two references and is written in the definition-theorem-proof style of pure mathematics (which some appreciate, some don't).
 
 
 
@@ -49,7 +49,7 @@ Despite these misgivings from the founders, the terms _information theory_ and _
 
 At first blush, you might imagine that this _information_ resides in data, but that's not true. Rather, this particular form of _information_ is initially attached to our _beliefs_ about the data---or, more precisely, this _information_ is associated with a probabilistic model of the data. But if we have successfully cooked up a model that we think truly captures the data, then this form of _information_ might (with caution!) be transferred from the model and attributed to the data. In any case, it's a point that you would do well to remember: _Information-theoretic measures are associated with models, not datasets!_
 
-To give you an initial sense of how this special notion of _information_ arises, let's go through a simple and concrete example. Let's suppose that we have two simple data sources that produce bit strings, or strings of $0$'s and $1$'s. (Bit $=$ binary digit.) We will assign them the names Source 1 and Source 2, and we then collect data:
+To give you an initial sense of how this special notion of _information_ arises, let's go through a simple and concrete example. Let's suppose that we have three simple data sources that produce bit strings, or strings of $0$'s and $1$'s. (Bit $=$ binary digit.) We will assign them the names Source 1, Source 2, and Source 3, and we then collect data:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -80,26 +80,30 @@ def generate_data(theta, block_length, message_length, random_state=None):
     data = np.concatenate((ones, zeros))
     np.random.shuffle(data)
     data_string = ''.join([str(num) for num in data])
-    data_blocks = [data_string[i:i+5] for i in range(0, num_bits, block_length)]
+    data_blocks = [data_string[i:i+block_length] for i in range(0, num_bits, block_length)]
     return data_string, data_blocks
 
 block_length = 5
-theta1 = 0.5
-theta2 = 0.2    # four times as many 0's as 1's
-message_length = 100
+num_bits = 500
+theta1 = 0.1
+theta2 = 0.2
+theta3 = 0.5
+message_length = num_bits // block_length
 
 data1_string, data1 = generate_data(theta=theta1, block_length=block_length, message_length=message_length, random_state=42)
 data2_string, data2 = generate_data(theta=theta2, block_length=block_length, message_length=message_length, random_state=42)
+data3_string, data3 = generate_data(theta=theta3, block_length=block_length, message_length=message_length, random_state=42)
 
 print('Data 1: ', data1_string)
 print('Data 2: ', data2_string)
+print('Data 3: ', data3_string)
 ```
 
-As the names indicate, the first bit string is drawn from Source 1, while the second from Source 2. Each string is 500 bits long.
+Each string is 500 bits long.
 
-Models are suggested through the identification of patterns, regularities, and other types of special and particular structure. But when you scroll through the bit strings, it appears that the $0$'s and $1$'s are produced by the two sources in a random and haphazard manner; there is no detectable _deterministic_ regularities. But probabilistic models are not built to capture such regularities, so this should not worry us; rather, such models are designed to capture _probabilistic_ or _statistical_ properties.
+Models are suggested through the identification of patterns, regularities, and other types of special and particular structure. But when you scroll through the bit strings, it appears that the $0$'s and $1$'s are produced by the three sources in a random and haphazard manner; there are no detectable _deterministic_ regularities. But probabilistic models are not built to capture such regularities, so this should not worry us; rather, such models are designed to capture _probabilistic_ or _statistical_ properties.
 
-We _do_ notice that the second string contains many more $0$'s than $1$'s. With this in mind, we count the number of $0$'s and $1$'s in each string and compute the ratio of these two numbers. We find:
+We _do_ notice that the relative frequency of $1$'s appears to increase as we go from the first bit string, to the second, to the third. With this in mind, we ask the machine to compute these frequencies:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -108,20 +112,19 @@ We _do_ notice that the second string contains many more $0$'s than $1$'s. With 
 :       align: center
 
 n1 = data1_string.count('1')
-n0 = len(data1_string) - n1
-theta1 = n1 / len(data1_string)
-print(f"Ratio of 0's to 1's for Data 1:  {n0 / n1:0.2f}")
+print(f"Relative frequency of 1's for data 1:  {n1 / num_bits:0.2f}")
 
 n1 = data2_string.count('1')
-n0 = len(data2_string) - n1
-theta2 = n1 / len(data1_string)
-print(f"Ratio of 0's to 1's for Data 2:  {n0 / n1:0.2f}")
+print(f"Relative frequency of 1's for data 2:  {n1 / num_bits:0.2f}")
+
+n1 = data3_string.count('1')
+print(f"Relative frequency of 1's for data 3:  {n1 / num_bits:0.2f}")
 ```
 
-Ah ha! The first bit string contains exactly the same number of $0$'s and $1$'s, while the second bit string contains exactly four $0$'s for every $1$. This immediately suggests the models: Source 1 and Source 2 will be modeled, respectively, by the random variables
+These values immediately suggest the models: Source 1, 2, and 3 will be modeled, respectively, by the random variables
 
 $$
-X_1 \sim \Ber(0.5) \quad \text{and} \quad X_2 \sim \Ber(0.2).
+X_1 \sim \Ber(0.1), \quad X_2 \sim \Ber(0.2), \quad \text{and} \quad X_3 \sim \Ber(0.5).
 $$
 
 We conceptualize the bit strings as subsequent draws from these random variables, each bit in the string being produced independently of all those that came before it.
@@ -130,7 +133,7 @@ Now we ask the central question: Using these models, how might we measure or qua
 
 Of course, the question is hopelessly unanswerable, because _information_ is as yet undefined. But instead of trying to find some abstract and highfalutin description that _directly_ aims to characterize _information_ in all its diverse manifestations, we seek some sort of proxy that allows us to _indirectly_ "get at" this slippery notion.
 
-One such proxy is inspired and motivated by practical engineering considerations: The information content in these strings should be related to our ability to losslessly _compress_ the strings. Indeed, a larger compression ratio (i.e., the number of original bits to the number of compressed bits) should reflect that the string contains little information, while a smaller compression ratio should mean the opposite. As an extreme example, think of the bit string consisting of exactly five hundred $1$'s; we might imagine that it is the output of a third data source modeled via the random(?) variable $X_3 \sim \Ber(1)$. Intuitively, there is little information content carried by such a string, which is reflected in the fact that it may be highly compressed: If we design an encoding scheme with _block length_ equal to $500$ (see below), then this string would be compressed to the length-$1$ string consisting of just the single bit $1$. This is a $500$ to $1$ compression factor---quite large indeed!
+One such proxy is inspired and motivated by practical engineering considerations: The information content in these strings should be related to our ability to losslessly _compress_ the strings. Indeed, a larger compression ratio (i.e., the number of original bits to the number of compressed bits) should reflect that the string contains little information, while a smaller compression ratio should mean the opposite. As an extreme example, think of the bit string consisting of exactly five hundred $1$'s; we might imagine that it is the output of a fourth data source modeled via the random(?) variable $X_4 \sim \Ber(1)$. Intuitively, there is little information content carried by such a string, which is reflected in the fact that it may be highly compressed: If we design an encoding scheme with _block length_ equal to $500$ (see below), then this string would be compressed to the length-$1$ string consisting of just the single bit $1$. This is a $500$ to $1$ compression factor---quite large indeed!
 
 How do the probabilistic models fit into these considerations? Remember, the models were chosen to capture statistical properties of the bit strings. We can take advantage of these properties by splitting the strings into substrings of a specified _block length_; for example, if we use a block length of $5$, we get:
 
@@ -142,11 +145,12 @@ How do the probabilistic models fit into these considerations? Remember, the mod
 
 print('Data 1: ', data1)
 print('Data 2: ', data2)
+print('Data 3: ', data3)
 ```
 
-The first model $X_1 \sim \Bin(0.5)$ tells us that any given block is just as likely to appear in the data as any other; however, since the second model $X_2 \sim \Bin(0.2)$ assigns different probabilities to observing one or the other of the two bits $0$ and $1$, certain blocks in the second data string are more likely to appear than others. So then the idea is simple: To compress the second data string, we assign short code words to blocks that are more likely to appear according to the model.
+The third model $X_3 \sim \Bin(0.5)$ tells us that any given block is just as likely to appear in the data as any other; however, the first and second models $X_1 \sim \Bin(0.1)$ and $X_2 \sim \Ber(0.2)$ assign different probabilities to observing one or the other of the two bits $0$ and $1$, and therefore certain blocks in their data strings are more likely to appear than others. So then the idea is simple: To compress the first two strings, we assign short code words to blocks that are more likely to appear according to the models.
 
-One routine to find suitably short code words is called _Huffman coding_ which, conveniently, may be easily implemented in Python. The following code cell contains a dictionary representing the codebook obtained by running this routine on the second data string above. The keys to the dictionary consist of all $2^5 = 32$ possible blocks, while the values are the code words.
+One routine to find suitably short code words is called _Huffman coding_ which, conveniently, may be easily implemented in Python. The following code cell contains dictionaries representing the codebooks obtained by running this routine on the three data strings. The keys to the dictionaries consist of all $2^5 = 32$ possible blocks, while the values are the code words.
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -166,80 +170,293 @@ def generate_codebook(theta):
     codebook = huffman.codebook(prob_dist.items())
     return codebook, prob_dist
 
-codebook2, prob_dist2 = generate_codebook(theta=theta2)
-print('codebook: ', codebook2)
-```
-
-Notice that the blocks `00000` and `11111` are assigned, respectively, the code words `11` and `0111100100`. The difference in length of the code words reflects the difference in probability of observing the two blocks, $0.8^5 \approx 0.3277$ for the first versus $0.2^5 \approx 0.0003$ for the second. We print out the original blocks and their code words in the next cell, along with bit counts and the (reciprocal) compression ratio:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-
-compressed_data2 = [codebook2[word] for word in data2]
-data2_spaced = []
-compressed_data2_spaced = []
-
-for block, compressed_block in zip(data2, compressed_data2):
-    diff = len(block) - len(compressed_block)
-    if diff >= 0:
-        blanks = (' ' * diff)
-        data2_spaced.append(block)
-        compressed_data2_spaced.append(blanks + compressed_block)
-    else:
-        blanks = (' ' * -diff)
-        data2_spaced.append(blanks + block)
-        compressed_data2_spaced.append(compressed_block)
-    
-print('Data 2:                              ', data2_spaced)
-print('Compressed data 2:                   ', compressed_data2_spaced)
-print('Number of bits in data 2:            ', len(data2_string))
-print('Number of bits in compressed data 2: ', len(''.join(compressed_data2)))
-print('(reciprocal) Compression ratio 2:   ', len(''.join(compressed_data2)) / len(data2_string))
-```
-
-If we run the same routine on the first data string drawn from the model $X_1 \sim \Ber(0.5)$, we get:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-
 codebook1, prob_dist1 = generate_codebook(theta=theta1)
-compressed_data1 = [codebook1[word] for word in data1]
-data1_spaced = []
-compressed_data1_spaced = []
+codebook2, prob_dist2 = generate_codebook(theta=theta2)
+codebook3, prob_dist3 = generate_codebook(theta=theta3)
 
-for block, compressed_block in zip(data1, compressed_data1):
-    diff = len(block) - len(compressed_block)
-    if diff >= 0:
-        blanks = (' ' * diff)
-        data1_spaced.append(block)
-        compressed_data1_spaced.append(blanks + compressed_block)
-    else:
-        blanks = (' ' * -diff)
-        data1_spaced.append(blanks + block)
-        compressed_data1_spaced.append(compressed_block)
-    
-print('Data 1:                              ', data1_spaced)
-print('Compressed data 1:                   ', compressed_data1_spaced)
-print('Number of bits in data 1:            ', len(data1_string))
-print('Number of bits in compressed data 1: ', len(''.join(compressed_data1)))
-print('(reciprocal) Compression ratio 1:   ', len(''.join(compressed_data1)) / len(data1_string))
+spaced_codebook1 = {}
+spaced_codebook2 = {}
+spaced_codebook3 = {}
+
+for block in strings:
+    n1 = len(codebook1[block])
+    n2 = len(codebook2[block])
+    n3 = len(codebook3[block])
+    max_n = max([n1, n2, n3])
+    d1 = max_n - n1
+    d2 = max_n - n2
+    d3 = max_n - n3
+    blanks1 = (' ' * d1)
+    blanks2 = (' ' * d2)
+    blanks3 = (' ' * d3)
+    spaced_codebook1 = spaced_codebook1 | {block: blanks1 + codebook1[block]}
+    spaced_codebook2 = spaced_codebook2 | {block: blanks2 + codebook2[block]}
+    spaced_codebook3 = spaced_codebook3 | {block: blanks3 + codebook3[block]}
+
+print('Codebook 1: ', spaced_codebook1)
+print('Codebook 2: ', spaced_codebook2)
+print('Codebook 3: ', spaced_codebook3)
 ```
 
-Notice that the code words all have length $5$, resulting in a $1$ to $1$ compression ratio.
+In the first codebook, notice that the blocks `00000` and `11111` are assigned, respectively, the code words `1` and `0011001010100`. The difference in length of the code words reflects the difference in probability of observing the two blocks, $0.9^5 \approx 0.59$ for the first versus $0.1^5 \approx 10^{-5}$ for the second. We print out the original blocks and their code words in the next cell, along with average code word lengths and reciprocal compression factors:
 
-Continue later...
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+def compress_data(data, codebook):
+
+    compressed_data = [codebook[word] for word in data]
+    data_spaced = []
+    compressed_data_spaced = []
+
+    for block, compressed_block in zip(data, compressed_data):
+        diff = len(block) - len(compressed_block)
+        if diff >= 0:
+            blanks = (' ' * diff)
+            data_spaced.append(block)
+            compressed_data_spaced.append(blanks + compressed_block)
+        else:
+            blanks = (' ' * -diff)
+            data_spaced.append(blanks + block)
+            compressed_data_spaced.append(compressed_block)
+    
+    return compressed_data, data_spaced, compressed_data_spaced
+
+compressed_data1, data1_spaced, compressed_data1_spaced = compress_data(data=data1, codebook=codebook1)
+compressed_data2, data2_spaced, compressed_data2_spaced = compress_data(data=data2, codebook=codebook2)
+compressed_data3, data3_spaced, compressed_data3_spaced = compress_data(data=data3, codebook=codebook3)
+
+print('|---------- Data 1 ----------|')
+
+avg_length = sum([len(codeword) for codeword in compressed_data1]) / len(compressed_data1)
+
+print('Data:                         ', data1_spaced)
+print('Compressed data:              ', compressed_data1_spaced)
+print('Average code word length:     ', avg_length)
+print('Reciprocal compression factor:', avg_length, "/", block_length, '=', avg_length / block_length)
+
+print('\n')
+
+print('|---------- Data 2 ----------|')
+
+avg_length = sum([len(codeword) for codeword in compressed_data2]) / len(compressed_data2)
+
+print('Data:                         ', data2_spaced)
+print('Compressed data:              ', compressed_data2_spaced)
+print('Average code word length:     ', avg_length)
+print('Reciprocal compression factor:', avg_length, "/", block_length, '=', avg_length / block_length)
+
+print('\n')
+
+print('|---------- Data 3 ----------|')
+
+avg_length = sum([len(codeword) for codeword in compressed_data3]) / len(compressed_data3)
+
+print('Data:                         ', data3_spaced)
+print('Compressed data:              ', compressed_data3_spaced)
+print('Average code word length:     ', avg_length)
+print('Reciprocal compression factor:', avg_length, "/", block_length, '=', avg_length / block_length)
+```
+
+To help interpret these results, it will be useful to summarize the discussion so far:
+
+> Probabilistic models capture statistical and probabilistic properties in data. Expressed through the model, these properties allow us to design coding schemes that _compress_ the data---a larger compression ratio should stand in as a proxy for lower "information content" carried by the data. Different models will lead to different compression ratios, and therefore different measures of "information content." So it is important to remember: In this scheme, _"information content" is not intrinsic to data!_
+
+So, the average code word lengths and reciprocal compression factors displayed in the last printout depend on _two_ things: Both the chosen probabilistic models and the particular coding schemes (in this case, Huffman coding). However, one of the central contributions of information theory shows that there are _minimal_ average reciprocal compression factors that depend _only_ on the underlying probabilistic models; these mean values are called the _(Shannon) entropies_ of the models. Moreover, it is a _theorem_ in information theory that Huffman codes yield reciprocal compression factors that get at least as close to these entropies as any other code (at least restricted to so-called _prefix-free_ codes). Thus, the reciprocal compression factors displayed above may be considered approximations of the entropies of the underlying models. If we believe that high (low) compression factors signal lower (higher) information content, then small (large) entropies should serve as a proxy for low (high) information content.
+
+Our three probabilistic models are particular examples of the general Bernoulli model $X\sim \Ber(\theta)$ for $\theta \in[0,1]$. The model depends only on the parameter $\theta$, and thus so too does its entropy. In the next section, we will see a simple formula for this entropy; if use this formula to plot entropy against $\theta$, we get this:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+def bernoulli_entropy(theta, phi=None):
+    if phi != None:
+        return -theta * np.log2(phi) - (1 - theta) * np.log2(1 - phi)
+    else:
+        return -theta * np.log2(theta) - (1 - theta) * np.log2(1 - theta)
+    
+grid = np.linspace(0.001, 0.999, 100)
+plt.plot(grid, bernoulli_entropy(grid))
+plt.scatter(0.1, bernoulli_entropy(0.1), color=magenta, s=50, zorder=2)
+plt.scatter(0.2, bernoulli_entropy(0.2), color=magenta, s=50, zorder=2)
+plt.scatter(0.5, bernoulli_entropy(0.5), color=magenta, s=50, zorder=2)
+plt.gcf().set_size_inches(w=5, h=3)
+plt.xlabel('$\\theta$')
+plt.ylabel('entropy')
+plt.tight_layout()
+```
+
+The three dots are at parameter values $\theta=0.1, 0.2, 0.5$; notice that the corresponding entropies are very near the (reciprocal) compression factors identified above. Notice also that the entropy is maximized at $\theta=0.5$, so the data strings that carry the most average information content are those drawn from a Bernoulli model where we have an equal chance of observing a $0$ or $1$; in other words, the data strings where the identity of each individual bit is the _most uncertain_ are those that carry the most information content. This identification between high uncertainty and high information content is confusing at first glance, and we will touch on this point again briefly in the next section.
+
+---
+
+As I mentioned at the beginning of this section, we shall primarily use information-theoretic methods as means to train and choose between probabilistic models. This implies, of course, that there is some way to _compare_ models using these methods. Before moving on to the next section, I want to show you how these methods might work using our three toy models above, while also introducing some more of the main players in information theory.
+
+Sometimes it is a convenient fiction to posit the existence of a "true" probabilistic model that generates observed data. Putting aside whatever philosophical issues you might have regarding this claim, perhaps you will agree that our three toy models come as near to these "true" models as any other. What were to happen, then, if I encoded the first bit string using the codebook from the second bit string? Or, in other words, what if I _misidentified_ the parameter for the first model as $\theta=0.2$, when it is "truly" supposed to be $\theta=0.1$?
+
+The Huffman codes obtained from the "true" models were optimized, in the sense that they came closest to achieving the theoretical lower bounds on reciprocal data compression factors given by the entropies of the "true" models. This suggests that if we use the _wrong_ code, we should see worse performance on these compression metrics. The following code cell gives the results of using the codebook for the "wrong" parameter $\theta=0.2$ to encode the first data string:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+wrong_compressed_data1, data1_spaced, wrong_compressed_data1_spaced = compress_data(data=data1, codebook=codebook2)
+
+avg_length = sum([len(codeword) for codeword in wrong_compressed_data1]) / len(wrong_compressed_data1)
+
+print('|---- Data 1 (wrong model) ----|')
+print('Data:                           ', data1_spaced)
+print('Compressed data:                ', wrong_compressed_data1_spaced)
+print('Average code word length:       ', avg_length)
+print('Reciprocal compression factor:  ', avg_length, "/", block_length, '=', avg_length / block_length)
+```
+
+Comparing this to the optimal Huffman code above, we see that the reciprocal compression factor jumped from $0.488$ to $0.576$. At least in some sense, the difference between these two numbers serves as a proxy for the _discrepancy_ or _distance_ between the "true" model with $\theta=0.1$ and the "proposed" one with $\theta=0.2$.
+
+Information theory not only provides the entropy of a single model, which is a theoretical lower bound on reciprocal compression factors, but it also provides the so-called _cross entropy_ between two models which provides a lower bound on the reciprocal compression factor when using the "wrong" code in place of the "true" one. A fundamental result in the theory is _Gibbs' Inequality_, which says that this cross entropy is always greater than or equal to the entropy of the "true" model; the difference between these two entropies is therefore a nonnegative number that provides a measure of _distance_ between a "proposed" (perhaps "wrong") model and the "true" one. This difference is known as the _Kullback Leibler (KL) divergence_. By Gibbs' Inequality, the KL divergence achieves its global minimum value (i.e., $0$) when the "proposed" model is equal to the "true" one. These cross entropies and KL divergences will play a crucial role throughout the next few chapters.
 
 
 
 
 
-## KL divergence, entropy, and cross entropy
+
+
+
+
+
+
+
+
+
+## Shannon information and entropy
+
+Our development of the theory begins with:
+
+```{prf:definition}
+:label: info-content-def
+
+Let $P$ be a probability measure on a finite sample space $S$ with mass function $p(s)$. The _(Shannon) information content_ of the sample point $s\in S$, denoted $I_P(s)$, is defined to be
+
+$$
+I_P(s) \def - \log_2(p(s)).
+$$
+
+The information content is also called the _surprisal_. If $p(s) =0$, we set $I_P(s) = \infty$.
+
+If the probability measure $P$ is clear from context, we will write $I(s)$ in place of $I_P(s)$. If $\bX$ is a random vector with finite range and probability measure $P_\bX$, we will write $I_\bX(\bx)$ in place of $I_{P_\bX}(\bx)$.
+```
+
+Please understand that the terminology _information content_ now has a very specific and precise mathematical meaning. It is designed to "get at" our intuitive understanding of what general "information" is, but you should keep the two separate in your mind: There's the notion of "information" used in an intuitive and colloquial sense and is generally ill-defined, and then there is the notion of _information content_ precisely defined as above.
+
+The exact relationship between information content and the coding considerations from the previous section will be explained later. The alternate moniker _surprisal_, however, may be explained very nicely by simply inspecting the graph of the negative logarithm function:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+grid = np.linspace(0.01, 1, 100)
+plt.plot(grid, -np.log2(grid))
+plt.xlabel('$p$')
+plt.ylabel('$-\\log_2(p)$')
+plt.gcf().set_size_inches(w=5, h=3)
+plt.tight_layout()
+```
+
+Thus, the larger the probability $p$, the smaller the surprisal: If some outcome is highly likely to occur, then it is not surprising. In the other direction, if an outcome $s$ is highly unlikely to occur (small $p(s)$), then it is very surprising (large $I(s)$).
+
+It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal---so why the choice of base-$2$ logarithm? It turns out that if you begin from first principles with a set of "natural axioms" that any notion of _surprisal_ should possess, then you can _prove_ all such surprisal functions must be proportional to negative logarithms; see, for example, the discussion in Section 9 in {cite}`Rioul2021`. The choice of base $2$ is then somewhat arbitrary, akin to choosing units, but it does have the added benefit of nicely connecting up with bit strings in the coding context. Indeed, in base $2$, information content is measured in units of _bits_. While this is related to the previous notion of a bit denoting a binary digit ($0$ or $1$), the usage here is different, at the very least because information content does not have to be an integer. (See Section 10 in the aforementioned reference {cite}`Rioul2021` for more on units.)
+
+With the information content (or surprisal) in hand, we now define _entropy_:
+
+```{prf:definition}
+:label: entropy-def
+
+Let $P$ be a probability measure on a finite sample space $S$ with mass function $p(s)$. The _(Shannon) entropy_ of $P$, denoted $H(P)$, is defined to be
+
+$$
+H(P) \def \sum_{s\in S} p(s)I_P(s).
+$$
+
+The entropy is also called the _uncertainty_.
+
+If $\bX$ is a random vector with finite range and probability measure $P_\bX$, we will write $H(\bX)$ in place of $H(P_\bX)$. If we write the vector in terms of its component random variables $\bX = (X_1,\ldots,X_m)$, then we shall also write $H(X_1,\ldots,X_m)$ in place of $H(P_\bX)$ and call this the _joint entropy_ of the random variables $X_1,\ldots,X_m$.
+```
+
+Since $I(s) = -\log_2(p(s))$, there is an issue in the definition of $H(P)$ in the case that $p(s)=0$ for some $s\in S$, for then we encounter the indeterminate form $0 \log_2(0)$. By convention, we take this expression to equal $0$, which may be justified according to the limit
+
+$$
+\lim_{p \to 0^+} p \log_2(p) = 0.
+$$
+
+Notice that the entropy is the average information content, or surprisal, where the averaging weights are drawn from the mass function $p(s)$. Since averages of this form will reoccur so often in the current and next few chapters, it will be convenient to introduce new notations for them. So, if $P$ is a discrete probability measure with mass function $p(s)$ on a sample space $S$ and $g:S\to \bbr$ is a real-valued function, we will define
+
+$$
+E_P\left[g(s)\right] \def \sum_{s\in S} g(s) p(s).
+$$
+
+Alternatively, if we want to explicitly call attention to the mass function $p(s)$ rather than the probability measure $P$ itself, we will write
+
+$$
+E_{s\sim p(s)}\left[g(s)\right] \def \sum_{s\in S} g(s) p(s).
+$$
+
+We refer to these sums as the _mean value_ or _expected value_ of $g(s)$. Note that these are legitimately new usages of the expectation symbol $E$, since there is no random variable given _a priori_. To see the connection with the previous usage of $E$ for a discrete random variable $X$ with mass function $p_X(x)$, suppose that $g:\bbr \to \bbr$ and note
+
+$$
+E_{P_X}\left[g(x)\right] = \sum_{x\in \bbr}g(x) p_X(x) = E\left[g(X)\right].
+$$
+
+Indeed, the first equality follows from the definition of $E_{P_X}\left[g(x)\right]$ given above, while the second equality follows from the LotUS. Using this new notation, the definition of entropy may be rewritten as
+
+$$
+H(P) = E_P\left[I_P(s)\right] = E_{s\sim p(s)} \left[ I_P(s)\right].
+$$
+
+```{admonition} Problem Prompt
+
+Do problems 1 and 2 on the worksheet.
+```
+
+Now comes the fundamental notion of _cross entropy_, which we briefly met at the end of the previous section:
+
+```{prf:definition}
+:label: cross-entropy-def
+
+Let $P$ and $Q$ be two probability measures on a finite sample space $S$ with mass functions $p(s)$ and $q(s)$. Suppose they satisfy the following condition:
+
+* _Absolute continuity_. For all $s\in S$, if $q(s)=0$, then $p(s) = 0$. Or equivalently, the support of $q(s)$ contains the support of $p(s)$.
+
+Then the _cross entropy_ from $P$ to $Q$, denoted $H(P \parallel Q)$, is defined by
+
+$$
+H(P \parallel Q) \def E_{s\sim p(s)}\left[ I_Q(s) \right] =  - \sum_{s\in S} p(s)\log_2(q(s)).
+$$
+
+As usual, if $P_\bX$ and $P_\bY$ are the probability measures of two random vectors $\bX$ and $\bY$ with finite ranges, we will write $H(\bY \parallel \bX)$ in place of $H(P_\bY \parallel P_\bX)$.
+```
+
+Notice that the condition of absolute continuity between the two measures guarantees we will never see an expression of the form $p \log_2(0)$, with $p \neq 0$. Thus, it is enough to make the cross entropy well-defined by stipulating that we take $0 \log_2(0) =0$, as explained above.
+
+```{admonition} Problem Prompt
+
+Do problem 3 on the worksheet.
+```
+
+
+
+
+
+## KL divergence
 
 The types of measures $P$ and $Q$ that we shall work with initially are ones defined on a finite probability space $S$, so that they have mass functions $p(s)$ and $q(s)$ with finite support. The basic measure that we use in this chapter to compare them is the mean logarithmic relative magnitude. 
 
@@ -323,90 +540,23 @@ where the right-hand side is the negative of a number of the form {eq}`first-kl-
 ```{prf:definition}
 :label: KL-def
 
-Let $P$ and $Q$ be two probability measures on a finite probability space $S$ with mass functions $p(s)$ and $q(s)$. Then the _Kullback-Leibler divergence_ (or just _KL divergence_) from $P$ to $Q$, denoted $D(P \parallel Q)$, is the mean order of relative magnitude of $P$ to $Q$. Precisely, it is given by
+Let $P$ and $Q$ be two probability measures on a finite sample space $S$ with mass functions $p(s)$ and $q(s)$. Suppose they satisfy the following condition:
+
+* _Absolute continuity_. For all $s\in S$, if $q(s)=0$, then $p(s) = 0$. Or equivalently, the support of $q(s)$ contains the support of $p(s)$.
+
+Then the _Kullback-Leibler divergence_ (or just _KL divergence_) from $P$ to $Q$, denoted $D(P \parallel Q)$, is the mean order of relative magnitude of $P$ to $Q$. Precisely, it is given by
 
 $$
-D(P \parallel Q) \def \sum_{s\in S} p(s) \log_2\left( \frac{p(s)}{q(s)} \right).
-$$ (kl-eq)
-```
-
-Since averages of the form {eq}`kl-eq` will reoccur so often in the next few chapters, it will be convenient to introduce new notations for them. So, if $P$ is a discrete probability measure with mass function $p(s)$ on a sample space $S$ and $g:S\to \bbr$ is a real-valued function, we will define
-
+D(P \parallel Q) \def E_{s\sim p(s)} \left[ \log_2\left( \frac{p(s)}{q(s)} \right)\right] =  \sum_{s\in S} p(s) \log_2\left( \frac{p(s)}{q(s)} \right).
 $$
-E_P(g(s)) \def \sum_{s\in S} g(s) p(s).
-$$
-
-Alternatively, if we want to explicitly call attention to the mass function $p(s)$ rather than the probability measure $P$ itself, we will write
-
-$$
-E_{s\sim p(s)}(g(s)) \def \sum_{s\in S} g(s) p(s).
-$$
-
-We refer to these sums as the _mean value_ or _expected value_ of $g(s)$. Note that these are legitimately new usages of the expectation symbol $E$, since there is no random variable given _a priori_. To see the connection with the previous usage of $E$ for a discrete random variable $X$ with mass function $p_X(x)$, suppose that $g:\bbr \to \bbr$ and note
-
-$$
-E_{P_X}(g(x)) = \sum_{x\in \bbr}g(x) p_X(x) = E(g(X)).
-$$
-
-Indeed, the first equality follows from the definition of $E_{P_X}(g(x))$ given above, while the second equality follows from the LotUS. Therefore, using this new notation, we may rewrite {eq}`kl-eq` as
-
-$$
-D(P \parallel Q) = E_P\left[ \log_2\left(\frac{p(s)}{q(s)}\right)\right] = E_{s\sim p(s)} \left[ \log_2\left(\frac{p(s)}{q(s)}\right)\right].
-$$
-
-Notice again that the mean is with respect to $P$. This breaks the symmetry between $P$ and $Q$ so that
-
-$$
-D( P \parallel Q) \neq D(Q \parallel P),
-$$
-
-except in special cases. Problems are encountered in a strict interpretation of the formula {eq}`kl-eq` when one or the other (or both) of the mass functions are $0$. In these cases, it is conventional to define:
-
-$$
-p \log_2\left( \frac{p}{q} \right) = \begin{cases}
-0 & : p =0, \ q=0, \\
-0 & : p = 0, \ q\neq 0, \\
-\infty & : p \neq 0, \ q=0.
-\end{cases}
-$$
-
-Let's take a look at an example problem:
-
-
-```{admonition} Problem Prompt
-
-To problem 1 on the worksheet.
-```
-
-The KL divergence turns out to decompose into a sum of two of the most important quantities in information theory:
-
-```{prf:definition}
-:label: entropy-def
-
-Let $P$ and $Q$ be two probability measures on a finite probability space $S$ with mass functions $p(s)$ and $q(s)$.
-
-1. The _cross entropy_ from $P$ to $Q$, denoted $H(P \parallel Q)$, is the number defined by
-
-  $$
-  H(P \parallel Q) \def - \sum_{s\in S} p(s)\log_2(q(s)).
-  $$
-
-2. The _entropy_ of $P$, denoted $H(P)$, is the number given by
-
-    $$
-    H(P) \def - \sum_{s\in S} p(s) \log_2(p(s)).
-    $$
-
-When $\bX$ is a random vector with finite range, we shall often write $H(\bX)$ in place of $H(P_\bX)$.
 ```
 
 ```{admonition} Problem Prompt
 
-Do problem 2 on the worksheet.
+To problem 4 on the worksheet.
 ```
 
-
-The connection between these entropies and the KL divergence is given in the next theorem. Its proof is a triviality.
+The connection between KL divergence and entropy is given in the next theorem. Its proof is a triviality.
 
 ```{prf:theorem} KL divergence and entropy
 :label: KL-and-entropy-thm
@@ -474,23 +624,6 @@ is the analog of the [Gibbs equation](https://en.wikipedia.org/wiki/Entropy_(sta
 
 In his initial paper, Shannon described entropy $H(P)$ as a measure of _uncertainty_. From this perspective, the rationale behind the maximum-entropy equation {eq}`max-ent-eq` becomes clear: If one were to randomly draw a number from a probability distribution, the uniform distribution is the one that would result in the highest level of uncertainty regarding the outcome.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Conditional entropy, mutual information
 
 
 
@@ -578,7 +711,7 @@ In fact, this latter inequality should _always_ be true for _any_ encoding of $X
 
 
 
-## Conditional entropy and mutual information
+## Mutual information
 
 
 

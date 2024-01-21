@@ -1,0 +1,107 @@
+Traceback (most recent call last):
+  File "/Users/johnmyers/miniconda3/envs/python-2023-12/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/Users/johnmyers/miniconda3/envs/python-2023-12/lib/python3.10/site-packages/nbclient/client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/johnmyers/miniconda3/envs/python-2023-12/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 173, in wrapped
+    return loop.run_until_complete(inner)
+  File "/Users/johnmyers/miniconda3/envs/python-2023-12/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/Users/johnmyers/miniconda3/envs/python-2023-12/lib/python3.10/site-packages/nbclient/client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "/Users/johnmyers/miniconda3/envs/python-2023-12/lib/python3.10/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/johnmyers/miniconda3/envs/python-2023-12/lib/python3.10/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import scipy as sp
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import huffman
+from itertools import product
+#import matplotlib_inline.backend_inline
+#matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
+plt.style.use('./aux-files/custom_style_light.mplstyle')
+blue = '#486AFB'
+magenta = '#FD46FC'
+
+def generate_data(theta, block_length, message_length, random_state=None):
+    if random_state != None:
+        np.random.seed(random_state)
+    num_bits = block_length * message_length
+    n1 = int(theta * num_bits)
+    n0 = int((1 - theta) * num_bits)
+    ones = np.ones(n1, dtype=int)
+    zeros = np.zeros(n0, dtype=int)
+    data = np.concatenate((ones, zeros))
+    np.random.shuffle(data)
+    data_string = ''.join([str(num) for num in data])
+    data_blocks = [data_string[i:i+block_length] for i in range(0, num_bits, block_length)]
+    return data_string, data_blocks
+
+block_length = 5
+num_bits = 500
+theta1 = 0.1
+theta2 = 0.2
+theta3 = 0.5
+message_length = num_bits // block_length
+
+data1_string, data1 = generate_data(theta=theta1, block_length=block_length, message_length=message_length, random_state=42)
+data2_string, data2 = generate_data(theta=theta2, block_length=block_length, message_length=message_length, random_state=42)
+data3_string, data3 = generate_data(theta=theta3, block_length=block_length, message_length=message_length, random_state=42)
+
+print('Data 1: ', data1_string)
+print('Data 2: ', data2_string)
+print('Data 3: ', data3_string)
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mFileNotFoundError[0m                         Traceback (most recent call last)
+File [0;32m~/miniconda3/envs/python-2023-12/lib/python3.10/site-packages/matplotlib/style/core.py:137[0m, in [0;36muse[0;34m(style)[0m
+[1;32m    136[0m [38;5;28;01mtry[39;00m:
+[0;32m--> 137[0m     style [38;5;241m=[39m [43m_rc_params_in_file[49m[43m([49m[43mstyle[49m[43m)[49m
+[1;32m    138[0m [38;5;28;01mexcept[39;00m [38;5;167;01mOSError[39;00m [38;5;28;01mas[39;00m err:
+
+File [0;32m~/miniconda3/envs/python-2023-12/lib/python3.10/site-packages/matplotlib/__init__.py:866[0m, in [0;36m_rc_params_in_file[0;34m(fname, transform, fail_on_error)[0m
+[1;32m    865[0m rc_temp [38;5;241m=[39m {}
+[0;32m--> 866[0m [38;5;28;01mwith[39;00m _open_file_or_url(fname) [38;5;28;01mas[39;00m fd:
+[1;32m    867[0m     [38;5;28;01mtry[39;00m:
+
+File [0;32m~/miniconda3/envs/python-2023-12/lib/python3.10/contextlib.py:135[0m, in [0;36m_GeneratorContextManager.__enter__[0;34m(self)[0m
+[1;32m    134[0m [38;5;28;01mtry[39;00m:
+[0;32m--> 135[0m     [38;5;28;01mreturn[39;00m [38;5;28;43mnext[39;49m[43m([49m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mgen[49m[43m)[49m
+[1;32m    136[0m [38;5;28;01mexcept[39;00m [38;5;167;01mStopIteration[39;00m:
+
+File [0;32m~/miniconda3/envs/python-2023-12/lib/python3.10/site-packages/matplotlib/__init__.py:843[0m, in [0;36m_open_file_or_url[0;34m(fname)[0m
+[1;32m    842[0m fname [38;5;241m=[39m os[38;5;241m.[39mpath[38;5;241m.[39mexpanduser(fname)
+[0;32m--> 843[0m [38;5;28;01mwith[39;00m [38;5;28;43mopen[39;49m[43m([49m[43mfname[49m[43m,[49m[43m [49m[43mencoding[49m[38;5;241;43m=[39;49m[38;5;124;43m'[39;49m[38;5;124;43mutf-8[39;49m[38;5;124;43m'[39;49m[43m)[49m [38;5;28;01mas[39;00m f:
+[1;32m    844[0m     [38;5;28;01myield[39;00m f
+
+[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: './aux-files/custom_style_light.mplstyle'
+
+The above exception was the direct cause of the following exception:
+
+[0;31mOSError[0m                                   Traceback (most recent call last)
+Cell [0;32mIn[1], line 9[0m
+[1;32m      6[0m [38;5;28;01mfrom[39;00m [38;5;21;01mitertools[39;00m [38;5;28;01mimport[39;00m product
+[1;32m      7[0m [38;5;66;03m#import matplotlib_inline.backend_inline[39;00m
+[1;32m      8[0m [38;5;66;03m#matplotlib_inline.backend_inline.set_matplotlib_formats('svg')[39;00m
+[0;32m----> 9[0m [43mplt[49m[38;5;241;43m.[39;49m[43mstyle[49m[38;5;241;43m.[39;49m[43muse[49m[43m([49m[38;5;124;43m'[39;49m[38;5;124;43m./aux-files/custom_style_light.mplstyle[39;49m[38;5;124;43m'[39;49m[43m)[49m
+[1;32m     10[0m blue [38;5;241m=[39m [38;5;124m'[39m[38;5;124m#486AFB[39m[38;5;124m'[39m
+[1;32m     11[0m magenta [38;5;241m=[39m [38;5;124m'[39m[38;5;124m#FD46FC[39m[38;5;124m'[39m
+
+File [0;32m~/miniconda3/envs/python-2023-12/lib/python3.10/site-packages/matplotlib/style/core.py:139[0m, in [0;36muse[0;34m(style)[0m
+[1;32m    137[0m         style [38;5;241m=[39m _rc_params_in_file(style)
+[1;32m    138[0m     [38;5;28;01mexcept[39;00m [38;5;167;01mOSError[39;00m [38;5;28;01mas[39;00m err:
+[0;32m--> 139[0m         [38;5;28;01mraise[39;00m [38;5;167;01mOSError[39;00m(
+[1;32m    140[0m             [38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00mstyle[38;5;132;01m!r}[39;00m[38;5;124m is not a valid package style, path of style [39m[38;5;124m"[39m
+[1;32m    141[0m             [38;5;124mf[39m[38;5;124m"[39m[38;5;124mfile, URL of style file, or library style name (library [39m[38;5;124m"[39m
+[1;32m    142[0m             [38;5;124mf[39m[38;5;124m"[39m[38;5;124mstyles are listed in `style.available`)[39m[38;5;124m"[39m) [38;5;28;01mfrom[39;00m [38;5;21;01merr[39;00m
+[1;32m    143[0m filtered [38;5;241m=[39m {}
+[1;32m    144[0m [38;5;28;01mfor[39;00m k [38;5;129;01min[39;00m style:  [38;5;66;03m# don't trigger RcParams.__getitem__('backend')[39;00m
+
+[0;31mOSError[0m: './aux-files/custom_style_light.mplstyle' is not a valid package style, path of style file, URL of style file, or library style name (library styles are listed in `style.available`)
+
