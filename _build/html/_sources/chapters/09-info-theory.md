@@ -17,9 +17,11 @@ kernelspec:
 
 This chapter marks a pivotal shift in the book, moving from our focused exploration of abstract probability theory to practicalities of building and training probabilistic models. Subsequent chapters construct estimators and statistics and develop their theories, all of this with the overarching goal of leveraging these newfound tools to discover answers to specific questions or inquiries of particular interest. Most texts on mathematical statistics make a similar transition to similar material that they call _inferential statistics_---but whatever it might be called, we are trying to do the same thing: _Learn from data_.
 
-The current chapter describes tools and techniques drawn from the _theory of information_, which is a charming amalgamation of practical engineering and theoretical mathematics. Among other things, this theory provides us with a method for measuring a particular form of _information_, but it also gives us techniques for quantifying related degrees of _surprise_, _uncertainty_, and _entropy_. In the upcoming chapters, our primary use for these measures will be to train and choose probabilistic models, but the theory reaches way beyond into physics, coding theory, computer science, neuroscience, biology, economics, the theory of complex systems, and even philosophy.
+The current chapter describes tools and techniques drawn from the _theory of information_, which is a charming amalgamation of practical engineering and theoretical mathematics. This theory provides us with a method for measuring a particular form of _information_, but it also gives us techniques for quantifying related degrees of _surprise_, _uncertainty_, and _entropy_. In the upcoming chapters, our primary use for these measures will be to train and choose probabilistic models, but the theory reaches way beyond into physics, coding theory, computer science, neuroscience, biology, economics, the theory of complex systems, and many other fields.
 
-We will begin the chapter with a motivational section to help introduce the very specific type of _information_ that this theory purports to study. While the hurried reader may skip this initial section if they so choose, they should also be warned that the abstract definitions in later sections will be quite difficult to "grok" at first sight without the context and setting provided by the first section. Throughout the remaining sections in the chapter, we will try to hit many of the highlights of the theory, but we will fall well short of comprehensive coverage. But fortunately, there are several textbook-length treatments of information theory that are very approachable---the standard references are {cite}`CoverThomas2006` and {cite}`MacKay2003`. I also quite enjoy {cite}`Ash2012`, though it is much older than the other two references and is written in the definition-theorem-proof style of pure mathematics (which some appreciate, some don't).
+We will begin the chapter with a section to help introduce the specific type of _information_ that this theory purports to study. This first section is purely expository and draws motivation from the roots of information theory in practical engineering and coding theory. However, for reasons of space and time, beyond the first section we do not elaborate any further on the connections between information theory and coding theory---for that, we will point the interested reader to one of the standard textbooks on information theory, like {cite}`CoverThomas2006`, {cite}`MacKay2003`, and {cite}`Ash2012`. The hurried reader may skip the first section if they would like, it contains no material necessary for the remaining sections.
+
+Though information theory has its roots in engineering concerns, it is at its core a purely mathematical theory. In the second section of this chapter, we define and study the first two of the three central quantities in the mathematical theory called _Shannon information_ and _Shannon entropy_---after that, in the third section, we define the third of these important quantities called _Kullback Leibler (KL) divergence_. It is mostly this latter quantity that will be of primary use in the following chapters, since it provides a generalized notion of "distance" between probability distributions. Finally, we end the chapter with a discussion of the _mutual information_ between two random vectors, which may be conceptualized as a generalized (nonnegative) correlation measure that vanishes exactly when the variables are independent.
 
 
 
@@ -338,7 +340,7 @@ Information theory not only provides the entropy of a single model, which is a t
 
 ## Shannon information and entropy
 
-Our development of the theory begins with:
+After briefly introducing the main concepts from information theory in the previous section in the context of data compression, we now begin outlining the abstract mathematical theory. The reader who skipped the first section need not feel at a disadvantage, as our development does not depend on any of that material. We begin with:
 
 ```{prf:definition}
 :label: info-content-def
@@ -349,14 +351,16 @@ $$
 I_P(s) \def - \log_2(p(s)).
 $$
 
-The information content is also called the _surprisal_. If $p(s) =0$, we set $I_P(s) = \infty$.
+The information content is also called the _surprisal_.
 
 If the probability measure $P$ is clear from context, we will write $I(s)$ in place of $I_P(s)$. If $\bX$ is a random vector with finite range and probability measure $P_\bX$, we will write $I_\bX(\bx)$ in place of $I_{P_\bX}(\bx)$.
 ```
 
-Please understand that the terminology _information content_ now has a very specific and precise mathematical meaning. It is designed to "get at" our intuitive understanding of what general "information" is, but you should keep the two separate in your mind: There's the notion of "information" used in an intuitive and colloquial sense and is generally ill-defined, and then there is the notion of _information content_ precisely defined as above.
+There is a notion of _entropy_ for continuous probability measures defined on Euclidean spaces---this latter type of entropy is called _differential entropy_, which you will briefly encounter in the homework.
 
-The exact relationship between information content and the coding considerations from the previous section will be explained later. The alternate moniker _surprisal_, however, may be explained very nicely by simply inspecting the graph of the negative logarithm function:
+On one hand, a sense in which $I_P(s)$ may be considered a measure of "information" comes from its interpretation as the length of a code word, in the context of [Shannon-Fano coding](https://en.wikipedia.org/wiki/Shannon%E2%80%93Fano_coding). Another sense comes when we take the average information content of all sample points to obtain something called _Shannon entropy_; this will be explained after {prf:ref}`entropy-def` below.
+
+On the other hand, the intuition for the alternate name _surprisal_ is explained very nicely by simply inspecting the graph of the negative logarithm function:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -367,14 +371,16 @@ The exact relationship between information content and the coding considerations
 grid = np.linspace(0.01, 1, 100)
 plt.plot(grid, -np.log2(grid))
 plt.xlabel('$p$')
-plt.ylabel('$-\\log_2(p)$')
+plt.ylabel('$I(p) = -\\log_2(p)$')
 plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
-Thus, the larger the probability $p$, the smaller the surprisal: If some outcome is highly likely to occur, then it is not surprising. In the other direction, if an outcome $s$ is highly unlikely to occur (small $p(s)$), then it is very surprising (large $I(s)$).
+If some outcome is highly likely to occur (large $p(s)$), then it is not surprising (small $I(s)$). In the other direction, if an outcome $s$ is highly unlikely to occur (small $p(s)$), then it is very surprising (large $I(s)$).
 
-It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal---so why the choice of base-$2$ logarithm? It turns out that if you begin from first principles with a set of "natural axioms" that any notion of _surprisal_ should possess, then you can _prove_ all such surprisal functions must be proportional to negative logarithms; see, for example, the discussion in Section 9 in {cite}`Rioul2021`. The choice of base $2$ is then somewhat arbitrary, akin to choosing units, but it does have the added benefit of nicely connecting up with bit strings in the coding context. Indeed, in base $2$, information content is measured in units of _bits_. While this is related to the previous notion of a bit denoting a binary digit ($0$ or $1$), the usage here is different, at the very least because information content does not have to be an integer. (See Section 10 in the aforementioned reference {cite}`Rioul2021` for more on units.)
+It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal---so why the choice of base-$2$ logarithm? It turns out that if you begin from first principles with a set of "natural axioms" that any notion of _surprisal_ should possess, then you can _prove_ all such surprisal functions must be proportional to negative logarithms; see, for example, the discussion in Section 9 in {cite}`Rioul2021`. The choice of base $2$ is then somewhat arbitrary, akin to choosing units, but it does have the added benefit of nicely connecting up with bit strings in the coding context. (See the homework.) Indeed, in base $2$, information content is measured in units of _bits_. While this is related to the previous notion of a bit denoting a binary digit ($0$ or $1$), the usage here is different, at the very least because information content does not have to be an integer. (See Section 10 in the aforementioned reference {cite}`Rioul2021` for more on units.)
+
+Please understand that the terminology _information content_ now has a very specific and precise mathematical meaning. It is designed to "get at" our intuitive understanding of what general "information" is, but you should keep the two separate in your mind: There's the notion of "information" used in an intuitive and colloquial sense and is generally ill-defined, and then there is the notion of _information content_ precisely defined as above.
 
 With the information content (or surprisal) in hand, we now define _entropy_:
 
@@ -397,6 +403,36 @@ Since $I(s) = -\log_2(p(s))$, there is an issue in the definition of $H(P)$ in t
 $$
 \lim_{p \to 0^+} p \log_2(p) = 0.
 $$
+
+In particular, when the probability distribution $P$ is a so-called _Dirac distribution_ that puts a spike of probability $1$ on a single sample point and assigns $0$ probability elsewhere, the entropy is at the minimum value $H(P)=0$. As we will see below, at the other end of the spectrum are the maximum-entropy uniform distributions:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+grid = range(1, 11)
+spike = [0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+uniform = [0.1] * 10
+
+_, axes = plt.subplots(ncols=2, figsize=(8, 3), sharex=True)
+
+axes[0].bar(grid, spike, width=0.4)
+axes[0].set_xlabel('$x$')
+axes[0].set_ylabel('$p(x)$')
+axes[0].set_xticks(range(1, 11))
+axes[0].set_ylim(0, 1)
+axes[0].set_title('Dirac distribution = minium entropy')
+axes[1].bar(grid, uniform, width=0.4)
+axes[1].set_xlabel('$x$')
+axes[1].set_ylabel('$p(x)$')
+axes[1].set_ylim(0, 1)
+axes[1].set_title('uniform distribution = maximum entropy')
+plt.tight_layout()
+```
+
+The fact that these two types of distributions yield the extreme values of entropy helps explain the alternate name _uncertainty_. Indeed, imagine drawing a random sample from one of these two distributions---which one has the most uncertain outcome? Which one is most certain?
 
 Notice that the entropy is the average information content, or surprisal, where the averaging weights are drawn from the mass function $p(s)$. Since averages of this form will reoccur so often in the current and next few chapters, it will be convenient to introduce new notations for them. So, if $P$ is a discrete probability measure with mass function $p(s)$ on a sample space $S$ and $g:S\to \bbr$ is a real-valued function, we will define
 
@@ -422,12 +458,15 @@ $$
 H(P) = E_P\left[I_P(s)\right] = E_{s\sim p(s)} \left[ I_P(s)\right].
 $$
 
-```{admonition} Problem Prompt
+Since the entropy $H(P)$ is the average information content, it may sometimes be interpreted as a form of "information." (We mentioned this very briefly in the first section after inspecting the plot of the entropy of $X\sim \Ber(\theta)$ versus the parameter $\theta$.) To see why low (high) uncertainty might be interpreted as low (high) "information" content, imagine that you are to design a random experiment to help answer some question. Then, you certainly _do not_ want to arrange the conditions of the experiment so that the probabilities of the outcomes resemble the Dirac distribution above, with low uncertainty and one outcome practically all but guaranteed---this would convey little information! Instead, the ideal experiment would have the probabilities spread uniformly across all potential outcomes, so that any observed outcome is maximally informative. (For a very convincing and enlightening demonstration of this idea, see the description of the "weighing problem" in Section 4.1 of {cite}`MacKay2003`.)
 
+Before moving on with the theory, let's take a look at some problems:
+
+```{admonition} Problem Prompt
 Do problems 1 and 2 on the worksheet.
 ```
 
-Now comes the fundamental notion of _cross entropy_, which we briefly met at the end of the previous section:
+Now comes a second type of entropy; a third one will appear in {numref}`cond-entropy-mutual-info-sec`.
 
 ```{prf:definition}
 :label: cross-entropy-def
@@ -436,13 +475,13 @@ Let $P$ and $Q$ be two probability measures on a finite sample space $S$ with ma
 
 * _Absolute continuity_. For all $s\in S$, if $q(s)=0$, then $p(s) = 0$. Or equivalently, the support of $q(s)$ contains the support of $p(s)$.
 
-Then the _cross entropy_ from $P$ to $Q$, denoted $H(P \parallel Q)$, is defined by
+Then the _cross entropy_ from $P$ to $Q$, denoted $H_P(Q)$, is defined by
 
 $$
-H(P \parallel Q) \def E_{s\sim p(s)}\left[ I_Q(s) \right] =  - \sum_{s\in S} p(s)\log_2(q(s)).
+H_P(Q) \def E_{s\sim p(s)}\left[ I_Q(s) \right] =  - \sum_{s\in S} p(s)\log_2(q(s)).
 $$
 
-As usual, if $P_\bX$ and $P_\bY$ are the probability measures of two random vectors $\bX$ and $\bY$ with finite ranges, we will write $H(\bY \parallel \bX)$ in place of $H(P_\bY \parallel P_\bX)$.
+As usual, if $P_\bX$ and $P_\bY$ are the probability measures of two random vectors $\bX$ and $\bY$ with finite ranges, we will write $H_\bY(\bX)$ in place of $H_{P_\bY} (P_\bX)$.
 ```
 
 Notice that the condition of absolute continuity between the two measures guarantees we will never see an expression of the form $p \log_2(0)$, with $p \neq 0$. Thus, it is enough to make the cross entropy well-defined by stipulating that we take $0 \log_2(0) =0$, as explained above.
@@ -456,9 +495,12 @@ Do problem 3 on the worksheet.
 
 
 
-## KL divergence
 
-The types of measures $P$ and $Q$ that we shall work with initially are ones defined on a finite probability space $S$, so that they have mass functions $p(s)$ and $q(s)$ with finite support. The basic measure that we use in this chapter to compare them is the mean logarithmic relative magnitude. 
+## Kullback Leibler divergence
+
+Our aim in this section is to devise some sort of method for comparing the "distance" between two probability measures. The technique that we discover will have tight connections with the entropies studied in the previous section, but the first part of this section is largely independent of the previous. The link with entropy will come later.
+
+The types of measures $P$ and $Q$ that we shall work with are ones defined on a finite probability space $S$, so that they have mass functions $p(s)$ and $q(s)$. (But see the comment immediately below {prf:ref}`KL-def`.) The basic measure that we use to compare them is the mean logarithmic relative magnitude. 
 
 ```{margin}
 
@@ -523,19 +565,19 @@ $$
 \sum_{s\in S} p(s) \log_{10}\left( \frac{p(s)}{q(s)} \right).
 $$ (first-kl-eq)
 
-Observe that we could have drawn the averaging weights from the mass function $q(s)$ to instead obtain the single-number summary
+Observe that we could have drawn the averaging weights instead from the mass function $q(s)$ to obtain the single-number summary
 
 $$
 \sum_{s\in S} q(s) \log_{10}\left( \frac{p(s)}{q(s)} \right).
 $$ (second-kl-eq)
 
-But observe that
+But notice that
 
 $$
 \sum_{s\in S} q(s) \log_{10}\left( \frac{p(s)}{q(s)} \right) = - \sum_{s\in S} q(s) \log_{10}\left( \frac{q(s)}{p(s)} \right),
 $$
 
-where the right-hand side is the negative of a number of the form {eq}`first-kl-eq`. So, at least up to sign, it doesn't really matter which of the two numbers {eq}`first-kl-eq` or {eq}`second-kl-eq` we use to develop our theory. As we will see, our choice of {eq}`first-kl-eq` has the benefit of making the KL divergence nonnegative. Moreover, we can also alter the base of the logarithm in {eq}`first-kl-eq` without altering the core of the theory, since the change-of-base formula for logarithms tells us that the only difference is a multiplicative constant. In the following official definition, we will select the base-$2$ logarithm to make the later connections with bit strings in coding theory more transparent.
+where the right-hand side is the negative of a number of the form {eq}`first-kl-eq`. (I am **not** saying these two numbers are equal, merely that they have the same functional form!) So, at least up to sign, it doesn't really matter which of the two numbers {eq}`first-kl-eq` or {eq}`second-kl-eq` that we use to develop our theory. As we will see, our choice of {eq}`first-kl-eq` has the benefit of making the KL divergence nonnegative. Moreover, we can also alter the base of the logarithm in {eq}`first-kl-eq` without altering the core of the theory, since the change-of-base formula for logarithms tells us that the only difference is a multiplicative constant. In the following definition, we select the base-$2$ logarithm to make the link with entropy, though we will use the base-$e$ natural logarithm in later chapters.
 
 ```{prf:definition}
 :label: KL-def
@@ -564,7 +606,7 @@ The connection between KL divergence and entropy is given in the next theorem. I
 Let $P$ and $Q$ be two probability measures on a finite probability space $S$. Then
 
 $$
-D(P\parallel Q) = H(P \parallel Q) - H(P).
+D(P\parallel Q) = H_P(Q) - H(P).
 $$
 ```
 
@@ -648,70 +690,24 @@ In his initial paper, Shannon described entropy $H(P)$ as a measure of _uncertai
 
 
 
-## Source coding
 
-We now describe a coding-theoretic interpretation that sheds additional light on entropy and KL divergence. Rather than quantifying the degree of "uncertainty" present in a probability distribution, in this framework entropy gives a lower bound on the (average) minimum description length of the data modeled by a random variable or vector.
 
-```{margin}
 
-According to our definitions, technically the codomain of a random variable must be a subset of $\bbr$; but we can get around this minor annoyance by assuming that $a=1$, $b=2$, $c=3$, and $d=4$.
+
+
+
+
+(cond-entropy-mutual-info-sec)=
+## Conditional entropy and mutual information
+
+```{prf:definition}
+
+Let $\bX$ and $\bY$ be two random vectors with finite ranges.
+
+$$
+H(\bY \mid \bX = \bx) = E_{\by \sim p(\by| \bx)}\left[ -\log_2(p(\by|\bx)) \right] = - \sum_{y\in \bbr^m} p(\by | \bx) \log_2(p(\by|\bx)).
+$$
 ```
-
-By way of introduction, suppose that $X$ is a discrete random variable with range $R = \{a,b,c,d\}$. Our goal is to construct an _encoding_ of $X$, by which we mean an assignment of a bit string to each symbol in $R$. For example, we might encode $X$ as
-
-$$
-a \leftrightarrow 00, \quad b \leftrightarrow 011, \quad c \leftrightarrow 10, \quad d \leftrightarrow 1100.
-$$ (encoding-eqn)
-
-We can _visualize_ this encoding by drawing a binary tree with five levels (including the root):
-
-```{image} ../img/tree-01.svg
-:width: 90%
-:align: center
-```
-&nbsp;
-
-To read this tree, begin at the root node at the top; then, follow the edges downward to find the nodes labeled by the symbols in $R$. A positively sloped edge represents a $0$, while a negatively edge represents a $1$. Thus, for example, to reach $d$ beginning from the root node, we follow edges labelled $1$, $1$, $0$, and $0$. This sequence of binary digits is exactly the code word for $d$, and thus paths through the tree represent code words. The numbered levels $\ell$ of the tree appear along the left-hand side of the figure; notice that these numbers are also the lengths of the code words.
-
-Notice also that every path through the tree beginning at the root node and ending at a leaf in the lowest level contains at most one symbol in $R$. This is in contrast to the encoding of $X$ represented by the following tree:
-
-```{image} ../img/tree-bad.svg
-:width: 90%
-:align: center
-```
-&nbsp;
-
-with corresponding code words
-
-$$
-a \leftrightarrow 00, \quad b \leftrightarrow 001, \quad c \leftrightarrow 10, \quad d \leftrightarrow 1000.
-$$
-
-Indeed, in this latter encoding, there are _multiple_ paths from the top to the bottom level that contain more than one symbol in $R$. These paths manifest themselves as code words that are prefixes of other code words: The code word for $a$ appears as a prefix in the code word for $b$, and the code word for $c$ appears as a prefix in the code word for $d$. For this reason, encodings like the first {eq}`encoding-eqn` are called _prefix-free codes_.
-
-Now, returning to our prefix-free code, consider the set of all descendants of symbols in $R$ that are in the lowest level, including any symbols in $R$ that happen to lie in the lowest level; these are all highlighted in:
-
-```{image} ../img/tree-02.svg
-:width: 90%
-:align: center
-```
-&nbsp;
-
-If a symbol in $R$ is on level $\ell_i$, then it has $4 - \ell_i$ descendents in the lowest level. Then obviously $\sum_{i=1}^4 2^{4-\ell_i} \leq 2^{4}$ (count the highlighted nodes!), and so
-
-$$
-\sum_{i=1}^4 2^{-\ell_i} \leq 1.
-$$
-
-In fact, this latter inequality should _always_ be true for _any_ encoding of $X$, provided that the code is prefix free. Can you see why?
-
-
-
-
-
-
-
-## Mutual information
 
 
 
