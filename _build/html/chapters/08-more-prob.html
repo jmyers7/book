@@ -63,7 +63,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bA": "\\mathbf{A}", "bb": "\\mathbf{b}", "bB": "\\mathbf{B}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bE": "\\mathbf{E}", "bg": "\\mathbf{g}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bD": "\\mathbf{D}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bg": "\\mathbf{g}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bD": "\\mathbf{D}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/08-more-prob';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -416,7 +416,7 @@ E(g(X,Y)) = \int_{\bbr} z f_{g(X,Y)}(z) \ \text{d}z.
 <section class="theorem-content" id="proof-content">
 <p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent random variables, then <span class="math notranslate nohighlight">\(E(XY) = E(X) E(Y)\)</span>.</p>
 </section>
-</div><p>The proof is a simple computation using the LotUS; it appears in your <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/8-homework.md#problem-2-independence-and-expectations">homework</a> for this chapter.</p>
+</div><p>The proof is a simple computation using the LotUS; it appears in your <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/08-homework.md#problem-2-independence-and-expectations">homework</a> for this chapter.</p>
 <p>Our second application of the bivariate LotUS is to tie up a loose end from <a class="reference internal" href="04-random-variables.html#linear-of-exp"><span class="std std-numref">Section 4.9</span></a> and prove the full-strength version of “linearity of expectation.”</p>
 <div class="proof theorem admonition" id="linear-exp-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.3 </span> (Linearity of Expectations)</p>
@@ -798,11 +798,11 @@ E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
 <section id="covariance-and-correlation">
 <h2><span class="section-number">8.5. </span>Covariance and correlation<a class="headerlink" href="#covariance-and-correlation" title="Permalink to this heading">#</a></h2>
 <p>If two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <em>not</em> <a class="reference internal" href="07-random-vectors.html#independence"><span class="std std-ref">independent</span></a>, then (naturally) they are called <em>dependent</em>. Our goal in this section is to study two quantities, called <em>covariance</em> and <em>correlation</em>, that measure the strength of the <em>linear</em> dependence between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. An alternate measure of more general dependence, called <em>mutual information</em>, will be studied in the <a class="reference internal" href="09-info-theory.html#information-theory"><span class="std std-ref">next chapter</span></a>.</p>
-<p>To initiate our study of <em>covariance</em> and <em>correlation</em>, let’s begin by discussing a pair of <em>functionally</em> dependent random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, by which I mean that <span class="math notranslate nohighlight">\(Y = h(X)\)</span> for some function <span class="math notranslate nohighlight">\(h\)</span>. In this case, observed values <span class="math notranslate nohighlight">\(x\)</span> deterministically yield observed values <span class="math notranslate nohighlight">\(y=h(x)\)</span>, and it would therefore make sense that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are dependent. This suspicion is confirmed in the following simple result:</p>
+<p>To initiate our study of <em>covariance</em> and <em>correlation</em>, let’s begin by discussing a pair of <em>functionally</em> dependent random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, by which I mean that <span class="math notranslate nohighlight">\(Y = g(X)\)</span> for some function <span class="math notranslate nohighlight">\(g\)</span>. In this case, observed values <span class="math notranslate nohighlight">\(x\)</span> deterministically yield observed values <span class="math notranslate nohighlight">\(y=g(x)\)</span>, and it would therefore make sense that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are dependent. This suspicion is confirmed in the following simple result:</p>
 <div class="proof theorem admonition" id="functional-dep-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.12 </span> (Functional dependence <span class="math notranslate nohighlight">\(\Rightarrow\)</span> dependence)</p>
 <section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be random variables. If <span class="math notranslate nohighlight">\(Y = h(X)\)</span> for some function <span class="math notranslate nohighlight">\(h:\mathbb{R} \to \mathbb{R}\)</span>, then <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are dependent.</p>
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be random variables. If <span class="math notranslate nohighlight">\(Y = g(X)\)</span> for some function <span class="math notranslate nohighlight">\(g:\mathbb{R} \to \mathbb{R}\)</span>, then <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are dependent.</p>
 </section>
 </div><div class="proof admonition" id="proof">
 <p>Proof. In order to prove this, we need to make the (mild) assumption that there is an event <span class="math notranslate nohighlight">\(B\subset \mathbb{R}\)</span> with</p>
@@ -810,7 +810,7 @@ E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
 <span class="eqno">(8.7)<a class="headerlink" href="#equation-middle-eqn" title="Permalink to this equation">#</a></span>\[
 0&lt;P(Y\in B)&lt;1.
 \]</div>
-<p>(This doesn’t <em>always</em> have to be true. For example, what happens if <span class="math notranslate nohighlight">\(h\)</span> is constant?) In this case, we set <span class="math notranslate nohighlight">\(A = h^{-1}(B)^c\)</span> and observe that</p>
+<p>(This doesn’t <em>always</em> have to be true. For example, what happens if <span class="math notranslate nohighlight">\(g\)</span> is constant?) In this case, we set <span class="math notranslate nohighlight">\(A = g^{-1}(B)^c\)</span> and observe that</p>
 <div class="math notranslate nohighlight">
 \[
 P(X\in A, \ Y\in B) = P(\emptyset) =0.
@@ -835,12 +835,12 @@ P(X\in A, \ Y\in B) = 0 \neq P(X\in A) P(Y\in B),
 <p>What does a pair of functionally dependent random variables look like? For an example, let’s suppose that</p>
 <div class="math notranslate nohighlight">
 \[
-X \sim \mathcal{N}(1,0.5^2) \quad \text{and} \quad Y = h(X) = X(X-1)(X-2).
+X \sim \mathcal{N}(1,0.5^2) \quad \text{and} \quad Y = g(X) = X(X-1)(X-2).
 \]</div>
 <p>Then, let’s simulate a draw of 1000 samples from <span class="math notranslate nohighlight">\(X\)</span>, toss them into</p>
 <div class="math notranslate nohighlight">
 \[
-h(x) = x(x-1)(x-2)
+g(x) = x(x-1)(x-2)
 \]</div>
 <p>to obtain the associated <span class="math notranslate nohighlight">\(y\)</span>-values, and then produce a scatter plot:</p>
 <div class="cell tag_hide-input docutils container">
@@ -874,7 +874,7 @@ h(x) = x(x-1)(x-2)
 
 <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y=h(x)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y=g(x)$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -884,10 +884,10 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/5ed3db080badbe35852d6eb70db8a018236434bb598d9aef5944d34306373bd4.svg" src="../_images/5ed3db080badbe35852d6eb70db8a018236434bb598d9aef5944d34306373bd4.svg" /></figure>
+<img alt="../_images/cd1922f4b2b5cb2150133157d510772d5bfa2d632801e6c0c860416fddb42956.svg" src="../_images/cd1922f4b2b5cb2150133157d510772d5bfa2d632801e6c0c860416fddb42956.svg" /></figure>
 </div>
 </div>
-<p>The plot looks exactly like we would expect: A bunch of points lying on the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span>. However, very often with real-world data, an <em>exact</em> functional dependence <span class="math notranslate nohighlight">\(Y = h(X)\)</span> does not truly hold. Instead, the functional relationship is “noisy”, resulting in scatter plots that look like this:</p>
+<p>The plot looks exactly like we would expect: A bunch of points lying on the graph of the function <span class="math notranslate nohighlight">\(y=g(x)\)</span>. However, very often with real-world data, an <em>exact</em> functional dependence <span class="math notranslate nohighlight">\(Y = g(X)\)</span> does not truly hold. Instead, the functional relationship is “noisy”, resulting in scatter plots that look like this:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -903,7 +903,7 @@ h(x) = x(x-1)(x-2)
 <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y=h(x) + $noise&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y=g(x) + $noise&#39;</span><span class="p">)</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">h</span><span class="p">(</span><span class="n">grid</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FD46FC&#39;</span><span class="p">)</span>
@@ -916,10 +916,10 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0d96081aea551e201753af41f0b788b0dc3c61dc46d1f38c68fd1dc40c9e9755.svg" src="../_images/0d96081aea551e201753af41f0b788b0dc3c61dc46d1f38c68fd1dc40c9e9755.svg" /></figure>
+<img alt="../_images/a0dbee6a2cfe2d96378a3733d0b6639a53457d74649535d349bafcc7dd797b8f.svg" src="../_images/a0dbee6a2cfe2d96378a3733d0b6639a53457d74649535d349bafcc7dd797b8f.svg" /></figure>
 </div>
 </div>
-<p>The “noisy” functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function <span class="math notranslate nohighlight">\(y=h(x)\)</span> for reference. Instead of lying directly on the graph of <span class="math notranslate nohighlight">\(y=h(x)\)</span>, the data is clustered along the graph.</p>
+<p>The “noisy” functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function <span class="math notranslate nohighlight">\(y=g(x)\)</span> for reference. Instead of lying directly on the graph of <span class="math notranslate nohighlight">\(y=g(x)\)</span>, the data is clustered along the graph.</p>
 <p>The goal in this chapter is to study “noisy” <em>linear</em> dependencies between random variables; relationships that look like these:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -950,7 +950,7 @@ h(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0d5cf6a6bcead271e5e8032e6ca23cd352165b29f5ec4677ca98a4a1d813dcff.svg" src="../_images/0d5cf6a6bcead271e5e8032e6ca23cd352165b29f5ec4677ca98a4a1d813dcff.svg" /></figure>
+<img alt="../_images/899853fafc9b46c2ce93aad8adcdf51d37e63ee046209626951d107498f877c2.svg" src="../_images/899853fafc9b46c2ce93aad8adcdf51d37e63ee046209626951d107498f877c2.svg" /></figure>
 </div>
 </div>
 <p>As I mentioned in the introduction, our goal in this section is to uncover ways to <em>quantify</em> or <em>measure</em> the strength of “noisy” linear dependencies between random variables. We will discover that there are two such measures, called <em>covariance</em> and <em>correlation</em>.</p>
@@ -1009,7 +1009,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/7bd70e474cfe579eb734b80714c5d39f72c74cfaaead2af783337effabcca984.svg" src="../_images/7bd70e474cfe579eb734b80714c5d39f72c74cfaaead2af783337effabcca984.svg" /></figure>
+<img alt="../_images/a3618806dc879ea915e87120d8810cfe6afac7b45278bfda4dad3211731d0f24.svg" src="../_images/a3618806dc879ea915e87120d8810cfe6afac7b45278bfda4dad3211731d0f24.svg" /></figure>
 </div>
 </div>
 <p>You can see that the dataset has not changed its shape—it has only shifted so that its mean (represented by the magenta dot) is at the origin <span class="math notranslate nohighlight">\((0,0)\)</span>.</p>
@@ -1074,7 +1074,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </li>
 </ol>
 </section>
-</div><p>I suggest that you attempt to prove this theorem on your own. A special case appears in your <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/8-homework.md#problem-8-a-special-case-of-bilinearity">homework</a> for this chapter.</p>
+</div><p>I suggest that you attempt to prove this theorem on your own. A special case appears in your <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/08-homework.md#problem-8-a-special-case-of-bilinearity">homework</a> for this chapter.</p>
 <p>Bilinearity of covariance allows us to generalize <a class="reference internal" href="04-random-variables.html#var-affine-thm">Theorem 4.6</a> on the variance of an affine transformation of a random variable:</p>
 <div class="proof theorem admonition" id="variance-lin-combo-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.15 </span> (Variance of a linear combination)</p>
@@ -1134,7 +1134,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2a42386c0b42b54ec382332e59d0ad39cb5eb3efef8cb052e8ddbc19a865e65a.svg" src="../_images/2a42386c0b42b54ec382332e59d0ad39cb5eb3efef8cb052e8ddbc19a865e65a.svg" /></figure>
+<img alt="../_images/949f563b08d4f0ace7532edd2e2a4b2d11e115b52d91059e44c5f6d1891e605d.svg" src="../_images/949f563b08d4f0ace7532edd2e2a4b2d11e115b52d91059e44c5f6d1891e605d.svg" /></figure>
 </div>
 </div>
 <p>The only difference between the two datasets is the axis scales, but the linear relationship between the <span class="math notranslate nohighlight">\(x\)</span>’s and <span class="math notranslate nohighlight">\(y\)</span>’s remains the same. In fact, the scales on the axes differ by a factor of <span class="math notranslate nohighlight">\(10\)</span>, so by <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>, we have</p>
@@ -1369,7 +1369,7 @@ f(x,y) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/5bee4ccf9707fbadbcf379b054f825c9eb633a6c8d7461e66f14b64832443254.svg" src="../_images/5bee4ccf9707fbadbcf379b054f825c9eb633a6c8d7461e66f14b64832443254.svg" /></figure>
+<img alt="../_images/1ebb880ef5d26bd456e0d3954f8e918a0dfd6a9f0c401cda189190dd672c6061.svg" src="../_images/1ebb880ef5d26bd456e0d3954f8e918a0dfd6a9f0c401cda189190dd672c6061.svg" /></figure>
 </div>
 </div>
 <p>Notice that these contours are concentric ellipses centered at the point <span class="math notranslate nohighlight">\((1,1)\in \bbr^2\)</span> with principal axes parallel to the coordinate <span class="math notranslate nohighlight">\(x\)</span>- and <span class="math notranslate nohighlight">\(y\)</span>-axes. In higher dimensions, the isoprobability surfaces are so-called <em>ellipsoids</em>.</p>
@@ -1418,7 +1418,7 @@ f(x_1,\ldots,x_d) = \frac{1}{(2\pi)^{d/2} (\sigma_1^2\cdots \sigma_d^2)^{1/2}} \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/3c9c4bfc8169087e95c567ac43a5912305e0f93e7b521170b4627ad66f8da769.svg" src="../_images/3c9c4bfc8169087e95c567ac43a5912305e0f93e7b521170b4627ad66f8da769.svg" /></figure>
+<img alt="../_images/43a99b2230a2fb5ec238641e20ea467250fe8bc8265411097c7ec01acf6ad588.svg" src="../_images/43a99b2230a2fb5ec238641e20ea467250fe8bc8265411097c7ec01acf6ad588.svg" /></figure>
 </div>
 </div>
 <p>The key to uncovering the formula for the density in the general case begins by returning to the formula <a class="reference internal" href="#equation-init-multi-var-norm-eqn">(8.11)</a> and rewriting it using vector and matrix notation. Indeed, notice that if we set</p>
@@ -1514,7 +1514,7 @@ Q(\bx) = c^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/4cd0e41f6ac2fe6b84cadcc34546300b5bee5e6eea4900cfef53ceef44dc3db1.svg" src="../_images/4cd0e41f6ac2fe6b84cadcc34546300b5bee5e6eea4900cfef53ceef44dc3db1.svg" /></figure>
+<img alt="../_images/490555887ffffb8ab1429d13794b5b82f4b1e6866d89667f6bddd2e16e4065f8.svg" src="../_images/490555887ffffb8ab1429d13794b5b82f4b1e6866d89667f6bddd2e16e4065f8.svg" /></figure>
 </div>
 </div>
 <p>Let’s collect our observations in the following theorem, along with a few additional facts:</p>
@@ -1663,7 +1663,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2ad60058cd37f8bc2573f98fed1ef22eda84612de21cb5c3553f1671c46cd1c2.svg" src="../_images/2ad60058cd37f8bc2573f98fed1ef22eda84612de21cb5c3553f1671c46cd1c2.svg" /></figure>
+<img alt="../_images/44190a0393dd9397c6d073bc0cd0f2ec989d8fd4fa7fcefb7d788fe9dde334bc.svg" src="../_images/44190a0393dd9397c6d073bc0cd0f2ec989d8fd4fa7fcefb7d788fe9dde334bc.svg" /></figure>
 </div>
 </div>
 <p>In the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">programming assignment</a> for this chapter, you will actually implement this procedure. For example, I used these methods to simulate <span class="math notranslate nohighlight">\(1{,}000\)</span> random draws from a bivariate normal distribution with positively correlated components and which is taller than it is wide. If I plot these simulated data over top of isoprobability contours, I get this:</p>
@@ -1700,7 +1700,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0e8d7854b4b0346092ff777693a43491fa3495781acecf1e2ae4ec826113ef75.svg" src="../_images/0e8d7854b4b0346092ff777693a43491fa3495781acecf1e2ae4ec826113ef75.svg" /></figure>
+<img alt="../_images/2fb748ce36bf74aefcf0a240b4e9778bce15e8aa437ca964ae766c1b8fb4dd97.svg" src="../_images/2fb748ce36bf74aefcf0a240b4e9778bce15e8aa437ca964ae766c1b8fb4dd97.svg" /></figure>
 </div>
 </div>
 <p>Let’s finish off this long chapter with an example problem:</p>

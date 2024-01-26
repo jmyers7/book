@@ -337,11 +337,13 @@ document.write(`
    <a href="#cap-char-normal-thm"><strong>char-normal-thm</strong></a> | 
    <a href="#cap-classical-prob-def"><strong>classical-prob-def</strong></a> | 
    <a href="#cap-combination-def"><strong>combination-def</strong></a> | 
+   <a href="#cap-comm-channel-def"><strong>comm-channel-def</strong></a> | 
    <a href="#cap-components-multivar-norm-thm"><strong>components-multivar-norm-thm</strong></a> | 
    <a href="#cap-condition-event-def"><strong>condition-event-def</strong></a> | 
    <a href="#cap-conditional-exp-def"><strong>conditional-exp-def</strong></a> | 
    <a href="#cap-conditional-ind-rvs-thm"><strong>conditional-ind-rvs-thm</strong></a> | 
    <a href="#cap-conditional-ind-thm"><strong>conditional-ind-thm</strong></a> | 
+   <a href="#cap-conditional-markov-kernel-thm"><strong>conditional-markov-kernel-thm</strong></a> | 
    <a href="#cap-conditional-prob-functions-def"><strong>conditional-prob-functions-def</strong></a> | 
    <a href="#cap-conditionals-measures-thm"><strong>conditionals-measures-thm</strong></a> | 
    <a href="#cap-continuous-bi-construction-thm"><strong>continuous-bi-construction-thm</strong></a> | 
@@ -356,7 +358,6 @@ document.write(`
    <a href="#cap-covar-matrix-prop-thm"><strong>covar-matrix-prop-thm</strong></a> | 
    <a href="#cap-cross-entropy-def"><strong>cross-entropy-def</strong></a> | 
    <a href="#cap-definite-def"><strong>definite-def</strong></a> | 
-   <a href="#cap-definition-6"><strong>definition-6</strong></a> | 
    <a href="#cap-derivatives-mgf-thm"><strong>derivatives-mgf-thm</strong></a> | 
    <a href="#cap-directional-der-def"><strong>directional-der-def</strong></a> | 
    <a href="#cap-directional-der-grad-thm"><strong>directional-der-grad-thm</strong></a> | 
@@ -395,6 +396,7 @@ document.write(`
    <a href="#cap-gd-obs"><strong>gd-obs</strong></a> | 
    <a href="#cap-gen-para-model-def"><strong>gen-para-model-def</strong></a> | 
    <a href="#cap-geometric-def"><strong>geometric-def</strong></a> | 
+   <a href="#cap-gibbs-thm"><strong>gibbs-thm</strong></a> | 
    <a href="#cap-gmm-def"><strong>gmm-def</strong></a> | 
    <a href="#cap-gmm-pf-def"><strong>gmm-pf-def</strong></a> | 
    <a href="#cap-grad-uphill-def"><strong>grad-uphill-def</strong></a> | 
@@ -402,13 +404,14 @@ document.write(`
    <a href="#cap-hypergeometric-def"><strong>hypergeometric-def</strong></a> | 
    <a href="#cap-ind-components-cor"><strong>ind-components-cor</strong></a> | 
    <a href="#cap-ind-expect-thm"><strong>ind-expect-thm</strong></a> | 
+   <a href="#cap-ind-markov-thm"><strong>ind-markov-thm</strong></a> | 
    <a href="#cap-ind-vs-correlation-thm"><strong>ind-vs-correlation-thm</strong></a> | 
    <a href="#cap-independence-defn"><strong>independence-defn</strong></a> | 
    <a href="#cap-independent-event-def"><strong>independent-event-def</strong></a> | 
    <a href="#cap-info-content-def"><strong>info-content-def</strong></a> | 
    <a href="#cap-invar-independent-thm"><strong>invar-independent-thm</strong></a> | 
+   <a href="#cap-jensen-thm"><strong>jensen-thm</strong></a> | 
    <a href="#cap-joint-cont-cont-thm"><strong>joint-cont-cont-thm</strong></a> | 
-   <a href="#cap-kl-entropy-optim-thm"><strong>kl-entropy-optim-thm</strong></a> | 
    <a href="#cap-law-of-total-exp-thm"><strong>law-of-total-exp-thm</strong></a> | 
    <a href="#cap-law-of-total-prob-event-thm"><strong>law-of-total-prob-event-thm</strong></a> | 
    <a href="#cap-law-of-total-prob-rvs-thm"><strong>law-of-total-prob-rvs-thm</strong></a> | 
@@ -428,7 +431,9 @@ document.write(`
    <a href="#cap-marg-thm"><strong>marg-thm</strong></a> | 
    <a href="#cap-marginal-def"><strong>marginal-def</strong></a> | 
    <a href="#cap-marginal-thm"><strong>marginal-thm</strong></a> | 
+   <a href="#cap-markov-kernel-def"><strong>markov-kernel-def</strong></a> | 
    <a href="#cap-mass-density-ind-thm"><strong>mass-density-ind-thm</strong></a> | 
+   <a href="#cap-max-entropy-thm"><strong>max-entropy-thm</strong></a> | 
    <a href="#cap-mgf-def"><strong>mgf-def</strong></a> | 
    <a href="#cap-mgf-norm-thm"><strong>mgf-norm-thm</strong></a> | 
    <a href="#cap-mgf-sum-eqn"><strong>mgf-sum-eqn</strong></a> | 
@@ -705,6 +710,14 @@ document.write(`
        <a href="chapters/03-rules-of-prob.html#combination-def"><code class="xref">combination-def</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-comm-channel-def"><td></td><td>
+       <strong>comm-channel-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/09-info-theory.html#comm-channel-def"><code class="xref">comm-channel-def</code></a> <em>(chapters/09-info-theory)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-components-multivar-norm-thm"><td></td><td>
        <strong>components-multivar-norm-thm</strong></td><td></td></tr>
      <tr>
@@ -743,6 +756,14 @@ document.write(`
        <td></td>
        <td>
        <a href="chapters/03-rules-of-prob.html#conditional-ind-thm"><code class="xref">conditional-ind-thm</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-conditional-markov-kernel-thm"><td></td><td>
+       <strong>conditional-markov-kernel-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/09-info-theory.html#conditional-markov-kernel-thm"><code class="xref">conditional-markov-kernel-thm</code></a> <em>(chapters/09-info-theory)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-conditional-prob-functions-def"><td></td><td>
@@ -855,14 +876,6 @@ document.write(`
        <td></td>
        <td>
        <a href="chapters/10-optim.html#definite-def"><code class="xref">definite-def</code></a> <em>(chapters/10-optim)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-definition-6"><td></td><td>
-       <strong>definition-6</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/09-info-theory.html#definition-6"><code class="xref">definition-6</code></a> <em>(chapters/09-info-theory)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-derivatives-mgf-thm"><td></td><td>
@@ -1169,6 +1182,14 @@ document.write(`
        <a href="chapters/05-examples-of-rvs.html#geometric-def"><code class="xref">geometric-def</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-gibbs-thm"><td></td><td>
+       <strong>gibbs-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/09-info-theory.html#gibbs-thm"><code class="xref">gibbs-thm</code></a> <em>(chapters/09-info-theory)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-gmm-def"><td></td><td>
        <strong>gmm-def</strong></td><td></td></tr>
      <tr>
@@ -1225,6 +1246,14 @@ document.write(`
        <a href="chapters/08-more-prob.html#ind-expect-thm"><code class="xref">ind-expect-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ind-markov-thm"><td></td><td>
+       <strong>ind-markov-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/09-info-theory.html#ind-markov-thm"><code class="xref">ind-markov-thm</code></a> <em>(chapters/09-info-theory)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-ind-vs-correlation-thm"><td></td><td>
        <strong>ind-vs-correlation-thm</strong></td><td></td></tr>
      <tr>
@@ -1265,20 +1294,20 @@ document.write(`
        <a href="chapters/07-random-vectors.html#invar-independent-thm"><code class="xref">invar-independent-thm</code></a> <em>(chapters/07-random-vectors)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-jensen-thm"><td></td><td>
+       <strong>jensen-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/09-info-theory.html#jensen-thm"><code class="xref">jensen-thm</code></a> <em>(chapters/09-info-theory)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-joint-cont-cont-thm"><td></td><td>
        <strong>joint-cont-cont-thm</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
        <a href="chapters/07-random-vectors.html#joint-cont-cont-thm"><code class="xref">joint-cont-cont-thm</code></a> <em>(chapters/07-random-vectors)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-kl-entropy-optim-thm"><td></td><td>
-       <strong>kl-entropy-optim-thm</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/09-info-theory.html#kl-entropy-optim-thm"><code class="xref">kl-entropy-optim-thm</code></a> <em>(chapters/09-info-theory)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-law-of-total-exp-thm"><td></td><td>
@@ -1433,6 +1462,14 @@ document.write(`
        <a href="chapters/07-random-vectors.html#marginal-thm"><code class="xref">marginal-thm</code></a> <em>(chapters/07-random-vectors)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-markov-kernel-def"><td></td><td>
+       <strong>markov-kernel-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/09-info-theory.html#markov-kernel-def"><code class="xref">markov-kernel-def</code></a> <em>(chapters/09-info-theory)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-mass-density-ind-thm"><td></td><td>
        <strong>mass-density-ind-thm</strong></td><td></td></tr>
      <tr>
@@ -1440,6 +1477,14 @@ document.write(`
        <td>
        <a href="chapters/07-random-vectors.html#mass-density-ind-thm"><code class="xref">mass-density-ind-thm</code></a> <em>(chapters/07-random-vectors)</em></td><td>
        <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-max-entropy-thm"><td></td><td>
+       <strong>max-entropy-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/09-info-theory.html#max-entropy-thm"><code class="xref">max-entropy-thm</code></a> <em>(chapters/09-info-theory)</em></td><td>
+       <em>corollary</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-mgf-def"><td></td><td>
        <strong>mgf-def</strong></td><td></td></tr>
