@@ -32,304 +32,6 @@ Though information theory has its roots in engineering concerns, it is at its co
 
 
 
-## Preview: How do we measure information?
-
-The word _information_ is often used in different contexts to mean different things. We all have some intuitive sense for what the term means, but it is a notoriously difficult thing to nail down _precisely_---no single definition seems to exist that covers _all_ the ways in which it is used. Both professional philosophers (which I am not) and amateur armchair philosophers (which I am) like to argue about it. The fastest way for someone to tell you that they have no clue what information is, is to tell you that they know what information is.
-
-This being said, one of the central quantities that we will define (precisely!) and study in this chapter is something called _Shannon information_. The name comes from Claude Shannon, who is credited with laying down most of the foundations of the mathematical theory of information in {cite}`Shannon1948`, though he referred to it as the mathematical theory of _communication_. Indeed, on this point I cannot resist quoting another one of the pioneers of the field, Robert Fano:
-
-```{margin}
-
-This is the same quote that opens the fantastic survey article {cite}`Rioul2021` on information theory, which I enthusiastically recommend. I learned of this quote from that article.
-```
-
-```{epigraph}
-"I didn’t like the term 'information theory.' Claude [Shannon] didn’t like it either. You see, the term 'information theory' suggests that it is a theory about information—--but it’s not. It’s the transmission of information, not information. Lots of people just didn’t understand this."
-```
-
-Despite these misgivings from the founders, the terms _information theory_ and _Shannon information_ have stuck, and that's what we will call them. Once you learn the precise definition of _Shannon information_, it will be up to you to decide if it comports with and captures your prior intuitive understanding of "information."
-
-At first blush, you might imagine that this _information_ resides in data, but that's not true. Rather, this particular form of _information_ is initially attached to our _beliefs_ about the data---or, more precisely, this _information_ is associated with a probabilistic model of the data. But if we have successfully cooked up a model that we think truly captures the data, then this form of _information_ might (with caution!) be transferred from the model and attributed to the data. In any case, it's a point that you would do well to remember: _Information-theoretic measures are associated with models, not datasets!_
-
-To give you an initial sense of how this special notion of _information_ arises, let's go through a simple and concrete example. Let's suppose that we have three simple data sources that produce bit strings, or strings of $0$'s and $1$'s. (Bit $=$ binary digit.) We will assign them the names Source 1, Source 2, and Source 3, and we then collect data:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-
-import scipy as sp
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-import huffman
-from itertools import product
-import matplotlib_inline.backend_inline
-matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
-plt.style.use('../aux-files/custom_style_light.mplstyle')
-blue = '#486AFB'
-magenta = '#FD46FC'
-
-def generate_data(theta, block_length, message_length, random_state=None):
-    if random_state != None:
-        np.random.seed(random_state)
-    num_bits = block_length * message_length
-    n1 = int(theta * num_bits)
-    n0 = int((1 - theta) * num_bits)
-    ones = np.ones(n1, dtype=int)
-    zeros = np.zeros(n0, dtype=int)
-    data = np.concatenate((ones, zeros))
-    np.random.shuffle(data)
-    data_string = ''.join([str(num) for num in data])
-    data_blocks = [data_string[i:i+block_length] for i in range(0, num_bits, block_length)]
-    return data_string, data_blocks
-
-block_length = 5
-num_bits = 500
-theta1 = 0.1
-theta2 = 0.2
-theta3 = 0.5
-message_length = num_bits // block_length
-
-data1_string, data1 = generate_data(theta=theta1, block_length=block_length, message_length=message_length, random_state=42)
-data2_string, data2 = generate_data(theta=theta2, block_length=block_length, message_length=message_length, random_state=42)
-data3_string, data3 = generate_data(theta=theta3, block_length=block_length, message_length=message_length, random_state=42)
-
-print('Data 1: ', data1_string)
-print('Data 2: ', data2_string)
-print('Data 3: ', data3_string)
-```
-
-Each string is 500 bits long.
-
-Models are suggested through the identification of patterns, regularities, and other types of special and particular structure. But when you scroll through the bit strings, it appears that the $0$'s and $1$'s are produced by the three sources in a random and haphazard manner; there are no detectable _deterministic_ regularities. But probabilistic models are not built to capture such regularities, so this should not worry us; rather, such models are designed to capture _probabilistic_ or _statistical_ properties.
-
-We _do_ notice that the relative frequency of $1$'s appears to increase as we go from the first bit string, to the second, to the third. With this in mind, we ask the machine to compute these frequencies:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-
-n1 = data1_string.count('1')
-print(f"Relative frequency of 1's for data 1:  {n1 / num_bits:0.2f}")
-
-n1 = data2_string.count('1')
-print(f"Relative frequency of 1's for data 2:  {n1 / num_bits:0.2f}")
-
-n1 = data3_string.count('1')
-print(f"Relative frequency of 1's for data 3:  {n1 / num_bits:0.2f}")
-```
-
-These values immediately suggest the models: Source 1, 2, and 3 will be modeled, respectively, by the random variables
-
-$$
-X_1 \sim \Ber(0.1), \quad X_2 \sim \Ber(0.2), \quad \text{and} \quad X_3 \sim \Ber(0.5).
-$$
-
-We conceptualize the bit strings as subsequent draws from these random variables, each bit in the string being produced independently of all those that came before it.
-
-Now we ask the central question: Using these models, how might we measure or quantify the _information_ contained in each bit string? (Take care to notice that we are asking this question only _after_ we have chosen probabilistic models, not _before_. Indeed, in accord with what we mentioned above, the notion of _information_ that we are ultimately after is a feature of the model, _not_ the raw data.)
-
-Of course, the question is hopelessly unanswerable, because _information_ is as yet undefined. But instead of trying to find some abstract and highfalutin description that _directly_ aims to characterize _information_ in all its diverse manifestations, we seek some sort of proxy that allows us to _indirectly_ "get at" this slippery notion.
-
-One such proxy is inspired and motivated by practical engineering considerations: The information content in these strings should be related to our ability to losslessly _compress_ the strings. Indeed, a larger compression ratio (i.e., the number of original bits to the number of compressed bits) should reflect that the string contains little information, while a smaller compression ratio should mean the opposite. As an extreme example, think of the bit string consisting of exactly five hundred $1$'s; we might imagine that it is the output of a fourth data source modeled via the random(?) variable $X_4 \sim \Ber(1)$. Intuitively, there is little information content carried by such a string, which is reflected in the fact that it may be highly compressed: If we design an encoding scheme with _block length_ equal to $500$ (see below), then this string would be compressed to the length-$1$ string consisting of just the single bit $1$. This is a $500$ to $1$ compression factor---quite large indeed!
-
-How do the probabilistic models fit into these considerations? Remember, the models were chosen to capture statistical properties of the bit strings. We can take advantage of these properties by splitting the strings into substrings of a specified _block length_; for example, if we use a block length of $5$, we get:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-
-print('Data 1: ', data1)
-print('Data 2: ', data2)
-print('Data 3: ', data3)
-```
-
-The third model $X_3 \sim \Bin(0.5)$ tells us that any given block is just as likely to appear in the data as any other; however, the first and second models $X_1 \sim \Bin(0.1)$ and $X_2 \sim \Ber(0.2)$ assign different probabilities to observing one or the other of the two bits $0$ and $1$, and therefore certain blocks in their data strings are more likely to appear than others. So then the idea is simple: To compress the first two strings, we assign short code words to blocks that are more likely to appear according to the models.
-
-One routine to find suitably short code words is called _Huffman coding_ which, conveniently, may be easily implemented in Python. The following code cell contains dictionaries representing the codebooks obtained by running this routine on the three data strings. The keys to the dictionaries consist of all $2^5 = 32$ possible blocks, while the values are the code words.
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-
-strings = [''.join([str(tup[i]) for i in range(block_length)]) for tup in product(range(2), repeat=block_length)]
-
-def generate_codebook(theta):
-    prob_dist = {}
-    for string in strings:
-        n1 = string.count('1')
-        n0 = block_length - n1
-        prob = (theta ** n1) * ((1 - theta) ** n0)
-        prob_dist = prob_dist | {string: prob}
-    codebook = huffman.codebook(prob_dist.items())
-    return codebook, prob_dist
-
-codebook1, prob_dist1 = generate_codebook(theta=theta1)
-codebook2, prob_dist2 = generate_codebook(theta=theta2)
-codebook3, prob_dist3 = generate_codebook(theta=theta3)
-
-spaced_codebook1 = {}
-spaced_codebook2 = {}
-spaced_codebook3 = {}
-
-for block in strings:
-    n1 = len(codebook1[block])
-    n2 = len(codebook2[block])
-    n3 = len(codebook3[block])
-    max_n = max([n1, n2, n3])
-    d1 = max_n - n1
-    d2 = max_n - n2
-    d3 = max_n - n3
-    blanks1 = (' ' * d1)
-    blanks2 = (' ' * d2)
-    blanks3 = (' ' * d3)
-    spaced_codebook1 = spaced_codebook1 | {block: blanks1 + codebook1[block]}
-    spaced_codebook2 = spaced_codebook2 | {block: blanks2 + codebook2[block]}
-    spaced_codebook3 = spaced_codebook3 | {block: blanks3 + codebook3[block]}
-
-print('Codebook 1: ', spaced_codebook1)
-print('Codebook 2: ', spaced_codebook2)
-print('Codebook 3: ', spaced_codebook3)
-```
-
-In the first codebook, notice that the blocks `00000` and `11111` are assigned, respectively, the code words `1` and `0011001010100`. The difference in length of the code words reflects the difference in probability of observing the two blocks, $0.9^5 \approx 0.59$ for the first versus $0.1^5 \approx 10^{-5}$ for the second. We print out the original blocks and their code words in the next cell, along with average code word lengths and reciprocal compression factors:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-
-def compress_data(data, codebook):
-
-    compressed_data = [codebook[word] for word in data]
-    data_spaced = []
-    compressed_data_spaced = []
-
-    for block, compressed_block in zip(data, compressed_data):
-        diff = len(block) - len(compressed_block)
-        if diff >= 0:
-            blanks = (' ' * diff)
-            data_spaced.append(block)
-            compressed_data_spaced.append(blanks + compressed_block)
-        else:
-            blanks = (' ' * -diff)
-            data_spaced.append(blanks + block)
-            compressed_data_spaced.append(compressed_block)
-    
-    return compressed_data, data_spaced, compressed_data_spaced
-
-compressed_data1, data1_spaced, compressed_data1_spaced = compress_data(data=data1, codebook=codebook1)
-compressed_data2, data2_spaced, compressed_data2_spaced = compress_data(data=data2, codebook=codebook2)
-compressed_data3, data3_spaced, compressed_data3_spaced = compress_data(data=data3, codebook=codebook3)
-
-print('|---------- Data 1 ----------|')
-
-avg_length = sum([len(codeword) for codeword in compressed_data1]) / len(compressed_data1)
-
-print('Data:                         ', data1_spaced)
-print('Compressed data:              ', compressed_data1_spaced)
-print('Average code word length:     ', avg_length)
-print('Reciprocal compression factor:', avg_length, "/", block_length, '=', avg_length / block_length)
-
-print('\n')
-
-print('|---------- Data 2 ----------|')
-
-avg_length = sum([len(codeword) for codeword in compressed_data2]) / len(compressed_data2)
-
-print('Data:                         ', data2_spaced)
-print('Compressed data:              ', compressed_data2_spaced)
-print('Average code word length:     ', avg_length)
-print('Reciprocal compression factor:', avg_length, "/", block_length, '=', avg_length / block_length)
-
-print('\n')
-
-print('|---------- Data 3 ----------|')
-
-avg_length = sum([len(codeword) for codeword in compressed_data3]) / len(compressed_data3)
-
-print('Data:                         ', data3_spaced)
-print('Compressed data:              ', compressed_data3_spaced)
-print('Average code word length:     ', avg_length)
-print('Reciprocal compression factor:', avg_length, "/", block_length, '=', avg_length / block_length)
-```
-
-To help interpret these results, it will be useful to summarize the discussion so far:
-
-> Probabilistic models capture statistical and probabilistic properties in data. Expressed through the model, these properties allow us to design coding schemes that _compress_ the data---a larger compression ratio should stand in as a proxy for lower "information content" carried by the data. Different models will lead to different compression ratios, and therefore different measures of "information content." So it is important to remember: In this scheme, _"information content" is not intrinsic to data!_
-
-So, the average code word lengths and reciprocal compression factors displayed in the last printout depend on _two_ things: Both the chosen probabilistic models and the particular coding schemes (in this case, Huffman coding). However, one of the central contributions of information theory shows that there are _minimal_ average reciprocal compression factors that depend _only_ on the underlying probabilistic models; these mean values are called the _(Shannon) entropies_ of the models. Moreover, it is a _theorem_ in information theory that Huffman codes yield reciprocal compression factors that get at least as close to these entropies as any other code (at least restricted to so-called _prefix-free_ codes). Thus, the reciprocal compression factors displayed above may be considered approximations of the entropies of the underlying models. If we believe that high (low) compression factors signal lower (higher) information content, then small (large) entropies should serve as a proxy for low (high) information content.
-
-Our three probabilistic models are particular examples of the general Bernoulli model $X\sim \Ber(\theta)$ for $\theta \in[0,1]$. The model depends only on the parameter $\theta$, and thus so too does its entropy. In the next section, we will see a simple formula for this entropy; if use this formula to plot entropy against $\theta$, we get this:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-
-def bernoulli_entropy(theta, phi=None):
-    if phi != None:
-        return -theta * np.log2(phi) - (1 - theta) * np.log2(1 - phi)
-    else:
-        return -theta * np.log2(theta) - (1 - theta) * np.log2(1 - theta)
-    
-grid = np.linspace(0.001, 0.999, 100)
-plt.plot(grid, bernoulli_entropy(grid))
-plt.scatter(0.1, bernoulli_entropy(0.1), color=magenta, s=50, zorder=2)
-plt.scatter(0.2, bernoulli_entropy(0.2), color=magenta, s=50, zorder=2)
-plt.scatter(0.5, bernoulli_entropy(0.5), color=magenta, s=50, zorder=2)
-plt.gcf().set_size_inches(w=5, h=3)
-plt.xlabel('$\\theta$')
-plt.ylabel('entropy')
-plt.tight_layout()
-```
-
-The three dots are at parameter values $\theta=0.1, 0.2, 0.5$; notice that the corresponding entropies are very near the (reciprocal) compression factors identified above. Notice also that the entropy is maximized at $\theta=0.5$, so the data strings that carry the most average information content are those drawn from a Bernoulli model where we have an equal chance of observing a $0$ or $1$; in other words, the data strings where the identity of each individual bit is the _most uncertain_ are those that carry the most information content. This identification between high uncertainty and high information content is confusing at first glance, and we will touch on this point again briefly in the next section.
-
----
-
-As I mentioned at the beginning of this section, we shall primarily use information-theoretic methods as means to train and choose between probabilistic models. This implies, of course, that there is some way to _compare_ models using these methods. Before moving on to the next section, I want to show you how these methods might work using our three toy models above, while also introducing some more of the main players in information theory.
-
-Sometimes it is a convenient fiction to posit the existence of a "true" probabilistic model that generates observed data. Putting aside whatever philosophical issues you might have regarding this claim, perhaps you will agree that our three toy models come as near to these "true" models as any other. What were to happen, then, if I encoded the first bit string using the codebook from the second bit string? Or, in other words, what if I _misidentified_ the parameter for the first model as $\theta=0.2$, when it is "truly" supposed to be $\theta=0.1$?
-
-The Huffman codes obtained from the "true" models were optimized, in the sense that they came closest to achieving the theoretical lower bounds on reciprocal data compression factors given by the entropies of the "true" models. This suggests that if we use the _wrong_ code, we should see worse performance on these compression metrics. The following code cell gives the results of using the codebook for the "wrong" parameter $\theta=0.2$ to encode the first data string:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-
-wrong_compressed_data1, data1_spaced, wrong_compressed_data1_spaced = compress_data(data=data1, codebook=codebook2)
-
-avg_length = sum([len(codeword) for codeword in wrong_compressed_data1]) / len(wrong_compressed_data1)
-
-print('|---- Data 1 (wrong model) ----|')
-print('Data:                           ', data1_spaced)
-print('Compressed data:                ', wrong_compressed_data1_spaced)
-print('Average code word length:       ', avg_length)
-print('Reciprocal compression factor:  ', avg_length, "/", block_length, '=', avg_length / block_length)
-```
-
-Comparing this to the optimal Huffman code above, we see that the reciprocal compression factor jumped from $0.488$ to $0.576$. At least in some sense, the difference between these two numbers serves as a proxy for the _discrepancy_ or _distance_ between the "true" model with $\theta=0.1$ and the "proposed" one with $\theta=0.2$.
-
-Information theory not only provides the entropy of a single model, which is a theoretical lower bound on reciprocal compression factors, but it also provides the so-called _cross entropy_ between two models which provides a lower bound on the reciprocal compression factor when using the "wrong" code in place of the "true" one. A fundamental result in the theory is _Gibbs' Inequality_, which says that this cross entropy is always greater than or equal to the entropy of the "true" model; the difference between these two entropies is therefore a nonnegative number that provides a measure of _distance_ between a "proposed" (perhaps "wrong") model and the "true" one. This difference is known as the _Kullback Leibler (KL) divergence_. By Gibbs' Inequality, the KL divergence achieves its global minimum value (i.e., $0$) when the "proposed" model is equal to the "true" one. These cross entropies and KL divergences will play a crucial role throughout the next few chapters.
-
-
-
-
-
-
 
 
 
@@ -356,8 +58,6 @@ The information content is also called the _surprisal_.
 If the probability measure $P$ is clear from context, we will write $I(s)$ in place of $I_P(s)$. If $\bX$ is a random vector with finite range and probability measure $P_\bX$, we will write $I_\bX(\bx)$ in place of $I_{P_\bX}(\bx)$.
 ```
 
-There is a notion of _entropy_ for continuous probability measures defined on Euclidean spaces---this latter type of entropy is called _differential entropy_, which you will briefly encounter in the homework.
-
 On one hand, a sense in which $I_P(s)$ may be considered a measure of "information" comes from its interpretation as the length of a code word, in the context of [Shannon-Fano coding](https://en.wikipedia.org/wiki/Shannon%E2%80%93Fano_coding). Another sense comes when we take the average information content of all sample points to obtain something called _Shannon entropy_; this will be explained after {prf:ref}`entropy-def` below.
 
 On the other hand, the intuition for the alternate name _surprisal_ is explained very nicely by simply inspecting the graph of the negative logarithm function:
@@ -368,17 +68,26 @@ On the other hand, the intuition for the alternate name _surprisal_ is explained
 :   figure:
 :       align: center
 
+import scipy as sp
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib_inline.backend_inline
+matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
+plt.style.use('../aux-files/custom_style_light.mplstyle')
+blue = '#486AFB'
+magenta = '#FD46FC'
+
 grid = np.linspace(0.01, 1, 100)
 plt.plot(grid, -np.log2(grid))
 plt.xlabel('$p$')
-plt.ylabel('$I(p) = -\\log_2(p)$')
+plt.title('$I(p) = -\\log_2p$')
 plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
 If some outcome is highly likely to occur (large $p(s)$), then it is not surprising (small $I(s)$). In the other direction, if an outcome $s$ is highly unlikely to occur (small $p(s)$), then it is very surprising (large $I(s)$).
 
-It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal---so why the choice of base-$2$ logarithm? It turns out that if you begin from first principles with a set of "natural axioms" that any notion of _surprisal_ should possess, then you can _prove_ all such surprisal functions must be proportional to negative logarithms; see, for example, the discussion in Section 9 in {cite}`Rioul2021`. The choice of base $2$ is then somewhat arbitrary, akin to choosing units, but it does have the added benefit of nicely connecting up with bit strings in the coding context. (See the homework.) Indeed, in base $2$, information content is measured in units of _bits_. While this is related to the previous notion of a bit denoting a binary digit ($0$ or $1$), the usage here is different, at the very least because information content does not have to be an integer. (See Section 10 in the aforementioned reference {cite}`Rioul2021` for more on units.)
+It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal---so why the choice of base-$2$ logarithm? It turns out that if you begin from first principles with a set of "natural axioms" that any notion of _surprisal_ should possess, then you can _prove_ all such surprisal functions must be proportional to negative logarithms; see, for example, the discussion in Section 9 in {cite}`Rioul2021`. The choice of base $2$ is then somewhat arbitrary, akin to choosing units, but it does have the added benefit of nicely connecting up with bit strings in the coding context. (See the [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-2-entropies-in-different-bases).) Indeed, in base $2$, information content is measured in units of _bits_. While this is related to the previous notion of a bit denoting a binary digit ($0$ or $1$), the usage here is different, at the very least because information content does not have to be an integer. (See Section 10 in the aforementioned reference {cite}`Rioul2021` for more on units.)
 
 Please understand that the terminology _information content_ now has a very specific and precise mathematical meaning. It is designed to "get at" our intuitive understanding of what general "information" is, but you should keep the two separate in your mind: There's the notion of "information" used in an intuitive and colloquial sense and is generally ill-defined, and then there is the notion of _information content_ precisely defined as above.
 
@@ -398,13 +107,15 @@ The entropy is also called the _uncertainty_.
 If $\bX$ is a random vector with finite range and probability measure $P_\bX$, we will write $H(\bX)$ in place of $H(P_\bX)$. If we write the vector in terms of its component random variables $\bX = (X_1,\ldots,X_m)$, then we shall also write $H(X_1,\ldots,X_m)$ in place of $H(P_\bX)$ and call this the _joint entropy_ of the random variables $X_1,\ldots,X_m$.
 ```
 
+There is a notion of _entropy_ for continuous probability measures defined on Euclidean spaces---this latter type of entropy is called _differential entropy_, which you will briefly encounter in the [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-5-differential-entropy).
+
 Since $I(s) = -\log_2(p(s))$, there is an issue in the definition of $H(P)$ in the case that $p(s)=0$ for some $s\in S$, for then we encounter the indeterminate form $0 \log_2(0)$. By convention, we take this expression to equal $0$, which may be justified according to the limit
 
 $$
 \lim_{p \to 0^+} p \log_2(p) = 0.
 $$
 
-In particular, when the probability distribution $P$ is a so-called _Dirac distribution_ that puts a spike of probability $1$ on a single sample point and assigns $0$ probability elsewhere, the entropy is at the minimum value $H(P)=0$. As we will see below, at the other end of the spectrum are the maximum-entropy uniform distributions:
+In particular, when the probability distribution $P$ is a so-called _Dirac distribution_ that puts a spike of probability $1$ on a single sample point and assigns $0$ probability elsewhere, the entropy is at the minimum value $H(P)=0$. As we will see below (in {prf:ref}`max-entropy-thm`), at the other end of the spectrum are the maximum-entropy uniform distributions:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -591,7 +302,13 @@ Then the _Kullback-Leibler divergence_ (or just _KL divergence_) from $P$ to $Q$
 $$
 D(P \parallel Q) \def E_{s\sim p(s)} \left[ \log_2\left( \frac{p(s)}{q(s)} \right)\right] =  \sum_{s\in S} p(s) \log_2\left( \frac{p(s)}{q(s)} \right).
 $$
+
+The KL divergence is also called the _relative entropy_.
+
+As always, if $P_\bX$ and $P_\bY$ are the probability measures of two random vectors $\bX$ and $\bY$ with finite ranges, we will write $D(\bY \parallel \bX)$ in place of $D(P_\bY \parallel P_\bX)$.
 ```
+
+As with entropy, there is a notion of KL divergence for continuous probability measures on Euclidean spaces---it is called _differential KL divergence_, and you will encounter it briefly in the [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-7-differential-kl-divergence).
 
 ```{admonition} Problem Prompt
 
@@ -603,60 +320,166 @@ The connection between KL divergence and entropy is given in the next theorem. I
 ```{prf:theorem} KL divergence and entropy
 :label: KL-and-entropy-thm
 
-Let $P$ and $Q$ be two probability measures on a finite probability space $S$. Then
+Let $P$ and $Q$ be two probability measures on a finite sample space $S$. Then
 
 $$
 D(P\parallel Q) = H_P(Q) - H(P).
 $$
 ```
 
-The inequality in the first part of the following result is perhaps the most important in the foundations of the theory and ultimately justifies our conception of the KL divergence as a "directed distance" between two probability distributions. The second part shows that the maximum-entropy distributions are exactly the uniform ones.
+We now work towards proving _Gibb's inequality_, which is sometimes called the most important inequality in information theory. Its proof goes through a preliminary result known as _Jensen's inequality_ which, in turn, leverages the _concavity_ of the logarithm function $h(x) = \log_2{x}$. This latter term means that between any two points $x=a$ and $x=b$ along the $x$-axis, the graph of $h(x)$ lies below the secant line:
 
-```{prf:theorem} Optimization of KL divergences and entropies
-:label: kl-entropy-optim-thm
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
 
-Let $P$ and $Q$ be two probability measures on a finite probability space $S$.
+grid = np.linspace(0.05, 1.25)
+grid_line = np.linspace(0.2, 1)
+m = -np.log2(0.2) / 0.8 
 
-1. _The Information Inequality_. We have
+plt.plot(grid, np.log2(grid))
+plt.plot(grid_line, m * (grid_line - 1))
+plt.scatter(0.2, np.log2(0.2), s=50, color=magenta, zorder=2)
+plt.scatter(1, 0, s=50, color=magenta, zorder=2)
+plt.xlabel('$x$')
+plt.ylabel('$y$')
+plt.title('$y=h(x) = \\log_2{x}$')
+plt.gcf().set_size_inches(w=5, h=3)
+plt.text(0.3, -2.9, '$(a,h(a))$', ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
+plt.text(1.1, -0.6, '$(b,h(b))$', ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
+plt.tight_layout()
+``````
 
-    $$
-    D(P \parallel Q) = H(P \parallel Q) - H(P) \geq 0
-    $$
+Note that all $x$-values between the endpoints $x=a$ and $x=b$ are of the form
 
-    for all $P$ and $Q$, with equality if and only if $P=Q$.
+$$
+x = (1-t) a + tb
+$$
 
-2. We have 
+for some $t\in [0,1]$. Plugging this $x$-value into the function yields a point on the graph with $y$-value
 
-    $$
-    H(P) \leq \log_2{|S|}
-    $$
+$$
+y = h\big((1-t) a + tb\big).
+$$
 
-    for all $P$, with equality if and only if $P$ is uniform.
+On the other hand, as you may easily check, this same $x$-value yields a point on the secant line with $y$-value
+
+$$
+y = (1-t)h(a) + th(b).
+$$
+
+Thus, concavity of the function means that the inequality
+
+$$
+(1-t)h(a) + th(b) \leq h\big((1-t) a + tb\big)
+$$ (convex-secant-eq)
+
+holds for all $t\in [0,1]$. Note that since $h$ is _strictly concave_ (i.e., not linear), equality holds in {eq}`convex-secant-eq` if and only if $a=b$.
+
+Now, note that the two scalars $1-t$ and $t$ appearing in {eq}`convex-secant-eq` are nonnegative and sum to $1$; thus, they define a probability measure on the sample space $S=\{a,b\}$, and we may rewrite {eq}`convex-secant-eq` as
+
+$$
+E_{s\sim p(s)}(h(s)) \leq h\big( E_{s\sim p(s)} (s) \big)
+$$
+
+where $p(a) = 1-t$ and $p(b) = t$. Jensen's inequality is nothing but a generalization of these observations to arbitrary convex functions and probability measures:
+
+```{prf:theorem} Jensen's inequality
+:label: jensen-thm
+
+Suppose $h: \bbr\to \bbr$ is a concave function and $P$ is a probability measure on a finite subset $S\subset \bbr$ with mass function $p(s)$. Then
+
+$$
+E_{s\sim p(s)}(h(s)) \leq h\big( E_{s\sim p(s)} (s) \big).
+$$
+
+Provided $f$ is _strictly concave_, equality holds if and only if the sample space $S$ has cardinality $1$.
+```
+
+We will not give a proof of the full version of Jensen's inequality, hoping that the discussion before the statement at least conveys some intuition for why it is true. For a proof, see Section 2.6 in {cite}`CoverThomas2006`, for example.
+
+We now put Jensen's inequality to use:
+
+```{prf:theorem} Gibbs' inequality
+:label: gibbs-thm
+
+Let $P$ and $Q$ be two probability measures on a finite probability space $S$ satisfying the absolute continuity condition in {prf:ref}`KL-def`. Then
+
+$$
+D(P \parallel Q) \geq 0,
+$$
+
+with equality if and only if $P=Q$.
 ```
 
 ```{prf:proof}
-For the first part, suppose that $p_1,\ldots,p_n$ and $q_1,\ldots,q_n$ are numbers in $(0,1]$ such that
+
+Suppose that the support of the mass function $p(s)$ is $S_p = \{s_1,\ldots,s_n\}$. By absolute continuity, the support $S_q$ of the mass function $q(s)$ contains $S_p$, so that $S_p \subset S_q$. Now, define
 
 $$
-\sum_{i=1}^n p_i = \sum_{i=1}^n q_i = 1.
-$$ (constraint-lagrance-eq)
-
-It will suffice, then, to show that the objective function
-
-$$
-J(q_1,\ldots,q_n) \def -\sum_{i=1}^n p_i \log_2{q_i},
+S' = \left\{ \frac{q(s_1)}{p(s_1)}, \frac{q(s_2)}{p(s_2)}, \ldots, \frac{q(s_n)}{p(s_n)}\right\},
 $$
 
-is globally minimized when $p_i = q_i$. But it is an easy exercise (using Lagrange multipliers) to show that a minimum can only occur when $p_i = q_i$ for each $i=1,\ldots,n$; one may confirm that this indeed yields a global maximum by showing that the objective function $J$ is convex (its Hessian matrix is positive definite) and noticing that the second constraint in {eq}`constraint-lagrance-eq` is affine. (See [here](https://math.stackexchange.com/a/1739181) for an explanation of the latter fact.) The proof of the second part follows the same pattern, with only the obvious changes. Q.E.D.
+noting that none of the numbers in this set is $0$ since $S_p \subset S_q$. We may view $S'$ as a new sample space with $s'_k = q(s_k)/p(s_k)$ for each $k=1,\ldots,n$, equipped with a probability mass function $p(s')$ given by $p(s'_k) = p(s_k)$ for all $k$.
+
+Since $h(x) = \log_2{x}$ is strictly concave, from Jensen's inequality ({prf:ref}`jensen-thm`) we have
+
+$$
+E_{s' \sim p(s')}\big( h(s') \big) \leq h \big( E_{s' \sim p(s')}(s') \big),
+$$ (gibbs-target-eq)
+
+with equality if and only if $S'$ has cardinality $1$. However, the left-hand side is
+
+$$
+E_{s' \sim p(s')}\big( h(s') \big) = \sum_{k=1}^n p(s'_k)\log_2{s'_k} = - \sum_{k=1}^n p(s_k) \log_2\left( \frac{p(s_k)}{q(s_k)} \right) = -D(P\parallel Q),
+$$
+
+while the right-hand side of {eq}`gibbs-target-eq` is
+
+$$
+h \big( E_{s' \sim p(s')}(s') \big) = \log_2 \left( \sum_{k=1}^n p(s_k')s_k' \right) = \log_2 \left( \sum_{k=1}^n q(s_k)\right) \leq 0. 
+$$ (gibbs-target-2-eq)
+
+Thus, $D(P \parallel Q) \geq 0$.
+
+As we observed, equality holds if and only if $S'$ has cardinality $1$, in which case there is a positive constant $c$ such that $p_s(s_k) = cq(s_k)$ for each $k=1,\ldots,n$. But then
+
+$$
+1 = \sum_{k=1}^n p(s_k) = c \sum_{k=1}^n q(s_k).
+$$
+
+Note that the equality $D(P\parallel Q)=0$ also implies $\sum_{k=1}^n q(s_k) = 1$ from {eq}`gibbs-target-2-eq`, and so $c=1$. Since then $S_p = S_q$ as well, we've shown that $P=Q$. Q.E.D.
 ```
 
-So, when $P$ is uniform, we have
+Gibbs' inequality provides the theoretical justification for viewing the KL divergence as a type of "distance" between two probability distributions. It has two properties that any "distance" must have: It is always nonnegative, and it vanishes only when the two distributions are the same. However, remember that it is _not_ symmetric in the distributions $P$ and $Q$, so the KL divergence falls short of being a true distance measure in the [precise, mathematical sense](https://en.wikipedia.org/wiki/Metric_space#Definition). It is better thought of as a "directed distance" function.
+
+Gibbs' inequality has the following immediate corollary:
+
+```{prf:corollary} Uniform distributions maximize entropy
+:label: max-entropy-thm
+
+Let $P$ be a probability measures on a finite sample space $S$. Then
 
 $$
-H(P) = \log_2|S|.
-$$ (max-ent-eq)
+H(P) \leq \log_2{|S|},
+$$
 
-It is pleasing to compare this maximum-entropy equation to the [Boltzmann equation](https://en.wikipedia.org/wiki/Boltzmann%27s_entropy_formula) for entropy in statistical mechanics. The definitional equation
+with equality if and only if $P$ is uniform.
+```
+
+```{prf:proof}
+Let $Q$ be the uniform distribution on $S$, and let $p(s)$ and $q(s)$ be the mass functions of $P$ and $Q$, respectively. Then by Gibbs' inequality, we have
+
+$$
+0 \leq D(P \parallel Q) = H_P(Q) - H(P) = \sum_{s\in S} p(s) \log_2|S| - H(P) = \log_2|S| - H(P).
+$$
+
+The desired result then follows. Q.E.D.
+```
+
+So, when $P$ is uniform, we have $H(P) = \log_2|S|$. It is pleasing to compare this latter equation to the [Boltzmann equation](https://en.wikipedia.org/wiki/Boltzmann%27s_entropy_formula) for entropy in statistical mechanics. The defining equation for Shannon entropy
 
 $$
 H(P) = - \sum_{s\in S} p(s) \log_2(p(s))
@@ -664,10 +487,12 @@ $$
 
 is the analog of the [Gibbs equation](https://en.wikipedia.org/wiki/Entropy_(statistical_thermodynamics)#Gibbs_entropy_formula) for Boltzmann entropy.
 
-In his initial paper, Shannon described entropy $H(P)$ as a measure of _uncertainty_. From this perspective, the rationale behind the maximum-entropy equation {eq}`max-ent-eq` becomes clear: If one were to randomly draw a number from a probability distribution, the uniform distribution is the one that would result in the highest level of uncertainty regarding the outcome.
+Let's finish off our discussion of KL divergence with:
 
+```{admonition} Problem Prompt
 
-
+Do problem 5 on the worksheet.
+```
 
 
 
@@ -698,36 +523,200 @@ In his initial paper, Shannon described entropy $H(P)$ as a measure of _uncertai
 
 
 (cond-entropy-mutual-info-sec)=
-## Conditional entropy and mutual information
+## Flow of information
+
+In this section, we use the notions of entropy and KL divergence developed in the previous two sections to quantify the amount of "information" shared between two random variables $X$ and $Y$. (As in the rest of this chapter, we shall restrict ourselves to random variables with finite ranges.) But to say that the random variables $X$ and $Y$ share information must mean that there is some sort of "communication channel" between them---how might we model such a channel?
+
+Working our way toward the answer, we first note that the cleanest way to transmit information from $X$ to $Y$ is via a _deterministic link_ between observed values. This would take the form of a function
+
+$$
+g: \bbr \to \bbr, \quad x\mapsto g(x),
+$$
+
+that sends an observation $x$ (of $X$) to an observation $y = g(x)$ (of $Y$). While these types of deterministic channels have their place in the theory (see {numref}`Chapter %s <prob-models>`, for instance), they are not the sort of channels of primary interest in information theory. Indeed, Shannon's main goal in the foundational paper {cite}`Shannon1948` was to quantify the transfer of information through imperfect "noisy" channels that introduce errors.
+
+So, even though it is too much to ask that an observation $x$ _uniquely_ determines an observation $y$, we still want to keep the general idea that $x$ is the information carrier that is transmitted through the channel toward $Y$. But when $x$ arrives at $Y$, it carries uncertainty with it, introduced by the "noise" in the channel. Uncertainty is modeled mathematically using probabilities, so what we are after is a notion of communcation channel that sends $x$ to a probability distribution on the $y$'s. But this is _exactly_ what conditional distributions are meant to model, and so we are led to replace the deterministic channel $x \mapsto g(x)$ from above with the mapping
+
+$$
+x \mapsto p(y | x)
+$$ (markov-kern-eq)
+
+that sends $x$ to the associated conditional distribution on the $y$'s. This is a strange mapping, as its domain is a Euclidean space, but its codomain is a _set of probability measures_! It is an example of something called a general [Markov kernel](https://en.wikipedia.org/wiki/Markov_kernel).
+
+We are led, then, to define a communication channel to essentially be a Markov kernel. But because students at this level might be uncomfortable with a mapping of the form {eq}`markov-kern-eq`, we "choose bases" and offer an alternate definition using matrices and vectors. So, if we suppose for simplicity that the ranges of $X$ and $Y$ have cardinalities $m$ and $n$, respectively, then the conditional distributions may be doubly indexed as $p(y_j | x_i)$, for $i=1,\ldots,m$ and $j=1,\ldots,n$. For ease of bookkeeping, it is natural to place these distributions into an $m\times n$ matrix
+
+$$
+\bK = [p(y_j |x _i)].
+$$
+
+Holding the row index $i$ fixed and summing over the columns, note that we have
+
+$$
+\sum_{j=1}^n p(y_j | x_i) = 1,
+$$
+
+since $p(y|x)$ is a probability mass function in the variable $y$ with $x$ held fixed. If we also represent the mass functions $p(x)$ and $p(y)$ as vectors
+
+$$
+\bpi(X)^\intercal = \begin{bmatrix} p(x_1) & \cdots & p(x_m) \end{bmatrix} \quad \text{and} \quad \bpi(Y)^\intercal = \begin{bmatrix} p(y_1) & \cdots & p(y_n) \end{bmatrix}
+$$ (prob-vectors-eq)
+
+then by the Law of Total Probability we have
+
+$$
+\bpi(X)^\intercal \bK = \bpi(Y)^\intercal.
+$$
+
+Notice that the entries in the vectors {eq}`prob-vectors-eq` sum to $1$. Vectors with nonnegative entries that sum to $1$ are called _probability vectors_.
+
+With these preparations completed, we are ready to define (our version of) a _Markov kernel_ and a _communication channel_:
 
 ```{prf:definition}
+:label: markov-kernel-def
 
-Let $\bX$ and $\bY$ be two random vectors with finite ranges.
+A _Markov kernel_ is a mapping
 
 $$
-H(\bY \mid \bX = \bx) = E_{\by \sim p(\by| \bx)}\left[ -\log_2(p(\by|\bx)) \right] = - \sum_{y\in \bbr^m} p(\by | \bx) \log_2(p(\by|\bx)).
+\kappa: \{1,2,\ldots,m\} \to \bbr^n
 $$
+
+such that each vector $\kappa(i)\in \bbr^n$ is a stochastic vector. The $m\times n$ matrix
+
+$$
+\bK = \begin{bmatrix} \leftarrow & \kappa(1)^\intercal & \rightarrow \\ \vdots & \vdots & \vdots \\ \leftarrow & \kappa(m)^\intercal & \rightarrow \end{bmatrix}
+$$
+
+is called the _transition matrix_ of the Markov kernel.
 ```
 
+Markov kernels occur in the theory of _Markov chains_, if you know what those are. In the context of information theory, Markov kernels become our models of communication channels:
+
+```{prf:definition}
+:label: comm-channel-def
+
+A _communication channel_ is a Markov kernel.
+```
+
+Notice that there is no mention of the random variables $X$ and $Y$. Indeed, this definition is meant to isolate and capture the channel itself, whereas the random vectors $X$ and $Y$ are separate components that are conceptualized as the "sender" and "receiver" hooked to the two ends of the channel.
+
+Our discussion preceding the definitions shows that every pair of random variables $(X,Y)$ (with finite ranges) determines a Markov kernel through the conditional distributions, and hence also a communication channel. Let's formally record this fact:
+
+```{prf:theorem} Conditional distributions determine communication channels
+:label: conditional-markov-kernel-thm
+
+Let $X$ and $Y$ be two random variables with finite ranges
+
+$$
+\{x_1,\ldots,x_m\} \quad \text{and} \quad \{y_1,\ldots,y_n\}.
+$$ (ranges-eq)
+
+Then the matrix
+
+$$
+\bK = [p(y_j|x_i)] = \begin{bmatrix}
+p(y_1|x_1) & \cdots & p(y_n|x_1) \\
+\vdots & \ddots & \vdots \\
+p(y_1|x_m) & \cdots & p(y_n|x_m)
+\end{bmatrix}
+$$ (trans-matrix-var-eq)
+
+is the transition matrix of a Markov kernel.
+```
+
+Be sure to notice that the form of the transition matrix {eq}`trans-matrix-var-eq` depends on the enumerations of the ranges of $X$ and $Y$ in {eq}`ranges-eq`; if we change the numbering of the ranges, the transition matrix will change accordingly. Notice also that there is nothing special about the random variables, besides that they have finite ranges: _Every_ configuration of conditional distributions determines a Markov kernel and thus a communication channel. This is just a new framework in which to conceptualize what conditional distributions _are_, and what they _do_. They are the exact mechanism that one random variable uses to send information or "exert influence" on another.
+
+```{admonition} Problem Prompt
+
+Do Problem 6 on the worksheet.
+```
+
+We now seek a way to measure the amount of "information" that passes through a communication channel induced by a pair of random variables $X$ and $Y$ as in {prf:ref}`conditional-markov-kernel-thm`. Our identification of such a measure begins by studying the case in which it is natural to believe that _no_ information is passed, exactly when the communication channel is _constant_. But this turns out to have an interpretation in terms of an important previous concept:
+
+```{prf:theorem} Independence $=$ constant Markov kernels
+:label: ind-markov-thm
+
+Let $X$ and $Y$ be two random variables with finite ranges
+
+$$
+\{x_1,\ldots,x_m\} \quad \text{and} \quad \{y_1,\ldots,y_n\}.
+$$
+
+Then the induced communication channel
+
+$$
+\kappa: \{1,2,\ldots,m\} \to \bbr^n, \quad \kappa(i)^\intercal = \begin{bmatrix} p(y_1|x_i) & \cdots & p(y_n|x_i) \end{bmatrix},
+$$
+
+is constant if and only if $X$ and $Y$ are independent. In this case, $\kappa(i) = \bpi(Y)$ for each $i=1,\ldots,m$.
+```
+
+```{prf:proof}
+
+By the Conditional Criteria for Independence (see {prf:ref}`conditional-ind-rvs-thm`), we have that $X$ and $Y$ are independent if and only if $p(y|x) = p(y)$ for all $x$ and $y$. In particular, if $X$ and $Y$ are independent, then we must have $p(y_j|x_i) = p(y_j)$ for each $i$ and $j$, and so the transition matrix is of the form
+
+$$
+\bK = \begin{bmatrix} p(y_1) & \cdots & p(y_n) \\ \vdots & \ddots & \vdots \\ p(y_1) & \cdots & p(y_n) \end{bmatrix},
+$$
+
+showing that the Markov kernel is constant with $\kappa(i) = \bpi(Y)$ for each $i$. Conversely, if the Markov kernel is constant so that the transition matrix is of the form
+
+$$
+\bK = \begin{bmatrix}
+p(y_1|x_1) & \cdots & p(y_n|x_1) \\
+\vdots & \ddots & \vdots \\
+p(y_1|x_m) & \cdots & p(y_n|x_m)
+\end{bmatrix} = \begin{bmatrix} \leftarrow & \bc^\intercal & \rightarrow \\ \vdots & \vdots & \vdots \\ \leftarrow & \bc^\intercal & \rightarrow \end{bmatrix}
+$$
+
+for some $\bc = [c_j] \in \bbr^n$, then by the Law of Total Probability
+
+$$
+\bpi(Y)^\intercal = \bpi(X)^\intercal \bK ,
+$$
+
+we must have
+
+$$
+p(y_j) = \sum_{i=1}^m p(x_i)c_{j} = c_j \sum_{i=1}^m p(x_i) = c_j
+$$
+
+for each $j$. This shows $\bpi(Y) = \bc$, and so
+
+$$
+p(y_j) = c_j = p(y_j|x_i)
+$$
+
+for all $i$ and $j$. Thus, $X$ and $Y$ are independent. Q.E.D.
+```
+
+By the Mass/Density Criteria for Independence (see {prf:ref}`mass-density-ind-thm`), the induced communication channel in {prf:ref}`ind-markov-thm` is constant if and only if the joint mass function of $X$ and $Y$ factors into the marginals:
+
+$$
+p(x,y) = p(x)p(y),
+$$
+
+for all $x$ and $y$. This suggests that a measure of "information" passed from $X$ to $Y$ should be the degree to which the joint mass function _does not_ equal the product of the marginals. But we already have a method for measuring the discrepancy between two distributions! This motivates:
 
 
 ```{prf:definition}
 :label: mutual-info-def
 
-Let $\bX$ and $\bY$ be two random vectors with finite ranges. The *mutual information between $\bX$ and $\bY$* is the KL divergence
+Let $X$ and $Y$ be two random variables with finite ranges. The _mutual information_ shared between $X$ and $Y$, denoted $I(X,Y)$, is the KL divergence
 
 $$
-I(\bX, \bY) \def D( P_{(\bX,\bY)} \parallel P_{\bX} P_{\bY}).
+I(X, Y) \def D( P_{XY} \parallel P_{X} P_{Y}) = \sum_{(x,y)\in \bbr^2} p(x,y) \log_2\left( \frac{p(x,y)}{p(x)p(y)}\right).
 $$
 ```
+
+Before we take a look at an example computation, it will be convenient to expression mutual information in terms of entropy:
 
 ```{prf:theorem} Mutual information and entropy
 :label: other-info-thm
 
-Let $\bX$ and $\bY$ be two random vectors with finite ranges. Then:
+Let $X$ and $Y$ be two random variables with finite ranges. Then:
 
 $$
-I(\bX,\bY) = H(\bX) + H(\bY) - H(\bX,\bY).
+I(X,Y) = H(X) + H(Y) - H(X,Y).
 $$
 ```
 
@@ -736,12 +725,17 @@ $$
 The proof is a computation:
 
 \begin{align*}
-I(\bX,\bY) &= \sum_{\bx\in \bbr^n}\sum_{\by \in \bbr^m} p(\bx,\by) \log_2\left( \frac{p(\bx,\by)}{p(\bx)p(\by)} \right) \\
-&= \sum_{\bx\in \bbr^n}\sum_{\by \in \bbr^m} p(\bx,\by) \log_2\left(p(\bx,\by)\right) - \sum_{\bx\in \bbr^n}\sum_{\by \in \bbr^m} p(\bx,\by) \log_2 \left(p(\bx)\right) \\
-&\quad - \sum_{\bx\in \bbr^n}\sum_{\by \in \bbr^m} p(\bx,\by) \log_2\left(p(\by)\right) \\
-&= - H(\bX,\bY) - \sum_{\bx \in \bbr^n} p(\bx) \log_2\left( p(\bx) \right) - \sum_{\by \in \bbr^m} p(\by) \log_2\left( p(\by)\right) \\
-&= H(\bX) + H(\bY) - H(\bX, \bY),
+I(x,y) &= \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2\left( \frac{p(x,y)}{p(x)p(y)} \right) \\
+&= - \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2 \left(p(x)\right) - \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2\left(p(y)\right) \\
+&\quad + \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2\left(p(x,y)\right)  \\
+&= - \sum_{x \in \bbr} p(x) \log_2\left( p(x) \right) - \sum_{y \in \bbr} p(y) \log_2\left( p(y)\right) - H(X,Y)  \\
+&= H(X) + H(Y) - H(X, Y),
 \end{align*}
 
 as desired. Q.E.D.
+```
+
+```{admonition} Problem Prompt
+
+Do Problem 7 on the worksheet.
 ```

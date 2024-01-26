@@ -63,7 +63,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bA": "\\mathbf{A}", "bb": "\\mathbf{b}", "bB": "\\mathbf{B}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bE": "\\mathbf{E}", "bg": "\\mathbf{g}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bD": "\\mathbf{D}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bg": "\\mathbf{g}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bD": "\\mathbf{D}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/09-info-theory';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -353,10 +353,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-how-do-we-measure-information">9.1. Preview: How do we measure information?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shannon-information-and-entropy">9.2. Shannon information and entropy</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kullback-leibler-divergence">9.3. Kullback Leibler divergence</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-entropy-and-mutual-information">9.4. Conditional entropy and mutual information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shannon-information-and-entropy">9.1. Shannon information and entropy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kullback-leibler-divergence">9.2. Kullback Leibler divergence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-of-information">9.3. Flow of information</a></li>
 </ul>
             </nav>
         </div>
@@ -375,366 +374,8 @@ document.write(`
 <p>The current chapter describes tools and techniques drawn from the <em>theory of information</em>, which is a charming amalgamation of practical engineering and theoretical mathematics. This theory provides us with a method for measuring a particular form of <em>information</em>, but it also gives us techniques for quantifying related degrees of <em>surprise</em>, <em>uncertainty</em>, and <em>entropy</em>. In the upcoming chapters, our primary use for these measures will be to train and choose probabilistic models, but the theory reaches way beyond into physics, coding theory, computer science, neuroscience, biology, economics, the theory of complex systems, and many other fields.</p>
 <p>We will begin the chapter with a section to help introduce the specific type of <em>information</em> that this theory purports to study. This first section is purely expository and draws motivation from the roots of information theory in practical engineering and coding theory. However, for reasons of space and time, beyond the first section we do not elaborate any further on the connections between information theory and coding theory—for that, we will point the interested reader to one of the standard textbooks on information theory, like <span id="id2">[<a class="reference internal" href="bib.html#id17" title="T. M. Cover and J. A. Thomas. Elements of information theory. John Wiley &amp; Sons, Inc., second edition, 2006.">CT06</a>]</span>, <span id="id3">[<a class="reference internal" href="bib.html#id25" title="D. J. C. MacKay. Information theory, inference and learning algorithms. Cambridge University Press, 2003.">Mac03</a>]</span>, and <span id="id4">[<a class="reference internal" href="bib.html#id26" title="R. B. Ash. Information theory. Courier Corporation, 2012.">Ash12</a>]</span>. The hurried reader may skip the first section if they would like, it contains no material necessary for the remaining sections.</p>
 <p>Though information theory has its roots in engineering concerns, it is at its core a purely mathematical theory. In the second section of this chapter, we define and study the first two of the three central quantities in the mathematical theory called <em>Shannon information</em> and <em>Shannon entropy</em>—after that, in the third section, we define the third of these important quantities called <em>Kullback Leibler (KL) divergence</em>. It is mostly this latter quantity that will be of primary use in the following chapters, since it provides a generalized notion of “distance” between probability distributions. Finally, we end the chapter with a discussion of the <em>mutual information</em> between two random vectors, which may be conceptualized as a generalized (nonnegative) correlation measure that vanishes exactly when the variables are independent.</p>
-<section id="preview-how-do-we-measure-information">
-<h2><span class="section-number">9.1. </span>Preview: How do we measure information?<a class="headerlink" href="#preview-how-do-we-measure-information" title="Permalink to this heading">#</a></h2>
-<p>The word <em>information</em> is often used in different contexts to mean different things. We all have some intuitive sense for what the term means, but it is a notoriously difficult thing to nail down <em>precisely</em>—no single definition seems to exist that covers <em>all</em> the ways in which it is used. Both professional philosophers (which I am not) and amateur armchair philosophers (which I am) like to argue about it. The fastest way for someone to tell you that they have no clue what information is, is to tell you that they know what information is.</p>
-<p>This being said, one of the central quantities that we will define (precisely!) and study in this chapter is something called <em>Shannon information</em>. The name comes from Claude Shannon, who is credited with laying down most of the foundations of the mathematical theory of information in <span id="id5">[<a class="reference internal" href="bib.html#id23" title="C. E. Shannon. A mathematical theory of communication. The Bell System Technical Journal, 27(3):379–423, 1948.">Sha48</a>]</span>, though he referred to it as the mathematical theory of <em>communication</em>. Indeed, on this point I cannot resist quoting another one of the pioneers of the field, Robert Fano:</p>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<p>This is the same quote that opens the fantastic survey article <span id="id6">[<a class="reference internal" href="bib.html#id24" title="O. Rioul. This is it: a primer on shannon’s entropy and information. In Information Theory: Poincaré Seminar 2018, 49–86. Springer, 2021.">Rio21</a>]</span> on information theory, which I enthusiastically recommend. I learned of this quote from that article.</p>
-</aside>
-<blockquote class="epigraph">
-<div><p>“I didn’t like the term ‘information theory.’ Claude [Shannon] didn’t like it either. You see, the term ‘information theory’ suggests that it is a theory about information—–but it’s not. It’s the transmission of information, not information. Lots of people just didn’t understand this.”</p>
-</div></blockquote>
-<p>Despite these misgivings from the founders, the terms <em>information theory</em> and <em>Shannon information</em> have stuck, and that’s what we will call them. Once you learn the precise definition of <em>Shannon information</em>, it will be up to you to decide if it comports with and captures your prior intuitive understanding of “information.”</p>
-<p>At first blush, you might imagine that this <em>information</em> resides in data, but that’s not true. Rather, this particular form of <em>information</em> is initially attached to our <em>beliefs</em> about the data—or, more precisely, this <em>information</em> is associated with a probabilistic model of the data. But if we have successfully cooked up a model that we think truly captures the data, then this form of <em>information</em> might (with caution!) be transferred from the model and attributed to the data. In any case, it’s a point that you would do well to remember: <em>Information-theoretic measures are associated with models, not datasets!</em></p>
-<p>To give you an initial sense of how this special notion of <em>information</em> arises, let’s go through a simple and concrete example. Let’s suppose that we have three simple data sources that produce bit strings, or strings of <span class="math notranslate nohighlight">\(0\)</span>’s and <span class="math notranslate nohighlight">\(1\)</span>’s. (Bit <span class="math notranslate nohighlight">\(=\)</span> binary digit.) We will assign them the names Source 1, Source 2, and Source 3, and we then collect data:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">huffman</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
-<span class="kn">import</span> <span class="nn">matplotlib_inline.backend_inline</span>
-<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
-<span class="n">blue</span> <span class="o">=</span> <span class="s1">&#39;#486AFB&#39;</span>
-<span class="n">magenta</span> <span class="o">=</span> <span class="s1">&#39;#FD46FC&#39;</span>
-
-<span class="k">def</span> <span class="nf">generate_data</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">block_length</span><span class="p">,</span> <span class="n">message_length</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">random_state</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
-    <span class="n">num_bits</span> <span class="o">=</span> <span class="n">block_length</span> <span class="o">*</span> <span class="n">message_length</span>
-    <span class="n">n1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">theta</span> <span class="o">*</span> <span class="n">num_bits</span><span class="p">)</span>
-    <span class="n">n0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_bits</span><span class="p">)</span>
-    <span class="n">ones</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-    <span class="n">zeros</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">ones</span><span class="p">,</span> <span class="n">zeros</span><span class="p">))</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="n">data_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">data</span><span class="p">])</span>
-    <span class="n">data_blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">data_string</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">block_length</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_bits</span><span class="p">,</span> <span class="n">block_length</span><span class="p">)]</span>
-    <span class="k">return</span> <span class="n">data_string</span><span class="p">,</span> <span class="n">data_blocks</span>
-
-<span class="n">block_length</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">num_bits</span> <span class="o">=</span> <span class="mi">500</span>
-<span class="n">theta1</span> <span class="o">=</span> <span class="mf">0.1</span>
-<span class="n">theta2</span> <span class="o">=</span> <span class="mf">0.2</span>
-<span class="n">theta3</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">message_length</span> <span class="o">=</span> <span class="n">num_bits</span> <span class="o">//</span> <span class="n">block_length</span>
-
-<span class="n">data1_string</span><span class="p">,</span> <span class="n">data1</span> <span class="o">=</span> <span class="n">generate_data</span><span class="p">(</span><span class="n">theta</span><span class="o">=</span><span class="n">theta1</span><span class="p">,</span> <span class="n">block_length</span><span class="o">=</span><span class="n">block_length</span><span class="p">,</span> <span class="n">message_length</span><span class="o">=</span><span class="n">message_length</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">data2_string</span><span class="p">,</span> <span class="n">data2</span> <span class="o">=</span> <span class="n">generate_data</span><span class="p">(</span><span class="n">theta</span><span class="o">=</span><span class="n">theta2</span><span class="p">,</span> <span class="n">block_length</span><span class="o">=</span><span class="n">block_length</span><span class="p">,</span> <span class="n">message_length</span><span class="o">=</span><span class="n">message_length</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">data3_string</span><span class="p">,</span> <span class="n">data3</span> <span class="o">=</span> <span class="n">generate_data</span><span class="p">(</span><span class="n">theta</span><span class="o">=</span><span class="n">theta3</span><span class="p">,</span> <span class="n">block_length</span><span class="o">=</span><span class="n">block_length</span><span class="p">,</span> <span class="n">message_length</span><span class="o">=</span><span class="n">message_length</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data 1: &#39;</span><span class="p">,</span> <span class="n">data1_string</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data 2: &#39;</span><span class="p">,</span> <span class="n">data2_string</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data 3: &#39;</span><span class="p">,</span> <span class="n">data3_string</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data 1:  00000000001000000100000000000000001000000000101101000000010000000101000000000000000000000000000000010010000000000100000100000000001000000110000000100010110010000001001100100000000000000000000000000000000000000000000000000010000000000100000000010001000000000000000000000000000000000000000000000000000000000000000000000000001000000001110000000000010000001000000000001100001000000000001000010100000000000000000000010000000010010001000000000010000000000000000000000010001000000000000000000000000010000000
-Data 2:  01000000101001000100000010000000001001010100111101100001010100001101000000000100010001000000000011010010010000000100000100000000001000010110100100100010110010010001001100100000000000000001000000000100010000010000000000000010000001010100000000010011000000000000000100010000000000000000000000000000000000000000000000000000001010100001110000011000010000001000000010011100001000000010001001010100000000000000000000010000001010010101000100100010100000000001010000000110001000000000000000010100000010100000
-Data 3:  01011001101101000100000010011000011001110101111101111011111100001101100000000100110101100000000011011010010101100100111111011101101100111110110100110011110011011001001101110111011001000101110000111110011111110001000001010011101001110100011101010111010001001010010111010111100000010101100000000011000001011101110100100100101010111011111100111100110010001001101110111100101010010111101001011100010000111000000001111010011010010111000100100110100100100011010101011110101001001000000111010100101011110001
-</pre></div>
-</div>
-</div>
-</div>
-<p>Each string is 500 bits long.</p>
-<p>Models are suggested through the identification of patterns, regularities, and other types of special and particular structure. But when you scroll through the bit strings, it appears that the <span class="math notranslate nohighlight">\(0\)</span>’s and <span class="math notranslate nohighlight">\(1\)</span>’s are produced by the three sources in a random and haphazard manner; there are no detectable <em>deterministic</em> regularities. But probabilistic models are not built to capture such regularities, so this should not worry us; rather, such models are designed to capture <em>probabilistic</em> or <em>statistical</em> properties.</p>
-<p>We <em>do</em> notice that the relative frequency of <span class="math notranslate nohighlight">\(1\)</span>’s appears to increase as we go from the first bit string, to the second, to the third. With this in mind, we ask the machine to compute these frequencies:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n1</span> <span class="o">=</span> <span class="n">data1_string</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Relative frequency of 1&#39;s for data 1:  </span><span class="si">{</span><span class="n">n1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">num_bits</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="n">n1</span> <span class="o">=</span> <span class="n">data2_string</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Relative frequency of 1&#39;s for data 2:  </span><span class="si">{</span><span class="n">n1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">num_bits</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="n">n1</span> <span class="o">=</span> <span class="n">data3_string</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Relative frequency of 1&#39;s for data 3:  </span><span class="si">{</span><span class="n">n1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">num_bits</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Relative frequency of 1&#39;s for data 1:  0.10
-Relative frequency of 1&#39;s for data 2:  0.20
-Relative frequency of 1&#39;s for data 3:  0.50
-</pre></div>
-</div>
-</div>
-</div>
-<p>These values immediately suggest the models: Source 1, 2, and 3 will be modeled, respectively, by the random variables</p>
-<div class="math notranslate nohighlight">
-\[
-X_1 \sim \Ber(0.1), \quad X_2 \sim \Ber(0.2), \quad \text{and} \quad X_3 \sim \Ber(0.5).
-\]</div>
-<p>We conceptualize the bit strings as subsequent draws from these random variables, each bit in the string being produced independently of all those that came before it.</p>
-<p>Now we ask the central question: Using these models, how might we measure or quantify the <em>information</em> contained in each bit string? (Take care to notice that we are asking this question only <em>after</em> we have chosen probabilistic models, not <em>before</em>. Indeed, in accord with what we mentioned above, the notion of <em>information</em> that we are ultimately after is a feature of the model, <em>not</em> the raw data.)</p>
-<p>Of course, the question is hopelessly unanswerable, because <em>information</em> is as yet undefined. But instead of trying to find some abstract and highfalutin description that <em>directly</em> aims to characterize <em>information</em> in all its diverse manifestations, we seek some sort of proxy that allows us to <em>indirectly</em> “get at” this slippery notion.</p>
-<p>One such proxy is inspired and motivated by practical engineering considerations: The information content in these strings should be related to our ability to losslessly <em>compress</em> the strings. Indeed, a larger compression ratio (i.e., the number of original bits to the number of compressed bits) should reflect that the string contains little information, while a smaller compression ratio should mean the opposite. As an extreme example, think of the bit string consisting of exactly five hundred <span class="math notranslate nohighlight">\(1\)</span>’s; we might imagine that it is the output of a fourth data source modeled via the random(?) variable <span class="math notranslate nohighlight">\(X_4 \sim \Ber(1)\)</span>. Intuitively, there is little information content carried by such a string, which is reflected in the fact that it may be highly compressed: If we design an encoding scheme with <em>block length</em> equal to <span class="math notranslate nohighlight">\(500\)</span> (see below), then this string would be compressed to the length-<span class="math notranslate nohighlight">\(1\)</span> string consisting of just the single bit <span class="math notranslate nohighlight">\(1\)</span>. This is a <span class="math notranslate nohighlight">\(500\)</span> to <span class="math notranslate nohighlight">\(1\)</span> compression factor—quite large indeed!</p>
-<p>How do the probabilistic models fit into these considerations? Remember, the models were chosen to capture statistical properties of the bit strings. We can take advantage of these properties by splitting the strings into substrings of a specified <em>block length</em>; for example, if we use a block length of <span class="math notranslate nohighlight">\(5\)</span>, we get:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data 1: &#39;</span><span class="p">,</span> <span class="n">data1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data 2: &#39;</span><span class="p">,</span> <span class="n">data2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data 3: &#39;</span><span class="p">,</span> <span class="n">data3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data 1:  [&#39;00000&#39;, &#39;00000&#39;, &#39;10000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00001&#39;, &#39;00000&#39;, &#39;00001&#39;, &#39;01101&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;10100&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00001&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;00001&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;10000&#39;, &#39;00110&#39;, &#39;00000&#39;, &#39;01000&#39;, &#39;10110&#39;, &#39;01000&#39;, &#39;00010&#39;, &#39;01100&#39;, &#39;10000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;01110&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;10000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00001&#39;, &#39;10000&#39;, &#39;10000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00101&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;01000&#39;, &#39;00000&#39;, &#39;10010&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;01000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00000&#39;]
-Data 2:  [&#39;01000&#39;, &#39;00010&#39;, &#39;10010&#39;, &#39;00100&#39;, &#39;00001&#39;, &#39;00000&#39;, &#39;00001&#39;, &#39;00101&#39;, &#39;01001&#39;, &#39;11101&#39;, &#39;10000&#39;, &#39;10101&#39;, &#39;00001&#39;, &#39;10100&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;01000&#39;, &#39;10000&#39;, &#39;00000&#39;, &#39;01101&#39;, &#39;00100&#39;, &#39;10000&#39;, &#39;00010&#39;, &#39;00001&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;10000&#39;, &#39;10110&#39;, &#39;10010&#39;, &#39;01000&#39;, &#39;10110&#39;, &#39;01001&#39;, &#39;00010&#39;, &#39;01100&#39;, &#39;10000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;01000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00001&#39;, &#39;01010&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;01100&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00101&#39;, &#39;01000&#39;, &#39;01110&#39;, &#39;00001&#39;, &#39;10000&#39;, &#39;10000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;10011&#39;, &#39;10000&#39;, &#39;10000&#39;, &#39;00010&#39;, &#39;00100&#39;, &#39;10101&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;01000&#39;, &#39;00010&#39;, &#39;10010&#39;, &#39;10100&#39;, &#39;01001&#39;, &#39;00010&#39;, &#39;10000&#39;, &#39;00000&#39;, &#39;01010&#39;, &#39;00000&#39;, &#39;01100&#39;, &#39;01000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;10000&#39;, &#39;00101&#39;, &#39;00000&#39;]
-Data 3:  [&#39;01011&#39;, &#39;00110&#39;, &#39;11010&#39;, &#39;00100&#39;, &#39;00001&#39;, &#39;00110&#39;, &#39;00011&#39;, &#39;00111&#39;, &#39;01011&#39;, &#39;11101&#39;, &#39;11101&#39;, &#39;11111&#39;, &#39;00001&#39;, &#39;10110&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;11010&#39;, &#39;11000&#39;, &#39;00000&#39;, &#39;01101&#39;, &#39;10100&#39;, &#39;10101&#39;, &#39;10010&#39;, &#39;01111&#39;, &#39;11011&#39;, &#39;10110&#39;, &#39;11001&#39;, &#39;11110&#39;, &#39;11010&#39;, &#39;01100&#39;, &#39;11110&#39;, &#39;01101&#39;, &#39;10010&#39;, &#39;01101&#39;, &#39;11011&#39;, &#39;10110&#39;, &#39;01000&#39;, &#39;10111&#39;, &#39;00001&#39;, &#39;11110&#39;, &#39;01111&#39;, &#39;11100&#39;, &#39;01000&#39;, &#39;00101&#39;, &#39;00111&#39;, &#39;01001&#39;, &#39;11010&#39;, &#39;00111&#39;, &#39;01010&#39;, &#39;11101&#39;, &#39;00010&#39;, &#39;01010&#39;, &#39;01011&#39;, &#39;10101&#39;, &#39;11100&#39;, &#39;00001&#39;, &#39;01011&#39;, &#39;00000&#39;, &#39;00001&#39;, &#39;10000&#39;, &#39;01011&#39;, &#39;10111&#39;, &#39;01001&#39;, &#39;00100&#39;, &#39;10101&#39;, &#39;01110&#39;, &#39;11111&#39;, &#39;10011&#39;, &#39;11001&#39;, &#39;10010&#39;, &#39;00100&#39;, &#39;11011&#39;, &#39;10111&#39;, &#39;10010&#39;, &#39;10100&#39;, &#39;10111&#39;, &#39;10100&#39;, &#39;10111&#39;, &#39;00010&#39;, &#39;00011&#39;, &#39;10000&#39;, &#39;00001&#39;, &#39;11101&#39;, &#39;00110&#39;, &#39;10010&#39;, &#39;11100&#39;, &#39;01001&#39;, &#39;00110&#39;, &#39;10010&#39;, &#39;01000&#39;, &#39;11010&#39;, &#39;10101&#39;, &#39;11101&#39;, &#39;01001&#39;, &#39;00100&#39;, &#39;00001&#39;, &#39;11010&#39;, &#39;10010&#39;, &#39;10111&#39;, &#39;10001&#39;]
-</pre></div>
-</div>
-</div>
-</div>
-<p>The third model <span class="math notranslate nohighlight">\(X_3 \sim \Bin(0.5)\)</span> tells us that any given block is just as likely to appear in the data as any other; however, the first and second models <span class="math notranslate nohighlight">\(X_1 \sim \Bin(0.1)\)</span> and <span class="math notranslate nohighlight">\(X_2 \sim \Ber(0.2)\)</span> assign different probabilities to observing one or the other of the two bits <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>, and therefore certain blocks in their data strings are more likely to appear than others. So then the idea is simple: To compress the first two strings, we assign short code words to blocks that are more likely to appear according to the models.</p>
-<p>One routine to find suitably short code words is called <em>Huffman coding</em> which, conveniently, may be easily implemented in Python. The following code cell contains dictionaries representing the codebooks obtained by running this routine on the three data strings. The keys to the dictionaries consist of all <span class="math notranslate nohighlight">\(2^5 = 32\)</span> possible blocks, while the values are the code words.</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">strings</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">block_length</span><span class="p">)])</span> <span class="k">for</span> <span class="n">tup</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="n">block_length</span><span class="p">)]</span>
-
-<span class="k">def</span> <span class="nf">generate_codebook</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
-    <span class="n">prob_dist</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">strings</span><span class="p">:</span>
-        <span class="n">n1</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
-        <span class="n">n0</span> <span class="o">=</span> <span class="n">block_length</span> <span class="o">-</span> <span class="n">n1</span>
-        <span class="n">prob</span> <span class="o">=</span> <span class="p">(</span><span class="n">theta</span> <span class="o">**</span> <span class="n">n1</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">theta</span><span class="p">)</span> <span class="o">**</span> <span class="n">n0</span><span class="p">)</span>
-        <span class="n">prob_dist</span> <span class="o">=</span> <span class="n">prob_dist</span> <span class="o">|</span> <span class="p">{</span><span class="n">string</span><span class="p">:</span> <span class="n">prob</span><span class="p">}</span>
-    <span class="n">codebook</span> <span class="o">=</span> <span class="n">huffman</span><span class="o">.</span><span class="n">codebook</span><span class="p">(</span><span class="n">prob_dist</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
-    <span class="k">return</span> <span class="n">codebook</span><span class="p">,</span> <span class="n">prob_dist</span>
-
-<span class="n">codebook1</span><span class="p">,</span> <span class="n">prob_dist1</span> <span class="o">=</span> <span class="n">generate_codebook</span><span class="p">(</span><span class="n">theta</span><span class="o">=</span><span class="n">theta1</span><span class="p">)</span>
-<span class="n">codebook2</span><span class="p">,</span> <span class="n">prob_dist2</span> <span class="o">=</span> <span class="n">generate_codebook</span><span class="p">(</span><span class="n">theta</span><span class="o">=</span><span class="n">theta2</span><span class="p">)</span>
-<span class="n">codebook3</span><span class="p">,</span> <span class="n">prob_dist3</span> <span class="o">=</span> <span class="n">generate_codebook</span><span class="p">(</span><span class="n">theta</span><span class="o">=</span><span class="n">theta3</span><span class="p">)</span>
-
-<span class="n">spaced_codebook1</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">spaced_codebook2</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">spaced_codebook3</span> <span class="o">=</span> <span class="p">{}</span>
-
-<span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">strings</span><span class="p">:</span>
-    <span class="n">n1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">codebook1</span><span class="p">[</span><span class="n">block</span><span class="p">])</span>
-    <span class="n">n2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">codebook2</span><span class="p">[</span><span class="n">block</span><span class="p">])</span>
-    <span class="n">n3</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">codebook3</span><span class="p">[</span><span class="n">block</span><span class="p">])</span>
-    <span class="n">max_n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">n3</span><span class="p">])</span>
-    <span class="n">d1</span> <span class="o">=</span> <span class="n">max_n</span> <span class="o">-</span> <span class="n">n1</span>
-    <span class="n">d2</span> <span class="o">=</span> <span class="n">max_n</span> <span class="o">-</span> <span class="n">n2</span>
-    <span class="n">d3</span> <span class="o">=</span> <span class="n">max_n</span> <span class="o">-</span> <span class="n">n3</span>
-    <span class="n">blanks1</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="n">d1</span><span class="p">)</span>
-    <span class="n">blanks2</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="n">d2</span><span class="p">)</span>
-    <span class="n">blanks3</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="n">d3</span><span class="p">)</span>
-    <span class="n">spaced_codebook1</span> <span class="o">=</span> <span class="n">spaced_codebook1</span> <span class="o">|</span> <span class="p">{</span><span class="n">block</span><span class="p">:</span> <span class="n">blanks1</span> <span class="o">+</span> <span class="n">codebook1</span><span class="p">[</span><span class="n">block</span><span class="p">]}</span>
-    <span class="n">spaced_codebook2</span> <span class="o">=</span> <span class="n">spaced_codebook2</span> <span class="o">|</span> <span class="p">{</span><span class="n">block</span><span class="p">:</span> <span class="n">blanks2</span> <span class="o">+</span> <span class="n">codebook2</span><span class="p">[</span><span class="n">block</span><span class="p">]}</span>
-    <span class="n">spaced_codebook3</span> <span class="o">=</span> <span class="n">spaced_codebook3</span> <span class="o">|</span> <span class="p">{</span><span class="n">block</span><span class="p">:</span> <span class="n">blanks3</span> <span class="o">+</span> <span class="n">codebook3</span><span class="p">[</span><span class="n">block</span><span class="p">]}</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Codebook 1: &#39;</span><span class="p">,</span> <span class="n">spaced_codebook1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Codebook 2: &#39;</span><span class="p">,</span> <span class="n">spaced_codebook2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Codebook 3: &#39;</span><span class="p">,</span> <span class="n">spaced_codebook3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Codebook 1:  {&#39;00000&#39;: &#39;    1&#39;, &#39;00001&#39;: &#39;  000&#39;, &#39;00010&#39;: &#39; 0110&#39;, &#39;00011&#39;: &#39;0011111&#39;, &#39;00100&#39;: &#39; 0101&#39;, &#39;00101&#39;: &#39;0011011&#39;, &#39;00110&#39;: &#39;0011101&#39;, &#39;00111&#39;: &#39;001100100&#39;, &#39;01000&#39;: &#39; 0100&#39;, &#39;01001&#39;: &#39;001001&#39;, &#39;01010&#39;: &#39;001011&#39;, &#39;01011&#39;: &#39;001100000&#39;, &#39;01100&#39;: &#39;0011100&#39;, &#39;01101&#39;: &#39;0011001110&#39;, &#39;01110&#39;: &#39;0011001011&#39;, &#39;01111&#39;: &#39;001100101001&#39;, &#39;10000&#39;: &#39; 0111&#39;, &#39;10001&#39;: &#39;001010&#39;, &#39;10010&#39;: &#39;0011110&#39;, &#39;10011&#39;: &#39;001100011&#39;, &#39;10100&#39;: &#39;0011010&#39;, &#39;10101&#39;: &#39;001100010&#39;, &#39;10110&#39;: &#39;001100001&#39;, &#39;10111&#39;: &#39;001100101000&#39;, &#39;11000&#39;: &#39;001000&#39;, &#39;11001&#39;: &#39;0011001101&#39;, &#39;11010&#39;: &#39;0011001111&#39;, &#39;11011&#39;: &#39;0011001010111&#39;, &#39;11100&#39;: &#39;0011001100&#39;, &#39;11101&#39;: &#39;0011001010110&#39;, &#39;11110&#39;: &#39;0011001010101&#39;, &#39;11111&#39;: &#39;0011001010100&#39;}
-Codebook 2:  {&#39;00000&#39;: &#39;   11&#39;, &#39;00001&#39;: &#39; 1000&#39;, &#39;00010&#39;: &#39;  001&#39;, &#39;00011&#39;: &#39;  01110&#39;, &#39;00100&#39;: &#39; 1010&#39;, &#39;00101&#39;: &#39;  01001&#39;, &#39;00110&#39;: &#39;  01011&#39;, &#39;00111&#39;: &#39;  0101011&#39;, &#39;01000&#39;: &#39;  000&#39;, &#39;01001&#39;: &#39; 01101&#39;, &#39;01010&#39;: &#39;100100&#39;, &#39;01011&#39;: &#39;  0110011&#39;, &#39;01100&#39;: &#39; 011111&#39;, &#39;01101&#39;: &#39;  01111011&#39;, &#39;01110&#39;: &#39;  01111010&#39;, &#39;01111&#39;: &#39;   011110001&#39;, &#39;10000&#39;: &#39; 1011&#39;, &#39;10001&#39;: &#39;100111&#39;, &#39;10010&#39;: &#39; 100110&#39;, &#39;10011&#39;: &#39;  0101010&#39;, &#39;10100&#39;: &#39; 100101&#39;, &#39;10101&#39;: &#39;  0101001&#39;, &#39;10110&#39;: &#39;  0101000&#39;, &#39;10111&#39;: &#39;   011110000&#39;, &#39;11000&#39;: &#39; 01000&#39;, &#39;11001&#39;: &#39;   0110010&#39;, &#39;11010&#39;: &#39;   0110001&#39;, &#39;11011&#39;: &#39;   0111100111&#39;, &#39;11100&#39;: &#39;   0110000&#39;, &#39;11101&#39;: &#39;   0111100110&#39;, &#39;11110&#39;: &#39;   0111100101&#39;, &#39;11111&#39;: &#39;   0111100100&#39;}
-Codebook 3:  {&#39;00000&#39;: &#39;00010&#39;, &#39;00001&#39;: &#39;11100&#39;, &#39;00010&#39;: &#39;00101&#39;, &#39;00011&#39;: &#39;  01001&#39;, &#39;00100&#39;: &#39;11001&#39;, &#39;00101&#39;: &#39;  01110&#39;, &#39;00110&#39;: &#39;  00100&#39;, &#39;00111&#39;: &#39;    00110&#39;, &#39;01000&#39;: &#39;01000&#39;, &#39;01001&#39;: &#39; 11011&#39;, &#39;01010&#39;: &#39; 11000&#39;, &#39;01011&#39;: &#39;    10011&#39;, &#39;01100&#39;: &#39;  10001&#39;, &#39;01101&#39;: &#39;     10100&#39;, &#39;01110&#39;: &#39;     00001&#39;, &#39;01111&#39;: &#39;       01100&#39;, &#39;10000&#39;: &#39;11111&#39;, &#39;10001&#39;: &#39; 11110&#39;, &#39;10010&#39;: &#39;  01011&#39;, &#39;10011&#39;: &#39;    01010&#39;, &#39;10100&#39;: &#39;  11010&#39;, &#39;10101&#39;: &#39;    11101&#39;, &#39;10110&#39;: &#39;    10111&#39;, &#39;10111&#39;: &#39;       10110&#39;, &#39;11000&#39;: &#39; 10010&#39;, &#39;11001&#39;: &#39;     01111&#39;, &#39;11010&#39;: &#39;     10000&#39;, &#39;11011&#39;: &#39;        10101&#39;, &#39;11100&#39;: &#39;     01101&#39;, &#39;11101&#39;: &#39;        00011&#39;, &#39;11110&#39;: &#39;        00000&#39;, &#39;11111&#39;: &#39;        00111&#39;}
-</pre></div>
-</div>
-</div>
-</div>
-<p>In the first codebook, notice that the blocks <code class="docutils literal notranslate"><span class="pre">00000</span></code> and <code class="docutils literal notranslate"><span class="pre">11111</span></code> are assigned, respectively, the code words <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">0011001010100</span></code>. The difference in length of the code words reflects the difference in probability of observing the two blocks, <span class="math notranslate nohighlight">\(0.9^5 \approx 0.59\)</span> for the first versus <span class="math notranslate nohighlight">\(0.1^5 \approx 10^{-5}\)</span> for the second. We print out the original blocks and their code words in the next cell, along with average code word lengths and reciprocal compression factors:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compress_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">codebook</span><span class="p">):</span>
-
-    <span class="n">compressed_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">codebook</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
-    <span class="n">data_spaced</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">compressed_data_spaced</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">block</span><span class="p">,</span> <span class="n">compressed_block</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">compressed_data</span><span class="p">):</span>
-        <span class="n">diff</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">block</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">compressed_block</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">diff</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">blanks</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="n">diff</span><span class="p">)</span>
-            <span class="n">data_spaced</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
-            <span class="n">compressed_data_spaced</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">blanks</span> <span class="o">+</span> <span class="n">compressed_block</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">blanks</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="o">-</span><span class="n">diff</span><span class="p">)</span>
-            <span class="n">data_spaced</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">blanks</span> <span class="o">+</span> <span class="n">block</span><span class="p">)</span>
-            <span class="n">compressed_data_spaced</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">compressed_block</span><span class="p">)</span>
-    
-    <span class="k">return</span> <span class="n">compressed_data</span><span class="p">,</span> <span class="n">data_spaced</span><span class="p">,</span> <span class="n">compressed_data_spaced</span>
-
-<span class="n">compressed_data1</span><span class="p">,</span> <span class="n">data1_spaced</span><span class="p">,</span> <span class="n">compressed_data1_spaced</span> <span class="o">=</span> <span class="n">compress_data</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data1</span><span class="p">,</span> <span class="n">codebook</span><span class="o">=</span><span class="n">codebook1</span><span class="p">)</span>
-<span class="n">compressed_data2</span><span class="p">,</span> <span class="n">data2_spaced</span><span class="p">,</span> <span class="n">compressed_data2_spaced</span> <span class="o">=</span> <span class="n">compress_data</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data2</span><span class="p">,</span> <span class="n">codebook</span><span class="o">=</span><span class="n">codebook2</span><span class="p">)</span>
-<span class="n">compressed_data3</span><span class="p">,</span> <span class="n">data3_spaced</span><span class="p">,</span> <span class="n">compressed_data3_spaced</span> <span class="o">=</span> <span class="n">compress_data</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data3</span><span class="p">,</span> <span class="n">codebook</span><span class="o">=</span><span class="n">codebook3</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;|---------- Data 1 ----------|&#39;</span><span class="p">)</span>
-
-<span class="n">avg_length</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">codeword</span><span class="p">)</span> <span class="k">for</span> <span class="n">codeword</span> <span class="ow">in</span> <span class="n">compressed_data1</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">compressed_data1</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data:                         &#39;</span><span class="p">,</span> <span class="n">data1_spaced</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Compressed data:              &#39;</span><span class="p">,</span> <span class="n">compressed_data1_spaced</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average code word length:     &#39;</span><span class="p">,</span> <span class="n">avg_length</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reciprocal compression factor:&#39;</span><span class="p">,</span> <span class="n">avg_length</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">block_length</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="n">avg_length</span> <span class="o">/</span> <span class="n">block_length</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;|---------- Data 2 ----------|&#39;</span><span class="p">)</span>
-
-<span class="n">avg_length</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">codeword</span><span class="p">)</span> <span class="k">for</span> <span class="n">codeword</span> <span class="ow">in</span> <span class="n">compressed_data2</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">compressed_data2</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data:                         &#39;</span><span class="p">,</span> <span class="n">data2_spaced</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Compressed data:              &#39;</span><span class="p">,</span> <span class="n">compressed_data2_spaced</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average code word length:     &#39;</span><span class="p">,</span> <span class="n">avg_length</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reciprocal compression factor:&#39;</span><span class="p">,</span> <span class="n">avg_length</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">block_length</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="n">avg_length</span> <span class="o">/</span> <span class="n">block_length</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;|---------- Data 3 ----------|&#39;</span><span class="p">)</span>
-
-<span class="n">avg_length</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">codeword</span><span class="p">)</span> <span class="k">for</span> <span class="n">codeword</span> <span class="ow">in</span> <span class="n">compressed_data3</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">compressed_data3</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data:                         &#39;</span><span class="p">,</span> <span class="n">data3_spaced</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Compressed data:              &#39;</span><span class="p">,</span> <span class="n">compressed_data3_spaced</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average code word length:     &#39;</span><span class="p">,</span> <span class="n">avg_length</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reciprocal compression factor:&#39;</span><span class="p">,</span> <span class="n">avg_length</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">block_length</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="n">avg_length</span> <span class="o">/</span> <span class="n">block_length</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>|---------- Data 1 ----------|
-Data:                          [&#39;00000&#39;, &#39;00000&#39;, &#39;10000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00001&#39;, &#39;00000&#39;, &#39;00001&#39;, &#39;     01101&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;  10100&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00001&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;00001&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;10000&#39;, &#39;  00110&#39;, &#39;00000&#39;, &#39;01000&#39;, &#39;    10110&#39;, &#39;01000&#39;, &#39;00010&#39;, &#39;  01100&#39;, &#39;10000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;     01110&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;10000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00001&#39;, &#39;10000&#39;, &#39;10000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;  00101&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;01000&#39;, &#39;00000&#39;, &#39;  10010&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;01000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00000&#39;]
-Compressed data:               [&#39;    1&#39;, &#39;    1&#39;, &#39; 0111&#39;, &#39; 0101&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;  000&#39;, &#39;    1&#39;, &#39;  000&#39;, &#39;0011001110&#39;, &#39;    1&#39;, &#39; 0101&#39;, &#39;    1&#39;, &#39;0011010&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;  000&#39;, &#39; 0101&#39;, &#39;    1&#39;, &#39; 0110&#39;, &#39;  000&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39; 0111&#39;, &#39;0011101&#39;, &#39;    1&#39;, &#39; 0100&#39;, &#39;001100001&#39;, &#39; 0100&#39;, &#39; 0110&#39;, &#39;0011100&#39;, &#39; 0111&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39; 0101&#39;, &#39;    1&#39;, &#39; 0110&#39;, &#39;    1&#39;, &#39; 0110&#39;, &#39; 0101&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39; 0101&#39;, &#39;    1&#39;, &#39;0011001011&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39; 0111&#39;, &#39; 0101&#39;, &#39;    1&#39;, &#39;  000&#39;, &#39; 0111&#39;, &#39; 0111&#39;, &#39;    1&#39;, &#39; 0101&#39;, &#39;0011011&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39; 0100&#39;, &#39;    1&#39;, &#39;0011110&#39;, &#39; 0101&#39;, &#39;    1&#39;, &#39; 0110&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39; 0101&#39;, &#39; 0100&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39;    1&#39;, &#39; 0101&#39;, &#39;    1&#39;]
-Average code word length:      2.44
-Reciprocal compression factor: 2.44 / 5 = 0.488
-
-
-|---------- Data 2 ----------|
-Data:                          [&#39;01000&#39;, &#39;00010&#39;, &#39; 10010&#39;, &#39;00100&#39;, &#39;00001&#39;, &#39;00000&#39;, &#39;00001&#39;, &#39;00101&#39;, &#39;01001&#39;, &#39;     11101&#39;, &#39;10000&#39;, &#39;  10101&#39;, &#39;00001&#39;, &#39; 10100&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;01000&#39;, &#39;10000&#39;, &#39;00000&#39;, &#39;   01101&#39;, &#39;00100&#39;, &#39;10000&#39;, &#39;00010&#39;, &#39;00001&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;10000&#39;, &#39;  10110&#39;, &#39; 10010&#39;, &#39;01000&#39;, &#39;  10110&#39;, &#39;01001&#39;, &#39;00010&#39;, &#39; 01100&#39;, &#39;10000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;01000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00001&#39;, &#39; 01010&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39; 01100&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00101&#39;, &#39;01000&#39;, &#39;   01110&#39;, &#39;00001&#39;, &#39;10000&#39;, &#39;10000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;  10011&#39;, &#39;10000&#39;, &#39;10000&#39;, &#39;00010&#39;, &#39;00100&#39;, &#39;  10101&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;01000&#39;, &#39;00010&#39;, &#39; 10010&#39;, &#39; 10100&#39;, &#39;01001&#39;, &#39;00010&#39;, &#39;10000&#39;, &#39;00000&#39;, &#39; 01010&#39;, &#39;00000&#39;, &#39; 01100&#39;, &#39;01000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;10000&#39;, &#39;00101&#39;, &#39;00000&#39;]
-Compressed data:               [&#39;  000&#39;, &#39;  001&#39;, &#39;100110&#39;, &#39; 1010&#39;, &#39; 1000&#39;, &#39;   11&#39;, &#39; 1000&#39;, &#39;01001&#39;, &#39;01101&#39;, &#39;0111100110&#39;, &#39; 1011&#39;, &#39;0101001&#39;, &#39; 1000&#39;, &#39;100101&#39;, &#39;   11&#39;, &#39; 1010&#39;, &#39;  000&#39;, &#39; 1011&#39;, &#39;   11&#39;, &#39;01111011&#39;, &#39; 1010&#39;, &#39; 1011&#39;, &#39;  001&#39;, &#39; 1000&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39; 1011&#39;, &#39;0101000&#39;, &#39;100110&#39;, &#39;  000&#39;, &#39;0101000&#39;, &#39;01101&#39;, &#39;  001&#39;, &#39;011111&#39;, &#39; 1011&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39; 1010&#39;, &#39;   11&#39;, &#39; 1010&#39;, &#39;  000&#39;, &#39; 1010&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39; 1010&#39;, &#39; 1000&#39;, &#39;100100&#39;, &#39;   11&#39;, &#39;  001&#39;, &#39;011111&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;  001&#39;, &#39; 1010&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;01001&#39;, &#39;  000&#39;, &#39;01111010&#39;, &#39; 1000&#39;, &#39; 1011&#39;, &#39; 1011&#39;, &#39; 1010&#39;, &#39;   11&#39;, &#39;0101010&#39;, &#39; 1011&#39;, &#39; 1011&#39;, &#39;  001&#39;, &#39; 1010&#39;, &#39;0101001&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;  000&#39;, &#39;  001&#39;, &#39;100110&#39;, &#39;100101&#39;, &#39;01101&#39;, &#39;  001&#39;, &#39; 1011&#39;, &#39;   11&#39;, &#39;100100&#39;, &#39;   11&#39;, &#39;011111&#39;, &#39;  000&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;  001&#39;, &#39; 1011&#39;, &#39;01001&#39;, &#39;   11&#39;]
-Average code word length:      3.73
-Reciprocal compression factor: 3.73 / 5 = 0.746
-
-
-|---------- Data 3 ----------|
-Data:                          [&#39;01011&#39;, &#39;00110&#39;, &#39;11010&#39;, &#39;00100&#39;, &#39;00001&#39;, &#39;00110&#39;, &#39;00011&#39;, &#39;00111&#39;, &#39;01011&#39;, &#39;11101&#39;, &#39;11101&#39;, &#39;11111&#39;, &#39;00001&#39;, &#39;10110&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;11010&#39;, &#39;11000&#39;, &#39;00000&#39;, &#39;01101&#39;, &#39;10100&#39;, &#39;10101&#39;, &#39;10010&#39;, &#39;01111&#39;, &#39;11011&#39;, &#39;10110&#39;, &#39;11001&#39;, &#39;11110&#39;, &#39;11010&#39;, &#39;01100&#39;, &#39;11110&#39;, &#39;01101&#39;, &#39;10010&#39;, &#39;01101&#39;, &#39;11011&#39;, &#39;10110&#39;, &#39;01000&#39;, &#39;10111&#39;, &#39;00001&#39;, &#39;11110&#39;, &#39;01111&#39;, &#39;11100&#39;, &#39;01000&#39;, &#39;00101&#39;, &#39;00111&#39;, &#39;01001&#39;, &#39;11010&#39;, &#39;00111&#39;, &#39;01010&#39;, &#39;11101&#39;, &#39;00010&#39;, &#39;01010&#39;, &#39;01011&#39;, &#39;10101&#39;, &#39;11100&#39;, &#39;00001&#39;, &#39;01011&#39;, &#39;00000&#39;, &#39;00001&#39;, &#39;10000&#39;, &#39;01011&#39;, &#39;10111&#39;, &#39;01001&#39;, &#39;00100&#39;, &#39;10101&#39;, &#39;01110&#39;, &#39;11111&#39;, &#39;10011&#39;, &#39;11001&#39;, &#39;10010&#39;, &#39;00100&#39;, &#39;11011&#39;, &#39;10111&#39;, &#39;10010&#39;, &#39;10100&#39;, &#39;10111&#39;, &#39;10100&#39;, &#39;10111&#39;, &#39;00010&#39;, &#39;00011&#39;, &#39;10000&#39;, &#39;00001&#39;, &#39;11101&#39;, &#39;00110&#39;, &#39;10010&#39;, &#39;11100&#39;, &#39;01001&#39;, &#39;00110&#39;, &#39;10010&#39;, &#39;01000&#39;, &#39;11010&#39;, &#39;10101&#39;, &#39;11101&#39;, &#39;01001&#39;, &#39;00100&#39;, &#39;00001&#39;, &#39;11010&#39;, &#39;10010&#39;, &#39;10111&#39;, &#39;10001&#39;]
-Compressed data:               [&#39;10011&#39;, &#39;00100&#39;, &#39;10000&#39;, &#39;11001&#39;, &#39;11100&#39;, &#39;00100&#39;, &#39;01001&#39;, &#39;00110&#39;, &#39;10011&#39;, &#39;00011&#39;, &#39;00011&#39;, &#39;00111&#39;, &#39;11100&#39;, &#39;10111&#39;, &#39;00010&#39;, &#39;11001&#39;, &#39;10000&#39;, &#39;10010&#39;, &#39;00010&#39;, &#39;10100&#39;, &#39;11010&#39;, &#39;11101&#39;, &#39;01011&#39;, &#39;01100&#39;, &#39;10101&#39;, &#39;10111&#39;, &#39;01111&#39;, &#39;00000&#39;, &#39;10000&#39;, &#39;10001&#39;, &#39;00000&#39;, &#39;10100&#39;, &#39;01011&#39;, &#39;10100&#39;, &#39;10101&#39;, &#39;10111&#39;, &#39;01000&#39;, &#39;10110&#39;, &#39;11100&#39;, &#39;00000&#39;, &#39;01100&#39;, &#39;01101&#39;, &#39;01000&#39;, &#39;01110&#39;, &#39;00110&#39;, &#39;11011&#39;, &#39;10000&#39;, &#39;00110&#39;, &#39;11000&#39;, &#39;00011&#39;, &#39;00101&#39;, &#39;11000&#39;, &#39;10011&#39;, &#39;11101&#39;, &#39;01101&#39;, &#39;11100&#39;, &#39;10011&#39;, &#39;00010&#39;, &#39;11100&#39;, &#39;11111&#39;, &#39;10011&#39;, &#39;10110&#39;, &#39;11011&#39;, &#39;11001&#39;, &#39;11101&#39;, &#39;00001&#39;, &#39;00111&#39;, &#39;01010&#39;, &#39;01111&#39;, &#39;01011&#39;, &#39;11001&#39;, &#39;10101&#39;, &#39;10110&#39;, &#39;01011&#39;, &#39;11010&#39;, &#39;10110&#39;, &#39;11010&#39;, &#39;10110&#39;, &#39;00101&#39;, &#39;01001&#39;, &#39;11111&#39;, &#39;11100&#39;, &#39;00011&#39;, &#39;00100&#39;, &#39;01011&#39;, &#39;01101&#39;, &#39;11011&#39;, &#39;00100&#39;, &#39;01011&#39;, &#39;01000&#39;, &#39;10000&#39;, &#39;11101&#39;, &#39;00011&#39;, &#39;11011&#39;, &#39;11001&#39;, &#39;11100&#39;, &#39;10000&#39;, &#39;01011&#39;, &#39;10110&#39;, &#39;11110&#39;]
-Average code word length:      5.0
-Reciprocal compression factor: 5.0 / 5 = 1.0
-</pre></div>
-</div>
-</div>
-</div>
-<p>To help interpret these results, it will be useful to summarize the discussion so far:</p>
-<blockquote>
-<div><p>Probabilistic models capture statistical and probabilistic properties in data. Expressed through the model, these properties allow us to design coding schemes that <em>compress</em> the data—a larger compression ratio should stand in as a proxy for lower “information content” carried by the data. Different models will lead to different compression ratios, and therefore different measures of “information content.” So it is important to remember: In this scheme, <em>“information content” is not intrinsic to data!</em></p>
-</div></blockquote>
-<p>So, the average code word lengths and reciprocal compression factors displayed in the last printout depend on <em>two</em> things: Both the chosen probabilistic models and the particular coding schemes (in this case, Huffman coding). However, one of the central contributions of information theory shows that there are <em>minimal</em> average reciprocal compression factors that depend <em>only</em> on the underlying probabilistic models; these mean values are called the <em>(Shannon) entropies</em> of the models. Moreover, it is a <em>theorem</em> in information theory that Huffman codes yield reciprocal compression factors that get at least as close to these entropies as any other code (at least restricted to so-called <em>prefix-free</em> codes). Thus, the reciprocal compression factors displayed above may be considered approximations of the entropies of the underlying models. If we believe that high (low) compression factors signal lower (higher) information content, then small (large) entropies should serve as a proxy for low (high) information content.</p>
-<p>Our three probabilistic models are particular examples of the general Bernoulli model <span class="math notranslate nohighlight">\(X\sim \Ber(\theta)\)</span> for <span class="math notranslate nohighlight">\(\theta \in[0,1]\)</span>. The model depends only on the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, and thus so too does its entropy. In the next section, we will see a simple formula for this entropy; if use this formula to plot entropy against <span class="math notranslate nohighlight">\(\theta\)</span>, we get this:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bernoulli_entropy</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">phi</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="o">-</span><span class="n">theta</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">phi</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="o">-</span><span class="n">theta</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">theta</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">theta</span><span class="p">)</span>
-    
-<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">bernoulli_entropy</span><span class="p">(</span><span class="n">grid</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">bernoulli_entropy</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">bernoulli_entropy</span><span class="p">(</span><span class="mf">0.2</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">bernoulli_entropy</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">theta$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;entropy&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<figure class="align-center">
-<img alt="../_images/887f67b9cbf923f4a8a3bde623a6dad31725ed55a9ebe428e42ace3c4814e559.svg" src="../_images/887f67b9cbf923f4a8a3bde623a6dad31725ed55a9ebe428e42ace3c4814e559.svg" /></figure>
-</div>
-</div>
-<p>The three dots are at parameter values <span class="math notranslate nohighlight">\(\theta=0.1, 0.2, 0.5\)</span>; notice that the corresponding entropies are very near the (reciprocal) compression factors identified above. Notice also that the entropy is maximized at <span class="math notranslate nohighlight">\(\theta=0.5\)</span>, so the data strings that carry the most average information content are those drawn from a Bernoulli model where we have an equal chance of observing a <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>; in other words, the data strings where the identity of each individual bit is the <em>most uncertain</em> are those that carry the most information content. This identification between high uncertainty and high information content is confusing at first glance, and we will touch on this point again briefly in the next section.</p>
-<hr class="docutils" />
-<p>As I mentioned at the beginning of this section, we shall primarily use information-theoretic methods as means to train and choose between probabilistic models. This implies, of course, that there is some way to <em>compare</em> models using these methods. Before moving on to the next section, I want to show you how these methods might work using our three toy models above, while also introducing some more of the main players in information theory.</p>
-<p>Sometimes it is a convenient fiction to posit the existence of a “true” probabilistic model that generates observed data. Putting aside whatever philosophical issues you might have regarding this claim, perhaps you will agree that our three toy models come as near to these “true” models as any other. What were to happen, then, if I encoded the first bit string using the codebook from the second bit string? Or, in other words, what if I <em>misidentified</em> the parameter for the first model as <span class="math notranslate nohighlight">\(\theta=0.2\)</span>, when it is “truly” supposed to be <span class="math notranslate nohighlight">\(\theta=0.1\)</span>?</p>
-<p>The Huffman codes obtained from the “true” models were optimized, in the sense that they came closest to achieving the theoretical lower bounds on reciprocal data compression factors given by the entropies of the “true” models. This suggests that if we use the <em>wrong</em> code, we should see worse performance on these compression metrics. The following code cell gives the results of using the codebook for the “wrong” parameter <span class="math notranslate nohighlight">\(\theta=0.2\)</span> to encode the first data string:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wrong_compressed_data1</span><span class="p">,</span> <span class="n">data1_spaced</span><span class="p">,</span> <span class="n">wrong_compressed_data1_spaced</span> <span class="o">=</span> <span class="n">compress_data</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data1</span><span class="p">,</span> <span class="n">codebook</span><span class="o">=</span><span class="n">codebook2</span><span class="p">)</span>
-
-<span class="n">avg_length</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">codeword</span><span class="p">)</span> <span class="k">for</span> <span class="n">codeword</span> <span class="ow">in</span> <span class="n">wrong_compressed_data1</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">wrong_compressed_data1</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;|---- Data 1 (wrong model) ----|&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data:                           &#39;</span><span class="p">,</span> <span class="n">data1_spaced</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Compressed data:                &#39;</span><span class="p">,</span> <span class="n">wrong_compressed_data1_spaced</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average code word length:       &#39;</span><span class="p">,</span> <span class="n">avg_length</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reciprocal compression factor:  &#39;</span><span class="p">,</span> <span class="n">avg_length</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">block_length</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="n">avg_length</span> <span class="o">/</span> <span class="n">block_length</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>|---- Data 1 (wrong model) ----|
-Data:                            [&#39;00000&#39;, &#39;00000&#39;, &#39;10000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00001&#39;, &#39;00000&#39;, &#39;00001&#39;, &#39;   01101&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39; 10100&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00001&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;00001&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;10000&#39;, &#39;00110&#39;, &#39;00000&#39;, &#39;01000&#39;, &#39;  10110&#39;, &#39;01000&#39;, &#39;00010&#39;, &#39; 01100&#39;, &#39;10000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;   01110&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;10000&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00001&#39;, &#39;10000&#39;, &#39;10000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00101&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;01000&#39;, &#39;00000&#39;, &#39; 10010&#39;, &#39;00100&#39;, &#39;00000&#39;, &#39;00010&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;01000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00000&#39;, &#39;00100&#39;, &#39;00000&#39;]
-Compressed data:                 [&#39;   11&#39;, &#39;   11&#39;, &#39; 1011&#39;, &#39; 1010&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39; 1000&#39;, &#39;   11&#39;, &#39; 1000&#39;, &#39;01111011&#39;, &#39;   11&#39;, &#39; 1010&#39;, &#39;   11&#39;, &#39;100101&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39; 1000&#39;, &#39; 1010&#39;, &#39;   11&#39;, &#39;  001&#39;, &#39; 1000&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39; 1011&#39;, &#39;01011&#39;, &#39;   11&#39;, &#39;  000&#39;, &#39;0101000&#39;, &#39;  000&#39;, &#39;  001&#39;, &#39;011111&#39;, &#39; 1011&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39; 1010&#39;, &#39;   11&#39;, &#39;  001&#39;, &#39;   11&#39;, &#39;  001&#39;, &#39; 1010&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39; 1010&#39;, &#39;   11&#39;, &#39;01111010&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39; 1011&#39;, &#39; 1010&#39;, &#39;   11&#39;, &#39; 1000&#39;, &#39; 1011&#39;, &#39; 1011&#39;, &#39;   11&#39;, &#39; 1010&#39;, &#39;01001&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;  000&#39;, &#39;   11&#39;, &#39;100110&#39;, &#39; 1010&#39;, &#39;   11&#39;, &#39;  001&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39; 1010&#39;, &#39;  000&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39;   11&#39;, &#39; 1010&#39;, &#39;   11&#39;]
-Average code word length:        2.88
-Reciprocal compression factor:   2.88 / 5 = 0.576
-</pre></div>
-</div>
-</div>
-</div>
-<p>Comparing this to the optimal Huffman code above, we see that the reciprocal compression factor jumped from <span class="math notranslate nohighlight">\(0.488\)</span> to <span class="math notranslate nohighlight">\(0.576\)</span>. At least in some sense, the difference between these two numbers serves as a proxy for the <em>discrepancy</em> or <em>distance</em> between the “true” model with <span class="math notranslate nohighlight">\(\theta=0.1\)</span> and the “proposed” one with <span class="math notranslate nohighlight">\(\theta=0.2\)</span>.</p>
-<p>Information theory not only provides the entropy of a single model, which is a theoretical lower bound on reciprocal compression factors, but it also provides the so-called <em>cross entropy</em> between two models which provides a lower bound on the reciprocal compression factor when using the “wrong” code in place of the “true” one. A fundamental result in the theory is <em>Gibbs’ Inequality</em>, which says that this cross entropy is always greater than or equal to the entropy of the “true” model; the difference between these two entropies is therefore a nonnegative number that provides a measure of <em>distance</em> between a “proposed” (perhaps “wrong”) model and the “true” one. This difference is known as the <em>Kullback Leibler (KL) divergence</em>. By Gibbs’ Inequality, the KL divergence achieves its global minimum value (i.e., <span class="math notranslate nohighlight">\(0\)</span>) when the “proposed” model is equal to the “true” one. These cross entropies and KL divergences will play a crucial role throughout the next few chapters.</p>
-</section>
 <section id="shannon-information-and-entropy">
-<h2><span class="section-number">9.2. </span>Shannon information and entropy<a class="headerlink" href="#shannon-information-and-entropy" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">9.1. </span>Shannon information and entropy<a class="headerlink" href="#shannon-information-and-entropy" title="Permalink to this heading">#</a></h2>
 <p>After briefly introducing the main concepts from information theory in the previous section in the context of data compression, we now begin outlining the abstract mathematical theory. The reader who skipped the first section need not feel at a disadvantage, as our development does not depend on any of that material. We begin with:</p>
 <div class="proof definition admonition" id="info-content-def">
 <p class="admonition-title"><span class="caption-number">Definition 9.1 </span></p>
@@ -747,8 +388,7 @@ I_P(s) \def - \log_2(p(s)).
 <p>The information content is also called the <em>surprisal</em>.</p>
 <p>If the probability measure <span class="math notranslate nohighlight">\(P\)</span> is clear from context, we will write <span class="math notranslate nohighlight">\(I(s)\)</span> in place of <span class="math notranslate nohighlight">\(I_P(s)\)</span>. If <span class="math notranslate nohighlight">\(\bX\)</span> is a random vector with finite range and probability measure <span class="math notranslate nohighlight">\(P_\bX\)</span>, we will write <span class="math notranslate nohighlight">\(I_\bX(\bx)\)</span> in place of <span class="math notranslate nohighlight">\(I_{P_\bX}(\bx)\)</span>.</p>
 </section>
-</div><p>There is a notion of <em>entropy</em> for continuous probability measures defined on Euclidean spaces—this latter type of entropy is called <em>differential entropy</em>, which you will briefly encounter in the homework.</p>
-<p>On one hand, a sense in which <span class="math notranslate nohighlight">\(I_P(s)\)</span> may be considered a measure of “information” comes from its interpretation as the length of a code word, in the context of <a class="reference external" href="https://en.wikipedia.org/wiki/Shannon%E2%80%93Fano_coding">Shannon-Fano coding</a>. Another sense comes when we take the average information content of all sample points to obtain something called <em>Shannon entropy</em>; this will be explained after <a class="reference internal" href="#entropy-def">Definition 9.2</a> below.</p>
+</div><p>On one hand, a sense in which <span class="math notranslate nohighlight">\(I_P(s)\)</span> may be considered a measure of “information” comes from its interpretation as the length of a code word, in the context of <a class="reference external" href="https://en.wikipedia.org/wiki/Shannon%E2%80%93Fano_coding">Shannon-Fano coding</a>. Another sense comes when we take the average information content of all sample points to obtain something called <em>Shannon entropy</em>; this will be explained after <a class="reference internal" href="#entropy-def">Definition 9.2</a> below.</p>
 <p>On the other hand, the intuition for the alternate name <em>surprisal</em> is explained very nicely by simply inspecting the graph of the negative logarithm function:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -757,10 +397,19 @@ I_P(s) \def - \log_2(p(s)).
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib_inline.backend_inline</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
+<span class="n">blue</span> <span class="o">=</span> <span class="s1">&#39;#486AFB&#39;</span>
+<span class="n">magenta</span> <span class="o">=</span> <span class="s1">&#39;#FD46FC&#39;</span>
+
+<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">grid</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$p$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$I(p) = -</span><span class="se">\\</span><span class="s1">log_2(p)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;$I(p) = -</span><span class="se">\\</span><span class="s1">log_2p$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
@@ -769,11 +418,11 @@ I_P(s) \def - \log_2(p(s)).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2688ff1b8fd3fc0a8b1c7e004eb6687dd81253028bf2008ba625d8095b8d0d3b.svg" src="../_images/2688ff1b8fd3fc0a8b1c7e004eb6687dd81253028bf2008ba625d8095b8d0d3b.svg" /></figure>
+<img alt="../_images/d4cce3ee24f036bd43d081411bc60591f6531cb3bed21f075020e6ecb11ba3eb.svg" src="../_images/d4cce3ee24f036bd43d081411bc60591f6531cb3bed21f075020e6ecb11ba3eb.svg" /></figure>
 </div>
 </div>
 <p>If some outcome is highly likely to occur (large <span class="math notranslate nohighlight">\(p(s)\)</span>), then it is not surprising (small <span class="math notranslate nohighlight">\(I(s)\)</span>). In the other direction, if an outcome <span class="math notranslate nohighlight">\(s\)</span> is highly unlikely to occur (small <span class="math notranslate nohighlight">\(p(s)\)</span>), then it is very surprising (large <span class="math notranslate nohighlight">\(I(s)\)</span>).</p>
-<p>It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal—so why the choice of base-<span class="math notranslate nohighlight">\(2\)</span> logarithm? It turns out that if you begin from first principles with a set of “natural axioms” that any notion of <em>surprisal</em> should possess, then you can <em>prove</em> all such surprisal functions must be proportional to negative logarithms; see, for example, the discussion in Section 9 in <span id="id7">[<a class="reference internal" href="bib.html#id24" title="O. Rioul. This is it: a primer on shannon’s entropy and information. In Information Theory: Poincaré Seminar 2018, 49–86. Springer, 2021.">Rio21</a>]</span>. The choice of base <span class="math notranslate nohighlight">\(2\)</span> is then somewhat arbitrary, akin to choosing units, but it does have the added benefit of nicely connecting up with bit strings in the coding context. (See the homework.) Indeed, in base <span class="math notranslate nohighlight">\(2\)</span>, information content is measured in units of <em>bits</em>. While this is related to the previous notion of a bit denoting a binary digit (<span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>), the usage here is different, at the very least because information content does not have to be an integer. (See Section 10 in the aforementioned reference <span id="id8">[<a class="reference internal" href="bib.html#id24" title="O. Rioul. This is it: a primer on shannon’s entropy and information. In Information Theory: Poincaré Seminar 2018, 49–86. Springer, 2021.">Rio21</a>]</span> for more on units.)</p>
+<p>It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal—so why the choice of base-<span class="math notranslate nohighlight">\(2\)</span> logarithm? It turns out that if you begin from first principles with a set of “natural axioms” that any notion of <em>surprisal</em> should possess, then you can <em>prove</em> all such surprisal functions must be proportional to negative logarithms; see, for example, the discussion in Section 9 in <span id="id5">[<a class="reference internal" href="bib.html#id24" title="O. Rioul. This is it: a primer on shannon’s entropy and information. In Information Theory: Poincaré Seminar 2018, 49–86. Springer, 2021.">Rio21</a>]</span>. The choice of base <span class="math notranslate nohighlight">\(2\)</span> is then somewhat arbitrary, akin to choosing units, but it does have the added benefit of nicely connecting up with bit strings in the coding context. (See the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-2-entropies-in-different-bases">homework</a>.) Indeed, in base <span class="math notranslate nohighlight">\(2\)</span>, information content is measured in units of <em>bits</em>. While this is related to the previous notion of a bit denoting a binary digit (<span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>), the usage here is different, at the very least because information content does not have to be an integer. (See Section 10 in the aforementioned reference <span id="id6">[<a class="reference internal" href="bib.html#id24" title="O. Rioul. This is it: a primer on shannon’s entropy and information. In Information Theory: Poincaré Seminar 2018, 49–86. Springer, 2021.">Rio21</a>]</span> for more on units.)</p>
 <p>Please understand that the terminology <em>information content</em> now has a very specific and precise mathematical meaning. It is designed to “get at” our intuitive understanding of what general “information” is, but you should keep the two separate in your mind: There’s the notion of “information” used in an intuitive and colloquial sense and is generally ill-defined, and then there is the notion of <em>information content</em> precisely defined as above.</p>
 <p>With the information content (or surprisal) in hand, we now define <em>entropy</em>:</p>
 <div class="proof definition admonition" id="entropy-def">
@@ -787,12 +436,13 @@ H(P) \def \sum_{s\in S} p(s)I_P(s).
 <p>The entropy is also called the <em>uncertainty</em>.</p>
 <p>If <span class="math notranslate nohighlight">\(\bX\)</span> is a random vector with finite range and probability measure <span class="math notranslate nohighlight">\(P_\bX\)</span>, we will write <span class="math notranslate nohighlight">\(H(\bX)\)</span> in place of <span class="math notranslate nohighlight">\(H(P_\bX)\)</span>. If we write the vector in terms of its component random variables <span class="math notranslate nohighlight">\(\bX = (X_1,\ldots,X_m)\)</span>, then we shall also write <span class="math notranslate nohighlight">\(H(X_1,\ldots,X_m)\)</span> in place of <span class="math notranslate nohighlight">\(H(P_\bX)\)</span> and call this the <em>joint entropy</em> of the random variables <span class="math notranslate nohighlight">\(X_1,\ldots,X_m\)</span>.</p>
 </section>
-</div><p>Since <span class="math notranslate nohighlight">\(I(s) = -\log_2(p(s))\)</span>, there is an issue in the definition of <span class="math notranslate nohighlight">\(H(P)\)</span> in the case that <span class="math notranslate nohighlight">\(p(s)=0\)</span> for some <span class="math notranslate nohighlight">\(s\in S\)</span>, for then we encounter the indeterminate form <span class="math notranslate nohighlight">\(0 \log_2(0)\)</span>. By convention, we take this expression to equal <span class="math notranslate nohighlight">\(0\)</span>, which may be justified according to the limit</p>
+</div><p>There is a notion of <em>entropy</em> for continuous probability measures defined on Euclidean spaces—this latter type of entropy is called <em>differential entropy</em>, which you will briefly encounter in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-5-differential-entropy">homework</a>.</p>
+<p>Since <span class="math notranslate nohighlight">\(I(s) = -\log_2(p(s))\)</span>, there is an issue in the definition of <span class="math notranslate nohighlight">\(H(P)\)</span> in the case that <span class="math notranslate nohighlight">\(p(s)=0\)</span> for some <span class="math notranslate nohighlight">\(s\in S\)</span>, for then we encounter the indeterminate form <span class="math notranslate nohighlight">\(0 \log_2(0)\)</span>. By convention, we take this expression to equal <span class="math notranslate nohighlight">\(0\)</span>, which may be justified according to the limit</p>
 <div class="math notranslate nohighlight">
 \[
 \lim_{p \to 0^+} p \log_2(p) = 0.
 \]</div>
-<p>In particular, when the probability distribution <span class="math notranslate nohighlight">\(P\)</span> is a so-called <em>Dirac distribution</em> that puts a spike of probability <span class="math notranslate nohighlight">\(1\)</span> on a single sample point and assigns <span class="math notranslate nohighlight">\(0\)</span> probability elsewhere, the entropy is at the minimum value <span class="math notranslate nohighlight">\(H(P)=0\)</span>. As we will see below, at the other end of the spectrum are the maximum-entropy uniform distributions:</p>
+<p>In particular, when the probability distribution <span class="math notranslate nohighlight">\(P\)</span> is a so-called <em>Dirac distribution</em> that puts a spike of probability <span class="math notranslate nohighlight">\(1\)</span> on a single sample point and assigns <span class="math notranslate nohighlight">\(0\)</span> probability elsewhere, the entropy is at the minimum value <span class="math notranslate nohighlight">\(H(P)=0\)</span>. As we will see below (in <a class="reference internal" href="#max-entropy-thm">Corollary 9.1</a>), at the other end of the spectrum are the maximum-entropy uniform distributions:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -824,7 +474,7 @@ H(P) \def \sum_{s\in S} p(s)I_P(s).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/b2c717b8b4e7643085976e47b94faa0d41cc6235dfff5eda686d4046e51ce52c.svg" src="../_images/b2c717b8b4e7643085976e47b94faa0d41cc6235dfff5eda686d4046e51ce52c.svg" /></figure>
+<img alt="../_images/9a479d9b62a64618b1bd41cf3796c85e92629b63c7c113a68dc03bb779e0322c.svg" src="../_images/9a479d9b62a64618b1bd41cf3796c85e92629b63c7c113a68dc03bb779e0322c.svg" /></figure>
 </div>
 </div>
 <p>The fact that these two types of distributions yield the extreme values of entropy helps explain the alternate name <em>uncertainty</em>. Indeed, imagine drawing a random sample from one of these two distributions—which one has the most uncertain outcome? Which one is most certain?</p>
@@ -848,13 +498,13 @@ E_{P_X}\left[g(x)\right] = \sum_{x\in \bbr}g(x) p_X(x) = E\left[g(X)\right].
 \[
 H(P) = E_P\left[I_P(s)\right] = E_{s\sim p(s)} \left[ I_P(s)\right].
 \]</div>
-<p>Since the entropy <span class="math notranslate nohighlight">\(H(P)\)</span> is the average information content, it may sometimes be interpreted as a form of “information.” (We mentioned this very briefly in the first section after inspecting the plot of the entropy of <span class="math notranslate nohighlight">\(X\sim \Ber(\theta)\)</span> versus the parameter <span class="math notranslate nohighlight">\(\theta\)</span>.) To see why low (high) uncertainty might be interpreted as low (high) “information” content, imagine that you are to design a random experiment to help answer some question. Then, you certainly <em>do not</em> want to arrange the conditions of the experiment so that the probabilities of the outcomes resemble the Dirac distribution above, with low uncertainty and one outcome practically all but guaranteed—this would convey little information! Instead, the ideal experiment would have the probabilities spread uniformly across all potential outcomes, so that any observed outcome is maximally informative. (For a very convincing and enlightening demonstration of this idea, see the description of the “weighing problem” in Section 4.1 of <span id="id9">[<a class="reference internal" href="bib.html#id25" title="D. J. C. MacKay. Information theory, inference and learning algorithms. Cambridge University Press, 2003.">Mac03</a>]</span>.)</p>
+<p>Since the entropy <span class="math notranslate nohighlight">\(H(P)\)</span> is the average information content, it may sometimes be interpreted as a form of “information.” (We mentioned this very briefly in the first section after inspecting the plot of the entropy of <span class="math notranslate nohighlight">\(X\sim \Ber(\theta)\)</span> versus the parameter <span class="math notranslate nohighlight">\(\theta\)</span>.) To see why low (high) uncertainty might be interpreted as low (high) “information” content, imagine that you are to design a random experiment to help answer some question. Then, you certainly <em>do not</em> want to arrange the conditions of the experiment so that the probabilities of the outcomes resemble the Dirac distribution above, with low uncertainty and one outcome practically all but guaranteed—this would convey little information! Instead, the ideal experiment would have the probabilities spread uniformly across all potential outcomes, so that any observed outcome is maximally informative. (For a very convincing and enlightening demonstration of this idea, see the description of the “weighing problem” in Section 4.1 of <span id="id7">[<a class="reference internal" href="bib.html#id25" title="D. J. C. MacKay. Information theory, inference and learning algorithms. Cambridge University Press, 2003.">Mac03</a>]</span>.)</p>
 <p>Before moving on with the theory, let’s take a look at some problems:</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problems 1 and 2 on the worksheet.</p>
 </div>
-<p>Now comes a second type of entropy; a third one will appear in <a class="reference internal" href="#cond-entropy-mutual-info-sec"><span class="std std-numref">Section 9.4</span></a>.</p>
+<p>Now comes a second type of entropy; a third one will appear in <a class="reference internal" href="#cond-entropy-mutual-info-sec"><span class="std std-numref">Section 9.3</span></a>.</p>
 <div class="proof definition admonition" id="cross-entropy-def">
 <p class="admonition-title"><span class="caption-number">Definition 9.3 </span></p>
 <section class="definition-content" id="proof-content">
@@ -876,7 +526,7 @@ H_P(Q) \def E_{s\sim p(s)}\left[ I_Q(s) \right] =  - \sum_{s\in S} p(s)\log_2(q(
 </div>
 </section>
 <section id="kullback-leibler-divergence">
-<h2><span class="section-number">9.3. </span>Kullback Leibler divergence<a class="headerlink" href="#kullback-leibler-divergence" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">9.2. </span>Kullback Leibler divergence<a class="headerlink" href="#kullback-leibler-divergence" title="Permalink to this heading">#</a></h2>
 <p>Our aim in this section is to devise some sort of method for comparing the “distance” between two probability measures. The technique that we discover will have tight connections with the entropies studied in the previous section, but the first part of this section is largely independent of the previous. The link with entropy will come later.</p>
 <p>The types of measures <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> that we shall work with are ones defined on a finite probability space <span class="math notranslate nohighlight">\(S\)</span>, so that they have mass functions <span class="math notranslate nohighlight">\(p(s)\)</span> and <span class="math notranslate nohighlight">\(q(s)\)</span>. (But see the comment immediately below <a class="reference internal" href="#KL-def">Definition 9.4</a>.) The basic measure that we use to compare them is the mean logarithmic relative magnitude.</p>
 <aside class="margin sidebar">
@@ -934,7 +584,7 @@ p(s) = \binom{10}{s} (0.4)^s(0.6)^{10-s} \quad \text{and} \quad q(s) = \binom{10
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/4c1ae43dd6bb01bd336cc8d8717692293fcf3b6b73df44361fc7f9547b5941a6.svg" src="../_images/4c1ae43dd6bb01bd336cc8d8717692293fcf3b6b73df44361fc7f9547b5941a6.svg" /></figure>
+<img alt="../_images/6982fd420ee57e280977a525dc3e286c3098e5cef4fd4de844a18862fb409125.svg" src="../_images/6982fd420ee57e280977a525dc3e286c3098e5cef4fd4de844a18862fb409125.svg" /></figure>
 </div>
 </div>
 <p>The second row in the figure drives home the point: The absolute relative magnitudes are on such widely different scales that the plot is nearly useless and numerical computations in a machine will likely be unstable.</p>
@@ -966,8 +616,11 @@ p(s) = \binom{10}{s} (0.4)^s(0.6)^{10-s} \quad \text{and} \quad q(s) = \binom{10
 \[
 D(P \parallel Q) \def E_{s\sim p(s)} \left[ \log_2\left( \frac{p(s)}{q(s)} \right)\right] =  \sum_{s\in S} p(s) \log_2\left( \frac{p(s)}{q(s)} \right).
 \]</div>
+<p>The KL divergence is also called the <em>relative entropy</em>.</p>
+<p>As always, if <span class="math notranslate nohighlight">\(P_\bX\)</span> and <span class="math notranslate nohighlight">\(P_\bY\)</span> are the probability measures of two random vectors <span class="math notranslate nohighlight">\(\bX\)</span> and <span class="math notranslate nohighlight">\(\bY\)</span> with finite ranges, we will write <span class="math notranslate nohighlight">\(D(\bY \parallel \bX)\)</span> in place of <span class="math notranslate nohighlight">\(D(P_\bY \parallel P_\bX)\)</span>.</p>
 </section>
-</div><div class="admonition-problem-prompt admonition">
+</div><p>As with entropy, there is a notion of KL divergence for continuous probability measures on Euclidean spaces—it is called <em>differential KL divergence</em>, and you will encounter it briefly in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-7-differential-kl-divergence">homework</a>.</p>
+<div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
 <p>To problem 4 on the worksheet.</p>
 </div>
@@ -975,100 +628,327 @@ D(P \parallel Q) \def E_{s\sim p(s)} \left[ \log_2\left( \frac{p(s)}{q(s)} \righ
 <div class="proof theorem admonition" id="KL-and-entropy-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 9.1 </span> (KL divergence and entropy)</p>
 <section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be two probability measures on a finite probability space <span class="math notranslate nohighlight">\(S\)</span>. Then</p>
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be two probability measures on a finite sample space <span class="math notranslate nohighlight">\(S\)</span>. Then</p>
 <div class="math notranslate nohighlight">
 \[
 D(P\parallel Q) = H_P(Q) - H(P).
 \]</div>
 </section>
-</div><p>The inequality in the first part of the following result is perhaps the most important in the foundations of the theory and ultimately justifies our conception of the KL divergence as a “directed distance” between two probability distributions. The second part shows that the maximum-entropy distributions are exactly the uniform ones.</p>
-<div class="proof theorem admonition" id="kl-entropy-optim-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 9.2 </span> (Optimization of KL divergences and entropies)</p>
+</div><p>We now work towards proving <em>Gibb’s inequality</em>, which is sometimes called the most important inequality in information theory. Its proof goes through a preliminary result known as <em>Jensen’s inequality</em> which, in turn, leverages the <em>concavity</em> of the logarithm function <span class="math notranslate nohighlight">\(h(x) = \log_2{x}\)</span>. This latter term means that between any two points <span class="math notranslate nohighlight">\(x=a\)</span> and <span class="math notranslate nohighlight">\(x=b\)</span> along the <span class="math notranslate nohighlight">\(x\)</span>-axis, the graph of <span class="math notranslate nohighlight">\(h(x)\)</span> lies below the secant line:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">)</span>
+<span class="n">grid_line</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span> <span class="o">/</span> <span class="mf">0.8</span> 
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">grid</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_line</span><span class="p">,</span> <span class="n">m</span> <span class="o">*</span> <span class="p">(</span><span class="n">grid_line</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mf">0.2</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;$y=h(x) = </span><span class="se">\\</span><span class="s1">log_2</span><span class="si">{x}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.9</span><span class="p">,</span> <span class="s1">&#39;$(a,h(a))$&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="kc">None</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;$(b,h(b))$&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="kc">None</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/ca84a95178d92bfc54474454d3eef3d9e0756706250d6a7fb5c314ba4b223ec6.svg" src="../_images/ca84a95178d92bfc54474454d3eef3d9e0756706250d6a7fb5c314ba4b223ec6.svg" /></figure>
+</div>
+</div>
+<p>Note that all <span class="math notranslate nohighlight">\(x\)</span>-values between the endpoints <span class="math notranslate nohighlight">\(x=a\)</span> and <span class="math notranslate nohighlight">\(x=b\)</span> are of the form</p>
+<div class="math notranslate nohighlight">
+\[
+x = (1-t) a + tb
+\]</div>
+<p>for some <span class="math notranslate nohighlight">\(t\in [0,1]\)</span>. Plugging this <span class="math notranslate nohighlight">\(x\)</span>-value into the function yields a point on the graph with <span class="math notranslate nohighlight">\(y\)</span>-value</p>
+<div class="math notranslate nohighlight">
+\[
+y = h\big((1-t) a + tb\big).
+\]</div>
+<p>On the other hand, as you may easily check, this same <span class="math notranslate nohighlight">\(x\)</span>-value yields a point on the secant line with <span class="math notranslate nohighlight">\(y\)</span>-value</p>
+<div class="math notranslate nohighlight">
+\[
+y = (1-t)h(a) + th(b).
+\]</div>
+<p>Thus, concavity of the function means that the inequality</p>
+<div class="math notranslate nohighlight" id="equation-convex-secant-eq">
+<span class="eqno">(9.3)<a class="headerlink" href="#equation-convex-secant-eq" title="Permalink to this equation">#</a></span>\[
+(1-t)h(a) + th(b) \leq h\big((1-t) a + tb\big)
+\]</div>
+<p>holds for all <span class="math notranslate nohighlight">\(t\in [0,1]\)</span>. Note that since <span class="math notranslate nohighlight">\(h\)</span> is <em>strictly concave</em> (i.e., not linear), equality holds in <a class="reference internal" href="#equation-convex-secant-eq">(9.3)</a> if and only if <span class="math notranslate nohighlight">\(a=b\)</span>.</p>
+<p>Now, note that the two scalars <span class="math notranslate nohighlight">\(1-t\)</span> and <span class="math notranslate nohighlight">\(t\)</span> appearing in <a class="reference internal" href="#equation-convex-secant-eq">(9.3)</a> are nonnegative and sum to <span class="math notranslate nohighlight">\(1\)</span>; thus, they define a probability measure on the sample space <span class="math notranslate nohighlight">\(S=\{a,b\}\)</span>, and we may rewrite <a class="reference internal" href="#equation-convex-secant-eq">(9.3)</a> as</p>
+<div class="math notranslate nohighlight">
+\[
+E_{s\sim p(s)}(h(s)) \leq h\big( E_{s\sim p(s)} (s) \big)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(p(a) = 1-t\)</span> and <span class="math notranslate nohighlight">\(p(b) = t\)</span>. Jensen’s inequality is nothing but a generalization of these observations to arbitrary convex functions and probability measures:</p>
+<div class="proof theorem admonition" id="jensen-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 9.2 </span> (Jensen’s inequality)</p>
 <section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be two probability measures on a finite probability space <span class="math notranslate nohighlight">\(S\)</span>.</p>
-<ol class="arabic">
-<li><p><em>The Information Inequality</em>. We have</p>
+<p>Suppose <span class="math notranslate nohighlight">\(h: \bbr\to \bbr\)</span> is a concave function and <span class="math notranslate nohighlight">\(P\)</span> is a probability measure on a finite subset <span class="math notranslate nohighlight">\(S\subset \bbr\)</span> with mass function <span class="math notranslate nohighlight">\(p(s)\)</span>. Then</p>
 <div class="math notranslate nohighlight">
 \[
-    D(P \parallel Q) = H(P \parallel Q) - H(P) \geq 0
-    \]</div>
-<p>for all <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>, with equality if and only if <span class="math notranslate nohighlight">\(P=Q\)</span>.</p>
-</li>
-<li><p>We have</p>
+E_{s\sim p(s)}(h(s)) \leq h\big( E_{s\sim p(s)} (s) \big).
+\]</div>
+<p>Provided <span class="math notranslate nohighlight">\(f\)</span> is <em>strictly concave</em>, equality holds if and only if the sample space <span class="math notranslate nohighlight">\(S\)</span> has cardinality <span class="math notranslate nohighlight">\(1\)</span>.</p>
+</section>
+</div><p>We will not give a proof of the full version of Jensen’s inequality, hoping that the discussion before the statement at least conveys some intuition for why it is true. For a proof, see Section 2.6 in <span id="id8">[<a class="reference internal" href="bib.html#id17" title="T. M. Cover and J. A. Thomas. Elements of information theory. John Wiley &amp; Sons, Inc., second edition, 2006.">CT06</a>]</span>, for example.</p>
+<p>We now put Jensen’s inequality to use:</p>
+<div class="proof theorem admonition" id="gibbs-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 9.3 </span> (Gibbs’ inequality)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> be two probability measures on a finite probability space <span class="math notranslate nohighlight">\(S\)</span> satisfying the absolute continuity condition in <a class="reference internal" href="#KL-def">Definition 9.4</a>. Then</p>
 <div class="math notranslate nohighlight">
 \[
-    H(P) \leq \log_2{|S|}
-    \]</div>
-<p>for all <span class="math notranslate nohighlight">\(P\)</span>, with equality if and only if <span class="math notranslate nohighlight">\(P\)</span> is uniform.</p>
-</li>
-</ol>
+D(P \parallel Q) \geq 0,
+\]</div>
+<p>with equality if and only if <span class="math notranslate nohighlight">\(P=Q\)</span>.</p>
 </section>
 </div><div class="proof admonition" id="proof">
-<p>Proof. For the first part, suppose that <span class="math notranslate nohighlight">\(p_1,\ldots,p_n\)</span> and <span class="math notranslate nohighlight">\(q_1,\ldots,q_n\)</span> are numbers in <span class="math notranslate nohighlight">\((0,1]\)</span> such that</p>
-<div class="math notranslate nohighlight" id="equation-constraint-lagrance-eq">
-<span class="eqno">(9.3)<a class="headerlink" href="#equation-constraint-lagrance-eq" title="Permalink to this equation">#</a></span>\[
-\sum_{i=1}^n p_i = \sum_{i=1}^n q_i = 1.
-\]</div>
-<p>It will suffice, then, to show that the objective function</p>
+<p>Proof. Suppose that the support of the mass function <span class="math notranslate nohighlight">\(p(s)\)</span> is <span class="math notranslate nohighlight">\(S_p = \{s_1,\ldots,s_n\}\)</span>. By absolute continuity, the support <span class="math notranslate nohighlight">\(S_q\)</span> of the mass function <span class="math notranslate nohighlight">\(q(s)\)</span> contains <span class="math notranslate nohighlight">\(S_p\)</span>, so that <span class="math notranslate nohighlight">\(S_p \subset S_q\)</span>. Now, define</p>
 <div class="math notranslate nohighlight">
 \[
-J(q_1,\ldots,q_n) \def -\sum_{i=1}^n p_i \log_2{q_i},
+S' = \left\{ \frac{q(s_1)}{p(s_1)}, \frac{q(s_2)}{p(s_2)}, \ldots, \frac{q(s_n)}{p(s_n)}\right\},
 \]</div>
-<p>is globally minimized when <span class="math notranslate nohighlight">\(p_i = q_i\)</span>. But it is an easy exercise (using Lagrange multipliers) to show that a minimum can only occur when <span class="math notranslate nohighlight">\(p_i = q_i\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,n\)</span>; one may confirm that this indeed yields a global maximum by showing that the objective function <span class="math notranslate nohighlight">\(J\)</span> is convex (its Hessian matrix is positive definite) and noticing that the second constraint in <a class="reference internal" href="#equation-constraint-lagrance-eq">(9.3)</a> is affine. (See <a class="reference external" href="https://math.stackexchange.com/a/1739181">here</a> for an explanation of the latter fact.) The proof of the second part follows the same pattern, with only the obvious changes. Q.E.D.</p>
+<p>noting that none of the numbers in this set is <span class="math notranslate nohighlight">\(0\)</span> since <span class="math notranslate nohighlight">\(S_p \subset S_q\)</span>. We may view <span class="math notranslate nohighlight">\(S'\)</span> as a new sample space with <span class="math notranslate nohighlight">\(s'_k = q(s_k)/p(s_k)\)</span> for each <span class="math notranslate nohighlight">\(k=1,\ldots,n\)</span>, equipped with a probability mass function <span class="math notranslate nohighlight">\(p(s')\)</span> given by <span class="math notranslate nohighlight">\(p(s'_k) = p(s_k)\)</span> for all <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p>Since <span class="math notranslate nohighlight">\(h(x) = \log_2{x}\)</span> is strictly concave, from Jensen’s inequality (<a class="reference internal" href="#jensen-thm">Theorem 9.2</a>) we have</p>
+<div class="math notranslate nohighlight" id="equation-gibbs-target-eq">
+<span class="eqno">(9.4)<a class="headerlink" href="#equation-gibbs-target-eq" title="Permalink to this equation">#</a></span>\[
+E_{s' \sim p(s')}\big( h(s') \big) \leq h \big( E_{s' \sim p(s')}(s') \big),
+\]</div>
+<p>with equality if and only if <span class="math notranslate nohighlight">\(S'\)</span> has cardinality <span class="math notranslate nohighlight">\(1\)</span>. However, the left-hand side is</p>
+<div class="math notranslate nohighlight">
+\[
+E_{s' \sim p(s')}\big( h(s') \big) = \sum_{k=1}^n p(s'_k)\log_2{s'_k} = - \sum_{k=1}^n p(s_k) \log_2\left( \frac{p(s_k)}{q(s_k)} \right) = -D(P\parallel Q),
+\]</div>
+<p>while the right-hand side of <a class="reference internal" href="#equation-gibbs-target-eq">(9.4)</a> is</p>
+<div class="math notranslate nohighlight" id="equation-gibbs-target-2-eq">
+<span class="eqno">(9.5)<a class="headerlink" href="#equation-gibbs-target-2-eq" title="Permalink to this equation">#</a></span>\[
+h \big( E_{s' \sim p(s')}(s') \big) = \log_2 \left( \sum_{k=1}^n p(s_k')s_k' \right) = \log_2 \left( \sum_{k=1}^n q(s_k)\right) \leq 0. 
+\]</div>
+<p>Thus, <span class="math notranslate nohighlight">\(D(P \parallel Q) \geq 0\)</span>.</p>
+<p>As we observed, equality holds if and only if <span class="math notranslate nohighlight">\(S'\)</span> has cardinality <span class="math notranslate nohighlight">\(1\)</span>, in which case there is a positive constant <span class="math notranslate nohighlight">\(c\)</span> such that <span class="math notranslate nohighlight">\(p_s(s_k) = cq(s_k)\)</span> for each <span class="math notranslate nohighlight">\(k=1,\ldots,n\)</span>. But then</p>
+<div class="math notranslate nohighlight">
+\[
+1 = \sum_{k=1}^n p(s_k) = c \sum_{k=1}^n q(s_k).
+\]</div>
+<p>Note that the equality <span class="math notranslate nohighlight">\(D(P\parallel Q)=0\)</span> also implies <span class="math notranslate nohighlight">\(\sum_{k=1}^n q(s_k) = 1\)</span> from <a class="reference internal" href="#equation-gibbs-target-2-eq">(9.5)</a>, and so <span class="math notranslate nohighlight">\(c=1\)</span>. Since then <span class="math notranslate nohighlight">\(S_p = S_q\)</span> as well, we’ve shown that <span class="math notranslate nohighlight">\(P=Q\)</span>. Q.E.D.</p>
 </div>
-<p>So, when <span class="math notranslate nohighlight">\(P\)</span> is uniform, we have</p>
-<div class="math notranslate nohighlight" id="equation-max-ent-eq">
-<span class="eqno">(9.4)<a class="headerlink" href="#equation-max-ent-eq" title="Permalink to this equation">#</a></span>\[
-H(P) = \log_2|S|.
+<p>Gibbs’ inequality provides the theoretical justification for viewing the KL divergence as a type of “distance” between two probability distributions. It has two properties that any “distance” must have: It is always nonnegative, and it vanishes only when the two distributions are the same. However, remember that it is <em>not</em> symmetric in the distributions <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>, so the KL divergence falls short of being a true distance measure in the <a class="reference external" href="https://en.wikipedia.org/wiki/Metric_space#Definition">precise, mathematical sense</a>. It is better thought of as a “directed distance” function.</p>
+<p>Gibbs’ inequality has the following immediate corollary:</p>
+<div class="proof corollary admonition" id="max-entropy-thm">
+<p class="admonition-title"><span class="caption-number">Corollary 9.1 </span> (Uniform distributions maximize entropy)</p>
+<section class="corollary-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(P\)</span> be a probability measures on a finite sample space <span class="math notranslate nohighlight">\(S\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[
+H(P) \leq \log_2{|S|},
 \]</div>
-<p>It is pleasing to compare this maximum-entropy equation to the <a class="reference external" href="https://en.wikipedia.org/wiki/Boltzmann%27s_entropy_formula">Boltzmann equation</a> for entropy in statistical mechanics. The definitional equation</p>
+<p>with equality if and only if <span class="math notranslate nohighlight">\(P\)</span> is uniform.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. Let <span class="math notranslate nohighlight">\(Q\)</span> be the uniform distribution on <span class="math notranslate nohighlight">\(S\)</span>, and let <span class="math notranslate nohighlight">\(p(s)\)</span> and <span class="math notranslate nohighlight">\(q(s)\)</span> be the mass functions of <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>, respectively. Then by Gibbs’ inequality, we have</p>
+<div class="math notranslate nohighlight">
+\[
+0 \leq D(P \parallel Q) = H_P(Q) - H(P) = \sum_{s\in S} p(s) \log_2|S| - H(P) = \log_2|S| - H(P).
+\]</div>
+<p>The desired result then follows. Q.E.D.</p>
+</div>
+<p>So, when <span class="math notranslate nohighlight">\(P\)</span> is uniform, we have <span class="math notranslate nohighlight">\(H(P) = \log_2|S|\)</span>. It is pleasing to compare this latter equation to the <a class="reference external" href="https://en.wikipedia.org/wiki/Boltzmann%27s_entropy_formula">Boltzmann equation</a> for entropy in statistical mechanics. The defining equation for Shannon entropy</p>
 <div class="math notranslate nohighlight">
 \[
 H(P) = - \sum_{s\in S} p(s) \log_2(p(s))
 \]</div>
 <p>is the analog of the <a class="reference external" href="https://en.wikipedia.org/wiki/Entropy_(statistical_thermodynamics)#Gibbs_entropy_formula">Gibbs equation</a> for Boltzmann entropy.</p>
-<p>In his initial paper, Shannon described entropy <span class="math notranslate nohighlight">\(H(P)\)</span> as a measure of <em>uncertainty</em>. From this perspective, the rationale behind the maximum-entropy equation <a class="reference internal" href="#equation-max-ent-eq">(9.4)</a> becomes clear: If one were to randomly draw a number from a probability distribution, the uniform distribution is the one that would result in the highest level of uncertainty regarding the outcome.</p>
+<p>Let’s finish off our discussion of KL divergence with:</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 5 on the worksheet.</p>
+</div>
 </section>
-<section id="conditional-entropy-and-mutual-information">
-<span id="cond-entropy-mutual-info-sec"></span><h2><span class="section-number">9.4. </span>Conditional entropy and mutual information<a class="headerlink" href="#conditional-entropy-and-mutual-information" title="Permalink to this heading">#</a></h2>
-<div class="proof definition admonition" id="definition-6">
+<section id="flow-of-information">
+<span id="cond-entropy-mutual-info-sec"></span><h2><span class="section-number">9.3. </span>Flow of information<a class="headerlink" href="#flow-of-information" title="Permalink to this heading">#</a></h2>
+<p>In this section, we use the notions of entropy and KL divergence developed in the previous two sections to quantify the amount of “information” shared between two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. (As in the rest of this chapter, we shall restrict ourselves to random variables with finite ranges.) But to say that the random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> share information must mean that there is some sort of “communication channel” between them—how might we model such a channel?</p>
+<p>Working our way toward the answer, we first note that the cleanest way to transmit information from <span class="math notranslate nohighlight">\(X\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> is via a <em>deterministic link</em> between observed values. This would take the form of a function</p>
+<div class="math notranslate nohighlight">
+\[
+g: \bbr \to \bbr, \quad x\mapsto g(x),
+\]</div>
+<p>that sends an observation <span class="math notranslate nohighlight">\(x\)</span> (of <span class="math notranslate nohighlight">\(X\)</span>) to an observation <span class="math notranslate nohighlight">\(y = g(x)\)</span> (of <span class="math notranslate nohighlight">\(Y\)</span>). While these types of deterministic channels have their place in the theory (see <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>, for instance), they are not the sort of channels of primary interest in information theory. Indeed, Shannon’s main goal in the foundational paper <span id="id9">[<a class="reference internal" href="bib.html#id23" title="C. E. Shannon. A mathematical theory of communication. The Bell System Technical Journal, 27(3):379–423, 1948.">Sha48</a>]</span> was to quantify the transfer of information through imperfect “noisy” channels that introduce errors.</p>
+<p>So, even though it is too much to ask that an observation <span class="math notranslate nohighlight">\(x\)</span> <em>uniquely</em> determines an observation <span class="math notranslate nohighlight">\(y\)</span>, we still want to keep the general idea that <span class="math notranslate nohighlight">\(x\)</span> is the information carrier that is transmitted through the channel toward <span class="math notranslate nohighlight">\(Y\)</span>. But when <span class="math notranslate nohighlight">\(x\)</span> arrives at <span class="math notranslate nohighlight">\(Y\)</span>, it carries uncertainty with it, introduced by the “noise” in the channel. Uncertainty is modeled mathematically using probabilities, so what we are after is a notion of communcation channel that sends <span class="math notranslate nohighlight">\(x\)</span> to a probability distribution on the <span class="math notranslate nohighlight">\(y\)</span>’s. But this is <em>exactly</em> what conditional distributions are meant to model, and so we are led to replace the deterministic channel <span class="math notranslate nohighlight">\(x \mapsto g(x)\)</span> from above with the mapping</p>
+<div class="math notranslate nohighlight" id="equation-markov-kern-eq">
+<span class="eqno">(9.6)<a class="headerlink" href="#equation-markov-kern-eq" title="Permalink to this equation">#</a></span>\[
+x \mapsto p(y | x)
+\]</div>
+<p>that sends <span class="math notranslate nohighlight">\(x\)</span> to the associated conditional distribution on the <span class="math notranslate nohighlight">\(y\)</span>’s. This is a strange mapping, as its domain is a Euclidean space, but its codomain is a <em>set of probability measures</em>! It is an example of something called a general <a class="reference external" href="https://en.wikipedia.org/wiki/Markov_kernel">Markov kernel</a>.</p>
+<p>We are led, then, to define a communication channel to essentially be a Markov kernel. But because students at this level might be uncomfortable with a mapping of the form <a class="reference internal" href="#equation-markov-kern-eq">(9.6)</a>, we “choose bases” and offer an alternate definition using matrices and vectors. So, if we suppose for simplicity that the ranges of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> have cardinalities <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(n\)</span>, respectively, then the conditional distributions may be doubly indexed as <span class="math notranslate nohighlight">\(p(y_j | x_i)\)</span>, for <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span> and <span class="math notranslate nohighlight">\(j=1,\ldots,n\)</span>. For ease of bookkeeping, it is natural to place these distributions into an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix</p>
+<div class="math notranslate nohighlight">
+\[
+\bK = [p(y_j |x _i)].
+\]</div>
+<p>Holding the row index <span class="math notranslate nohighlight">\(i\)</span> fixed and summing over the columns, note that we have</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{j=1}^n p(y_j | x_i) = 1,
+\]</div>
+<p>since <span class="math notranslate nohighlight">\(p(y|x)\)</span> is a probability mass function in the variable <span class="math notranslate nohighlight">\(y\)</span> with <span class="math notranslate nohighlight">\(x\)</span> held fixed. If we also represent the mass functions <span class="math notranslate nohighlight">\(p(x)\)</span> and <span class="math notranslate nohighlight">\(p(y)\)</span> as vectors</p>
+<div class="math notranslate nohighlight" id="equation-prob-vectors-eq">
+<span class="eqno">(9.7)<a class="headerlink" href="#equation-prob-vectors-eq" title="Permalink to this equation">#</a></span>\[
+\bpi(X)^\intercal = \begin{bmatrix} p(x_1) &amp; \cdots &amp; p(x_m) \end{bmatrix} \quad \text{and} \quad \bpi(Y)^\intercal = \begin{bmatrix} p(y_1) &amp; \cdots &amp; p(y_n) \end{bmatrix}
+\]</div>
+<p>then by the Law of Total Probability we have</p>
+<div class="math notranslate nohighlight">
+\[
+\bpi(X)^\intercal \bK = \bpi(Y)^\intercal.
+\]</div>
+<p>Notice that the entries in the vectors <a class="reference internal" href="#equation-prob-vectors-eq">(9.7)</a> sum to <span class="math notranslate nohighlight">\(1\)</span>. Vectors with nonnegative entries that sum to <span class="math notranslate nohighlight">\(1\)</span> are called <em>probability vectors</em>.</p>
+<p>With these preparations completed, we are ready to define (our version of) a <em>Markov kernel</em> and a <em>communication channel</em>:</p>
+<div class="proof definition admonition" id="markov-kernel-def">
 <p class="admonition-title"><span class="caption-number">Definition 9.5 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(\bX\)</span> and <span class="math notranslate nohighlight">\(\bY\)</span> be two random vectors with finite ranges.</p>
+<p>A <em>Markov kernel</em> is a mapping</p>
 <div class="math notranslate nohighlight">
 \[
-H(\bY \mid \bX = \bx) = E_{\by \sim p(\by| \bx)}\left[ -\log_2(p(\by|\bx)) \right] = - \sum_{y\in \bbr^m} p(\by | \bx) \log_2(p(\by|\bx)).
+\kappa: \{1,2,\ldots,m\} \to \bbr^n
 \]</div>
+<p>such that each vector <span class="math notranslate nohighlight">\(\kappa(i)\in \bbr^n\)</span> is a stochastic vector. The <span class="math notranslate nohighlight">\(m\times n\)</span> matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\bK = \begin{bmatrix} \leftarrow &amp; \kappa(1)^\intercal &amp; \rightarrow \\ \vdots &amp; \vdots &amp; \vdots \\ \leftarrow &amp; \kappa(m)^\intercal &amp; \rightarrow \end{bmatrix}
+\end{split}\]</div>
+<p>is called the <em>transition matrix</em> of the Markov kernel.</p>
 </section>
-</div><div class="proof definition admonition" id="mutual-info-def">
+</div><p>Markov kernels occur in the theory of <em>Markov chains</em>, if you know what those are. In the context of information theory, Markov kernels become our models of communication channels:</p>
+<div class="proof definition admonition" id="comm-channel-def">
 <p class="admonition-title"><span class="caption-number">Definition 9.6 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(\bX\)</span> and <span class="math notranslate nohighlight">\(\bY\)</span> be two random vectors with finite ranges. The <em>mutual information between <span class="math notranslate nohighlight">\(\bX\)</span> and <span class="math notranslate nohighlight">\(\bY\)</span></em> is the KL divergence</p>
+<p>A <em>communication channel</em> is a Markov kernel.</p>
+</section>
+</div><p>Notice that there is no mention of the random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. Indeed, this definition is meant to isolate and capture the channel itself, whereas the random vectors <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are separate components that are conceptualized as the “sender” and “receiver” hooked to the two ends of the channel.</p>
+<p>Our discussion preceding the definitions shows that every pair of random variables <span class="math notranslate nohighlight">\((X,Y)\)</span> (with finite ranges) determines a Markov kernel through the conditional distributions, and hence also a communication channel. Let’s formally record this fact:</p>
+<div class="proof theorem admonition" id="conditional-markov-kernel-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 9.4 </span> (Conditional distributions determine communication channels)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables with finite ranges</p>
+<div class="math notranslate nohighlight" id="equation-ranges-eq">
+<span class="eqno">(9.8)<a class="headerlink" href="#equation-ranges-eq" title="Permalink to this equation">#</a></span>\[
+\{x_1,\ldots,x_m\} \quad \text{and} \quad \{y_1,\ldots,y_n\}.
+\]</div>
+<p>Then the matrix</p>
+<div class="math notranslate nohighlight" id="equation-trans-matrix-var-eq">
+<span class="eqno">(9.9)<a class="headerlink" href="#equation-trans-matrix-var-eq" title="Permalink to this equation">#</a></span>\[\begin{split}
+\bK = [p(y_j|x_i)] = \begin{bmatrix}
+p(y_1|x_1) &amp; \cdots &amp; p(y_n|x_1) \\
+\vdots &amp; \ddots &amp; \vdots \\
+p(y_1|x_m) &amp; \cdots &amp; p(y_n|x_m)
+\end{bmatrix}
+\end{split}\]</div>
+<p>is the transition matrix of a Markov kernel.</p>
+</section>
+</div><p>Be sure to notice that the form of the transition matrix <a class="reference internal" href="#equation-trans-matrix-var-eq">(9.9)</a> depends on the enumerations of the ranges of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> in <a class="reference internal" href="#equation-ranges-eq">(9.8)</a>; if we change the numbering of the ranges, the transition matrix will change accordingly. Notice also that there is nothing special about the random variables, besides that they have finite ranges: <em>Every</em> configuration of conditional distributions determines a Markov kernel and thus a communication channel. This is just a new framework in which to conceptualize what conditional distributions <em>are</em>, and what they <em>do</em>. They are the exact mechanism that one random variable uses to send information or “exert influence” on another.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do Problem 6 on the worksheet.</p>
+</div>
+<p>We now seek a way to measure the amount of “information” that passes through a communication channel induced by a pair of random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> as in <a class="reference internal" href="#conditional-markov-kernel-thm">Theorem 9.4</a>. Our identification of such a measure begins by studying the case in which it is natural to believe that <em>no</em> information is passed, exactly when the communication channel is <em>constant</em>. But this turns out to have an interpretation in terms of an important previous concept:</p>
+<div class="proof theorem admonition" id="ind-markov-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 9.5 </span> (Independence <span class="math notranslate nohighlight">\(=\)</span> constant Markov kernels)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables with finite ranges</p>
 <div class="math notranslate nohighlight">
 \[
-I(\bX, \bY) \def D( P_{(\bX,\bY)} \parallel P_{\bX} P_{\bY}).
+\{x_1,\ldots,x_m\} \quad \text{and} \quad \{y_1,\ldots,y_n\}.
+\]</div>
+<p>Then the induced communication channel</p>
+<div class="math notranslate nohighlight">
+\[
+\kappa: \{1,2,\ldots,m\} \to \bbr^n, \quad \kappa(i)^\intercal = \begin{bmatrix} p(y_1|x_i) &amp; \cdots &amp; p(y_n|x_i) \end{bmatrix},
+\]</div>
+<p>is constant if and only if <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent. In this case, <span class="math notranslate nohighlight">\(\kappa(i) = \bpi(Y)\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. By the Conditional Criteria for Independence (see <a class="reference internal" href="07-random-vectors.html#conditional-ind-rvs-thm">Theorem 7.9</a>), we have that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent if and only if <span class="math notranslate nohighlight">\(p(y|x) = p(y)\)</span> for all <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>. In particular, if <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent, then we must have <span class="math notranslate nohighlight">\(p(y_j|x_i) = p(y_j)\)</span> for each <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>, and so the transition matrix is of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\bK = \begin{bmatrix} p(y_1) &amp; \cdots &amp; p(y_n) \\ \vdots &amp; \ddots &amp; \vdots \\ p(y_1) &amp; \cdots &amp; p(y_n) \end{bmatrix},
+\end{split}\]</div>
+<p>showing that the Markov kernel is constant with <span class="math notranslate nohighlight">\(\kappa(i) = \bpi(Y)\)</span> for each <span class="math notranslate nohighlight">\(i\)</span>. Conversely, if the Markov kernel is constant so that the transition matrix is of the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\bK = \begin{bmatrix}
+p(y_1|x_1) &amp; \cdots &amp; p(y_n|x_1) \\
+\vdots &amp; \ddots &amp; \vdots \\
+p(y_1|x_m) &amp; \cdots &amp; p(y_n|x_m)
+\end{bmatrix} = \begin{bmatrix} \leftarrow &amp; \bc^\intercal &amp; \rightarrow \\ \vdots &amp; \vdots &amp; \vdots \\ \leftarrow &amp; \bc^\intercal &amp; \rightarrow \end{bmatrix}
+\end{split}\]</div>
+<p>for some <span class="math notranslate nohighlight">\(\bc = [c_j] \in \bbr^n\)</span>, then by the Law of Total Probability</p>
+<div class="math notranslate nohighlight">
+\[
+\bpi(Y)^\intercal = \bpi(X)^\intercal \bK ,
+\]</div>
+<p>we must have</p>
+<div class="math notranslate nohighlight">
+\[
+p(y_j) = \sum_{i=1}^m p(x_i)c_{j} = c_j \sum_{i=1}^m p(x_i) = c_j
+\]</div>
+<p>for each <span class="math notranslate nohighlight">\(j\)</span>. This shows <span class="math notranslate nohighlight">\(\bpi(Y) = \bc\)</span>, and so</p>
+<div class="math notranslate nohighlight">
+\[
+p(y_j) = c_j = p(y_j|x_i)
+\]</div>
+<p>for all <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>. Thus, <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent. Q.E.D.</p>
+</div>
+<p>By the Mass/Density Criteria for Independence (see <a class="reference internal" href="07-random-vectors.html#mass-density-ind-thm">Theorem 7.7</a>), the induced communication channel in <a class="reference internal" href="#ind-markov-thm">Theorem 9.5</a> is constant if and only if the joint mass function of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> factors into the marginals:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x,y) = p(x)p(y),
+\]</div>
+<p>for all <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>. This suggests that a measure of “information” passed from <span class="math notranslate nohighlight">\(X\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> should be the degree to which the joint mass function <em>does not</em> equal the product of the marginals. But we already have a method for measuring the discrepancy between two distributions! This motivates:</p>
+<div class="proof definition admonition" id="mutual-info-def">
+<p class="admonition-title"><span class="caption-number">Definition 9.7 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables with finite ranges. The <em>mutual information</em> shared between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, denoted <span class="math notranslate nohighlight">\(I(X,Y)\)</span>, is the KL divergence</p>
+<div class="math notranslate nohighlight">
+\[
+I(X, Y) \def D( P_{XY} \parallel P_{X} P_{Y}) = \sum_{(x,y)\in \bbr^2} p(x,y) \log_2\left( \frac{p(x,y)}{p(x)p(y)}\right).
 \]</div>
 </section>
-</div><div class="proof theorem admonition" id="other-info-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 9.3 </span> (Mutual information and entropy)</p>
+</div><p>Before we take a look at an example computation, it will be convenient to expression mutual information in terms of entropy:</p>
+<div class="proof theorem admonition" id="other-info-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 9.6 </span> (Mutual information and entropy)</p>
 <section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(\bX\)</span> and <span class="math notranslate nohighlight">\(\bY\)</span> be two random vectors with finite ranges. Then:</p>
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables with finite ranges. Then:</p>
 <div class="math notranslate nohighlight">
 \[
-I(\bX,\bY) = H(\bX) + H(\bY) - H(\bX,\bY).
+I(X,Y) = H(X) + H(Y) - H(X,Y).
 \]</div>
 </section>
 </div><div class="proof admonition" id="proof">
 <p>Proof. The proof is a computation:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
-I(\bX,\bY) &amp;= \sum_{\bx\in \bbr^n}\sum_{\by \in \bbr^m} p(\bx,\by) \log_2\left( \frac{p(\bx,\by)}{p(\bx)p(\by)} \right) \\
-&amp;= \sum_{\bx\in \bbr^n}\sum_{\by \in \bbr^m} p(\bx,\by) \log_2\left(p(\bx,\by)\right) - \sum_{\bx\in \bbr^n}\sum_{\by \in \bbr^m} p(\bx,\by) \log_2 \left(p(\bx)\right) \\
-&amp;\quad - \sum_{\bx\in \bbr^n}\sum_{\by \in \bbr^m} p(\bx,\by) \log_2\left(p(\by)\right) \\
-&amp;= - H(\bX,\bY) - \sum_{\bx \in \bbr^n} p(\bx) \log_2\left( p(\bx) \right) - \sum_{\by \in \bbr^m} p(\by) \log_2\left( p(\by)\right) \\
-&amp;= H(\bX) + H(\bY) - H(\bX, \bY),
+I(x,y) &amp;= \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2\left( \frac{p(x,y)}{p(x)p(y)} \right) \\
+&amp;= - \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2 \left(p(x)\right) - \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2\left(p(y)\right) \\
+&amp;\quad + \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2\left(p(x,y)\right)  \\
+&amp;= - \sum_{x \in \bbr} p(x) \log_2\left( p(x) \right) - \sum_{y \in \bbr} p(y) \log_2\left( p(y)\right) - H(X,Y)  \\
+&amp;= H(X) + H(Y) - H(X, Y),
 \end{align*}\]</div>
 <p>as desired. Q.E.D.</p>
+</div>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do Problem 7 on the worksheet.</p>
 </div>
 </section>
 </section>
@@ -1136,10 +1016,9 @@ I(\bX,\bY) &amp;= \sum_{\bx\in \bbr^n}\sum_{\by \in \bbr^m} p(\bx,\by) \log_2\le
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preview-how-do-we-measure-information">9.1. Preview: How do we measure information?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shannon-information-and-entropy">9.2. Shannon information and entropy</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kullback-leibler-divergence">9.3. Kullback Leibler divergence</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-entropy-and-mutual-information">9.4. Conditional entropy and mutual information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shannon-information-and-entropy">9.1. Shannon information and entropy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kullback-leibler-divergence">9.2. Kullback Leibler divergence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-of-information">9.3. Flow of information</a></li>
 </ul>
   </nav></div>
 

@@ -62,7 +62,7 @@ Our first application of the bivariate LotUS is to show that the expectation ope
 If $X$ and $Y$ are independent random variables, then $E(XY) = E(X) E(Y)$.
 ```
 
-The proof is a simple computation using the LotUS; it appears in your [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/8-homework.md#problem-2-independence-and-expectations) for this chapter.
+The proof is a simple computation using the LotUS; it appears in your [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/08-homework.md#problem-2-independence-and-expectations) for this chapter.
 
 Our second application of the bivariate LotUS is to tie up a loose end from {numref}`linear-of-exp` and prove the full-strength version of "linearity of expectation."
 
@@ -580,16 +580,16 @@ Do problem 9 on the worksheet.
 
 
 
-## Covariance and correlation
+## Dependent random variables, covariance, and correlation
 
 If two random variables $X$ and $Y$ are _not_ [independent](independence), then (naturally) they are called _dependent_. Our goal in this section is to study two quantities, called _covariance_ and _correlation_, that measure the strength of the _linear_ dependence between $X$ and $Y$. An alternate measure of more general dependence, called _mutual information_, will be studied in the [next chapter](information-theory).
 
-To initiate our study of _covariance_ and _correlation_, let's begin by discussing a pair of _functionally_ dependent random variables $X$ and $Y$, by which I mean that $Y = h(X)$ for some function $h$. In this case, observed values $x$ deterministically yield observed values $y=h(x)$, and it would therefore make sense that $X$ and $Y$ are dependent. This suspicion is confirmed in the following simple result:
+To initiate our study of _covariance_ and _correlation_, let's begin by discussing a pair of _functionally_ dependent random variables $X$ and $Y$, by which I mean that $Y = g(X)$ for some function $g$. In this case, observed values $x$ deterministically yield observed values $y=g(x)$, and it would therefore make sense that $X$ and $Y$ are dependent. This suspicion is confirmed in the following simple result:
 
 ```{prf:theorem} Functional dependence $\Rightarrow$ dependence
 :label: functional-dep-thm
 
-Let $X$ and $Y$ be random variables. If $Y = h(X)$ for some function $h:\mathbb{R} \to \mathbb{R}$, then $X$ and $Y$ are dependent.
+Let $X$ and $Y$ be random variables. If $Y = g(X)$ for some function $g:\mathbb{R} \to \mathbb{R}$, then $X$ and $Y$ are dependent.
 ```
 
 ```{prf:proof}
@@ -600,7 +600,7 @@ $$
 0<P(Y\in B)<1.
 $$ (middle-eqn)
 
-(This doesn't _always_ have to be true. For example, what happens if $h$ is constant?) In this case, we set $A = h^{-1}(B)^c$ and observe that
+(This doesn't _always_ have to be true. For example, what happens if $g$ is constant?) In this case, we set $A = g^{-1}(B)^c$ and observe that
 
 $$
 P(X\in A, \ Y\in B) = P(\emptyset) =0.
@@ -630,13 +630,13 @@ which proves $X$ and $Y$ are dependent. Q.E.D.
 What does a pair of functionally dependent random variables look like? For an example, let's suppose that
 
 $$
-X \sim \mathcal{N}(1,0.5^2) \quad \text{and} \quad Y = h(X) = X(X-1)(X-2).
+X \sim \mathcal{N}(1,0.5^2) \quad \text{and} \quad Y = g(X) = X(X-1)(X-2).
 $$
 
 Then, let's simulate a draw of 1000 samples from $X$, toss them into
 
 $$
-h(x) = x(x-1)(x-2)
+g(x) = x(x-1)(x-2)
 $$
 
 to obtain the associated $y$-values, and then produce a scatter plot:
@@ -671,13 +671,13 @@ y = h(x)
 
 sns.scatterplot(x=x, y=y)
 plt.xlabel('$x$')
-plt.ylabel('$y=h(x)$')
+plt.ylabel('$y=g(x)$')
 plt.ylim(-1.5, 1.5)
 plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
-The plot looks exactly like we would expect: A bunch of points lying on the graph of the function $y=h(x)$. However, very often with real-world data, an *exact* functional dependence $Y = h(X)$ does not truly hold. Instead, the functional relationship is "noisy", resulting in scatter plots that look like this:
+The plot looks exactly like we would expect: A bunch of points lying on the graph of the function $y=g(x)$. However, very often with real-world data, an *exact* functional dependence $Y = g(X)$ does not truly hold. Instead, the functional relationship is "noisy", resulting in scatter plots that look like this:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -693,7 +693,7 @@ _, ax = plt.subplots(ncols=2, figsize=(7, 3), sharey=True)
 sns.scatterplot(x=x, y=y + epsilon, ax=ax[0])
 ax[0].set_ylim(-1.5, 1.5)
 ax[0].set_xlabel('$x$')
-ax[0].set_ylabel('$y=h(x) + $noise')
+ax[0].set_ylabel('$y=g(x) + $noise')
 
 sns.scatterplot(x=x, y=y + epsilon, alpha=0.2, ax=ax[1])
 ax[1].plot(grid, h(grid), color='#FD46FC')
@@ -702,7 +702,7 @@ ax[1].set_xlabel('$x$')
 plt.tight_layout()
 ```
 
-The "noisy" functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function $y=h(x)$ for reference. Instead of lying directly on the graph of $y=h(x)$, the data is clustered along the graph.
+The "noisy" functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function $y=g(x)$ for reference. Instead of lying directly on the graph of $y=g(x)$, the data is clustered along the graph.
 
 The goal in this chapter is to study "noisy" _linear_ dependencies between random variables; relationships that look like these:
 
@@ -854,7 +854,7 @@ A pair of very useful properties of covariance are listed in the following:
 
 ```
 
-I suggest that you attempt to prove this theorem on your own. A special case appears in your [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/8-homework.md#problem-8-a-special-case-of-bilinearity) for this chapter.
+I suggest that you attempt to prove this theorem on your own. A special case appears in your [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/08-homework.md#problem-8-a-special-case-of-bilinearity) for this chapter.
 
 Bilinearity of covariance allows us to generalize {prf:ref}`var-affine-thm` on the variance of an affine transformation of a random variable:
 
