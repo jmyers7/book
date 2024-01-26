@@ -357,7 +357,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-and-conditional-distributions">8.2. Expectations and conditional distributions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#density-transformations">8.3. Density transformations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moment-generating-functions">8.4. Moment generating functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-and-correlation">8.5. Covariance and correlation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependent-random-variables-covariance-and-correlation">8.5. Dependent random variables, covariance, and correlation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-normal-distributions">8.6. Multivariate normal distributions</a></li>
 </ul>
             </nav>
@@ -795,8 +795,8 @@ E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
 <p>Do problem 9 on the worksheet.</p>
 </div>
 </section>
-<section id="covariance-and-correlation">
-<h2><span class="section-number">8.5. </span>Covariance and correlation<a class="headerlink" href="#covariance-and-correlation" title="Permalink to this heading">#</a></h2>
+<section id="dependent-random-variables-covariance-and-correlation">
+<h2><span class="section-number">8.5. </span>Dependent random variables, covariance, and correlation<a class="headerlink" href="#dependent-random-variables-covariance-and-correlation" title="Permalink to this heading">#</a></h2>
 <p>If two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <em>not</em> <a class="reference internal" href="07-random-vectors.html#independence"><span class="std std-ref">independent</span></a>, then (naturally) they are called <em>dependent</em>. Our goal in this section is to study two quantities, called <em>covariance</em> and <em>correlation</em>, that measure the strength of the <em>linear</em> dependence between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. An alternate measure of more general dependence, called <em>mutual information</em>, will be studied in the <a class="reference internal" href="09-info-theory.html#information-theory"><span class="std std-ref">next chapter</span></a>.</p>
 <p>To initiate our study of <em>covariance</em> and <em>correlation</em>, let’s begin by discussing a pair of <em>functionally</em> dependent random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, by which I mean that <span class="math notranslate nohighlight">\(Y = g(X)\)</span> for some function <span class="math notranslate nohighlight">\(g\)</span>. In this case, observed values <span class="math notranslate nohighlight">\(x\)</span> deterministically yield observed values <span class="math notranslate nohighlight">\(y=g(x)\)</span>, and it would therefore make sense that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are dependent. This suspicion is confirmed in the following simple result:</p>
 <div class="proof theorem admonition" id="functional-dep-thm">
@@ -884,7 +884,7 @@ g(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/cd1922f4b2b5cb2150133157d510772d5bfa2d632801e6c0c860416fddb42956.svg" src="../_images/cd1922f4b2b5cb2150133157d510772d5bfa2d632801e6c0c860416fddb42956.svg" /></figure>
+<img alt="../_images/93a4952b22c598389989cdccc6afd45bccd95b546b62c536ab2a809664731db3.svg" src="../_images/93a4952b22c598389989cdccc6afd45bccd95b546b62c536ab2a809664731db3.svg" /></figure>
 </div>
 </div>
 <p>The plot looks exactly like we would expect: A bunch of points lying on the graph of the function <span class="math notranslate nohighlight">\(y=g(x)\)</span>. However, very often with real-world data, an <em>exact</em> functional dependence <span class="math notranslate nohighlight">\(Y = g(X)\)</span> does not truly hold. Instead, the functional relationship is “noisy”, resulting in scatter plots that look like this:</p>
@@ -916,7 +916,7 @@ g(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a0dbee6a2cfe2d96378a3733d0b6639a53457d74649535d349bafcc7dd797b8f.svg" src="../_images/a0dbee6a2cfe2d96378a3733d0b6639a53457d74649535d349bafcc7dd797b8f.svg" /></figure>
+<img alt="../_images/40c35dc05d9df5d927fe6e7fbc006e0288f18b8accfb62de89d03ced59a43cf3.svg" src="../_images/40c35dc05d9df5d927fe6e7fbc006e0288f18b8accfb62de89d03ced59a43cf3.svg" /></figure>
 </div>
 </div>
 <p>The “noisy” functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function <span class="math notranslate nohighlight">\(y=g(x)\)</span> for reference. Instead of lying directly on the graph of <span class="math notranslate nohighlight">\(y=g(x)\)</span>, the data is clustered along the graph.</p>
@@ -950,7 +950,7 @@ g(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/899853fafc9b46c2ce93aad8adcdf51d37e63ee046209626951d107498f877c2.svg" src="../_images/899853fafc9b46c2ce93aad8adcdf51d37e63ee046209626951d107498f877c2.svg" /></figure>
+<img alt="../_images/58dbabfff8e92a44d7b29b3788376912f2dccf420532ad4ee9903c5de0528693.svg" src="../_images/58dbabfff8e92a44d7b29b3788376912f2dccf420532ad4ee9903c5de0528693.svg" /></figure>
 </div>
 </div>
 <p>As I mentioned in the introduction, our goal in this section is to uncover ways to <em>quantify</em> or <em>measure</em> the strength of “noisy” linear dependencies between random variables. We will discover that there are two such measures, called <em>covariance</em> and <em>correlation</em>.</p>
@@ -1009,7 +1009,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a3618806dc879ea915e87120d8810cfe6afac7b45278bfda4dad3211731d0f24.svg" src="../_images/a3618806dc879ea915e87120d8810cfe6afac7b45278bfda4dad3211731d0f24.svg" /></figure>
+<img alt="../_images/c3b3e55f7ccbddf6f74cb77511159ea99aab6c5e8e4910986fb2995a880ac42e.svg" src="../_images/c3b3e55f7ccbddf6f74cb77511159ea99aab6c5e8e4910986fb2995a880ac42e.svg" /></figure>
 </div>
 </div>
 <p>You can see that the dataset has not changed its shape—it has only shifted so that its mean (represented by the magenta dot) is at the origin <span class="math notranslate nohighlight">\((0,0)\)</span>.</p>
@@ -1134,7 +1134,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/949f563b08d4f0ace7532edd2e2a4b2d11e115b52d91059e44c5f6d1891e605d.svg" src="../_images/949f563b08d4f0ace7532edd2e2a4b2d11e115b52d91059e44c5f6d1891e605d.svg" /></figure>
+<img alt="../_images/5111f042ca05ffcc17aca153f666bb7fc945a8242e7ed4dec97eb77a5223d4c9.svg" src="../_images/5111f042ca05ffcc17aca153f666bb7fc945a8242e7ed4dec97eb77a5223d4c9.svg" /></figure>
 </div>
 </div>
 <p>The only difference between the two datasets is the axis scales, but the linear relationship between the <span class="math notranslate nohighlight">\(x\)</span>’s and <span class="math notranslate nohighlight">\(y\)</span>’s remains the same. In fact, the scales on the axes differ by a factor of <span class="math notranslate nohighlight">\(10\)</span>, so by <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>, we have</p>
@@ -1369,7 +1369,7 @@ f(x,y) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/1ebb880ef5d26bd456e0d3954f8e918a0dfd6a9f0c401cda189190dd672c6061.svg" src="../_images/1ebb880ef5d26bd456e0d3954f8e918a0dfd6a9f0c401cda189190dd672c6061.svg" /></figure>
+<img alt="../_images/2824d444cda2cbb8523607da64fb1af08fa72981a84fa4938facdf4f272e1778.svg" src="../_images/2824d444cda2cbb8523607da64fb1af08fa72981a84fa4938facdf4f272e1778.svg" /></figure>
 </div>
 </div>
 <p>Notice that these contours are concentric ellipses centered at the point <span class="math notranslate nohighlight">\((1,1)\in \bbr^2\)</span> with principal axes parallel to the coordinate <span class="math notranslate nohighlight">\(x\)</span>- and <span class="math notranslate nohighlight">\(y\)</span>-axes. In higher dimensions, the isoprobability surfaces are so-called <em>ellipsoids</em>.</p>
@@ -1418,7 +1418,7 @@ f(x_1,\ldots,x_d) = \frac{1}{(2\pi)^{d/2} (\sigma_1^2\cdots \sigma_d^2)^{1/2}} \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/43a99b2230a2fb5ec238641e20ea467250fe8bc8265411097c7ec01acf6ad588.svg" src="../_images/43a99b2230a2fb5ec238641e20ea467250fe8bc8265411097c7ec01acf6ad588.svg" /></figure>
+<img alt="../_images/ad46dbfe64525ed977f73dd2cdd1f76efffbeea91bfa09fbf07cf41e0e776d52.svg" src="../_images/ad46dbfe64525ed977f73dd2cdd1f76efffbeea91bfa09fbf07cf41e0e776d52.svg" /></figure>
 </div>
 </div>
 <p>The key to uncovering the formula for the density in the general case begins by returning to the formula <a class="reference internal" href="#equation-init-multi-var-norm-eqn">(8.11)</a> and rewriting it using vector and matrix notation. Indeed, notice that if we set</p>
@@ -1514,7 +1514,7 @@ Q(\bx) = c^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/490555887ffffb8ab1429d13794b5b82f4b1e6866d89667f6bddd2e16e4065f8.svg" src="../_images/490555887ffffb8ab1429d13794b5b82f4b1e6866d89667f6bddd2e16e4065f8.svg" /></figure>
+<img alt="../_images/9431c829eca8c14706d5ca5817e6037c620f6bb1162d69564fe4f353fe581c47.svg" src="../_images/9431c829eca8c14706d5ca5817e6037c620f6bb1162d69564fe4f353fe581c47.svg" /></figure>
 </div>
 </div>
 <p>Let’s collect our observations in the following theorem, along with a few additional facts:</p>
@@ -1663,7 +1663,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/44190a0393dd9397c6d073bc0cd0f2ec989d8fd4fa7fcefb7d788fe9dde334bc.svg" src="../_images/44190a0393dd9397c6d073bc0cd0f2ec989d8fd4fa7fcefb7d788fe9dde334bc.svg" /></figure>
+<img alt="../_images/bdb761f28469c82e57e1abadea374d7d91fb28746c648203f07135139db94232.svg" src="../_images/bdb761f28469c82e57e1abadea374d7d91fb28746c648203f07135139db94232.svg" /></figure>
 </div>
 </div>
 <p>In the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">programming assignment</a> for this chapter, you will actually implement this procedure. For example, I used these methods to simulate <span class="math notranslate nohighlight">\(1{,}000\)</span> random draws from a bivariate normal distribution with positively correlated components and which is taller than it is wide. If I plot these simulated data over top of isoprobability contours, I get this:</p>
@@ -1700,7 +1700,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2fb748ce36bf74aefcf0a240b4e9778bce15e8aa437ca964ae766c1b8fb4dd97.svg" src="../_images/2fb748ce36bf74aefcf0a240b4e9778bce15e8aa437ca964ae766c1b8fb4dd97.svg" /></figure>
+<img alt="../_images/b49afc14912ffb558ac65a08295e9cfc39d2e76b5ee1493a790756467dd3d2cd.svg" src="../_images/b49afc14912ffb558ac65a08295e9cfc39d2e76b5ee1493a790756467dd3d2cd.svg" /></figure>
 </div>
 </div>
 <p>Let’s finish off this long chapter with an example problem:</p>
@@ -1778,7 +1778,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-and-conditional-distributions">8.2. Expectations and conditional distributions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#density-transformations">8.3. Density transformations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moment-generating-functions">8.4. Moment generating functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-and-correlation">8.5. Covariance and correlation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependent-random-variables-covariance-and-correlation">8.5. Dependent random variables, covariance, and correlation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-normal-distributions">8.6. Multivariate normal distributions</a></li>
 </ul>
   </nav></div>

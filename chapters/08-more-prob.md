@@ -580,7 +580,7 @@ Do problem 9 on the worksheet.
 
 
 
-## Covariance and correlation
+## Dependent random variables, covariance, and correlation
 
 If two random variables $X$ and $Y$ are _not_ [independent](independence), then (naturally) they are called _dependent_. Our goal in this section is to study two quantities, called _covariance_ and _correlation_, that measure the strength of the _linear_ dependence between $X$ and $Y$. An alternate measure of more general dependence, called _mutual information_, will be studied in the [next chapter](information-theory).
 
