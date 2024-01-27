@@ -861,7 +861,7 @@ $$
 
 Note that the natural of flow of "influence" would indeed go in the order $X \to Y \to Z$ displayed above.
 
-It is also natural to assume that the _only_ way that the presence of the disease $X$ influences a person's decision $Z$ to leave on vacation travels through the result of the test $Y$. There should be _no_ direct influence from $X$ to $Z$, which would be indicated by a third directed edge in the graph:
+It is also natural to assume that the _only_ way that the presence of the disease $X$ influences a subject's decision $Z$ to leave on vacation flows through the result of the test $Y$. There should be _no_ direct influence from $X$ to $Z$, which would be indicated by a third directed edge in the graph:
 
 ```{image} ../img/markov-02.svg
 :width: 40%
@@ -930,9 +930,9 @@ In plain language, the inequality states that the amount of information that flo
 ```
 &nbsp;
 
-can be no more than the amount of "information" that flows directly from $X$ to $Y$. Indeed, if this were _not_ the case, then we must imagine that somehow additional "information" is "created" in the link from $Y$ to $Z$. But intuition suggests that that is not possible.
+can be no more than the amount of "information" that flows directly from $X$ to $Y$. Indeed, if this were _not_ the case, then we must imagine that somehow additional "information" is "created" in the link from $Y$ to $Z$. But intuition suggests that that is not possible. Or, from another point of view, the inequality says that what $Z$ "knows" about $X$ is not more than what $Y$ "knows" about $X$.
 
-In our disease model, the inequality {eq}`data-processing-eq` is telling us that the amount of "influence" that the presence of the disease has on a subject's decision to leave on vacation is no more than the amount of "influence" that the result of the test has on the decision. Moreover, in the case that equality holds in {eq}`data-processing-eq`, then we have a model of the form
+In our disease/test/vacation model, the inequality {eq}`data-processing-eq` is telling us that whether a subject decides to leave on vacation is not any better a test for the disease than the test itself. That is, unless equality holds in {eq}`data-processing-eq`, in which case we have a model of the form
 
 ```{image} ../img/markov-03.svg
 :width: 40%
@@ -940,6 +940,6 @@ In our disease model, the inequality {eq}`data-processing-eq` is telling us that
 ```
 &nbsp;
 
-showing that whether a subject leaves on vacation is just as good a test of whether they have the disease as the actual test. In other words, knowing whether a subject leaves on vacation renders the presence of the disease and the result of the test independent of each other; intuitively, all the "information" that $Y$ carries about $X$ is absorbed into $Z$.
+In this case, whether a subject leaves on vacation _is_ just as good a test for the disease as the test itself; intuitively, all the "information" that $Y$ carries about $X$ reaches $Z$.
 
 You will have an opportunity to work with the disease/test/vacation probabilistic model in the [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-9-the-data-processing-inequality) for this chapter.
