@@ -367,16 +367,15 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
-<section class="tex2jax_ignore mathjax_ignore" id="information-theory">
+  <section class="tex2jax_ignore mathjax_ignore" id="information-theory">
 <span id="id1"></span><h1><span class="section-number">9. </span>Information theory<a class="headerlink" href="#information-theory" title="Permalink to this heading">#</a></h1>
-<p>This chapter marks a pivotal shift in the book, moving from our focused exploration of abstract probability theory to practicalities of building and training probabilistic models. Subsequent chapters construct estimators and statistics and develop their theories, all of this with the overarching goal of leveraging these newfound tools to discover answers to specific questions or inquiries of particular interest. Most texts on mathematical statistics make a similar transition to similar material that they call <em>inferential statistics</em>—but whatever it might be called, we are trying to do the same thing: <em>Learn from data</em>.</p>
+<p>This chapter marks a pivotal shift in the book, moving from our focused exploration of abstract probability theory to practicalities of building and training probabilistic models. Along with this, subsequent chapters construct estimators and statistics and develop their theories, all with the overarching goal of leveraging these newfound tools to discover answers to specific questions or inquiries of particular interest. Most texts on mathematical statistics make a similar transition to similar material that they call <em>inferential statistics</em>—but whatever it might be called, we are all trying to do the same thing: <em>Learn from data</em>.</p>
 <p>The current chapter describes tools and techniques drawn from the <em>theory of information</em>, which is a charming amalgamation of practical engineering and theoretical mathematics. This theory provides us with a method for measuring a particular form of <em>information</em>, but it also gives us techniques for quantifying related degrees of <em>surprise</em>, <em>uncertainty</em>, and <em>entropy</em>. In the upcoming chapters, our primary use for these measures will be to train and choose probabilistic models, but the theory reaches way beyond into physics, coding theory, computer science, neuroscience, biology, economics, the theory of complex systems, and many other fields.</p>
-<p>We will begin the chapter with a section to help introduce the specific type of <em>information</em> that this theory purports to study. This first section is purely expository and draws motivation from the roots of information theory in practical engineering and coding theory. However, for reasons of space and time, beyond the first section we do not elaborate any further on the connections between information theory and coding theory—for that, we will point the interested reader to one of the standard textbooks on information theory, like <span id="id2">[<a class="reference internal" href="bib.html#id17" title="T. M. Cover and J. A. Thomas. Elements of information theory. John Wiley &amp; Sons, Inc., second edition, 2006.">CT06</a>]</span>, <span id="id3">[<a class="reference internal" href="bib.html#id25" title="D. J. C. MacKay. Information theory, inference and learning algorithms. Cambridge University Press, 2003.">Mac03</a>]</span>, and <span id="id4">[<a class="reference internal" href="bib.html#id26" title="R. B. Ash. Information theory. Courier Corporation, 2012.">Ash12</a>]</span>. The hurried reader may skip the first section if they would like, it contains no material necessary for the remaining sections.</p>
-<p>Though information theory has its roots in engineering concerns, it is at its core a purely mathematical theory. In the second section of this chapter, we define and study the first two of the three central quantities in the mathematical theory called <em>Shannon information</em> and <em>Shannon entropy</em>—after that, in the third section, we define the third of these important quantities called <em>Kullback Leibler (KL) divergence</em>. It is mostly this latter quantity that will be of primary use in the following chapters, since it provides a generalized notion of “distance” between probability distributions. Finally, we end the chapter with a discussion of the <em>mutual information</em> between two random vectors, which may be conceptualized as a generalized (nonnegative) correlation measure that vanishes exactly when the variables are independent.</p>
+<p>Though it has its roots in engineering, our primary view on information theory is a mathematical one. For reasons of space and time, we cannot include or describe any of the many fascinating applications to coding theory and the like—for that, we will point the interested reader to one of the standard textbooks on information theory, like <span id="id2">[<a class="reference internal" href="bib.html#id17" title="T. M. Cover and J. A. Thomas. Elements of information theory. John Wiley &amp; Sons, Inc., second edition, 2006.">CT06</a>]</span>, <span id="id3">[<a class="reference internal" href="bib.html#id25" title="D. J. C. MacKay. Information theory, inference and learning algorithms. Cambridge University Press, 2003.">Mac03</a>]</span>, and <span id="id4">[<a class="reference internal" href="bib.html#id26" title="R. B. Ash. Information theory. Courier Corporation, 2012.">Ash12</a>]</span>. Also, one can do little better than reading Claude Shannon’s foundational paper <span id="id5">[<a class="reference internal" href="bib.html#id23" title="C. E. Shannon. A mathematical theory of communication. The Bell System Technical Journal, 27(3):379–423, 1948.">Sha48</a>]</span> in which information theory as a mathematical discipline was first described—though it is over three-quarters of a century old, it still reads amazingly well. The survey article <span id="id6">[<a class="reference internal" href="bib.html#id24" title="O. Rioul. This is it: a primer on shannon’s entropy and information. In Information Theory: Poincaré Seminar 2018, 49–86. Springer, 2021.">Rio21</a>]</span> is also an enlightening read.</p>
+<p>In the first section of this chapter, we define and study the first two of the four central quantities in information theory called <em>Shannon information</em> and <em>Shannon entropy</em>—after that, in the second section, we define the third quantity called <em>Kullback Leibler (KL) divergence</em>. It is mostly this latter quantity that will be of primary use in the following chapters, since it provides a generalized notion of “distance” between probability distributions. Finally, we end the chapter with the third section where we define and discuss the <em>mutual information</em> shared between two random variables, which may be conceptualized as a generalized correlation measure that vanishes exactly when the variables are independent. This discussion is framed in the context of “flows” of “information” or “influence,” foreshadowing the probabilistic models that we will study in depth in <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>.</p>
 <section id="shannon-information-and-entropy">
 <h2><span class="section-number">9.1. </span>Shannon information and entropy<a class="headerlink" href="#shannon-information-and-entropy" title="Permalink to this heading">#</a></h2>
-<p>After briefly introducing the main concepts from information theory in the previous section in the context of data compression, we now begin outlining the abstract mathematical theory. The reader who skipped the first section need not feel at a disadvantage, as our development does not depend on any of that material. We begin with:</p>
+<p>The whole story begins with a very simple definition:</p>
 <div class="proof definition admonition" id="info-content-def">
 <p class="admonition-title"><span class="caption-number">Definition 9.1 </span></p>
 <section class="definition-content" id="proof-content">
@@ -418,11 +417,11 @@ I_P(s) \def - \log_2(p(s)).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/d4cce3ee24f036bd43d081411bc60591f6531cb3bed21f075020e6ecb11ba3eb.svg" src="../_images/d4cce3ee24f036bd43d081411bc60591f6531cb3bed21f075020e6ecb11ba3eb.svg" /></figure>
+<img alt="../_images/181efd46339f90390594c2bb68c666cfccac5bfc37935297626347862289fd59.svg" src="../_images/181efd46339f90390594c2bb68c666cfccac5bfc37935297626347862289fd59.svg" /></figure>
 </div>
 </div>
 <p>If some outcome is highly likely to occur (large <span class="math notranslate nohighlight">\(p(s)\)</span>), then it is not surprising (small <span class="math notranslate nohighlight">\(I(s)\)</span>). In the other direction, if an outcome <span class="math notranslate nohighlight">\(s\)</span> is highly unlikely to occur (small <span class="math notranslate nohighlight">\(p(s)\)</span>), then it is very surprising (large <span class="math notranslate nohighlight">\(I(s)\)</span>).</p>
-<p>It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal—so why the choice of base-<span class="math notranslate nohighlight">\(2\)</span> logarithm? It turns out that if you begin from first principles with a set of “natural axioms” that any notion of <em>surprisal</em> should possess, then you can <em>prove</em> all such surprisal functions must be proportional to negative logarithms; see, for example, the discussion in Section 9 in <span id="id5">[<a class="reference internal" href="bib.html#id24" title="O. Rioul. This is it: a primer on shannon’s entropy and information. In Information Theory: Poincaré Seminar 2018, 49–86. Springer, 2021.">Rio21</a>]</span>. The choice of base <span class="math notranslate nohighlight">\(2\)</span> is then somewhat arbitrary, akin to choosing units, but it does have the added benefit of nicely connecting up with bit strings in the coding context. (See the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-2-entropies-in-different-bases">homework</a>.) Indeed, in base <span class="math notranslate nohighlight">\(2\)</span>, information content is measured in units of <em>bits</em>. While this is related to the previous notion of a bit denoting a binary digit (<span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>), the usage here is different, at the very least because information content does not have to be an integer. (See Section 10 in the aforementioned reference <span id="id6">[<a class="reference internal" href="bib.html#id24" title="O. Rioul. This is it: a primer on shannon’s entropy and information. In Information Theory: Poincaré Seminar 2018, 49–86. Springer, 2021.">Rio21</a>]</span> for more on units.)</p>
+<p>It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal—so why the choice of base-<span class="math notranslate nohighlight">\(2\)</span> logarithm? It turns out that if you begin from first principles with a set of “natural axioms” that any notion of <em>surprisal</em> should possess, then you can <em>prove</em> all such surprisal functions must be proportional to negative logarithms; see, for example, the discussion in Section 9 in <span id="id7">[<a class="reference internal" href="bib.html#id24" title="O. Rioul. This is it: a primer on shannon’s entropy and information. In Information Theory: Poincaré Seminar 2018, 49–86. Springer, 2021.">Rio21</a>]</span>. The choice of base <span class="math notranslate nohighlight">\(2\)</span> is then somewhat arbitrary, akin to choosing units, but it does have the added benefit of nicely connecting up with bit strings in the coding context. (See the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-2-entropies-in-different-bases">homework</a>.) Indeed, in base <span class="math notranslate nohighlight">\(2\)</span>, information content is measured in units of <em>bits</em>. While this is related to the previous notion of a bit denoting a binary digit (<span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>), the usage here is different, at the very least because information content does not have to be an integer. (See Section 10 in the aforementioned reference <span id="id8">[<a class="reference internal" href="bib.html#id24" title="O. Rioul. This is it: a primer on shannon’s entropy and information. In Information Theory: Poincaré Seminar 2018, 49–86. Springer, 2021.">Rio21</a>]</span> for more on units.)</p>
 <p>Please understand that the terminology <em>information content</em> now has a very specific and precise mathematical meaning. It is designed to “get at” our intuitive understanding of what general “information” is, but you should keep the two separate in your mind: There’s the notion of “information” used in an intuitive and colloquial sense and is generally ill-defined, and then there is the notion of <em>information content</em> precisely defined as above.</p>
 <p>With the information content (or surprisal) in hand, we now define <em>entropy</em>:</p>
 <div class="proof definition admonition" id="entropy-def">
@@ -474,7 +473,7 @@ H(P) \def \sum_{s\in S} p(s)I_P(s).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/9a479d9b62a64618b1bd41cf3796c85e92629b63c7c113a68dc03bb779e0322c.svg" src="../_images/9a479d9b62a64618b1bd41cf3796c85e92629b63c7c113a68dc03bb779e0322c.svg" /></figure>
+<img alt="../_images/d39045763374a60798cd5929e8a8ad671b61d3d3e8467e67f2e618bc2308caee.svg" src="../_images/d39045763374a60798cd5929e8a8ad671b61d3d3e8467e67f2e618bc2308caee.svg" /></figure>
 </div>
 </div>
 <p>The fact that these two types of distributions yield the extreme values of entropy helps explain the alternate name <em>uncertainty</em>. Indeed, imagine drawing a random sample from one of these two distributions—which one has the most uncertain outcome? Which one is most certain?</p>
@@ -498,7 +497,7 @@ E_{P_X}\left[g(x)\right] = \sum_{x\in \bbr}g(x) p_X(x) = E\left[g(X)\right].
 \[
 H(P) = E_P\left[I_P(s)\right] = E_{s\sim p(s)} \left[ I_P(s)\right].
 \]</div>
-<p>Since the entropy <span class="math notranslate nohighlight">\(H(P)\)</span> is the average information content, it may sometimes be interpreted as a form of “information.” (We mentioned this very briefly in the first section after inspecting the plot of the entropy of <span class="math notranslate nohighlight">\(X\sim \Ber(\theta)\)</span> versus the parameter <span class="math notranslate nohighlight">\(\theta\)</span>.) To see why low (high) uncertainty might be interpreted as low (high) “information” content, imagine that you are to design a random experiment to help answer some question. Then, you certainly <em>do not</em> want to arrange the conditions of the experiment so that the probabilities of the outcomes resemble the Dirac distribution above, with low uncertainty and one outcome practically all but guaranteed—this would convey little information! Instead, the ideal experiment would have the probabilities spread uniformly across all potential outcomes, so that any observed outcome is maximally informative. (For a very convincing and enlightening demonstration of this idea, see the description of the “weighing problem” in Section 4.1 of <span id="id7">[<a class="reference internal" href="bib.html#id25" title="D. J. C. MacKay. Information theory, inference and learning algorithms. Cambridge University Press, 2003.">Mac03</a>]</span>.)</p>
+<p>Since the entropy <span class="math notranslate nohighlight">\(H(P)\)</span> is the average information content, it may sometimes be interpreted as a form of “information.” (We mentioned this very briefly in the first section after inspecting the plot of the entropy of <span class="math notranslate nohighlight">\(X\sim \Ber(\theta)\)</span> versus the parameter <span class="math notranslate nohighlight">\(\theta\)</span>.) To see why low (high) uncertainty might be interpreted as low (high) “information” content, imagine that you are to design a random experiment to help answer some question. Then, you certainly <em>do not</em> want to arrange the conditions of the experiment so that the probabilities of the outcomes resemble the Dirac distribution above, with low uncertainty and one outcome practically all but guaranteed—this would convey little information! Instead, the ideal experiment would have the probabilities spread uniformly across all potential outcomes, so that any observed outcome is maximally informative. (For a very convincing and enlightening demonstration of this idea, see the description of the “weighing problem” in Section 4.1 of <span id="id9">[<a class="reference internal" href="bib.html#id25" title="D. J. C. MacKay. Information theory, inference and learning algorithms. Cambridge University Press, 2003.">Mac03</a>]</span>.)</p>
 <p>Before moving on with the theory, let’s take a look at some problems:</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
@@ -584,7 +583,7 @@ p(s) = \binom{10}{s} (0.4)^s(0.6)^{10-s} \quad \text{and} \quad q(s) = \binom{10
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/6982fd420ee57e280977a525dc3e286c3098e5cef4fd4de844a18862fb409125.svg" src="../_images/6982fd420ee57e280977a525dc3e286c3098e5cef4fd4de844a18862fb409125.svg" /></figure>
+<img alt="../_images/7843755d34eb0a306b3085e4109ca29d7f62f805c93fdd7c035f77d0d56ffc59.svg" src="../_images/7843755d34eb0a306b3085e4109ca29d7f62f805c93fdd7c035f77d0d56ffc59.svg" /></figure>
 </div>
 </div>
 <p>The second row in the figure drives home the point: The absolute relative magnitudes are on such widely different scales that the plot is nearly useless and numerical computations in a machine will likely be unstable.</p>
@@ -663,7 +662,7 @@ D(P\parallel Q) = H_P(Q) - H(P).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ca84a95178d92bfc54474454d3eef3d9e0756706250d6a7fb5c314ba4b223ec6.svg" src="../_images/ca84a95178d92bfc54474454d3eef3d9e0756706250d6a7fb5c314ba4b223ec6.svg" /></figure>
+<img alt="../_images/866bf8ffada3775cab6b8c75f701a3d13040d138e97f82d79f9fd05a61117578.svg" src="../_images/866bf8ffada3775cab6b8c75f701a3d13040d138e97f82d79f9fd05a61117578.svg" /></figure>
 </div>
 </div>
 <p>Note that all <span class="math notranslate nohighlight">\(x\)</span>-values between the endpoints <span class="math notranslate nohighlight">\(x=a\)</span> and <span class="math notranslate nohighlight">\(x=b\)</span> are of the form</p>
@@ -692,7 +691,7 @@ y = (1-t)h(a) + th(b).
 \[
 E_{s\sim p(s)}(h(s)) \leq h\big( E_{s\sim p(s)} (s) \big)
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(p(a) = 1-t\)</span> and <span class="math notranslate nohighlight">\(p(b) = t\)</span>. Jensen’s inequality is nothing but a generalization of these observations to arbitrary convex functions and probability measures:</p>
+<p>where <span class="math notranslate nohighlight">\(p(a) = 1-t\)</span> and <span class="math notranslate nohighlight">\(p(b) = t\)</span>. Jensen’s inequality is nothing but a generalization of these observations to arbitrary concave functions and probability measures:</p>
 <div class="proof theorem admonition" id="jensen-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 9.2 </span> (Jensen’s inequality)</p>
 <section class="theorem-content" id="proof-content">
@@ -703,7 +702,7 @@ E_{s\sim p(s)}(h(s)) \leq h\big( E_{s\sim p(s)} (s) \big).
 \]</div>
 <p>Provided <span class="math notranslate nohighlight">\(f\)</span> is <em>strictly concave</em>, equality holds if and only if the sample space <span class="math notranslate nohighlight">\(S\)</span> has cardinality <span class="math notranslate nohighlight">\(1\)</span>.</p>
 </section>
-</div><p>We will not give a proof of the full version of Jensen’s inequality, hoping that the discussion before the statement at least conveys some intuition for why it is true. For a proof, see Section 2.6 in <span id="id8">[<a class="reference internal" href="bib.html#id17" title="T. M. Cover and J. A. Thomas. Elements of information theory. John Wiley &amp; Sons, Inc., second edition, 2006.">CT06</a>]</span>, for example.</p>
+</div><p>We will not give a proof of the full version of Jensen’s inequality, hoping that the discussion before the statement at least conveys some intuition for why it is true. For a proof, see Section 2.6 in <span id="id10">[<a class="reference internal" href="bib.html#id17" title="T. M. Cover and J. A. Thomas. Elements of information theory. John Wiley &amp; Sons, Inc., second edition, 2006.">CT06</a>]</span>, for example.</p>
 <p>We now put Jensen’s inequality to use:</p>
 <div class="proof theorem admonition" id="gibbs-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 9.3 </span> (Gibbs’ inequality)</p>
@@ -779,25 +778,27 @@ H(P) = - \sum_{s\in S} p(s) \log_2(p(s))
 </section>
 <section id="flow-of-information">
 <span id="cond-entropy-mutual-info-sec"></span><h2><span class="section-number">9.3. </span>Flow of information<a class="headerlink" href="#flow-of-information" title="Permalink to this heading">#</a></h2>
-<p>In this section, we use the notions of entropy and KL divergence developed in the previous two sections to quantify the amount of “information” shared between two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. (As in the rest of this chapter, we shall restrict ourselves to random variables with finite ranges.) But to say that the random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> share information must mean that there is some sort of “communication channel” between them—how might we model such a channel?</p>
-<p>Working our way toward the answer, we first note that the cleanest way to transmit information from <span class="math notranslate nohighlight">\(X\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> is via a <em>deterministic link</em> between observed values. This would take the form of a function</p>
+<p>In this section, we use the information-theoretic measures developed in the previous sections to quantify the amount of “information” shared between two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, or the amount of “influence” that they exert on each other. (As in the rest of this chapter, we shall restrict ourselves to random variables with finite ranges.) But to say that the random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> share information must mean that there is some sort of “communication channel” between them—how might we model such a channel?</p>
+<p>As we mentioned at the beginning of <a class="reference internal" href="08-more-prob.html#covar-correl-sec"><span class="std std-numref">Section 8.5</span></a>, perhaps the cleanest way to transmit information from <span class="math notranslate nohighlight">\(X\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> is via a <em>deterministic link</em> between observed values. This would take the form of a function</p>
 <div class="math notranslate nohighlight">
 \[
-g: \bbr \to \bbr, \quad x\mapsto g(x),
+g: \bbr \to \bbr, \quad x \mapsto g(x),
 \]</div>
-<p>that sends an observation <span class="math notranslate nohighlight">\(x\)</span> (of <span class="math notranslate nohighlight">\(X\)</span>) to an observation <span class="math notranslate nohighlight">\(y = g(x)\)</span> (of <span class="math notranslate nohighlight">\(Y\)</span>). While these types of deterministic channels have their place in the theory (see <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>, for instance), they are not the sort of channels of primary interest in information theory. Indeed, Shannon’s main goal in the foundational paper <span id="id9">[<a class="reference internal" href="bib.html#id23" title="C. E. Shannon. A mathematical theory of communication. The Bell System Technical Journal, 27(3):379–423, 1948.">Sha48</a>]</span> was to quantify the transfer of information through imperfect “noisy” channels that introduce errors.</p>
-<p>So, even though it is too much to ask that an observation <span class="math notranslate nohighlight">\(x\)</span> <em>uniquely</em> determines an observation <span class="math notranslate nohighlight">\(y\)</span>, we still want to keep the general idea that <span class="math notranslate nohighlight">\(x\)</span> is the information carrier that is transmitted through the channel toward <span class="math notranslate nohighlight">\(Y\)</span>. But when <span class="math notranslate nohighlight">\(x\)</span> arrives at <span class="math notranslate nohighlight">\(Y\)</span>, it carries uncertainty with it, introduced by the “noise” in the channel. Uncertainty is modeled mathematically using probabilities, so what we are after is a notion of communcation channel that sends <span class="math notranslate nohighlight">\(x\)</span> to a probability distribution on the <span class="math notranslate nohighlight">\(y\)</span>’s. But this is <em>exactly</em> what conditional distributions are meant to model, and so we are led to replace the deterministic channel <span class="math notranslate nohighlight">\(x \mapsto g(x)\)</span> from above with the mapping</p>
+<p>such that <span class="math notranslate nohighlight">\(Y=g(X)\)</span>. Then, an observation <span class="math notranslate nohighlight">\(x\)</span> (of <span class="math notranslate nohighlight">\(X\)</span>) <em>uniquely</em> determines an observation <span class="math notranslate nohighlight">\(y = g(x)\)</span> (of <span class="math notranslate nohighlight">\(Y\)</span>). While these types of deterministic functional dependencies have their place in the theory (see <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>, for instance), they are not the sort of communication channels of primary interest in information theory. Indeed, Shannon’s main goal in the foundational paper <span id="id11">[<a class="reference internal" href="bib.html#id23" title="C. E. Shannon. A mathematical theory of communication. The Bell System Technical Journal, 27(3):379–423, 1948.">Sha48</a>]</span> was to quantify the transfer of information through imperfect “noisy” channels that introduce errors.</p>
+<p>So, even though it is too much to ask that an observation <span class="math notranslate nohighlight">\(x\)</span> <em>uniquely</em> determines an observation <span class="math notranslate nohighlight">\(y\)</span>, we still want to keep the general idea that <span class="math notranslate nohighlight">\(x\)</span> is the information carrier that is transmitted through the channel toward <span class="math notranslate nohighlight">\(Y\)</span>. But when <span class="math notranslate nohighlight">\(x\)</span> arrives at <span class="math notranslate nohighlight">\(Y\)</span>, it carries uncertainty with it, introduced by the “noise” in the channel. Uncertainty is modeled mathematically using probabilities, so what we are after is a notion of <em>communcation channel</em> that sends <span class="math notranslate nohighlight">\(x\)</span> to a probability distribution on the <span class="math notranslate nohighlight">\(y\)</span>’s. But this is <em>exactly</em> what conditional distributions are meant to model, and so we are led to replace the deterministic link <span class="math notranslate nohighlight">\(x \mapsto g(x)\)</span> from above with the mapping</p>
 <div class="math notranslate nohighlight" id="equation-markov-kern-eq">
 <span class="eqno">(9.6)<a class="headerlink" href="#equation-markov-kern-eq" title="Permalink to this equation">#</a></span>\[
 x \mapsto p(y | x)
 \]</div>
-<p>that sends <span class="math notranslate nohighlight">\(x\)</span> to the associated conditional distribution on the <span class="math notranslate nohighlight">\(y\)</span>’s. This is a strange mapping, as its domain is a Euclidean space, but its codomain is a <em>set of probability measures</em>! It is an example of something called a general <a class="reference external" href="https://en.wikipedia.org/wiki/Markov_kernel">Markov kernel</a>.</p>
-<p>We are led, then, to define a communication channel to essentially be a Markov kernel. But because students at this level might be uncomfortable with a mapping of the form <a class="reference internal" href="#equation-markov-kern-eq">(9.6)</a>, we “choose bases” and offer an alternate definition using matrices and vectors. So, if we suppose for simplicity that the ranges of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> have cardinalities <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(n\)</span>, respectively, then the conditional distributions may be doubly indexed as <span class="math notranslate nohighlight">\(p(y_j | x_i)\)</span>, for <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span> and <span class="math notranslate nohighlight">\(j=1,\ldots,n\)</span>. For ease of bookkeeping, it is natural to place these distributions into an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix</p>
+<p>that sends <span class="math notranslate nohighlight">\(x\)</span> to the associated conditional distribution on the <span class="math notranslate nohighlight">\(y\)</span>’s. In contrast to the deterministic link, this might be called a <em>stochastic link</em>. It is a strange mapping, as its domain is a Euclidean space, but its codomain is a <em>set of probability measures</em>! It is an example of something called a general <a class="reference external" href="https://en.wikipedia.org/wiki/Markov_kernel">Markov kernel</a>. The contrast between the two types of links is depicted in:</p>
+<a class="reference internal image-reference" href="../_images/markov-kern.svg"><img alt="../_images/markov-kern.svg" class="align-center" src="../_images/markov-kern.svg" width="85%" /></a>
+<p> </p>
+<p>We are led, then, to define a <em>communication channel</em> as essentially a Markov kernel. But because students at this level might be uncomfortable with a mapping of the form <a class="reference internal" href="#equation-markov-kern-eq">(9.6)</a> that outputs entire probability distributions, we take advantage of the fact that our random variables have finite ranges and “choose bases” to reformulate an alternate definition in terms of matrices and vectors. So, if we suppose for simplicity that the ranges of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> have cardinalities <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(n\)</span>, respectively, then the conditional distributions may be doubly indexed as <span class="math notranslate nohighlight">\(p(y_j | x_i)\)</span>, for <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span> and <span class="math notranslate nohighlight">\(j=1,\ldots,n\)</span>. For ease of bookkeeping (and other reasons), it is natural to place these distributions into an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix</p>
 <div class="math notranslate nohighlight">
 \[
 \bK = [p(y_j |x _i)].
 \]</div>
-<p>Holding the row index <span class="math notranslate nohighlight">\(i\)</span> fixed and summing over the columns, note that we have</p>
+<p>Holding the row index <span class="math notranslate nohighlight">\(i\)</span> fixed and summing over the columns, note that</p>
 <div class="math notranslate nohighlight">
 \[
 \sum_{j=1}^n p(y_j | x_i) = 1,
@@ -822,7 +823,7 @@ x \mapsto p(y | x)
 \[
 \kappa: \{1,2,\ldots,m\} \to \bbr^n
 \]</div>
-<p>such that each vector <span class="math notranslate nohighlight">\(\kappa(i)\in \bbr^n\)</span> is a stochastic vector. The <span class="math notranslate nohighlight">\(m\times n\)</span> matrix</p>
+<p>such that each vector <span class="math notranslate nohighlight">\(\kappa(i)\in \bbr^n\)</span> is a probability vector (i.e., a vector with nonnegative entries that sum to <span class="math notranslate nohighlight">\(1\)</span>). The <span class="math notranslate nohighlight">\(m\times n\)</span> matrix</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \bK = \begin{bmatrix} \leftarrow &amp; \kappa(1)^\intercal &amp; \rightarrow \\ \vdots &amp; \vdots &amp; \vdots \\ \leftarrow &amp; \kappa(m)^\intercal &amp; \rightarrow \end{bmatrix}
@@ -835,7 +836,7 @@ x \mapsto p(y | x)
 <section class="definition-content" id="proof-content">
 <p>A <em>communication channel</em> is a Markov kernel.</p>
 </section>
-</div><p>Notice that there is no mention of the random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. Indeed, this definition is meant to isolate and capture the channel itself, whereas the random vectors <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are separate components that are conceptualized as the “sender” and “receiver” hooked to the two ends of the channel.</p>
+</div><p>Notice that there is no mention of the random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> in this definition. Indeed, this definition is meant only to isolate and capture the channel itself, whereas the random vectors <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are separate components that are conceptualized as the “sender” and “receiver” hooked to the two ends of the channel.</p>
 <p>Our discussion preceding the definitions shows that every pair of random variables <span class="math notranslate nohighlight">\((X,Y)\)</span> (with finite ranges) determines a Markov kernel through the conditional distributions, and hence also a communication channel. Let’s formally record this fact:</p>
 <div class="proof theorem admonition" id="conditional-markov-kernel-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 9.4 </span> (Conditional distributions determine communication channels)</p>
@@ -856,12 +857,30 @@ p(y_1|x_m) &amp; \cdots &amp; p(y_n|x_m)
 \end{split}\]</div>
 <p>is the transition matrix of a Markov kernel.</p>
 </section>
-</div><p>Be sure to notice that the form of the transition matrix <a class="reference internal" href="#equation-trans-matrix-var-eq">(9.9)</a> depends on the enumerations of the ranges of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> in <a class="reference internal" href="#equation-ranges-eq">(9.8)</a>; if we change the numbering of the ranges, the transition matrix will change accordingly. Notice also that there is nothing special about the random variables, besides that they have finite ranges: <em>Every</em> configuration of conditional distributions determines a Markov kernel and thus a communication channel. This is just a new framework in which to conceptualize what conditional distributions <em>are</em>, and what they <em>do</em>. They are the exact mechanism that one random variable uses to send information or “exert influence” on another.</p>
+</div><p>Be sure to notice that the form of the transition matrix <a class="reference internal" href="#equation-trans-matrix-var-eq">(9.9)</a> depends on the enumerations of the ranges of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> in <a class="reference internal" href="#equation-ranges-eq">(9.8)</a>; if we change the numbering of the ranges, the transition matrix will change accordingly. For this reason, it is convenient to represent the transition matrices as tables like the following:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\bK = \left\{\begin{array}{c|cc}
+p(y|x) &amp; y=0 &amp; y=1 \\ \hline
+x = 0 &amp; 0.75 &amp; 0.25 \\
+x = 1 &amp; 0.6 &amp; 0.4
+\end{array}\right\}.
+\end{split}\]</div>
+<p>This is the transition matrix determined by two Bernoulli random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+<p>Notice that there is nothing special about the random variables in <a class="reference internal" href="#conditional-markov-kernel-thm">Theorem 9.4</a>, besides that they have finite ranges. Indeed, <em>every</em> conditional distribution determines a Markov kernel and thus a communication channel. This is just a new framework in which to conceptualize conditional distributions—they are the mechanism that one random variable uses to send “information” or exert “influence” on another.</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
 <p>Do Problem 6 on the worksheet.</p>
 </div>
-<p>We now seek a way to measure the amount of “information” that passes through a communication channel induced by a pair of random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> as in <a class="reference internal" href="#conditional-markov-kernel-thm">Theorem 9.4</a>. Our identification of such a measure begins by studying the case in which it is natural to believe that <em>no</em> information is passed, exactly when the communication channel is <em>constant</em>. But this turns out to have an interpretation in terms of an important previous concept:</p>
+<p>The induced communication channel in <a class="reference internal" href="#conditional-markov-kernel-thm">Theorem 9.4</a> has a directionality to it, from <span class="math notranslate nohighlight">\(X\)</span> to <span class="math notranslate nohighlight">\(Y\)</span>. However, there is also the communication channel in the other direction, induced by the conditional distributions <span class="math notranslate nohighlight">\(p(x|y)\)</span>. The mathematical mechanism that allows us to reverse the direction of “flow” is exactly Bayes’ theorem, since it states that</p>
+<div class="math notranslate nohighlight">
+\[
+p(x|y) = \frac{p(y|x)p(x)}{\sum_{x^\star \in \bbr} p(y|x^\star)p(x^\star)}.
+\]</div>
+<p>So, as long as we know the marginal mass functions <span class="math notranslate nohighlight">\(p(x)\)</span> and <span class="math notranslate nohighlight">\(p(y)\)</span>, Bayes’ theorem gives us a way to use one communication channel in one direction to obtain the other:</p>
+<a class="reference internal image-reference" href="../_images/comm-bayes.svg"><img alt="../_images/comm-bayes.svg" class="align-center" src="../_images/comm-bayes.svg" width="75%" /></a>
+<p> </p>
+<p>We now seek a way to measure the amount of “information” that passes through a communication channel induced by a pair of random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> as in <a class="reference internal" href="#conditional-markov-kernel-thm">Theorem 9.4</a>. Our identification of such a measure begins by studying the case in which it is natural to believe that <em>no</em> information is passed, exactly when the communication channel is <em>constant</em>. But this turns out to have an interpretation in terms of a familiar previous concept:</p>
 <div class="proof theorem admonition" id="ind-markov-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 9.5 </span> (Independence <span class="math notranslate nohighlight">\(=\)</span> constant Markov kernels)</p>
 <section class="theorem-content" id="proof-content">
@@ -921,12 +940,52 @@ p(x,y) = p(x)p(y),
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables with finite ranges. The <em>mutual information</em> shared between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, denoted <span class="math notranslate nohighlight">\(I(X,Y)\)</span>, is the KL divergence</p>
 <div class="math notranslate nohighlight">
 \[
-I(X, Y) \def D( P_{XY} \parallel P_{X} P_{Y}) = \sum_{(x,y)\in \bbr^2} p(x,y) \log_2\left( \frac{p(x,y)}{p(x)p(y)}\right).
+I(X, Y) \def D( P_{XY} \parallel P_{X} \otimes P_{Y}) = \sum_{(x,y)\in \bbr^2} p(x,y) \log_2\left( \frac{p(x,y)}{p(x)p(y)}\right).
 \]</div>
 </section>
-</div><p>Before we take a look at an example computation, it will be convenient to expression mutual information in terms of entropy:</p>
+</div><p>The notation <span class="math notranslate nohighlight">\(P_X \otimes P_Y\)</span> denotes the <a class="reference external" href="https://en.wikipedia.org/wiki/Product_measure"><em>product measure</em></a> on the Cartesian product of the ranges of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>; by definition, this is the measure that has mass function given by</p>
+<div class="math notranslate nohighlight">
+\[
+p_{P_X \otimes P_Y}(x,y) \def p(x)p(y).
+\]</div>
+<p>When the marginal distributions <span class="math notranslate nohighlight">\(P_X\)</span> and <span class="math notranslate nohighlight">\(P_Y\)</span> are expressed in terms of probability vectors, then the product measure is realized as the <a class="reference external" href="https://en.wikipedia.org/wiki/Outer_product"><em>outer product</em></a> of the vectors, which is also called their <a class="reference external" href="https://en.wikipedia.org/wiki/Tensor_product"><em>tensor product</em></a> by some people (like me).</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do Problem 7 on the worksheet.</p>
+</div>
+<p>Note that the mutual information <span class="math notranslate nohighlight">\(I(X,Y)\)</span> is always nonnegative, i.e.,</p>
+<div class="math notranslate nohighlight" id="equation-mutual-ineq-eq">
+<span class="eqno">(9.10)<a class="headerlink" href="#equation-mutual-ineq-eq" title="Permalink to this equation">#</a></span>\[
+I(X,Y) \geq 0.
+\]</div>
+<p>This is because mutual information is a KL divergence, and Gibbs’ inequality therefore applies (see <a class="reference internal" href="#gibbs-thm">Theorem 9.3</a>). As a sanity check, let’s make sure that equality holds in <a class="reference internal" href="#equation-mutual-ineq-eq">(9.10)</a> when (and only when) the communication channel carries no “information”:</p>
+<div class="proof theorem admonition" id="info-independence-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 9.6 </span> (Independence <span class="math notranslate nohighlight">\(=\)</span> zero mutual information)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables with finite ranges</p>
+<div class="math notranslate nohighlight">
+\[
+\{x_1,\ldots,x_m\} \quad \text{and} \quad \{y_1,\ldots,y_n\}.
+\]</div>
+<p>Then the following statements are equivalent:</p>
+<ol class="arabic">
+<li><p>The induced communication channel</p>
+<div class="math notranslate nohighlight">
+\[
+    \kappa: \{1,2,\ldots,m\} \to \bbr^n, \quad \kappa(i)^\intercal = \begin{bmatrix} p(y_1|x_i) &amp; \cdots &amp; p(y_n|x_i) \end{bmatrix},
+    \]</div>
+<p>is constant.</p>
+</li>
+<li><p>The random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent.</p></li>
+<li><p>The mutual information <span class="math notranslate nohighlight">\(I(X,Y) =0\)</span>.</p></li>
+</ol>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. The equivalence of the first two statements is exactly <a class="reference internal" href="#ind-markov-thm">Theorem 9.5</a>. The equivalence of the second and third follows from the Mass/Density Criteria for Independence (see <a class="reference internal" href="07-random-vectors.html#mass-density-ind-thm">Theorem 7.7</a>) and <a class="reference internal" href="#gibbs-thm">Theorem 9.3</a>. Q.E.D.</p>
+</div>
+<p>The mutual information between two random variables is <em>defined</em> to be a particular KL divergence, which links it up with one of the information-theoretic quantities from the previous sections. But it <em>also</em> can be expressed in terms of marginal and joint entropies:</p>
 <div class="proof theorem admonition" id="other-info-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 9.6 </span> (Mutual information and entropy)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 9.7 </span> (Mutual information and entropy)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables with finite ranges. Then:</p>
 <div class="math notranslate nohighlight">
@@ -946,10 +1005,92 @@ I(x,y) &amp;= \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2\left( \frac{p(x,y)
 \end{align*}\]</div>
 <p>as desired. Q.E.D.</p>
 </div>
-<div class="admonition-problem-prompt admonition">
-<p class="admonition-title">Problem Prompt</p>
-<p>Do Problem 7 on the worksheet.</p>
-</div>
+<p>Since the joint entropy <span class="math notranslate nohighlight">\(H(X,Y)\)</span> is symmetric in the random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, i.e., <span class="math notranslate nohighlight">\(H(X,Y) = H(Y,X)\)</span>, we get the following corollary:</p>
+<div class="proof corollary admonition" id="symm-info-thm">
+<p class="admonition-title"><span class="caption-number">Corollary 9.2 </span> (Symmetry of mutual information)</p>
+<section class="corollary-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be random variables with finite ranges. Then <span class="math notranslate nohighlight">\(I(X,Y) = I(Y,X)\)</span>.</p>
+</section>
+</div><p>We end this section by stating a fundamental inequality that provides further evidence that the abstract notion of <em>mutual information</em> accords with our intuition for transfer or flow of “information” or “influence.” Indeed, suppose that we have a triple of random variables <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>, and <span class="math notranslate nohighlight">\(Z\)</span>, and that we consider the “flows” going from one to the other in that order:</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>This is a very simple example of a <em>probabilistic graphical model</em> that we will study in more detail in <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>.</p>
+</aside>
+<a class="reference internal image-reference" href="../_images/markov.svg"><img alt="../_images/markov.svg" class="align-center" src="../_images/markov.svg" width="40%" /></a>
+<p> </p>
+<p>For a concrete running example, suppose we consider testing for the fictional(!) disease <em>hydromechanical trepidation syndrome</em> (or <em>HTS</em>) that we met back in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_03.ipynb">programming assignment</a> for <a class="reference internal" href="03-rules-of-prob.html#rules-prob"><span class="std std-numref">Chapter 3</span></a>. Suppose <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are (Bernoulli) indicator variables for the presence of the disease and the result of the test:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+X = \left\{\begin{array}{cl}
+0 &amp; : \text{do not have disease} \\
+1 &amp; : \text{have disease}
+\end{array}\right\} \quad\quad \text{and} \quad\quad Y = \left\{\begin{array}{cl}
+0 &amp; : \text{test negative} \\
+1 &amp; : \text{test positive}
+\end{array} \right\}.
+\end{split}\]</div>
+<p>Suppose, furthermore, that depending on the result of the test, the subject may leave on their annual vacation—this means that we have a third indicator variable:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+Z = \left\{\begin{array}{cl}
+0 &amp; : \text{do not go on vacation} \\
+1 &amp; : \text{go on vacation}
+\end{array}\right\}.
+\end{split}\]</div>
+<p>Note that the natural of flow of “influence” would indeed go in the order <span class="math notranslate nohighlight">\(X \to Y \to Z\)</span> displayed above.</p>
+<p>It is also natural to assume that the <em>only</em> way that the presence of the disease <span class="math notranslate nohighlight">\(X\)</span> influences a person’s decision <span class="math notranslate nohighlight">\(Z\)</span> to leave on vacation travels through the result of the test <span class="math notranslate nohighlight">\(Y\)</span>. There should be <em>no</em> direct influence from <span class="math notranslate nohighlight">\(X\)</span> to <span class="math notranslate nohighlight">\(Z\)</span>, which would be indicated by a third directed edge in the graph:</p>
+<a class="reference internal image-reference" href="../_images/markov-02.svg"><img alt="../_images/markov-02.svg" class="align-center" src="../_images/markov-02.svg" width="40%" /></a>
+<p> </p>
+<p>Another way to understand the absence of a <em>direct</em> influence from <span class="math notranslate nohighlight">\(X\)</span> to <span class="math notranslate nohighlight">\(Z\)</span> (that bypasses <span class="math notranslate nohighlight">\(Y\)</span>) is to say that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> are <em>conditionally independent</em> given <span class="math notranslate nohighlight">\(Y\)</span>. This means that if a subject knows the result of their test (<span class="math notranslate nohighlight">\(Y=0\)</span> or <span class="math notranslate nohighlight">\(Y=1\)</span>), then whether they leave on vacation (<span class="math notranslate nohighlight">\(Z=0\)</span> or <span class="math notranslate nohighlight">\(Z=1\)</span>) is independent of whether they actually have the disease (<span class="math notranslate nohighlight">\(X=0\)</span> or <span class="math notranslate nohighlight">\(X=1\)</span>). Formally:</p>
+<div class="proof definition admonition" id="cond-ind-def">
+<p class="admonition-title"><span class="caption-number">Definition 9.8 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>, and <span class="math notranslate nohighlight">\(Z\)</span> be three random variables.</p>
+<ol class="arabic">
+<li><p>If the variables are jointly discrete, then we shall say <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> are <em>conditionally independent</em> given <span class="math notranslate nohighlight">\(Y\)</span> if</p>
+<div class="math notranslate nohighlight">
+\[
+    p(x,z|y) = p(x|y)p(z|y)
+    \]</div>
+<p>for all <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span>.</p>
+</li>
+<li><p>If the variables are jointly continuous, then we shall say <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> are <em>conditionally independent</em> given <span class="math notranslate nohighlight">\(Y\)</span> if</p>
+<div class="math notranslate nohighlight">
+\[
+    f(x,z|y) = f(x|y)f(z|y)
+    \]</div>
+<p>for all <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span>.</p>
+</li>
+</ol>
+</section>
+</div><p>So, in probabilistic models of the form</p>
+<a class="reference internal image-reference" href="../_images/markov.svg"><img alt="../_images/markov.svg" class="align-center" src="../_images/markov.svg" width="40%" /></a>
+<p> </p>
+<p>we always assume that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> are conditionally independent given <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+<p>With this language, we now state the following fundamental inequality.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>The name of this inequality is inspired by engineering applications. However, it is purely a result in abstract information theory. For a proof, see Section 2.8 in <span id="id12">[<a class="reference internal" href="bib.html#id17" title="T. M. Cover and J. A. Thomas. Elements of information theory. John Wiley &amp; Sons, Inc., second edition, 2006.">CT06</a>]</span> or the solutions to the exercises in Section 8 of <span id="id13">[<a class="reference internal" href="bib.html#id25" title="D. J. C. MacKay. Information theory, inference and learning algorithms. Cambridge University Press, 2003.">Mac03</a>]</span>.</p>
+</aside>
+<div class="proof theorem admonition" id="data-processing-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 9.8 </span> (Data Processing Inequality)</p>
+<section class="theorem-content" id="proof-content">
+<p>Suppose <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>, and <span class="math notranslate nohighlight">\(Z\)</span> are three random variables with finite ranges, and suppose that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> are conditionally independent given <span class="math notranslate nohighlight">\(Y\)</span>. Then</p>
+<div class="math notranslate nohighlight" id="equation-data-processing-eq">
+<span class="eqno">(9.11)<a class="headerlink" href="#equation-data-processing-eq" title="Permalink to this equation">#</a></span>\[
+I(X,Z) \leq I(X,Y),
+\]</div>
+<p>with equality if and only if <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent given <span class="math notranslate nohighlight">\(Z\)</span>.</p>
+</section>
+</div><p>In plain language, the inequality states that the amount of information that flows from <span class="math notranslate nohighlight">\(X\)</span> to <span class="math notranslate nohighlight">\(Z\)</span> along the graph</p>
+<a class="reference internal image-reference" href="../_images/markov.svg"><img alt="../_images/markov.svg" class="align-center" src="../_images/markov.svg" width="40%" /></a>
+<p> </p>
+<p>can be no more than the amount of “information” that flows directly from <span class="math notranslate nohighlight">\(X\)</span> to <span class="math notranslate nohighlight">\(Y\)</span>. Indeed, if this were <em>not</em> the case, then we must imagine that somehow additional “information” is “created” in the link from <span class="math notranslate nohighlight">\(Y\)</span> to <span class="math notranslate nohighlight">\(Z\)</span>. But intuition suggests that that is not possible.</p>
+<p>In our disease model, the inequality <a class="reference internal" href="#equation-data-processing-eq">(9.11)</a> is telling us that the amount of “influence” that the presence of the disease has on a subject’s decision to leave on vacation is no more than the amount of “influence” that the result of the test has on the decision. Moreover, in the case that equality holds in <a class="reference internal" href="#equation-data-processing-eq">(9.11)</a>, then we have a model of the form</p>
+<a class="reference internal image-reference" href="../_images/markov-03.svg"><img alt="../_images/markov-03.svg" class="align-center" src="../_images/markov-03.svg" width="40%" /></a>
+<p> </p>
+<p>showing that whether a subject leaves on vacation is just as good a test of whether they have the disease as the actual test. In other words, knowing whether a subject leaves on vacation renders the presence of the disease and the result of the test independent of each other; intuitively, all the “information” that <span class="math notranslate nohighlight">\(Y\)</span> carries about <span class="math notranslate nohighlight">\(X\)</span> is absorbed into <span class="math notranslate nohighlight">\(Z\)</span>.</p>
+<p>You will have an opportunity to work with the disease/test/vacation probabilistic model in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-9-the-data-processing-inequality">homework</a> for this chapter.</p>
 </section>
 </section>
 

@@ -796,9 +796,12 @@ E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
 </div>
 </section>
 <section id="dependent-random-variables-covariance-and-correlation">
-<h2><span class="section-number">8.5. </span>Dependent random variables, covariance, and correlation<a class="headerlink" href="#dependent-random-variables-covariance-and-correlation" title="Permalink to this heading">#</a></h2>
-<p>If two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are <em>not</em> <a class="reference internal" href="07-random-vectors.html#independence"><span class="std std-ref">independent</span></a>, then (naturally) they are called <em>dependent</em>. Our goal in this section is to study two quantities, called <em>covariance</em> and <em>correlation</em>, that measure the strength of the <em>linear</em> dependence between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. An alternate measure of more general dependence, called <em>mutual information</em>, will be studied in the <a class="reference internal" href="09-info-theory.html#information-theory"><span class="std std-ref">next chapter</span></a>.</p>
-<p>To initiate our study of <em>covariance</em> and <em>correlation</em>, let’s begin by discussing a pair of <em>functionally</em> dependent random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, by which I mean that <span class="math notranslate nohighlight">\(Y = g(X)\)</span> for some function <span class="math notranslate nohighlight">\(g\)</span>. In this case, observed values <span class="math notranslate nohighlight">\(x\)</span> deterministically yield observed values <span class="math notranslate nohighlight">\(y=g(x)\)</span>, and it would therefore make sense that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are dependent. This suspicion is confirmed in the following simple result:</p>
+<span id="covar-correl-sec"></span><h2><span class="section-number">8.5. </span>Dependent random variables, covariance, and correlation<a class="headerlink" href="#dependent-random-variables-covariance-and-correlation" title="Permalink to this heading">#</a></h2>
+<p>In this section, we begin our study of <em>dependent</em> random variables, which are just random variables that are not independent. This study will continue through <a class="reference internal" href="09-info-theory.html#cond-entropy-mutual-info-sec"><span class="std std-numref">Section 9.3</span></a> in the next chapter, and then culminate in <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a> where we learn how to use “networks” of dependent random variables to model real-world data.</p>
+<p>While the definition of dependence of random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> is simply that they are <em>not independent</em>, it is helpful to conceptualize dependence as a flow of “information” or “influence” between them. If they are independent, then this flow vanishes and there is no transfer of “information”:</p>
+<a class="reference internal image-reference" href="../_images/dep-flow.svg"><img alt="../_images/dep-flow.svg" class="align-center" src="../_images/dep-flow.svg" width="75%" /></a>
+<p> </p>
+<p>The most straightforward method to guarantee a transfer of “information” between the variables is to link them deterministically via a function <span class="math notranslate nohighlight">\(g:\bbr \to \bbr\)</span>, in the sense that <span class="math notranslate nohighlight">\(Y = g(X)\)</span>. This means that an observed value <span class="math notranslate nohighlight">\(x\)</span> (of <span class="math notranslate nohighlight">\(X\)</span>) <em>uniquely</em> determines an observed value <span class="math notranslate nohighlight">\(y=g(x)\)</span> (of <span class="math notranslate nohighlight">\(Y\)</span>). For random variables linked in this way, we prove what should be an intuitively obvious result:</p>
 <div class="proof theorem admonition" id="functional-dep-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 8.12 </span> (Functional dependence <span class="math notranslate nohighlight">\(\Rightarrow\)</span> dependence)</p>
 <section class="theorem-content" id="proof-content">
@@ -884,10 +887,10 @@ g(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/93a4952b22c598389989cdccc6afd45bccd95b546b62c536ab2a809664731db3.svg" src="../_images/93a4952b22c598389989cdccc6afd45bccd95b546b62c536ab2a809664731db3.svg" /></figure>
+<img alt="../_images/cc55d19849a66abfd44c2b8c5acc5d9ecddd440c4673caf6e2b35c057ea9fd5b.svg" src="../_images/cc55d19849a66abfd44c2b8c5acc5d9ecddd440c4673caf6e2b35c057ea9fd5b.svg" /></figure>
 </div>
 </div>
-<p>The plot looks exactly like we would expect: A bunch of points lying on the graph of the function <span class="math notranslate nohighlight">\(y=g(x)\)</span>. However, very often with real-world data, an <em>exact</em> functional dependence <span class="math notranslate nohighlight">\(Y = g(X)\)</span> does not truly hold. Instead, the functional relationship is “noisy”, resulting in scatter plots that look like this:</p>
+<p>The plot looks exactly like we would expect: A bunch of points lying on the graph of the function <span class="math notranslate nohighlight">\(y=g(x)\)</span>. However, very often with real-world data, an <em>exact</em> dependence <span class="math notranslate nohighlight">\(Y = g(X)\)</span> does not truly hold. Instead, the functional relationship is “noisy”, resulting in scatter plots that look like this:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -916,7 +919,7 @@ g(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/40c35dc05d9df5d927fe6e7fbc006e0288f18b8accfb62de89d03ced59a43cf3.svg" src="../_images/40c35dc05d9df5d927fe6e7fbc006e0288f18b8accfb62de89d03ced59a43cf3.svg" /></figure>
+<img alt="../_images/051e10b33d5454bb35b1b56c02fb00a68658393f1efd2bc97d4849dd6d40f231.svg" src="../_images/051e10b33d5454bb35b1b56c02fb00a68658393f1efd2bc97d4849dd6d40f231.svg" /></figure>
 </div>
 </div>
 <p>The “noisy” functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function <span class="math notranslate nohighlight">\(y=g(x)\)</span> for reference. Instead of lying directly on the graph of <span class="math notranslate nohighlight">\(y=g(x)\)</span>, the data is clustered along the graph.</p>
@@ -950,10 +953,10 @@ g(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/58dbabfff8e92a44d7b29b3788376912f2dccf420532ad4ee9903c5de0528693.svg" src="../_images/58dbabfff8e92a44d7b29b3788376912f2dccf420532ad4ee9903c5de0528693.svg" /></figure>
+<img alt="../_images/3889ab9b6c85332b851f31dc6187b0e98c5e2aa6d71be679fbfe23eed42f192f.svg" src="../_images/3889ab9b6c85332b851f31dc6187b0e98c5e2aa6d71be679fbfe23eed42f192f.svg" /></figure>
 </div>
 </div>
-<p>As I mentioned in the introduction, our goal in this section is to uncover ways to <em>quantify</em> or <em>measure</em> the strength of “noisy” linear dependencies between random variables. We will discover that there are two such measures, called <em>covariance</em> and <em>correlation</em>.</p>
+<p>Our goal in this section is to uncover ways to <em>quantify</em> or <em>measure</em> the strength of these types of “noisy” linear dependencies between random variables. We will discover that there are two such measures, called <em>covariance</em> and <em>correlation</em>. An alternate measure of more general dependence, called <em>mutual information</em>, will be studied in the next chapter in <a class="reference internal" href="09-info-theory.html#cond-entropy-mutual-info-sec"><span class="std std-numref">Section 9.3</span></a>.</p>
 <p>The definition of <em>covariance</em> is based on the following pair of basic observations:</p>
 <blockquote>
 <div><p>Let <span class="math notranslate nohighlight">\((x,y)\)</span> be an observation of a two-dimensional random vector <span class="math notranslate nohighlight">\((X,Y)\)</span></p>
@@ -962,6 +965,9 @@ g(x) = x(x-1)(x-2)
 <li><p>If the observed values of <span class="math notranslate nohighlight">\((X,Y)\)</span> cluster along a line of <em>negative</em> slope, then a large (small) value <span class="math notranslate nohighlight">\(x\)</span> tends to be paired with a small (large) value <span class="math notranslate nohighlight">\(y\)</span>.</p></li>
 </ol>
 </div></blockquote>
+<p>The visualizations that go along with these observations are:</p>
+<a class="reference internal image-reference" href="../_images/corr-01.svg"><img alt="../_images/corr-01.svg" class="align-center" src="../_images/corr-01.svg" width="75%" /></a>
+<p> </p>
 <p>In order to extract something useful from these observations, it is convenient to <em>center</em> the dataset by subtracting off the means:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1009,7 +1015,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c3b3e55f7ccbddf6f74cb77511159ea99aab6c5e8e4910986fb2995a880ac42e.svg" src="../_images/c3b3e55f7ccbddf6f74cb77511159ea99aab6c5e8e4910986fb2995a880ac42e.svg" /></figure>
+<img alt="../_images/3118b410b386348d2e5e3a5fe43ff8446cf9e1e4dbadd7853db184373d384a25.svg" src="../_images/3118b410b386348d2e5e3a5fe43ff8446cf9e1e4dbadd7853db184373d384a25.svg" /></figure>
 </div>
 </div>
 <p>You can see that the dataset has not changed its shape—it has only shifted so that its mean (represented by the magenta dot) is at the origin <span class="math notranslate nohighlight">\((0,0)\)</span>.</p>
@@ -1021,6 +1027,9 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 <li><p>If the observed values of <span class="math notranslate nohighlight">\((X,Y)\)</span> cluster along a line of <em>negative</em> slope, then <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> tend to have opposite signs, i.e., <span class="math notranslate nohighlight">\(xy&lt;0\)</span>.</p></li>
 </ol>
 </div></blockquote>
+<p>The new visualization is:</p>
+<a class="reference internal image-reference" href="../_images/corr-02.svg"><img alt="../_images/corr-02.svg" class="align-center" src="../_images/corr-02.svg" width="75%" /></a>
+<p> </p>
 <p>Essentially, the next definition takes the average value of the product <span class="math notranslate nohighlight">\(xy\)</span>, as <span class="math notranslate nohighlight">\((x,y)\)</span> ranges over observed pairs of values of a centered random vector <span class="math notranslate nohighlight">\((X,Y)\)</span>. If this average value is positive, it suggests a (noisy) linear dependence with positive slope; if it is negative, it suggests a (noisy) linear dependence with negative slope. If the random variables are not centered, then we subtract off their means before computing the product and taking its average value.</p>
 <div class="proof definition admonition" id="covar-def">
 <p class="admonition-title"><span class="caption-number">Definition 8.4 </span></p>
@@ -1062,7 +1071,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </div>
 <p>A pair of very useful properties of covariance are listed in the following:</p>
 <div class="proof theorem admonition" id="bilinear-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.14 </span> (Covariance = symmetric bilinear form)</p>
+<p class="admonition-title"><span class="caption-number">Theorem 8.14 </span> (Covariance <span class="math notranslate nohighlight">\(=\)</span> symmetric bilinear form)</p>
 <section class="theorem-content" id="proof-content">
 <ol class="arabic">
 <li><p><em>Symmetry</em>. If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are random variables, then <span class="math notranslate nohighlight">\(\sigma_{XY} = \sigma_{YX}\)</span>.</p></li>
@@ -1134,7 +1143,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/5111f042ca05ffcc17aca153f666bb7fc945a8242e7ed4dec97eb77a5223d4c9.svg" src="../_images/5111f042ca05ffcc17aca153f666bb7fc945a8242e7ed4dec97eb77a5223d4c9.svg" /></figure>
+<img alt="../_images/e3177a51cb03d920fe6c4f8f8c6e7b6c6f838c550a419758af749ebe37699353.svg" src="../_images/e3177a51cb03d920fe6c4f8f8c6e7b6c6f838c550a419758af749ebe37699353.svg" /></figure>
 </div>
 </div>
 <p>The only difference between the two datasets is the axis scales, but the linear relationship between the <span class="math notranslate nohighlight">\(x\)</span>’s and <span class="math notranslate nohighlight">\(y\)</span>’s remains the same. In fact, the scales on the axes differ by a factor of <span class="math notranslate nohighlight">\(10\)</span>, so by <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>, we have</p>
@@ -1177,12 +1186,12 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 </div>
 <p>Remember, covariance and correlation were cooked up to measure linear dependencies between random variables. We wonder, then, what is the correlation between two random variables that are <em>perfectly</em> linearly dependent? Answer:</p>
 <div class="proof theorem admonition" id="linearity-correlation-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 8.17 </span></p>
+<p class="admonition-title"><span class="caption-number">Theorem 8.17 </span> (Correlation of linearly dependent random variables)</p>
 <section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable and <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> constants with <span class="math notranslate nohighlight">\(a\neq 0\)</span>. Then</p>
+<p>Let <span class="math notranslate nohighlight">\(X\)</span> be a random variable, let <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> constants with <span class="math notranslate nohighlight">\(a\neq 0\)</span>, and set <span class="math notranslate nohighlight">\(Y = aX+b\)</span>. Then</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\rho(X,aX+b) = \begin{cases}
+\rho(X,Y) = \begin{cases}
 1 &amp; : a&gt;0, \\
 -1 &amp; : a &lt; 0.
 \end{cases}
@@ -1192,7 +1201,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 <p>Proof. The proof is a simple computation, similar to the proof of scale invariance from above:</p>
 <div class="math notranslate nohighlight">
 \[
-\rho(X,aX+b) = \frac{a\sigma(X,X)+\sigma(X,b)}{\sigma_X\sigma_{aX+b}} = \frac{a V(X)}{\sqrt{V(X)}\sqrt{a^2V(X)}} = \frac{a}{|a|}.
+\rho(X,Y) = \frac{a\sigma(X,X)+\sigma(X,b)}{\sigma_X\sigma_{aX+b}} = \frac{a V(X)}{\sqrt{V(X)}\sqrt{a^2V(X)}} = \frac{a}{|a|}.
 \]</div>
 </div>
 <p>We give a name to two random variables whose correlation is zero:</p>
@@ -1369,7 +1378,7 @@ f(x,y) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2824d444cda2cbb8523607da64fb1af08fa72981a84fa4938facdf4f272e1778.svg" src="../_images/2824d444cda2cbb8523607da64fb1af08fa72981a84fa4938facdf4f272e1778.svg" /></figure>
+<img alt="../_images/d714d361cfb9a2f5950689da5be882123e2d3b25e708cd77f12ce1a5a5f7968d.svg" src="../_images/d714d361cfb9a2f5950689da5be882123e2d3b25e708cd77f12ce1a5a5f7968d.svg" /></figure>
 </div>
 </div>
 <p>Notice that these contours are concentric ellipses centered at the point <span class="math notranslate nohighlight">\((1,1)\in \bbr^2\)</span> with principal axes parallel to the coordinate <span class="math notranslate nohighlight">\(x\)</span>- and <span class="math notranslate nohighlight">\(y\)</span>-axes. In higher dimensions, the isoprobability surfaces are so-called <em>ellipsoids</em>.</p>
@@ -1418,7 +1427,7 @@ f(x_1,\ldots,x_d) = \frac{1}{(2\pi)^{d/2} (\sigma_1^2\cdots \sigma_d^2)^{1/2}} \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ad46dbfe64525ed977f73dd2cdd1f76efffbeea91bfa09fbf07cf41e0e776d52.svg" src="../_images/ad46dbfe64525ed977f73dd2cdd1f76efffbeea91bfa09fbf07cf41e0e776d52.svg" /></figure>
+<img alt="../_images/8be9f9e072ec884d5df8be9cda8836539ff1e6f24508fe7cd64ea5282ba3c377.svg" src="../_images/8be9f9e072ec884d5df8be9cda8836539ff1e6f24508fe7cd64ea5282ba3c377.svg" /></figure>
 </div>
 </div>
 <p>The key to uncovering the formula for the density in the general case begins by returning to the formula <a class="reference internal" href="#equation-init-multi-var-norm-eqn">(8.11)</a> and rewriting it using vector and matrix notation. Indeed, notice that if we set</p>
@@ -1514,7 +1523,7 @@ Q(\bx) = c^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/9431c829eca8c14706d5ca5817e6037c620f6bb1162d69564fe4f353fe581c47.svg" src="../_images/9431c829eca8c14706d5ca5817e6037c620f6bb1162d69564fe4f353fe581c47.svg" /></figure>
+<img alt="../_images/a93cba5979dfa1c634cf8a3e83f7e6a3bd22aacb909b60d834edfdb7ef573473.svg" src="../_images/a93cba5979dfa1c634cf8a3e83f7e6a3bd22aacb909b60d834edfdb7ef573473.svg" /></figure>
 </div>
 </div>
 <p>Let’s collect our observations in the following theorem, along with a few additional facts:</p>
@@ -1663,7 +1672,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/bdb761f28469c82e57e1abadea374d7d91fb28746c648203f07135139db94232.svg" src="../_images/bdb761f28469c82e57e1abadea374d7d91fb28746c648203f07135139db94232.svg" /></figure>
+<img alt="../_images/19db1fe91192140f05534325ad95f1d59b0eb5355bd825e9fa052aa3e799f85b.svg" src="../_images/19db1fe91192140f05534325ad95f1d59b0eb5355bd825e9fa052aa3e799f85b.svg" /></figure>
 </div>
 </div>
 <p>In the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">programming assignment</a> for this chapter, you will actually implement this procedure. For example, I used these methods to simulate <span class="math notranslate nohighlight">\(1{,}000\)</span> random draws from a bivariate normal distribution with positively correlated components and which is taller than it is wide. If I plot these simulated data over top of isoprobability contours, I get this:</p>
@@ -1700,7 +1709,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/b49afc14912ffb558ac65a08295e9cfc39d2e76b5ee1493a790756467dd3d2cd.svg" src="../_images/b49afc14912ffb558ac65a08295e9cfc39d2e76b5ee1493a790756467dd3d2cd.svg" /></figure>
+<img alt="../_images/1e52be69b6306d1f7c08cd014d3e8c028530a95fa8137b77451b64e892628d68.svg" src="../_images/1e52be69b6306d1f7c08cd014d3e8c028530a95fa8137b77451b64e892628d68.svg" /></figure>
 </div>
 </div>
 <p>Let’s finish off this long chapter with an example problem:</p>

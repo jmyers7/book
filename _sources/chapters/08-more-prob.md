@@ -579,12 +579,20 @@ Do problem 9 on the worksheet.
 
 
 
-
+(covar-correl-sec)=
 ## Dependent random variables, covariance, and correlation
 
-If two random variables $X$ and $Y$ are _not_ [independent](independence), then (naturally) they are called _dependent_. Our goal in this section is to study two quantities, called _covariance_ and _correlation_, that measure the strength of the _linear_ dependence between $X$ and $Y$. An alternate measure of more general dependence, called _mutual information_, will be studied in the [next chapter](information-theory).
+In this section, we begin our study of _dependent_ random variables, which are just random variables that are not independent. This study will continue through {numref}`cond-entropy-mutual-info-sec` in the next chapter, and then culminate in {numref}`Chapter %s <prob-models>` where we learn how to use "networks" of dependent random variables to model real-world data.
 
-To initiate our study of _covariance_ and _correlation_, let's begin by discussing a pair of _functionally_ dependent random variables $X$ and $Y$, by which I mean that $Y = g(X)$ for some function $g$. In this case, observed values $x$ deterministically yield observed values $y=g(x)$, and it would therefore make sense that $X$ and $Y$ are dependent. This suspicion is confirmed in the following simple result:
+While the definition of dependence of random variables $X$ and $Y$ is simply that they are _not independent_, it is helpful to conceptualize dependence as a flow of "information" or "influence" between them. If they are independent, then this flow vanishes and there is no transfer of "information":
+
+```{image} ../img/dep-flow.svg
+:width: 75%
+:align: center
+```
+&nbsp;
+
+The most straightforward method to guarantee a transfer of "information" between the variables is to link them deterministically via a function $g:\bbr \to \bbr$, in the sense that $Y = g(X)$. This means that an observed value $x$ (of $X$) _uniquely_ determines an observed value $y=g(x)$ (of $Y$). For random variables linked in this way, we prove what should be an intuitively obvious result:
 
 ```{prf:theorem} Functional dependence $\Rightarrow$ dependence
 :label: functional-dep-thm
@@ -677,7 +685,7 @@ plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
-The plot looks exactly like we would expect: A bunch of points lying on the graph of the function $y=g(x)$. However, very often with real-world data, an *exact* functional dependence $Y = g(X)$ does not truly hold. Instead, the functional relationship is "noisy", resulting in scatter plots that look like this:
+The plot looks exactly like we would expect: A bunch of points lying on the graph of the function $y=g(x)$. However, very often with real-world data, an *exact* dependence $Y = g(X)$ does not truly hold. Instead, the functional relationship is "noisy", resulting in scatter plots that look like this:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -730,13 +738,21 @@ for i, m in enumerate(m):
 plt.tight_layout()
 ```
 
-As I mentioned in the introduction, our goal in this section is to uncover ways to _quantify_ or _measure_ the strength of "noisy" linear dependencies between random variables. We will discover that there are two such measures, called _covariance_ and _correlation_.
+Our goal in this section is to uncover ways to _quantify_ or _measure_ the strength of these types of "noisy" linear dependencies between random variables. We will discover that there are two such measures, called _covariance_ and _correlation_. An alternate measure of more general dependence, called _mutual information_, will be studied in the next chapter in {numref}`cond-entropy-mutual-info-sec`.
 
 The definition of _covariance_ is based on the following pair of basic observations:
 
 > Let $(x,y)$ be an observation of a two-dimensional random vector $(X,Y)$
 > 1. If the observed values of $(X,Y)$ cluster along a line of _positive_ slope, then $x$ and $y$ tend to be large (small) at the same time.
 > 2. If the observed values of $(X,Y)$ cluster along a line of _negative_ slope, then a large (small) value $x$ tends to be paired with a small (large) value $y$.
+
+The visualizations that go along with these observations are:
+
+```{image} ../img/corr-01.svg
+:width: 75%
+:align: center
+```
+&nbsp;
 
 In order to extract something useful from these observations, it is convenient to _center_ the dataset by subtracting off the means:
 
@@ -791,6 +807,14 @@ The reason that we center the data is that it allows us to conveniently rephrase
 > 1. If the observed values of $(X,Y)$ cluster along a line of _positive_ slope, then $x$ and $y$ tend to have the same sign, i.e., $xy>0$.
 > 2. If the observed values of $(X,Y)$ cluster along a line of _negative_ slope, then $x$ and $y$ tend to have opposite signs, i.e., $xy<0$.
 
+The new visualization is:
+
+```{image} ../img/corr-02.svg
+:width: 75%
+:align: center
+```
+&nbsp;
+
 Essentially, the next definition takes the average value of the product $xy$, as $(x,y)$ ranges over observed pairs of values of a centered random vector $(X,Y)$. If this average value is positive, it suggests a (noisy) linear dependence with positive slope; if it is negative, it suggests a (noisy) linear dependence with negative slope. If the random variables are not centered, then we subtract off their means before computing the product and taking its average value.
 
 ```{prf:definition}
@@ -841,7 +865,7 @@ Do problem 10 on the worksheet.
 
 A pair of very useful properties of covariance are listed in the following:
 
-```{prf:theorem} Covariance = symmetric bilinear form
+```{prf:theorem} Covariance $=$ symmetric bilinear form
 :label: bilinear-thm
 
 1. _Symmetry_. If $X$ and $Y$ are random variables, then $\sigma_{XY} = \sigma_{YX}$.
@@ -962,13 +986,13 @@ The symmetry property of correlation follows from the same property of covarianc
 
 Remember, covariance and correlation were cooked up to measure linear dependencies between random variables. We wonder, then, what is the correlation between two random variables that are _perfectly_ linearly dependent? Answer:
 
-```{prf:theorem}
+```{prf:theorem} Correlation of linearly dependent random variables
 :label: linearity-correlation-thm
 
-Let $X$ be a random variable and $a$ and $b$ constants with $a\neq 0$. Then
+Let $X$ be a random variable, let $a$ and $b$ constants with $a\neq 0$, and set $Y = aX+b$. Then
 
 $$
-\rho(X,aX+b) = \begin{cases}
+\rho(X,Y) = \begin{cases}
 1 & : a>0, \\
 -1 & : a < 0.
 \end{cases}
@@ -979,7 +1003,7 @@ $$
 The proof is a simple computation, similar to the proof of scale invariance from above:
 
 $$
-\rho(X,aX+b) = \frac{a\sigma(X,X)+\sigma(X,b)}{\sigma_X\sigma_{aX+b}} = \frac{a V(X)}{\sqrt{V(X)}\sqrt{a^2V(X)}} = \frac{a}{|a|}.
+\rho(X,Y) = \frac{a\sigma(X,X)+\sigma(X,b)}{\sigma_X\sigma_{aX+b}} = \frac{a V(X)}{\sqrt{V(X)}\sqrt{a^2V(X)}} = \frac{a}{|a|}.
 $$
 ```
 
