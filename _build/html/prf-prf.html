@@ -339,6 +339,7 @@ document.write(`
    <a href="#cap-combination-def"><strong>combination-def</strong></a> | 
    <a href="#cap-comm-channel-def"><strong>comm-channel-def</strong></a> | 
    <a href="#cap-components-multivar-norm-thm"><strong>components-multivar-norm-thm</strong></a> | 
+   <a href="#cap-cond-ind-def"><strong>cond-ind-def</strong></a> | 
    <a href="#cap-condition-event-def"><strong>condition-event-def</strong></a> | 
    <a href="#cap-conditional-exp-def"><strong>conditional-exp-def</strong></a> | 
    <a href="#cap-conditional-ind-rvs-thm"><strong>conditional-ind-rvs-thm</strong></a> | 
@@ -357,6 +358,7 @@ document.write(`
    <a href="#cap-covar-def"><strong>covar-def</strong></a> | 
    <a href="#cap-covar-matrix-prop-thm"><strong>covar-matrix-prop-thm</strong></a> | 
    <a href="#cap-cross-entropy-def"><strong>cross-entropy-def</strong></a> | 
+   <a href="#cap-data-processing-thm"><strong>data-processing-thm</strong></a> | 
    <a href="#cap-definite-def"><strong>definite-def</strong></a> | 
    <a href="#cap-derivatives-mgf-thm"><strong>derivatives-mgf-thm</strong></a> | 
    <a href="#cap-directional-der-def"><strong>directional-der-def</strong></a> | 
@@ -409,6 +411,7 @@ document.write(`
    <a href="#cap-independence-defn"><strong>independence-defn</strong></a> | 
    <a href="#cap-independent-event-def"><strong>independent-event-def</strong></a> | 
    <a href="#cap-info-content-def"><strong>info-content-def</strong></a> | 
+   <a href="#cap-info-independence-thm"><strong>info-independence-thm</strong></a> | 
    <a href="#cap-invar-independent-thm"><strong>invar-independent-thm</strong></a> | 
    <a href="#cap-jensen-thm"><strong>jensen-thm</strong></a> | 
    <a href="#cap-joint-cont-cont-thm"><strong>joint-cont-cont-thm</strong></a> | 
@@ -504,6 +507,7 @@ document.write(`
    <a href="#cap-sum-rule-counting-thm"><strong>sum-rule-counting-thm</strong></a> | 
    <a href="#cap-sum-rule-prob-thm"><strong>sum-rule-prob-thm</strong></a> | 
    <a href="#cap-support-def"><strong>support-def</strong></a> | 
+   <a href="#cap-symm-info-thm"><strong>symm-info-thm</strong></a> | 
    <a href="#cap-taylor-thm"><strong>taylor-thm</strong></a> | 
    <a href="#cap-three-mle-thm"><strong>three-mle-thm</strong></a> | 
    <a href="#cap-two-dim-vector-def"><strong>two-dim-vector-def</strong></a> | 
@@ -726,6 +730,14 @@ document.write(`
        <a href="chapters/08-more-prob.html#components-multivar-norm-thm"><code class="xref">components-multivar-norm-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-cond-ind-def"><td></td><td>
+       <strong>cond-ind-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/09-info-theory.html#cond-ind-def"><code class="xref">cond-ind-def</code></a> <em>(chapters/09-info-theory)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-condition-event-def"><td></td><td>
        <strong>condition-event-def</strong></td><td></td></tr>
      <tr>
@@ -869,6 +881,14 @@ document.write(`
        <td>
        <a href="chapters/09-info-theory.html#cross-entropy-def"><code class="xref">cross-entropy-def</code></a> <em>(chapters/09-info-theory)</em></td><td>
        <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-data-processing-thm"><td></td><td>
+       <strong>data-processing-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/09-info-theory.html#data-processing-thm"><code class="xref">data-processing-thm</code></a> <em>(chapters/09-info-theory)</em></td><td>
+       <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-definite-def"><td></td><td>
        <strong>definite-def</strong></td><td></td></tr>
@@ -1285,6 +1305,14 @@ document.write(`
        <td>
        <a href="chapters/09-info-theory.html#info-content-def"><code class="xref">info-content-def</code></a> <em>(chapters/09-info-theory)</em></td><td>
        <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-info-independence-thm"><td></td><td>
+       <strong>info-independence-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/09-info-theory.html#info-independence-thm"><code class="xref">info-independence-thm</code></a> <em>(chapters/09-info-theory)</em></td><td>
+       <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-invar-independent-thm"><td></td><td>
        <strong>invar-independent-thm</strong></td><td></td></tr>
@@ -2045,6 +2073,14 @@ document.write(`
        <td>
        <a href="chapters/02-prob-spaces.html#support-def"><code class="xref">support-def</code></a> <em>(chapters/02-prob-spaces)</em></td><td>
        <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-symm-info-thm"><td></td><td>
+       <strong>symm-info-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/09-info-theory.html#symm-info-thm"><code class="xref">symm-info-thm</code></a> <em>(chapters/09-info-theory)</em></td><td>
+       <em>corollary</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-taylor-thm"><td></td><td>
        <strong>taylor-thm</strong></td><td></td></tr>

@@ -10,18 +10,16 @@ kernelspec:
   name: python3
 ---
 
-**THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!**
-
 (information-theory)=
 # Information theory
 
-This chapter marks a pivotal shift in the book, moving from our focused exploration of abstract probability theory to practicalities of building and training probabilistic models. Subsequent chapters construct estimators and statistics and develop their theories, all of this with the overarching goal of leveraging these newfound tools to discover answers to specific questions or inquiries of particular interest. Most texts on mathematical statistics make a similar transition to similar material that they call _inferential statistics_---but whatever it might be called, we are trying to do the same thing: _Learn from data_.
+This chapter marks a pivotal shift in the book, moving from our focused exploration of abstract probability theory to practicalities of building and training probabilistic models. Along with this, subsequent chapters construct estimators and statistics and develop their theories, all with the overarching goal of leveraging these newfound tools to discover answers to specific questions or inquiries of particular interest. Most texts on mathematical statistics make a similar transition to similar material that they call _inferential statistics_---but whatever it might be called, we are all trying to do the same thing: _Learn from data_.
 
 The current chapter describes tools and techniques drawn from the _theory of information_, which is a charming amalgamation of practical engineering and theoretical mathematics. This theory provides us with a method for measuring a particular form of _information_, but it also gives us techniques for quantifying related degrees of _surprise_, _uncertainty_, and _entropy_. In the upcoming chapters, our primary use for these measures will be to train and choose probabilistic models, but the theory reaches way beyond into physics, coding theory, computer science, neuroscience, biology, economics, the theory of complex systems, and many other fields.
 
-We will begin the chapter with a section to help introduce the specific type of _information_ that this theory purports to study. This first section is purely expository and draws motivation from the roots of information theory in practical engineering and coding theory. However, for reasons of space and time, beyond the first section we do not elaborate any further on the connections between information theory and coding theory---for that, we will point the interested reader to one of the standard textbooks on information theory, like {cite}`CoverThomas2006`, {cite}`MacKay2003`, and {cite}`Ash2012`. The hurried reader may skip the first section if they would like, it contains no material necessary for the remaining sections.
+Though it has its roots in engineering, our primary view on information theory is a mathematical one. For reasons of space and time, we cannot include or describe any of the many fascinating applications to coding theory and the like---for that, we will point the interested reader to one of the standard textbooks on information theory, like {cite}`CoverThomas2006`, {cite}`MacKay2003`, and {cite}`Ash2012`. Also, one can do little better than reading Claude Shannon's foundational paper {cite}`Shannon1948` in which information theory as a mathematical discipline was first described---though it is over three-quarters of a century old, it still reads amazingly well. The survey article {cite}`Rioul2021` is also an enlightening read.
 
-Though information theory has its roots in engineering concerns, it is at its core a purely mathematical theory. In the second section of this chapter, we define and study the first two of the three central quantities in the mathematical theory called _Shannon information_ and _Shannon entropy_---after that, in the third section, we define the third of these important quantities called _Kullback Leibler (KL) divergence_. It is mostly this latter quantity that will be of primary use in the following chapters, since it provides a generalized notion of "distance" between probability distributions. Finally, we end the chapter with a discussion of the _mutual information_ between two random vectors, which may be conceptualized as a generalized (nonnegative) correlation measure that vanishes exactly when the variables are independent.
+In the first section of this chapter, we define and study the first two of the four central quantities in information theory called _Shannon information_ and _Shannon entropy_---after that, in the second section, we define the third quantity called _Kullback Leibler (KL) divergence_. It is mostly this latter quantity that will be of primary use in the following chapters, since it provides a generalized notion of "distance" between probability distributions. Finally, we end the chapter with the third section where we define and discuss the _mutual information_ shared between two random variables, which may be conceptualized as a generalized correlation measure that vanishes exactly when the variables are independent. This discussion is framed in the context of "flows" of "information" or "influence," foreshadowing the probabilistic models that we will study in depth in {numref}`Chapter %s <prob-models>`.
 
 
 
@@ -42,7 +40,7 @@ Though information theory has its roots in engineering concerns, it is at its co
 
 ## Shannon information and entropy
 
-After briefly introducing the main concepts from information theory in the previous section in the context of data compression, we now begin outlining the abstract mathematical theory. The reader who skipped the first section need not feel at a disadvantage, as our development does not depend on any of that material. We begin with:
+The whole story begins with a very simple definition:
 
 ```{prf:definition}
 :label: info-content-def
@@ -384,7 +382,7 @@ $$
 E_{s\sim p(s)}(h(s)) \leq h\big( E_{s\sim p(s)} (s) \big)
 $$
 
-where $p(a) = 1-t$ and $p(b) = t$. Jensen's inequality is nothing but a generalization of these observations to arbitrary convex functions and probability measures:
+where $p(a) = 1-t$ and $p(b) = t$. Jensen's inequality is nothing but a generalization of these observations to arbitrary concave functions and probability measures:
 
 ```{prf:theorem} Jensen's inequality
 :label: jensen-thm
@@ -525,31 +523,37 @@ Do problem 5 on the worksheet.
 (cond-entropy-mutual-info-sec)=
 ## Flow of information
 
-In this section, we use the notions of entropy and KL divergence developed in the previous two sections to quantify the amount of "information" shared between two random variables $X$ and $Y$. (As in the rest of this chapter, we shall restrict ourselves to random variables with finite ranges.) But to say that the random variables $X$ and $Y$ share information must mean that there is some sort of "communication channel" between them---how might we model such a channel?
+In this section, we use the information-theoretic measures developed in the previous sections to quantify the amount of "information" shared between two random variables $X$ and $Y$, or the amount of "influence" that they exert on each other. (As in the rest of this chapter, we shall restrict ourselves to random variables with finite ranges.) But to say that the random variables $X$ and $Y$ share information must mean that there is some sort of "communication channel" between them---how might we model such a channel?
 
-Working our way toward the answer, we first note that the cleanest way to transmit information from $X$ to $Y$ is via a _deterministic link_ between observed values. This would take the form of a function
+As we mentioned at the beginning of {numref}`covar-correl-sec`, perhaps the cleanest way to transmit information from $X$ to $Y$ is via a _deterministic link_ between observed values. This would take the form of a function
 
 $$
-g: \bbr \to \bbr, \quad x\mapsto g(x),
+g: \bbr \to \bbr, \quad x \mapsto g(x),
 $$
 
-that sends an observation $x$ (of $X$) to an observation $y = g(x)$ (of $Y$). While these types of deterministic channels have their place in the theory (see {numref}`Chapter %s <prob-models>`, for instance), they are not the sort of channels of primary interest in information theory. Indeed, Shannon's main goal in the foundational paper {cite}`Shannon1948` was to quantify the transfer of information through imperfect "noisy" channels that introduce errors.
+such that $Y=g(X)$. Then, an observation $x$ (of $X$) _uniquely_ determines an observation $y = g(x)$ (of $Y$). While these types of deterministic functional dependencies have their place in the theory (see {numref}`Chapter %s <prob-models>`, for instance), they are not the sort of communication channels of primary interest in information theory. Indeed, Shannon's main goal in the foundational paper {cite}`Shannon1948` was to quantify the transfer of information through imperfect "noisy" channels that introduce errors.
 
-So, even though it is too much to ask that an observation $x$ _uniquely_ determines an observation $y$, we still want to keep the general idea that $x$ is the information carrier that is transmitted through the channel toward $Y$. But when $x$ arrives at $Y$, it carries uncertainty with it, introduced by the "noise" in the channel. Uncertainty is modeled mathematically using probabilities, so what we are after is a notion of communcation channel that sends $x$ to a probability distribution on the $y$'s. But this is _exactly_ what conditional distributions are meant to model, and so we are led to replace the deterministic channel $x \mapsto g(x)$ from above with the mapping
+So, even though it is too much to ask that an observation $x$ _uniquely_ determines an observation $y$, we still want to keep the general idea that $x$ is the information carrier that is transmitted through the channel toward $Y$. But when $x$ arrives at $Y$, it carries uncertainty with it, introduced by the "noise" in the channel. Uncertainty is modeled mathematically using probabilities, so what we are after is a notion of _communcation channel_ that sends $x$ to a probability distribution on the $y$'s. But this is _exactly_ what conditional distributions are meant to model, and so we are led to replace the deterministic link $x \mapsto g(x)$ from above with the mapping
 
 $$
 x \mapsto p(y | x)
 $$ (markov-kern-eq)
 
-that sends $x$ to the associated conditional distribution on the $y$'s. This is a strange mapping, as its domain is a Euclidean space, but its codomain is a _set of probability measures_! It is an example of something called a general [Markov kernel](https://en.wikipedia.org/wiki/Markov_kernel).
+that sends $x$ to the associated conditional distribution on the $y$'s. In contrast to the deterministic link, this might be called a _stochastic link_. It is a strange mapping, as its domain is a Euclidean space, but its codomain is a _set of probability measures_! It is an example of something called a general [Markov kernel](https://en.wikipedia.org/wiki/Markov_kernel). The contrast between the two types of links is depicted in:
 
-We are led, then, to define a communication channel to essentially be a Markov kernel. But because students at this level might be uncomfortable with a mapping of the form {eq}`markov-kern-eq`, we "choose bases" and offer an alternate definition using matrices and vectors. So, if we suppose for simplicity that the ranges of $X$ and $Y$ have cardinalities $m$ and $n$, respectively, then the conditional distributions may be doubly indexed as $p(y_j | x_i)$, for $i=1,\ldots,m$ and $j=1,\ldots,n$. For ease of bookkeeping, it is natural to place these distributions into an $m\times n$ matrix
+```{image} ../img/markov-kern.svg
+:width: 85%
+:align: center
+```
+&nbsp;
+
+We are led, then, to define a _communication channel_ as essentially a Markov kernel. But because students at this level might be uncomfortable with a mapping of the form {eq}`markov-kern-eq` that outputs entire probability distributions, we take advantage of the fact that our random variables have finite ranges and "choose bases" to reformulate an alternate definition in terms of matrices and vectors. So, if we suppose for simplicity that the ranges of $X$ and $Y$ have cardinalities $m$ and $n$, respectively, then the conditional distributions may be doubly indexed as $p(y_j | x_i)$, for $i=1,\ldots,m$ and $j=1,\ldots,n$. For ease of bookkeeping (and other reasons), it is natural to place these distributions into an $m\times n$ matrix
 
 $$
 \bK = [p(y_j |x _i)].
 $$
 
-Holding the row index $i$ fixed and summing over the columns, note that we have
+Holding the row index $i$ fixed and summing over the columns, note that
 
 $$
 \sum_{j=1}^n p(y_j | x_i) = 1,
@@ -580,7 +584,7 @@ $$
 \kappa: \{1,2,\ldots,m\} \to \bbr^n
 $$
 
-such that each vector $\kappa(i)\in \bbr^n$ is a stochastic vector. The $m\times n$ matrix
+such that each vector $\kappa(i)\in \bbr^n$ is a probability vector (i.e., a vector with nonnegative entries that sum to $1$). The $m\times n$ matrix
 
 $$
 \bK = \begin{bmatrix} \leftarrow & \kappa(1)^\intercal & \rightarrow \\ \vdots & \vdots & \vdots \\ \leftarrow & \kappa(m)^\intercal & \rightarrow \end{bmatrix}
@@ -597,7 +601,7 @@ Markov kernels occur in the theory of _Markov chains_, if you know what those ar
 A _communication channel_ is a Markov kernel.
 ```
 
-Notice that there is no mention of the random variables $X$ and $Y$. Indeed, this definition is meant to isolate and capture the channel itself, whereas the random vectors $X$ and $Y$ are separate components that are conceptualized as the "sender" and "receiver" hooked to the two ends of the channel.
+Notice that there is no mention of the random variables $X$ and $Y$ in this definition. Indeed, this definition is meant only to isolate and capture the channel itself, whereas the random vectors $X$ and $Y$ are separate components that are conceptualized as the "sender" and "receiver" hooked to the two ends of the channel.
 
 Our discussion preceding the definitions shows that every pair of random variables $(X,Y)$ (with finite ranges) determines a Markov kernel through the conditional distributions, and hence also a communication channel. Let's formally record this fact:
 
@@ -623,14 +627,41 @@ $$ (trans-matrix-var-eq)
 is the transition matrix of a Markov kernel.
 ```
 
-Be sure to notice that the form of the transition matrix {eq}`trans-matrix-var-eq` depends on the enumerations of the ranges of $X$ and $Y$ in {eq}`ranges-eq`; if we change the numbering of the ranges, the transition matrix will change accordingly. Notice also that there is nothing special about the random variables, besides that they have finite ranges: _Every_ configuration of conditional distributions determines a Markov kernel and thus a communication channel. This is just a new framework in which to conceptualize what conditional distributions _are_, and what they _do_. They are the exact mechanism that one random variable uses to send information or "exert influence" on another.
+Be sure to notice that the form of the transition matrix {eq}`trans-matrix-var-eq` depends on the enumerations of the ranges of $X$ and $Y$ in {eq}`ranges-eq`; if we change the numbering of the ranges, the transition matrix will change accordingly. For this reason, it is convenient to represent the transition matrices as tables like the following:
+
+$$
+\bK = \left\{\begin{array}{c|cc}
+p(y|x) & y=0 & y=1 \\ \hline
+x = 0 & 0.75 & 0.25 \\
+x = 1 & 0.6 & 0.4
+\end{array}\right\}.
+$$
+
+This is the transition matrix determined by two Bernoulli random variables $X$ and $Y$.
+
+Notice that there is nothing special about the random variables in {prf:ref}`conditional-markov-kernel-thm`, besides that they have finite ranges. Indeed, _every_ conditional distribution determines a Markov kernel and thus a communication channel. This is just a new framework in which to conceptualize conditional distributions---they are the mechanism that one random variable uses to send "information" or exert "influence" on another.
 
 ```{admonition} Problem Prompt
 
 Do Problem 6 on the worksheet.
 ```
 
-We now seek a way to measure the amount of "information" that passes through a communication channel induced by a pair of random variables $X$ and $Y$ as in {prf:ref}`conditional-markov-kernel-thm`. Our identification of such a measure begins by studying the case in which it is natural to believe that _no_ information is passed, exactly when the communication channel is _constant_. But this turns out to have an interpretation in terms of an important previous concept:
+The induced communication channel in {prf:ref}`conditional-markov-kernel-thm` has a directionality to it, from $X$ to $Y$. However, there is also the communication channel in the other direction, induced by the conditional distributions $p(x|y)$. The mathematical mechanism that allows us to reverse the direction of "flow" is exactly Bayes' theorem, since it states that
+
+$$
+p(x|y) = \frac{p(y|x)p(x)}{\sum_{x^\star \in \bbr} p(y|x^\star)p(x^\star)}.
+$$
+
+So, as long as we know the marginal mass functions $p(x)$ and $p(y)$, Bayes' theorem gives us a way to use one communication channel in one direction to obtain the other:
+
+```{image} ../img/comm-bayes.svg
+:width: 75%
+:align: center
+```
+&nbsp;
+
+
+We now seek a way to measure the amount of "information" that passes through a communication channel induced by a pair of random variables $X$ and $Y$ as in {prf:ref}`conditional-markov-kernel-thm`. Our identification of such a measure begins by studying the case in which it is natural to believe that _no_ information is passed, exactly when the communication channel is _constant_. But this turns out to have an interpretation in terms of a familiar previous concept:
 
 ```{prf:theorem} Independence $=$ constant Markov kernels
 :label: ind-markov-thm
@@ -704,11 +735,61 @@ for all $x$ and $y$. This suggests that a measure of "information" passed from $
 Let $X$ and $Y$ be two random variables with finite ranges. The _mutual information_ shared between $X$ and $Y$, denoted $I(X,Y)$, is the KL divergence
 
 $$
-I(X, Y) \def D( P_{XY} \parallel P_{X} P_{Y}) = \sum_{(x,y)\in \bbr^2} p(x,y) \log_2\left( \frac{p(x,y)}{p(x)p(y)}\right).
+I(X, Y) \def D( P_{XY} \parallel P_{X} \otimes P_{Y}) = \sum_{(x,y)\in \bbr^2} p(x,y) \log_2\left( \frac{p(x,y)}{p(x)p(y)}\right).
 $$
 ```
 
-Before we take a look at an example computation, it will be convenient to expression mutual information in terms of entropy:
+The notation $P_X \otimes P_Y$ denotes the [_product measure_](https://en.wikipedia.org/wiki/Product_measure) on the Cartesian product of the ranges of $X$ and $Y$; by definition, this is the measure that has mass function given by
+
+$$
+p_{P_X \otimes P_Y}(x,y) \def p(x)p(y).
+$$
+
+When the marginal distributions $P_X$ and $P_Y$ are expressed in terms of probability vectors, then the product measure is realized as the [_outer product_](https://en.wikipedia.org/wiki/Outer_product) of the vectors, which is also called their [_tensor product_](https://en.wikipedia.org/wiki/Tensor_product) by some people (like me).
+
+```{admonition} Problem Prompt
+
+Do Problem 7 on the worksheet.
+```
+
+Note that the mutual information $I(X,Y)$ is always nonnegative, i.e.,
+
+$$
+I(X,Y) \geq 0.
+$$ (mutual-ineq-eq)
+
+This is because mutual information is a KL divergence, and Gibbs' inequality therefore applies (see {prf:ref}`gibbs-thm`). As a sanity check, let's make sure that equality holds in {eq}`mutual-ineq-eq` when (and only when) the communication channel carries no "information":
+
+```{prf:theorem} Independence $=$ zero mutual information
+:label: info-independence-thm
+
+Let $X$ and $Y$ be two random variables with finite ranges
+
+$$
+\{x_1,\ldots,x_m\} \quad \text{and} \quad \{y_1,\ldots,y_n\}.
+$$
+
+Then the following statements are equivalent:
+
+1. The induced communication channel
+
+    $$
+    \kappa: \{1,2,\ldots,m\} \to \bbr^n, \quad \kappa(i)^\intercal = \begin{bmatrix} p(y_1|x_i) & \cdots & p(y_n|x_i) \end{bmatrix},
+    $$
+
+    is constant.
+
+2. The random variables $X$ and $Y$ are independent.
+
+3. The mutual information $I(X,Y) =0$.
+```
+
+```{prf:proof}
+
+The equivalence of the first two statements is exactly {prf:ref}`ind-markov-thm`. The equivalence of the second and third follows from the Mass/Density Criteria for Independence (see {prf:ref}`mass-density-ind-thm`) and {prf:ref}`gibbs-thm`. Q.E.D.
+```
+
+The mutual information between two random variables is _defined_ to be a particular KL divergence, which links it up with one of the information-theoretic quantities from the previous sections. But it _also_ can be expressed in terms of marginal and joint entropies:
 
 ```{prf:theorem} Mutual information and entropy
 :label: other-info-thm
@@ -735,7 +816,130 @@ I(x,y) &= \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2\left( \frac{p(x,y)}{p(
 as desired. Q.E.D.
 ```
 
-```{admonition} Problem Prompt
 
-Do Problem 7 on the worksheet.
+
+Since the joint entropy $H(X,Y)$ is symmetric in the random variables $X$ and $Y$, i.e., $H(X,Y) = H(Y,X)$, we get the following corollary:
+
+```{prf:corollary} Symmetry of mutual information
+:label: symm-info-thm
+
+Let $X$ and $Y$ be random variables with finite ranges. Then $I(X,Y) = I(Y,X)$.
 ```
+
+We end this section by stating a fundamental inequality that provides further evidence that the abstract notion of _mutual information_ accords with our intuition for transfer or flow of "information" or "influence." Indeed, suppose that we have a triple of random variables $X$, $Y$, and $Z$, and that we consider the "flows" going from one to the other in that order:
+
+```{margin}
+This is a very simple example of a _probabilistic graphical model_ that we will study in more detail in {numref}`Chapter %s <prob-models>`.
+```
+
+```{image} ../img/markov.svg
+:width: 40%
+:align: center
+```
+&nbsp;
+
+For a concrete running example, suppose we consider testing for the fictional(!) disease _hydromechanical trepidation syndrome_ (or _HTS_) that we met back in the [programming assignment](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_03.ipynb) for {numref}`Chapter %s <rules-prob>`. Suppose $X$ and $Y$ are (Bernoulli) indicator variables for the presence of the disease and the result of the test:
+
+$$
+X = \left\{\begin{array}{cl}
+0 & : \text{do not have disease} \\
+1 & : \text{have disease}
+\end{array}\right\} \quad\quad \text{and} \quad\quad Y = \left\{\begin{array}{cl}
+0 & : \text{test negative} \\
+1 & : \text{test positive}
+\end{array} \right\}.
+$$
+
+Suppose, furthermore, that depending on the result of the test, the subject may leave on their annual vacation---this means that we have a third indicator variable:
+
+$$
+Z = \left\{\begin{array}{cl}
+0 & : \text{do not go on vacation} \\
+1 & : \text{go on vacation}
+\end{array}\right\}.
+$$
+
+Note that the natural of flow of "influence" would indeed go in the order $X \to Y \to Z$ displayed above.
+
+It is also natural to assume that the _only_ way that the presence of the disease $X$ influences a person's decision $Z$ to leave on vacation travels through the result of the test $Y$. There should be _no_ direct influence from $X$ to $Z$, which would be indicated by a third directed edge in the graph:
+
+```{image} ../img/markov-02.svg
+:width: 40%
+:align: center
+```
+&nbsp;
+
+Another way to understand the absence of a _direct_ influence from $X$ to $Z$ (that bypasses $Y$) is to say that $X$ and $Z$ are _conditionally independent_ given $Y$. This means that if a subject knows the result of their test ($Y=0$ or $Y=1$), then whether they leave on vacation ($Z=0$ or $Z=1$) is independent of whether they actually have the disease ($X=0$ or $X=1$). Formally:
+
+```{prf:definition}
+:label: cond-ind-def
+
+Let $X$, $Y$, and $Z$ be three random variables.
+
+1. If the variables are jointly discrete, then we shall say $X$ and $Z$ are _conditionally independent_ given $Y$ if
+
+    $$
+    p(x,z|y) = p(x|y)p(z|y)
+    $$
+
+    for all $x$, $y$, and $z$.
+
+2. If the variables are jointly continuous, then we shall say $X$ and $Z$ are _conditionally independent_ given $Y$ if
+
+    $$
+    f(x,z|y) = f(x|y)f(z|y)
+    $$
+
+    for all $x$, $y$, and $z$.
+```
+
+So, in probabilistic models of the form
+
+```{image} ../img/markov.svg
+:width: 40%
+:align: center
+```
+&nbsp;
+
+we always assume that $X$ and $Z$ are conditionally independent given $Y$.
+
+With this language, we now state the following fundamental inequality.
+
+```{margin}
+
+The name of this inequality is inspired by engineering applications. However, it is purely a result in abstract information theory. For a proof, see Section 2.8 in {cite}`CoverThomas2006` or the solutions to the exercises in Section 8 of {cite}`MacKay2003`.
+```
+
+```{prf:theorem} Data Processing Inequality
+:label: data-processing-thm
+
+Suppose $X$, $Y$, and $Z$ are three random variables with finite ranges, and suppose that $X$ and $Z$ are conditionally independent given $Y$. Then
+
+$$
+I(X,Z) \leq I(X,Y),
+$$ (data-processing-eq)
+
+with equality if and only if $X$ and $Y$ are independent given $Z$.
+```
+
+In plain language, the inequality states that the amount of information that flows from $X$ to $Z$ along the graph
+
+```{image} ../img/markov.svg
+:width: 40%
+:align: center
+```
+&nbsp;
+
+can be no more than the amount of "information" that flows directly from $X$ to $Y$. Indeed, if this were _not_ the case, then we must imagine that somehow additional "information" is "created" in the link from $Y$ to $Z$. But intuition suggests that that is not possible.
+
+In our disease model, the inequality {eq}`data-processing-eq` is telling us that the amount of "influence" that the presence of the disease has on a subject's decision to leave on vacation is no more than the amount of "influence" that the result of the test has on the decision. Moreover, in the case that equality holds in {eq}`data-processing-eq`, then we have a model of the form
+
+```{image} ../img/markov-03.svg
+:width: 40%
+:align: center
+```
+&nbsp;
+
+showing that whether a subject leaves on vacation is just as good a test of whether they have the disease as the actual test. In other words, knowing whether a subject leaves on vacation renders the presence of the disease and the result of the test independent of each other; intuitively, all the "information" that $Y$ carries about $X$ is absorbed into $Z$.
+
+You will have an opportunity to work with the disease/test/vacation probabilistic model in the [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-9-the-data-processing-inequality) for this chapter.
