@@ -13,7 +13,7 @@ kernelspec:
 (information-theory)=
 # Information theory
 
-This chapter marks a pivotal shift in the book, moving from our focused exploration of abstract probability theory to practicalities of building and training probabilistic models. Along with this, subsequent chapters construct estimators and statistics and develop their theories, all with the overarching goal of leveraging these newfound tools to discover answers to specific questions or inquiries of particular interest. Most texts on mathematical statistics make a similar transition to similar material that they call _inferential statistics_---but whatever it might be called, we are all trying to do the same thing: _Learn from data_.
+This chapter marks the beginning of a pivotal shift in the book, moving from our focused exploration of abstract probability theory to practicalities of building and training probabilistic models. Along with this, subsequent chapters construct estimators and statistics and develop their theories, all with the overarching goal of leveraging these newfound tools to discover answers to specific questions or inquiries of particular interest. Most texts on mathematical statistics make a similar transition to similar material that they call _inferential statistics_---but whatever it might be called, we are all trying to do the same thing: _Learn from data_.
 
 The current chapter describes tools and techniques drawn from the _theory of information_, which is a charming amalgamation of practical engineering and theoretical mathematics. This theory provides us with a method for measuring a particular form of _information_, but it also gives us techniques for quantifying related degrees of _surprise_, _uncertainty_, and _entropy_. In the upcoming chapters, our primary use for these measures will be to train and choose probabilistic models, but the theory reaches way beyond into physics, coding theory, computer science, neuroscience, biology, economics, the theory of complex systems, and many other fields.
 
@@ -85,7 +85,7 @@ plt.tight_layout()
 
 If some outcome is highly likely to occur (large $p(s)$), then it is not surprising (small $I(s)$). In the other direction, if an outcome $s$ is highly unlikely to occur (small $p(s)$), then it is very surprising (large $I(s)$).
 
-It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal---so why the choice of base-$2$ logarithm? It turns out that if you begin from first principles with a set of "natural axioms" that any notion of _surprisal_ should possess, then you can _prove_ all such surprisal functions must be proportional to negative logarithms; see, for example, the discussion in Section 9 in {cite}`Rioul2021`. The choice of base $2$ is then somewhat arbitrary, akin to choosing units, but it does have the added benefit of nicely connecting up with bit strings in the coding context. (See the [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-2-entropies-in-different-bases).) Indeed, in base $2$, information content is measured in units of _bits_. While this is related to the previous notion of a bit denoting a binary digit ($0$ or $1$), the usage here is different, at the very least because information content does not have to be an integer. (See Section 10 in the aforementioned reference {cite}`Rioul2021` for more on units.)
+It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal---so why the choice of base-$2$ logarithm? It turns out that if you begin from first principles with a set of "natural axioms" that any notion of _surprisal_ should possess, then you can _prove_ all such surprisal functions must be proportional to negative logarithms; see, for example, the discussion in Section 9 in {cite}`Rioul2021`. The choice of base $2$ is then somewhat arbitrary, akin to choosing units, but it does have the added benefit of nicely connecting up with bit strings in the coding context. (See the [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-2-entropy-in-different-bases).) Indeed, in base $2$, information content is measured in units of _bits_. While this is related to the previous notion of a bit denoting a binary digit ($0$ or $1$), the usage here is different, at the very least because information content does not have to be an integer. (See Section 10 in the aforementioned reference {cite}`Rioul2021` for more on units.)
 
 Please understand that the terminology _information content_ now has a very specific and precise mathematical meaning. It is designed to "get at" our intuitive understanding of what general "information" is, but you should keep the two separate in your mind: There's the notion of "information" used in an intuitive and colloquial sense and is generally ill-defined, and then there is the notion of _information content_ precisely defined as above.
 
@@ -167,7 +167,7 @@ $$
 H(P) = E_P\left[I_P(s)\right] = E_{s\sim p(s)} \left[ I_P(s)\right].
 $$
 
-Since the entropy $H(P)$ is the average information content, it may sometimes be interpreted as a form of "information." (We mentioned this very briefly in the first section after inspecting the plot of the entropy of $X\sim \Ber(\theta)$ versus the parameter $\theta$.) To see why low (high) uncertainty might be interpreted as low (high) "information" content, imagine that you are to design a random experiment to help answer some question. Then, you certainly _do not_ want to arrange the conditions of the experiment so that the probabilities of the outcomes resemble the Dirac distribution above, with low uncertainty and one outcome practically all but guaranteed---this would convey little information! Instead, the ideal experiment would have the probabilities spread uniformly across all potential outcomes, so that any observed outcome is maximally informative. (For a very convincing and enlightening demonstration of this idea, see the description of the "weighing problem" in Section 4.1 of {cite}`MacKay2003`.)
+Since the entropy $H(P)$ is the average information content, it may sometimes be interpreted as a form of "information." To see why low (high) uncertainty might be interpreted as low (high) "information" content, imagine that you are to design a random experiment to help answer some question. Then, you certainly _do not_ want to arrange the conditions of the experiment so that the probabilities of the outcomes resemble the Dirac distribution above, with low uncertainty and one outcome practically all but guaranteed---this would convey little information! Instead, the ideal experiment would have the probabilities spread uniformly across all potential outcomes, so that any observed outcome is maximally informative. (For a very convincing and enlightening demonstration of this idea, see the description of the "weighing problem" in Section 4.1 of {cite}`MacKay2003`.)
 
 Before moving on with the theory, let's take a look at some problems:
 
@@ -660,8 +660,15 @@ So, as long as we know the marginal mass functions $p(x)$ and $p(y)$, Bayes' the
 ```
 &nbsp;
 
+We now seek a way to measure the amount of "information" that passes through a communication channel induced by a pair of random variables $X$ and $Y$ as in {prf:ref}`conditional-markov-kernel-thm`. Our identification of such a measure begins by studying the case in which it is natural to believe that _no_ information is passed, exactly when the communication channel is _constant_:
 
-We now seek a way to measure the amount of "information" that passes through a communication channel induced by a pair of random variables $X$ and $Y$ as in {prf:ref}`conditional-markov-kernel-thm`. Our identification of such a measure begins by studying the case in which it is natural to believe that _no_ information is passed, exactly when the communication channel is _constant_. But this turns out to have an interpretation in terms of a familiar previous concept:
+```{image} ../img/markov-kern-constant.svg
+:width: 85%
+:align: center
+```
+&nbsp;
+
+But this turns out to have an interpretation in terms of a familiar previous concept:
 
 ```{prf:theorem} Independence $=$ constant Markov kernels
 :label: ind-markov-thm
