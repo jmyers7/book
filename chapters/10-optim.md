@@ -15,13 +15,7 @@ kernelspec:
 (optim)=
 # Optimization
 
-As with most traditional textbooks in this field, the first half of this book has been almost exclusively concerned with building up the foundations of abstract probability theory. With this task completed, at this point, most textbooks would turn toward applications of this theory to statistics. We, however, will take an excursion over the next three chapters through applications of probability theory to _machine learning_ before proceeding to traditional statistics.
-
-Our excursion begins where we left off in {numref}`Chapter %s <theory-to-practice>`. In that earlier chapter, we first encountered _probabilistic models_, but of a very simple type consisting of just a single random variable that depends on a few parameters. Given a real-world dataset and a candidate probabilistic model, the goal is to locate parameter values that minimize the "distance" or discrepancy between the probability distribution proposed by the model and the empirical distribution of the dataset. In the very simple case considered in {numref}`Chapter %s <theory-to-practice>` consisting of a normal distribution parametrized by its mean and variance, there were intuitively "obvious" parameter values given by the empirical mean and variance of the dataset.
-
-In the [next chapter](prob-models), we will discuss much more complex types of probabilistic models in which multiple random (and deterministic) variables are connected through "webs of influence." The number of parameters in these complex models will be correspondingly larger, and in general there will not be such "obvious" choices of parameter values as there were for the simple univariate models considered in {numref}`Chapter %s <theory-to-practice>`. Instead, a systematic method for finding these parameter values is needed.
-
-One such method was actually foreshadowed above when we mentioned that our goal is to **minimize** the discrepancy between the model and empirical distributions, denoted $p(x;\btheta)$ and $\hat{p}(x)$ respectively, where $\btheta$ is the vector of parameters:
+Chapters 9 through 12 form a sequence, with the ultimate goal the construction and training of probabilistic models. In the [next chapter](prob-models), we begin building up our library of such models---to _train_ them, or to have them _learn_ on datasets, means that we should bring the model probability distribution $p(x;\theta)$ as close as possible to the empirical distribution $\hat{p}(x)$ of the data by finding optimal values of the parameter $\theta$. The "distance" between these two distributions is scored by the [Kullback Leibler divergence](kl-div-sec). The problem of _learning_ is thus turned into a minimization problem, calling for the techniques that we will study in the current chapter.
 
 ```{image} ../img/prob-distance.svg
 :width: 75%
@@ -29,12 +23,9 @@ One such method was actually foreshadowed above when we mentioned that our goal 
 ```
 &nbsp;
 
-Provided that we can cook up a function that measures this discrepancy precisely, our parameter search thus becomes an _optimization problem_ in which we seek minimizers of the discrepancy function. (These latter functions go by many names, such as _loss_, _cost_, and _risk functions_.) At least in the sense that we use it in this book, the _learning_ in _machine learning_ thus amounts to _optimization_.
+Many of the optimization problems we will encounter do not have closed-form solutions, and so we will need to study methods for approximation. All those studied in this chapter are versions of an iterative method called _gradient descent_. For a warm-up, we will study a simple single-variable version of this method in {numref}`univariate-grad-desc-sec` before proceeding to the full multi-variable version in {numref}`multivariate-grad-desc-sec`. Sandwiched between these two sections is {numref}`curvature-der-sec`, where we recall and review the tools from multi-variable calculus that allow the generalization from one variable to many. Then, we finish with {numref}`sgd-sec`, where we study a particular form of gradient descent, called _stochastic gradient descent_, that is specifically tailored for the objective functions encountered in training probabilistic models.
 
-
-This explains and justifies the presence of the current chapter, which is entirely devoted to solving optimization problems. Many of the optimization problems we will encounter do not have closed-form solutions, and so we will need to study methods for approximating solutions. All the methods studied in this chapter are versions of an iterative method called _gradient descent_. For a warm-up, we will study a simple single-variable version of this method in {numref}`univariate-grad-desc-sec` before proceeding to the "real" versions in {numref}`Sections %s <multivariate-grad-desc-sec>` and {numref}`%s <sgd-sec>`. We will put these methods to use in {numref}`Chapter %s <learning>` after learning about general probabilistic models in {numref}`Chapter %s <prob-models>`.
-
-One more thing, before beginning: The inclusion of gradient-based optimization algorithms and their applications to parameter estimation is what distinguishes this book from a traditional book on mathematical statistics. This material is often included in texts on machine learning, but it is not in any text on statistics (that I know of). However, we are just _barely_ scratching the surface of optimization and machine learning. If you are new to these fields and want to learn more, I suggest beginning with the fifth chapter of {cite}`GBC2016` for a quick overview. After this, you can move on to {cite}`HardtRecht2022`, before tackling the massive, encyclopedic texts {cite}`Murphy2022` and {cite}`Murphy2023`.
+The inclusion of gradient-based optimization algorithms and their applications to parameter estimation is what distinguishes this book from a traditional book on mathematical statistics. This material is often included in texts on machine learning, but it is not in any text on statistics (that I know of). However, we are just _barely_ scratching the surface of optimization and machine learning. If you are new to these fields and want to learn more, I suggest beginning with the fifth chapter of {cite}`GBC2016` for a quick overview. After this, you can move on to {cite}`HardtRecht2022`, before tackling the massive, encyclopedic texts {cite}`Murphy2022` and {cite}`Murphy2023`.
 
 
 
@@ -65,15 +56,12 @@ This function is called the _objective function_ of the optimization problem. It
 import torch
 from torch.utils.data import DataLoader
 from torch.distributions.multivariate_normal import MultivariateNormal
-import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+import numpy as np
 import matplotlib_inline.backend_inline
-from itertools import product
-import warnings
 plt.style.use('../aux-files/custom_style_light.mplstyle')
 matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
-warnings.filterwarnings("ignore")
 blue = '#486AFB'
 magenta = '#FD46FC'
 
@@ -88,15 +76,30 @@ plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
-From the graph, we see that the objective function has minimums of approximately $J(0.5)$ and $J(2.7)$. By definition, a number $\theta^\star$ is a _local minimizer_ of $J(\theta)$ provided that
+From the graph, we see that the objective function has minimums of approximately $J(0.5)$ and $J(2.7)$.
+
+It will be convenient to introduce the following terminology for our optimization problems:
+
+```{prf:definition}
+:label: extrema-def
+
+Let $J: \bbr^n \to \bbr$ be a function. A vector $\btheta^\star$ is a _local minimizer_ of $J(\btheta)$ provided that
 
 $$
-J(\theta^\star) \leq J(\theta)
+J(\btheta^\star) \leq J(\btheta)
 $$
 
-for all $\theta$ in a neighborhood of $\theta^\star$; if this inequality holds for _all_ $\theta$, then $\theta^\star$ is called a _global minimizer_ of $J(\theta)$. If we flip the inequality the other direction, then we obtain the definitions of _local_ and _global maximizers_. Collectively, local and global minimizers and maximizers of $J(\theta)$ are called _extremizers_, and the values $J(\theta^\star)$ of the function where $\theta^\star$ is an extremizer are called _extrema_ or _extreme values_. Using this terminology, we would therefore say that $0.5$ is (approximately) a local minimizer of $J(\theta)$, while $2.7$ is (approximately) a global minimizer.
+for all $\btheta$ in a neighborhood of $\btheta^\star$; if this inequality holds for _all_ $\btheta$, then $\btheta^\star$ is called a _global minimizer_ of $J(\btheta)$. If we flip the inequality the other direction, then we obtain the definitions of _local_ and _global maximizers_. Collectively, local and global minimizers and maximizers of $J(\btheta)$ are called _extremizers_, and the values $J(\btheta^\star)$ of the function where $\btheta^\star$ is an extremizer are called _extrema_ or _extreme values_. 
+```
 
-Let's see how the single-variable version of the _gradient descent (GD) algorithm_ would solve this optimization problem. In this context, the GD algorithm is called the _optimizer_. This algorithm depends on an initial guess for a minimizer, as well as two parameters called the _learning rate_ and the _number of gradient steps_. We will state the algorithm first, and then walk through some intuition for why it works:
+Using this terminology, we would say that $0.5$ is (approximately) a local minimizer of our polynomial objective function $J(\theta)$, while $2.7$ is (approximately) a global minimizer.
+
+Let's see how the single-variable version of the _gradient descent (GD) algorithm_ would solve our optimization problem. In this context, the GD algorithm is called the _optimizer_. This algorithm depends on an initial guess for a minimizer, as well as two parameters called the _learning rate_ and the _number of gradient steps_. We will state the algorithm first, and then walk through some intuition for why it works:
+
+```{margin}
+
+The loop runs from $t=0$ to $t=N-1$, inclusive. This convention is intended to match the implementation of `for` loops in Python for `t` ranging through the iterable `range(N)`. 
+```
 
 ```{prf:algorithm} Single-variable gradient descent
 :label: single-var-gd-alg
@@ -106,28 +109,38 @@ Let's see how the single-variable version of the _gradient descent (GD) algorith
 **Output:** An approximation to a local minimizer $\theta^\star$.
 
 1. $\theta := \theta_0$
-2. For $t$ from $1$ to $N$, do:
+2. For $t$ from $0$ to $N-1$, do:
     1. $\theta := \theta - \alpha J'(\theta)$
 3. Return $\theta$.
 ```
 
-Beginning from an initial guess $\theta_0$ for a minimizer, the `for` loop in the GD algorithm outputs a sequence of approximations $\theta_1,\ldots,\theta_t,\ldots,\theta_N$ for a minimizer. The last value $\theta_N$ in the sequence is taken as the output of the algorithm; if the algorithm converges to a minimizer, then we should have $\theta_N \approx \theta^\star$.
-
-The equation
-
-```{math}
-:label: update-rule-eqn
-
-\theta_t := \theta_{t-1} - \alpha J'(\theta_{t-1})
-```
-
-in the `for` loop is called the _update rule_; we say that the new parameter $\theta_t$ is obtained by taking a _gradient step_ from $\theta_{t-1}$. The first update occurs when $t=1$, yielding
+Beginning from an initial guess $\theta_0$, the `for` loop in the GD algorithm produces a sequence of $N+1$ approximations
 
 $$
-\theta_1 := \theta_{0} - \alpha J'(\theta_{0}).
+\theta_0,\ldots,\theta_t,\ldots,\theta_{N}
 $$
 
-To understand the intuition for this rule, consider the two cases that the derivative $J'(\theta_0)$ is positive or negative:
+to a (local) minimizer $\theta^\star$. The last value $\theta_{N}$ in the sequence is taken as the output of the algorithm; if the algorithm converges to a minimizer, then we should have $\theta_{N} \approx \theta^\star$.
+
+The assignment
+
+$$
+\theta := \theta - \alpha J'(\theta)
+$$ (update-rule-eqn)
+
+in the `for` loop is called the _update rule_. This form is convenient for implementation in code. But for theoretical analysis, it is often convenient to rewrite the rule as a _recurrence relation_ in the form
+
+$$
+\theta_{t+1} = \theta_{t} - \alpha J'(\theta_{t}),
+$$
+
+for all $t\geq 0$. We say that the new parameter $\theta_{t+1}$ is obtained by taking a _gradient step_ from $\theta_{t}$. The first update occurs when $t=0$, yielding
+
+$$
+\theta_1 = \theta_{0} - \alpha J'(\theta_{0}).
+$$
+
+To understand the intuition behind the algorithm, consider the two cases that the derivative $J'(\theta_0)$ is positive or negative:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -146,7 +159,7 @@ plt.plot([-0.4, -0.4], [J(-0.4), 0], color=magenta, linestyle='--')
 plt.xlim(-0.8, 3.7)
 plt.ylim(-0.3, 12.2)
 plt.text(-0.6, 0.6, r'$\theta_0$', ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
-plt.text(0, J(-0.4), r"$J'(\theta_0)<0$", ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
+plt.text(0.15, J(-0.4), r"$J'(\theta_0)<0$", ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
 
 plt.plot(grid, J(grid))
 plt.plot(grid, J_prime(3.3) * (grid - 3.3) + J(3.3))
@@ -154,7 +167,7 @@ plt.scatter(3.3, J(3.3), color=magenta, s=100, zorder=10)
 plt.scatter(3.3, 0, color=magenta, s=100, zorder=10)
 plt.plot([3.3, 3.3], [J(3.3), 0], color=magenta, linestyle='--')
 plt.text(3.5, 0.6, r'$\theta_0$', ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
-plt.text(2.9, J(3.3), r"$J'(\theta_0)>0$", ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
+plt.text(2.8, J(3.3), r"$J'(\theta_0)>0$", ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
 
 plt.xlabel(r'$\theta$')
 plt.ylabel(r'$J(\theta)$')
@@ -207,32 +220,36 @@ Let's run the GD algorithm four times, with various settings of the parameters:
 :       align: center
 
 # define the gradient descent function
-def GD(theta, J, num_steps, lr, decay=0):
+def GD(theta, J, num_steps, lr, lr_decay_rate=0):
+        
+    # get initial objective value, compute the gradient
+    objective = J(theta)
+    objective.backward()
     
     # initialize lists to track objective values and thetas
-    running_objectives = []
-    running_thetas = []
+    running_objectives = [objective.detach().view(1)]
+    running_thetas = [theta.detach().clone()]
 
     # begin gradient descent loop
     for t in range(num_steps):
-
-        # compute objective with current theta
-        objective = J(theta)
-        
-        # compute gradients
-        objective.backward()
-        
-        # append current objective and theta to running lists
-        running_objectives.append(objective.detach().view(1))
-        running_thetas.append(theta.detach().clone())
         
         # take a step and update the theta
         with torch.no_grad():
-            g = ((1 - decay) ** (t + 1)) * theta.grad
+            g = (1 - lr_decay_rate) ** (t + 1) * theta.grad
             theta -= lr * g
+            
+        # append updated theta to running list
+        running_thetas.append(theta.detach().clone())
 
         # zero out the gradient to prepare for the next iteration
         theta.grad.zero_()
+
+        # get updated objective, compute the gradient
+        objective = J(theta)
+        objective.backward()
+
+        # append updated objective value to running list
+        running_objectives.append(objective.detach().view(1))
 
     # output tensors instead of lists
     running_thetas = torch.row_stack(running_thetas)
@@ -242,40 +259,42 @@ def GD(theta, J, num_steps, lr, decay=0):
 
 # plot objective function
 grid = torch.linspace(start=-0.5, end=3.5, steps=300)
-axes_idx = list(product(range(2), repeat=2))
 _, axes = plt.subplots(nrows=2, ncols=2, figsize=(8, 5))
-for i in range(4):
-    idx = axes_idx[i]
-    axes[idx].plot(grid, J(grid))
+for axis in axes.flatten():
+    axis.plot(grid, J(grid))
 
 # parameters for gradient descent
 gd_parameters = {'theta': [torch.tensor([-0.5], requires_grad=True), torch.tensor([3.45], requires_grad=True), torch.tensor([-0.5], requires_grad=True), torch.tensor([3.45], requires_grad=True)],
-                 'num_steps': [8, 7, 6, 6],
+                 'num_steps': [8, 7, 5, 5],
                  'lr': [1e-2, 1e-2, 1e-1, 2e-1]}
 
 # run gradient descent and plot
-for i in range(4):
+for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
     running_parameters, running_objectives = GD(**gd_parameters_slice, J=J)
-    idx = axes_idx[i]
     lr = gd_parameters_slice['lr']
-    num_steps = gd_parameters_slice['num_steps'] - 1
-    axes[idx].step(x=running_parameters, y=running_objectives, where='post', color=magenta, zorder=2)
-    axes[idx].scatter(x=running_parameters, y=running_objectives, s=30, color=magenta, zorder=2)
-    axes[idx].scatter(x=running_parameters[0], y=running_objectives[0], s=100, color=magenta, zorder=2)
-    axes[idx].set_xlabel(r'$\theta$')
-    axes[idx].set_ylabel(r'$J(\theta)$')
-    axes[idx].set_title(fr'$\alpha={lr}$, $N={num_steps}$')
+    num_steps = gd_parameters_slice['num_steps']
+    axis.step(x=running_parameters, y=running_objectives, where='post', color=magenta, zorder=2)
+    axis.scatter(x=running_parameters, y=running_objectives, s=30, color=magenta, zorder=2)
+    axis.scatter(x=running_parameters[0], y=running_objectives[0], s=100, color=magenta, zorder=2)
+    axis.set_xlabel(r'$\theta$')
+    axis.set_ylabel(r'$J(\theta)$')
+    axis.set_title(fr'$\alpha={lr}$, $N={num_steps}$')
 plt.tight_layout()
 ```
 
-In all four plots, the large magenta dot represents the initial point $(\theta_0,J(\theta_0))$, while the smaller dots represent the points
+In all four plots, the large magenta dot represents the initial point $(\theta_0,J(\theta_0))$, while the smaller dots represent the remaining $N$ points
 
 $$
 (\theta_1,J(\theta_1)), (\theta_2, J(\theta_2)),\ldots, (\theta_N,J(\theta_N)),
 $$
 
-where $N$ is the number of gradient steps in the `for` loop in the GD algorithm. In the first row, the algorithm appears to be converging in both cases to the nearest minimizer to the initial guesses. In the second row, the learning rate is (relatively) large, causing the first gradient steps to "overshoot" the nearest minimizers to the initial guesses. However, the algorithm still appears to converge in both cases.
+where $N$ is the number of gradient steps. In the first row of the figure, the algorithm appears to be converging in both cases to the nearest minimizer to the initial guesses. In the second row, the learning rate is (relatively) large, causing the first gradient steps to "overshoot" the nearest minimizers to the initial guesses. However, the algorithm still appears to converge in both cases.
+
+```{admonition} Problem Prompt
+
+Do problem 1 on the worksheet.
+```
 
 It is possible for the GD algorithm to diverge, especially if the learning rate is too large. For example, suppose that we set the learning rate to $\alpha = 0.2$ and use $\theta_0 = 3.5$ as our initial guess. Then three steps of gradient descent produce the following:
 
@@ -286,7 +305,7 @@ It is possible for the GD algorithm to diverge, especially if the learning rate 
 :       align: center
 
 gd_parameters = {'theta': torch.tensor([3.5], requires_grad=True),
-                 'num_steps': 4,
+                 'num_steps': 3,
                  'lr': 2e-1,}
 
 running_parameters, running_objectives = GD(**gd_parameters, J=J)
@@ -302,22 +321,35 @@ plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
-We see already that $J(\theta_3) \approx 10^7$; in fact, we have $J(\theta_t) \to \infty$ as $t\to\infty$ for these particular parameters. Of course, one can often prevent divergence by simply using a smaller learning rate, but sometimes a large _initial_ learning rate is desirable to help the algorithm quickly find the neighborhood of a minimizer. So, what we desire is a scheme to shrink the learning rate from (relatively) large values to (relatively) smaller ones as the algorithm runs. This scheme is called _learning rate decay_ or _rate decay_.
+We see already that $J(\theta_3) \approx 10^7$; in fact, we have $J(\theta_t) \to \infty$ as $t\to\infty$ for these particular parameters.
 
-```{prf:algorithm} Single-variable gradient descent with rate decay
+```{admonition} Problem Prompt
+
+Do problems 2 and 3 on the worksheet.
+```
+
+Of course, one can often prevent divergence by simply using a smaller learning rate, but sometimes a large _initial_ learning rate is desirable to help the algorithm quickly find the neighborhood of a minimizer. So, what we desire is a scheme to shrink the learning rate from (relatively) large values to (relatively) smaller ones as the algorithm runs. This scheme is called a _learning rate schedule_.
+
+```{prf:algorithm} Single-variable gradient descent with learning rate decay
 :label: single-variable-gd-alg
 
-**Input:** A differentiable objective function $J:\mathbb{R}\to \mathbb{R}$, an initial guess $\theta_0\in \mathbb{R}$ for a local minimizer $\theta^\star$, a learning rate $\alpha>0$, a decay rate $\gamma \in [0, 1)$, and the number $N$ of gradient steps.
+**Input:** A differentiable objective function $J:\mathbb{R}\to \mathbb{R}$, an initial guess $\theta_0\in \mathbb{R}$ for a local minimizer $\theta^\star$, a learning rate $\alpha>0$, a decay rate $\beta \in [0, 1)$, and the number $N$ of gradient steps.
 
 **Output:** An approximation to a local minimizer $\theta^\star$.
 
 1. $\theta := \theta_0$
-2. For $t$ from $1$ to $N$, do:
-    1. $\theta := \theta - \alpha (1 - \gamma)^t J'(\theta)$
+2. For $t$ from $0$ to $N-1$, do:
+    1. $\theta := \theta - \alpha (1-\beta)^{t+1} J'(\theta)$
 3. Return $\theta$.
 ```
 
-Setting $\gamma=0$ results in _no_ rate decay. In our diverging example above, setting $\gamma=0.2$ results in:
+The new parameter $\beta$, called the _decay rate_, shrinks the learning rate as
+
+$$
+\alpha (1-\beta) > \alpha (1-\beta)^2 >\cdots > \alpha (1-\beta)^t > \cdots > \alpha (1-\beta)^N,
+$$
+
+provided that $\beta> 0$. Setting $\beta=0$ results in _no_ change in the learning rate. In our diverging example above, setting the decay rate to $\beta=0.1$ results in:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -326,10 +358,10 @@ Setting $\gamma=0$ results in _no_ rate decay. In our diverging example above, s
 :       align: center
 
 gd_parameters = {'theta': torch.tensor([3.5], requires_grad=True),
-                 'num_steps': 9,
+                 'num_steps': 8,
                  'lr': 2e-1,}
 
-running_parameters, running_objectives = GD(**gd_parameters, J=J, decay=0.1)
+running_parameters, running_objectives = GD(**gd_parameters, J=J, lr_decay_rate=0.1)
 
 grid = torch.linspace(start=-0.5, end=3.5, steps=300)
 plt.plot(grid, J(grid))
@@ -344,17 +376,22 @@ plt.tight_layout()
 
 We have carried out $N=8$ gradient steps, and it appears that the algorithm has successfully located the minimizer $\theta^\star \approx 2.7$.
 
-The learning rate $\alpha$ and the decay rate $\gamma$ are often chosen by experimentation.
+```{admonition} Problem Prompt
+
+Do problem 4 on the worksheet.
+```
+
+The learning rate $\alpha$ and decay rate $\beta$ are often chosen by experimentation.
 
 ```{admonition} Tip
 
-When using the gradient descent algorithm to solve an optimization problem, try beginning with a learning and decay rate around $\alpha \approx 0.01$ and $\gamma \approx 0.1$, respectively.
+When using the gradient descent algorithm to solve an optimization problem, try beginning with a learning rate and decay rate of around $\alpha \approx 0.01$ and $\beta \approx 0.1$, respectively.
 ```
 
 These values may be tuned by the analyst by closely monitoring the values of the objective function $J(\theta)$ as the algorithm runs. This is easy in the single-variable case, since one can plot the graph of $J(\theta)$. In the multi-variable case, however, the graph of $J(\theta)$ may live in many more dimensions than we can visualize, so the analyst might track the values of the objective function against the number of gradient steps. For example, with our polynomial objective function $J(\theta)$ from above and
 
 $$
-\theta_0 = -0.5, \quad \alpha = 0.01, \quad \gamma = 0.1,
+\theta_0 = -0.5, \quad \alpha = 0.01, \quad \beta = 0.1,
 $$
 
 we would plot the following:
@@ -368,9 +405,9 @@ we would plot the following:
 
 gd_parameters = {'theta': torch.tensor([-0.5], requires_grad=True),
                  'num_steps': 15,
-                 'lr': 1e-2,}
+                 'lr': 1e-2}
 
-running_parameters, running_objectives = GD(**gd_parameters, J=J, decay=0.1)
+running_parameters, running_objectives = GD(**gd_parameters, J=J, lr_decay_rate=0.1)
 
 plt.plot(range(len(running_objectives)), running_objectives)
 plt.xlabel('gradient steps')
@@ -394,20 +431,18 @@ where $\epsilon>0$ is a small number.
 
 
 
-
+(curvature-der-sec)=
 ## Curvature and derivatives in higher dimensions
 
-As you certainly remember from elementary calculus, if $\theta^\star$ is an extremizer of a differentiable function $J:\bbr \to \bbr$, then $\theta^\star$ must be a _stationary point_ in the sense that
+If $\theta^\star$ is an extremizer of a differentiable function $J:\bbr \to \bbr$, then $\theta^\star$ must be a _stationary point_ in the sense that
 
 $$
 J'(\theta^\star)=0.
 $$ (stationary-eqn)
 
-The name arises from the observation that small (first-order infinitesimal) perturbations of $\theta^\star$ do not change the value $J(\theta^\star)$, i.e., the value $J(\theta^\star)$ remains _stationary_ under small perturbations. In certain very favorable situations, we may be able to solve the stationarity equation {eq}`stationary-eqn` for $\theta^\star$ to obtain a formula in closed form. In this case, the iterative gradient descent algorithm is not be needed.
+The name arises from the observation that small (first-order infinitesimal) perturbations of $\theta^\star$ do not change the value $J(\theta^\star)$, i.e., the value $J(\theta^\star)$ remains _stationary_ under small perturbations. In certain very favorable situations, we may be able to solve the stationarity equation {eq}`stationary-eqn` for $\theta^\star$ to obtain a formula in closed form. In this case, the iterative gradient descent algorithm is not needed. But $\theta^\star$ being a solution to the stationarity equation {eq}`stationary-eqn` is only a _necessary_ condition for it to be an extremizer---sufficient conditions may be obtained by considering the _local curvature_ of the graph of $J$ near $\theta^\star$.
 
-You certainly also remember that the stationarity equation is only a _necessary_ condition for $\theta^\star$ to be an extremizer; sufficient conditions may be obtained by considering the _local curvature_ of the graph of $J$ near $\theta^\star$. Furthermore, not only do curvature considerations help us identify extremizers, such considerations also help us gauge the speed of convergence of iterative algorithms like gradient descent, as we will see later in {numref}`multivariate-grad-desc-sec`.
-
-Our goal in this section is twofold: First, we briefly recall how local curvature helps us identify extremizers in the single-variable case. The relevant tools are the first and second derivatives. Then, we generalize these derivatives to higher dimensions obtaining gadgets called _gradient vectors_ and _Hessian matrices_. We finish by indicating how the local curvature in higher dimensions may be computed using these new tools and, in particular, how we may use them to identify extremizers.
+Our goal in this section is twofold: First, we briefly recall how these curvature considerations help us identify extremizers in the single-variable case. The relevant tools are the first and second derivatives. Then, we generalize these derivatives to higher dimensions to obtain _gradient vectors_ and _Hessian matrices_. We indicate how local curvature in higher dimensions may be computed using these new tools and, in particular, how we may use them to identify extremizers.
 
 So, let's begin with the familiar routine from single-variable calculus called the _Second Derivative Test_. Given a point $\theta^\star$ and a twice-differentiable function $J:\bbr \to \bbr$, the test splits into two cases:
 
@@ -445,36 +480,17 @@ for i, (function, axis) in enumerate(zip(functions, axes)):
 plt.tight_layout()
 ```
 
-To see _why_ second derivatives encode local curvature, let's suppose $J''(\theta^\star) >0$ at some point $\theta^\star$. Then continuity of $J''$ means that there is a number $\dev>0$ such that $J''(\theta)>0$ for all $\theta$ in the open interval $I = (\theta^\star - \dev, \theta^\star + \dev)$ centered at $\theta^\star$. But the second derivative is the first derivative of the first derivative, and thus positivity of $J''$ over $I$ means that $J'$ is increasing over $I$. But the first derivative $J'$ measures the slope of the graph of $J$, and thus these slopes must increase as we move from left to right over $I$. But this must mean that $J$ is convex!
+To see _why_ second derivatives encode local curvature, let's suppose $J''(\theta^\star) >0$ at some point $\theta^\star$. Then continuity of $J''$ means that there is a number $\epsilon>0$ such that $J''(\theta)>0$ for all $\theta$ in the open interval $I = (\theta^\star - \epsilon, \theta^\star + \epsilon)$ centered at $\theta^\star$. But the second derivative is the first derivative of the first derivative, and thus positivity of $J''$ over $I$ means that $J'$ is increasing over $I$. Since the first derivative $J'$ measures the slope of the graph of $J$, this must mean that the slopes increase as we move from left to right across $I$. Thus, $J$ is convex near $\theta^\star$.
 
-```{margin}
+We already met the notion of _concavity_ back in {numref}`kl-div-sec` where it was fundamental in our proof of Gibb's inequality in {prf:ref}`gibbs-thm`. As in the figure above, a function is _concave_ if it always lies below its secant lines, while it is _convex_ if it always lies above. The precise definitions are in the [appendix](app-conv-sec) at the end of the chapter. Both these shapes have implications for the search for extremizers---in particular, stationary points of concave and convex functions are _always_ global extremizers. The proof of this claim, along with equivalent characterizations of concavity and convexity in terms of tangent lines and tangent (hyper)planes are given in the two main theorems in the [appendix](app-conv-sec). The claims are easily believable, while the proofs are annoyingly fussy. At least glance at the statements of the theorems to convince yourself that your intuition is on point, but do not feel compelled to go through the proofs line by line.
 
-For the simple form of Taylor's Theorem used here, see Theorem 1 in Chapter 20 of {cite}`Spivak2008`. It does _not_ require that the second derivative is continuous.
-```
-
-These curvature considerations make it intuitively clear why the sign of the second derivative $J''(\theta^\star)$ (provided it is not zero) is enough to tell us whether we have located a minimizer or maximizer at a stationary point $\theta^\star$. A more rigorous argument is based on Taylor's Theorem, which says that for any pair of distinct numbers $\theta$ and $\theta^\star$ we may write
+How might we generalize the Second Derivative Test to higher dimensions? To help gain insight into the answer, let's first add only one additional dimension, going from a function of a single variable to a twice-differentiable function of two variables:
 
 $$
-J(\theta) = J(\theta^\star) + J'(\theta^\star) (\theta-\theta^\star) + \frac{1}{2} J''(\theta^\star) (\theta-\theta^\star)^2 + o( (\theta-\theta^\star)^2 )
+J:\bbr^2 \to \bbr, \quad \btheta \mapsto J(\btheta).
 $$
 
-where the asymptotic "little-oh" notation $o( (\theta-\theta^\star)^2)$ indicates a remainder term that goes to $0$ _faster_ than $(\theta-\theta^\star)^2$ does as $\theta \to \theta^\star$. But then we have
-
-$$
-\lim_{\theta \to \theta^\star} \frac{J(\theta) - J(\theta^\star)}{(\theta-\theta^\star)^2} = \frac{1}{2} J''(\theta^\star)
-$$
-
-provided $\theta^\star$ is a stationary point. From this we conclude that $J(\theta) > J(\theta^\star)$ for all $\theta$ near $\theta^\star$ if $J''(\theta^\star)$ is positive, which shows that $\theta^\star$ is indeed a local minimizer. Similar considerations apply if instead $J''(\theta^\star)$ is negative.
-
-How might these considerations and concepts generalize to higher dimensions?
-
-To answer this question, let's first increment the dimension by one, supposing that we have a twice-differentiable function
-
-$$
-J:\bbr^2 \to \bbr, \quad \btheta \mapsto J(\btheta),
-$$
-
-by which we mean all second-order partial derivatives of $J$ exist. Actually, to obtain the best results relating curvature to second derivatives, we shall assume moreover that the second-order partial derivatives are also _continuous_, though this isn't strictly needed for several of the definitions and results below. Functions with continuous first- and second-order partial derivatives are said to be of _class $C^2$_ in the mathematical literature.
+Actually, to obtain the best results relating curvature to second derivatives, we shall assume that the second-order partial derivatives are _continuous_, though this isn't strictly needed for some definitions and results below. Functions with continuous first- and second-order partial derivatives are said to be of _class $C^2$_ in the mathematical literature.
 
 For example, let's suppose that the graph of $J$ is an upside down paraboloid:
 
@@ -500,64 +516,80 @@ Taking advantage of the very special circumstance that our graph is embedded as 
 ```
 &nbsp;
 
-The intersections of these vertical planes and the surface yield curves called _sections_. For the planes displayed in the plot above, the sections are a trio of downward opening parabolas. The slopes and curvatures on the surface in the three directions are then the slopes and curvatures of these sections. It is thus of interest to obtain _formulas_ for these sectional curves.
+```{margin}
 
-To obtain them, let's take a step back from our specific example and consider a general function
+This figure and discussion might be slightly misleading, for in dimensions $\geq 3$, the curves on the surface that we are after are _not_ obtained as intersections with hyperplanes. This figure very much relies on the fact that our graph is embedded in $\bbr^3$.
+```
+
+The intersections of these vertical planes and the surface yield curves called _sections_---for the planes displayed in the plot above, the sections are a trio of downward opening parabolas. The slopes and curvatures on the surface in the three directions are then the slopes and curvatures of these sectional curves.
+
+To obtain these slopes and curvatures, let's suppose that $\bv$ is one of the three directional vectors in the plane, with its tail hooked to the point $\btheta$ represented by the black dot. As we let $t\in \bbr$ vary, the vector sum
 
 $$
-J:\bbr^n \to \bbr, \quad \btheta \mapsto J(\btheta),
+t \bv + \btheta
 $$
+
+traces out the line in the plane $\bbr^2$ through $\btheta$ and in the direction of $\bv$. It follows that the mapping
+
+$$
+t\mapsto J(t\bv + \btheta)
+$$
+
+is exactly the sectional curve on the surface. Notice that this mapping is a real-valued function of a single real variable $t$, and thus it has first and second derivatives in the ordinary sense from single-variable calculus. These considerations motivate the following definition, which applies to functions of $n$ variables (not just two).
 
 ```{margin}
 
-Note that we are _not_ requiring our directional vectors to have unit length!
+We are _not_ requiring directional vectors to have unit length!
 ```
-
-of class $C^2$. Let's suppose that we have an arbitrary point $\btheta \in \bbr^n$ at which we want to compute the directional slopes and curvatures. The direction will be represented by a _directional vector_, which is simply a vector $\bv \in \bbr^n$. As we let $r\in \bbr$ vary, the vector sum
-
-$$
-r \bv + \btheta
-$$
-
-traces out a line in $\bbr^n$ through $\btheta$ and in the direction of $\bv$. The mapping
-
-$$
-r\mapsto J(r\bv + \btheta)
-$$
-
-then traces out a $1$-dimensional curve on the graph of $J$ embedded as a hypersurface in $\bbr^{n+1}$. Generalizing from our considerations above, we then expect that the first and second derivatives of this mapping should yield the desired directional slopes and curvatures. This motivates the following:
 
 ```{prf:definition}
 :label: directional-der-def
 
-Let $J : \bbr^2 \to \bbr$ be a function of class $C^2$, $\btheta\in \bbr^n$ a point, and $\bv \in \bbr^n$ a directional vector. We define the *directional first derivative of $J$ at $\btheta$ in the direction $\bv$* to be
+Let $J : \bbr^n \to \bbr$ be a function of class $C^2$, $\btheta\in \bbr^n$ a point, and $\bv \in \bbr^n$ a vector. We define the *directional first derivative of $J$ at $\btheta$ in the direction $\bv$* to be
 
 $$
-J_\bv'(\btheta) \def \frac{\text{d}}{\text{d}r} \bigg|_{r=0} J(r\bv + \btheta),
+J_\bv'(\btheta) \def \frac{\text{d}}{\text{d}t} \bigg|_{t=0} J(t\bv + \btheta),
 $$
 
 while we define the _directional second derivative_ to be
 
 $$
-J_\bv''(\btheta) \def \frac{\text{d}^2}{\text{d}r^2} \bigg|_{r=0} J(r\bv + \btheta).
+J_\bv''(\btheta) \def \frac{\text{d}^2}{\text{d}t^2} \bigg|_{t=0} J(t\bv + \btheta).
 $$
+
+In this context, the vector $\bv$ is called the _directional vector_.
 ```
 
-The familiar relations between these directional derivatives and partial deriatives pass through the gadgets defined in the following box. The first is familiar to us from our course in multi-variable calculus:
+The familiar relations between these directional derivatives and partial derivatives pass through the gadgets defined in the following box. The first is familiar to us from our course in multi-variable calculus:
+
+```{margin}
+
+The notation "$\nabla^2$" is also sometimes used for the [Laplace](https://en.wikipedia.org/wiki/Laplace_operator#) operator!
+```
 
 ```{prf:definition}
 :label: grad-vec-def
 
-Let $J : \bbr^2 \to \bbr$ be a function of class $C^2$ and $\btheta\in \bbr^n$ a point. We define the _gradient vector_ to be
+Let $J : \bbr^n \to \bbr$ be a function of class $C^2$ and $\btheta\in \bbr^n$ a point. We define the _gradient vector_ to be
 
 $$
-\nabla (J(\btheta)) \def \begin{bmatrix} \displaystyle \frac{\partial J}{\partial \theta_i}(\btheta) \end{bmatrix}_i \in \bbr^n,
+\nabla J(\btheta) \def \begin{bmatrix} \displaystyle \frac{\partial J}{\partial \theta_i}(\btheta) \end{bmatrix} =
+\begin{bmatrix}
+\displaystyle\frac{\partial J}{\partial \theta_1}(\btheta) \\
+\vdots \\
+\displaystyle \frac{\partial J}{\partial \theta_n}(\btheta)
+\end{bmatrix} \in \bbr^n,
 $$
 
 while we define the the _Hessian matrix_ to be
 
 $$
-\text{Hess}(J(\btheta)) \def \begin{bmatrix} \displaystyle \frac{\partial^2 J}{\partial \theta_i \partial \theta_j}(\btheta) \end{bmatrix}_{ij} \in \bbr^{n\times n}.
+\nabla^2 J(\btheta) \def \begin{bmatrix} \displaystyle \frac{\partial^2 J}{\partial \theta_i \partial \theta_j}(\btheta) \end{bmatrix}
+= \begin{bmatrix}
+\displaystyle\frac{\partial^2 J}{\partial \theta_1^2}(\btheta) & \cdots &\displaystyle \frac{\partial^2 J}{\partial \theta_1 \partial \theta_n}(\btheta) \\
+\vdots & \ddots & \vdots \\
+\displaystyle\frac{\partial^2 J}{\partial \theta_n \partial \theta_1} (\btheta) & \cdots & \displaystyle\frac{\partial^2 J}{\partial \theta_n^2}(\btheta)
+\end{bmatrix} \in \bbr^{n\times n}.
 $$
 ```
 
@@ -568,41 +600,48 @@ The following important theorem expresses the relations between the first and se
 ```{prf:theorem} Slopes, curvatures, and partial derivatives
 :label: directional-der-grad-thm
 
-Let $J:\bbr^n \to \bbr$ be a function of class $C^2$, $\btheta \in \bbr^n$ a point, and $\bv \in \bbr^n$ a directional (unit) vector.
+Let $J:\bbr^n \to \bbr$ be a function of class $C^2$, $\btheta \in \bbr^n$ a point, and $\bv \in \bbr^n$ a directional vector.
 
 1. We have
     
     $$
-    J_{\bv}'(\btheta) = \bv^\intercal \nabla(J(\btheta)).
+    J_{\bv}'(\btheta) = \bv^\intercal \nabla J(\btheta).
     $$
 
 2. We have
     
     $$
-    J_{\bv}''(\btheta) = \bv^\intercal \text{Hess}(J(\btheta)) \bv.
+    J_{\bv}''(\btheta) = \bv^\intercal \big(\nabla^2 J(\btheta)\big) \bv.
     $$
 
 ```
+
+So, the directional first derivative is obtained through an inner product with the gradient vector, while the directional second derivative is the quadratic form induced by the Hessian matrix.
 
 ```{prf:proof}
 The proofs are simple exercises using the multi-variable Chain Rule. Indeed, note that
 
 $$
-\frac{\text{d}}{\text{d}r} J(r \bv + \btheta) = \sum_{i=1}^n v_i \frac{\partial J}{\partial \theta_i} (r\bv + \btheta).
+\frac{\text{d}}{\text{d}t} J(t \bv + \btheta) = \sum_{i=1}^n v_i \frac{\partial J}{\partial \theta_i} (t\bv + \btheta).
 $$
 
-Plugging in $r=0$ to both sides of this last equality then yields (1.). On the other hand, differentiating both sides with respect to $r$ (and using the Chain Rule a second time) gives
+Plugging in $t=0$ to both sides of this last equality then yields (1.). On the other hand, differentiating both sides of the equation with respect to $t$ (and using the Chain Rule a second time) gives
 
 $$
-\frac{\text{d}^2}{\text{d}r^2} J(r \bv + \btheta) = \sum_{i=1}^n v_i \frac{\text{d}}{\text{d}r}\frac{\partial J}{\partial \theta_i} (r\bv + \btheta)  = \sum_{i,j=1}^n v_i v_j \frac{\partial^2 J}{\partial \theta_i \partial \theta_j}(r\bv + \btheta).
+\frac{\text{d}^2}{\text{d}t^2} J(t \bv + \btheta) = \sum_{i=1}^n v_i \frac{\text{d}}{\text{d}t}\frac{\partial J}{\partial \theta_i} (t\bv + \btheta)  = \sum_{i,j=1}^n v_i v_j \frac{\partial^2 J}{\partial \theta_i \partial \theta_j}(t\bv + \btheta).
 $$
 
-Plugging in $r=0$ to both ends of this last sequence of equations yields (2.). Q.E.D.
+Plugging in $t=0$ to both ends yields (2.). Q.E.D.
 ```
 
-When the directional vector $\bv$ is a _unit_ vector, the value of the directional first derivative $J'_\bv(\btheta)$ is interpreted as the (instantaneous) rate of change of $J$ in the direction indicated by $\bv$. Likewise, if $\bv$ is unit vector, then the value of the directional second derivative $J''_\bv(\btheta)$ is interpreted as the local curvature of $J$ in the direction indicated by $\bv$.
+```{margin}
 
-For our purposes, the most important property of the gradient vector $\nabla (J(\btheta))$ is that it points in the direction of _maximum_ rate of change. This is a direct consequence of the fact that the gradient vector is orthogonal to the _level (hyper)surfaces_ of $J$, otherwise called _contours_. By definition, such a _level surface_ is the $(n-1)$-dimensional set of solutions $\btheta\in \bbr^n$ to an equation
+Notice that the value of $J''_\bv(\btheta)$ is the same if $\bv$ is replaced with $-\bv$, by {prf:ref}`directional-der-grad-thm`. Thus, the local curvature at $\btheta$ only depends on the _line_ indicated by $\bv$, not the direction that it points.
+```
+
+When the directional vector $\bv$ is a _unit_ vector, the value of the directional first derivative $J'_\bv(\btheta)$ is interpreted as the (instantaneous) rate of change of $J$ at $\btheta$ in the direction indicated by $\bv$. Likewise, if $\bv$ is unit vector, then the value of the directional second derivative $J''_\bv(\btheta)$ is interpreted as the local curvature of $J$ at $\btheta$ through the line indicated by $\bv$.
+
+For our purposes, the most important properties of the gradient vector $\nabla J(\btheta)$ are (1) that it points in the direction of _maximum_ rate of change, (2) its negative points in the direction of _minimum_ rate of change, and (3) it is orthogonal to the _level surfaces_ of $J$, otherwise called _contours_. By definition, such a surface is the $(n-1)$-dimensional set of solutions $\btheta\in \bbr^n$ to an equation
 
 $$
 J(\btheta) = c
@@ -620,8 +659,7 @@ def f(x, y):
     return -4 * x ** 2 - y ** 2 + 15
 
 grid = np.linspace(0, 2)
-grid_1d = np.linspace(-4, 4)
-x, y = np.meshgrid(grid_1d, grid_1d)
+x, y = np.mgrid[-4:4:0.1, -4:4:0.1]
 z = f(x, y)
 
 def tangent_line(x):
@@ -631,181 +669,232 @@ plt.contour(x, y, z, levels=10, colors=blue, linestyles='solid')
 plt.plot(grid, tangent_line(grid), color=magenta)
 plt.arrow(1, -1.75, -8 / 10, 3.5 / 10, head_width=0.2, head_length=0.3, fc=magenta, ec=magenta, linewidth=2)
 plt.gcf().set_size_inches(4, 4)
+plt.ylim(-4, 4)
 plt.xlabel('$x$')
 plt.ylabel('$y$')
 plt.tight_layout()
 ```
 
-In the case that $n=2$, the fact that the gradient vector points in the direction of maximum rate of change is often described by saying that it points in the direction of the steepest ascent, visualizing the graph of $J$ as a series of hills and valleys. In our contour plot above, we have drawn a gradient vector with its tail on a level curve. The straight line is the tangent line to the level curve, and it appears that the gradient is indeed orthogonal to this latter line.
+The vector in the figure is the gradient vector, and the magenta line is the tangent line to the contour that passes through the point at the tail of the gradient. Note that the gradient is orthogonal to this tangent line, and therefore also orthogonal to the contour.
 
-It is intuitively clear from the equation
+In general, it should be intuitively clear from the equation
 
 $$
-J_{\bv}'(\btheta) = \bv^\intercal \nabla(J(\btheta))
+J_{\bv}'(\btheta) = \bv^\intercal J(\btheta)
 $$
 
-in {prf:ref}`directional-der-grad-thm` that the gradient is orthogonal to level surfaces. Indeed, if $\bv$ is a tangent vector to the level surface passing through $\btheta$, then $J$ should _not_ change (at least up to first order) as we step in the direction of $\bv$ since (by definition) the function $J$ is constant along its level surfaces. Thus, we have $J_\bv'(\btheta)=0$, and so $\bv^\intercal \nabla(J(\btheta))=0$. This shows $\nabla(J(\btheta))$ is indeed orthogonal to the level surface passing through $\btheta$. (For a more rigorous argument, see the proposition on page 23 of {cite}`GP2010`.)
+in {prf:ref}`directional-der-grad-thm` that the gradient is orthogonal to level surfaces. Indeed, if $\bv$ is a tangent vector to the level surface passing through $\btheta$, then $J$ should _not_ change (at least up to first order) as we step in the direction of $\bv$ since (by definition) the function $J$ is constant along its level surfaces. Thus, we have $J_\bv'(\btheta)=0$, and so $\bv^\intercal \nabla J(\btheta) =0$. This shows the gradient vector is indeed orthogonal to the level surface passing through $\btheta$. (For a more rigorous argument, see the proposition on page 23 of {cite}`GP2010`.)
 
-Using these observations, we can easily prove the fundamental fact that the gradient vector "points uphill", while its negative "points downhill":
+Let's return to the first two properties of the gradient vector mentioned above, that it points in the direction of maximum rate of change and its negative points in the direction of minimum rate of change. In informal treatments, these claims are often justified by an appeal to the "angle" $\phi\in [0,\pi]$ between two vectors $\bu$ and $\bv$, which allegedly fits into an equation
 
-```{prf:theorem} Gradient vectors point uphill
-:label: grad-uphill-def
+$$
+\bv^\intercal \bu = |\bu||\bv| \cos{\phi}.
+$$ (geom-dot-eq)
 
-Let $J:\bbr^n \to \bbr$ be a function of class $C^2$ and $\btheta \in \bbr^n$ a point. Assuming it is nonzero, the gradient vector $\nabla(J(\btheta))$ points in the direction of maximum rate of change at $\btheta$, while the negative gradient vector $-\nabla(J(\btheta))$ points in the direction of minimum rate of change.
+Taking $\bu = \nabla J(\btheta)$ and supposing $\bv$ has unit length, we get
+
+$$
+J_\bv'(\btheta) = \bv^\intercal \nabla J(\btheta) = |\nabla J(\btheta) | \cos{\phi}
+$$
+
+from {prf:ref}`directional-der-grad-thm`. Since $\cos{\phi}$ is maximized and minimized over $[0,\pi]$ when $\phi=0$ and $\phi=\pi$, respectively, it then follows that the gradient points in the direction of maximum rate of change, while its negative points in the direction of minimum rate of change. However, this argument does not address what is meant by the "angle" $\phi$ between the vectors---certainly in two and three dimensions we have some idea of what this angle might be, but what about in 1000 dimensions?
+
+But the "angle" $\phi$ is just a distraction. It is much cleaner logically to work directly with the [Cauchy-Schwarz inequality](https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality), which is the true reason that the gradient has these extremizing properties. An immediate corollary of this inequality says that an innner product of one vector against a unit vector is maximized (minimized) when the unit vector points in the same (opposite) direction as the first vector. In the following, we give a proof using this inequality, and then show afterwards how it may be used to give a rigorous definition of the angle $\phi$.
+
+```{prf:theorem} Properties of gradient vectors
+:label: grad-uphill-thm
+
+Let $J:\bbr^n \to \bbr$ be a function of class $C^2$, $\btheta \in \bbr^n$ a point, and suppose the gradient vector $\nabla J(\btheta)$ is nonzero.
+
+1. The gradient vector $\nabla J(\btheta)$ points in the direction of maximum rate of change.
+
+2. The negative gradient vector $-\nabla J(\btheta)$ points in the direction of minimum rate of change.
+
+3. The gradient vector $\nabla J(\btheta)$ is orthogonal to level surfaces.
+
 ```
 
 ```{prf:proof}
 
-Let $\be_1,\ldots,\be_{n-1}$ be an orthonormal basis of the tangent space of the level surface through $\btheta$. Letting $\bg = \nabla(J(\btheta)) / || \nabla(J(\btheta)) || $ be the normalized gradient vector, from our considerations above we conclude that
+We already offered a "proof" of the third statement above, so we need only prove the first two. For this, we recall that for any two vectors $\bu$ and $\bv$, the Cauchy-Schwarz inequality states that
 
 $$
-\be_1,\ldots,\be_{n-1},\bg
-$$ (onb-eqn)
+|\bu^\intercal \bv| \leq |\bu | |\bv|,
+$$ (cs-ineq-eq)
 
-is an orthonormal basis of $\bbr^n$. Thus, given a unit directional vector $\bv$, there are unique scalars $\alpha_1,\ldots,\alpha_{n-1},\beta\in \bbr$ such that
-
-$$
-\bv = \alpha_1 \be_1 + \cdots + \alpha_{n-1} \be_{n-1} + \beta \bg.
-$$
-
-Since $\bv$ is a unit vector and {eq}`onb-eqn` is an orthonormal basis, we must have
+with equality if and only if $\bu$ and $\bv$ are parallel (i.e., one is a scalar multiple of the other). In particular, if we take $\bu = \nabla J(\btheta)$, let $\bv$ be a unit vector, and use {prf:ref}`directional-der-grad-thm`, we get
 
 $$
-\alpha_1^2 + \cdots + \alpha_{n-1}^2 + \beta^2 = 1.
+-|\nabla J(\btheta )| \leq J_\bv'(\btheta) = \bv^ \intercal \nabla J(\btheta) \leq |\nabla J(\btheta )|.
 $$
 
-(This latter equation is a consequence of [Parseval's identity](https://en.wikipedia.org/wiki/Parseval%27s_identity#Generalization_of_the_Pythagorean_theorem).) From {prf:ref}`directional-der-grad-thm`, we get that
+The goal is then to identify unit vectors $\bv$ that extremize the derivative $J_\bv'(\btheta)$ in these bounds.
+
+But if the derivative achieves the upper bound, then by the criterion for equality in the Cauchy-Schwarz inequality {eq}`cs-ineq-eq`, there must be a nonzero scalar $\alpha$ such that
 
 $$
-J'_{\bv}(\btheta) = \bv^\intercal \nabla(J(\btheta)) = \beta || \nabla(J(\btheta)) || .
-$$
-
-This latter quantity will be maximized when $\beta=1$ and minimized when $\beta=-1$. The desired results follow. Q.E.D.
-```
-
-Observe that the part about the negative gradient vector $-\nabla(J(\btheta))$ "pointing downhill" is exactly the higher-dimensional version of the observation in {prf:ref}`gd-obs` regarding the negative derivative of a single-variable function. Just like its single-variable cousin, this will be key to the general multi-variable gradient descent algorithm that we will discuss in {numref}`multivariate-grad-desc-sec` below.
-
-Let's now turn toward minimizers and maximizers of a multi-variable function $J:\bbr^n \to \bbr$ of class $C^2$. They are defined just like in the single-variable case: A point $\btheta^\star$ is a _local minimizer_ if
-
-$$
-J(\btheta^\star) \leq J(\btheta)
-$$
-
-for all $\btheta$ in a neighborhood of $\btheta^\star$; if this inequality holds for _all_ $\btheta$, then $\btheta^\star$ is called a _global minimizer_. Flipping the inequality the other direction gives us the definitions of _local_ and _global maximizers_. Collectively, local and global minimizers and maximizers are called _extremizers_.
-
-As I hope you remember from multi-variable calculus, the stationarity equation
-
-$$
-\nabla(J(\btheta^\star)) = 0
-$$
-
-is a _necessary_ condition for $\btheta^\star$ to be an extremizer of $J$. As in the single-variable case, one might hope to classify such a stationary point as a minimizer or maximizer based on the local curvature of $J$. Indeed, it makes intuitive sense that if $J$ is convex (concave) in _all_ directions at $\btheta^\star$, then $\btheta^\star$ should be a local minimizer (maximizer). But from {prf:ref}`directional-der-grad-thm`, the local directional curvatures at $\btheta^\star$ are measured by the numbers
-
-$$
-\bv^\intercal \text{Hess}(J(\btheta^\star)) \bv
-$$
-
-as $\bv$ cycles through all unit vectors in $\bbr^n$. Thus, if these numbers are _always_ positive (negative), then we would expect the stationary point $\btheta^\star$ is a local minimizer (maximizer). By the way, matrices with these special properties have names:
-
-```{prf:definition}
-:label: definite-def
-
-Let $H$ be an $n\times n$ real matrix.
-
-1. If $\bv^\intercal H \bv >0$ for all nonzero $\bv \in \bbr^n$, then $H$ is called _positive definite_. If instead of strict inequality $>$ we have $\geq$, then $H$ is called _positive semidefinite_.
-
-1. If $\bv^\intercal H \bv <0$ for all nonzero $\bv \in \bbr^n$, then $H$ is called _negative definite_. If instead of strict inequality $<$ we have $\leq$, then $H$ is called _negative semidefinite_.
-```
-
-So, the question becomes: If we know that the Hessian matrix is positive (negative) definite at a stationary point $\btheta^\star$, is $\btheta^\star$ necessarily a local minimizer (maximizer)?
-
-The answer is _yes_!
-
-The justification is essentially a repeat of the argument in the single-variable case. Indeed, there is an $n$-dimensional analog of Taylor's Theorem that states the following: Let $J:\bbr^n \to \bbr$ be a function of class $C^2$. For any pair of distinct points $\btheta$ and $\btheta^\star$ we may write
-
-$$
-J(\btheta) = J(\btheta^\star) + (\btheta - \btheta^\star)^\intercal \nabla(J(\btheta^\star)) + \frac{1}{2} (\btheta - \btheta^\star)^\intercal \text{Hess}(J(\btheta^\star)) (\btheta - \btheta^\star) + o( ||\btheta - \btheta^\star||^2).
+\bv = \alpha \nabla J(\btheta).
 $$
 
 But then
 
 $$
-\lim_{\btheta \to \btheta^\star} \frac{J(\btheta) - J(\btheta^\star)}{||\btheta - \btheta^\star||^2} = \bv^\intercal \text{Hess}(J(\btheta^\star)) \bv
+\alpha |\nabla J(\btheta)|^2 = \bv^\intercal \nabla J(\btheta) = |\nabla J(\btheta)|,
 $$
 
-provided $\btheta^\star$ is a stationary point and where $\bv = (\btheta - \btheta^\star) / || \btheta - \btheta^\star ||$. From this we conclude that $J(\btheta) > J(\btheta^\star)$ if the Hessian matrix is positive definite, which shows that $\btheta^\star$ is a local minimizer. Similar considerations apply regarding local maximizers if instead the Hessian matrix is negative definite.
+and so $\alpha = 1/ |\nabla J(\btheta)|$. Hence, the derivative $J_\bv'(\btheta)$ achieves its maximum value exactly when $\bv$ is the normalized gradient vector. It is just as easy to show that the derivative achieves its minimum value when $\bv$ is the negative of the normalized gradient vector. Q.E.D.
+```
 
-In very favorable situations, the Hessian matrix $\text{Hess}(J(\btheta))$ is positive definite for _all_ $\btheta\in \bbr^n$. In this case, the function $J$ is _globally_ convex and has at most one stationary point which must be a global minimizer.
+Now, let's return to the "angle" $\phi$ between two nonzero vectors $\bu$ and $\bv$ in $\bbr^n$. From the Cauchy-Schwarz inequality {eq}`cs-ineq-eq`, it follows that
 
-It is worth summarizing our findings in the form of a theorem:
+$$
+-1 \leq \frac{\bv^\intercal \bu}{|\bu||\bv|} \leq 1.
+$$
+
+We then _define_ the _angle_ $\phi$ between the two vectors to be the unique number $\phi \in [0,\pi]$ such that
+
+$$
+\cos{\phi} = \frac{\bv^\intercal \bu}{|\bu||\bv|}.
+$$
+
+Thus, the fact that the angle $\phi$ even _exists_ is a consequence of the Cauchy-Schwarz inequality.
+
+Observe that the part in {prf:ref}`grad-uphill-thm` about the negative gradient vector "pointing downhill" is the higher-dimensional version of the observation in {prf:ref}`gd-obs` regarding the negative derivative of a single-variable function. This property will be key to the general multi-variable gradient descent algorithm that we will discuss in {numref}`multivariate-grad-desc-sec` below.
+
+Let's now turn toward extremizers of a multi-variable function $J:\bbr^n \to \bbr$ of class $C^2$ in arbitrary dimension $n$. As you may recall from multi-variable calculus, the stationarity equation
+
+$$
+\nabla(J(\btheta^\star)) = 0
+$$
+
+is a _necessary_ condition for $\btheta^\star$ to be an extremizer of $J$. As in the single-variable case, one might hope to classify stationary points (i.e., solutions $\btheta^\star$ to the stationarity equation) as minimizers and maximizers based on the local curvature of $J$. For if $J$ is convex (concave) in _all_ directions at $\btheta^\star$, then intuition suggests that $\btheta^\star$ should be a local minimizer (maximizer). But from {prf:ref}`directional-der-grad-thm`, the local directional curvatures at $\btheta^\star$ are measured by the quadratic form
+
+$$
+\bv^\intercal \big( \nabla^2 J(\btheta^\star) \big) \bv
+$$
+
+as $\bv$ cycles through all nonzero vectors in $\bbr^n$. Thus, if these numbers are _always_ positive (negative), then we would expect the stationary point $\btheta^\star$ is a local minimizer (maximizer). However, to say that these numbers are either always positive or negative means exactly that the Hessian matrix is positive definite or negative definite, in the language of {prf:ref}`first-semidefinite-def`. So, the question becomes: If we know that the Hessian matrix is positive (negative) definite at a stationary point $\btheta^\star$, is $\btheta^\star$ necessarily a local minimizer (maximizer)?
+
+The answer is _yes_!
 
 ```{prf:theorem} Second Derivative Test
 :label: second-der-test-thm
 
-Let $J:\bbr^n \to \bbr$ be a function of class $C^2$ and $\btheta^\star \in \bbr^n$ a point.
+Let $J:\bbr^n \to \bbr$ be a function of class $C^2$ and $\btheta^\star \in \bbr^n$ a stationary point.
 
-1. If $\nabla (J(\btheta_\star)) =0 $ and $\text{Hess}(J(\btheta_\star))$ is positive definite, then $\btheta^\star$ is a local minimizer.
-1. If $\nabla (J(\btheta_\star)) =0 $ and $\text{Hess}(J(\btheta_\star))$ is negative definite, then $\btheta^\star$ is a local maximizer.
+1. If the Hessian matrix $\nabla^2 J(\btheta^\star)$ is positive definite, then $\btheta^\star$ is a local minimizer.
+1. If the Hessian matrix $\nabla^2 J(\btheta^\star)$ is negative definite, then $\btheta^\star$ is a local maximizer.
 ```
 
-Since we are assuming the second-order partial derivatives of all our functions are continuous, all our Hessian matrices are symmetric. This means that a very important and powerful theorem from advanced linear algebra may be brought to bear:
+For a proof of this result, see Theorem 13.10 in {cite}`Apostol1974`. Note also that if the Hessian matrix is either positive semidefinite or negative semidefinite _everywhere_, then every stationary point is a global extremizer; see {prf:ref}`main-convex-multi-thm` in the appendix.
 
-```{prf:theorem} Eigenvalue criterion for (semi)definiteness
-:label: spectral-thm
+With infinitely many local (directional) curvatures at a point on the graph of a function $J:\bbr^n\to \bbr$, it will be convenient to obtain a single number that attempts to summarize the complexity of the local curvature. The first step toward obtaining such a summary is given in the following:
 
-Let $H\in \bbr^{n\times n}$ be symmetric. Then the eigenvalues of $H$ are real, and:
+```{margin}
 
-1. The matrix $H$ is positive definite (semidefinite) if and only if all its eigenvalues are positive (nonnegative).
-1. The matrix $H$ is negative definite (semidefinite) if and only if all its eigenvalues are negative (nonpositive).
+Remember, as we saw in {prf:ref}`psd-char-thm`, the eigenvalues of a positive definite matrix are all real and positive. Hence the linear ordering {eq}`ordering-eqn`. The existence of the orthonormal basis of eigenvectors is guaranteed by the Spectral Theorem (see the proof of {prf:ref}`psd-char-thm`).
 ```
 
-```{prf:proof}
-By the [Spectral Theorem](https://en.wikipedia.org/wiki/Spectral_theorem) (see also Theorem 5.8 in Chapter 7 of {cite}`Artin1991`), there exists an orthonormal basis $\be_1,\ldots,\be_n$ of $\bbr^n$ consisting of eigenvectors of $H$ and, furthermore, the associated eigenvalues $\lambda_1,\ldots,\lambda_n$ are all real. Thus, given $\bv \in \bbr^n$, we may write
+```{prf:theorem} Eigenvalues, eigenvectors, and local curvature
+:label: max-min-curve-thm
 
-$$
-\bv = \sum_{i=1}^n \alpha_i \be_i
-$$
-
-for some scalars $\alpha_1,\ldots,\alpha_n\in \bbr$. But then
-
-$$
-\bv^\intercal H \bv = \sum_{i,j=1}^n \alpha_i \alpha_j \be_i^\intercal H \be_j = \sum_{i=1}^n \alpha_i^2 \lambda_i,
-$$
-
-where the last equality follows from the eigenvalue/eigenvector equations $H \be_j = \lambda _j \be_j$ and the fact $\be_1,\ldots,\be_n$ is orthonormal. The desired results then follow. Q.E.D.
-```
-
-A rough measure of the complexity of the local curvature at a minimizer is given by the ratio of the largest directional curvature to the smallest directional curvature. To be more precise, let $J:\bbr^n \to \bbr$ be a function of class $C^2$ and suppose $\btheta^\star$ is a local minimizer with positive definite Hessian matrix $H = \text{Hess}(J(\btheta^\star))$. By {prf:ref}`spectral-thm`, all the eigenvalues of $H$ are real and positive; let's suppose that they are linearly ordered as
+Let $J:\bbr^n \to \bbr$ be a function of class $C^2$ and $\btheta \in \bbr^n$ a point with positive definite Hessian matrix $\nabla^2 J(\btheta)$. Suppose we linearly order the eigenvalues of the Hessian matrix as
 
 $$
 0 < \lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_n.
 $$ (ordering-eqn)
 
-By the Spectral Theorem (see the proof of {prf:ref}`spectral-thm`), we may choose an orthonormal basis of $\bbr^n$ consisting of eigenvectors $\be_1,\ldots,\be_n$. Thus, if $\bv$ is a unit vector, we may write
+Then:
+
+1. The directional curvature $J''_\bv(\btheta)$ is maximized exactly when $\bv$ lies in the eigenspace of $\lambda_n$, in which case $J''_\bv(\btheta) = \lambda_n$.
+
+2. The directional curvature $J''_\bv(\btheta)$ is minimized exactly when $\bv$ lies in the eigenspace of $\lambda_1$, in which case $J''_\bv(\btheta) = \lambda_1$.
+```
+
+```{prf:proof}
+
+Let $\be_1,\ldots,\be_n$ be the associated orthonormal basis of eigenvectors with
+
+$$
+\nabla^2 J(\btheta) \be_i = \lambda_i\be_i
+$$
+
+for each $i$. Given a unit vector $\bv$, there are unique scalars $\alpha_1,\ldots,\alpha_n$ such that
 
 $$
 \bv = \alpha_1 \be_1 + \cdots + \alpha_n \be_n
 $$
 
-for some unique scalars $\alpha_1,\ldots,\alpha_n$ with
+and
 
 $$
 \alpha_1^2 + \cdots + \alpha_n^2 =1.
 $$ (sum-to-one-eqn)
 
-Then, the curvature in the direction of $\bv$ is given by
+But then
 
 $$
-\bv^\intercal H \bv = \alpha_1^2 \lambda_1 + \cdots + \alpha_n^2 \lambda_n.
-$$ (objective-curv-eqn)
-
-Using the ordering {eq}`ordering-eqn` and {eq}`sum-to-one-eqn`, it is easy to show that the curvature {eq}`objective-curv-eqn` is maximized when $\bv = \be_n$, in which case the curvature is the largest eigenvalue $\lambda_n$. Similarly, it is easy to show that the curvature is minimized when $\bv = \be_1$, in which case the curvature is the smallest eigenvalue $\lambda_1$. The ratio of these two curvatures is denoted
-
-$$
-\kappa(H) \def \frac{\lambda_n}{\lambda_1}
+J''_\bv(\btheta) = \bv^\intercal \big(\nabla^2 J(\btheta) \big) \bv = \sum_{i,j=1}^n \alpha_i\alpha_j \be_i^\intercal \big(\nabla^2 J(\btheta) \big) \be_j = \sum_{i,j=1}^n \alpha_i\alpha_j\lambda_j \be_i^\intercal \be_j = \sum_{i=1}^n \alpha_i^2 \lambda_i,
 $$
 
-and is called the _condition number_ of $H$. When $\kappa(H)$ is large (in which case $H$ is called _ill-conditioned_), the curvatures vary widely as we look in all different directions; conversely, when $\kappa(H)$ is near $1$, the directional curvatures are all nearly the same. As we will see in the next section, ill-conditioned Hessian matrices inflate an important upper-bound on the speed of convergence of gradient descent. In other words, ill-conditioned Hessian matrices _may_ signal slow convergence of gradient descent.
+where the first equality follows from {prf:ref}`directional-der-grad-thm`. Using {eq}`sum-to-one-eqn`, eliminate $\alpha_n^2$ from the last sum in favor of the other $\alpha$'s to get
+
+$$
+J''_\bv(\btheta) = \sum_{i=1}^{n-1}(\lambda_i - \lambda_n)\alpha_i^2 + \lambda_n.
+$$
+
+Letting $m$ be the smallest integer such that
+
+$$
+\lambda_{m-1} < \lambda_m = \lambda_{m+1} = \cdots = \lambda _n,
+$$
+
+we have
+
+$$
+J''_\bv(\btheta) = \sum_{i=1}^{m-1}(\lambda_i - \lambda_n)\alpha_i^2 + \lambda_n.
+$$
+
+(If $m=1$, then we interpret this expression as $J''_\bv(\btheta) = \lambda_n$.) But $\lambda_i -\lambda_n < 0$ for each $i=1,\ldots,m-1$, and so $J''_\bv(\btheta)$ is clearly maximized when
+
+$$
+\alpha_1 = \cdots = \alpha_{m-1} = 0,
+$$
+
+which implies that $\bv$ lies in the eigenspace of $\lambda_n$. This establishes the claim in the first statement, and the one in the second follows from the same type of argument with the obvious changes. Q.E.D.
+```
+
+If the Hessian matrix is positive definite, then its extreme eigenvalues are exactly the extreme local (directional) curvatures. The ratio of the largest curvature to the smallest should then convey the "variance" or the "range" of these curvatures. This ratio has a name:
+
+```{prf:definition}
+:label: condition-num-def
+
+Let $A$ be an $n\times n$ square matrix with eigenvalues $\lambda_1,\ldots,\lambda_n$.
+
+1. The _spectral radius_ of $A$, denoted $\rho(A)$, is given by
+
+    $$
+    \rho(A) \def \max_{i=1,\ldots,n} |\lambda_i|.
+    $$
+
+2. If $A$ is positive definite, the _condition number_ of $A$, denoted $\kappa(A)$, is the ratio
+
+    $$
+    \kappa(A) \def \frac{\lambda_\text{max}}{\lambda_\text{min}}
+    $$
+
+    of the largest eigenvalue of $A$ to the smallest. Note that since all eigenvalues of $A$ are positive, $\lambda_\text{max}$ is exactly the spectral radius $\rho(A)$.
+```
+
+This definition of _condition number_ applies only in the case that $A$ is positive definite and hence all its eigenvalues are positive. In the general case, the definition needs to be altered; see [here](https://en.wikipedia.org/wiki/Condition_number#Matrices), for example.
+
+Intuitively, when the condition number of a positive definite Hessian matrix is large (in which case the Hessian matrix is called _ill-conditioned_), the curvatures vary widely as we look in all different directions; conversely, when the condition number is near $1$, the directional curvatures are all nearly the same. As we will see in the next section, ill-conditioned Hessian matrices inflate an important upper-bound on the speed of convergence of gradient descent. In other words, ill-conditioned Hessian matrices _may_ signal slow convergence of gradient descent.
+
+
+
+
+
+
 
 
 
@@ -820,34 +909,40 @@ and is called the _condition number_ of $H$. When $\kappa(H)$ is large (in which
 With the gradient vector taking the place of the derivative, it is easy to generalize the single-variable gradient descent algorithm from {prf:ref}`single-variable-gd-alg` to multiple variables:
 
 
-```{prf:algorithm} Multi-variable gradient descent with rate decay
+```{prf:algorithm} Multi-variable gradient descent with learning rate decay
 :label: gd-alg
 
-**Input:** A function $J:\mathbb{R}^n\to \mathbb{R}$ of class $C^2$, an initial guess $\btheta_0\in \mathbb{R}^n$ for a local minimizer $\btheta^\star$, a learning rate $\alpha>0$, a decay rate $\gamma \in [0, 1)$, and the number $N$ of gradient steps.
+**Input:** A function $J:\mathbb{R}^n\to \mathbb{R}$ of class $C^2$, an initial guess $\btheta_0\in \mathbb{R}^n$ for a local minimizer $\btheta^\star$, a learning rate $\alpha>0$, a decay rate $\beta \in [0, 1)$, and the number $N$ of gradient steps.
 
 **Output:** An approximation to a local minimizer $\btheta^\star$.
 
 1. $\btheta := \btheta_0$
-2. For $t$ from $1$ to $N$, do:
-    1. $\btheta := \btheta - \alpha(1-\gamma)^t \nabla (J(\btheta))$
+2. For $t$ from $0$ to $N-1$, do:
+    1. $\btheta := \btheta - \alpha(1-\beta)^{t+1} \nabla J(\btheta)$
 3. Return $\btheta$.
 ```
 
-Just like the single-variable version, beginning from an initial guess $\btheta_0$ for a minimizer, the `for` loop in the algorithm outputs a sequence of approximations $\btheta_1,\ldots,\btheta_t,\ldots,\btheta_N$ for a minimizer. The last value $\btheta_N$ in the sequence is taken as the output of the algorithm; if the algorithm converges to a minimizer, then we should have $\btheta_N \approx \btheta^\star$.
+Just like the single-variable version, beginning from an initial guess $\btheta_0$ for a (local) minimizer, the algorithm outputs a sequence of $N+1$ approximations
+
+$$
+\btheta_0, \ldots,\btheta_t,\ldots,\btheta_N
+$$
+
+to a local minimizer $\btheta^\star$.
 
 For an example, let's consider the polynomial objective function
 
 $$
 J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1)^2 + 10(\theta_2-1)^2 \big)
-$$
+$$ (two-dim-poly-eq)
 
-in two dimensions. This function has two minimizers
+in two dimensions. This function has two minimizers at
 
 $$
 \btheta^\star = (0, 0), (1,1),
 $$
 
-as well as a "saddle point" at $(0.5, 0.5)$ where the gradient $\nabla (J(\btheta))$ vanishes. A contour plot of its level curves looks like:
+as well as a "saddle point" at $(0.5, 0.5)$ where the gradient $\nabla J(\btheta)$ vanishes. A contour plot of its level curves looks like:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -857,24 +952,23 @@ as well as a "saddle point" at $(0.5, 0.5)$ where the gradient $\nabla (J(\bthet
 
 # define the objective function
 def J(theta):
-    theta_1, theta_2 = (theta[:, 0], theta[:, 1]) if theta.ndim == 2 else theta
-    return (theta_1 ** 2 + 10 * theta_2 ** 2) * ((theta_1 - 1) ** 2 + 10 * (theta_2 - 1) ** 2)
+    Q = torch.tensor([[1.0, 0], [0, 10.0]])
+    factor1 = torch.sum((torch.tensordot(theta, Q, dims=1) * theta), dim=-1)
+    factor2 = torch.sum((torch.tensordot(theta - 1, Q, dims=1) * (theta - 1)), dim=-1)
+    return factor1 * factor2
 
-# plot contours of objective function
-linspace_x = torch.linspace(start=-0.5, end=1.5, steps=200)
-linspace_y = torch.linspace(start=-0.25, end=1.25, steps=200)
-x, y = torch.meshgrid(linspace_x, linspace_y)
-grid = torch.column_stack(tensors=(x.reshape(-1, 1), y.reshape(-1, 1)))
-z = J(grid).reshape(x.shape)
+x, y = np.mgrid[-0.50:1.5:0.01, -0.3:1.3:0.01]
+grid = np.dstack((x, y))
+grid = torch.tensor(grid, dtype=torch.float32)
 
-plt.contour(x, y, z, levels=range(11), colors=blue)
+plt.contour(x, y, J(grid), levels=range(11), colors=blue)
 plt.xlabel(r'$\theta_1$')
 plt.ylabel(r'$\theta_2$')
 plt.gcf().set_size_inches(w=5, h=4)
 plt.tight_layout()
 ```
 
-Let's run the GD algorithm four times beginning with _no_ rate decay, and track the approximations $\btheta_t$ in $\mathbb{R}^2$ plotted over the contours of $J(\btheta)$:
+Let's run the GD algorithm four times beginning with _no_ learning rate decay, and track the approximations $\btheta_t$ in $\mathbb{R}^2$ plotted over the contours of $J(\btheta)$:
 
 
 ```{code-cell} ipython3
@@ -884,82 +978,83 @@ Let's run the GD algorithm four times beginning with _no_ rate decay, and track 
 :       align: center
 
 # plot the objective function
-axes_idx = list(product(range(2), repeat=2))
-_, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
-for k in range(4):
-    idx = axes_idx[k]
-    axes[idx].contour(x, y, z, levels=range(11), colors=blue, alpha=0.5)
+fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
+for axis in axes.flatten():
+    axis.contour(x, y, J(grid), levels=range(11), colors=blue, alpha=0.5)
 
 # parameters for gradient descent
-gd_parameters = {'theta': [torch.tensor([0.25, 1], requires_grad=True), torch.tensor([0.25, 1], requires_grad=True), torch.tensor([0.75, 1.2], requires_grad=True), torch.tensor([0.5, 0.49], requires_grad=True)],
-                 'num_steps': [31, 21, 21, 21],
-                 'lr': [4e-3, 1e-2, 1e-2, 1e-2]}
+gd_parameters = {'theta': [torch.tensor([0.25, 0.9], requires_grad=True),
+                           torch.tensor([0.25, 1], requires_grad=True),
+                           torch.tensor([0.75, 1.2], requires_grad=True),
+                           torch.tensor([0.5, 0.49], requires_grad=True)],
+                 'num_steps': [20, 20, 20, 20],
+                 'lr': [1e-2, 1e-2, 1e-2, 1e-2]}
 
 # run gradient descent and plot
-for i in range(4):
+for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
     running_parameters, running_objectives = GD(**gd_parameters_slice, J=J)
-    idx = axes_idx[i]
     lr = gd_parameters_slice['lr']
-    num_steps = gd_parameters_slice['num_steps'] - 1
-    axes[idx].plot(running_parameters[:, 0], running_parameters[:, 1], color=magenta)
-    axes[idx].scatter(running_parameters[:, 0], running_parameters[:, 1], s=30, color=magenta, zorder=2)
-    axes[idx].scatter(x=running_parameters[0, 0], y=running_parameters[0, 1], s=100, color=magenta, zorder=2)
-    axes[idx].set_xlabel(r'$\theta_1$')
-    axes[idx].set_ylabel(r'$\theta_2$')
-    axes[idx].set_title(fr'$\alpha={lr}$, $\gamma=0$, $N={num_steps}$')
+    num_steps = gd_parameters_slice['num_steps']
+    axis.plot(running_parameters[:, 0], running_parameters[:, 1], color=magenta)
+    axis.scatter(running_parameters[:, 0], running_parameters[:, 1], s=30, color=magenta, zorder=2)
+    axis.scatter(x=running_parameters[0, 0], y=running_parameters[0, 1], s=100, color=magenta, zorder=2)
+    axis.set_xlabel(r'$\theta_1$')
+    axis.set_ylabel(r'$\theta_2$')
+    axis.set_title(fr'$\alpha={lr}$, $\beta=0$, $N={num_steps}$')
+    fig.suptitle('first runs of gradient descent')
 plt.tight_layout()
 ```
 
-The large magenta dots in the plots indicate the initial guesses $\btheta_0$, while the smaller dots indicate the approximations $\btheta_t$ for $t>0$. The algorithm appears to be converging nicely to the minimizer $\btheta^\star = (1,1)$ in the upper-left plot, while in the other three plots, the algorithm finds a neighborhood of a minimizer, but then oscillates back and forth and never appears to settle down. This is due jointly to the elliptical (non-circular) shape of the contours, the choice of initial values, and poorly chosen learning rates.
+The large magenta dots in the plots indicate the initial guesses $\btheta_0$, while the smaller dots indicate the approximations $\btheta_t$ for $t>0$. The algorithm appears to be converging nicely to the minimizer $\btheta^\star = (1,1)$ in the upper-left plot, while in the other three plots, the algorithm finds a neighborhood of a minimizer, but then oscillates back and forth and never appears to settle down. This is due jointly to the elliptical (non-circular) shape of the contours, the choice of initial guesses, and poorly chosen learning rates. Notice that the initial guesses in the top two plots are nearly identical, but they lead to quite different convergence behavior.
 
-In particular, since the gradient is orthogonal to contours, we see that the negative gradient (which the GD algorithm is following) does _not_ point directly toward the minimizers. The elliptical nature of the contours creates local curvatures at the minimizers that are quite different depending on which direction you look. From the previous section, we know that the local curvatures are encoded in the Hessian matrix; this suggests that studying the Hessian matrix might lead to insights into the convergence properties of gradient descent.
+In particular, since the gradient is orthogonal to contours (see {prf:ref}`grad-uphill-thm`), in all the plots except the top-left one, we see that the negative gradients (which the GD algorithm is following) do _not_ point directly toward the minimizers. The elliptical nature of the contours creates local curvatures at the minimizers that are quite different depending on which direction you look. From the previous section, we know that the local curvatures are encoded in the Hessian matrix, and the "variance" or "range" of the local curvatures is scored by its condition number. This suggests that studying the Hessian matrix might lead to insights into the convergence properties of gradient descent.
 
-To begin this study, let's start more generally with a function $J:\bbr^n \to \bbr$ of class $C^2$ and $\btheta^\star$ a point. As we saw in the previous section, for $\btheta$ near $\btheta^\ast$, we have the local degree-$2$ Taylor approximation
-
-$$
-J(\btheta) \approx J(\btheta^\star) + (\btheta - \btheta^\star)^\intercal \nabla(J(\btheta^\star)) + (\btheta - \btheta^\star)^\intercal \text{Hess}(J(\btheta^\star)) (\btheta - \btheta^\star).
-$$
-
-Thus, if we want to study (an approximation of) the local geometry of the graph of $J$ near $\btheta^\star$, we may as well replace $J(\btheta)$ with the Taylor polynomial on the right-hand side of this approximation. We therefore assume that
+To begin this study, let's start more generally with a function $J:\bbr^n \to \bbr$ of class $C^2$ and $\btheta^\star$ a point. We then take a degree-$2$ Taylor polynomial approximation centered at $\btheta^\star$:
 
 $$
-J(\btheta) = \frac{1}{2}\btheta^\intercal A \btheta + \bb^\intercal \btheta + c,
+J(\btheta) \approx J(\btheta^\star) + (\btheta - \btheta^\star)^\intercal \nabla J(\btheta^\star) + \frac{1}{2} (\btheta - \btheta^\star)^\intercal \big(\nabla^2 J(\btheta^\star) \big) (\btheta - \btheta^\star).
 $$
 
-where $A \in \bbr^{n\times n}$ is a symmetric matrix, $\bb\in \bbr^n$ is a vector, and $c\in \bbr$ is a scalar. As you may easily compute, the gradient and Hessian matrices are given by
+An approximation of the local geometry of the graph of $J$ near $\btheta^\star$ may be obtained by replacing $J$ with its Taylor polynomial on the right-hand side; thus, for our purposes, we may as well assume that $J$ is given by a degree-$2$ (inhomogeneous) polynomial:
 
 $$
-\nabla(J(\btheta)) = A \btheta + \bb \quad \text{and} \quad \text{Hess}(J(\btheta)) = A.
+J(\btheta) = \frac{1}{2}\btheta^\intercal H \btheta + \bb^\intercal \btheta + c,
 $$
 
-Assuming that the rate decay $\gamma=0$, the update rule in the GD algorithm is given by
+where $H \in \bbr^{n\times n}$ is a symmetric matrix, $\bb\in \bbr^n$ is a vector, and $c\in \bbr$ is a scalar. As you may easily compute, the gradient and Hessian matrices are given by
 
 $$
-\btheta_{t+1} = \btheta_t - \alpha(A\btheta_t + \bb).
+\nabla J(\btheta) = H \btheta + \bb \quad \text{and} \quad  \nabla^2 J(\btheta) = H.
+$$
+
+Assuming that the decay rate is $\beta=0$, the update rule in the GD algorithm is given by
+
+$$
+\btheta_{t+1} = \btheta_t - \alpha(H\btheta_t + \bb).
 $$
 
 Then, if $\btheta^\star$ is any stationary point (like a local minimizer), we may rewrite this update rule as
 
 $$
-\btheta_{t+1} - \btheta^\star = (I - \alpha A)(\btheta_t - \btheta^\star)
+\btheta_{t+1} - \btheta^\star = (I - \alpha H)(\btheta_t - \btheta^\star)
 $$
 
-where $I$ is the $n\times n$ identity matrix. This leads us to the closed form of the update rule given by
+where $I$ is the $n\times n$ identity matrix. This leads us to the update rule given in closed form by
 
 $$
-\btheta_t - \btheta^\star = (I - \alpha A)^t (\btheta_0 - \btheta^\star)
+\btheta_t - \btheta^\star = (I - \alpha H)^t (\btheta_0 - \btheta^\star)
 $$ (gd-closed-eqn)
 
 for all $t\geq 0$.
 
-Choosing the learning rate $\alpha$ is a balancing act: We want it large enough to obtain quick convergence, but small enough to avoid oscillations like in the plots above. To find the optimal $\alpha$ in our current situation, let's suppose that $\btheta^\star$ is indeed a local minimizer with positive definite Hessian matrix $\text{Hess}(J(\btheta^\star)) = A$. Suppose we linearly order the eigenvalues of $A$ as
+Choosing the learning rate $\alpha$ is a balancing act: We want it large enough to obtain quick convergence, but small enough to avoid oscillations like in the plots above. To find the optimal $\alpha$ in our current situation, let's suppose that $\btheta^\star$ is indeed a local minimizer with positive definite Hessian matrix $H$. Suppose we linearly order the eigenvalues of $H$ as
 
 $$
 0 < \lambda_1 \leq \cdots \leq \lambda_n.
 $$
 
-The eigenvalues of the matrix $I - \alpha A$ are $1 - \alpha \lambda_i$, for $i=1,\ldots,n$. As long as we choose the learning rate $\alpha$ such that
+The eigenvalues of the matrix $I - \alpha H$ are $1 - \alpha \lambda_i$, for $i=1,\ldots,n$. As long as we choose the learning rate $\alpha$ such that
 
 $$
 0 < \alpha \leq 1 / \lambda_n,
@@ -971,22 +1066,37 @@ $$
 0 \leq 1 - \alpha \lambda_n \leq \cdots \leq 1 - \alpha \lambda_1 < 1.
 $$ (new-order-eqn)
 
-Since $I-\alpha A$ is symmetric, its operator norm is equal to its largest eigenvalue, $1-\alpha \lambda_1$. In particular, from {eq}`gd-closed-eqn` we obtain the upper bound
+Since $I-\alpha H$ is symmetric, its operator norm is equal to its spectral radius, $1-\alpha \lambda_1$. In particular, from {eq}`gd-closed-eqn` we obtain the upper bound
 
 $$
-||\btheta_t - \btheta^\star|| \leq ||I - \alpha A||^t ||\btheta_0 - \btheta^\star || = (1-\alpha \lambda_1)^t ||\btheta_0 - \btheta^\star ||.
+|\btheta_t - \btheta^\star| \leq |I - \alpha H|^t |\btheta_0 - \btheta^\star | = (1-\alpha \lambda_1)^t |\btheta_0 - \btheta^\star |.
 $$
 
-As we saw in {eq}`new-order-eqn`, our choice of learning rate $\alpha$ such that {eq}`lr-eqn` holds implies $1-\alpha \lambda_1<1$, and therefore this last displayed inequality shows that convergence is guaranteed as $t\to \infty$. However, we may speed up the convergence by choosing $\alpha$ to be the maximum value in the range given by {eq}`lr-eqn`, i.e., $\alpha = 1/\lambda_n$. In this case, we have
+Our choice of learning rate $\alpha$ according to {eq}`lr-eqn` implies $1-\alpha \lambda_1<1$, and therefore this last displayed inequality shows that we have exponentially fast convergence as $t\to \infty$. However, we may speed up the convergence by choosing $\alpha$ to be the maximum value in the range allowed by {eq}`lr-eqn`, i.e., choose it to be the reciprocal spectral radius $\alpha = 1/\lambda_n = 1 / \rho(H)$. In this case, we have
 
 $$
-||\btheta_t - \btheta^\star|| \leq ( 1- 1/\kappa(A))^t ||\btheta_0 - \btheta^\star ||
+|\btheta_t - \btheta^\star| \leq ( 1- 1/\kappa(H))^t |\btheta_0 - \btheta^\star |
 $$
 
-where $\kappa(A)$ is the condition number of $A$. This shows that the fastest rate of convergence guaranteed by our arguments is controlled by the condition number of the Hessian matrix. In particular, if the Hessian matrix is ill-conditioned (i.e., if the condition number is large), then we cannot guarantee quick convergence (at least using the present arguments).
+where $\kappa(H)$ is the condition number of $H$. This shows that the fastest rates of convergence guaranteed by our arguments are those for which the condition number of the Hessian matrix is near $1$. If the Hessian matrix is ill-conditioned (i.e., if the condition number is large), then the speed of convergence guaranteed by these arguments is inflated. This does _not_ say that the algorithm is _guaranteed_ to converge slowly---for example, we might be very lucky with our initial guess and still obtain quick convergence, even in the case of an ill-conditioned Hessian matrix.
 
+Let's summarize our discussion in a theorem:
 
-We may dampen these oscillations and encourage the algorithm to converge by adding learning rate decay. Here are four plots with the same initial values and learning rates, but with $\gamma = 0.05$ and $N$ increased to $40$ to account for the learning rate decay:
+```{prf:theorem} Quadratic approximations of convergence rates
+:label: quadratic-conv-thm
+
+Let $J:\bbr^n \to \bbr$ be a function of class $C^2$ and $\btheta^\star$ a local minimizer with positive definite Hessian matrix $H = \nabla^2 J(\btheta^\star)$. For initial guesses $\btheta_0$ sufficiently near $\btheta^\star$ to allow a degree-$2$ Taylor polynomial approximation, the gradient descent algorithm with $\alpha = 1/\rho(H)$ and $\beta=0$ converges to $\btheta^\star$ exponentially fast, with
+
+$$
+|\btheta_t - \btheta^\star| \leq ( 1- 1/\kappa(H))^t |\btheta_0 - \btheta^\star |
+$$
+
+for each $t\geq 0$. Here, $\rho(H)$ and $\kappa(H)$ are the spectral radius and condition number of $H$, respectively.
+```
+
+Of course, in order to obtain the exponentially quick convergence guaranteed by the theorem, one needs to place their initial guess $\btheta_0$ "sufficiently close" to the minimizer. But this would require the analyst to already have some sense of where the minimizer is likely to be located!
+
+For our polynomial objective $J$ given in {eq}`two-dim-poly-eq` above, we compute the spectral radius of the Hessian matrices at the minimizers $(0,0)$ and $(1,1)$ to be $220$ in both cases. Thus, if we choose learning rate $\alpha = 1/220 \approx 0.004$ and re-run the gradient descent algorithm with the same initial guesses to test {prf:ref}`quadratic-conv-thm`, we get the new plots:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -995,36 +1105,74 @@ We may dampen these oscillations and encourage the algorithm to converge by addi
 :       align: center
 
 # plot the objective function
-axes_idx = list(product(range(2), repeat=2))
-_, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
-for k in range(4):
-    idx = axes_idx[k]
-    axes[idx].contour(x, y, z, levels=range(11), colors=blue, alpha=0.5)
+fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
+for axis in axes.flatten():
+    axis.contour(x, y, J(grid), levels=range(11), colors=blue, alpha=0.5)
 
 # parameters for gradient descent
-gd_parameters = {'theta': [torch.tensor([0.25, 1], requires_grad=True), torch.tensor([0.25, 1], requires_grad=True), torch.tensor([0.75, 1.2], requires_grad=True), torch.tensor([0.5, 0.49], requires_grad=True)],
-                 'num_steps': [41, 41, 41, 41],
-                 'lr': [5e-3, 1e-2, 1e-2, 1e-2]}
+gd_parameters = {'theta': [torch.tensor([0.25, 0.9], requires_grad=True),
+                           torch.tensor([0.25, 1], requires_grad=True),
+                           torch.tensor([0.75, 1.2], requires_grad=True),
+                           torch.tensor([0.5, 0.49], requires_grad=True)],
+                 'num_steps': [40, 40, 40, 40],
+                 'lr': [4e-3, 4e-3, 4e-3, 4e-3]}
 
 # run gradient descent and plot
-for i in range(4):
+for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
-    running_parameters, running_objectives = GD(**gd_parameters_slice, J=J, decay=0.05)
-    idx = axes_idx[i]
+    running_parameters, running_objectives = GD(**gd_parameters_slice, J=J)
     lr = gd_parameters_slice['lr']
-    num_steps = gd_parameters_slice['num_steps'] - 1
-    axes[idx].plot(running_parameters[:, 0], running_parameters[:, 1], color=magenta)
-    axes[idx].scatter(running_parameters[:, 0], running_parameters[:, 1], s=30, color=magenta, zorder=2)
-    axes[idx].scatter(x=running_parameters[0, 0], y=running_parameters[0, 1], s=100, color=magenta, zorder=2)
-    axes[idx].set_xlabel(r'$\theta_1$')
-    axes[idx].set_ylabel(r'$\theta_2$')
-    axes[idx].set_title(fr'$\alpha={lr}$, $\gamma=0.05$, $N={num_steps}$')
+    num_steps = gd_parameters_slice['num_steps']
+    axis.plot(running_parameters[:, 0], running_parameters[:, 1], color=magenta)
+    axis.scatter(running_parameters[:, 0], running_parameters[:, 1], s=30, color=magenta, zorder=2)
+    axis.scatter(x=running_parameters[0, 0], y=running_parameters[0, 1], s=100, color=magenta, zorder=2)
+    axis.set_xlabel(r'$\theta_1$')
+    axis.set_ylabel(r'$\theta_2$')
+    axis.set_title(fr'$\alpha={lr}$, $\beta=0$, $N={num_steps}$')
+    fig.suptitle('second runs of gradient descent with smaller learning rates')
 plt.tight_layout()
 ```
 
-Now, the learning rate $\alpha = 0.005$ in the first plot appears to be much too small causing the gradient steps to shrink too fast before the algorithm converges. On the other hand, the algorithm in the other three plots appears to be nicely converging to minimizers. We have effectively "dampened out" the wild oscillations in the first four plots above.
+Just like magic, the undesirable oscillations have vanished. But we had to pay a price: Because of the smaller learning rate, we had to double the number of gradient steps from $20$ to $40$.
 
-Here are the values of the objective function in all four runs, plotted against the number of gradient steps:
+Alternatively, we may dampen the oscillations and keep the original (relatively large) learning rates by adding a slight learning rate decay at $\beta = 0.05$:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+# plot the objective function
+fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
+for axis in axes.flatten():
+    axis.contour(x, y, J(grid), levels=range(11), colors=blue, alpha=0.5)
+
+# parameters for gradient descent
+gd_parameters = {'theta': [torch.tensor([0.25, 0.9], requires_grad=True),
+                           torch.tensor([0.25, 1], requires_grad=True),
+                           torch.tensor([0.75, 1.2], requires_grad=True),
+                           torch.tensor([0.5, 0.49], requires_grad=True)],
+                 'num_steps': [40, 40, 40, 40],
+                 'lr': [1e-2, 1e-2, 1e-2, 1e-2]}
+
+# run gradient descent and plot
+for i, axis in enumerate(axes.flatten()):
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    running_parameters, running_objectives = GD(**gd_parameters_slice, J=J, lr_decay_rate=0.05)
+    lr = gd_parameters_slice['lr']
+    num_steps = gd_parameters_slice['num_steps']
+    axis.plot(running_parameters[:, 0], running_parameters[:, 1], color=magenta)
+    axis.scatter(running_parameters[:, 0], running_parameters[:, 1], s=30, color=magenta, zorder=2)
+    axis.scatter(x=running_parameters[0, 0], y=running_parameters[0, 1], s=100, color=magenta, zorder=2)
+    axis.set_xlabel(r'$\theta_1$')
+    axis.set_ylabel(r'$\theta_2$')
+    axis.set_title(fr'$\alpha={lr}$, $\beta=0.05$, $N={num_steps}$')
+    fig.suptitle('third runs of gradient descent with learning rate decay')
+plt.tight_layout()
+```
+
+Here are the values of the objective function for these last runs with learning rate decay, plotted against the number of gradient steps:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1033,30 +1181,31 @@ Here are the values of the objective function in all four runs, plotted against 
 :       align: center
 
 # parameters for gradient descent
-gd_parameters = {'theta': [torch.tensor([0.25, 1], requires_grad=True), torch.tensor([0.25, 1], requires_grad=True), torch.tensor([0.75, 1.2], requires_grad=True), torch.tensor([0.5, 0.49], requires_grad=True)],
-                 'num_steps': [41, 41, 41, 41],
-                 'lr': [5e-3, 1e-2, 1e-2, 1e-2]}
+gd_parameters = {'theta': [torch.tensor([0.25, 0.9], requires_grad=True),
+                           torch.tensor([0.25, 1], requires_grad=True),
+                           torch.tensor([0.75, 1.2], requires_grad=True),
+                           torch.tensor([0.5, 0.49], requires_grad=True)],
+                 'num_steps': [40, 40, 40, 40],
+                 'lr': [1e-2, 1e-2, 1e-2, 1e-2]}
 
 # run gradient descent and plot
-axes_idx = list(product(range(2), repeat=2))
 _, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
 
-for i in range(4):
+for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
-    _, running_objectives = GD(**gd_parameters_slice, J=J, decay=0.05)
-    idx = axes_idx[i]
+    _, running_objectives = GD(**gd_parameters_slice, J=J, lr_decay_rate=0.05)
     lr = gd_parameters_slice['lr']
-    num_steps = gd_parameters_slice['num_steps'] - 1
-    axes[idx].plot(range(len(running_objectives)), running_objectives)
-    axes[idx].set_xlabel('gradient steps')
-    axes[idx].set_ylabel('$J(\\theta)$')
-    axes[idx].set_title(fr'$\alpha={lr}$, $\gamma=0.05$, $N={num_steps}$')
+    num_steps = gd_parameters_slice['num_steps']
+    axis.plot(range(len(running_objectives)), running_objectives)
+    axis.set_xlabel('gradient steps')
+    axis.set_ylabel('$J(\\theta)$')
+    axis.set_title(fr'$\alpha={lr}$, $\beta=0.05$, $N={num_steps}$')
 plt.tight_layout()
 ```
 
 Notice the initial "overshoot" in the plot in the bottom left, causing the objective function $J(\btheta)$ to _increase_ after the first gradient step. Recall also that the initial value $\btheta_0$ in the bottom right plot is near the saddle point $(0.5,0.5)$, causing $\nabla J(\btheta_0) \approx 0$. This accounts for the small initial changes in the objective function $J(\btheta)$ indicated by the (nearly) horizontal stretch early in the run of the algorithm.
 
-Of course, an objective function $J:\mathbb{R}^2 \to \mathbb{R}$ defined on a $2$-dimensional input space is still not a realistic example of the objective functions encountered in the real world. In two dimensions, we have the ability to plot the algorithm's progress through $\mathbb{R}^2$ on a contour plot, as we did above. In dimensions $n\geq 4$ we lose this visual aid, though one may plot input variables two at a time in $\mathbb{R}^2$. But no matter the input dimension, we may always plot the objective values against the number of gradient steps as a diagnostic plot for convergence.
+Of course, an objective function $J:\mathbb{R}^2 \to \mathbb{R}$ defined on a $2$-dimensional input space is still not a realistic example of the objective functions encountered in the real world. In two dimensions, we have the ability to plot the algorithm's progress through $\mathbb{R}^2$ on contour plots, as we did multiple times above. In higher dimensions we lose this valuable visual aid. But no matter the input dimension, we may always plot the objective values against the number of gradient steps as a diagnostic plot for convergence.
 
 
 
@@ -1503,4 +1652,268 @@ for i in range(4):
     axes[idx].set_ylabel(r'$\theta_2$')
 
 plt.tight_layout()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(app-conv-sec)=
+## Appendix: Convex functions
+
+To be written!!!
+
+```{prf:definition}
+:label: convex-concave-def
+
+We shall say a function $J:\bbr^n \to \bbr$ is _convex_ provided that
+
+$$
+J\big((1-t) \ba + t\bb\big) \leq (1-t) J(\ba) + t J(\bb)
+$$
+
+for all $\ba,\bb\in \bbr^n$ and all $t\in [0,1]$. If "$\leq$" is replaced with "$<$", then the function is called _strictly convex_; if the inequalities are reversed, we obtain the definitions of _concave_ and _strictly concave_.
+```
+
+
+```{prf:theorem} Main theorem on convex functions (single-variable version)
+:label: main-convex-thm
+
+Let $J: \bbr \to \bbr$ be a twice-differentiable function. The following statements are equivalent:
+
+1. The function $J$ is convex.
+
+2. For all numbers $a,b,c$ with $a<b<c$, we have
+
+    $$
+    \frac{J(b)-J(a)}{b-a} \leq \frac{J(c)-J(b)}{c-b}.
+    $$
+
+3. The graph of $J$ lies above its tangent lines, i.e., for all $\theta,a\in \bbr$, we have
+
+    $$
+    J(\theta) \geq J'(a)(\theta-a) + J(a).
+    $$
+
+4. The second derivative is nonnegative everywhere, i.e., $J''(\theta)\geq 0$ for all $\theta\in \bbr$.
+
+Moreover, if $\theta^\star$ is a stationary point of $J$ and $J$ is convex, then $\theta^\star$ is a global minimizer.
+```
+
+```{prf:proof} 
+
+We shall prove the statements as (1) $\Rightarrow$ (3) $\Rightarrow$ (2) $\Rightarrow$ (1), and then (3) $\Rightarrow$ (4) $\Rightarrow$ (2).
+
+(1) $\Rightarrow$ (3): Suppose that $\theta,a\in \bbr$ and note that
+
+$$
+J'(a)(\theta-a) = \lim_{t\to 0} \frac{J\big( a+t(\theta-a) \big) - J(a)}{t}.
+$$ (der-almost-eq)
+
+Provided $t\in [0,1]$ we have
+
+$$
+J\big( a+t(\theta-a) \big) = J \big( (1-t)a + t\theta\big) \leq (1-t)J(a) + tJ(\theta) = J(a) +t\big(J(\theta) - J(a)\big)
+$$
+
+and so
+
+$$
+J(\theta) \geq \frac{J\big( a+t(\theta-a) \big) - J(a)}{t} + J(a).
+$$
+
+Taking $t\to 0^+$ and using {eq}`der-almost-eq` yields
+
+$$
+J(\theta) \geq J'(a) (\theta-a) + J(a),
+$$
+
+as desired.
+
+(3) $\Rightarrow$ (2): Letting $a<b<c$, by hypothesis we have
+
+$$
+J(a) \geq J'(b)(a-b) + J(b) \quad \text{and} \quad J(c) \geq J'(b)(c-b) + J(b).
+$$
+
+Then the inequalities
+
+$$
+\frac{J(b)-J(a)}{b-a} \leq J'(b) \leq \frac{J(c)-J(b)}{c-b}
+$$
+
+follow immediately, establishing (2).
+
+(2) $\Rightarrow$ (1): Suppose that the inequality
+
+$$
+\frac{J(b)-J(a)}{b-a} \leq \frac{J(c)-J(b)}{c-b}
+$$ (inc-sec-eq)
+
+holds for all $a<b<c$. Fixing $a$ and $c$ with $a<c$, let $t\in (0,1)$ and set
+
+$$
+b = (1-t)a + tc.
+$$
+
+Then we have both
+
+$$
+t = \frac{b-a}{c-a},
+$$ (ratio-t-eq)
+
+and
+
+$$
+1-t = \frac{c-b}{c-a}
+$$ (second-choice-eq)
+
+But then
+
+$$
+\frac{J(b)-J(a)}{t} \leq \frac{J(c)-J(b)}{1-t}
+$$
+
+by {eq}`second-choice-eq` and {eq}`inc-sec-eq`. We may rearrange this inequality to obtain
+
+$$
+J\big((1-t)a+tc \big) =J(b) \leq (1-t)J(a) + tJ(c),
+$$
+
+which is what we wanted to show.
+
+(3) $\Rightarrow$ (4): By the Mean Value Theorem, to prove that $J''(\theta)\geq 0$ for all $\theta$, it will suffice to show that $J'$ is an increasing function. For this, suppose given $a,b\in \bbr$ with $a< b$. By hypothesis, we have both
+
+$$
+J(b) \geq J'(a)(b-a) + J(a) \quad \text{and} \quad J(a) \geq J'(b)(a-b) + J(b).
+$$
+
+But then
+
+$$
+J'(a)(b-a) + J(a) \leq J(b) \leq -J'(b)(a-b) + J(a)
+$$
+
+and so $J'(a) \leq J'(b)$.
+
+(4) $\Rightarrow$ (2): Let $a<b<c$. The Mean Value Theorem is then used twice: Once to conclude that $J'$ is an increasing function, and then to show that there are numbers $u\in (a,b)$ and $v\in (b,c)$ such that
+
+$$
+J'(u) = \frac{J(b)-J(a)}{b-a} \quad \text{and} \quad J'(v) = \frac{J(c)-J(b)}{b-c}.
+$$
+
+But then
+
+$$
+\frac{J(b)-J(a)}{b-a} = J'(u) \leq J'(v) = \frac{J(c)-J(b)}{b-c}
+$$
+
+since $u<v$ and $J'$ is increasing. Q.E.D.
+```
+
+Suppose $g:\bbr \to \bbr$ is a twice-differentiable function, $s,t$ are fixed distinct real numbers, and we define
+
+$$
+h:\bbr \to \bbr, \quad h(r) = g\big(r(s-t)+t\big).
+$$ (aux-func-eq)
+
+Then
+
+$$
+g(s) \geq g'(t) (s-t) + g(t) \quad \Leftrightarrow \quad h(1) \geq h'(0) + h(0)
+$$ (aux-tangent-eq)
+
+while
+
+$$
+g''(t) \geq 0 \quad \Leftrightarrow \quad h''(0) \geq 0.
+$$ (aux-curv-eq)
+
+```{prf:theorem} Main theorem on convex functions (multi-variable version)
+:label: main-convex-multi-thm
+
+Blah blah blah, to be written later.
+```
+
+```{prf:proof}
+
+Throughout the proof we fix $\btheta,\bv\in \bbr^n$ and we consider the function
+
+$$
+g: \bbr \to \bbr, \quad g(t) \def J\big(t \bv + \btheta \big).
+$$ (aux-2-eq)
+
+(1) $\Rightarrow$ (2): Supposing that $J$ is convex, the function $g$ is easily seen to be convex. Thus,
+
+$$
+J(\bv + \btheta) = g(1) \geq g'(0) + g(0) = \bv^\intercal \nabla J(\btheta) + J(\btheta),
+$$
+
+where the second equality follows from {prf:ref}`directional-der-def` and {prf:ref}`directional-der-grad-thm`.
+
+(2) $\Rightarrow$ (3): For real numbers $s,t\in \bbr$, we shall prove
+
+$$
+g(s) \geq g'(t)(s-t) + g(t)
+$$ (goal-tan-line-eq)
+
+through {eq}`aux-tangent-eq` using the auxiliary function $h$ defined in terms of $g$ via {eq}`aux-func-eq`. But note that
+
+$$
+h(1) = J(s\bv + \btheta) \quad \text{and} \quad h(0) = J(t\bv + \btheta)
+$$
+
+while
+
+$$
+h'(0) = (s-t) \bv^\intercal \nabla J(t\bv + \btheta)
+$$
+
+by {prf:ref}`directional-der-grad-thm`. But by hypothesis, we have
+
+$$
+J(s\bv + \btheta) \geq (s-t) \bv^\intercal \nabla J(t\bv + \btheta) + J(t\bv + \btheta),
+$$
+
+from which {eq}`goal-tan-line-eq` follows. So, since the graph of $g$ lies above its tangent lines, we know what $g''(t)\geq 0$ for all $t$ and, in particular, that $g''(0)\geq 0$. However, from {prf:ref}`directional-der-grad-thm` we get the equality in
+
+$$
+\bv^\intercal \nabla^2 J(\btheta) \bv = g''(0)   \geq 0,
+$$
+
+which shows that the Hessian matrix $\nabla^2 J(\btheta)$ is positive semidefinite since $\bv$ was chosen arbitrarily.
+
+(3) $\Rightarrow$ (1): We need to prove that
+
+$$
+J(t\bv + \btheta) \leq (1-t) J(\btheta) + t J (\bv + \btheta)
+$$ (new-goal-eq)
+
+for all $t\in [0,1]$. But note that this is the same inequality as
+
+$$
+g(t) \leq (1-t) g(0) + tg(1),
+$$
+
+so it will suffice to show that $g$ is convex. But to do this, we shall show $g''(t)\geq 0$ through {eq}`aux-curv-eq` and the auxiliary function $h$. However, we have
+
+$$
+h''(0) = (s-t)^2\bv^\intercal \nabla^2 J(t\bv + \btheta)\bv \geq 0
+$$
+
+from {prf:ref}`directional-der-grad-thm` and positive semidefiniteness of the Hessian matrix $\nabla^2 J(t\bv + \btheta)$.
 ```
