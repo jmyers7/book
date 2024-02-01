@@ -94,7 +94,7 @@ for all $\btheta$ in a neighborhood of $\btheta^\star$; if this inequality holds
 
 Using this terminology, we would say that $0.5$ is (approximately) a local minimizer of our polynomial objective function $J(\theta)$, while $2.7$ is (approximately) a global minimizer.
 
-Let's see how the single-variable version of the _gradient descent (GD) algorithm_ would solve our optimization problem. In this context, the GD algorithm is called the _optimizer_. This algorithm depends on an initial guess for a minimizer, as well as two parameters called the _learning rate_ and the _number of gradient steps_. We will state the algorithm first, and then walk through some intuition for why it works:
+Let's see how the single-variable version of the _gradient descent (GD) algorithm_ would solve our optimization problem. In this context, the algorithm is called the _optimizer_. This algorithm depends on an initial guess for a minimizer, as well as two parameters called the _learning rate_ and the _number of gradient steps_. We will state the algorithm first, and then walk through some intuition for why it works:
 
 ```{margin}
 
@@ -114,10 +114,10 @@ The loop runs from $t=0$ to $t=N-1$, inclusive. This convention is intended to m
 3. Return $\theta$.
 ```
 
-Beginning from an initial guess $\theta_0$, the `for` loop in the GD algorithm produces a sequence of $N+1$ approximations
+Beginning from an initial guess $\theta_0$, the `for` loop in the algorithm produces a sequence of $N+1$ approximations
 
 $$
-\theta_0,\ldots,\theta_t,\ldots,\theta_{N}
+\theta_0,\theta_1,\ldots,\theta_t,\ldots,\theta_{N}
 $$
 
 to a (local) minimizer $\theta^\star$. The last value $\theta_{N}$ in the sequence is taken as the output of the algorithm; if the algorithm converges to a minimizer, then we should have $\theta_{N} \approx \theta^\star$.
@@ -211,7 +211,7 @@ From these considerations, we conclude the following:
 
 The sense in which the negative derivative "points downhill" is made precise by our observation that it is positive if the point $(\theta_0,J(\theta_0))$ sits on a decreasing portion of the graph of $J(\theta)$, and it is negative if $(\theta_0,J(\theta_0))$ is on an increasing portion of the graph. The role of the learning rate $\alpha$ is to scale down the magnitude of the negative derivative so that the gradient step in the update rule does not cause $\theta_1$ to "overshoot" a nearby minimizer.
 
-Let's run the GD algorithm four times, with various settings of the parameters:
+Let's run the gradient algorithm four times, with various settings of the parameters:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -296,7 +296,7 @@ where $N$ is the number of gradient steps. In the first row of the figure, the a
 Do problem 1 on the worksheet.
 ```
 
-It is possible for the GD algorithm to diverge, especially if the learning rate is too large. For example, suppose that we set the learning rate to $\alpha = 0.2$ and use $\theta_0 = 3.5$ as our initial guess. Then three steps of gradient descent produce the following:
+It is possible for the gradient descent algorithm to diverge, especially if the learning rate is too large. For example, suppose that we set the learning rate to $\alpha = 0.2$ and use $\theta_0 = 3.5$ as our initial guess. Then three steps of gradient descent produce the following:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -925,7 +925,7 @@ With the gradient vector taking the place of the derivative, it is easy to gener
 Just like the single-variable version, beginning from an initial guess $\btheta_0$ for a (local) minimizer, the algorithm outputs a sequence of $N+1$ approximations
 
 $$
-\btheta_0, \ldots,\btheta_t,\ldots,\btheta_N
+\btheta_0,\btheta_1, \ldots,\btheta_t,\ldots,\btheta_N
 $$
 
 to a local minimizer $\btheta^\star$.
@@ -936,15 +936,17 @@ $$
 J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1)^2 + 10(\theta_2-1)^2 \big)
 $$ (two-dim-poly-eq)
 
-in two dimensions. This function has two minimizers at
+in two dimensions. Its graph looks like
 
-$$
-\btheta^\star = (0, 0), (1,1),
-$$
+```{image} ../img/objective-plot.png
+:width: 75%
+:align: center
+```
+&nbsp;
 
-as well as a "saddle point" at $(0.5, 0.5)$ where the gradient $\nabla J(\btheta)$ vanishes. A contour plot of its level curves looks like:
+while its contour plot is
 
-```{code-cell} ipython3
+ ```{code-cell} ipython3
 :tags: [hide-input]
 :mystnb:
 :   figure:
@@ -968,7 +970,13 @@ plt.gcf().set_size_inches(w=5, h=4)
 plt.tight_layout()
 ```
 
-Let's run the GD algorithm four times beginning with _no_ learning rate decay, and track the approximations $\btheta_t$ in $\mathbb{R}^2$ plotted over the contours of $J(\btheta)$:
+The function has two minimizers at
+
+$$
+\btheta^\star = (0, 0), (1,1),
+$$
+
+as well as a "saddle point" at $(0.5, 0.5)$ where the gradient $\nabla J(\btheta)$ vanishes. Let's run the gradient descent algorithm four times beginning with _no_ learning rate decay, and track the approximations $\btheta_t$ in $\mathbb{R}^2$ plotted over the contours of $J(\btheta)$:
 
 
 ```{code-cell} ipython3
@@ -1008,7 +1016,7 @@ plt.tight_layout()
 
 The large magenta dots in the plots indicate the initial guesses $\btheta_0$, while the smaller dots indicate the approximations $\btheta_t$ for $t>0$. The algorithm appears to be converging nicely to the minimizer $\btheta^\star = (1,1)$ in the upper-left plot, while in the other three plots, the algorithm finds a neighborhood of a minimizer, but then oscillates back and forth and never appears to settle down. This is due jointly to the elliptical (non-circular) shape of the contours, the choice of initial guesses, and poorly chosen learning rates. Notice that the initial guesses in the top two plots are nearly identical, but they lead to quite different convergence behavior.
 
-In particular, since the gradient is orthogonal to contours (see {prf:ref}`grad-uphill-thm`), in all the plots except the top-left one, we see that the negative gradients (which the GD algorithm is following) do _not_ point directly toward the minimizers. The elliptical nature of the contours creates local curvatures at the minimizers that are quite different depending on which direction you look. From the previous section, we know that the local curvatures are encoded in the Hessian matrix, and the "variance" or "range" of the local curvatures is scored by its condition number. This suggests that studying the Hessian matrix might lead to insights into the convergence properties of gradient descent.
+In particular, since the gradient is orthogonal to contours (see {prf:ref}`grad-uphill-thm`), in all the plots except the top-left one, we see that the negative gradients (which the algorithm is following) do _not_ point directly toward the minimizers. The elliptical nature of the contours creates local curvatures at the minimizers that are quite different depending on which direction you look. From the previous section, we know that the local curvatures are encoded in the Hessian matrix, and the "variance" or "range" of the local curvatures is scored by its condition number. This suggests that studying the Hessian matrix might lead to insights into the convergence properties of gradient descent.
 
 To begin this study, let's start more generally with a function $J:\bbr^n \to \bbr$ of class $C^2$ and $\btheta^\star$ a point. We then take a degree-$2$ Taylor polynomial approximation centered at $\btheta^\star$:
 
@@ -1028,7 +1036,7 @@ $$
 \nabla J(\btheta) = H \btheta + \bb \quad \text{and} \quad  \nabla^2 J(\btheta) = H.
 $$
 
-Assuming that the decay rate is $\beta=0$, the update rule in the GD algorithm is given by
+Assuming that the decay rate is $\beta=0$, the update rule in the algorithm is given by
 
 $$
 \btheta_{t+1} = \btheta_t - \alpha(H\btheta_t + \bb).
@@ -1094,7 +1102,7 @@ $$
 for each $t\geq 0$. Here, $\rho(H)$ and $\kappa(H)$ are the spectral radius and condition number of $H$, respectively.
 ```
 
-Of course, in order to obtain the exponentially quick convergence guaranteed by the theorem, one needs to place their initial guess $\btheta_0$ "sufficiently close" to the minimizer. But this would require the analyst to already have some sense of where the minimizer is likely to be located!
+Of course, in order to obtain the exponentially quick convergence guaranteed by the theorem, one needs to place their initial guess $\btheta_0$ "sufficiently close" to the minimizer. But this would require the analyst to already have some sense of where the minimizer is likely to be located! This restricts its usefulness in practice.
 
 For our polynomial objective $J$ given in {eq}`two-dim-poly-eq` above, we compute the spectral radius of the Hessian matrices at the minimizers $(0,0)$ and $(1,1)$ to be $220$ in both cases. Thus, if we choose learning rate $\alpha = 1/220 \approx 0.004$ and re-run the gradient descent algorithm with the same initial guesses to test {prf:ref}`quadratic-conv-thm`, we get the new plots:
 
@@ -1476,7 +1484,7 @@ Supposing that the $j$-th mini-batch $B_j$ has size $\ell_j$, we would then expe
 
 Very often, the mini-batch sizes $\ell_1,\ell_2,\ldots,\ell_p$ are chosen to be equal to a common value $\ell$, except (possibly) for one to compensate for the fact that $m$ may not be evenly divisible by $\ell$. For example, if $m=100$ and $\ell=30$, then we would have four mini-batches, three of size $\ell=30$ and the fourth of size $10$.
 
-As you are about to see, the mini-batch version of the GD algorithm loops over the mini-batches {eq}`mini-batch-eqn` and computes gradient steps as in {eq}`mini-batch-grad-eqn`. A single loop through _all_ the mini-batches, covering the _entire_ dataset, is called an _epoch_. As the vanilla version of the GD algorithm takes the number of gradient steps as a parameter, the new version of the algorithm takes the number of epochs as a parameter. This new version is called the _stochastic gradient descent (SGD) algorithm_:
+As you are about to see, the mini-batch version of the gradient descent algorithm loops over the mini-batches {eq}`mini-batch-eqn` and computes gradient steps as in {eq}`mini-batch-grad-eqn`. A single loop through _all_ the mini-batches, covering the _entire_ dataset, is called an _epoch_. As the vanilla version of the gradient descent algorithm takes the number of gradient steps as a parameter, the new version of the algorithm takes the number of epochs as a parameter. This new version is called the _stochastic gradient descent (SGD) algorithm_:
 
 ```{prf:algorithm} Stochastic gradient descent with rate decay
 :label: sgd-alg
@@ -1625,7 +1633,7 @@ for i in range(4):
 plt.tight_layout()
 ```
 
-Mini-batch GD parameters:
+Mini-batch gradient descent parameters:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
