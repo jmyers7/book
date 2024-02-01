@@ -204,7 +204,7 @@ Do problem 3 on the worksheet.
 
 
 
-
+(kl-div-sec)=
 ## Kullback Leibler divergence
 
 Our aim in this section is to devise some sort of method for comparing the "distance" between two probability measures. The technique that we discover will have tight connections with the entropies studied in the previous section, but the first part of this section is largely independent of the previous. The link with entropy will come later.
