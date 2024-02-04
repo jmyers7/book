@@ -13,7 +13,7 @@ kernelspec:
 (theory-to-practice)=
 # Connecting theory to practice: a first look at model building
 
-Though you investigated some real-world datasets and scenarios in the [programming assignments](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments), essentially everything that we have studied so far belongs to abstract probability theory. In this chapter, we take a first look at _modeling_ while also continuing the discussion begun in the third programming assignment on _empirical distributions_ of datasets. The ultimate goal is to begin connecting our abstract theory to real-world practice.
+Though you investigated some real-world datasets and scenarios in the programming assignments, essentially everything that we have studied so far belongs to abstract probability theory. In this chapter, we take a first look at _modeling_ while also continuing the discussion begun in the [programming assignment for Chapter 4](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_04.ipynb) on _empirical distributions_ of datasets. The ultimate goal is to begin connecting our abstract theory to real-world practice.
 
 The modeling concept is bigger than just probability theory, statistics, and machine learning; indeed, the process of model building is central to essentially all quantitative sciences:
 
@@ -225,7 +225,7 @@ As we will learn in {numref}`Chapter %s <prob-models>`, the random variables and
 
 The arrows in this simple graph are intended to convey "influence"---that different parameter settings will alter or "influence" the distributions of the $X_i$'s. Admittedly, since the normal model is so simple, there isn't much additional insight to be gained by drawing this graph. But it's good practice for the models in {numref}`Chapter %s <prob-models>`.
 
-How do we judge the _goodness-of-fit_ of a proposed model distribution? Our first method will be based on a visual comparison of the model distribution function to the _empirical distribution function_. The latter is defined in the next box, which also contains a reminder of the definition of an _empirical distribution_ that appeared back in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments).
+How do we judge the _goodness-of-fit_ of a proposed model distribution? Our first method will be based on a visual comparison of the model distribution function to the _empirical distribution function_. The latter is defined in the next box, which also contains a reminder of the definition of an _empirical distribution_ that appeared back in the [programming assignment for Chapter 4](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_04.ipynb).
 
 ````{prf:definition}
 :label: emp-dist-defn
@@ -233,13 +233,13 @@ How do we judge the _goodness-of-fit_ of a proposed model distribution? Our firs
 The *empirical distribution* of a dataset $x_1,x_2,\ldots,x_m$ is the discrete probability measure on $\mathbb{R}$ with probability mass function
 
 ```{math}
-p(x) = \frac{\text{number of data points $x_i$ that match $x$}}{m}.
+p(x) = \frac{\text{frequency of $x$ in the dataset}}{m}.
 ```
 
 The *empirical cumulative distribution function* (_ECDF_) of the dataset is the CDF of the empiricical disribution. It is given by
 
 \begin{equation*}
-F(x) = \sum_{x^\star\leq x} p(x^\star) = \frac{\text{number of data points $x_i$ with $x_i \leq x$}}{m}.
+F(x) = \sum_{x^\star\leq x} p(x^\star) = \frac{\text{number of data points that are $\leq x$}}{m}.
 \end{equation*}
 ````
 
@@ -274,7 +274,7 @@ $$
 X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 $$
 
-How might we "learn" the parameters $\mu$ and $\sigma^2$ from the data? In this case, we might choose $\mu$ and $\sigma^2$ to be the _empirical mean_ $\bar{x}$ and _empirical variance_ $s^2$, which you saw back in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments) and which we will review in {numref}`empirical-stats` below. (This is the _method of moments_ for estimating model parameters which, in this special case, is also the method of _maximum likelihood estimation_; see {numref}`Chapter %s <learning>`.) With these parameter settings, let's plot the ECDF of the dataset along with the CDF of the normal model superimposed:
+How might we "learn" the parameters $\mu$ and $\sigma^2$ from the data? In this case, we might choose $\mu$ and $\sigma^2$ to be the _empirical mean_ $\bar{x}$ and _empirical variance_ $s^2$, which you saw back in the [programming assignment for Chapter 4](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_04.ipynb) and which we will review in {numref}`empirical-stats` below. (This is the _method of moments_ for estimating model parameters which, in this special case, is also the method of _maximum likelihood estimation_; see {numref}`Chapter %s <learning>`.) With these parameter settings, let's plot the ECDF of the dataset along with the CDF of the normal model superimposed:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -302,7 +302,7 @@ Yikes. Those CDFs are quite different from each other, suggesting that the norma
 
 All is not lost, however, since this comparison suggests a better model. Though technically the ECDF is a step function, it _appears_ to us as a nice smooth-ish curve. If we pretend that it actually _is_ a smooth curve, then the empirical distribution has a probability density function. This density function should have a local maximum around a price of $\$100$ since the ECDF appears to have an inflection point near that price. As we continue scanning the graph from left to right beginning at $\$100$, we see that the tangent line slopes of the ECDF gradually decrease toward $0$, but that it takes awhile before the slopes are essentially $0$. This suggests that the dataset is _right-skew_, in the sense that it has a long tail reaching out to the right from its (single) peak.
 
-This analysis suggests that a log transform (which you learned about in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments)) might "un-skew" the data by removing the tail. In place of our (bad) normal model, we thus propose a normal model on the _transformed_ data:
+This analysis suggests that a log transform (which you learned about in the [programming assignment for Chapter 4](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_04.ipynb)) might "un-skew" the data by removing the tail. In place of our (bad) normal model, we thus propose a normal model on the _transformed_ data:
 
 $$
 \log{X_1},\log{X_2},\ldots,\log{X_{m}} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
@@ -627,7 +627,7 @@ How do you choose the bandwidth in a KDE? Just like the "number of bins" paramet
 (empirical-stats)=
 ## Empirical statistics
 
-Before we continue discussing more ways to _visualize_ datasets, we need to discuss numerical summaries of datasets. This section is essentially a recapitulation of what you learned in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments) with a few new things thrown in at the end.
+Before we continue discussing more ways to _visualize_ datasets, we need to discuss numerical summaries of datasets. This section is essentially a recapitulation of what you learned in the [programming assignment for Chapter 4](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_04.ipynb) with a few new things thrown in at the end.
 
 Let's begin our discussion by returning to a general IID random sample
 
@@ -697,7 +697,7 @@ q_i  = \frac{i-1}{m-1}.
 ```
 ````
 
-This definition appeared in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments), where I explained that the intuition for the formula {eq}`quantile-eqn` for $q_i$ is that it is precisely the proportion of data points (excluding) $x_i$ that fall to the _left_ of $x_i$ in the listing {eq}`listing-eqn`. I also explained in that assignment how one goes about computing the empirical $q$-quantile where $q$ is a number (between $0$ and $1$, inclusive) that is _not_ of the form {eq}`quantile-eqn`: The default method in the Pandas library is linear interpolation.
+This definition appeared in the [programming assignment for Chapter 4](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_04.ipynb), where I explained that the intuition for the formula {eq}`quantile-eqn` for $q_i$ is that it is precisely the proportion of data points (excluding) $x_i$ that fall to the _left_ of $x_i$ in the listing {eq}`listing-eqn`. I also explained in that assignment how one goes about computing the empirical $q$-quantile where $q$ is a number (between $0$ and $1$, inclusive) that is _not_ of the form {eq}`quantile-eqn`: The default method in the Pandas library is linear interpolation.
 
 The empirical 0.25-, 0.5-, and 0.75-quantiles are called the _first_, _second_, and _third quartiles_. For the Airbnb dataset, these are listed in the following printout on the lines labeled $25\%$, $50\%$ and $75\%$:
 
@@ -781,9 +781,9 @@ There's a very convenient way to _visually_ summarize all these empirical statis
 I should mention that there are other types of plots closely related to QQ-plots, called _probability plots_ and _PP-plots_. In fact, there seems to be some disagreement as to whether what I am describing in this section actually _is_ a QQ-plot. But this all seems to me to be uninteresting academic pedantry.
 ```
 
-We learned in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments) how to produce a plot of the empirical quantiles of a dataset. In this section, we will learn how to produce a plot that compares these empirical quantiles to the (theoretical) quantiles of a proposed model distribution. These new types of plots are called _quantile-quantile plots_ or _QQ-plots_.
+We learned in the [programming assignment for Chapter 4](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_04.ipynb) how to produce a plot of the empirical quantiles of a dataset. In this section, we will learn how to produce a plot that compares these empirical quantiles to the (theoretical) quantiles of a proposed model distribution. These new types of plots are called _quantile-quantile plots_ or _QQ-plots_.
 
-Though the basic idea behind a QQ-plot is quite simple, it demands that we slightly alter the definition of _empirical quantiles_ given in the previous section and the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments). Indeed, according to that definition, the minimum and maximum values in a dataset are the $0$- and $1$-quantiles, respectively. But we will run into trouble if we are going to compare these to the quantiles of theoretical model distributions which might not have $0$- and $1$-quantiles.
+Though the basic idea behind a QQ-plot is quite simple, it demands that we slightly alter the definition of _empirical quantiles_ given in the previous section and the [programming assignment for Chapter 4](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_04.ipynb). Indeed, according to that definition, the minimum and maximum values in a dataset are the $0$- and $1$-quantiles, respectively. But we will run into trouble if we are going to compare these to the quantiles of theoretical model distributions which might not have $0$- and $1$-quantiles.
 
 To help motivate the new definition, for convenience, let's suppose that the points in our dataset are labeled with $y$'s instead of $x$'s. (You'll see why this is convenient, in just a moment.) Suppose that we put our dataset in non-decreasing order,
 
