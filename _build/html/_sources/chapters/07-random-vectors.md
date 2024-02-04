@@ -22,7 +22,7 @@ Essentially, an $n$-dimensional _random vector_ is an $n$-tuple of random variab
 (motivation)=
 ## Motivation
 
-To introduce _random vectors_, let's return to the housing dataset that we studied in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments), which contains data on $2{,}930$ houses in Ames, Iowa. We are interested in two particular features in the dataset, _area_ and _selling price_:
+To introduce _random vectors_, let's return to the housing dataset that we studied a [previous programming assignment](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_04.ipynb), which contains data on $2{,}930$ houses in Ames, Iowa. We are interested in two particular features in the dataset, _area_ and _selling price_:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -66,7 +66,7 @@ axes[1].set_ylabel('density')
 plt.tight_layout()
 ```
 
-Whatever information we might glean from these histograms, the information is about the two random variables $X$ and $Y$ _in isolation_ from each other. But because we expect that the size of a house and its selling price might be (strongly) related, it might be more informative to study $X$ and $Y$ _in tandem_ with each other. One way to do this is via the scatter plots that we produced in the [third programming assignment](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments):
+Whatever information we might glean from these histograms, the information is about the two random variables $X$ and $Y$ _in isolation_ from each other. But because we expect that the size of a house and its selling price might be (strongly) related, it might be more informative to study $X$ and $Y$ _in tandem_ with each other. One way to do this is via the scatter plots that we produced in a [previous programming assignment](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_04.ipynb):
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -556,7 +556,7 @@ Adapting the definition of empirical distributions of univariate datasets from t
 Let $(x_1,y_1),(x_2,y_2),\ldots,(x_m,y_m)$ be an observed bivariate random sample, i.e., a bivariate dataset. The _empirical distribution_ of the dataset is the discrete probability measure on $\mathbb{R}^2$ with joint probability mass function
 
 $$
-p(x,y) = \frac{\text{number of data points $(x_i,y_i)$ that match $(x,y)$}}{m}.
+p(x,y) = \frac{\text{frequency of $(x,y)$ in the dataset}}{m}.
 $$
 ```
 
