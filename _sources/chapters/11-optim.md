@@ -1490,16 +1490,13 @@ where $g:\mathbb{R}^{n+k}\to \mathbb{R}$ is a differentiable function, an initia
 
 **Output:** An approximation to a minimizer $\btheta^\star$.
 
-&nbsp;&nbsp; 1. $\btheta := \btheta_0$
+---
 
-&nbsp;&nbsp; 2. For $t$ from $0$ to $N-1$, do:
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Randomly partition the dataset into mini-batches $B_1,B_2,\ldots,B_p$ of size $\ell$.
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. For each mini-batch $B_j$, do:
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5. $\btheta := \btheta - \displaystyle \alpha(1-\beta)^{t+1} \frac{1}{\ell} \sum_{\bx \in B_j} \nabla_\btheta g\big(\bx; \btheta\big)$
-
+&nbsp;&nbsp; 1. $\btheta := \btheta_0$ <br>
+&nbsp;&nbsp; 2. For $t$ from $0$ to $N-1$, do: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Randomly partition the dataset into mini-batches $B_1,B_2,\ldots,B_p$ of size $\ell$. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. For each mini-batch $B_j$, do: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5. $\btheta := \btheta - \displaystyle \alpha(1-\beta)^{t+1} \frac{1}{\ell} \sum_{\bx \in B_j} \nabla_\btheta g\big(\bx; \btheta\big)$ <br>
 &nbsp;&nbsp; 6. Return $\btheta$.
 ```
 
