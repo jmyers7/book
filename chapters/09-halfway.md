@@ -102,7 +102,16 @@ The joint distribution has a bidirectional character to it, but by conditioning 
 ```
 &nbsp;
 
-The major goal of the [next chapter](10-info-theory) is to study these directed stochastic links in the context of _information theory_, in which they are called _communication channels_, the idea being that the conditional distributions are the mechanisms through which the two variables communicate with each other or exert influence. Later, in {numref}`Chapter %s <prob-models>`, we study particular types of probabilistic models in which random (and deterministic) variables are brought together and connected in networks of communication channels.
+The major goal of the [next chapter](10-info-theory) is to study these directed stochastic links in the context of _information theory_, in which they are called _communication channels_, the idea being that the conditional distributions are the mechanisms through which the two variables communicate with each other or exert influence. Later, in {numref}`Chapter %s <prob-models>`, we study particular types of probabilistic models in which random (and deterministic) variables are brought together and connected in networks of communication channels. For example, the following is a graphical representation of a feedforward, fully-connected artificial neural network with two hidden layers:
+
+&nbsp;
+```{image} ../img/nn-neuron-02.svg
+:width: 80%
+:align: center
+```
+&nbsp;
+
+The _input_ and _output_ layers consist of random variables $X_1,X_2,X_3,Y$, while the "hidden" variables (the $z$'s) are deterministic. This network determines a communication channel or stochastic link from the $X$'s to $Y$ given by the conditional probability distribution with mass function $p(y\mid x_1,x_2,x_3)$. Given the complexity of the graphical representation, it's important to remember that the network is essentially just a conditional mass function!
 
 
 

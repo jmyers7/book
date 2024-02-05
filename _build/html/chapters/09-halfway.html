@@ -413,7 +413,7 @@ document.write(`
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/24c4b5339bbaf1e758eeb06ecf796ada6eff83880d48158344465dabd4bf77dc.svg" src="../_images/24c4b5339bbaf1e758eeb06ecf796ada6eff83880d48158344465dabd4bf77dc.svg" /></figure>
+<img alt="../_images/9e6237a4b1205976f67ae3c2cf4d100e186bfa025213b51d7c6a4bf8445c065b.svg" src="../_images/9e6237a4b1205976f67ae3c2cf4d100e186bfa025213b51d7c6a4bf8445c065b.svg" /></figure>
 </div>
 </div>
 <p>Perhaps in some ideal <a class="reference external" href="https://en.wikipedia.org/wiki/Clockwork_universe">clockwork universe</a>, there might exist a deterministic model linking these two variables. But presumably such a model would depend on a myriad of “hidden” variables, representing and quantifying absolutely everything in the universe that could possibly affect price and area. The effects would be so complex and complicated to be essentially unintelligible and unknowable, for all practical purposes. In other words, these effects would <em>appear random</em>.</p>
@@ -434,7 +434,7 @@ document.write(`
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/621feca517179d48404f5e841daf26310522b6e86b7e122a4cb29105258426c0.svg" src="../_images/621feca517179d48404f5e841daf26310522b6e86b7e122a4cb29105258426c0.svg" /></figure>
+<img alt="../_images/e38ce19daabc524054e3ea680079327154bfc8f28bfc57cefcbd2fbf87b3b0eb.svg" src="../_images/e38ce19daabc524054e3ea680079327154bfc8f28bfc57cefcbd2fbf87b3b0eb.svg" /></figure>
 </div>
 </div>
 <p>The link between a pair of random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> in a probabilistic model is described not by some equation or functional dependence, but rather by their joint probability distribution:</p>
@@ -445,7 +445,11 @@ document.write(`
 <p> </p>
 <a class="reference internal image-reference" href="../_images/directed.svg"><img alt="../_images/directed.svg" class="align-center" src="../_images/directed.svg" width="65%" /></a>
 <p> </p>
-<p>The major goal of the <a class="reference internal" href="10-info-theory.html"><span class="doc std std-doc">next chapter</span></a> is to study these directed stochastic links in the context of <em>information theory</em>, in which they are called <em>communication channels</em>, the idea being that the conditional distributions are the mechanisms through which the two variables communicate with each other or exert influence. Later, in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>, we study particular types of probabilistic models in which random (and deterministic) variables are brought together and connected in networks of communication channels.</p>
+<p>The major goal of the <a class="reference internal" href="10-info-theory.html"><span class="doc std std-doc">next chapter</span></a> is to study these directed stochastic links in the context of <em>information theory</em>, in which they are called <em>communication channels</em>, the idea being that the conditional distributions are the mechanisms through which the two variables communicate with each other or exert influence. Later, in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>, we study particular types of probabilistic models in which random (and deterministic) variables are brought together and connected in networks of communication channels. For example, the following is a graphical representation of a feedforward, fully-connected artificial neural network with two hidden layers:</p>
+<p> </p>
+<a class="reference internal image-reference" href="../_images/nn-neuron-02.svg"><img alt="../_images/nn-neuron-02.svg" class="align-center" src="../_images/nn-neuron-02.svg" width="80%" /></a>
+<p> </p>
+<p>The <em>input</em> and <em>output</em> layers consist of random variables <span class="math notranslate nohighlight">\(X_1,X_2,X_3,Y\)</span>, while the “hidden” variables (the <span class="math notranslate nohighlight">\(z\)</span>’s) are deterministic. This network determines a communication channel or stochastic link from the <span class="math notranslate nohighlight">\(X\)</span>’s to <span class="math notranslate nohighlight">\(Y\)</span> given by the conditional probability distribution with mass function <span class="math notranslate nohighlight">\(p(y\mid x_1,x_2,x_3)\)</span>. Given the complexity of the graphical representation, it’s important to remember that the network is essentially just a conditional mass function!</p>
 </section>
 <section id="learning-and-optimization">
 <h2><span class="section-number">9.2. </span>Learning and optimization<a class="headerlink" href="#learning-and-optimization" title="Permalink to this heading">#</a></h2>
