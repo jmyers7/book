@@ -46,7 +46,7 @@ The whole story begins with a very simple definition:
 Let $P$ be a probability measure on a finite sample space $S$ with mass function $p(s)$. The _(Shannon) information content_ of the sample point $s\in S$, denoted $I_P(s)$, is defined to be
 
 $$
-I_P(s) \def - \log_2(p(s)).
+I_P(s) \def - \log(p(s)).
 $$
 
 The information content is also called the _surprisal_.
@@ -74,16 +74,16 @@ blue = '#486AFB'
 magenta = '#FD46FC'
 
 grid = np.linspace(0.01, 1, 100)
-plt.plot(grid, -np.log2(grid))
+plt.plot(grid, -np.log(grid))
 plt.xlabel('$p$')
-plt.title('$I(p) = -\\log_2p$')
+plt.title('$I(p) = -\\log{p}$')
 plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
 If some outcome is highly likely to occur (large $p(s)$), then it is not surprising (small $I(s)$). In the other direction, if an outcome $s$ is highly unlikely to occur (small $p(s)$), then it is very surprising (large $I(s)$).
 
-It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal---so why the choice of base-$2$ logarithm? It turns out that if you begin from first principles with a set of "natural axioms" that any notion of _surprisal_ should possess, then you can _prove_ all such surprisal functions must be proportional to negative logarithms; see, for example, the discussion in Section 9 in {cite}`Rioul2021`. The choice of base $2$ is then somewhat arbitrary, akin to choosing units, but it does have the added benefit of nicely connecting up with bit strings in the coding context. (See the [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-2-entropy-in-different-bases).) Indeed, in base $2$, information content is measured in units of _bits_. While this is related to the previous notion of a bit denoting a binary digit ($0$ or $1$), the usage here is different, at the very least because information content does not have to be an integer. (See Section 10 in the aforementioned reference {cite}`Rioul2021` for more on units.)
+It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal---so why the choice of base-$e$ logarithm? It turns out that if you begin from first principles with a set of "natural axioms" that any notion of _surprisal_ should possess, then you can _prove_ all such surprisal functions must be proportional to negative logarithms; see, for example, the discussion in Section 9 in {cite}`Rioul2021`. The choice of base $e$ is then somewhat arbitrary, akin to choosing units. Another popular choice is base $2$, facilitating a smooth connection to bit strings in coding theory. (See the [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-2-entropy-in-different-bases).) In base $e$, information content is measured in so-called _natural units_, or _nats_; in base $2$, it is measured in _binary units_, or _bits_. (See Section 10 in the aforementioned reference {cite}`Rioul2021` for more on units.)
 
 Please understand that the terminology _information content_ now has a very specific and precise mathematical meaning. It is designed to "get at" our intuitive understanding of what general "information" is, but you should keep the two separate in your mind: There's the notion of "information" used in an intuitive and colloquial sense and is generally ill-defined, and then there is the notion of _information content_ precisely defined as above.
 
@@ -105,10 +105,10 @@ If $\bX$ is a random vector with finite range and probability measure $P_\bX$, w
 
 There is a notion of _entropy_ for continuous probability measures defined on Euclidean spaces---this latter type of entropy is called _differential entropy_, which you will briefly encounter in the [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-5-differential-entropy).
 
-Since $I(s) = -\log_2(p(s))$, there is an issue in the definition of $H(P)$ in the case that $p(s)=0$ for some $s\in S$, for then we encounter the indeterminate form $0 \log_2(0)$. By convention, we take this expression to equal $0$, which may be justified according to the limit
+Since $I(s) = -\log(p(s))$, there is an issue in the definition of $H(P)$ in the case that $p(s)=0$ for some $s\in S$, for then we encounter the indeterminate form $0 \log(0)$. By convention, we take this expression to equal $0$, which may be justified according to the limit
 
 $$
-\lim_{p \to 0^+} p \log_2(p) = 0.
+\lim_{p \to 0^+} p \log(p) = 0.
 $$
 
 In particular, when the probability distribution $P$ is a so-called _Dirac distribution_ that puts a spike of probability $1$ on a single sample point and assigns $0$ probability elsewhere, the entropy is at the minimum value $H(P)=0$. As we will see below (in {prf:ref}`max-entropy-thm`), at the other end of the spectrum are the maximum-entropy uniform distributions:
@@ -173,7 +173,7 @@ Before moving on with the theory, let's take a look at some problems:
 Do problems 1 and 2 on the worksheet.
 ```
 
-Now comes a second type of entropy; a third one will appear in {numref}`cond-entropy-mutual-info-sec`.
+Now comes a second type of entropy:
 
 ```{prf:definition}
 :label: cross-entropy-def
@@ -185,13 +185,13 @@ Let $P$ and $Q$ be two probability measures on a finite sample space $S$ with ma
 Then the _cross entropy_ from $P$ to $Q$, denoted $H_P(Q)$, is defined by
 
 $$
-H_P(Q) \def E_{s\sim p(s)}\left[ I_Q(s) \right] =  - \sum_{s\in S} p(s)\log_2(q(s)).
+H_P(Q) \def E_{s\sim p(s)}\left[ I_Q(s) \right] =  - \sum_{s\in S} p(s)\log(q(s)).
 $$
 
 As usual, if $P_\bX$ and $P_\bY$ are the probability measures of two random vectors $\bX$ and $\bY$ with finite ranges, we will write $H_\bY(\bX)$ in place of $H_{P_\bY} (P_\bX)$.
 ```
 
-Notice that the condition of absolute continuity between the two measures guarantees we will never see an expression of the form $p \log_2(0)$, with $p \neq 0$. Thus, it is enough to make the cross entropy well-defined by stipulating that we take $0 \log_2(0) =0$, as explained above.
+Notice that the condition of absolute continuity between the two measures guarantees we will never see an expression of the form $p \log(0)$, with $p \neq 0$. Thus, it is enough to make the cross entropy well-defined by stipulating that we take $0 \log(0) =0$, as explained above.
 
 ```{admonition} Problem Prompt
 
@@ -284,7 +284,7 @@ $$
 \sum_{s\in S} q(s) \log_{10}\left( \frac{p(s)}{q(s)} \right) = - \sum_{s\in S} q(s) \log_{10}\left( \frac{q(s)}{p(s)} \right),
 $$
 
-where the right-hand side is the negative of a number of the form {eq}`first-kl-eq`. (I am **not** saying these two numbers are equal, merely that they have the same functional form!) So, at least up to sign, it doesn't really matter which of the two numbers {eq}`first-kl-eq` or {eq}`second-kl-eq` that we use to develop our theory. As we will see, our choice of {eq}`first-kl-eq` has the benefit of making the KL divergence nonnegative. Moreover, we can also alter the base of the logarithm in {eq}`first-kl-eq` without altering the core of the theory, since the change-of-base formula for logarithms tells us that the only difference is a multiplicative constant. In the following definition, we select the base-$2$ logarithm to make the link with entropy, though we will use the base-$e$ natural logarithm in later chapters.
+where the right-hand side is the negative of a number of the form {eq}`first-kl-eq`. (I am **not** saying these two numbers are equal, merely that they have the same functional form!) So, at least up to sign, it doesn't really matter which of the two numbers {eq}`first-kl-eq` or {eq}`second-kl-eq` that we use to develop our theory. As we will see, our choice of {eq}`first-kl-eq` has the benefit of making the KL divergence nonnegative. Moreover, we can also alter the base of the logarithm in {eq}`first-kl-eq` without altering the core of the theory, since the change-of-base formula for logarithms tells us that the only difference is a multiplicative constant. In the following definition, we select the base-$e$ natural logarithm to make the link with entropy, though the base-$2$ binary logarithm is another common choice
 
 ```{prf:definition}
 :label: KL-def
@@ -296,7 +296,7 @@ Let $P$ and $Q$ be two probability measures on a finite sample space $S$ with ma
 Then the _Kullback-Leibler divergence_ (or just _KL divergence_) from $P$ to $Q$, denoted $D(P \parallel Q)$, is the mean order of relative magnitude of $P$ to $Q$. Precisely, it is given by
 
 $$
-D(P \parallel Q) \def E_{s\sim p(s)} \left[ \log_2\left( \frac{p(s)}{q(s)} \right)\right] =  \sum_{s\in S} p(s) \log_2\left( \frac{p(s)}{q(s)} \right).
+D(P \parallel Q) \def E_{s\sim p(s)} \left[ \log\left( \frac{p(s)}{q(s)} \right)\right] =  \sum_{s\in S} p(s) \log\left( \frac{p(s)}{q(s)} \right).
 $$
 
 The KL divergence is also called the _relative entropy_.
@@ -323,7 +323,7 @@ D(P\parallel Q) = H_P(Q) - H(P).
 $$
 ```
 
-We now work towards proving _Gibb's inequality_, which is sometimes called the most important inequality in information theory. Its proof goes through a preliminary result known as _Jensen's inequality_ which, in turn, leverages the _concavity_ of the logarithm function $h(x) = \log_2{x}$. This latter term means that between any two points $x=a$ and $x=b$ along the $x$-axis, the graph of $h(x)$ lies below the secant line:
+We now work towards proving _Gibb's inequality_, which is sometimes called the most important inequality in information theory. Its proof goes through a preliminary result known as _Jensen's inequality_ which, in turn, leverages the _concavity_ of the logarithm function $h(x) = \log{x}$. This latter term means that between any two points $x=a$ and $x=b$ along the $x$-axis, the graph of $h(x)$ lies below the secant line:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -333,15 +333,15 @@ We now work towards proving _Gibb's inequality_, which is sometimes called the m
 
 grid = np.linspace(0.05, 1.25)
 grid_line = np.linspace(0.2, 1)
-m = -np.log2(0.2) / 0.8 
+m = -np.log(0.2) / 0.8 
 
-plt.plot(grid, np.log2(grid))
+plt.plot(grid, np.log(grid))
 plt.plot(grid_line, m * (grid_line - 1))
-plt.scatter(0.2, np.log2(0.2), s=50, color=magenta, zorder=2)
+plt.scatter(0.2, np.log(0.2), s=50, color=magenta, zorder=2)
 plt.scatter(1, 0, s=50, color=magenta, zorder=2)
 plt.xlabel('$x$')
 plt.ylabel('$y$')
-plt.title('$y=h(x) = \\log_2{x}$')
+plt.title('$y=h(x) = \\log{x}$')
 plt.gcf().set_size_inches(w=5, h=3)
 plt.text(0.3, -2.9, '$(a,h(a))$', ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
 plt.text(1.1, -0.6, '$(b,h(b))$', ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
@@ -420,7 +420,7 @@ $$
 
 noting that none of the numbers in this set is $0$ since $S_p \subset S_q$. We may view $S'$ as a new sample space with $s'_k = q(s_k)/p(s_k)$ for each $k=1,\ldots,n$, equipped with a probability mass function $p(s')$ given by $p(s'_k) = p(s_k)$ for all $k$.
 
-Since $h(x) = \log_2{x}$ is strictly concave, from Jensen's inequality ({prf:ref}`jensen-thm`) we have
+Since $h(x) = \log{x}$ is strictly concave, from Jensen's inequality ({prf:ref}`jensen-thm`) we have
 
 $$
 E_{s' \sim p(s')}\big( h(s') \big) \leq h \big( E_{s' \sim p(s')}(s') \big),
@@ -429,13 +429,13 @@ $$ (gibbs-target-eq)
 with equality if and only if $S'$ has cardinality $1$. However, the left-hand side is
 
 $$
-E_{s' \sim p(s')}\big( h(s') \big) = \sum_{k=1}^n p(s'_k)\log_2{s'_k} = - \sum_{k=1}^n p(s_k) \log_2\left( \frac{p(s_k)}{q(s_k)} \right) = -D(P\parallel Q),
+E_{s' \sim p(s')}\big( h(s') \big) = \sum_{k=1}^n p(s'_k)\log{s'_k} = - \sum_{k=1}^n p(s_k) \log\left( \frac{p(s_k)}{q(s_k)} \right) = -D(P\parallel Q),
 $$
 
 while the right-hand side of {eq}`gibbs-target-eq` is
 
 $$
-h \big( E_{s' \sim p(s')}(s') \big) = \log_2 \left( \sum_{k=1}^n p(s_k')s_k' \right) = \log_2 \left( \sum_{k=1}^n q(s_k)\right) \leq 0. 
+h \big( E_{s' \sim p(s')}(s') \big) = \log \left( \sum_{k=1}^n p(s_k')s_k' \right) = \log \left( \sum_{k=1}^n q(s_k)\right) \leq 0. 
 $$ (gibbs-target-2-eq)
 
 Thus, $D(P \parallel Q) \geq 0$.
@@ -459,7 +459,7 @@ Gibbs' inequality has the following immediate corollary:
 Let $P$ be a probability measures on a finite sample space $S$. Then
 
 $$
-H(P) \leq \log_2{|S|},
+H(P) \leq \log{|S|},
 $$
 
 with equality if and only if $P$ is uniform.
@@ -469,16 +469,16 @@ with equality if and only if $P$ is uniform.
 Let $Q$ be the uniform distribution on $S$, and let $p(s)$ and $q(s)$ be the mass functions of $P$ and $Q$, respectively. Then by Gibbs' inequality, we have
 
 $$
-0 \leq D(P \parallel Q) = H_P(Q) - H(P) = \sum_{s\in S} p(s) \log_2|S| - H(P) = \log_2|S| - H(P).
+0 \leq D(P \parallel Q) = H_P(Q) - H(P) = \sum_{s\in S} p(s) \log|S| - H(P) = \log|S| - H(P).
 $$
 
 The desired result then follows. Q.E.D.
 ```
 
-So, when $P$ is uniform, we have $H(P) = \log_2|S|$. It is pleasing to compare this latter equation to the [Boltzmann equation](https://en.wikipedia.org/wiki/Boltzmann%27s_entropy_formula) for entropy in statistical mechanics. The defining equation for Shannon entropy
+So, when $P$ is uniform, we have $H(P) = \log|S|$. It is pleasing to compare this latter equation to the [Boltzmann equation](https://en.wikipedia.org/wiki/Boltzmann%27s_entropy_formula) for entropy in statistical mechanics. The defining equation for Shannon entropy
 
 $$
-H(P) = - \sum_{s\in S} p(s) \log_2(p(s))
+H(P) = - \sum_{s\in S} p(s) \log(p(s))
 $$
 
 is the analog of the [Gibbs equation](https://en.wikipedia.org/wiki/Entropy_(statistical_thermodynamics)#Gibbs_entropy_formula) for Boltzmann entropy.
@@ -740,7 +740,7 @@ for all $x$ and $y$. This suggests that a measure of "information" passed from $
 Let $X$ and $Y$ be two random variables with finite ranges. The _mutual information_ shared between $X$ and $Y$, denoted $I(X,Y)$, is the KL divergence
 
 $$
-I(X, Y) \def D( P_{XY} \parallel P_{X} \otimes P_{Y}) = \sum_{(x,y)\in \bbr^2} p(x,y) \log_2\left( \frac{p(x,y)}{p(x)p(y)}\right).
+I(X, Y) \def D( P_{XY} \parallel P_{X} \otimes P_{Y}) = \sum_{(x,y)\in \bbr^2} p(x,y) \log\left( \frac{p(x,y)}{p(x)p(y)}\right).
 $$
 ```
 
@@ -811,10 +811,10 @@ $$
 The proof is a computation:
 
 \begin{align*}
-I(x,y) &= \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2\left( \frac{p(x,y)}{p(x)p(y)} \right) \\
-&= - \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2 \left(p(x)\right) - \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2\left(p(y)\right) \\
-&\quad + \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2\left(p(x,y)\right)  \\
-&= - \sum_{x \in \bbr} p(x) \log_2\left( p(x) \right) - \sum_{y \in \bbr} p(y) \log_2\left( p(y)\right) - H(X,Y)  \\
+I(x,y) &= \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log\left( \frac{p(x,y)}{p(x)p(y)} \right) \\
+&= - \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log \left(p(x)\right) - \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log\left(p(y)\right) \\
+&\quad + \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log\left(p(x,y)\right)  \\
+&= - \sum_{x \in \bbr} p(x) \log\left( p(x) \right) - \sum_{y \in \bbr} p(y) \log\left( p(y)\right) - H(X,Y)  \\
 &= H(X) + H(Y) - H(X, Y),
 \end{align*}
 
