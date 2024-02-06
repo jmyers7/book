@@ -382,7 +382,7 @@ document.write(`
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> be a probability measure on a finite sample space <span class="math notranslate nohighlight">\(S\)</span> with mass function <span class="math notranslate nohighlight">\(p(s)\)</span>. The <em>(Shannon) information content</em> of the sample point <span class="math notranslate nohighlight">\(s\in S\)</span>, denoted <span class="math notranslate nohighlight">\(I_P(s)\)</span>, is defined to be</p>
 <div class="math notranslate nohighlight">
 \[
-I_P(s) \def - \log_2(p(s)).
+I_P(s) \def - \log(p(s)).
 \]</div>
 <p>The information content is also called the <em>surprisal</em>.</p>
 <p>If the probability measure <span class="math notranslate nohighlight">\(P\)</span> is clear from context, we will write <span class="math notranslate nohighlight">\(I(s)\)</span> in place of <span class="math notranslate nohighlight">\(I_P(s)\)</span>. If <span class="math notranslate nohighlight">\(\bX\)</span> is a random vector with finite range and probability measure <span class="math notranslate nohighlight">\(P_\bX\)</span>, we will write <span class="math notranslate nohighlight">\(I_\bX(\bx)\)</span> in place of <span class="math notranslate nohighlight">\(I_{P_\bX}(\bx)\)</span>.</p>
@@ -406,9 +406,9 @@ I_P(s) \def - \log_2(p(s)).
 <span class="n">magenta</span> <span class="o">=</span> <span class="s1">&#39;#FD46FC&#39;</span>
 
 <span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">grid</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">grid</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$p$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;$I(p) = -</span><span class="se">\\</span><span class="s1">log_2p$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;$I(p) = -</span><span class="se">\\</span><span class="s1">log</span><span class="si">{p}</span><span class="s1">$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
@@ -417,11 +417,11 @@ I_P(s) \def - \log_2(p(s)).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c8e12603653de280a81d0853c13eca72197478400e616b1559b50c87c7c02333.svg" src="../_images/c8e12603653de280a81d0853c13eca72197478400e616b1559b50c87c7c02333.svg" /></figure>
+<img alt="../_images/2b8b970d1797ac12d44a59daac3907a4cd83dcadc865fcd9aab73a39f22de4fb.svg" src="../_images/2b8b970d1797ac12d44a59daac3907a4cd83dcadc865fcd9aab73a39f22de4fb.svg" /></figure>
 </div>
 </div>
 <p>If some outcome is highly likely to occur (large <span class="math notranslate nohighlight">\(p(s)\)</span>), then it is not surprising (small <span class="math notranslate nohighlight">\(I(s)\)</span>). In the other direction, if an outcome <span class="math notranslate nohighlight">\(s\)</span> is highly unlikely to occur (small <span class="math notranslate nohighlight">\(p(s)\)</span>), then it is very surprising (large <span class="math notranslate nohighlight">\(I(s)\)</span>).</p>
-<p>It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal—so why the choice of base-<span class="math notranslate nohighlight">\(2\)</span> logarithm? It turns out that if you begin from first principles with a set of “natural axioms” that any notion of <em>surprisal</em> should possess, then you can <em>prove</em> all such surprisal functions must be proportional to negative logarithms; see, for example, the discussion in Section 9 in <span id="id7">[<a class="reference internal" href="bib.html#id24" title="O. Rioul. This is it: a primer on shannon’s entropy and information. In Information Theory: Poincaré Seminar 2018, 49–86. Springer, 2021.">Rio21</a>]</span>. The choice of base <span class="math notranslate nohighlight">\(2\)</span> is then somewhat arbitrary, akin to choosing units, but it does have the added benefit of nicely connecting up with bit strings in the coding context. (See the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-2-entropy-in-different-bases">homework</a>.) Indeed, in base <span class="math notranslate nohighlight">\(2\)</span>, information content is measured in units of <em>bits</em>. While this is related to the previous notion of a bit denoting a binary digit (<span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>), the usage here is different, at the very least because information content does not have to be an integer. (See Section 10 in the aforementioned reference <span id="id8">[<a class="reference internal" href="bib.html#id24" title="O. Rioul. This is it: a primer on shannon’s entropy and information. In Information Theory: Poincaré Seminar 2018, 49–86. Springer, 2021.">Rio21</a>]</span> for more on units.)</p>
+<p>It might occur that there are many functions that are equally capable of expressing this same inverse relationship between probability and surprisal—so why the choice of base-<span class="math notranslate nohighlight">\(e\)</span> logarithm? It turns out that if you begin from first principles with a set of “natural axioms” that any notion of <em>surprisal</em> should possess, then you can <em>prove</em> all such surprisal functions must be proportional to negative logarithms; see, for example, the discussion in Section 9 in <span id="id7">[<a class="reference internal" href="bib.html#id24" title="O. Rioul. This is it: a primer on shannon’s entropy and information. In Information Theory: Poincaré Seminar 2018, 49–86. Springer, 2021.">Rio21</a>]</span>. The choice of base <span class="math notranslate nohighlight">\(e\)</span> is then somewhat arbitrary, akin to choosing units. Another popular choice is base <span class="math notranslate nohighlight">\(2\)</span>, facilitating a smooth connection to bit strings in coding theory. (See the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-2-entropy-in-different-bases">homework</a>.) In base <span class="math notranslate nohighlight">\(e\)</span>, information content is measured in so-called <em>natural units</em>, or <em>nats</em>; in base <span class="math notranslate nohighlight">\(2\)</span>, it is measured in <em>binary units</em>, or <em>bits</em>. (See Section 10 in the aforementioned reference <span id="id8">[<a class="reference internal" href="bib.html#id24" title="O. Rioul. This is it: a primer on shannon’s entropy and information. In Information Theory: Poincaré Seminar 2018, 49–86. Springer, 2021.">Rio21</a>]</span> for more on units.)</p>
 <p>Please understand that the terminology <em>information content</em> now has a very specific and precise mathematical meaning. It is designed to “get at” our intuitive understanding of what general “information” is, but you should keep the two separate in your mind: There’s the notion of “information” used in an intuitive and colloquial sense and is generally ill-defined, and then there is the notion of <em>information content</em> precisely defined as above.</p>
 <p>With the information content (or surprisal) in hand, we now define <em>entropy</em>:</p>
 <div class="proof definition admonition" id="entropy-def">
@@ -436,10 +436,10 @@ H(P) \def \sum_{s\in S} p(s)I_P(s).
 <p>If <span class="math notranslate nohighlight">\(\bX\)</span> is a random vector with finite range and probability measure <span class="math notranslate nohighlight">\(P_\bX\)</span>, we will write <span class="math notranslate nohighlight">\(H(\bX)\)</span> in place of <span class="math notranslate nohighlight">\(H(P_\bX)\)</span>. If we write the vector in terms of its component random variables <span class="math notranslate nohighlight">\(\bX = (X_1,\ldots,X_m)\)</span>, then we shall also write <span class="math notranslate nohighlight">\(H(X_1,\ldots,X_m)\)</span> in place of <span class="math notranslate nohighlight">\(H(P_\bX)\)</span> and call this the <em>joint entropy</em> of the random variables <span class="math notranslate nohighlight">\(X_1,\ldots,X_m\)</span>.</p>
 </section>
 </div><p>There is a notion of <em>entropy</em> for continuous probability measures defined on Euclidean spaces—this latter type of entropy is called <em>differential entropy</em>, which you will briefly encounter in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-5-differential-entropy">homework</a>.</p>
-<p>Since <span class="math notranslate nohighlight">\(I(s) = -\log_2(p(s))\)</span>, there is an issue in the definition of <span class="math notranslate nohighlight">\(H(P)\)</span> in the case that <span class="math notranslate nohighlight">\(p(s)=0\)</span> for some <span class="math notranslate nohighlight">\(s\in S\)</span>, for then we encounter the indeterminate form <span class="math notranslate nohighlight">\(0 \log_2(0)\)</span>. By convention, we take this expression to equal <span class="math notranslate nohighlight">\(0\)</span>, which may be justified according to the limit</p>
+<p>Since <span class="math notranslate nohighlight">\(I(s) = -\log(p(s))\)</span>, there is an issue in the definition of <span class="math notranslate nohighlight">\(H(P)\)</span> in the case that <span class="math notranslate nohighlight">\(p(s)=0\)</span> for some <span class="math notranslate nohighlight">\(s\in S\)</span>, for then we encounter the indeterminate form <span class="math notranslate nohighlight">\(0 \log(0)\)</span>. By convention, we take this expression to equal <span class="math notranslate nohighlight">\(0\)</span>, which may be justified according to the limit</p>
 <div class="math notranslate nohighlight">
 \[
-\lim_{p \to 0^+} p \log_2(p) = 0.
+\lim_{p \to 0^+} p \log(p) = 0.
 \]</div>
 <p>In particular, when the probability distribution <span class="math notranslate nohighlight">\(P\)</span> is a so-called <em>Dirac distribution</em> that puts a spike of probability <span class="math notranslate nohighlight">\(1\)</span> on a single sample point and assigns <span class="math notranslate nohighlight">\(0\)</span> probability elsewhere, the entropy is at the minimum value <span class="math notranslate nohighlight">\(H(P)=0\)</span>. As we will see below (in <a class="reference internal" href="#max-entropy-thm">Corollary 10.1</a>), at the other end of the spectrum are the maximum-entropy uniform distributions:</p>
 <div class="cell tag_hide-input docutils container">
@@ -473,7 +473,7 @@ H(P) \def \sum_{s\in S} p(s)I_P(s).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/8e9766d36e750aca9e7756a781efe631c56afd21224f04d4f57a5adb97feb996.svg" src="../_images/8e9766d36e750aca9e7756a781efe631c56afd21224f04d4f57a5adb97feb996.svg" /></figure>
+<img alt="../_images/4afe4a0727f5347686b7fa0fcf53d224099c1ac4f683848fda59d54e2de4c9d6.svg" src="../_images/4afe4a0727f5347686b7fa0fcf53d224099c1ac4f683848fda59d54e2de4c9d6.svg" /></figure>
 </div>
 </div>
 <p>The fact that these two types of distributions yield the extreme values of entropy helps explain the alternate name <em>uncertainty</em>. Indeed, imagine drawing a random sample from one of these two distributions—which one has the most uncertain outcome? Which one is most certain?</p>
@@ -503,7 +503,7 @@ H(P) = E_P\left[I_P(s)\right] = E_{s\sim p(s)} \left[ I_P(s)\right].
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problems 1 and 2 on the worksheet.</p>
 </div>
-<p>Now comes a second type of entropy; a third one will appear in <a class="reference internal" href="#cond-entropy-mutual-info-sec"><span class="std std-numref">Section 10.3</span></a>.</p>
+<p>Now comes a second type of entropy:</p>
 <div class="proof definition admonition" id="cross-entropy-def">
 <p class="admonition-title"><span class="caption-number">Definition 10.3 </span></p>
 <section class="definition-content" id="proof-content">
@@ -514,11 +514,11 @@ H(P) = E_P\left[I_P(s)\right] = E_{s\sim p(s)} \left[ I_P(s)\right].
 <p>Then the <em>cross entropy</em> from <span class="math notranslate nohighlight">\(P\)</span> to <span class="math notranslate nohighlight">\(Q\)</span>, denoted <span class="math notranslate nohighlight">\(H_P(Q)\)</span>, is defined by</p>
 <div class="math notranslate nohighlight">
 \[
-H_P(Q) \def E_{s\sim p(s)}\left[ I_Q(s) \right] =  - \sum_{s\in S} p(s)\log_2(q(s)).
+H_P(Q) \def E_{s\sim p(s)}\left[ I_Q(s) \right] =  - \sum_{s\in S} p(s)\log(q(s)).
 \]</div>
 <p>As usual, if <span class="math notranslate nohighlight">\(P_\bX\)</span> and <span class="math notranslate nohighlight">\(P_\bY\)</span> are the probability measures of two random vectors <span class="math notranslate nohighlight">\(\bX\)</span> and <span class="math notranslate nohighlight">\(\bY\)</span> with finite ranges, we will write <span class="math notranslate nohighlight">\(H_\bY(\bX)\)</span> in place of <span class="math notranslate nohighlight">\(H_{P_\bY} (P_\bX)\)</span>.</p>
 </section>
-</div><p>Notice that the condition of absolute continuity between the two measures guarantees we will never see an expression of the form <span class="math notranslate nohighlight">\(p \log_2(0)\)</span>, with <span class="math notranslate nohighlight">\(p \neq 0\)</span>. Thus, it is enough to make the cross entropy well-defined by stipulating that we take <span class="math notranslate nohighlight">\(0 \log_2(0) =0\)</span>, as explained above.</p>
+</div><p>Notice that the condition of absolute continuity between the two measures guarantees we will never see an expression of the form <span class="math notranslate nohighlight">\(p \log(0)\)</span>, with <span class="math notranslate nohighlight">\(p \neq 0\)</span>. Thus, it is enough to make the cross entropy well-defined by stipulating that we take <span class="math notranslate nohighlight">\(0 \log(0) =0\)</span>, as explained above.</p>
 <div class="admonition-problem-prompt admonition">
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problem 3 on the worksheet.</p>
@@ -583,7 +583,7 @@ p(s) = \binom{10}{s} (0.4)^s(0.6)^{10-s} \quad \text{and} \quad q(s) = \binom{10
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/8b68f0f0cd7fb376acc1a6f786ea69b8bed438ba8c22a53a78e2f0f6e0bdcfd3.svg" src="../_images/8b68f0f0cd7fb376acc1a6f786ea69b8bed438ba8c22a53a78e2f0f6e0bdcfd3.svg" /></figure>
+<img alt="../_images/ac7e530d402645bad429891cea23caf18c02ade0cbef1f5576ce8ccf46382a64.svg" src="../_images/ac7e530d402645bad429891cea23caf18c02ade0cbef1f5576ce8ccf46382a64.svg" /></figure>
 </div>
 </div>
 <p>The second row in the figure drives home the point: The absolute relative magnitudes are on such widely different scales that the plot is nearly useless and numerical computations in a machine will likely be unstable.</p>
@@ -602,7 +602,7 @@ p(s) = \binom{10}{s} (0.4)^s(0.6)^{10-s} \quad \text{and} \quad q(s) = \binom{10
 \[
 \sum_{s\in S} q(s) \log_{10}\left( \frac{p(s)}{q(s)} \right) = - \sum_{s\in S} q(s) \log_{10}\left( \frac{q(s)}{p(s)} \right),
 \]</div>
-<p>where the right-hand side is the negative of a number of the form <a class="reference internal" href="#equation-first-kl-eq">(10.1)</a>. (I am <strong>not</strong> saying these two numbers are equal, merely that they have the same functional form!) So, at least up to sign, it doesn’t really matter which of the two numbers <a class="reference internal" href="#equation-first-kl-eq">(10.1)</a> or <a class="reference internal" href="#equation-second-kl-eq">(10.2)</a> that we use to develop our theory. As we will see, our choice of <a class="reference internal" href="#equation-first-kl-eq">(10.1)</a> has the benefit of making the KL divergence nonnegative. Moreover, we can also alter the base of the logarithm in <a class="reference internal" href="#equation-first-kl-eq">(10.1)</a> without altering the core of the theory, since the change-of-base formula for logarithms tells us that the only difference is a multiplicative constant. In the following definition, we select the base-<span class="math notranslate nohighlight">\(2\)</span> logarithm to make the link with entropy, though we will use the base-<span class="math notranslate nohighlight">\(e\)</span> natural logarithm in later chapters.</p>
+<p>where the right-hand side is the negative of a number of the form <a class="reference internal" href="#equation-first-kl-eq">(10.1)</a>. (I am <strong>not</strong> saying these two numbers are equal, merely that they have the same functional form!) So, at least up to sign, it doesn’t really matter which of the two numbers <a class="reference internal" href="#equation-first-kl-eq">(10.1)</a> or <a class="reference internal" href="#equation-second-kl-eq">(10.2)</a> that we use to develop our theory. As we will see, our choice of <a class="reference internal" href="#equation-first-kl-eq">(10.1)</a> has the benefit of making the KL divergence nonnegative. Moreover, we can also alter the base of the logarithm in <a class="reference internal" href="#equation-first-kl-eq">(10.1)</a> without altering the core of the theory, since the change-of-base formula for logarithms tells us that the only difference is a multiplicative constant. In the following definition, we select the base-<span class="math notranslate nohighlight">\(e\)</span> natural logarithm to make the link with entropy, though the base-<span class="math notranslate nohighlight">\(2\)</span> binary logarithm is another common choice</p>
 <div class="proof definition admonition" id="KL-def">
 <p class="admonition-title"><span class="caption-number">Definition 10.4 </span></p>
 <section class="definition-content" id="proof-content">
@@ -613,7 +613,7 @@ p(s) = \binom{10}{s} (0.4)^s(0.6)^{10-s} \quad \text{and} \quad q(s) = \binom{10
 <p>Then the <em>Kullback-Leibler divergence</em> (or just <em>KL divergence</em>) from <span class="math notranslate nohighlight">\(P\)</span> to <span class="math notranslate nohighlight">\(Q\)</span>, denoted <span class="math notranslate nohighlight">\(D(P \parallel Q)\)</span>, is the mean order of relative magnitude of <span class="math notranslate nohighlight">\(P\)</span> to <span class="math notranslate nohighlight">\(Q\)</span>. Precisely, it is given by</p>
 <div class="math notranslate nohighlight">
 \[
-D(P \parallel Q) \def E_{s\sim p(s)} \left[ \log_2\left( \frac{p(s)}{q(s)} \right)\right] =  \sum_{s\in S} p(s) \log_2\left( \frac{p(s)}{q(s)} \right).
+D(P \parallel Q) \def E_{s\sim p(s)} \left[ \log\left( \frac{p(s)}{q(s)} \right)\right] =  \sum_{s\in S} p(s) \log\left( \frac{p(s)}{q(s)} \right).
 \]</div>
 <p>The KL divergence is also called the <em>relative entropy</em>.</p>
 <p>As always, if <span class="math notranslate nohighlight">\(P_\bX\)</span> and <span class="math notranslate nohighlight">\(P_\bY\)</span> are the probability measures of two random vectors <span class="math notranslate nohighlight">\(\bX\)</span> and <span class="math notranslate nohighlight">\(\bY\)</span> with finite ranges, we will write <span class="math notranslate nohighlight">\(D(\bY \parallel \bX)\)</span> in place of <span class="math notranslate nohighlight">\(D(P_\bY \parallel P_\bX)\)</span>.</p>
@@ -633,7 +633,7 @@ D(P \parallel Q) \def E_{s\sim p(s)} \left[ \log_2\left( \frac{p(s)}{q(s)} \righ
 D(P\parallel Q) = H_P(Q) - H(P).
 \]</div>
 </section>
-</div><p>We now work towards proving <em>Gibb’s inequality</em>, which is sometimes called the most important inequality in information theory. Its proof goes through a preliminary result known as <em>Jensen’s inequality</em> which, in turn, leverages the <em>concavity</em> of the logarithm function <span class="math notranslate nohighlight">\(h(x) = \log_2{x}\)</span>. This latter term means that between any two points <span class="math notranslate nohighlight">\(x=a\)</span> and <span class="math notranslate nohighlight">\(x=b\)</span> along the <span class="math notranslate nohighlight">\(x\)</span>-axis, the graph of <span class="math notranslate nohighlight">\(h(x)\)</span> lies below the secant line:</p>
+</div><p>We now work towards proving <em>Gibb’s inequality</em>, which is sometimes called the most important inequality in information theory. Its proof goes through a preliminary result known as <em>Jensen’s inequality</em> which, in turn, leverages the <em>concavity</em> of the logarithm function <span class="math notranslate nohighlight">\(h(x) = \log{x}\)</span>. This latter term means that between any two points <span class="math notranslate nohighlight">\(x=a\)</span> and <span class="math notranslate nohighlight">\(x=b\)</span> along the <span class="math notranslate nohighlight">\(x\)</span>-axis, the graph of <span class="math notranslate nohighlight">\(h(x)\)</span> lies below the secant line:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -643,15 +643,15 @@ D(P\parallel Q) = H_P(Q) - H(P).
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">)</span>
 <span class="n">grid_line</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">m</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span> <span class="o">/</span> <span class="mf">0.8</span> 
+<span class="n">m</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span> <span class="o">/</span> <span class="mf">0.8</span> 
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">grid</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">grid</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid_line</span><span class="p">,</span> <span class="n">m</span> <span class="o">*</span> <span class="p">(</span><span class="n">grid_line</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mf">0.2</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">0.2</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;$y=h(x) = </span><span class="se">\\</span><span class="s1">log_2</span><span class="si">{x}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;$y=h(x) = </span><span class="se">\\</span><span class="s1">log</span><span class="si">{x}</span><span class="s1">$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.9</span><span class="p">,</span> <span class="s1">&#39;$(a,h(a))$&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="kc">None</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;$(b,h(b))$&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="kc">None</span><span class="p">))</span>
@@ -662,7 +662,7 @@ D(P\parallel Q) = H_P(Q) - H(P).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/856f2a5acfaf77ce21bb4e04e888bc24da16be75a15379647de25d57971b7000.svg" src="../_images/856f2a5acfaf77ce21bb4e04e888bc24da16be75a15379647de25d57971b7000.svg" /></figure>
+<img alt="../_images/44804853b40a2615ae65c4ba53b1bbd2bf535b2449ccc903c2955388892a2880.svg" src="../_images/44804853b40a2615ae65c4ba53b1bbd2bf535b2449ccc903c2955388892a2880.svg" /></figure>
 </div>
 </div>
 <p>Note that all <span class="math notranslate nohighlight">\(x\)</span>-values between the endpoints <span class="math notranslate nohighlight">\(x=a\)</span> and <span class="math notranslate nohighlight">\(x=b\)</span> are of the form</p>
@@ -721,7 +721,7 @@ D(P \parallel Q) \geq 0,
 S' = \left\{ \frac{q(s_1)}{p(s_1)}, \frac{q(s_2)}{p(s_2)}, \ldots, \frac{q(s_n)}{p(s_n)}\right\},
 \]</div>
 <p>noting that none of the numbers in this set is <span class="math notranslate nohighlight">\(0\)</span> since <span class="math notranslate nohighlight">\(S_p \subset S_q\)</span>. We may view <span class="math notranslate nohighlight">\(S'\)</span> as a new sample space with <span class="math notranslate nohighlight">\(s'_k = q(s_k)/p(s_k)\)</span> for each <span class="math notranslate nohighlight">\(k=1,\ldots,n\)</span>, equipped with a probability mass function <span class="math notranslate nohighlight">\(p(s')\)</span> given by <span class="math notranslate nohighlight">\(p(s'_k) = p(s_k)\)</span> for all <span class="math notranslate nohighlight">\(k\)</span>.</p>
-<p>Since <span class="math notranslate nohighlight">\(h(x) = \log_2{x}\)</span> is strictly concave, from Jensen’s inequality (<a class="reference internal" href="#jensen-thm">Theorem 10.2</a>) we have</p>
+<p>Since <span class="math notranslate nohighlight">\(h(x) = \log{x}\)</span> is strictly concave, from Jensen’s inequality (<a class="reference internal" href="#jensen-thm">Theorem 10.2</a>) we have</p>
 <div class="math notranslate nohighlight" id="equation-gibbs-target-eq">
 <span class="eqno">(10.4)<a class="headerlink" href="#equation-gibbs-target-eq" title="Permalink to this equation">#</a></span>\[
 E_{s' \sim p(s')}\big( h(s') \big) \leq h \big( E_{s' \sim p(s')}(s') \big),
@@ -729,12 +729,12 @@ E_{s' \sim p(s')}\big( h(s') \big) \leq h \big( E_{s' \sim p(s')}(s') \big),
 <p>with equality if and only if <span class="math notranslate nohighlight">\(S'\)</span> has cardinality <span class="math notranslate nohighlight">\(1\)</span>. However, the left-hand side is</p>
 <div class="math notranslate nohighlight">
 \[
-E_{s' \sim p(s')}\big( h(s') \big) = \sum_{k=1}^n p(s'_k)\log_2{s'_k} = - \sum_{k=1}^n p(s_k) \log_2\left( \frac{p(s_k)}{q(s_k)} \right) = -D(P\parallel Q),
+E_{s' \sim p(s')}\big( h(s') \big) = \sum_{k=1}^n p(s'_k)\log{s'_k} = - \sum_{k=1}^n p(s_k) \log\left( \frac{p(s_k)}{q(s_k)} \right) = -D(P\parallel Q),
 \]</div>
 <p>while the right-hand side of <a class="reference internal" href="#equation-gibbs-target-eq">(10.4)</a> is</p>
 <div class="math notranslate nohighlight" id="equation-gibbs-target-2-eq">
 <span class="eqno">(10.5)<a class="headerlink" href="#equation-gibbs-target-2-eq" title="Permalink to this equation">#</a></span>\[
-h \big( E_{s' \sim p(s')}(s') \big) = \log_2 \left( \sum_{k=1}^n p(s_k')s_k' \right) = \log_2 \left( \sum_{k=1}^n q(s_k)\right) \leq 0. 
+h \big( E_{s' \sim p(s')}(s') \big) = \log \left( \sum_{k=1}^n p(s_k')s_k' \right) = \log \left( \sum_{k=1}^n q(s_k)\right) \leq 0. 
 \]</div>
 <p>Thus, <span class="math notranslate nohighlight">\(D(P \parallel Q) \geq 0\)</span>.</p>
 <p>As we observed, equality holds if and only if <span class="math notranslate nohighlight">\(S'\)</span> has cardinality <span class="math notranslate nohighlight">\(1\)</span>, in which case there is a positive constant <span class="math notranslate nohighlight">\(c\)</span> such that <span class="math notranslate nohighlight">\(p_s(s_k) = cq(s_k)\)</span> for each <span class="math notranslate nohighlight">\(k=1,\ldots,n\)</span>. But then</p>
@@ -752,7 +752,7 @@ h \big( E_{s' \sim p(s')}(s') \big) = \log_2 \left( \sum_{k=1}^n p(s_k')s_k' \ri
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> be a probability measures on a finite sample space <span class="math notranslate nohighlight">\(S\)</span>. Then</p>
 <div class="math notranslate nohighlight">
 \[
-H(P) \leq \log_2{|S|},
+H(P) \leq \log{|S|},
 \]</div>
 <p>with equality if and only if <span class="math notranslate nohighlight">\(P\)</span> is uniform.</p>
 </section>
@@ -760,14 +760,14 @@ H(P) \leq \log_2{|S|},
 <p>Proof. Let <span class="math notranslate nohighlight">\(Q\)</span> be the uniform distribution on <span class="math notranslate nohighlight">\(S\)</span>, and let <span class="math notranslate nohighlight">\(p(s)\)</span> and <span class="math notranslate nohighlight">\(q(s)\)</span> be the mass functions of <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>, respectively. Then by Gibbs’ inequality, we have</p>
 <div class="math notranslate nohighlight">
 \[
-0 \leq D(P \parallel Q) = H_P(Q) - H(P) = \sum_{s\in S} p(s) \log_2|S| - H(P) = \log_2|S| - H(P).
+0 \leq D(P \parallel Q) = H_P(Q) - H(P) = \sum_{s\in S} p(s) \log|S| - H(P) = \log|S| - H(P).
 \]</div>
 <p>The desired result then follows. Q.E.D.</p>
 </div>
-<p>So, when <span class="math notranslate nohighlight">\(P\)</span> is uniform, we have <span class="math notranslate nohighlight">\(H(P) = \log_2|S|\)</span>. It is pleasing to compare this latter equation to the <a class="reference external" href="https://en.wikipedia.org/wiki/Boltzmann%27s_entropy_formula">Boltzmann equation</a> for entropy in statistical mechanics. The defining equation for Shannon entropy</p>
+<p>So, when <span class="math notranslate nohighlight">\(P\)</span> is uniform, we have <span class="math notranslate nohighlight">\(H(P) = \log|S|\)</span>. It is pleasing to compare this latter equation to the <a class="reference external" href="https://en.wikipedia.org/wiki/Boltzmann%27s_entropy_formula">Boltzmann equation</a> for entropy in statistical mechanics. The defining equation for Shannon entropy</p>
 <div class="math notranslate nohighlight">
 \[
-H(P) = - \sum_{s\in S} p(s) \log_2(p(s))
+H(P) = - \sum_{s\in S} p(s) \log(p(s))
 \]</div>
 <p>is the analog of the <a class="reference external" href="https://en.wikipedia.org/wiki/Entropy_(statistical_thermodynamics)#Gibbs_entropy_formula">Gibbs equation</a> for Boltzmann entropy.</p>
 <p>Let’s finish off our discussion of KL divergence with:</p>
@@ -943,7 +943,7 @@ p(x,y) = p(x)p(y),
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables with finite ranges. The <em>mutual information</em> shared between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, denoted <span class="math notranslate nohighlight">\(I(X,Y)\)</span>, is the KL divergence</p>
 <div class="math notranslate nohighlight">
 \[
-I(X, Y) \def D( P_{XY} \parallel P_{X} \otimes P_{Y}) = \sum_{(x,y)\in \bbr^2} p(x,y) \log_2\left( \frac{p(x,y)}{p(x)p(y)}\right).
+I(X, Y) \def D( P_{XY} \parallel P_{X} \otimes P_{Y}) = \sum_{(x,y)\in \bbr^2} p(x,y) \log\left( \frac{p(x,y)}{p(x)p(y)}\right).
 \]</div>
 </section>
 </div><p>The notation <span class="math notranslate nohighlight">\(P_X \otimes P_Y\)</span> denotes the <a class="reference external" href="https://en.wikipedia.org/wiki/Product_measure"><em>product measure</em></a> on the Cartesian product of the ranges of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>; by definition, this is the measure that has mass function given by</p>
@@ -1000,10 +1000,10 @@ I(X,Y) = H(X) + H(Y) - H(X,Y).
 <p>Proof. The proof is a computation:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
-I(x,y) &amp;= \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2\left( \frac{p(x,y)}{p(x)p(y)} \right) \\
-&amp;= - \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2 \left(p(x)\right) - \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2\left(p(y)\right) \\
-&amp;\quad + \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log_2\left(p(x,y)\right)  \\
-&amp;= - \sum_{x \in \bbr} p(x) \log_2\left( p(x) \right) - \sum_{y \in \bbr} p(y) \log_2\left( p(y)\right) - H(X,Y)  \\
+I(x,y) &amp;= \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log\left( \frac{p(x,y)}{p(x)p(y)} \right) \\
+&amp;= - \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log \left(p(x)\right) - \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log\left(p(y)\right) \\
+&amp;\quad + \sum_{x\in \bbr}\sum_{y \in \bbr} p(x,y) \log\left(p(x,y)\right)  \\
+&amp;= - \sum_{x \in \bbr} p(x) \log\left( p(x) \right) - \sum_{y \in \bbr} p(y) \log\left( p(y)\right) - H(X,Y)  \\
 &amp;= H(X) + H(Y) - H(X, Y),
 \end{align*}\]</div>
 <p>as desired. Q.E.D.</p>
