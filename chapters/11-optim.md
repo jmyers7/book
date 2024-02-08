@@ -876,24 +876,24 @@ If the Hessian matrix is positive definite, then its extreme eigenvalues are exa
 ```{prf:definition}
 :label: condition-num-def
 
-Let $A$ be an $n\times n$ square matrix with eigenvalues $\lambda_1,\ldots,\lambda_n$.
+Let $\bA$ be an $n\times n$ square matrix with eigenvalues $\lambda_1,\ldots,\lambda_n$.
 
-1. The _spectral radius_ of $A$, denoted $\rho(A)$, is given by
-
-    $$
-    \rho(A) \def \max_{i=1,\ldots,n} |\lambda_i|.
-    $$
-
-2. If $A$ is positive definite, the _condition number_ of $A$, denoted $\kappa(A)$, is the ratio
+1. The _spectral radius_ of $\bA$, denoted $\rho(\bA)$, is given by
 
     $$
-    \kappa(A) \def \frac{\lambda_\text{max}}{\lambda_\text{min}}
+    \rho(\bA) \def \max_{i=1,\ldots,n} |\lambda_i|.
     $$
 
-    of the largest eigenvalue of $A$ to the smallest. Note that since all eigenvalues of $A$ are positive, $\lambda_\text{max}$ is exactly the spectral radius $\rho(A)$.
+2. If $\bA$ is positive definite, the _condition number_ of $\bA$, denoted $\kappa(\bA)$, is the ratio
+
+    $$
+    \kappa(\bA) \def \frac{\lambda_\text{max}}{\lambda_\text{min}}
+    $$
+
+    of the largest eigenvalue of $\bA$ to the smallest. Note that since all eigenvalues of $\bA$ are positive, $\lambda_\text{max}$ is exactly the spectral radius $\rho(\bA)$.
 ```
 
-This definition of _condition number_ applies only in the case that $A$ is positive definite and hence all its eigenvalues are positive. In the general case, the definition needs to be altered; see [here](https://en.wikipedia.org/wiki/Condition_number#Matrices), for example.
+This definition of _condition number_ applies only in the case that $\bA$ is positive definite and hence all its eigenvalues are positive. In the general case, the definition needs to be altered; see [here](https://en.wikipedia.org/wiki/Condition_number#Matrices), for example.
 
 ```{admonition} Problem Prompt
 
