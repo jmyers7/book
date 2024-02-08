@@ -1575,7 +1575,7 @@ fig.suptitle('mini-batch gradient descent')
 plt.tight_layout()
 ```
 
-The runs with batch sizes $k=2, 8, 32$ halt before completing one epoch, while the run with batch size $k=128$ completes one full epoch before halting during the second one. Notice that the noise in the plots progressively decreases as the batch size increases. The traces through parameter space look like:
+The runs with batch sizes $k=2, 8, 32$ halt before completing one epoch, while the run with batch size $k=128$ completes three full epochs. Notice that the noise in the plots progressively decreases as the batch size increases. The traces through parameter space look like:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
