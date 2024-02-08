@@ -97,7 +97,7 @@ for all $\btheta$ in a neighborhood of $\btheta^\star$; if this inequality holds
 
 Using this terminology, we would say that $0.5$ is (approximately) a local minimizer of our polynomial objective function $J(\theta)$, while $2.7$ is (approximately) a global minimizer.
 
-Let's see how the single-variable version of the _gradient descent (GD) algorithm_ would solve our optimization problem. In this context, the algorithm is called the _optimizer_. This algorithm depends on an initial guess for a minimizer, as well as two parameters called the _learning rate_ and the _number of gradient steps_. We will state the algorithm first, and then walk through some intuition for why it works:
+Let's see how the single-variable version of the _gradient descent algorithm_ would solve our optimization problem. This algorithm depends on an initial guess for a minimizer, as well as two parameters called the _learning rate_ and the _number of gradient steps_. We will state the algorithm first, and then walk through some intuition for why it works:
 
 ```{margin}
 
@@ -111,22 +111,27 @@ The loop runs from $t=0$ to $t=N-1$, inclusive. This convention is intended to m
 
 **Output:** An approximation to a local minimizer $\theta^\star$.
 
-&nbsp;&nbsp; 1. $\theta := \theta_0$
+---
 
-&nbsp;&nbsp; 2. For $t$ from $0$ to $N-1$, do:
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. $\theta := \theta - \alpha J'(\theta)$
-
-&nbsp;&nbsp; 4. Return $\theta$.
+&nbsp;&nbsp; 1. $\theta := \theta_0$ <br>
+&nbsp;&nbsp; 2. For $t$ from $0$ to $N-1$, do: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. $\theta := \theta - \alpha J'(\theta)$ <br>
+&nbsp;&nbsp; 4. Return $\theta$
 ```
 
-Beginning from an initial guess $\theta_0$, the `for` loop in the algorithm produces a sequence of $N+1$ approximations
+Though this simple description of the algorithm outputs just a single approximation to a local minimizer, in practice it is often convenient to output the entire sequence of $\theta$'s produced as the algorithm iterates through the `for` loop:
 
 $$
-\theta_0,\theta_1,\ldots,\theta_t,\ldots,\theta_{N}
+\theta_0,\theta_1,\ldots,\theta_t,\ldots,\theta_{N}.
 $$
 
-to a (local) minimizer $\theta^\star$. The last value $\theta_{N}$ in the sequence is taken as the output of the algorithm; if the algorithm converges to a minimizer, then we should have $\theta_{N} \approx \theta^\star$.
+Then, as we will see below, by tracking the associated objective values
+
+$$
+J(\theta_0), J(\theta_1),\ldots, J(\theta_t), \ldots, J(\theta_N),
+$$
+
+one may monitor convergence of the algorithm.
 
 The assignment
 
@@ -134,7 +139,7 @@ $$
 \theta := \theta - \alpha J'(\theta)
 $$ (update-rule-eqn)
 
-in the `for` loop is called the _update rule_. This form is convenient for implementation in code. But for theoretical analysis, it is often convenient to rewrite the rule as a _recurrence relation_ in the form
+in the `for` loop is called the _update rule_. This form is convenient for implementation in code, but for theoretical analysis, it is often convenient to rewrite the rule as a _recurrence relation_ in the form
 
 $$
 \theta_{t+1} = \theta_{t} - \alpha J'(\theta_{t}),
@@ -162,19 +167,20 @@ plt.plot(grid, J_prime(-0.4) * (grid + 0.4) + J(-0.4), color=magenta, zorder=10)
 plt.scatter(-0.4, J(-0.4), color=magenta, s=100, zorder=15)
 plt.scatter(-0.4, 0, color=magenta, s=100, zorder=20)
 plt.plot([-0.4, -0.4], [J(-0.4), 0], color=magenta, linestyle='--')
-plt.xlim(-0.8, 3.7)
-plt.ylim(-0.3, 12.2)
-plt.text(-0.6, 0.6, '$\\theta_0$', ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
-plt.text(0.15, J(-0.4), "$J'(\\theta_0)<0$", ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
 
 plt.plot(grid, J(grid))
 plt.plot(grid, J_prime(3.3) * (grid - 3.3) + J(3.3))
 plt.scatter(3.3, J(3.3), color=magenta, s=100, zorder=10)
 plt.scatter(3.3, 0, color=magenta, s=100, zorder=10)
 plt.plot([3.3, 3.3], [J(3.3), 0], color=magenta, linestyle='--')
+
+plt.text(-0.6, 0.6, '$\\theta_0$', ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
+plt.text(0.15, J(-0.4), "$J'(\\theta_0)<0$", ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
 plt.text(3.5, 0.6, '$\\theta_0$', ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
 plt.text(2.8, J(3.3), "$J'(\\theta_0)>0$", ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
 
+plt.xlim(-0.8, 3.7)
+plt.ylim(-0.3, 12.2)
 plt.xlabel('$\\theta$')
 plt.ylabel('$J(\\theta)$')
 plt.gcf().set_size_inches(w=5, h=3)
@@ -225,11 +231,10 @@ Let's run the gradient algorithm four times, with various settings of the parame
 :   figure:
 :       align: center
 
-# parameters for gradient descent
-gd_parameters = {'theta': [torch.tensor([-0.5], requires_grad=True),
-                           torch.tensor([3.45], requires_grad=True),
-                           torch.tensor([-0.5], requires_grad=True),
-                           torch.tensor([3.45], requires_grad=True)],
+gd_parameters = {'theta0': [torch.tensor([-0.5]),
+                            torch.tensor([3.45]),
+                            torch.tensor([-0.5]),
+                            torch.tensor([3.45])],
                  'num_steps': [8, 7, 5, 5],
                  'lr': [1e-2, 1e-2, 1e-1, 2e-1]}
 
@@ -240,8 +245,8 @@ for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
     gd_output = GD(**gd_parameters_slice, J=J)
     
-    lr = gd_parameters_slice['lr']
-    num_steps = gd_parameters_slice['num_steps']
+    alpha = gd_parameters_slice['lr']
+    N = gd_parameters_slice['num_steps']
     
     axis.plot(grid, J(grid))
     axis.step(x=gd_output.thetas, y=gd_output.objectives, where='post', color=magenta, zorder=2)
@@ -249,7 +254,7 @@ for i, axis in enumerate(axes.flatten()):
     axis.scatter(x=gd_output.thetas[0], y=gd_output.objectives[0], s=100, color=magenta, zorder=2)
     axis.set_xlabel('$\\theta$')
     axis.set_ylabel('$J(\\theta)$')
-    axis.set_title(f'$\\alpha={lr}$, $N={num_steps}$')
+    axis.set_title(f'$\\alpha={alpha}$, $N={N}$')
 plt.tight_layout()
 ```
 
@@ -274,11 +279,10 @@ It is possible for the gradient descent algorithm to diverge, especially if the 
 :   figure:
 :       align: center
 
-gd_parameters = {'theta': torch.tensor([3.5], requires_grad=True),
-                 'num_steps': 3,
-                 'lr': 2e-1,}
-
-gd_output = GD(**gd_parameters, J=J)
+gd_output = GD(J=J,
+               theta0=torch.tensor([3.5]),
+               lr=2e-1,
+               num_steps=3)
 
 grid = torch.linspace(start=-55, end=50, steps=300)
 plt.plot(grid, J(grid))
@@ -299,7 +303,7 @@ We see already that $J(\theta_3) \approx 10^7$; in fact, we have $J(\theta_t) \t
 Do problems 2 and 3 on the worksheet.
 ```
 
-Of course, one can often prevent divergence by simply using a smaller learning rate, but sometimes a large _initial_ learning rate is desirable to help the algorithm quickly find the neighborhood of a minimizer. So, what we desire is a scheme to shrink the learning rate from (relatively) large values to (relatively) smaller ones as the algorithm runs. This scheme is called a _learning rate schedule_.
+Of course, one can often prevent divergence by simply using a smaller learning rate, but sometimes a large _initial_ learning rate is desirable to help the algorithm quickly find the neighborhood of a minimizer. So, what we desire is a scheme to shrink the learning rate from large values to smaller ones as the algorithm runs. This scheme is called a _learning rate schedule_, and it is implemented by adding an extra _decay rate_ parameter to the gradient descent algorithm:
 
 ```{prf:algorithm} Single-variable gradient descent with learning rate decay
 :label: single-variable-gd-alg
@@ -308,10 +312,12 @@ Of course, one can often prevent divergence by simply using a smaller learning r
 
 **Output:** An approximation to a local minimizer $\theta^\star$.
 
-1. $\theta := \theta_0$
-2. For $t$ from $0$ to $N-1$, do:
-    1. $\theta := \theta - \alpha (1-\beta)^{t+1} J'(\theta)$
-3. Return $\theta$.
+---
+
+&nbsp;&nbsp; 1. $\theta := \theta_0$ <br>
+&nbsp;&nbsp; 2. For $t$ from $0$ to $N-1$, do: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. $\theta := \theta - \alpha (1-\beta)^{t+1} J'(\theta)$ <br>
+&nbsp;&nbsp; 4. Return $\theta$
 ```
 
 The new parameter $\beta$, called the _decay rate_, shrinks the learning rate as
@@ -328,11 +334,11 @@ provided that $\beta> 0$. Setting $\beta=0$ results in _no_ change in the learni
 :   figure:
 :       align: center
 
-gd_parameters = {'theta': torch.tensor([3.5], requires_grad=True),
-                 'num_steps': 8,
-                 'lr': 2e-1,}
-
-gd_output = GD(**gd_parameters, J=J, decay_rate=0.1)
+gd_output = GD(J=J,
+               theta0=torch.tensor([3.5]),
+               lr=2e-1,
+               num_steps=8,
+               decay_rate=0.1)
 
 grid = torch.linspace(start=-0.5, end=3.5, steps=300)
 plt.plot(grid, J(grid))
@@ -375,15 +381,15 @@ we would plot the following:
 :   figure:
 :       align: center
 
-gd_parameters = {'theta': torch.tensor([-0.5], requires_grad=True),
-                 'num_steps': 15,
-                 'lr': 1e-2}
-
-gd_output = GD(**gd_parameters, J=J, decay_rate=0.1)
+gd_output = GD(J=J,
+               theta0=torch.tensor([-0.5]),
+               lr=1e-2,
+               num_steps=15,
+               decay_rate=0.1)
 
 plt.plot(range(len(gd_output.objectives)), gd_output.objectives)
 plt.xlabel('gradient steps')
-plt.ylabel('$J(\\theta)$')
+plt.ylabel('objective')
 plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
@@ -414,7 +420,7 @@ $$ (stationary-eqn)
 
 The name arises from the observation that small (first-order infinitesimal) perturbations of $\theta^\star$ do not change the value $J(\theta^\star)$, i.e., the value $J(\theta^\star)$ remains _stationary_ under small perturbations. In certain very favorable situations, we may be able to solve the stationarity equation {eq}`stationary-eqn` for $\theta^\star$ to obtain a formula in closed form. In this case, the iterative gradient descent algorithm is not needed. But $\theta^\star$ being a solution to the stationarity equation {eq}`stationary-eqn` is only a _necessary_ condition for it to be an extremizer---sufficient conditions may be obtained by considering the _local curvature_ of the graph of $J$ near $\theta^\star$.
 
-Our goal in this section is twofold: First, we briefly recall how these curvature considerations help us identify extremizers in the single-variable case. The relevant tools are the first and second derivatives. Then, we generalize these derivatives to higher dimensions to obtain _gradient vectors_ and _Hessian matrices_. We indicate how local curvature in higher dimensions may be computed using these new tools and, in particular, how we may use them to identify extremizers.
+Our goal in this section is twofold: First, we briefly recall how these curvature considerations help us identify extremizers in the single-variable case---the relevant tools are the first and second derivatives. Then, we generalize these derivatives to higher dimensions to obtain _gradient vectors_ and _Hessian matrices_. We indicate how local curvature in higher dimensions may be computed using these new tools and, in particular, how we may use them to identify extremizers.
 
 So, let's begin with the familiar routine from single-variable calculus called the _Second Derivative Test_. Given a point $\theta^\star$ and a twice-differentiable function $J:\bbr \to \bbr$, the test splits into two cases:
 
@@ -454,7 +460,7 @@ plt.tight_layout()
 
 To see _why_ second derivatives encode local curvature, let's suppose $J''(\theta^\star) >0$ at some point $\theta^\star$. Then continuity of $J''$ means that there is a number $\epsilon>0$ such that $J''(\theta)>0$ for all $\theta$ in the open interval $I = (\theta^\star - \epsilon, \theta^\star + \epsilon)$ centered at $\theta^\star$. But the second derivative is the first derivative of the first derivative, and thus positivity of $J''$ over $I$ means that $J'$ is increasing over $I$. Since the first derivative $J'$ measures the slope of the graph of $J$, this must mean that the slopes increase as we move from left to right across $I$. Thus, $J$ is convex near $\theta^\star$.
 
-We already met the notion of _concavity_ back in {numref}`kl-div-sec` where it was fundamental in our proof of Gibb's inequality in {prf:ref}`gibbs-thm`. As in the figure above, a function is _concave_ if it always lies below its secant lines, while it is _convex_ if it always lies above. The precise definitions are in the [appendix](app-conv-sec) at the end of the chapter. Both these shapes have implications for the search for extremizers---in particular, stationary points of concave and convex functions are _always_ global extremizers. The proof of this claim, along with equivalent characterizations of concavity and convexity in terms of tangent lines and tangent (hyper)planes are given in the two main theorems in the [appendix](app-conv-sec). The claims are easily believable, while the proofs are annoyingly fussy. At least glance at the statements of the theorems to convince yourself that your intuition is on point, but do not feel compelled to go through the proofs line by line.
+We already met the notion of _concavity_ back in {numref}`kl-div-sec` where it was fundamental in our proof of Gibb's inequality in {prf:ref}`gibbs-thm`. As shown in the figure above, a function is _concave_ if it lies below its secant lines, while it is _convex_ if it lies above. Both these shapes have implications for the search for extremizers---in particular, stationary points of concave and convex functions are _always_ global extremizers. The proof of this claim, along with equivalent characterizations of concavity and convexity in terms of tangent lines and tangent (hyper)planes are given in the two main theorems in the [appendix](app-conv-sec). (The claims are easily believable, while the proofs are annoyingly fussy. At least glance at the statements of the theorems to convince yourself that your intuition is on point, but do not feel compelled to go through the proofs line by line.)
 
 How might we generalize the Second Derivative Test to higher dimensions? To help gain insight into the answer, let's first add only one additional dimension, going from a function of a single variable to a twice-differentiable function of two variables:
 
@@ -532,6 +538,11 @@ $$
 In this context, the vector $\bv$ is called the _directional vector_.
 ```
 
+```{admonition} Problem Prompt
+
+Do problem 5 on the worksheet.
+```
+
 The familiar relations between these directional derivatives and partial derivatives pass through the gadgets defined in the following box. The first is familiar to us from our course in multi-variable calculus:
 
 ```{margin}
@@ -606,10 +617,18 @@ $$
 Plugging in $t=0$ to both ends yields (2.). Q.E.D.
 ```
 
+```{admonition} Problem Prompt
+
+Do problem 6 on the worksheet.
+```
+
+
 ```{margin}
 
 Notice that the value of $J''_\bv(\btheta)$ is the same if $\bv$ is replaced with $-\bv$, by {prf:ref}`directional-der-grad-thm`. Thus, the local curvature at $\btheta$ only depends on the _line_ indicated by $\bv$, not the direction that it points.
 ```
+
+
 
 When the directional vector $\bv$ is a _unit_ vector, the value of the directional first derivative $J'_\bv(\btheta)$ is interpreted as the (instantaneous) rate of change of $J$ at $\btheta$ in the direction indicated by $\bv$. Likewise, if $\bv$ is unit vector, then the value of the directional second derivative $J''_\bv(\btheta)$ is interpreted as the local curvature of $J$ at $\btheta$ through the line indicated by $\bv$.
 
@@ -671,7 +690,7 @@ $$
 
 from {prf:ref}`directional-der-grad-thm`. Since $\cos{\phi}$ is maximized and minimized over $[0,\pi]$ when $\phi=0$ and $\phi=\pi$, respectively, it then follows that the gradient points in the direction of maximum rate of change, while its negative points in the direction of minimum rate of change. However, this argument does not address what is meant by the "angle" $\phi$ between the vectors---certainly in two and three dimensions we have some idea of what this angle might be, but what about in 1000 dimensions?
 
-But the "angle" $\phi$ is just a distraction. It is much cleaner logically to work directly with the [Cauchy-Schwarz inequality](https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality), which is the true reason that the gradient has these extremizing properties. An immediate corollary of this inequality says that an innner product of one vector against a unit vector is maximized (minimized) when the unit vector points in the same (opposite) direction as the first vector. In the following, we give a proof using this inequality, and then show afterwards how it may be used to give a rigorous definition of the angle $\phi$.
+But the "angle" $\phi$ is just a distraction. It is much cleaner logically to work directly with the [Cauchy-Schwarz inequality](https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality), which is the true reason that the gradient has these extremizing properties. An immediate corollary of this inequality says that an innner product of one vector against a unit vector is maximized (minimized) when the unit vector points in the same (opposite) direction as the first vector. In the following, we give a proof of the extremizing properties of the gradient vector using the Cauchy-Schwarz inequality, and then show afterwards how it may be used to give a rigorous definition of the angle $\phi$.
 
 ```{prf:theorem} Properties of gradient vectors
 :label: grad-uphill-thm
@@ -717,6 +736,11 @@ $$
 and so $\alpha = 1/ |\nabla J(\btheta)|$. Hence, the derivative $J_\bv'(\btheta)$ achieves its maximum value exactly when $\bv$ is the normalized gradient vector. It is just as easy to show that the derivative achieves its minimum value when $\bv$ is the negative of the normalized gradient vector. Q.E.D.
 ```
 
+```{admonition} Problem Prompt
+
+Do problem 7 on the worksheet.
+```
+
 Now, let's return to the "angle" $\phi$ between two nonzero vectors $\bu$ and $\bv$ in $\bbr^n$. From the Cauchy-Schwarz inequality {eq}`cs-ineq-eq`, it follows that
 
 $$
@@ -759,6 +783,11 @@ Let $J:\bbr^n \to \bbr$ be a function of class $C^2$ and $\btheta^\star \in \bbr
 ```
 
 For a proof of this result, see Theorem 13.10 in {cite}`Apostol1974`. Note also that if the Hessian matrix is either positive semidefinite or negative semidefinite _everywhere_, then every stationary point is a global extremizer; see {prf:ref}`main-convex-multi-thm` in the appendix.
+
+```{admonition} Problem Prompt
+
+Do problem 8 on the worksheet.
+```
 
 With infinitely many local (directional) curvatures at a point on the graph of a function $J:\bbr^n\to \bbr$, it will be convenient to obtain a single number that attempts to summarize the complexity of the local curvature. The first step toward obtaining such a summary is given in the following:
 
@@ -836,6 +865,12 @@ $$
 which implies that $\bv$ lies in the eigenspace of $\lambda_n$. This establishes the claim in the first statement, and the one in the second follows from the same type of argument with the obvious changes. Q.E.D.
 ```
 
+```{admonition} Problem Prompt
+
+Do problem 9 on the worksheet.
+```
+
+
 If the Hessian matrix is positive definite, then its extreme eigenvalues are exactly the extreme local (directional) curvatures. The ratio of the largest curvature to the smallest should then convey the "variance" or the "range" of these curvatures. This ratio has a name:
 
 ```{prf:definition}
@@ -859,6 +894,11 @@ Let $A$ be an $n\times n$ square matrix with eigenvalues $\lambda_1,\ldots,\lamb
 ```
 
 This definition of _condition number_ applies only in the case that $A$ is positive definite and hence all its eigenvalues are positive. In the general case, the definition needs to be altered; see [here](https://en.wikipedia.org/wiki/Condition_number#Matrices), for example.
+
+```{admonition} Problem Prompt
+
+Do problem 10 on the worksheet.
+```
 
 Intuitively, when the condition number of a positive definite Hessian matrix is large (in which case the Hessian matrix is called _ill-conditioned_), the curvatures vary widely as we look in all different directions; conversely, when the condition number is near $1$, the directional curvatures are all nearly the same. As we will see in the next section, ill-conditioned Hessian matrices inflate an important upper-bound on the speed of convergence of gradient descent. In other words, ill-conditioned Hessian matrices _may_ signal slow convergence of gradient descent.
 
@@ -888,24 +928,24 @@ With the gradient vector taking the place of the derivative, it is easy to gener
 
 **Output:** An approximation to a local minimizer $\btheta^\star$.
 
-1. $\btheta := \btheta_0$
-2. For $t$ from $0$ to $N-1$, do:
-    1. $\btheta := \btheta - \alpha(1-\beta)^{t+1} \nabla J(\btheta)$
-3. Return $\btheta$.
+---
+
+&nbsp;&nbsp; 1. $\btheta := \btheta_0$ <br>
+&nbsp;&nbsp; 2. For $t$ from $0$ to $N-1$, do: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. $\btheta := \btheta - \alpha(1-\beta)^{t+1} \nabla J(\btheta)$ <br>
+&nbsp;&nbsp; 4. Return $\btheta$.
 ```
 
-Just like the single-variable version, beginning from an initial guess $\btheta_0$ for a (local) minimizer, the algorithm outputs a sequence of $N+1$ approximations
+Just like the single-variable version, in practice it is convenient to track the entire sequence of $\btheta$'s produced by the algorithm:
 
 $$
-\btheta_0,\btheta_1, \ldots,\btheta_t,\ldots,\btheta_N
+\btheta_0,\btheta_1, \ldots,\btheta_t,\ldots,\btheta_N.
 $$
-
-to a local minimizer $\btheta^\star$.
 
 For an example, let's consider the polynomial objective function
 
 $$
-J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1)^2 + 10(\theta_2-1)^2 \big)
+J:\bbr^2 \to \bbr, \quad J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \theta_2^2)\big((\theta_1-1)^2 + 10(\theta_2-1)^2 \big)
 $$ (two-dim-poly-eq)
 
 in two dimensions. Its graph looks like
@@ -946,7 +986,7 @@ $$
 \btheta^\star = (0, 0), (1,1),
 $$
 
-as well as a "saddle point" at $(0.5, 0.5)$ where the gradient $\nabla J(\btheta)$ vanishes. Let's run the gradient descent algorithm four times beginning with _no_ learning rate decay, and track the approximations $\btheta_t$ in $\mathbb{R}^2$ plotted over the contours of $J(\btheta)$:
+as well as a "saddle point" at $(0.5, 0.5)$ where the gradient $\nabla J(\btheta)$ vanishes. Let's run the gradient descent algorithm four times, beginning with _no_ learning rate decay, and track the approximations $\btheta_t$ in $\mathbb{R}^2$ plotted over the contours of $J(\btheta)$:
 
 
 ```{code-cell} ipython3
@@ -955,24 +995,24 @@ as well as a "saddle point" at $(0.5, 0.5)$ where the gradient $\nabla J(\btheta
 :   figure:
 :       align: center
 
-# parameters for gradient descent
-gd_parameters = {'theta': [torch.tensor([0.25, 0.9], requires_grad=True),
-                           torch.tensor([0.25, 1], requires_grad=True),
-                           torch.tensor([0.75, 1.2], requires_grad=True),
-                           torch.tensor([0.5, 0.49], requires_grad=True)],
-                 'num_steps': [20, 20, 20, 20],
-                 'lr': [1e-2, 1e-2, 1e-2, 1e-2]}
+gd_parameters = {'theta0': [torch.tensor([0.25, 0.9]),
+                            torch.tensor([0.25, 1]),
+                            torch.tensor([0.75, 1.2]),
+                            torch.tensor([0.5, 0.49])]}
+alpha = 1e-2
+beta = 0
+N = 20
 
-# run gradient descent and plot
 fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
 
 for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
-    gd_output = GD(**gd_parameters_slice, J=J)
-    
-    lr = gd_parameters_slice['lr']
-    num_steps = gd_parameters_slice['num_steps']
-    
+    gd_output = GD(J=J,
+                   lr=alpha,
+                   num_steps=N,
+                   decay_rate=beta,
+                   **gd_parameters_slice)
+        
     axis.contour(x, y, z, levels=range(11), colors=blue, alpha=0.5)
     axis.plot(gd_output.thetas[:, 0], gd_output.thetas[:, 1], color=magenta)
     axis.scatter(gd_output.thetas[:, 0], gd_output.thetas[:, 1], s=30, color=magenta, zorder=2)
@@ -980,16 +1020,21 @@ for i, axis in enumerate(axes.flatten()):
     
     axis.set_xlabel('$\\theta_1$')
     axis.set_ylabel('$\\theta_2$')
-    axis.set_title(f'$\\alpha={lr}$, $\\beta=0$, $N={num_steps}$')
-    fig.suptitle('first runs of gradient descent')
+    axis.set_title(f'$\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
+fig.suptitle('first runs of gradient descent')
 plt.tight_layout()
 ```
 
 The large magenta dots in the plots indicate the initial guesses $\btheta_0$, while the smaller dots indicate the approximations $\btheta_t$ for $t>0$. The algorithm appears to be converging nicely to the minimizer $\btheta^\star = (1,1)$ in the upper-left plot, while in the other three plots, the algorithm finds a neighborhood of a minimizer, but then oscillates back and forth and never appears to settle down. This is due jointly to the elliptical (non-circular) shape of the contours, the choice of initial guesses, and poorly chosen learning rates. Notice that the initial guesses in the top two plots are nearly identical, but they lead to quite different convergence behavior.
 
-In particular, since the gradient is orthogonal to contours (see {prf:ref}`grad-uphill-thm`), in all the plots except the top-left one, we see that the negative gradients (which the algorithm is following) do _not_ point directly toward the minimizers. The elliptical nature of the contours creates local curvatures at the minimizers that are quite different depending on which direction you look. From the previous section, we know that the local curvatures are encoded in the Hessian matrix, and the "variance" or "range" of the local curvatures is scored by its condition number. This suggests that studying the Hessian matrix might lead to insights into the convergence properties of gradient descent.
+In particular, since the gradient is orthogonal to contours (see {prf:ref}`grad-uphill-thm`), in all the plots except the top-left one, we see that the negative gradients (which the algorithm is following) do _not_ point directly toward the minimizers. The elliptical nature of the contours creates local curvatures at the minimizers that are quite different depending on which direction you look. From the previous section, we know that the local curvatures are encoded in the Hessian matrix, and the "variance" or "range" of the local curvatures is scored by its condition number. This suggests that studying the Hessian matrix might lead to insights into the convergence properties of gradient descent. But first, to prepare for this general study, let's do:
 
-To begin this study, let's start more generally with a function $J:\bbr^n \to \bbr$ of class $C^2$ and $\btheta^\star$ a point. We then take a degree-$2$ Taylor polynomial approximation centered at $\btheta^\star$:
+```{admonition} Problem Prompt
+
+Do problem 11 on the worksheet.
+```
+
+To begin the theoretical study of convergence of gradient descent, let's start more generally with a function $J:\bbr^n \to \bbr$ of class $C^2$ and $\btheta^\star$ a point. We then take a degree-$2$ Taylor polynomial approximation centered at $\btheta^\star$:
 
 $$
 J(\btheta) \approx J(\btheta^\star) + (\btheta - \btheta^\star)^\intercal \nabla J(\btheta^\star) + \frac{1}{2} (\btheta - \btheta^\star)^\intercal \big(\nabla^2 J(\btheta^\star) \big) (\btheta - \btheta^\star).
@@ -998,42 +1043,42 @@ $$
 An approximation of the local geometry of the graph of $J$ near $\btheta^\star$ may be obtained by replacing $J$ with its Taylor polynomial on the right-hand side; thus, for our purposes, we may as well assume that $J$ is given by a degree-$2$ (inhomogeneous) polynomial:
 
 $$
-J(\btheta) = \frac{1}{2}\btheta^\intercal H \btheta + \bb^\intercal \btheta + c,
+J(\btheta) = \frac{1}{2}\btheta^\intercal \bH \btheta + \bb^\intercal \btheta + c,
 $$
 
-where $H \in \bbr^{n\times n}$ is a symmetric matrix, $\bb\in \bbr^n$ is a vector, and $c\in \bbr$ is a scalar. As you may easily compute, the gradient and Hessian matrices are given by
+where $\bH \in \bbr^{n\times n}$ is a symmetric matrix, $\bb\in \bbr^n$ is a vector, and $c\in \bbr$ is a scalar. As you may easily compute (see the [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/11-homework.md#problem-2-derivatives-of-quadratic-functions)), the gradient vector and Hessian matrix are given by
 
 $$
-\nabla J(\btheta) = H \btheta + \bb \quad \text{and} \quad  \nabla^2 J(\btheta) = H.
+\nabla J(\btheta) = \bH \btheta + \bb \quad \text{and} \quad  \nabla^2 J(\btheta) = \bH.
 $$
 
 Assuming that the decay rate is $\beta=0$, the update rule in the algorithm is given by
 
 $$
-\btheta_{t+1} = \btheta_t - \alpha(H\btheta_t + \bb).
+\btheta_{t+1} = \btheta_t - \alpha(\bH\btheta_t + \bb).
 $$
 
 Then, if $\btheta^\star$ is any stationary point (like a local minimizer), we may rewrite this update rule as
 
 $$
-\btheta_{t+1} - \btheta^\star = (I - \alpha H)(\btheta_t - \btheta^\star)
+\btheta_{t+1} - \btheta^\star = (I - \alpha \bH)(\btheta_t - \btheta^\star)
 $$
 
 where $I$ is the $n\times n$ identity matrix. This leads us to the update rule given in closed form by
 
 $$
-\btheta_t - \btheta^\star = (I - \alpha H)^t (\btheta_0 - \btheta^\star)
+\btheta_t - \btheta^\star = (I - \alpha \bH)^t (\btheta_0 - \btheta^\star)
 $$ (gd-closed-eqn)
 
 for all $t\geq 0$.
 
-Choosing the learning rate $\alpha$ is a balancing act: We want it large enough to obtain quick convergence, but small enough to avoid oscillations like in the plots above. To find the optimal $\alpha$ in our current situation, let's suppose that $\btheta^\star$ is indeed a local minimizer with positive definite Hessian matrix $H$. Suppose we linearly order the eigenvalues of $H$ as
+Choosing the learning rate $\alpha$ is a balancing act: We want it large enough to obtain quick convergence, but small enough to avoid oscillations like in the plots above. To find the optimal $\alpha$ in our current situation, let's suppose that $\btheta^\star$ is indeed a local minimizer with positive definite Hessian matrix $\bH$. Suppose we linearly order the eigenvalues of $\bH$ as
 
 $$
 0 < \lambda_1 \leq \cdots \leq \lambda_n.
 $$
 
-The eigenvalues of the matrix $I - \alpha H$ are $1 - \alpha \lambda_i$, for $i=1,\ldots,n$. As long as we choose the learning rate $\alpha$ such that
+The eigenvalues of the matrix $I - \alpha \bH$ are $1 - \alpha \lambda_i$, for $i=1,\ldots,n$. As long as we choose the learning rate $\alpha$ such that
 
 $$
 0 < \alpha \leq 1 / \lambda_n,
@@ -1045,32 +1090,32 @@ $$
 0 \leq 1 - \alpha \lambda_n \leq \cdots \leq 1 - \alpha \lambda_1 < 1.
 $$ (new-order-eqn)
 
-Since $I-\alpha H$ is symmetric, its operator norm is equal to its spectral radius, $1-\alpha \lambda_1$. In particular, from {eq}`gd-closed-eqn` we obtain the upper bound
+Since $I-\alpha \bH$ is symmetric, its operator norm is equal to its spectral radius, $1-\alpha \lambda_1$. In particular, from {eq}`gd-closed-eqn` we obtain the upper bound
 
 $$
-|\btheta_t - \btheta^\star| \leq |I - \alpha H|^t |\btheta_0 - \btheta^\star | = (1-\alpha \lambda_1)^t |\btheta_0 - \btheta^\star |.
+|\btheta_t - \btheta^\star| \leq |I - \alpha \bH|^t |\btheta_0 - \btheta^\star | = (1-\alpha \lambda_1)^t |\btheta_0 - \btheta^\star |.
 $$
 
-Our choice of learning rate $\alpha$ according to {eq}`lr-eqn` implies $1-\alpha \lambda_1<1$, and therefore this last displayed inequality shows that we have exponentially fast convergence as $t\to \infty$. However, we may speed up the convergence by choosing $\alpha$ to be the maximum value in the range allowed by {eq}`lr-eqn`, i.e., choose it to be the reciprocal spectral radius $\alpha = 1/\lambda_n = 1 / \rho(H)$. In this case, we have
+Our choice of learning rate $\alpha$ according to {eq}`lr-eqn` implies $1-\alpha \lambda_1<1$, and therefore this last displayed inequality shows that we have exponentially fast convergence as $t\to \infty$. However, we may speed up the convergence by choosing $\alpha$ to be the maximum value in the range allowed by {eq}`lr-eqn`, i.e., choose it to be the reciprocal spectral radius $\alpha = 1/\lambda_n = 1 / \rho(\bH)$. In this case, we have
 
 $$
-|\btheta_t - \btheta^\star| \leq ( 1- 1/\kappa(H))^t |\btheta_0 - \btheta^\star |
+|\btheta_t - \btheta^\star| \leq ( 1- 1/\kappa(\bH))^t |\btheta_0 - \btheta^\star |
 $$
 
-where $\kappa(H)$ is the condition number of $H$. This shows that the fastest rates of convergence guaranteed by our arguments are those for which the condition number of the Hessian matrix is near $1$. If the Hessian matrix is ill-conditioned (i.e., if the condition number is large), then the speed of convergence guaranteed by these arguments is inflated. This does _not_ say that the algorithm is _guaranteed_ to converge slowly---for example, we might be very lucky with our initial guess and still obtain quick convergence, even in the case of an ill-conditioned Hessian matrix.
+where $\kappa(\bH)$ is the condition number of $\bH$. This shows that the fastest rates of convergence guaranteed by our arguments are those for which the condition number of the Hessian matrix is near $1$. If the Hessian matrix is ill-conditioned (i.e., if the condition number is large), then the speed of convergence guaranteed by these arguments is inflated. This does _not_ say that the algorithm is _guaranteed_ to converge slowly---for example, we might be very lucky with our initial guess and still obtain quick convergence, even in the case of an ill-conditioned Hessian matrix.
 
 Let's summarize our discussion in a theorem:
 
-```{prf:theorem} Quadratic approximations of convergence rates
+```{prf:theorem} Quadratic approximations and convergence rates
 :label: quadratic-conv-thm
 
-Let $J:\bbr^n \to \bbr$ be a function of class $C^2$ and $\btheta^\star$ a local minimizer with positive definite Hessian matrix $H = \nabla^2 J(\btheta^\star)$. For initial guesses $\btheta_0$ sufficiently near $\btheta^\star$ to allow a degree-$2$ Taylor polynomial approximation, the gradient descent algorithm with $\alpha = 1/\rho(H)$ and $\beta=0$ converges to $\btheta^\star$ exponentially fast, with
+Let $J:\bbr^n \to \bbr$ be a function of class $C^2$ and $\btheta^\star$ a local minimizer with positive definite Hessian matrix $\bH = \nabla^2 J(\btheta^\star)$. For initial guesses $\btheta_0$ sufficiently near $\btheta^\star$ to allow a degree-$2$ Taylor polynomial approximation, the gradient descent algorithm with $\alpha = 1/\rho(\bH)$ and $\beta=0$ converges to $\btheta^\star$ exponentially fast, with
 
 $$
-|\btheta_t - \btheta^\star| \leq ( 1- 1/\kappa(H))^t |\btheta_0 - \btheta^\star |
+|\btheta_t - \btheta^\star| \leq ( 1- 1/\kappa(\bH))^t |\btheta_0 - \btheta^\star |
 $$
 
-for each $t\geq 0$. Here, $\rho(H)$ and $\kappa(H)$ are the spectral radius and condition number of $H$, respectively.
+for each $t\geq 0$. Here, $\rho(\bH)$ and $\kappa(\bH)$ are the spectral radius and condition number of $\bH$, respectively.
 ```
 
 Of course, in order to obtain the exponentially quick convergence guaranteed by the theorem, one needs to place their initial guess $\btheta_0$ "sufficiently close" to the minimizer. But this would require the analyst to already have some sense of where the minimizer is likely to be located! This restricts its usefulness in practice.
@@ -1083,23 +1128,23 @@ For our polynomial objective $J$ given in {eq}`two-dim-poly-eq` above, we comput
 :   figure:
 :       align: center
 
-# parameters for gradient descent
-gd_parameters = {'theta': [torch.tensor([0.25, 0.9], requires_grad=True),
-                           torch.tensor([0.25, 1], requires_grad=True),
-                           torch.tensor([0.75, 1.2], requires_grad=True),
-                           torch.tensor([0.5, 0.49], requires_grad=True)],
-                 'num_steps': [40, 40, 40, 40],
-                 'lr': [4e-3, 4e-3, 4e-3, 4e-3]}
+gd_parameters = {'theta0': [torch.tensor([0.25, 0.9]),
+                            torch.tensor([0.25, 1]),
+                            torch.tensor([0.75, 1.2]),
+                            torch.tensor([0.5, 0.49])]}
+alpha = 4e-3
+beta = 0
+N = 40
 
 fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
 
-# run gradient descent and plot
 for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
-    gd_output = GD(**gd_parameters_slice, J=J)
-
-    lr = gd_parameters_slice['lr']
-    num_steps = gd_parameters_slice['num_steps']
+    gd_output = GD(J=J,
+                   lr=alpha,
+                   num_steps=N,
+                   decay_rate=beta,
+                   **gd_parameters_slice)
     
     axis.contour(x, y, z, levels=range(11), colors=blue, alpha=0.5)
     axis.plot(gd_output.thetas[:, 0], gd_output.thetas[:, 1], color=magenta)
@@ -1108,8 +1153,8 @@ for i, axis in enumerate(axes.flatten()):
     
     axis.set_xlabel('$\\theta_1$')
     axis.set_ylabel('$\\theta_2$')
-    axis.set_title(f'$\\alpha={lr}$, $\\beta=0$, $N={num_steps}$')
-    fig.suptitle('second runs of gradient descent with smaller learning rates')
+    axis.set_title(f'$\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
+fig.suptitle('second runs of gradient descent with smaller learning rates')
 plt.tight_layout()
 ```
 
@@ -1123,23 +1168,23 @@ Alternatively, we may dampen the oscillations and keep the original (relatively 
 :   figure:
 :       align: center
 
-# parameters for gradient descent
-gd_parameters = {'theta': [torch.tensor([0.25, 0.9], requires_grad=True),
-                           torch.tensor([0.25, 1], requires_grad=True),
-                           torch.tensor([0.75, 1.2], requires_grad=True),
-                           torch.tensor([0.5, 0.49], requires_grad=True)],
-                 'num_steps': [40, 40, 40, 40],
-                 'lr': [1e-2, 1e-2, 1e-2, 1e-2]}
+gd_parameters = {'theta0': [torch.tensor([0.25, 0.9]),
+                            torch.tensor([0.25, 1]),
+                            torch.tensor([0.75, 1.2]),
+                            torch.tensor([0.5, 0.49])]}
+alpha = 1e-2
+N = 40
+beta = 0.05
 
 fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
 
-# run gradient descent and plot
 for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
-    gd_output = GD(**gd_parameters_slice, J=J, decay_rate=0.05)
-
-    lr = gd_parameters_slice['lr']
-    num_steps = gd_parameters_slice['num_steps']
+    gd_output = GD(J=J,
+                   lr=alpha,
+                   num_steps=N,
+                   decay_rate=beta,
+                   **gd_parameters_slice)
 
     axis.contour(x, y, z, levels=range(11), colors=blue, alpha=0.5)
     axis.plot(gd_output.thetas[:, 0], gd_output.thetas[:, 1], color=magenta)
@@ -1148,8 +1193,8 @@ for i, axis in enumerate(axes.flatten()):
     
     axis.set_xlabel('$\\theta_1$')
     axis.set_ylabel('$\\theta_2$')
-    axis.set_title(f'$\\alpha={lr}$, $\\beta=0.05$, $N={num_steps}$')
-    fig.suptitle('third runs of gradient descent with learning rate decay')
+    axis.set_title(f'$\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
+fig.suptitle('third runs of gradient descent with learning rate decay')
 plt.tight_layout()
 ```
 
@@ -1161,35 +1206,36 @@ Here are the values of the objective function for these last runs with learning 
 :   figure:
 :       align: center
 
-# parameters for gradient descent
-gd_parameters = {'theta': [torch.tensor([0.25, 0.9], requires_grad=True),
-                           torch.tensor([0.25, 1], requires_grad=True),
-                           torch.tensor([0.75, 1.2], requires_grad=True),
-                           torch.tensor([0.5, 0.49], requires_grad=True)],
-                 'num_steps': [40, 40, 40, 40],
-                 'lr': [1e-2, 1e-2, 1e-2, 1e-2]}
+gd_parameters = {'theta0': [torch.tensor([0.25, 0.9]),
+                            torch.tensor([0.25, 1]),
+                            torch.tensor([0.75, 1.2]),
+                            torch.tensor([0.5, 0.49])]}
+alpha = 1e-2
+N = 40
+beta = 0.05
 
-# run gradient descent and plot
-_, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
+fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
 
 for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
-    gd_output = GD(**gd_parameters_slice, J=J, decay_rate=0.05)
-    
-    lr = gd_parameters_slice['lr']
-    num_steps = gd_parameters_slice['num_steps']
+    gd_output = GD(J=J,
+                   lr=alpha,
+                   num_steps=N,
+                   decay_rate=beta,
+                   **gd_parameters_slice)
     
     axis.plot(range(len(gd_output.objectives)), gd_output.objectives)
     
     axis.set_xlabel('gradient steps')
-    axis.set_ylabel('$J(\\theta)$')
-    axis.set_title(f'$\\alpha={lr}$, $\\beta=0.05$, $N={num_steps}$')
+    axis.set_ylabel('objective')
+    axis.set_title(f'$\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
+fig.suptitle('third runs of gradient descent with learning rate decay')
 plt.tight_layout()
 ```
 
 Notice the initial "overshoot" in the plot in the bottom left, causing the objective function $J(\btheta)$ to _increase_ after the first gradient step. Recall also that the initial value $\btheta_0$ in the bottom right plot is near the saddle point $(0.5,0.5)$, causing $\nabla J(\btheta_0) \approx 0$. This accounts for the small initial changes in the objective function $J(\btheta)$ indicated by the (nearly) horizontal stretch early in the run of the algorithm.
 
-Of course, an objective function $J:\mathbb{R}^2 \to \mathbb{R}$ defined on a $2$-dimensional input space is still not a realistic example of the objective functions encountered in the real world. In two dimensions, we have the ability to plot the algorithm's progress through $\mathbb{R}^2$ on contour plots, as we did multiple times above. In higher dimensions we lose this valuable visual aid. But no matter the input dimension, we may always plot the objective values against the number of gradient steps as a diagnostic plot for convergence.
+Of course, an objective function $J:\mathbb{R}^2 \to \mathbb{R}$ defined on a $2$-dimensional input space is still not a realistic example of the objective functions encountered in the real world. In two dimensions, we have the ability to trace the algorithm's progress through $\mathbb{R}^2$ on contour plots, as we did multiple times above. In higher dimensions we lose this valuable visual aid. But no matter the input dimension, we may always plot the objective values against the number of gradient steps as a diagnostic plot for convergence.
 
 
 
@@ -1204,7 +1250,7 @@ Of course, an objective function $J:\mathbb{R}^2 \to \mathbb{R}$ defined on a $2
 (sgd-sec)=
 ## Stochastic gradient descent
 
-The special types of objective functions that we will see in {numref}`Chapter %s <learning>` are so-called _stochastic objective functions_ of the form
+Many of the objective functions that we will see in {numref}`Chapter %s <learning>` have a special form making them amenable to optimization via a variation of the gradient descent algorithm called _stochastic gradient descent_. These special objective functions are called _stochastic objective functions_, which look like
 
 ```{math}
 :label: stoch-obj-eqn
@@ -1212,7 +1258,7 @@ The special types of objective functions that we will see in {numref}`Chapter %s
 J(\btheta) = E_{\bx \sim p(\bx)}\big[ g(\bx;\btheta) \big] = \sum_{\mathbf{x}\in \mathbb{R}^n} g(\mathbf{x};\btheta)p(\mathbf{x}),
 ```
 
-where $\btheta \in \mathbb{R}^k$ is a _parameter vector_ and $g:\mathbb{R}^{n+k} \to \mathbb{R}$ is a function. Very often, the mass function $p(\mathbf{x})$ will be an empirical mass function of an observed multivariate dataset
+where $p(\bx)$ is a probability mass function, $\btheta \in \mathbb{R}^k$ is a _parameter vector_, and $g:\mathbb{R}^{n+k} \to \mathbb{R}$ is a differentiable function. Very often, the mass function will be an empirical mass function of an observed multivariate dataset
 
 $$
 \bx_1,\bx_2,\ldots,\bx_m \in \mathbb{R}^n,
@@ -1224,7 +1270,7 @@ $$
 J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx_i; \btheta \big).
 $$
 
-Provided that the function $g$ is differentiable with respect to the parameter vector $\btheta$, we have
+By linearity of the gradient operation, we have
 
 $$
 \nabla_\btheta J(\btheta) = \frac{1}{m} \sum_{i=1}^m \nabla_\btheta g\big(\bx_i; \btheta \big)
@@ -1243,7 +1289,7 @@ Let's take a look at a simple example. Suppose that we define
 ```{math}
 :label: quadratic-eqn
 
-g: \bbr^4 \to \bbr, \quad g(\bx;\btheta) = |\bx - \btheta|^2,
+g: \bbr^4 \to \bbr, \quad g(\bx;\btheta) = \frac{1}{2}|\bx - \btheta|^2,
 ```
 
 where $\bx,\btheta\in \bbr^2$. We create a bivariate dataset by drawing a random sample of size $1{,}024$ from a $\mathcal{N}_2(\boldsymbol0,I)$ distribution. A scatter plot of the dataset looks like this:
@@ -1264,7 +1310,14 @@ plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
-Then, two runs of the batch gradient descent algorithm produce the following plots of the objective function versus gradient steps:
+Before running the algorithm, let's do:
+
+```{admonition} Problem Prompt
+
+Do problem 12 on the worksheet.
+```
+
+Now, two runs of the batch gradient descent algorithm produce the following plots of the objective function versus gradient steps:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1273,31 +1326,34 @@ Then, two runs of the batch gradient descent algorithm produce the following plo
 :       align: center
 
 def g(X, theta):
-    if isinstance(theta, np.ndarray):
-        X = X.numpy()
-        return np.linalg.norm(theta - X, axis=1) ** 2
-    return torch.norm(theta - X, dim=1) ** 2
+    x1 = X[:, 0]
+    x2 = X[:, 1]
+    theta1 = theta[0]
+    theta2 = theta[1]
+    return 0.5 * ((x1 - theta1) ** 2 + (x2 - theta2) ** 2)
 
 def J(theta):
     return g(X, theta).mean()
 
-# batch gradient descent parameters
-gd_parameters = {'num_steps': [10, 50],
+gd_parameters = {'num_steps': [30, 100],
                  'lr': [1e-1, 3e-2]}
+beta = 0
+theta0 = torch.tensor([1.5, 1.5])
 
-_, axes = plt.subplots(nrows=1, ncols=2, figsize=(7, 3), sharey=True)
+fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(7, 3), sharey=True)
 
 for i, axis in enumerate(axes):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
-    gd_output = GD(**gd_parameters_slice, J=J, theta=torch.tensor([1.5, 1.5], requires_grad=True))
+    gd_output = GD(**gd_parameters_slice, J=J, decay_rate=beta, theta0=theta0)
     
-    lr = gd_parameters_slice['lr']
+    alpha = gd_parameters_slice['lr']
     
     axis.plot(range(len(gd_output.objectives)), gd_output.objectives)
     
     axis.set_xlabel('gradient steps')
-    axis.set_ylabel('$J(\\theta)$')
-    axis.set_title(f'$\\alpha={lr}$, $\\beta=0$')
+    axis.set_ylabel('objective')
+    axis.set_title(f'$\\alpha={alpha}$, $\\beta={beta}$')
+fig.suptitle('batch gradient descent')
 plt.tight_layout()
 ```
 
@@ -1313,23 +1369,24 @@ x, y = np.mgrid[-2:2:0.05, -2:2:0.05]
 grid = np.dstack((x, y))
 z = np.apply_along_axis(J, axis=-1, arr=grid)
 
-_, axes = plt.subplots(nrows=1, ncols=2, figsize=(9, 4.5), sharey=True)
+fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(9, 4.5), sharey=True)
 
 for i, axis in enumerate(axes):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
-    gd_output = GD(**gd_parameters_slice, J=J, theta=torch.tensor([1.5, 1.5], requires_grad=True))
+    gd_output = GD(**gd_parameters_slice, J=J, decay_rate=beta, theta0=theta0)
     
-    lr = gd_parameters_slice['lr']
-    num_steps = gd_parameters_slice['num_steps']
+    alpha = gd_parameters_slice['lr']
+    N = gd_parameters_slice['num_steps']
     
     axis.contour(x, y, z, colors=blue, alpha=0.5, levels=np.arange(0, 10, 0.5))
     axis.plot(gd_output.thetas[:, 0], gd_output.thetas[:, 1], color=magenta)
     axis.scatter(gd_output.thetas[:, 0], gd_output.thetas[:, 1], s=30, color=magenta, zorder=2)
     axis.scatter(gd_output.thetas[0, 0], gd_output.thetas[0, 1], s=100, color=magenta, zorder=2)
     
-    axis.set_title(f'$\\alpha={lr}$, $\\beta=0$, gradient steps$={num_steps}$')
+    axis.set_title(f'$\\alpha={alpha}$, $\\beta={beta}$, gradient steps$={N}$')
     axis.set_xlabel('$\\theta_1$')
     axis.set_ylabel('$\\theta_2$')
+fig.suptitle('batch gradient descent')
 plt.tight_layout()
 ```
 
@@ -1337,7 +1394,7 @@ In both cases, notice that the algorithm is nicely converging toward the minimiz
 
 One of the drawbacks of the batch algorithm is that it needs the _entire_ dataset in order to take just a single gradient step. This isn't an issue for our small toy dataset of size $m=1{,}024$, but for the large datasets that you may encounter in the real world, this can be a serious hindrance to fast convergence.
 
-One method for dealing with this bottleneck is to use _mini-batches_ of the data to compute gradient steps. To do so, we begin by randomly partitioning the dataset into subsets $B_1,B_2,\ldots,B_\ell$ called _mini-batches_:
+One method for dealing with this bottleneck is to use _mini-batches_ of the data to compute gradient steps. To do so, we begin by randomly partitioning the dataset into subsets $B_1,B_2,\ldots,B_p$ called _mini-batches_:
 
 ```{math}
 :label: mini-batch-eqn
@@ -1345,42 +1402,66 @@ One method for dealing with this bottleneck is to use _mini-batches_ of the data
 B_1 \cup B_2 \cup \cdots \cup B_p = \{\bx_1,\bx_2,\ldots,\bx_m\}.
 ```
 
-Supposing that the $j$-th mini-batch $B_j$ has size $\ell_j$, we would then expect from {eq}`batch-eqn` that
+We would then expect from {eq}`batch-eqn` that
 
 $$
-\nabla J(\btheta) \approx \frac{1}{\ell_j} \sum_{\bx \in B_j} \nabla_\btheta g\big(\bx; \btheta\big),
+\nabla J(\btheta) \approx \frac{1}{|B_j|} \sum_{\bx \in B_j} \nabla_\btheta g\big(\bx; \btheta\big),
 $$ (mini-batch-grad-eqn)
 
-for each $j=1,2,\ldots,p$. Very often, the mini-batch sizes $\ell_1,\ell_2,\ldots,\ell_p$ are chosen to be equal to a common value $\ell$, except (possibly) for one to compensate for the fact that $m$ may not be evenly divisible by $\ell$. For example, if $m=100$ and $\ell=30$, then we would have four mini-batches, three of size $\ell=30$ and the fourth of size $10$.
+for each $j=1,2,\ldots,p$, where $|B_j|$ is the cardinality (or size) of the $j$-th mini-batch. Very often, the mini-batch sizes are chosen to be equal to a common value $k$, except (possibly) for one to compensate for the fact that $m$ may not be evenly divisible by $k$. For example, if $m=100$ and $k=30$, then we would have four mini-batches, three of size $30$ and the fourth of size $10$.
 
-As you are about to see, the mini-batch version of the gradient descent algorithm loops over the mini-batches {eq}`mini-batch-eqn` and computes gradient steps as in {eq}`mini-batch-grad-eqn`. A single loop through _all_ the mini-batches, covering the _entire_ dataset, is called an _epoch_. As the vanilla version of the gradient descent algorithm takes the number of gradient steps as a parameter, the new version of the algorithm takes the number of epochs as a parameter. This new version is called the _stochastic gradient descent (SGD) algorithm_:
+The mini-batch version of the gradient descent algorithm loops over the mini-batches {eq}`mini-batch-eqn` and computes gradient steps using the approximation in {eq}`mini-batch-grad-eqn`. A single loop through _all_ the mini-batches, covering the _entire_ dataset, is called an _epoch_. This new version of the algorithm takes the number of epochs $N$ as a parameter.
 
 ```{prf:algorithm} Stochastic gradient descent with learning rate decay
 :label: sgd-alg
 
-**Input:** A dataset $\bx_1,\bx_2\ldots,\bx_m\in \mathbb{R}^n$, a stochastic objective function
-
-$$
-J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx_i;\btheta \big), \quad \btheta \in \mathbb{R}^k,
-$$
-
-where $g:\mathbb{R}^{n+k}\to \mathbb{R}$ is a differentiable function, an initial guess $\btheta_0\in \mathbb{R}^k$ for a minimizer $\btheta^\star$ of $J$, a learning rate $\alpha>0$, a decay rate $\beta \in [0, 1)$, a mini-batch size $\ell$, and the number $N$ of epochs.
+**Input:** A dataset $\bx_1,\bx_2\ldots,\bx_m\in \mathbb{R}^n$, a differentiable function $g:\bbr^{n+k} \to \bbr$, an initial guess $\btheta_0\in \mathbb{R}^k$ for a minimizer $\btheta^\star$ of the stochastic objective function {eq}`batch-eqn`, a learning rate $\alpha>0$, a decay rate $\beta \in [0, 1)$, and the number $N$ of epochs.
 
 **Output:** An approximation to a minimizer $\btheta^\star$.
 
 ---
 
 &nbsp;&nbsp; 1. $\btheta := \btheta_0$ <br>
-&nbsp;&nbsp; 2. For $t$ from $0$ to $N-1$, do: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Randomly partition the dataset into mini-batches $B_1,B_2,\ldots,B_p$ of size $\ell$. <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. For each mini-batch $B_j$, do: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5. $\btheta := \btheta - \displaystyle \alpha(1-\beta)^{t+1} \frac{1}{\ell} \sum_{\bx \in B_j} \nabla_\btheta g\big(\bx; \btheta\big)$ <br>
-&nbsp;&nbsp; 6. Return $\btheta$.
+&nbsp;&nbsp; 2. $s := 0$ <br>
+&nbsp;&nbsp; 3. For $t$ from $0$ to $N-1$, do: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. Randomly partition the dataset into mini-batches $B_1,B_2,\ldots,B_p$ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5. For each mini-batch $B_j$, do: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6. $\btheta := \btheta - \displaystyle \alpha(1-\beta)^{s+1} \frac{1}{|B_j|} \sum_{\bx \in B_j} \nabla_\btheta g\big(\bx; \btheta\big)$ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7. $s := s+1$ <br>
+&nbsp;&nbsp; 8. Return $\btheta$
 ```
 
-Notice that the dataset is randomly partitioned into mini-batches inside each iteration of the per-epoch `for` loop; and remember that there may be one mini-batch of size $\neq \ell$ if the size of the dataset $m$ is not divisible by $\ell$.
+Notice the auxiliary variable $s$, which counts the number of gradient steps and is used to decay the learning rate. As we mentioned above, very often the mini-batches are chosen to be of equal size $k$, except (possibly) for one mini-batch to compensate for the fact that $m$ may not be divisible by $k$. In this case, we pass in the mini-batch size $k$ as an additional parameter.
 
-It is possible to select a mini-batch size of $\ell=1$, so that the algorithm computes a gradient step per data point. Some references refer to this algorithm as just _stochastic gradient descent_. In our example {eq}`quadratic-eqn` from above, a step size of $\ell=1$ yields the following plots of objective values versus gradient steps:
+As in the versions of gradient descent explored above, in practice is convenient to code the algorithm so that it returns the entire sequence of $\btheta$'s produced to help monitor convergence. If there are $p$ mini-batches and $N$ epochs, then the output of the algorithm may be partitioned like this:
+
+$$
+\begin{array}{c|c}
+\text{epoch number} & \text{output} \\ \hline
+0 & \btheta_0 \\
+1 & \btheta_1, \btheta_2,\ldots, \btheta_p \\
+2 & \btheta_{p+1}, \btheta_{p+2},\ldots, \btheta_{2p} \\
+\vdots & \vdots \\
+N & \btheta_{(N-1)p+1}, \btheta_{(N-1)p+2},\ldots, \btheta_{Np}
+\end{array}
+$$
+
+This leads to the following sequences of objective values:
+
+$$
+\begin{array}{c|c}
+\text{epoch number} & \text{objectives} \\ \hline
+0 & J(\btheta_0) \\
+1 & J(\btheta_1), J(\btheta_2),\ldots, J(\btheta_p) \\
+2 & J(\btheta_{p+1}), J(\btheta_{p+2}),\ldots, J(\btheta_{2p}) \\
+\vdots & \vdots \\
+N & J(\btheta_{(N-1)p+1}), J(\btheta_{(N-1)p+2}),\ldots, J(\btheta_{Np})
+\end{array}
+$$
+
+In order to monitor convergence, we may plot the per-step objective values versus the gradient steps, as we have done in the previous two sections. But, depending on the mini-batch size, these plots may be quite noisy, so sometimes to get a better sense of the trend it is convenient to also track the _mean_ objective values per epoch. We will see examples below.
+
+But first, we note that it is possible to select a mini-batch size of $k=1$, so that the algorithm computes a gradient step per data point. (Some references refer to _this_ algorithm as _stochastic gradient descent_.) In our example {eq}`quadratic-eqn` from above, a batch size of $k=1$ yields the following plots of objective values versus gradient steps:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1388,32 +1469,37 @@ It is possible to select a mini-batch size of $\ell=1$, so that the algorithm co
 :   figure:
 :       align: center
 
-# SGD parameters
-sgd_parameters = {'lr': [1e-1, 1e-1, 3e-2, 3e-2],
-                  'max_steps': [10, 100, 80, 160]}
+gd_parameters = {'lr': [1e-1, 1e-1, 3e-2, 3e-2],
+                 'max_steps': [40, 100, 80, 160]}
+beta = 0
+theta0 = torch.tensor([1.5, 1.5])
+k = 1
+N = 1
 
-_, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
+fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
 
 for i, axis in enumerate(axes.flatten()):
-    sgd_parameters_slice = {key: value[i] for key, value in sgd_parameters.items()}
-    sgd_output = SGD(**sgd_parameters_slice,
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    sgd_output = SGD(**gd_parameters_slice,
                     g=g,
                     X=X,
-                    theta=torch.tensor([1.5, 1.5], requires_grad=True),
-                    batch_size=1,
-                    num_epochs=1,
+                    theta0=theta0,
+                    batch_size=k,
+                    decay_rate=beta,
+                    num_epochs=N,
                     random_state=42)
     
-    lr = sgd_parameters_slice['lr']
+    alpha = gd_parameters_slice['lr']
     
     axis.plot(range(len(sgd_output.per_step_objectives)), sgd_output.per_step_objectives)
     axis.set_xlabel('gradient steps')
     axis.set_ylabel('objective')
-    axis.set_title(f'$\\alpha={lr}$, $\\beta=0$')
+    axis.set_title(f'$k={k}$, $\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
+fig.suptitle(f'stochastic gradient descent with $k=1$')
 plt.tight_layout()
 ```
 
-The plots are very noisy, especially for large numbers of gradient steps. However, a slight downward trend in objective values is detectable, indicating that the algorithm is locating the minimizer. The trace of the algorithm through parameter space is shown in:
+Note that we have halted the runs early, before the algorithm has had a chance to make it through even one epoch. The plots are very noisy, though a slight downward trend in objective values is detectable. The trace of the algorithm through parameter space is shown in:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1421,35 +1507,35 @@ The plots are very noisy, especially for large numbers of gradient steps. Howeve
 :   figure:
 :       align: center
 
-_, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
+fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
 
 for i, axis in enumerate(axes.flatten()):
-    sgd_parameters_slice = {key: value[i] for key, value in sgd_parameters.items()}
-    sgd_output = SGD(**sgd_parameters_slice,
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    sgd_output = SGD(**gd_parameters_slice,
                     g=g,
                     X=X,
-                    theta=torch.tensor([1.5, 1.5], requires_grad=True),
-                    batch_size=1,
-                    num_epochs=1,
+                    theta0=theta0,
+                    batch_size=k,
+                    decay_rate=beta,
+                    num_epochs=N,
                     random_state=42)
     
-    lr = sgd_parameters_slice['lr']
-    max_steps = sgd_parameters_slice['max_steps']
+    alpha = gd_parameters_slice['lr']
+    max_steps = gd_parameters_slice['max_steps']
     
     axis.contour(x, y, z, levels=np.arange(0, 10, 0.5), colors=blue, alpha=0.5)
     axis.plot(sgd_output.thetas[:, 0], sgd_output.thetas[:, 1], color=magenta)
     axis.scatter(sgd_output.thetas[:, 0], sgd_output.thetas[:, 1], s=30, color=magenta, zorder=2)
     axis.scatter(sgd_output.thetas[0, 0], sgd_output.thetas[0, 1], s=100, color=magenta, zorder=2)
     
-    axis.set_title(f'$\\alpha={lr}$, $\\beta=0$, gradient steps$={max_steps}$')
+    axis.set_title(f'$k={k}$, $\\alpha={alpha}$, $\\beta={beta}$, $N={N}$,\n gradient steps$={max_steps}$')
     axis.set_xlabel('$\\theta_1$')
     axis.set_ylabel('$\\theta_2$')
+fig.suptitle(f'stochastic gradient descent with $k=1$')
 plt.tight_layout()
 ```
 
-The traces are very noisy, especially in the first row with the large learning rate $\alpha=0.1$. Nevertheless, it is clear that the algorithm has found the neighborhood of the minimizer at $(0,0)$. We might try to tame the noise in these plots by increasing the decay rate, but according to our implementation, that would be equivalent to simply decreasing the learning rate since none of these four runs of the algorithm completes a full epoch. Indeed, notice that the power $t$ in the expression $(1-\gamma)^t$ in the {prf:ref}`statement <sgd-alg>` of the algorithm counts the number of epochs.
-
-
+The traces are also very noisy, especially in the first row with the large learning rate $\alpha=0.1$. Nevertheless, it is clear that the algorithm has found the neighborhood of the minimizer at $(0,0)$. We might try to tame the noise in these plots by increasing the decay rate, but it turns out that increasing the batch size is the better way to do this. So, let's try four larger batch sizes:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1457,33 +1543,39 @@ The traces are very noisy, especially in the first row with the large learning r
 :   figure:
 :       align: center
 
-# mini-batch gradient descent parameters
-sgd_parameters = {'num_epochs': [1, 1, 1, 2],
-                 'lr': [1e-1, 1e-1, 1e-1, 1e-1],
+gd_parameters = {'num_epochs': [1, 1, 1, 3],
                  'batch_size': [2, 8, 32, 128],
-                 'max_steps': [60, 15, 12, 12]}
+                 'max_steps': [60, 30, 24, 24]}
+alpha = 1e-1
+beta = 0
+theta0 = torch.tensor([1.5, 1.5])
 
-_, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
+fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
 
 for i, axis in enumerate(axes.flatten()):
-    sgd_parameters_slice = {key: value[i] for key, value in sgd_parameters.items()}
-    sgd_output = SGD(**sgd_parameters_slice,
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    sgd_output = SGD(**gd_parameters_slice,
                     g=g,
                     X=X,
-                    theta=torch.tensor([1.5, 1.5], requires_grad=True),
+                    lr=alpha,
+                    theta0=theta0,
+                    decay_rate=beta,
                     random_state=42)
     
-    batch_size = sgd_parameters_slice['batch_size']
-    lr = sgd_parameters_slice['lr']
+    k = gd_parameters_slice['batch_size']
+    N = gd_parameters_slice['num_epochs']
     
     axis.plot(range(len(sgd_output.per_step_objectives)), sgd_output.per_step_objectives)
+    axis.scatter(sgd_output.epoch_step_nums, sgd_output.per_step_objectives[sgd_output.epoch_step_nums], color=magenta, s=50, zorder=2, label='epoch')
     axis.set_xlabel('gradient steps')
     axis.set_ylabel('objective')
-    axis.set_title(f'$\\ell={batch_size}$, $\\alpha={lr}$, $\\beta=0$')
+    axis.set_title(f'$k={k}$, $\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
+    axis.legend()
+fig.suptitle('mini-batch gradient descent')
 plt.tight_layout()
 ```
 
-Mini-batch gradient descent parameters:
+The runs with batch sizes $k=2, 8, 32$ halt before completing one epoch, while the run with batch size $k=128$ completes one full epoch before halting during the second one. Notice that the noise in the plots progressively decreases as the batch size increases. The traces through parameter space look like:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1491,31 +1583,73 @@ Mini-batch gradient descent parameters:
 :   figure:
 :       align: center
 
-_, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
+fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
 
 for i, axis in enumerate(axes.flatten()):
-    sgd_parameters_slice = {key: value[i] for key, value in sgd_parameters.items()}
-    sgd_output = SGD(**sgd_parameters_slice,
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    sgd_output = SGD(**gd_parameters_slice,
                     g=g,
                     X=X,
-                    theta=torch.tensor([1.5, 1.5], requires_grad=True),
+                    lr=alpha,
+                    decay_rate=beta,
+                    theta0=theta0,
                     random_state=42)
     
-    lr = sgd_parameters_slice['lr']
-    batch_size = sgd_parameters_slice['batch_size']
+    k = gd_parameters_slice['batch_size']
+    max_steps = gd_parameters_slice['max_steps']
+    N = gd_parameters_slice['num_epochs']
     
     axis.contour(x, y, z, levels=np.arange(0, 10, 0.5), colors=blue, alpha=0.5)
     axis.plot(sgd_output.thetas[:, 0], sgd_output.thetas[:, 1], color=magenta)
     axis.scatter(sgd_output.thetas[:, 0], sgd_output.thetas[:, 1], s=30, color=magenta, zorder=2)
     axis.scatter(sgd_output.thetas[0, 0], sgd_output.thetas[0, 1], s=100, color=magenta, zorder=2)
     
-    axis.set_title(f'$\\ell={batch_size}$, $\\alpha={lr}$, $\\beta=0$, gradient steps$={max_steps}$')
+    axis.set_title(f'$k={k}$, $\\alpha={alpha}$, $\\beta={beta}$, $N={N}$,\n gradient steps$={max_steps}$')
     axis.set_xlabel('$\\theta_1$')
     axis.set_ylabel('$\\theta_2$')
+fig.suptitle('mini-batch gradient descent')
 plt.tight_layout()
 ```
 
+As we mentioned above, it may be helpful to track the mean objective values per epoch to help see the general trend of the objective through the noise. To illustrate this point, let's suppose that we continue our runs of mini-batch gradient descent so that they all complete six epochs. If we plot both the objective per gradient step and the mean objective per epoch, we get the following plots:
 
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+gd_parameters = {'batch_size': [2, 8, 32, 128]}
+N = 6
+alpha = 1e-1
+beta = 0
+theta0 = torch.tensor([1.5, 1.5])
+
+fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
+
+for i, axis in enumerate(axes.flatten()):
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    sgd_output = SGD(**gd_parameters_slice,
+                    g=g,
+                    X=X,
+                    lr=alpha,
+                    theta0=theta0,
+                    num_epochs=N,
+                    decay_rate=beta,
+                    random_state=42)
+    
+    k = gd_parameters_slice['batch_size']
+    
+    axis.plot(range(len(sgd_output.per_step_objectives)), sgd_output.per_step_objectives, alpha=0.25, label='objective per step')
+    axis.plot(sgd_output.epoch_step_nums, sgd_output.per_epoch_objectives)
+    axis.scatter(sgd_output.epoch_step_nums, sgd_output.per_epoch_objectives, s=50, color=magenta, zorder=3, label='mean objective per epoch')
+    axis.set_xlabel('gradient steps')
+    axis.set_ylabel('objective')
+    axis.set_title(f'$k={k}$, $\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
+    axis.legend()
+fig.suptitle('mini-batch gradient descent')
+plt.tight_layout()
+```
 
 
 
