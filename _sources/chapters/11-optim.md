@@ -1118,7 +1118,7 @@ $$
 for each $t\geq 0$. Here, $\rho(\bH)$ and $\kappa(\bH)$ are the spectral radius and condition number of $\bH$, respectively.
 ```
 
-Of course, in order to obtain the exponentially quick convergence guaranteed by the theorem, one needs to place their initial guess $\btheta_0$ "sufficiently close" to the minimizer. But this would require the analyst to already have some sense of where the minimizer is likely to be located! This restricts its usefulness in practice.
+The reciprocal condition number $1/\kappa(\bH)$ is sometimes called the _rate of convergence_. Of course, in order to obtain the exponentially quick convergence guaranteed by the theorem, one needs to place their initial guess $\btheta_0$ "sufficiently close" to the minimizer. But this would require the analyst to already have some sense of where the minimizer is likely to be located! This restricts its usefulness in practice.
 
 For our polynomial objective $J$ given in {eq}`two-dim-poly-eq` above, we compute the spectral radius of the Hessian matrices at the minimizers $(0,0)$ and $(1,1)$ to be $220$ in both cases. Thus, if we choose learning rate $\alpha = 1/220 \approx 0.004$ and re-run the gradient descent algorithm with the same initial guesses to test {prf:ref}`quadratic-conv-thm`, we get the new plots:
 
