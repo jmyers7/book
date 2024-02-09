@@ -1025,102 +1025,9 @@ fig.suptitle('first runs of gradient descent')
 plt.tight_layout()
 ```
 
-The large magenta dots in the plots indicate the initial guesses $\btheta_0$, while the smaller dots indicate the approximations $\btheta_t$ for $t>0$. The algorithm appears to be converging nicely to the minimizer $\btheta^\star = (1,1)$ in the upper-left plot, while in the other three plots, the algorithm finds a neighborhood of a minimizer, but then oscillates back and forth and never appears to settle down. This is due jointly to the elliptical (non-circular) shape of the contours, the choice of initial guesses, and poorly chosen learning rates. Notice that the initial guesses in the top two plots are nearly identical, but they lead to quite different convergence behavior.
+The large magenta dots in the plots indicate the initial guesses $\btheta_0$, while the smaller dots indicate the approximations $\btheta_t$ for $t>0$. The algorithm _appears_ to be converging nicely to the minimizer $\btheta^\star = (1,1)$ in the upper-left plot, while in the other three plots, the algorithm finds a neighborhood of a minimizer, but then oscillates back and forth and never appears to settle down. This is due jointly to the elliptical (non-circular) shape of the contours and poorly chosen learning rates.
 
-In particular, since the gradient is orthogonal to contours (see {prf:ref}`grad-uphill-thm`), in all the plots except the top-left one, we see that the negative gradients (which the algorithm is following) do _not_ point directly toward the minimizers. The elliptical nature of the contours creates local curvatures at the minimizers that are quite different depending on which direction you look. From the previous section, we know that the local curvatures are encoded in the Hessian matrix, and the "variance" or "range" of the local curvatures is scored by its condition number. This suggests that studying the Hessian matrix might lead to insights into the convergence properties of gradient descent. But first, to prepare for this general study, let's do:
-
-```{admonition} Problem Prompt
-
-Do problem 11 on the worksheet.
-```
-
-To begin the theoretical study of convergence of gradient descent, let's start more generally with a function $J:\bbr^n \to \bbr$ of class $C^2$ and $\btheta^\star$ a point. We then take a degree-$2$ Taylor polynomial approximation centered at $\btheta^\star$:
-
-$$
-J(\btheta) \approx J(\btheta^\star) + (\btheta - \btheta^\star)^\intercal \nabla J(\btheta^\star) + \frac{1}{2} (\btheta - \btheta^\star)^\intercal \big(\nabla^2 J(\btheta^\star) \big) (\btheta - \btheta^\star).
-$$
-
-An approximation of the local geometry of the graph of $J$ near $\btheta^\star$ may be obtained by replacing $J$ with its Taylor polynomial on the right-hand side; thus, for our purposes, we may as well assume that $J$ is given by a degree-$2$ (inhomogeneous) polynomial:
-
-$$
-J(\btheta) = \frac{1}{2}\btheta^\intercal \bH \btheta + \bb^\intercal \btheta + c,
-$$
-
-where $\bH \in \bbr^{n\times n}$ is a symmetric matrix, $\bb\in \bbr^n$ is a vector, and $c\in \bbr$ is a scalar. As you may easily compute (see the [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/11-homework.md#problem-2-derivatives-of-quadratic-functions)), the gradient vector and Hessian matrix are given by
-
-$$
-\nabla J(\btheta) = \bH \btheta + \bb \quad \text{and} \quad  \nabla^2 J(\btheta) = \bH.
-$$
-
-Assuming that the decay rate is $\beta=0$, the update rule in the algorithm is given by
-
-$$
-\btheta_{t+1} = \btheta_t - \alpha(\bH\btheta_t + \bb).
-$$
-
-Then, if $\btheta^\star$ is any stationary point (like a local minimizer), we may rewrite this update rule as
-
-$$
-\btheta_{t+1} - \btheta^\star = (I - \alpha \bH)(\btheta_t - \btheta^\star)
-$$
-
-where $I$ is the $n\times n$ identity matrix. This leads us to the update rule given in closed form by
-
-$$
-\btheta_t - \btheta^\star = (I - \alpha \bH)^t (\btheta_0 - \btheta^\star)
-$$ (gd-closed-eqn)
-
-for all $t\geq 0$.
-
-Choosing the learning rate $\alpha$ is a balancing act: We want it large enough to obtain quick convergence, but small enough to avoid oscillations like in the plots above. To find the optimal $\alpha$ in our current situation, let's suppose that $\btheta^\star$ is indeed a local minimizer with positive definite Hessian matrix $\bH$. Suppose we linearly order the eigenvalues of $\bH$ as
-
-$$
-0 < \lambda_1 \leq \cdots \leq \lambda_n.
-$$
-
-The eigenvalues of the matrix $I - \alpha \bH$ are $1 - \alpha \lambda_i$, for $i=1,\ldots,n$. As long as we choose the learning rate $\alpha$ such that
-
-$$
-0 < \alpha \leq 1 / \lambda_n,
-$$ (lr-eqn)
-
-these latter eigenvalues are all nonnegative with
-
-$$
-0 \leq 1 - \alpha \lambda_n \leq \cdots \leq 1 - \alpha \lambda_1 < 1.
-$$ (new-order-eqn)
-
-Since $I-\alpha \bH$ is symmetric, its operator norm is equal to its spectral radius, $1-\alpha \lambda_1$. In particular, from {eq}`gd-closed-eqn` we obtain the upper bound
-
-$$
-|\btheta_t - \btheta^\star| \leq |I - \alpha \bH|^t |\btheta_0 - \btheta^\star | = (1-\alpha \lambda_1)^t |\btheta_0 - \btheta^\star |.
-$$
-
-Our choice of learning rate $\alpha$ according to {eq}`lr-eqn` implies $1-\alpha \lambda_1<1$, and therefore this last displayed inequality shows that we have exponentially fast convergence as $t\to \infty$. However, we may speed up the convergence by choosing $\alpha$ to be the maximum value in the range allowed by {eq}`lr-eqn`, i.e., choose it to be the reciprocal spectral radius $\alpha = 1/\lambda_n = 1 / \rho(\bH)$. In this case, we have
-
-$$
-|\btheta_t - \btheta^\star| \leq ( 1- 1/\kappa(\bH))^t |\btheta_0 - \btheta^\star |
-$$
-
-where $\kappa(\bH)$ is the condition number of $\bH$. This shows that the fastest rates of convergence guaranteed by our arguments are those for which the condition number of the Hessian matrix is near $1$. If the Hessian matrix is ill-conditioned (i.e., if the condition number is large), then the speed of convergence guaranteed by these arguments is inflated. This does _not_ say that the algorithm is _guaranteed_ to converge slowly---for example, we might be very lucky with our initial guess and still obtain quick convergence, even in the case of an ill-conditioned Hessian matrix.
-
-Let's summarize our discussion in a theorem:
-
-```{prf:theorem} Quadratic approximations and convergence rates
-:label: quadratic-conv-thm
-
-Let $J:\bbr^n \to \bbr$ be a function of class $C^2$ and $\btheta^\star$ a local minimizer with positive definite Hessian matrix $\bH = \nabla^2 J(\btheta^\star)$. For initial guesses $\btheta_0$ sufficiently near $\btheta^\star$ to allow a degree-$2$ Taylor polynomial approximation, the gradient descent algorithm with $\alpha = 1/\rho(\bH)$ and $\beta=0$ converges to $\btheta^\star$ exponentially fast, with
-
-$$
-|\btheta_t - \btheta^\star| \leq ( 1- 1/\kappa(\bH))^t |\btheta_0 - \btheta^\star |
-$$
-
-for each $t\geq 0$. Here, $\rho(\bH)$ and $\kappa(\bH)$ are the spectral radius and condition number of $\bH$, respectively.
-```
-
-The reciprocal condition number $1/\kappa(\bH)$ is sometimes called the _rate of convergence_. Of course, in order to obtain the exponentially quick convergence guaranteed by the theorem, one needs to place their initial guess $\btheta_0$ "sufficiently close" to the minimizer. But this would require the analyst to already have some sense of where the minimizer is likely to be located! This restricts its usefulness in practice.
-
-For our polynomial objective $J$ given in {eq}`two-dim-poly-eq` above, we compute the spectral radius of the Hessian matrices at the minimizers $(0,0)$ and $(1,1)$ to be $220$ in both cases. Thus, if we choose learning rate $\alpha = 1/220 \approx 0.004$ and re-run the gradient descent algorithm with the same initial guesses to test {prf:ref}`quadratic-conv-thm`, we get the new plots:
+Let's carry the runs out further, to $N=125$ gradient steps, and plot the objective values versus gradient steps:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1132,7 +1039,218 @@ gd_parameters = {'theta0': [torch.tensor([0.25, 0.9]),
                             torch.tensor([0.25, 1]),
                             torch.tensor([0.75, 1.2]),
                             torch.tensor([0.5, 0.49])]}
-alpha = 4e-3
+alpha = 1e-2
+beta = 0
+N = 125
+
+fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
+
+for i, axis in enumerate(axes.flatten()):
+    gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
+    gd_output = GD(J=J,
+                   lr=alpha,
+                   num_steps=N,
+                   decay_rate=beta,
+                   **gd_parameters_slice)
+    
+    axis.plot(range(len(gd_output.objectives)), gd_output.objectives)
+    
+    axis.set_xlabel('gradient steps')
+    axis.set_ylabel('objective')
+    axis.set_title(f'$\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
+fig.suptitle('first runs of gradient descent')
+plt.tight_layout()
+```
+
+The oscillatory nature of the runs is even more clear. In particular, we now see that even the first run, which _appeared_ to be converging, begins to oscillate after about 40 gradient steps. Let's take a closer look at the trace of this first run, and also plot the components $\theta_1$ and $\theta_2$ versus gradient steps:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+theta0 = torch.tensor([0.25, 0.9])
+alpha = 1e-2
+beta = 0
+N = 125
+gd_output = GD(J=J, theta0=theta0, lr=alpha, num_steps=N, decay_rate=beta)
+
+fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(9, 4))
+
+axes[0].contour(x, y, z, levels=range(11), colors=blue, alpha=0.5)
+axes[0].plot(gd_output.thetas[:, 0], gd_output.thetas[:, 1], color=magenta)
+axes[0].scatter(gd_output.thetas[:, 0], gd_output.thetas[:, 1], s=30, color=magenta, zorder=2)
+axes[0].scatter(x=gd_output.thetas[0, 0], y=gd_output.thetas[0, 1], s=100, color=magenta, zorder=2)
+axes[0].set_xlabel('$\\theta_1$')
+axes[0].set_ylabel('$\\theta_2$')
+axes[0].set_xlim(0.2, 1.2)
+axes[0].set_ylim(0.8, 1.15)
+
+axes[1].plot(range(len(gd_output.objectives)), gd_output.thetas[:, 0], label='$\\theta_1$')
+axes[1].plot(range(len(gd_output.objectives)), gd_output.thetas[:, 1], alpha=0.3, label='$\\theta_2$')
+axes[1].set_xlabel('gradient steps')
+axes[1].set_ylim(0.8, 1.1)
+axes[1].legend()
+
+fig.suptitle(f'$\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
+plt.tight_layout()
+```
+
+Both plots make clear that the oscillations occur mostly along the semi-minor axes of the elliptical contours, which coincides with the direction of largest curvature. From the previous section, we know that local curvatures are encoded in the Hessian matrix. This suggests that studying the Hessian matrix might lead to insights into the convergence properties of gradient descent. But first, to prepare for this general study, let's do:
+
+```{admonition} Problem Prompt
+
+Do problem 11 on the worksheet.
+```
+
+To begin the theoretical study of convergence of gradient descent, let's start more generally with any function $J:\bbr^2 \to \bbr$ of class $C^2$ and $\btheta^\star$ a point. We then take a degree-$2$ Taylor polynomial approximation centered at $\btheta^\star$:
+
+$$
+J(\btheta) \approx J(\btheta^\star) + (\btheta - \btheta^\star)^\intercal \nabla J(\btheta^\star) + \frac{1}{2} (\btheta - \btheta^\star)^\intercal \big(\nabla^2 J(\btheta^\star) \big) (\btheta - \btheta^\star).
+$$
+
+If we believe that the Taylor polynomial accurately reflects the local geometry of the graph of $J$ near $\btheta^\star$ to within whatever degree of approximation we require, then we may as well replace $J$ with its Taylor polynomial, and thereby assume that $J$ is a degree-$2$ (inhomogeneous) polynomial:
+
+$$
+J(\btheta) = \frac{1}{2}\btheta^\intercal \bH \btheta + \bb^\intercal \btheta + c,
+$$
+
+where $\bH \in \bbr^{n\times n}$ is a symmetric matrix, $\bb\in \bbr^n$ is a vector, and $c\in \bbr$ is a scalar. As you may easily compute (see the [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/11-homework.md#problem-2-derivatives-of-quadratic-functions)), the gradient vector and Hessian matrix are given by
+
+$$
+\nabla J(\btheta) = \bH \btheta + \bb \quad \text{and} \quad  \nabla^2 J(\btheta) = \bH.
+$$
+
+Assuming that the decay rate is $\beta=0$ while the learning rate $\alpha$ is arbitrary, the update rule in the algorithm is given by
+
+$$
+\btheta_{t+1} = \btheta_t - \alpha(\bH\btheta_t + \bb),
+$$
+
+for all $t\geq 0$. If $\btheta^\star$ is a stationary point (like a local minimizer), we may rewrite the update rule as
+
+$$
+\btheta_{t+1} - \btheta^\star = (\bI - \alpha \bH)(\btheta_t - \btheta^\star),
+$$
+
+which leads us to the closed form
+
+$$
+\btheta_t - \btheta^\star = (\bI - \alpha \bH)^t (\btheta_0 - \btheta^\star),
+$$ (gd-closed-eqn)
+
+for all $t\geq 1$.
+
+Now, let's suppose that $\btheta^\star$ is a local minimizer of $J$ with positive definite Hessian matrix $\bH$. We are in $2$-dimensions, so $\bH$ has only two eigenvalues:
+
+$$
+0 < \lambda_1 \leq \lambda_2.
+$$
+
+Then the eigenvalues of the matrix $\bI - \alpha \bH$ are $1 - \alpha \lambda_1$ and $1-\alpha \lambda_2$, and they may be linearly ordered as
+
+$$
+1 - \alpha \lambda_2 \leq 1 - \alpha \lambda_1.
+$$ (both-evecs-eq)
+
+The eigenvectors $\be_1,\be_2$ of $\bI - \alpha\bH$ are the same as those of $\bH$ (which may be chosen to form an orthonormal basis of $\bbr^2$), so if we have
+
+$$
+\btheta_0 - \btheta^\star = \gamma_1 \be_1 + \gamma_2 \be_2
+$$
+
+for some scalars $\gamma_1,\gamma_2\in \bbr$, then from {eq}`gd-closed-eqn` we get
+
+$$
+\btheta_t - \btheta^\star = \gamma_1 (1-\alpha \lambda_1)^t \be_1 + \gamma_2 (1-\alpha \lambda_2)^t \be_2
+$$ (evec-gd-eq)
+
+for all $t\geq 1$.
+
+For the particular run of the algorithm shown in the last plot, we have
+
+$$
+\be_1^\intercal = (1,0), \quad \be_2^\intercal = (0,1), \quad \alpha = 0.01, \quad \lambda_1 = 22, \quad \lambda_2 = 220,
+$$
+
+so that {eq}`evec-gd-eq` is
+
+$$
+\btheta_t - \btheta^\star = \gamma_1 (0.78)^t \be_1 + \gamma_2 (-1.2)^t \be_2.
+$$
+
+Since $|0.78|< 1$ while $|-1.2| >1$, this last equation shows why the algorithm diverges along the direction $\be_2$ of maximum curvature, while converging along the direction $\be_1$ of minimum curvature. The trick, then, is to choose the learning rate $\alpha$ so that both eigenvalues in {eq}`both-evecs-eq` have magnitude less than $1$.
+
+To do this, we apply the triangle inequality to the right-hand side of {eq}`evec-gd-eq` to obtain the upper bound
+
+$$
+|\btheta_t - \btheta^\star| \leq \rho\left(\bI - \alpha \bH\right)^t |\btheta_0 - \btheta^\star |,
+$$ (op-norm-eq)
+
+for all $t\geq 1$, where
+
+$$
+\rho\left(\bI - \alpha \bH\right) = \max \{ |1-\alpha \lambda_1|, |1-\alpha \lambda_2|\}
+$$
+
+is the spectral radius of the matrix $\bI - \alpha \bH$. To guarantee fastest convergence, we want to choose the learning rate $\alpha$ that minimizes the spectral radius. But an easy computation shows that this optimal learning rate is given by
+
+$$
+\alpha = \frac{2}{\lambda_1 + \lambda_2},
+$$
+
+in which case we get
+
+$$
+\rho\left( \bI - \alpha \bH \right) = |1-\alpha \lambda_1| = |1-\alpha \lambda_2|.
+$$
+
+Then, with this choice of $\alpha$, we have
+
+$$
+|\btheta_t - \btheta^\star| \leq \rho\left(1 - \alpha \lambda_1\right)^t |\btheta_0 - \btheta^\star | = \left( 1 - \frac{2}{1 + \kappa(\bH)} \right)^t |\btheta_0 - \btheta^\star |,
+$$ (conv-bound-eq)
+
+where $\kappa(\bH)$ is the condition number of the Hessian matrix $\bH$.
+
+This shows that the fastest rates of convergence guaranteed by our arguments are obtained for those objective functions that have Hessian matrices at local minimizers with condition numbers near $1$. In the extreme case that $\kappa(\bH)=1$, notice that the bound shows $\btheta_1 = \btheta^\star$, i.e., the algorithm lands on the local minimizer $\btheta^\star$ in just one gradient step. The inequality {eq}`conv-bound-eq` is tight, by which we mean that there are worst-case initial guesses $\btheta_0$ for which equality holds. This is the case, for example, if the difference $\btheta_0 - \btheta^\star$ is equal to the eigenvector corresponding to $\lambda_1$.
+
+This argument easily adapts to the case that the objective function $J:\bbr^n \to \bbr$ is defined on a Euclidean space of arbitrary dimension. We present the general result in a theorem:
+
+```{prf:theorem} Quadratic approximations and convergence rates
+:label: quadratic-conv-thm
+
+Let $J:\bbr^n \to \bbr$ be a function of class $C^2$ and $\btheta^\star$ a local minimizer with positive definite Hessian matrix $\bH = \nabla^2 J(\btheta^\star)$. For initial guesses $\btheta_0$ sufficiently near $\btheta^\star$ to allow a degree-$2$ Taylor polynomial approximation, the gradient descent algorithm with learning rate
+
+$$
+\alpha = \frac{2}{\lambda_\text{min} + \lambda_\text{max}} \quad \text{and} \quad \beta=0
+$$
+
+converges to $\btheta^\star$ exponentially fast, with
+
+$$
+|\btheta_t - \btheta^\star| \leq \left( 1 - \frac{2}{1 + \kappa(\bH)} \right)^t |\btheta_0 - \btheta^\star |
+$$
+
+for each $t\geq 1$. Here, $\kappa(\bH)$ is the condition number of $\bH$.
+```
+
+The ratio $2/(1 + \kappa(\bH))$ is sometimes called the _rate of convergence_. Of course, in order to obtain the exponentially quick convergence guaranteed by the theorem, one needs to place their initial guess $\btheta_0$ "sufficiently close" to the minimizer. But this would require the analyst to already have some sense of where the minimizer is likely to be located! This restricts its usefulness in practice.
+
+For our polynomial objective $J$ given in {eq}`two-dim-poly-eq` above, we compute the spectra of the Hessian matrices at the minimizers $(0,0)$ and $(1,1)$ to be $\{22,220\}$ in both cases. Thus, if we choose learning rate $\alpha = 2/(22+220) \approx 0.008$ and re-run the gradient descent algorithm with the same initial guesses to test {prf:ref}`quadratic-conv-thm`, we get the new plots:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+gd_parameters = {'theta0': [torch.tensor([0.25, 0.9]),
+                            torch.tensor([0.25, 1]),
+                            torch.tensor([0.75, 1.2]),
+                            torch.tensor([0.5, 0.49])]}
+alpha = 8e-3
 beta = 0
 N = 40
 
@@ -1158,9 +1276,42 @@ fig.suptitle('second runs of gradient descent with smaller learning rates')
 plt.tight_layout()
 ```
 
-Just like magic, the undesirable oscillations have vanished. But we had to pay a price: Because of the smaller learning rate, we had to double the number of gradient steps from $20$ to $40$.
+Just like magic, the undesirable oscillations have vanished. We take a closer look at the third run of the algorithm, in the bottom left of the figure:
 
-Alternatively, we may dampen the oscillations and keep the original (relatively large) learning rates by adding a slight learning rate decay at $\beta = 0.05$:
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+theta0 = torch.tensor([0.75, 1.2])
+alpha = 8e-3
+beta = 0
+N = 125
+gd_output = GD(J=J, theta0=theta0, lr=alpha, num_steps=N, decay_rate=beta)
+
+fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(9, 4))
+
+axes[0].contour(x, y, z, levels=range(11), colors=blue, alpha=0.5)
+axes[0].plot(gd_output.thetas[:, 0], gd_output.thetas[:, 1], color=magenta)
+axes[0].scatter(gd_output.thetas[:, 0], gd_output.thetas[:, 1], s=30, color=magenta, zorder=2)
+axes[0].scatter(x=gd_output.thetas[0, 0], y=gd_output.thetas[0, 1], s=100, color=magenta, zorder=2)
+axes[0].set_xlabel('$\\theta_1$')
+axes[0].set_ylabel('$\\theta_2$')
+axes[0].set_xlim(0.2, 1.2)
+axes[0].set_ylim(0.6, 1.25)
+
+axes[1].plot(range(len(gd_output.objectives)), gd_output.thetas[:, 0], label='$\\theta_1$')
+axes[1].plot(range(len(gd_output.objectives)), gd_output.thetas[:, 1], alpha=0.5, label='$\\theta_2$')
+axes[1].set_xlabel('gradient steps')
+axes[1].set_ylim(0.9, 1.1)
+axes[1].legend()
+
+fig.suptitle(f'$\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
+plt.tight_layout()
+```
+
+We may also dampen the oscillations and keep the original (relatively large) learning rates by adding a slight learning rate decay at $\beta = 0.05$:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
