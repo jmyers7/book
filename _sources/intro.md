@@ -20,13 +20,13 @@ kernelspec:
 ```
 &nbsp;
 
-This textbook is the result of my search for a book that combines a mathematically rigorous treatment of probability and statistics with applications in Python: I could not find such a textbook, so I wrote one. (Or, depending on when you are reading this, I am in the _process_ of writing one.)
+This textbook is the result of my search for a book that combines a mathematically rigorous treatment of probability and statistics with applications in machine learning and coding in Python: I could not find such a textbook, so I wrote one. (Or, depending on when you are reading this, I am in the _process_ of writing one.)
 
 The intended audience is upper-level undergraduate students majoring in mathematics, statistics, computer science, and other STEM disciplines that make heavy use of statistical concepts and techniques.
 
-* On the mathematical side, I assume that the reader has completed the calculus sequence typical at most US universities, up to and including multivariable calculus. Some basic matrix algebra will be required here and there, but not enough to justify an entire course in linear algebra as a prerequisite.  
+* On the mathematical side, I assume that the reader has completed the calculus sequence typical at most US universities, up to and including multi-variable calculus. We also make good use of linear algebra in the middle chapters. The reader should know the basics of vectors, matrices, determinants, and eigenvalues and eigenvectors. Other concepts from linear algebra will be introduced when they are needed.
 
-* On the programming side, I assume that the reader knows only the basics of Python and writing code in Jupyter notebooks. Nothing advanced is needed---just a familiarity with the fundamental data structures in the language, as well as basic logic, control flow, and functions. The big libraries (e.g., NumPy, Pandas, Matplotlib, Seaborn, SciPy, Statsmodels, _etc_.) will be introduced throughout the course.
+* On the programming side, I assume that the reader knows only the basics of Python and writing code in Jupyter notebooks. Nothing advanced is needed---just a familiarity with the fundamental data structures in the language, as well as basic logic, control flow, and functions. The big libraries (e.g., NumPy, pandas, matplotlib, seaborn, SciPy, PyTorch, scikit-learn, statsmodels, _etc_.) will be introduced throughout the course.
 
 ## How to use this book
 
