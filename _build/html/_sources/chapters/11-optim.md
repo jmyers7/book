@@ -410,7 +410,7 @@ where $\epsilon>0$ is a small number.
 
 
 (curvature-der-sec)=
-## Curvature and derivatives in higher dimensions
+## Differential geometry
 
 If $\theta^\star$ is an extremizer of a differentiable function $J:\bbr \to \bbr$, then $\theta^\star$ must be a _stationary point_ in the sense that
 
