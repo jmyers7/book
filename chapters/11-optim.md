@@ -592,7 +592,7 @@ Let $J:\bbr^n \to \bbr$ be a function of class $C^2$, $\btheta \in \bbr^n$ a poi
 2. We have
     
     $$
-    J_{\bv}''(\btheta) = \bv^\intercal \big(\nabla^2 J(\btheta)\big) \bv.
+    J_{\bv}''(\btheta) = \bv^\intercal \nabla^2 J(\btheta) \bv.
     $$
 
 ```
@@ -758,13 +758,13 @@ Observe that the part in {prf:ref}`grad-uphill-thm` about the negative gradient 
 Let's now turn toward extremizers of a multi-variable function $J:\bbr^n \to \bbr$ of class $C^2$ in arbitrary dimension $n$. As you may recall from multi-variable calculus, the stationarity equation
 
 $$
-\nabla(J(\btheta^\star)) = 0
+\nabla J(\btheta^\star) = 0
 $$
 
 is a _necessary_ condition for $\btheta^\star$ to be an extremizer of $J$. As in the single-variable case, one might hope to classify stationary points (i.e., solutions $\btheta^\star$ to the stationarity equation) as minimizers and maximizers based on the local curvature of $J$. For if $J$ is convex (concave) in _all_ directions at $\btheta^\star$, then intuition suggests that $\btheta^\star$ should be a local minimizer (maximizer). But from {prf:ref}`directional-der-grad-thm`, the local directional curvatures at $\btheta^\star$ are measured by the quadratic form
 
 $$
-\bv^\intercal \big( \nabla^2 J(\btheta^\star) \big) \bv
+\bv^\intercal \nabla^2 J(\btheta^\star)  \bv
 $$
 
 as $\bv$ cycles through all nonzero vectors in $\bbr^n$. Thus, if these numbers are _always_ positive (negative), then we would expect the stationary point $\btheta^\star$ is a local minimizer (maximizer). However, to say that these numbers are either always positive or negative means exactly that the Hessian matrix is positive definite or negative definite, in the language of {prf:ref}`first-semidefinite-def`. So, the question becomes: If we know that the Hessian matrix is positive (negative) definite at a stationary point $\btheta^\star$, is $\btheta^\star$ necessarily a local minimizer (maximizer)?
@@ -833,7 +833,7 @@ $$ (sum-to-one-eqn)
 But then
 
 $$
-J''_\bv(\btheta) = \bv^\intercal \big(\nabla^2 J(\btheta) \big) \bv = \sum_{i,j=1}^n \alpha_i\alpha_j \be_i^\intercal \big(\nabla^2 J(\btheta) \big) \be_j = \sum_{i,j=1}^n \alpha_i\alpha_j\lambda_j \be_i^\intercal \be_j = \sum_{i=1}^n \alpha_i^2 \lambda_i,
+J''_\bv(\btheta) = \bv^\intercal \nabla^2 J(\btheta)  \bv = \sum_{i,j=1}^n \alpha_i\alpha_j \be_i^\intercal \nabla^2 J(\btheta)  \be_j = \sum_{i,j=1}^n \alpha_i\alpha_j\lambda_j \be_i^\intercal \be_j = \sum_{i=1}^n \alpha_i^2 \lambda_i,
 $$
 
 where the first equality follows from {prf:ref}`directional-der-grad-thm`. Using {eq}`sum-to-one-eqn`, eliminate $\alpha_n^2$ from the last sum in favor of the other $\alpha$'s to get
@@ -1107,7 +1107,7 @@ Do problem 11 on the worksheet.
 To begin the theoretical study of convergence of gradient descent, let's start more generally with any function $J:\bbr^2 \to \bbr$ of class $C^2$ and $\btheta^\star$ a point. We then take a degree-$2$ Taylor polynomial approximation centered at $\btheta^\star$:
 
 $$
-J(\btheta) \approx J(\btheta^\star) + (\btheta - \btheta^\star)^\intercal \nabla J(\btheta^\star) + \frac{1}{2} (\btheta - \btheta^\star)^\intercal \big(\nabla^2 J(\btheta^\star) \big) (\btheta - \btheta^\star).
+J(\btheta) \approx J(\btheta^\star) + (\btheta - \btheta^\star)^\intercal \nabla J(\btheta^\star) + \frac{1}{2} (\btheta - \btheta^\star)^\intercal \nabla^2 J(\btheta^\star)  (\btheta - \btheta^\star).
 $$
 
 If we believe that the Taylor polynomial accurately reflects the local geometry of the graph of $J$ near $\btheta^\star$ to within whatever degree of approximation we require, then we may as well replace $J$ with its Taylor polynomial, and thereby assume that $J$ is a degree-$2$ (inhomogeneous) polynomial:
