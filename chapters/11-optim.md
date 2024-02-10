@@ -1220,7 +1220,7 @@ This shows that the fastest rates of convergence guaranteed by our arguments are
 
 This argument easily adapts to the case that the objective function $J:\bbr^n \to \bbr$ is defined on a Euclidean space of arbitrary dimension. We present the general result in a theorem:
 
-```{prf:theorem} Quadratic approximations and convergence rates
+```{prf:theorem} Curvature and gradient descent
 :label: quadratic-conv-thm
 
 Let $J:\bbr^n \to \bbr$ be a function of class $C^2$ and $\btheta^\star$ a local minimizer with positive definite Hessian matrix $\bH = \nabla^2 J(\btheta^\star)$ with minimum and maximum eigenvalues $\lambda_\text{min}$ and $\lambda_\text{max}$. For initial guesses $\btheta_0$ sufficiently near $\btheta^\star$ to allow a degree-$2$ Taylor polynomial approximation, the gradient descent algorithm with learning rate
