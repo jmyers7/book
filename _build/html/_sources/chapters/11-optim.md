@@ -357,14 +357,7 @@ We have carried out $N=8$ gradient steps, and it appears that the algorithm has 
 Do problem 4 on the worksheet.
 ```
 
-The learning rate $\alpha$ and decay rate $\beta$ are often chosen by experimentation.
-
-```{admonition} Tip
-
-When using the gradient descent algorithm to solve an optimization problem, try beginning with a learning rate and decay rate of around $\alpha \approx 0.01$ and $\beta \approx 0.1$, respectively.
-```
-
-These values may be tuned by the analyst by closely monitoring the values of the objective function $J(\theta)$ as the algorithm runs. This is easy in the single-variable case, since one can plot the graph of $J(\theta)$. In the multi-variable case, however, the graph of $J(\theta)$ may live in many more dimensions than we can visualize, so the analyst might track the values of the objective function against the number of gradient steps. For example, with our polynomial objective function $J(\theta)$ from above and
+The learning rate $\alpha$ and decay rate $\beta$ are often chosen by experimentation, and they may be tuned by the analyst by closely monitoring the values of the objective function $J(\theta)$ as the algorithm runs. This is easy in the single-variable case, since one can plot the graph of $J(\theta)$. In the multi-variable case, however, the graph of $J(\theta)$ may live in many more dimensions than we can visualize, so the analyst might track the values of the objective function against the number of gradient steps. For example, with our polynomial objective function $J(\theta)$ from above and
 
 $$
 \theta_0 = -0.5, \quad \alpha = 0.01, \quad \beta = 0.1,
