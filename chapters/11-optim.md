@@ -1221,7 +1221,7 @@ This argument easily adapts to the case that the objective function $J:\bbr^n \t
 ```{prf:theorem} Quadratic approximations and convergence rates
 :label: quadratic-conv-thm
 
-Let $J:\bbr^n \to \bbr$ be a function of class $C^2$ and $\btheta^\star$ a local minimizer with positive definite Hessian matrix $\bH = \nabla^2 J(\btheta^\star)$. For initial guesses $\btheta_0$ sufficiently near $\btheta^\star$ to allow a degree-$2$ Taylor polynomial approximation, the gradient descent algorithm with learning rate
+Let $J:\bbr^n \to \bbr$ be a function of class $C^2$ and $\btheta^\star$ a local minimizer with positive definite Hessian matrix $\bH = \nabla^2 J(\btheta^\star)$ with minimum and maximum eigenvalues $\lambda_\text{min}$ and $\lambda_\text{max}$. For initial guesses $\btheta_0$ sufficiently near $\btheta^\star$ to allow a degree-$2$ Taylor polynomial approximation, the gradient descent algorithm with learning rate
 
 $$
 \alpha = \frac{2}{\lambda_\text{min} + \lambda_\text{max}} \quad \text{and} \quad \beta=0
@@ -1236,7 +1236,9 @@ $$
 for each $t\geq 1$. Here, $\kappa(\bH)$ is the condition number of $\bH$.
 ```
 
-The ratio $2/(1 + \kappa(\bH))$ is sometimes called the _rate of convergence_. Of course, in order to obtain the exponentially quick convergence guaranteed by the theorem, one needs to place their initial guess $\btheta_0$ "sufficiently close" to the minimizer. But this would require the analyst to already have some sense of where the minimizer is likely to be located! This restricts its usefulness in practice.
+The ratio $2/(1 + \kappa(\bH))$ is sometimes called the _rate of convergence_. In the special case that $n=2$, so that the graph of our function $J:\bbr^2 \to \bbr$ is a surface in $\bbr^3$, the value $(\lambda_\text{min} + \lambda_\text{max})/2$ is significant in differential geometry, called the [_mean curvature_](https://en.wikipedia.org/wiki/Mean_curvature) of the surface. Thus, in this case and using this language, the optimal value for the learning rate is given by the reciprocal mean curvature of the graph at the local minimum. Larger mean curvatures require smaller learning rates, while smaller mean curvatures allow larger learning rates.
+
+Of course, in order to obtain the exponentially quick convergence guaranteed by the theorem, one needs to place their initial guess $\btheta_0$ "sufficiently close" to the minimizer. But this would require the analyst to already have some sense of where the minimizer is likely to be located! This restricts its usefulness in practice.
 
 For our polynomial objective $J$ given in {eq}`two-dim-poly-eq` above, we compute the spectra of the Hessian matrices at the minimizers $(0,0)$ and $(1,1)$ to be $\{22,220\}$ in both cases. Thus, if we choose learning rate $\alpha = 2/(22+220) \approx 0.008$ and re-run the gradient descent algorithm with the same initial guesses to test {prf:ref}`quadratic-conv-thm`, we get the new plots:
 
