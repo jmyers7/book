@@ -10,12 +10,10 @@ kernelspec:
   name: python3
 ---
 
-**THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!**
-
 (optim)=
 # Optimization
 
-Chapters 9 through 12 form a sequence, with the ultimate goal the construction and training of probabilistic models. In the [next chapter](prob-models), we begin building up our library of such models---to _train_ them, or to have them _learn_ on datasets, means that we should bring the model probability distribution $p(x;\theta)$ as close as possible to the empirical distribution $\hat{p}(x)$ of the data by finding optimal values of the parameter $\theta$. The "distance" between these two distributions is scored by the [Kullback Leibler divergence](kl-div-sec). The problem of _learning_ is thus turned into a minimization problem, calling for the techniques that we will study in the current chapter.
+Lest the reader wonder why an entire chapter on optimization is included in a textbook on probability and statistics, we suggest that they recall the discussion in the expository chapter {numref}`Chapter %s <halfway>`. There, we described the rationale: Our overarching goal over the current sequence of chapters is to train probabilistic models on data. To do this, we minimize the KL divergence between the proposed model distribution $p(x,y;\theta)$ and the empirical distribution $\hat{p}(x,y)$ of the dataset, and thereby turn "learning" into an optimization problem:
 
 ```{image} ../img/prob-distance.svg
 :width: 75%
@@ -23,9 +21,9 @@ Chapters 9 through 12 form a sequence, with the ultimate goal the construction a
 ```
 &nbsp;
 
-Many of the optimization problems we will encounter do not have closed-form solutions, and so we will need to study methods for approximation. All those studied in this chapter are versions of an iterative method called _gradient descent_. For a warm-up, we will study a simple single-variable version of this method in {numref}`univariate-grad-desc-sec` before proceeding to the full multi-variable version in {numref}`multivariate-grad-desc-sec`. Sandwiched between these two sections is {numref}`curvature-der-sec`, where we recall and review the tools from multi-variable calculus that allow the generalization from one variable to many. Then, we finish with {numref}`sgd-sec`, where we study a particular form of gradient descent, called _stochastic gradient descent_, that is specifically tailored for the objective functions encountered in training probabilistic models.
+Many of the optimization problems we will encounter do not have closed-form solutions, and so we will need to study methods for approximation. All those studied in this chapter are versions of an iterative method called _gradient descent_. For a warm-up, we will study a simple single-variable version of this method in {numref}`univariate-grad-desc-sec` before proceeding to the full multi-variable version in {numref}`multivariate-grad-desc-sec`. Sandwiched between these two sections is {numref}`curvature-der-sec`, where we review the tools from elementary differential geometry that allow the generalization from one variable to many. Then, we finish with {numref}`sgd-sec`, where we study a particular form of gradient descent, called _stochastic gradient descent_, that is specifically tailored for the objective functions encountered in training probabilistic models. An [appendix](app-conv-sec) is incuded at the end of the chapter, containing some basic theorems on convex functions and their (rather fussy) proofs.
 
-The inclusion of gradient-based optimization algorithms and their applications to parameter estimation is what distinguishes this book from a traditional book on mathematical statistics. This material is often included in texts on machine learning, but it is not in any text on statistics (that I know of). However, we are just _barely_ scratching the surface of optimization and machine learning. If you are new to these fields and want to learn more, I suggest beginning with the fifth chapter of {cite}`GBC2016` for a quick overview. After this, you can move on to {cite}`HardtRecht2022`, before tackling the massive, encyclopedic texts {cite}`Murphy2022` and {cite}`Murphy2023`.
+As hinted in the first paragraph, the inclusion of gradient-based optimization algorithms and their applications to parameter estimation is what distinguishes this book from a traditional book on mathematical statistics. This material is often included in texts on machine learning, but it is not in any text on statistics (that I know of). However, we are just _barely_ scratching the surface of optimization and machine learning. If you are new to these fields and want to learn more, I suggest beginning with the fifth chapter of {cite}`GBC2016` for a quick overview. After this, you can move on to {cite}`HardtRecht2022`, before tackling the massive, encyclopedic texts {cite}`Murphy2022` and {cite}`Murphy2023`.
 
 
 
@@ -1823,9 +1821,10 @@ plt.tight_layout()
 
 
 (app-conv-sec)=
-## Appendix: Convex functions
+## Appendix: convex functions
 
-To be written!!!
+We begin with the definition of a convex function. Notice that it does not require that the function have any special properties, like differentiability.
+
 
 ```{prf:definition}
 :label: convex-concave-def
@@ -1839,6 +1838,7 @@ $$
 for all $\ba,\bb\in \bbr^n$ and all $t\in [0,1]$. If "$\leq$" is replaced with "$<$", then the function is called _strictly convex_; if the inequalities are reversed, we obtain the definitions of _concave_ and _strictly concave_.
 ```
 
+Essentially, the definition says that a function is convex provided that its graph "lies below its secant lines." If the function is twice-differentiable, then there equivalent characterizations of convexity in terms of calculus:
 
 ```{prf:theorem} Main theorem on convex functions (single-variable version)
 :label: main-convex-thm
@@ -1868,16 +1868,16 @@ Moreover, if $\theta^\star$ is a stationary point of $J$ and $J$ is convex, then
 
 We shall prove the statements as (1) $\Rightarrow$ (3) $\Rightarrow$ (2) $\Rightarrow$ (1), and then (3) $\Rightarrow$ (4) $\Rightarrow$ (2).
 
-(1) $\Rightarrow$ (3): Suppose that $\theta,a\in \bbr$ and note that
+(1) $\Rightarrow$ (3): For each $\theta,a\in \bbr$, we have
 
 $$
 J'(a)(\theta-a) = \lim_{t\to 0} \frac{J\big( a+t(\theta-a) \big) - J(a)}{t}.
 $$ (der-almost-eq)
 
-Provided $t\in [0,1]$ we have
+Provided $t\in [0,1]$, we have
 
 $$
-J\big( a+t(\theta-a) \big) = J \big( (1-t)a + t\theta\big) \leq (1-t)J(a) + tJ(\theta) = J(a) +t\big(J(\theta) - J(a)\big)
+J\big( a+t(\theta-a) \big) = J \big( (1-t)a + t\theta\big) \leq (1-t)J(a) + tJ(\theta)
 $$
 
 and so
@@ -1975,7 +1975,7 @@ $$
 since $u<v$ and $J'$ is increasing. Q.E.D.
 ```
 
-Suppose $g:\bbr \to \bbr$ is a twice-differentiable function, $s,t$ are fixed distinct real numbers, and we define
+Our goal now is to generalize the main theorem to convex functions of multiple variables. To do this, we will use the theorem for functions of a single variable, along with the following device: Suppose $g:\bbr \to \bbr$ is a twice-differentiable function, $s,t$ are fixed distinct real numbers, and we define
 
 $$
 h:\bbr \to \bbr, \quad h(r) = g\big(r(s-t)+t\big).
@@ -1996,7 +1996,19 @@ $$ (aux-curv-eq)
 ```{prf:theorem} Main theorem on convex functions (multi-variable version)
 :label: main-convex-multi-thm
 
-Blah blah blah, to be written later.
+Let $J: \bbr^n \to \bbr$ be a function of class $C^2$. The following statements are equivalent:
+
+1. The function $J$ is convex.
+
+2. The graph of $J$ lies above its tangent planes, i.e., for all $\btheta,\bv\in \bbr^n$, we have
+
+    $$
+    J(\bv + \btheta) \geq \bv^\intercal \nabla J(\btheta) + J(\btheta).
+    $$
+
+3. The Hessian matrix $\nabla^2 J(\btheta)$ is positive semidefinite
+
+Moreover, if $\btheta^\star$ is a stationary point of $J$ and $J$ is convex, then $\btheta^\star$ is a global minimizer.
 ```
 
 ```{prf:proof}
@@ -2006,6 +2018,8 @@ Throughout the proof we fix $\btheta,\bv\in \bbr^n$ and we consider the function
 $$
 g: \bbr \to \bbr, \quad g(t) \def J\big(t \bv + \btheta \big).
 $$ (aux-2-eq)
+
+Notice that this is exactly the function used in {numref}`curvature-der-sec` in the definitions of the directional first and second derivatives.
 
 (1) $\Rightarrow$ (2): Supposing that $J$ is convex, the function $g$ is easily seen to be convex. Thus,
 

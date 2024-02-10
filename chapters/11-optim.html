@@ -358,7 +358,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#differential-geometry">11.2. Differential geometry</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-in-multiple-variables">11.3. Gradient descent in multiple variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-gradient-descent">11.4. Stochastic gradient descent</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-convex-functions">11.5. Appendix: Convex functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-convex-functions">11.5. Appendix: convex functions</a></li>
 </ul>
             </nav>
         </div>
@@ -370,14 +370,13 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
-<section class="tex2jax_ignore mathjax_ignore" id="optimization">
+  <section class="tex2jax_ignore mathjax_ignore" id="optimization">
 <span id="optim"></span><h1><span class="section-number">11. </span>Optimization<a class="headerlink" href="#optimization" title="Permalink to this heading">#</a></h1>
-<p>Chapters 9 through 12 form a sequence, with the ultimate goal the construction and training of probabilistic models. In the <a class="reference internal" href="12-models.html#prob-models"><span class="std std-ref">next chapter</span></a>, we begin building up our library of such models—to <em>train</em> them, or to have them <em>learn</em> on datasets, means that we should bring the model probability distribution <span class="math notranslate nohighlight">\(p(x;\theta)\)</span> as close as possible to the empirical distribution <span class="math notranslate nohighlight">\(\hat{p}(x)\)</span> of the data by finding optimal values of the parameter <span class="math notranslate nohighlight">\(\theta\)</span>. The “distance” between these two distributions is scored by the <a class="reference internal" href="10-info-theory.html#kl-div-sec"><span class="std std-ref">Kullback Leibler divergence</span></a>. The problem of <em>learning</em> is thus turned into a minimization problem, calling for the techniques that we will study in the current chapter.</p>
+<p>Lest the reader wonder why an entire chapter on optimization is included in a textbook on probability and statistics, we suggest that they recall the discussion in the expository chapter <a class="reference internal" href="09-halfway.html#halfway"><span class="std std-numref">Chapter 9</span></a>. There, we described the rationale: Our overarching goal over the current sequence of chapters is to train probabilistic models on data. To do this, we minimize the KL divergence between the proposed model distribution <span class="math notranslate nohighlight">\(p(x,y;\theta)\)</span> and the empirical distribution <span class="math notranslate nohighlight">\(\hat{p}(x,y)\)</span> of the dataset, and thereby turn “learning” into an optimization problem:</p>
 <a class="reference internal image-reference" href="../_images/prob-distance.svg"><img alt="../_images/prob-distance.svg" class="align-center" src="../_images/prob-distance.svg" width="75%" /></a>
 <p> </p>
-<p>Many of the optimization problems we will encounter do not have closed-form solutions, and so we will need to study methods for approximation. All those studied in this chapter are versions of an iterative method called <em>gradient descent</em>. For a warm-up, we will study a simple single-variable version of this method in <a class="reference internal" href="#univariate-grad-desc-sec"><span class="std std-numref">Section 11.1</span></a> before proceeding to the full multi-variable version in <a class="reference internal" href="#multivariate-grad-desc-sec"><span class="std std-numref">Section 11.3</span></a>. Sandwiched between these two sections is <a class="reference internal" href="#curvature-der-sec"><span class="std std-numref">Section 11.2</span></a>, where we recall and review the tools from multi-variable calculus that allow the generalization from one variable to many. Then, we finish with <a class="reference internal" href="#sgd-sec"><span class="std std-numref">Section 11.4</span></a>, where we study a particular form of gradient descent, called <em>stochastic gradient descent</em>, that is specifically tailored for the objective functions encountered in training probabilistic models.</p>
-<p>The inclusion of gradient-based optimization algorithms and their applications to parameter estimation is what distinguishes this book from a traditional book on mathematical statistics. This material is often included in texts on machine learning, but it is not in any text on statistics (that I know of). However, we are just <em>barely</em> scratching the surface of optimization and machine learning. If you are new to these fields and want to learn more, I suggest beginning with the fifth chapter of <span id="id1">[<a class="reference internal" href="bib.html#id10" title="I. Goodfellow, Y. Bengio, and A. Courville. Deep learning. MIT Press, 2016.">GBC16</a>]</span> for a quick overview. After this, you can move on to <span id="id2">[<a class="reference internal" href="bib.html#id11" title="M. Hardt and B. Recht. Patterns, predictions, and actions. Foundations of machine learning. Princeton University Press, 2022.">HR22</a>]</span>, before tackling the massive, encyclopedic texts <span id="id3">[<a class="reference internal" href="bib.html#id8" title="K. P. Murphy. Probabilistic machine learning. An introduction. MIT Press, 2022.">Mur22</a>]</span> and <span id="id4">[<a class="reference internal" href="bib.html#id9" title="K. P. Murphy. Probabilistic machine learning. Advanced topics. MIT Press, 2023.">Mur23</a>]</span>.</p>
+<p>Many of the optimization problems we will encounter do not have closed-form solutions, and so we will need to study methods for approximation. All those studied in this chapter are versions of an iterative method called <em>gradient descent</em>. For a warm-up, we will study a simple single-variable version of this method in <a class="reference internal" href="#univariate-grad-desc-sec"><span class="std std-numref">Section 11.1</span></a> before proceeding to the full multi-variable version in <a class="reference internal" href="#multivariate-grad-desc-sec"><span class="std std-numref">Section 11.3</span></a>. Sandwiched between these two sections is <a class="reference internal" href="#curvature-der-sec"><span class="std std-numref">Section 11.2</span></a>, where we review the tools from elementary differential geometry that allow the generalization from one variable to many. Then, we finish with <a class="reference internal" href="#sgd-sec"><span class="std std-numref">Section 11.4</span></a>, where we study a particular form of gradient descent, called <em>stochastic gradient descent</em>, that is specifically tailored for the objective functions encountered in training probabilistic models. An <a class="reference internal" href="#app-conv-sec"><span class="std std-ref">appendix</span></a> is incuded at the end of the chapter, containing some basic theorems on convex functions and their (rather fussy) proofs.</p>
+<p>As hinted in the first paragraph, the inclusion of gradient-based optimization algorithms and their applications to parameter estimation is what distinguishes this book from a traditional book on mathematical statistics. This material is often included in texts on machine learning, but it is not in any text on statistics (that I know of). However, we are just <em>barely</em> scratching the surface of optimization and machine learning. If you are new to these fields and want to learn more, I suggest beginning with the fifth chapter of <span id="id1">[<a class="reference internal" href="bib.html#id10" title="I. Goodfellow, Y. Bengio, and A. Courville. Deep learning. MIT Press, 2016.">GBC16</a>]</span> for a quick overview. After this, you can move on to <span id="id2">[<a class="reference internal" href="bib.html#id11" title="M. Hardt and B. Recht. Patterns, predictions, and actions. Foundations of machine learning. Princeton University Press, 2022.">HR22</a>]</span>, before tackling the massive, encyclopedic texts <span id="id3">[<a class="reference internal" href="bib.html#id8" title="K. P. Murphy. Probabilistic machine learning. An introduction. MIT Press, 2022.">Mur22</a>]</span> and <span id="id4">[<a class="reference internal" href="bib.html#id9" title="K. P. Murphy. Probabilistic machine learning. Advanced topics. MIT Press, 2023.">Mur23</a>]</span>.</p>
 <section id="gradient-descent-in-one-variable">
 <span id="univariate-grad-desc-sec"></span><h2><span class="section-number">11.1. </span>Gradient descent in one variable<a class="headerlink" href="#gradient-descent-in-one-variable" title="Permalink to this heading">#</a></h2>
 <p>In this section, we describe the single-variable version of the gradient descent algorithm to help motivate the general algorithm in arbitrary dimensions. To begin, consider the <em>optimization problem</em> of locating the minimum values of the polynomial function</p>
@@ -423,7 +422,7 @@ J(\theta) = \theta^4 - 6\theta^3 + 11\theta^2 - 7\theta + 4.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a252061caa6968af5b0b8e8774e8d849f4579df55eae3fdb974270d5db97ef75.svg" src="../_images/a252061caa6968af5b0b8e8774e8d849f4579df55eae3fdb974270d5db97ef75.svg" /></figure>
+<img alt="../_images/9ce10338303445ac56d44834ab01b9df5057cf1fc6983d21cc13d9442a802ddb.svg" src="../_images/9ce10338303445ac56d44834ab01b9df5057cf1fc6983d21cc13d9442a802ddb.svg" /></figure>
 </div>
 </div>
 <p>From the graph, we see that the objective function has minimums of approximately <span class="math notranslate nohighlight">\(J(0.5)\)</span> and <span class="math notranslate nohighlight">\(J(2.7)\)</span>.</p>
@@ -521,7 +520,7 @@ J(\theta_0), J(\theta_1),\ldots, J(\theta_t), \ldots, J(\theta_N),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/1820ed3eab83858025575e8922e170b5699d2c13f9b8540b505041f21f78d14a.svg" src="../_images/1820ed3eab83858025575e8922e170b5699d2c13f9b8540b505041f21f78d14a.svg" /></figure>
+<img alt="../_images/f0b24c6c331a7a133d52e59dca663b59377dbd568fba9d75052b81f91958e220.svg" src="../_images/f0b24c6c331a7a133d52e59dca663b59377dbd568fba9d75052b81f91958e220.svg" /></figure>
 </div>
 </div>
 <p>In this plot, we’ve drawn the tangent lines to the graph of <span class="math notranslate nohighlight">\(J(\theta)\)</span> at two initial values <span class="math notranslate nohighlight">\(\theta_0=-0.4\)</span> and <span class="math notranslate nohighlight">\(\theta_0=3.3\)</span>. Since the derivatives are the slopes of these tangent lines, the sign of the derivative is negative when <span class="math notranslate nohighlight">\(\theta_0=-0.4\)</span> and positive when <span class="math notranslate nohighlight">\(\theta_0 = 3.3\)</span>. In the first case, we have</p>
@@ -583,7 +582,7 @@ J(\theta_0), J(\theta_1),\ldots, J(\theta_t), \ldots, J(\theta_N),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2d12ed95ec8c47b60f3eadedee92d7e653335a33eca4e4172724b2c502fe66bb.svg" src="../_images/2d12ed95ec8c47b60f3eadedee92d7e653335a33eca4e4172724b2c502fe66bb.svg" /></figure>
+<img alt="../_images/341063ad45ff7618c84e0a08e76d9d6833bdfa9b86829cd37583db66dfe827d9.svg" src="../_images/341063ad45ff7618c84e0a08e76d9d6833bdfa9b86829cd37583db66dfe827d9.svg" /></figure>
 </div>
 </div>
 <p>In all four plots, the large magenta dot represents the initial point <span class="math notranslate nohighlight">\((\theta_0,J(\theta_0))\)</span>, while the smaller dots represent the remaining <span class="math notranslate nohighlight">\(N\)</span> points</p>
@@ -625,7 +624,7 @@ J(\theta_0), J(\theta_1),\ldots, J(\theta_t), \ldots, J(\theta_N),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/29a069e73bf75be81fe31504b5740e4ef4cddd9932181ba9b630a57802cf9d27.svg" src="../_images/29a069e73bf75be81fe31504b5740e4ef4cddd9932181ba9b630a57802cf9d27.svg" /></figure>
+<img alt="../_images/35a015c12bf54361911000a35509694c088d19687c2604c6bfc94c4c11be5b26.svg" src="../_images/35a015c12bf54361911000a35509694c088d19687c2604c6bfc94c4c11be5b26.svg" /></figure>
 </div>
 </div>
 <p>We see already that <span class="math notranslate nohighlight">\(J(\theta_3) \approx 10^7\)</span>; in fact, we have <span class="math notranslate nohighlight">\(J(\theta_t) \to \infty\)</span> as <span class="math notranslate nohighlight">\(t\to\infty\)</span> for these particular parameters.</p>
@@ -680,7 +679,7 @@ J(\theta_0), J(\theta_1),\ldots, J(\theta_t), \ldots, J(\theta_N),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/6dd7248395e0c3078640421dcf6d21dc506b061ec711cbea87a867b3eb043bab.svg" src="../_images/6dd7248395e0c3078640421dcf6d21dc506b061ec711cbea87a867b3eb043bab.svg" /></figure>
+<img alt="../_images/ae9e47c074171cd4f5f84da79ee5d6f61ba27ab0a8a4ef086cb916eb7ef0b40a.svg" src="../_images/ae9e47c074171cd4f5f84da79ee5d6f61ba27ab0a8a4ef086cb916eb7ef0b40a.svg" /></figure>
 </div>
 </div>
 <p>We have carried out <span class="math notranslate nohighlight">\(N=8\)</span> gradient steps, and it appears that the algorithm has successfully located the minimizer <span class="math notranslate nohighlight">\(\theta^\star \approx 2.7\)</span>.</p>
@@ -723,7 +722,7 @@ J(\theta_0), J(\theta_1),\ldots, J(\theta_t), \ldots, J(\theta_N),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/da025a084103acf4f395c320af76cac3ca20954e913ce83550571cb5d4e4e639.svg" src="../_images/da025a084103acf4f395c320af76cac3ca20954e913ce83550571cb5d4e4e639.svg" /></figure>
+<img alt="../_images/4f01349528bc4d16ff6dbbfd5db471e9a850a9ba99ca702970f56aade89fb459.svg" src="../_images/4f01349528bc4d16ff6dbbfd5db471e9a850a9ba99ca702970f56aade89fb459.svg" /></figure>
 </div>
 </div>
 <p>One may use this plot to decide on the total number <span class="math notranslate nohighlight">\(N\)</span> of gradient steps; simply choose <span class="math notranslate nohighlight">\(N\)</span> large enough to reach a point where the plot “plateaus” or “levels out,” indicating that the algorithm is converging on a minimizer. Alternatively, the analyst may build an automatic stopping condition into the algorithm that halts when the magnitude between successive objective values is less than some chosen threshold, say</p>
@@ -782,7 +781,7 @@ J'(\theta^\star)=0.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/01c94b777441da77c8221ed60537d61fccc758372deaff3d12940bdd212544f3.svg" src="../_images/01c94b777441da77c8221ed60537d61fccc758372deaff3d12940bdd212544f3.svg" /></figure>
+<img alt="../_images/ab006e8b980ce6ea89be740cead3f998c6ef7bbe8a95a63e802e6fb18839d8fc.svg" src="../_images/ab006e8b980ce6ea89be740cead3f998c6ef7bbe8a95a63e802e6fb18839d8fc.svg" /></figure>
 </div>
 </div>
 <p>To see <em>why</em> second derivatives encode local curvature, let’s suppose <span class="math notranslate nohighlight">\(J''(\theta^\star) &gt;0\)</span> at some point <span class="math notranslate nohighlight">\(\theta^\star\)</span>. Then continuity of <span class="math notranslate nohighlight">\(J''\)</span> means that there is a number <span class="math notranslate nohighlight">\(\epsilon&gt;0\)</span> such that <span class="math notranslate nohighlight">\(J''(\theta)&gt;0\)</span> for all <span class="math notranslate nohighlight">\(\theta\)</span> in the open interval <span class="math notranslate nohighlight">\(I = (\theta^\star - \epsilon, \theta^\star + \epsilon)\)</span> centered at <span class="math notranslate nohighlight">\(\theta^\star\)</span>. But the second derivative is the first derivative of the first derivative, and thus positivity of <span class="math notranslate nohighlight">\(J''\)</span> over <span class="math notranslate nohighlight">\(I\)</span> means that <span class="math notranslate nohighlight">\(J'\)</span> is increasing over <span class="math notranslate nohighlight">\(I\)</span>. Since the first derivative <span class="math notranslate nohighlight">\(J'\)</span> measures the slope of the graph of <span class="math notranslate nohighlight">\(J\)</span>, this must mean that the slopes increase as we move from left to right across <span class="math notranslate nohighlight">\(I\)</span>. Thus, <span class="math notranslate nohighlight">\(J\)</span> is convex near <span class="math notranslate nohighlight">\(\theta^\star\)</span>.</p>
@@ -951,7 +950,7 @@ J(\btheta) = c
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2d53a7bd8aed6e5e5260439c465bc15b001ca9988990e68397af6041f3ae40e1.svg" src="../_images/2d53a7bd8aed6e5e5260439c465bc15b001ca9988990e68397af6041f3ae40e1.svg" /></figure>
+<img alt="../_images/19c866db7913aa1465d2308385c729b7ff3de791b218dd98ac40cf9f35653956.svg" src="../_images/19c866db7913aa1465d2308385c729b7ff3de791b218dd98ac40cf9f35653956.svg" /></figure>
 </div>
 </div>
 <p>The vector in the figure is the gradient vector, and the magenta line is the tangent line to the contour that passes through the point at the tail of the gradient. Note that the gradient is orthogonal to this tangent line, and therefore also orthogonal to the contour.</p>
@@ -1199,7 +1198,7 @@ J:\bbr^2 \to \bbr, \quad J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \t
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/56b9530a3e80ab215cbfa6fba6d3d4e141c94187154de08b20e8bae2d011c43e.svg" src="../_images/56b9530a3e80ab215cbfa6fba6d3d4e141c94187154de08b20e8bae2d011c43e.svg" /></figure>
+<img alt="../_images/c4b9ee6d52f3657f18f5d7f61ca3e6261f40a57849144f1eb8527e67ac68591c.svg" src="../_images/c4b9ee6d52f3657f18f5d7f61ca3e6261f40a57849144f1eb8527e67ac68591c.svg" /></figure>
 </div>
 </div>
 <p>The function has two minimizers at</p>
@@ -1249,7 +1248,7 @@ J:\bbr^2 \to \bbr, \quad J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \t
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/58a6e56a45182b39d98718405fe03ab64d82ce3edb86ae51e09641a627fc06dc.svg" src="../_images/58a6e56a45182b39d98718405fe03ab64d82ce3edb86ae51e09641a627fc06dc.svg" /></figure>
+<img alt="../_images/eb93eafb40af5c739052176f2477919940c5bc7d11a28aae08c728611d0bfdee.svg" src="../_images/eb93eafb40af5c739052176f2477919940c5bc7d11a28aae08c728611d0bfdee.svg" /></figure>
 </div>
 </div>
 <p>The large magenta dots in the plots indicate the initial guesses <span class="math notranslate nohighlight">\(\btheta_0\)</span>, while the smaller dots indicate the approximations <span class="math notranslate nohighlight">\(\btheta_t\)</span> for <span class="math notranslate nohighlight">\(t&gt;0\)</span>. The algorithm <em>appears</em> to be converging nicely to the minimizer <span class="math notranslate nohighlight">\(\btheta^\star = (1,1)\)</span> in the upper-left plot, while in the other three plots, the algorithm finds a neighborhood of a minimizer, but then oscillates back and forth and never appears to settle down. This is due jointly to the elliptical (non-circular) shape of the contours and poorly chosen learning rates.</p>
@@ -1292,7 +1291,7 @@ J:\bbr^2 \to \bbr, \quad J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \t
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/3f3ab2903050c1b9945ba973143e78e424697af109254d1e72945070985af2a5.svg" src="../_images/3f3ab2903050c1b9945ba973143e78e424697af109254d1e72945070985af2a5.svg" /></figure>
+<img alt="../_images/c60043ed029ebe51560d1fe3258f3445e49672339a6c2bc87105c1856eaed29b.svg" src="../_images/c60043ed029ebe51560d1fe3258f3445e49672339a6c2bc87105c1856eaed29b.svg" /></figure>
 </div>
 </div>
 <p>The oscillatory nature of the runs is even more clear. In particular, we now see that even the first run, which <em>appeared</em> to be converging, begins to oscillate after about 40 gradient steps. Let’s take a closer look at the trace of this first run, and also plot the components <span class="math notranslate nohighlight">\(\theta_1\)</span> and <span class="math notranslate nohighlight">\(\theta_2\)</span> versus gradient steps:</p>
@@ -1334,7 +1333,7 @@ J:\bbr^2 \to \bbr, \quad J(\btheta) = J(\theta_1,\theta_2) = (\theta_1^2 + 10 \t
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/893cd613054e2ef14633307acb4db8083b6a01805af367d4ccf91fb96ba7a6df.svg" src="../_images/893cd613054e2ef14633307acb4db8083b6a01805af367d4ccf91fb96ba7a6df.svg" /></figure>
+<img alt="../_images/69078e636c88c2f2eac056c5f6e1583afe73ebc618751ed4d4a6ee21623ca1c4.svg" src="../_images/69078e636c88c2f2eac056c5f6e1583afe73ebc618751ed4d4a6ee21623ca1c4.svg" /></figure>
 </div>
 </div>
 <p>Both plots make clear that the oscillations occur mostly along the semi-minor axes of the elliptical contours, which coincides with the direction of largest curvature. From the previous section, we know that local curvatures are encoded in the Hessian matrix. This suggests that studying the Hessian matrix might lead to insights into the convergence properties of gradient descent. But first, to prepare for this general study, let’s do:</p>
@@ -1492,7 +1491,7 @@ J(\btheta) = \frac{1}{2}\btheta^\intercal \bH \btheta + \bb^\intercal \btheta + 
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a4d8da5f95979c5e63069433fc4bc47bd16c4c2e4f92e6c2595d4763cd2be9d8.svg" src="../_images/a4d8da5f95979c5e63069433fc4bc47bd16c4c2e4f92e6c2595d4763cd2be9d8.svg" /></figure>
+<img alt="../_images/cb1a362074516a0179950eaac193a5483e3962ea136c1736b2948e128d2d3928.svg" src="../_images/cb1a362074516a0179950eaac193a5483e3962ea136c1736b2948e128d2d3928.svg" /></figure>
 </div>
 </div>
 <p>Just like magic, the undesirable oscillations have vanished. We take a closer look at the third run of the algorithm, in the bottom left of the figure:</p>
@@ -1534,7 +1533,7 @@ J(\btheta) = \frac{1}{2}\btheta^\intercal \bH \btheta + \bb^\intercal \btheta + 
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0ca26302e9ca8bcc3e1a70cc09e548c77e9efdae3d2f08b431548f01561a52a0.svg" src="../_images/0ca26302e9ca8bcc3e1a70cc09e548c77e9efdae3d2f08b431548f01561a52a0.svg" /></figure>
+<img alt="../_images/fd8b1ed14b374b314d0ebba575c6d04fb75bd8a9d4f63297386f2e934ec39031.svg" src="../_images/fd8b1ed14b374b314d0ebba575c6d04fb75bd8a9d4f63297386f2e934ec39031.svg" /></figure>
 </div>
 </div>
 <p>We may also dampen the oscillations and keep the original (relatively large) learning rates by adding a slight learning rate decay at <span class="math notranslate nohighlight">\(\beta = 0.05\)</span>:</p>
@@ -1579,7 +1578,7 @@ J(\btheta) = \frac{1}{2}\btheta^\intercal \bH \btheta + \bb^\intercal \btheta + 
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/f4d9a117fdda69e5561519e46b7a6e8291f04c8f847a00ed12317e001542b2d1.svg" src="../_images/f4d9a117fdda69e5561519e46b7a6e8291f04c8f847a00ed12317e001542b2d1.svg" /></figure>
+<img alt="../_images/141263821b9bc8fb2b884f5eec169557abce258f4fbd9ffa83f1bedac578b879.svg" src="../_images/141263821b9bc8fb2b884f5eec169557abce258f4fbd9ffa83f1bedac578b879.svg" /></figure>
 </div>
 </div>
 <p>Here are the values of the objective function for these last runs with learning rate decay, plotted against the number of gradient steps:</p>
@@ -1621,7 +1620,7 @@ J(\btheta) = \frac{1}{2}\btheta^\intercal \bH \btheta + \bb^\intercal \btheta + 
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/50444966d9b69bec4cfd5f4004157699588d95d5925d4a66492a619b3da9e1aa.svg" src="../_images/50444966d9b69bec4cfd5f4004157699588d95d5925d4a66492a619b3da9e1aa.svg" /></figure>
+<img alt="../_images/d4483c5c02e80543220412da1131a6c60e88a2c6181bc2b4a531f9d6599bf461.svg" src="../_images/d4483c5c02e80543220412da1131a6c60e88a2c6181bc2b4a531f9d6599bf461.svg" /></figure>
 </div>
 </div>
 <p>Notice the initial “overshoot” in the plot in the bottom left, causing the objective function <span class="math notranslate nohighlight">\(J(\btheta)\)</span> to <em>increase</em> after the first gradient step. Recall also that the initial value <span class="math notranslate nohighlight">\(\btheta_0\)</span> in the bottom right plot is near the saddle point <span class="math notranslate nohighlight">\((0.5,0.5)\)</span>, causing <span class="math notranslate nohighlight">\(\nabla J(\btheta_0) \approx 0\)</span>. This accounts for the small initial changes in the objective function <span class="math notranslate nohighlight">\(J(\btheta)\)</span> indicated by the (nearly) horizontal stretch early in the run of the algorithm.</p>
@@ -1678,7 +1677,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx_i; \btheta \big).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ca812cd791c8fb3de5f2ddd4677b38627c7f355d28cf1b3857fd2a18b4b9fd73.svg" src="../_images/ca812cd791c8fb3de5f2ddd4677b38627c7f355d28cf1b3857fd2a18b4b9fd73.svg" /></figure>
+<img alt="../_images/b23e9827e3dc8bfa550aa8ca5183d66570e055d8e1c762f5c90bb81154188146.svg" src="../_images/b23e9827e3dc8bfa550aa8ca5183d66570e055d8e1c762f5c90bb81154188146.svg" /></figure>
 </div>
 </div>
 <p>Before running the algorithm, let’s do:</p>
@@ -1730,7 +1729,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx_i; \btheta \big).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/81bff42e326c75e2db278f00f276771b08c48db04e0b4b50d15a2316bd77af4c.svg" src="../_images/81bff42e326c75e2db278f00f276771b08c48db04e0b4b50d15a2316bd77af4c.svg" /></figure>
+<img alt="../_images/7bd91b673d67dfc4bdfdaa8ede771cee57a138ffbf866ab0c5ed019e2819617d.svg" src="../_images/7bd91b673d67dfc4bdfdaa8ede771cee57a138ffbf866ab0c5ed019e2819617d.svg" /></figure>
 </div>
 </div>
 <p>If we track the parameters <span class="math notranslate nohighlight">\(\btheta = (\theta_1,\theta_2)\)</span> during the runs, we get the following:</p>
@@ -1770,7 +1769,7 @@ J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx_i; \btheta \big).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/d1765b5bc5f26122969917fea4f3e7e5a29d484c69211cd65f28ae3e477f7667.svg" src="../_images/d1765b5bc5f26122969917fea4f3e7e5a29d484c69211cd65f28ae3e477f7667.svg" /></figure>
+<img alt="../_images/cd2b8f6b2994f89fefec6626f158007063935b6f97547356ad793b5f61da2148.svg" src="../_images/cd2b8f6b2994f89fefec6626f158007063935b6f97547356ad793b5f61da2148.svg" /></figure>
 </div>
 </div>
 <p>In both cases, notice that the algorithm is nicely converging toward the minimizer at <span class="math notranslate nohighlight">\(\btheta^\star \approx (0,0)\)</span>.</p>
@@ -1868,7 +1867,7 @@ N &amp; J(\btheta_{(N-1)p+1}), J(\btheta_{(N-1)p+2}),\ldots, J(\btheta_{Np})
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/cffd7cef549d13d86a8b2515b240423fa526b397630d77b2e1f62eeaf24ef2e4.svg" src="../_images/cffd7cef549d13d86a8b2515b240423fa526b397630d77b2e1f62eeaf24ef2e4.svg" /></figure>
+<img alt="../_images/840887fe508e31fd86c55bffda64befa829f456ab16a42c0d1992e60f12da30c.svg" src="../_images/840887fe508e31fd86c55bffda64befa829f456ab16a42c0d1992e60f12da30c.svg" /></figure>
 </div>
 </div>
 <p>Note that we have halted the runs early, before the algorithm has had a chance to make it through even one epoch. The plots are very noisy, though a slight downward trend in objective values is detectable. The trace of the algorithm through parameter space is shown in:</p>
@@ -1911,7 +1910,7 @@ N &amp; J(\btheta_{(N-1)p+1}), J(\btheta_{(N-1)p+2}),\ldots, J(\btheta_{Np})
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/beedd9adef6ee9c3e63091b7cfb7e9e78e5ef8d0343759e317e0e0e8c47a86a3.svg" src="../_images/beedd9adef6ee9c3e63091b7cfb7e9e78e5ef8d0343759e317e0e0e8c47a86a3.svg" /></figure>
+<img alt="../_images/4bb307e7697099288102666ee4f6b97d06c73fd58de98b8ae927fb2a6f67607b.svg" src="../_images/4bb307e7697099288102666ee4f6b97d06c73fd58de98b8ae927fb2a6f67607b.svg" /></figure>
 </div>
 </div>
 <p>The traces are also very noisy, especially in the first row with the large learning rate <span class="math notranslate nohighlight">\(\alpha=0.1\)</span>. Nevertheless, it is clear that the algorithm has found the neighborhood of the minimizer at <span class="math notranslate nohighlight">\((0,0)\)</span>. We might try to tame the noise in these plots by increasing the decay rate, but it turns out that increasing the batch size is the better way to do this. So, let’s try four larger batch sizes:</p>
@@ -1958,7 +1957,7 @@ N &amp; J(\btheta_{(N-1)p+1}), J(\btheta_{(N-1)p+2}),\ldots, J(\btheta_{Np})
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/f2f00af2650e32c7faa2a34c731f4749d8da6dde3f36a742b379db80be3bfc4c.svg" src="../_images/f2f00af2650e32c7faa2a34c731f4749d8da6dde3f36a742b379db80be3bfc4c.svg" /></figure>
+<img alt="../_images/b1148556b537d4a800d4e1a476b218c5df54619bdc01c85711121ea5367bedef.svg" src="../_images/b1148556b537d4a800d4e1a476b218c5df54619bdc01c85711121ea5367bedef.svg" /></figure>
 </div>
 </div>
 <p>The runs with batch sizes <span class="math notranslate nohighlight">\(k=2, 8, 32\)</span> halt before completing one epoch, while the run with batch size <span class="math notranslate nohighlight">\(k=128\)</span> completes three full epochs. Notice that the noise in the plots progressively decreases as the batch size increases. The traces through parameter space look like:</p>
@@ -2001,7 +2000,7 @@ N &amp; J(\btheta_{(N-1)p+1}), J(\btheta_{(N-1)p+2}),\ldots, J(\btheta_{Np})
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/bcfc3ecfe828f376dcd007096a12aa66ec3627fcffc964ebce0ea933c9a1239b.svg" src="../_images/bcfc3ecfe828f376dcd007096a12aa66ec3627fcffc964ebce0ea933c9a1239b.svg" /></figure>
+<img alt="../_images/c4278e9b826af3aa51ac2013c4212f1fff7927192ccc8863a87b1108b4ddadc7.svg" src="../_images/c4278e9b826af3aa51ac2013c4212f1fff7927192ccc8863a87b1108b4ddadc7.svg" /></figure>
 </div>
 </div>
 <p>As we mentioned above, it may be helpful to track the mean objective values per epoch to help see the general trend of the objective through the noise. To illustrate this point, let’s suppose that we continue our runs of mini-batch gradient descent so that they all complete six epochs. If we plot both the objective per gradient step and the mean objective per epoch, we get the following plots:</p>
@@ -2048,13 +2047,13 @@ N &amp; J(\btheta_{(N-1)p+1}), J(\btheta_{(N-1)p+2}),\ldots, J(\btheta_{Np})
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ed283fa33ca0dccf78d29ce0dff9342c6f60cde65e87fb19386df7eafb246bb0.svg" src="../_images/ed283fa33ca0dccf78d29ce0dff9342c6f60cde65e87fb19386df7eafb246bb0.svg" /></figure>
+<img alt="../_images/41194b5d845e47fa4d268653b59a2d49c2313d4a7cd8553d7191f319015bc8c6.svg" src="../_images/41194b5d845e47fa4d268653b59a2d49c2313d4a7cd8553d7191f319015bc8c6.svg" /></figure>
 </div>
 </div>
 </section>
 <section id="appendix-convex-functions">
-<span id="app-conv-sec"></span><h2><span class="section-number">11.5. </span>Appendix: Convex functions<a class="headerlink" href="#appendix-convex-functions" title="Permalink to this heading">#</a></h2>
-<p>To be written!!!</p>
+<span id="app-conv-sec"></span><h2><span class="section-number">11.5. </span>Appendix: convex functions<a class="headerlink" href="#appendix-convex-functions" title="Permalink to this heading">#</a></h2>
+<p>We begin with the definition of a convex function. Notice that it does not require that the function have any special properties, like differentiability.</p>
 <div class="proof definition admonition" id="convex-concave-def">
 <p class="admonition-title"><span class="caption-number">Definition 11.6 </span></p>
 <section class="definition-content" id="proof-content">
@@ -2065,7 +2064,8 @@ J\big((1-t) \ba + t\bb\big) \leq (1-t) J(\ba) + t J(\bb)
 \]</div>
 <p>for all <span class="math notranslate nohighlight">\(\ba,\bb\in \bbr^n\)</span> and all <span class="math notranslate nohighlight">\(t\in [0,1]\)</span>. If “<span class="math notranslate nohighlight">\(\leq\)</span>” is replaced with “<span class="math notranslate nohighlight">\(&lt;\)</span>”, then the function is called <em>strictly convex</em>; if the inequalities are reversed, we obtain the definitions of <em>concave</em> and <em>strictly concave</em>.</p>
 </section>
-</div><div class="proof theorem admonition" id="main-convex-thm">
+</div><p>Essentially, the definition says that a function is convex provided that its graph “lies below its secant lines.” If the function is twice-differentiable, then there equivalent characterizations of convexity in terms of calculus:</p>
+<div class="proof theorem admonition" id="main-convex-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 11.6 </span> (Main theorem on convex functions (single-variable version))</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(J: \bbr \to \bbr\)</span> be a twice-differentiable function. The following statements are equivalent:</p>
@@ -2089,15 +2089,15 @@ J\big((1-t) \ba + t\bb\big) \leq (1-t) J(\ba) + t J(\bb)
 </section>
 </div><div class="proof admonition" id="proof">
 <p>Proof. We shall prove the statements as (1) <span class="math notranslate nohighlight">\(\Rightarrow\)</span> (3) <span class="math notranslate nohighlight">\(\Rightarrow\)</span> (2) <span class="math notranslate nohighlight">\(\Rightarrow\)</span> (1), and then (3) <span class="math notranslate nohighlight">\(\Rightarrow\)</span> (4) <span class="math notranslate nohighlight">\(\Rightarrow\)</span> (2).</p>
-<p>(1) <span class="math notranslate nohighlight">\(\Rightarrow\)</span> (3): Suppose that <span class="math notranslate nohighlight">\(\theta,a\in \bbr\)</span> and note that</p>
+<p>(1) <span class="math notranslate nohighlight">\(\Rightarrow\)</span> (3): For each <span class="math notranslate nohighlight">\(\theta,a\in \bbr\)</span>, we have</p>
 <div class="math notranslate nohighlight" id="equation-der-almost-eq">
 <span class="eqno">(11.21)<a class="headerlink" href="#equation-der-almost-eq" title="Permalink to this equation">#</a></span>\[
 J'(a)(\theta-a) = \lim_{t\to 0} \frac{J\big( a+t(\theta-a) \big) - J(a)}{t}.
 \]</div>
-<p>Provided <span class="math notranslate nohighlight">\(t\in [0,1]\)</span> we have</p>
+<p>Provided <span class="math notranslate nohighlight">\(t\in [0,1]\)</span>, we have</p>
 <div class="math notranslate nohighlight">
 \[
-J\big( a+t(\theta-a) \big) = J \big( (1-t)a + t\theta\big) \leq (1-t)J(a) + tJ(\theta) = J(a) +t\big(J(\theta) - J(a)\big)
+J\big( a+t(\theta-a) \big) = J \big( (1-t)a + t\theta\big) \leq (1-t)J(a) + tJ(\theta)
 \]</div>
 <p>and so</p>
 <div class="math notranslate nohighlight">
@@ -2175,7 +2175,7 @@ J'(u) = \frac{J(b)-J(a)}{b-a} \quad \text{and} \quad J'(v) = \frac{J(c)-J(b)}{b-
 \]</div>
 <p>since <span class="math notranslate nohighlight">\(u&lt;v\)</span> and <span class="math notranslate nohighlight">\(J'\)</span> is increasing. Q.E.D.</p>
 </div>
-<p>Suppose <span class="math notranslate nohighlight">\(g:\bbr \to \bbr\)</span> is a twice-differentiable function, <span class="math notranslate nohighlight">\(s,t\)</span> are fixed distinct real numbers, and we define</p>
+<p>Our goal now is to generalize the main theorem to convex functions of multiple variables. To do this, we will use the theorem for functions of a single variable, along with the following device: Suppose <span class="math notranslate nohighlight">\(g:\bbr \to \bbr\)</span> is a twice-differentiable function, <span class="math notranslate nohighlight">\(s,t\)</span> are fixed distinct real numbers, and we define</p>
 <div class="math notranslate nohighlight" id="equation-aux-func-eq">
 <span class="eqno">(11.25)<a class="headerlink" href="#equation-aux-func-eq" title="Permalink to this equation">#</a></span>\[
 h:\bbr \to \bbr, \quad h(r) = g\big(r(s-t)+t\big).
@@ -2193,7 +2193,18 @@ g''(t) \geq 0 \quad \Leftrightarrow \quad h''(0) \geq 0.
 <div class="proof theorem admonition" id="main-convex-multi-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 11.7 </span> (Main theorem on convex functions (multi-variable version))</p>
 <section class="theorem-content" id="proof-content">
-<p>Blah blah blah, to be written later.</p>
+<p>Let <span class="math notranslate nohighlight">\(J: \bbr^n \to \bbr\)</span> be a function of class <span class="math notranslate nohighlight">\(C^2\)</span>. The following statements are equivalent:</p>
+<ol class="arabic">
+<li><p>The function <span class="math notranslate nohighlight">\(J\)</span> is convex.</p></li>
+<li><p>The graph of <span class="math notranslate nohighlight">\(J\)</span> lies above its tangent planes, i.e., for all <span class="math notranslate nohighlight">\(\btheta,\bv\in \bbr^n\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[
+    J(\bv + \btheta) \geq \bv^\intercal \nabla J(\btheta) + J(\btheta).
+    \]</div>
+</li>
+<li><p>The Hessian matrix <span class="math notranslate nohighlight">\(\nabla^2 J(\btheta)\)</span> is positive semidefinite</p></li>
+</ol>
+<p>Moreover, if <span class="math notranslate nohighlight">\(\btheta^\star\)</span> is a stationary point of <span class="math notranslate nohighlight">\(J\)</span> and <span class="math notranslate nohighlight">\(J\)</span> is convex, then <span class="math notranslate nohighlight">\(\btheta^\star\)</span> is a global minimizer.</p>
 </section>
 </div><div class="proof admonition" id="proof">
 <p>Proof. Throughout the proof we fix <span class="math notranslate nohighlight">\(\btheta,\bv\in \bbr^n\)</span> and we consider the function</p>
@@ -2201,6 +2212,7 @@ g''(t) \geq 0 \quad \Leftrightarrow \quad h''(0) \geq 0.
 <span class="eqno">(11.28)<a class="headerlink" href="#equation-aux-2-eq" title="Permalink to this equation">#</a></span>\[
 g: \bbr \to \bbr, \quad g(t) \def J\big(t \bv + \btheta \big).
 \]</div>
+<p>Notice that this is exactly the function used in <a class="reference internal" href="#curvature-der-sec"><span class="std std-numref">Section 11.2</span></a> in the definitions of the directional first and second derivatives.</p>
 <p>(1) <span class="math notranslate nohighlight">\(\Rightarrow\)</span> (2): Supposing that <span class="math notranslate nohighlight">\(J\)</span> is convex, the function <span class="math notranslate nohighlight">\(g\)</span> is easily seen to be convex. Thus,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -2320,7 +2332,7 @@ h''(0) = (s-t)^2\bv^\intercal \nabla^2 J(t\bv + \btheta)\bv \geq 0
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#differential-geometry">11.2. Differential geometry</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-in-multiple-variables">11.3. Gradient descent in multiple variables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-gradient-descent">11.4. Stochastic gradient descent</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-convex-functions">11.5. Appendix: Convex functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#appendix-convex-functions">11.5. Appendix: convex functions</a></li>
 </ul>
   </nav></div>
 
