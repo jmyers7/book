@@ -398,27 +398,7 @@ Y \mid \bX; \ \beta_0,\bbeta,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big), \q
 $$
 ````
 
-Before we introduce important terminology associated with linear regression models and look at an example, we need to discuss two probability density functions that will play a crucial role in the [next chapter](learning). The first is just the conditional density function of $Y$ given $\bX$:
-
-```{prf:definition}
-:label: linear-reg-pf-def
-
-The _model probability function for a linear regression model_ is the conditional probability density function
-
-$$
-p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big).
-$$
-
-On its support consisting of all $y\in \bbr$ and $\bx \in \bbr^{n}$, it is given by the formula
-
-$$
-p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} ( y - \mu)^2 \right),
-$$
-
-where $\mu = \beta_0 + \bx^\intercal \bbeta$.
-```
-
-The second important probability density function is obtained from the plated version of a linear regression model:
+Before we introduce important terminology associated with linear regression models and look at an example, we need to discuss two probability functions that will play a crucial role in the [next chapter](learning). The first is just the conditional probability function of $Y$ given $\bX$, while the second is obtained from the plated version of a linear regression model: 
 
 ```{image} ../img/lin-reg-00-plated.svg
 :width: 50%
@@ -426,22 +406,36 @@ The second important probability density function is obtained from the plated ve
 ```
 &nbsp;
 
-Observations of the visible nodes correspond to an observed dataset. Then:
+Observations of the visible nodes correspond to an observed dataset.
 
 ```{prf:definition}
-:label: lin-reg-data-pf-def
+:label: linear-reg-pf-def
 
-Given an observed dataset
+1. The _model probability function_ for a linear regression model is the conditional probability function
 
-$$
-(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m0) \in \bbr^{n} \times \bbr,
-$$
+    $$
+    p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big).
+    $$
 
-the _data probability function for a linear regression model_ is the conditional probability density function
+    On its support consisting of all $y\in \bbr$ and $\bx \in \bbr^{n}$, it is given by the formula
 
-$$
-p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta,\sigma^2 \big) = \prod_{i=1}^m p\big(y_i \mid \bx_i ; \ \beta_0, \bbeta, \sigma^2\big).
-$$ (data-pf-eqn)
+    $$
+    p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} ( y - \mu)^2 \right),
+    $$
+
+    where $\mu = \beta_0 + \bx^\intercal \bbeta$.
+
+2. Given an observed dataset
+
+    $$
+    (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr,
+    $$
+
+    the _data probability function_ for a linear regression model is the conditional probability density function
+
+    $$
+    p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta,\sigma^2 \big) = \prod_{i=1}^m p\big(y_i \mid \bx_i ; \ \beta_0, \bbeta, \sigma^2\big).
+    $$ (data-pf-eqn)
 ```
 
 Note that the data probability function appears to be _defined_ as a product of model probability functions. However, using independence of the random sample
@@ -580,3 +574,703 @@ plt.tight_layout()
 ```
 
 For smaller values of area, the distribution of the true prices is narrower compared to the simulated prices, while for larger values of area, the distribution of the true prices is wider.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(log-reg-sec)=
+## Logistic regression models
+
+The types of models studied in this section are closely related to the linear regression models in the previous, but here the goal is to model a dataset of the form
+
+$$
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \{0,1\}.
+$$
+
+Such datasets arise naturally in _binary classification problems_, where we aim to determine which of two classes a given object lies in based on predictor features. The true class of the $i$-th object is indicated by the value of $y_i$, while the vector $\bx_i$ consists of the predictor features.
+
+As a running example through this section, consider the data given in following scatter plot:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+# import the data
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch10-book-data-01.csv'
+df = pd.read_csv(url)
+
+# plot the data
+g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
+
+# change the default seaborn legend
+g.legend_.set_title(None)
+new_labels = ['class 0', 'class 1']
+for t, l in zip(g.legend_.texts, new_labels):
+    t.set_text(l)
+
+plt.xlabel('$x_1$')
+plt.ylabel('$x_2$')
+plt.gcf().set_size_inches(w=5, h=3)
+plt.tight_layout()
+```
+
+The points represent the $2$-dimensional predictors
+
+$$
+\bx_i^\intercal = \begin{bmatrix} x_{i1} & x_{i2} \end{bmatrix},
+$$
+
+while the color indicates the class $y_i \in \{0,1\}$. Our goal in this section is to capture the evident pattern in the data using a _logistic regression model_.
+
+To define these models, we first need to discuss the important _sigmoid function_, defined as
+
+$$
+\sigma: \bbr \to (0,1), \quad \sigma(x) = \frac{1}{1+e^{-x}}.
+$$
+
+Its graph is:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+import torch
+import torch.nn.functional as F
+
+grid = torch.linspace(start=-10, end=10, steps=300)
+plt.plot(grid, F.sigmoid(grid))
+plt.gcf().set_size_inches(w=5, h=3)
+plt.xlabel('$x$')
+plt.ylabel('$\sigma(x)$')
+plt.tight_layout()
+```
+
+Since the outputs of the sigmoid function land in the open interval $(0,1)$, we may use it to convert _any_ real number into a _probability_. Indeed, this is precisely its role in a _logistic regression model_:
+
+
+````{prf:definition}
+:label: log-reg-def
+
+A _logistic regression model_ is a probabilistic graphical model whose underlying graph is of the form
+
+```{image} ../img/log-reg-00.svg
+:width: 50%
+:align: center
+```
+&nbsp;
+
+where $\bX\in \bbr^{n}$. The model has the following parameters:
+
+* A real parameter $\beta_0\in \mathbb{R}$.
+
+* A parameter vector $\bbeta \in \mathbb{R}^{n}$.
+
+The link function at $Y$ is given by
+
+$$
+Y \mid \bX; \ \beta_0,\bbeta \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx^\intercal\bbeta),
+$$
+
+and where $\sigma$ is the sigmoid function.
+````
+
+Notice that the link function $\phi = \sigma(\beta_0 + \bx^\intercal\bbeta)$ in a logistic regression model is precisely the affine link function $\mu = \beta_0 + \bx^\intercal\bbeta$ of a linear regression model composed with the sigmoid function.
+
+The two probability functions that we will use to train logistic regression models in the [next chapter](learning) are given as follows. The second is obtained from the plated version of a logistic regression model:
+
+```{image} ../img/log-reg-00-plated.svg
+:width: 50%
+:align: center
+```
+&nbsp;
+
+The two probability functions are:
+
+```{prf:definition}
+:label: log-reg-pf-def
+
+1. The _model probability function_ for a logistic regression model is the conditional probability function
+
+    $$
+    p\big(y \mid \bx ; \ \beta_0, \bbeta\big).
+    $$
+
+    On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{n}$, it is given by the formula
+
+    $$
+    p\big(y \mid \bx ; \ \beta_0, \bbeta\big) = \phi^y (1-\phi)^{1-y}
+    $$
+
+    where $\phi = \sigma(\beta_0 + \bx^\intercal \bbeta)$.
+
+2. Given a dataset
+
+    $$
+    (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \{0,1\},
+    $$
+
+    the _data probability function for a logistic regression model_ is the conditional probability density function
+
+    $$
+    p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta\big) = \prod_{i=1}^m p\big(y_i \mid \bx_i ; \ \beta_0, \bbeta\big).
+    $$ (log-reg-data-pf-eqn)
+```
+
+As in {prf:ref}`linear-reg-pf-def`, one may _prove_ that the data probability function of a logistic regression model is given by the product of model probability functions in {eq}`log-reg-data-pf-eqn`.
+
+Let's return to our toy dataset introduced at the beginning of the section. To aid with training, it is often helpful to _standardize_ the predictor features
+
+$$
+\bx_1,\ldots,\bx_m \in \bbr^{n}.
+$$
+
+This means that we compute the (empirical) mean $\bar{x}_j$ and standard deviation $s_j$ of each sequence
+
+$$
+x_{1j},\ldots,x_{mj} \in \bbr
+$$
+
+of components, and then replace each $x_{ij}$ with
+
+$$
+\frac{x_{ij} - \bar{x}_j}{s_j}.
+$$
+
+It is convenient to visualize this process in terms of the so-called _design matrix_
+
+$$
+\mathbfcal{X} = \begin{bmatrix} \leftarrow & \bx_1^\intercal & \rightarrow \\ \vdots & \vdots & \vdots \\ \leftarrow & \bx_m^\intercal & \rightarrow \end{bmatrix} = \begin{bmatrix} x_{11} & \cdots & x_{1n} \\
+\vdots & \ddots & \vdots \\
+x_{m1} & \cdots & x_{mn}
+\end{bmatrix}.
+$$
+
+Then the empirical means $\bar{x}_j$ and standard deviations $s_j$ are precisely the means and standard deviations of the columns.
+
+If we standardize our toy dataset, we get the following:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+# import scaler from scikit-learn
+from sklearn.preprocessing import StandardScaler
+
+# convert the data to numpy arrays
+X = df[['x_1', 'x_2']].to_numpy()
+y = df['y'].to_numpy()
+
+# scale the input data
+ss = StandardScaler()
+X = ss.fit_transform(X=X)
+
+# replaced the columns of the dataframe with the transformed data
+df['x_1'] = X[:, 0]
+df['x_2'] = X[:, 1]
+
+# plot the scaled data
+g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
+
+# change the default seaborn legend
+g.legend_.set_title(None)
+new_labels = ['class 0', 'class 1']
+for t, l in zip(g.legend_.texts, new_labels):
+    t.set_text(l)
+
+plt.xlabel('$x_1$')
+plt.ylabel('$x_2$')
+plt.gcf().set_size_inches(w=5, h=3)
+plt.tight_layout()
+```
+
+Notice that the values of the two features $x_1$ and $x_2$ now lie in comparable ranges, while the overall _shape_ of the dataset has not changed.
+
+Along with linear regression models, in the [next chapter](learning) we will see how to learn optimal values of the parameters $\beta_0$ and $\bbeta$ from data. With these parameters in hand, one way to check how well a logistic regression model captures the data is to draw a contour plot of the function $\phi = \sigma( \beta_0 + \bx^\intercal \bbeta)$. This contour plot appears on the left in the following:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+# import logistic regression model from scikit-learn
+from sklearn.linear_model import LogisticRegression
+
+# instantiate a logistic regression model
+model = LogisticRegression()
+
+# train the model
+model.fit(X=X, y=y)
+
+# get the grid for the contour plot
+resolution = 1000
+x_1 = (-2, 2)
+x_2 = (-3.5, 3.5)
+x1_grid, x2_grid = torch.meshgrid(torch.linspace(*x_1, resolution), torch.linspace(*x_2, resolution))
+grid = torch.column_stack((x1_grid.reshape((resolution ** 2, -1)), x2_grid.reshape((resolution ** 2, -1))))
+
+# define colormaps for the contour plots
+desat_blue = '#7F93FF'
+desat_magenta = '#FF7CFE'
+diverging_cmap = clr.LinearSegmentedColormap.from_list(name='diverging', colors=[desat_blue, 'white', desat_magenta], N=10)
+binary_cmap = clr.LinearSegmentedColormap.from_list(name='binary', colors=[desat_blue, desat_magenta], N=2)
+
+_, axes = plt.subplots(ncols=3, figsize=(10, 3), width_ratios=[10, 10, 1])
+
+# generate the contour plots
+z = model.predict_proba(grid)[:, 1]
+z = z.reshape(resolution, resolution)
+axes[0].contourf(x1_grid, x2_grid, z, cmap=diverging_cmap, levels=diverging_cmap.N)
+z = model.predict(grid)
+z = z.reshape(resolution, resolution)
+axes[1].contourf(x1_grid, x2_grid, z, cmap=binary_cmap, levels=binary_cmap.N)
+
+# create the colorbar
+plt.colorbar(mpl.cm.ScalarMappable(cmap=diverging_cmap), cax=axes[2], orientation='vertical')
+
+# plot the data
+for axis in axes[:-1]:
+    sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axis, legend=False)
+    axis.set_xlabel('$x_1$')
+    axis.set_ylabel('$x_2$')
+
+plt.tight_layout()
+```
+
+To interpret this plot, remember that $\phi = \sigma( \beta_0 + \bx^\intercal \bbeta)$ is the probability parameter for the class indicator variable $Y \sim \Ber(\phi)$, so we should interpret $\phi$ as the probability that the point $\bx$ is in class $1$ (corresponding to $y=1$). In the right-hand plot, we have "thresholded" the probability $\phi$ at $0.5$, creating a _predictor function_
+
+$$
+f:\bbr^{2} \to \{0,1\}, \quad f(\bx) = \begin{cases}
+0 & : \sigma(\beta_0 + \bx^\intercal\bbeta) < 0.5, \\
+1 & : \sigma(\beta_0 + \bx^\intercal\bbeta) \geq 0.5. \\
+\end{cases}
+$$
+
+The _decision boundary_ is exactly the curve in $\bbr^2$ consisting of those $\bx$ for which the predictor $f$ is "flipping a coin," i.e., it consists of those points $\bx$ such that
+
+$$
+\sigma(\beta_0 + \bx^\intercal \bbeta) = 0.5,
+$$
+
+which is equivalent to
+
+$$
+\beta_0 + \bx^\intercal \bbeta = 0.
+$$
+
+Notice that this defines a _linear_ decision boundary that separates $\bbr^2$ into two unbounded half planes based on whether
+
+$$
+\beta_0 + \bx^\intercal \bbeta > 0 \quad \text{or} \quad \beta_0 + \bx^\intercal \bbeta < 0.
+$$
+
+Those vectors $\bx$ satisfying the first inequality would be predicted to belong to class $1$, while those satisfying the latter inequality would be predicted to belong to class $0$. As is evident from the plots, our logistic regression model is doing its best to accurately classify as many data points as possible, but our model is handicapped by the fact it will _always_ produce a linear decision boundary.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(nn-sec)=
+## Neural network models
+
+The desire to obtain _nonlinear_ decision boundaries is (in part) the motivation for the probabilistic graphical models studied in this section, called _neural networks_. While there are many (_many!_) different types of neural network architectures in current use, the particular type that we shall begin our study with are _fully-connected, feedforward neural networks with one hidden layer_.
+
+Essentially, these types of neural networks are logistic regression models with a hidden deterministic node $\bz$ sandwiched between the predictor features $\bX$ and the response variable $Y$. The link from $\bz$ to $Y$ goes through the same sigmoid function used in the definition of logistic regression models, but the link from $\bX$ to $\bz$ goes through a function called the _rectified linear unit_ (_ReLU_), defined as
+
+$$
+\rho: \bbr \to [0,\infty), \quad \rho(x) = \max\{0, x\}.
+$$
+
+The ReLU function is piecewise linear, with a graph of the form:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+relu_grid = torch.linspace(start=-2, end=2, steps=200)
+plt.plot(relu_grid, F.relu(relu_grid))
+plt.gcf().set_size_inches(w=5, h=3)
+plt.xlabel('$x$')
+plt.ylabel('$\\rho(x)$')
+plt.tight_layout()
+```
+
+We may apply the ReLU function to vectors $\bx\in \bbr^{1\times n}$ by "vectorization" (in pythonic language), which just means that we apply it componentwise:
+
+$$
+\rho(\bx)^\intercal \def \begin{bmatrix} \rho(x_1) & \cdots & \rho(x_n) \end{bmatrix}.
+$$
+
+Using these pieces, we now state the official definition in the case that the neural network has one hidden layer; later, we shall indicate how one obtains "deeper" neural networks by adding additional hidden layers.
+
+
+````{prf:definition}
+:label: neural-net-def
+
+A _(fully-connected, feedforward) neural network with one hidden layer_ is a probabilistic graphical model whose underlying graph is of the form
+
+```{image} ../img/nn-00.svg
+:width: 50%
+:align: center
+```
+&nbsp;
+
+where $\bX\in \bbr^{n}$ and $\bz \in \bbr^{k}$. The model has the following parameters:
+
+* A parameter matrix $\mathbf{W} \in \mathbb{R}^{n\times k}$.
+
+* A parameter vector $\bb \in \mathbb{R}^{k}$.
+
+* A parameter vector $\bw \in \mathbb{R}^{k}$.
+
+* A real parameter $b \in \mathbb{R}$.
+
+The link function at $\mathbf{z}$ is given by
+
+$$
+\mathbf{z} = \rho(\mathbf{x}^\intercal\bW + \bb),
+$$
+
+while the link function at $Y$ is given by
+
+$$
+Y ;\  \mathbf{z}, \bw, b \sim \mathcal{B}er\big(\phi\big), \quad \text{where} \quad \phi = \sigma(\bz^\intercal\bw + b).
+$$
+
+Here, $\rho$ is the ReLU function and $\sigma$ is the sigmoid function.
+````
+
+The name "neural network" comes from a loose analogy with networks of biological neurons in the human brain. For this reason, sometimes neural networks just defined are called _artificial neural networks_ (*ANN*s).
+
+Following the pattern begun with linear and logistic regression models, we first want to give the probability functions that we will use in the [next chapter](learning) to train neural network models. The second one is obatained from the plated version of a neural network:
+
+```{image} ../img/nn-00-plated.svg
+:width: 50%
+:align: center
+```
+&nbsp;
+
+The two probability functions are:
+
+```{prf:definition}
+:label: neural-net-pf-def
+
+1. The _model probability function_ for a neural network model is the conditional probability function
+
+    $$
+    p\big(y \mid \bx ; \ \bW, \bb, \bw, b \big).
+    $$
+
+    On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{n}$, it is given by the formula
+
+    $$
+    p\big(y \mid \bx ; \ \bW, \bb, \bw, b \big) = \phi^y (1-\phi)^{1-y}
+    $$
+
+    where $\phi = \sigma(\bz^\intercal \bw + b)$ and $\bz = \sigma(\bx^\intercal \bW + \bb)$.
+
+
+2. Given a dataset
+
+    $$
+    (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \{0,1\},
+    $$
+
+    the _data probability function_ for a neural network model is the conditional probability function
+
+    $$
+    p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \bW, \bb, \bw, b\big) = \prod_{i=1}^m p\big(y_i \mid \bx_i ; \ \bW, \bb, \bw, b\big).
+    $$
+```
+
+Very often, one sees the underlying graph of a neural network displayed in terms of the components of the vectors (with the parameters omitted). For example, in the case that $\bX$ is $3$-dimensional and $\bz$ is $4$-dimensional, we might see the graph of the neural network drawn as
+
+```{image} ../img/nn-neuron.svg
+:width: 60%
+:align: center
+```
+&nbsp;
+
+In this format, the nodes are often called _(artificial) neurons_ or _units_. The visible neurons $X_1,X_2,X_3$ are said to comprise the _input layer_ of the network, the hidden neurons $z_1,z_2,z_3,z_4$ make up a _hidden layer_, and the single visible neuron $Y$ makes up the _output layer_. The network is called _fully-connected_ because there is a link function at a given neuron _from_ every neuron in the previous layer and _to_ every neuron in the subsequent layer; it is called a _feedfoward_ network because the link functions only go in one direction, with no feedback links. The link function at $z_j$ is of the form
+
+$$
+z_j = \rho(\bx^intercal \bw_j + b_j),
+$$
+
+where
+
+$$
+\bW = \begin{bmatrix} \uparrow & \uparrow & \uparrow & \uparrow \\ \bw_1 & \bw_2 & \bw_3 & \bw_4 \\
+\downarrow & \downarrow & \downarrow & \downarrow \end{bmatrix} \quad \text{and} \quad \bb = \begin{bmatrix} b_{1} & b_2 & b_3 & b_{4} \end{bmatrix}.
+$$
+
+The link function at $Y$ is given by the same formula as before using the sigmoid function. In the literature, the ReLU function $\rho$ and the sigmoid function $\sigma$ are often called _activation functions_ of the network. The parameters $\bW$ and $\bw$ are called _weights_, while the parameters $\bb$ and $b$ are called _biases_.
+
+From our networks with just one hidden layer, it is easy to imagine how we might obtain "deeper" networks by adding additional hidden layers; for example, a network with two hidden layers might look like this:
+
+```{image} ../img/nn-neuron-02.svg
+:width: 80%
+:align: center
+```
+&nbsp;
+
+If we collapse the neurons into vectors and bring in the parameters, this network would be drawn as
+
+```{image} ../img/nn-02.svg
+:width: 65%
+:align: center
+```
+&nbsp;
+
+There are now _two_ weight matrices $\bW_1$ and $\bW_2$, along with _two_ bias vectors $\bb_1$ and $\bb_2$. The link functions at $\bz_1$ and $\bz_2$ are given by
+
+$$
+\bz_\ell = \rho\big(\bz_{\ell-1}^\intercal \bW_\ell + \bb_\ell \big) \quad \text{for $\ell=1,2$,}
+$$
+
+where we set $\bz_\ell = \bx$. The link function at $Y$ is the same as it was before:
+
+$$
+Y; \ \bz_2, \bw, b \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \bz_2^\intercal \bw + b\big).
+$$
+
+The _depth_ of a neural network is defined to be one less than the total number of layers. The "one less" convention is due to the fact that only the hidden and output layers are associated with trainable parameters. Equivalently, the _depth_ is the number of "layers" of link functions (with trainable parameters). The _widths_ of a network are defined to be the dimensions of the hidden vectors.
+
+Let's return to our toy dataset from the [previous section](log-reg-sec), but with an extra four "blobs" of data just to make things interesting:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch10-book-data-03.csv'
+df = pd.read_csv(url)
+
+# convert the data to numpy arrays
+X = df[['x_1', 'x_2']].to_numpy()
+y = df['y'].to_numpy()
+
+# scale the input data
+ss = StandardScaler()
+X = ss.fit_transform(X=X)
+
+# replaced the columns of the dataframe with the transformed data
+df['x_1'] = X[:, 0]
+df['x_2'] = X[:, 1]
+
+# convert the data to torch tensors
+X = torch.tensor(data=X, dtype=torch.float32)
+y = torch.tensor(data=y, dtype=torch.float32)
+
+# plot the data
+g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
+
+# change the default seaborn legend
+g.legend_.set_title(None)
+new_labels = ['class 0', 'class 1']
+for t, k2 in zip(g.legend_.texts, new_labels):
+    t.set_text(k2)
+
+plt.xlabel('$x_1$')
+plt.ylabel('$x_2$')
+plt.gcf().set_size_inches(w=5, h=3)
+plt.tight_layout()
+```
+
+Trained on the original dataset (without the "blobs"), we saw that a logistic regression model produces a _linear_ decision boundary and thus misclassifies a nontrivial number of data points. In comparison, not only will a neural network produce a nonlinear decision boundary dividing the data in the original dataset, it will also correctly classify the data in the four new "blobs." Indeed, using the techniques in the [next chapter](learning), we trained a neural network on the new dataset with _three_ hidden layers of widths $8$, $8$, and $4$. Then, a contour plot of the function
+
+$$
+\phi = \sigma\big(\bz_3^\intercal\bw + b\big)
+$$
+
+appears on the left-hand side of the following figure, while the "thresholded" version (at $0.5$) appears on the right-hand side displaying the (nonlinear!) decision boundaries:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+import torch.nn as nn
+
+# define the neural network model architecture
+torch.manual_seed(42)
+k1 = 8 # width of first hidden layer
+k2 = 8 # width of second hidden layer
+k3 = 4 # width of third hidden layer
+
+class NeuralNetwork(nn.Module):
+    def __init__(self, input_dimension):
+        super().__init__()
+
+        # three hidden layers...
+        self.hidden1_linear = nn.Linear(in_features=input_dimension, out_features=k1)
+        self.hidden1_act = nn.ReLU()
+        self.hidden2_linear = nn.Linear(in_features=k1, out_features=k2)
+        self.hidden2_act = nn.ReLU()
+        self.hidden3_linear = nn.Linear(in_features=k2, out_features=k3)
+        self.hidden3_act = nn.ReLU()
+        
+        # ...and one output layer
+        self.output_linear = nn.Linear(in_features=k3, out_features=1)
+        self.output_act = nn.Sigmoid()
+
+    def forward(self, X):
+        X = self.hidden1_act(self.hidden1_linear(X))
+        hidden_output_1 = X
+        X = self.hidden2_act(self.hidden2_linear(X))
+        hidden_output_2 = X
+        X = self.hidden3_act(self.hidden3_linear(X))
+        hidden_output_3 = X
+        X = self.output_act(self.output_linear(X))
+
+        return X, hidden_output_1, hidden_output_2, hidden_output_3
+    
+model = NeuralNetwork(input_dimension=2)
+
+# define the loss function and optimizer
+loss_fn = torch.nn.BCELoss()
+optimizer = torch.optim.SGD(params=model.parameters(), lr=5e-1)
+
+# train the model
+num_epochs = 4000
+for _ in range(num_epochs):
+    optimizer.zero_grad()
+    y_hat = model(X)[0]
+    loss = loss_fn(y_hat.squeeze(), y)
+    loss.backward()
+    optimizer.step()
+
+_, axes = plt.subplots(ncols=3, figsize=(10, 4), width_ratios=[10, 10, 1])
+
+# get the grid for the contour plot
+resolution = 1000
+x1_grid = torch.linspace(-1.75, 1.75, resolution)
+x2_grid = torch.linspace(-1.5, 1.5, resolution)
+x1_grid, x2_grid = torch.meshgrid(x1_grid, x2_grid)
+grid = torch.column_stack((x1_grid.reshape((resolution ** 2, -1)), x2_grid.reshape((resolution ** 2, -1))))
+
+# generate the contour plots
+grid_outputs = model(grid)
+z = grid_outputs[0].detach()
+z = z.reshape(resolution, resolution)
+axes[0].contourf(x1_grid, x2_grid, z, cmap=diverging_cmap, levels=diverging_cmap.N)
+z = grid_outputs[0] >= 0.5
+z = z.reshape(resolution, resolution)
+axes[1].contourf(x1_grid, x2_grid, z, cmap=binary_cmap, levels=binary_cmap.N)
+
+# create the colorbar
+plt.colorbar(mpl.cm.ScalarMappable(cmap=diverging_cmap), cax=axes[2], orientation='vertical')
+
+# plot the data
+for axis in axes[:-1]:
+    sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axis, legend=False)
+    axis.set_xlabel('$x_1$')
+    axis.set_ylabel('$x_2$')
+
+plt.tight_layout()
+```
+
+Notice that the band of white dividing the original dataset (representing values $\phi \approx 0.5$) in the left-hand plot is much narrower compared to the same plot for the logistic regression model. This indicates that the neural network is making much more confident predictions up to its decision boundary (displayed in the right-hand plot) compared to the logistic regression model.
+
+To be written: Blah, blah blah, talk about activations:
+
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+fig = plt.figure(constrained_layout=True, figsize=(14, 14))
+subfigs = fig.subfigures(ncols=2, nrows=3, hspace=0.03, height_ratios=[2, 2, 1], width_ratios=[18, 1])
+
+light_cmap = clr.LinearSegmentedColormap.from_list(name='light', colors=['white', magenta], N=16)
+
+# hidden layer 1, with 8 neurons
+subfig = subfigs[0, 0]
+subfig.suptitle(f'neurons in hidden layer 1')
+axes = subfig.subplots(nrows=2, ncols=4, sharex=True, sharey=True)
+    
+for j, axis in enumerate(axes.flatten()):
+    z = grid_outputs[1][:, j].detach().numpy()
+    z = z.reshape(resolution, resolution)
+    contour = axis.contourf(x1_grid, x2_grid, z, cmap=light_cmap, levels=light_cmap.N, vmin=0, vmax=3)
+    
+    sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axis, legend=False, zorder=3)
+    axis.set_title(f'neuron {j + 1}')
+    axis.set_xlabel('$x_1$')
+    axis.set_ylabel('$x_2$')
+
+# hidden layer 2, with 4 neurons
+subfig = subfigs[1, 0]
+subfig.suptitle(f'neurons in hidden layer 2')
+axes = subfig.subplots(nrows=2, ncols=4, sharex=True, sharey=True)
+
+for j, axis in enumerate(axes.flatten()):
+    z = grid_outputs[2][:, j].detach().numpy()
+    z = z.reshape(resolution, resolution)
+    axis.contourf(x1_grid, x2_grid, z, cmap=light_cmap, levels=light_cmap.N, vmin=0, vamx=3)
+
+    sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axis, legend=False, zorder=3)
+    axis.set_title(f'neuron {j + 1}')
+    axis.set_xlabel('$x_1$')
+    axis.set_ylabel('$x_2$')
+
+subfig = subfigs[2, 0]
+subfig.suptitle('neurons in hidden layer 3')
+axes = subfig.subplots(nrows=1, ncols=4, sharex=True, sharey=True)
+
+for j, axis in enumerate(axes.flatten()):
+    z = grid_outputs[3][:, j].detach().numpy()
+    z = z.reshape(resolution, resolution)
+    axis.contourf(x1_grid, x2_grid, z, cmap=light_cmap, levels=light_cmap.N, vmin=0, vamx=10)
+
+    sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axis, legend=False, zorder=3)
+    axis.set_title(f'neuron {j + 1}')
+    axis.set_xlabel('$x_1$')
+    axis.set_ylabel('$x_2$')
+
+# plot the colorbars
+for subfig in subfigs[:, 1]:
+    axis = subfig.subplots()
+    cbar = subfig.colorbar(mpl.cm.ScalarMappable(cmap=light_cmap), cax=axis, orientation='vertical')
+    cbar.set_ticklabels([round(3 / 5 * k, 1) for k in range(5)] + ['>5.0'])
+```
