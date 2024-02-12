@@ -947,4 +947,4 @@ In our disease/test/vacation model, the inequality {eq}`data-processing-eq` is t
 
 In this case, whether a subject leaves on vacation _is_ just as good a test for the disease as the test itself; intuitively, all the "information" that $Y$ carries about $X$ reaches $Z$.
 
-You will have an opportunity to work with the disease/test/vacation probabilistic model in the [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/09-homework.md#problem-9-the-data-processing-inequality) for this chapter.
+You will have an opportunity to work with the disease/test/vacation probabilistic model in the [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/10-homework.md#problem-9-the-data-processing-inequality) for this chapter.
