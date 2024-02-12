@@ -931,7 +931,7 @@ plt.ylabel('$\\rho(x)$')
 plt.tight_layout()
 ```
 
-We may apply the ReLU function to vectors $\bx\in \bbr^{1\times n}$ by "vectorization" (in pythonic language), which just means that we apply it componentwise:
+We may apply the ReLU function to vectors $\bx\in \bbr^{n}$ by "vectorization" (in pythonic language), which just means that we apply it componentwise:
 
 $$
 \rho(\bx)^\intercal \def \begin{bmatrix} \rho(x_1) & \cdots & \rho(x_n) \end{bmatrix}.
@@ -1030,14 +1030,14 @@ Very often, one sees the underlying graph of a neural network displayed in terms
 In this format, the nodes are often called _(artificial) neurons_ or _units_. The visible neurons $X_1,X_2,X_3$ are said to comprise the _input layer_ of the network, the hidden neurons $z_1,z_2,z_3,z_4$ make up a _hidden layer_, and the single visible neuron $Y$ makes up the _output layer_. The network is called _fully-connected_ because there is a link function at a given neuron _from_ every neuron in the previous layer and _to_ every neuron in the subsequent layer; it is called a _feedfoward_ network because the link functions only go in one direction, with no feedback links. The link function at $z_j$ is of the form
 
 $$
-z_j = \rho(\bx^intercal \bw_j + b_j),
+z_j = \rho(\bx^\intercal \bw_j + b_j),
 $$
 
 where
 
 $$
 \bW = \begin{bmatrix} \uparrow & \uparrow & \uparrow & \uparrow \\ \bw_1 & \bw_2 & \bw_3 & \bw_4 \\
-\downarrow & \downarrow & \downarrow & \downarrow \end{bmatrix} \quad \text{and} \quad \bb = \begin{bmatrix} b_{1} & b_2 & b_3 & b_{4} \end{bmatrix}.
+\downarrow & \downarrow & \downarrow & \downarrow \end{bmatrix} \quad \text{and} \quad \bb^\intercal = \begin{bmatrix} b_{1} & b_2 & b_3 & b_{4} \end{bmatrix}.
 $$
 
 The link function at $Y$ is given by the same formula as before using the sigmoid function. In the literature, the ReLU function $\rho$ and the sigmoid function $\sigma$ are often called _activation functions_ of the network. The parameters $\bW$ and $\bw$ are called _weights_, while the parameters $\bb$ and $b$ are called _biases_.
@@ -1064,7 +1064,7 @@ $$
 \bz_\ell = \rho\big(\bz_{\ell-1}^\intercal \bW_\ell + \bb_\ell \big) \quad \text{for $\ell=1,2$,}
 $$
 
-where we set $\bz_\ell = \bx$. The link function at $Y$ is the same as it was before:
+where we set $\bz_0 = \bx$. The link function at $Y$ is the same as it was before:
 
 $$
 Y; \ \bz_2, \bw, b \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \bz_2^\intercal \bw + b\big).
