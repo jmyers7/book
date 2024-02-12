@@ -293,7 +293,7 @@ Let $P$ and $Q$ be two probability measures on a finite sample space $S$ with ma
 
 * _Absolute continuity_. For all $s\in S$, if $q(s)=0$, then $p(s) = 0$. Or equivalently, the support of $q(s)$ contains the support of $p(s)$.
 
-Then the _Kullback-Leibler divergence_ (or just _KL divergence_) from $P$ to $Q$, denoted $D(P \parallel Q)$, is the mean order of relative magnitude of $P$ to $Q$. Precisely, it is given by
+Then the _Kullback-Leibler divergence_ (or just _KL divergence_) from $P$ to $Q$, denoted $D(P \parallel Q)$, is the mean logarithmic relative magnitude of $P$ to $Q$. Precisely, it is given by
 
 $$
 D(P \parallel Q) \def E_{s\sim p(s)} \left[ \log\left( \frac{p(s)}{q(s)} \right)\right] =  \sum_{s\in S} p(s) \log\left( \frac{p(s)}{q(s)} \right).
