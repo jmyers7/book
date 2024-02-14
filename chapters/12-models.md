@@ -119,7 +119,7 @@ called a _link function_. It will be convenient to depict this situation graphic
 Very often, the label $g$ on the link function will be omitted. In the case that both $\bx$ and $\by$ are $1$-dimensional, we visualized a deterministic flow like this:
 
 ```{image} ../img/det-kernel.svg
-:width: 100%
+:width: 85%
 :align: center
 ```
 &nbsp;
@@ -163,7 +163,7 @@ This flow is represented mathematically via a _link function_ $\btheta = g(\bx)$
 
 
 ```{image} ../img/stochastic-flow.svg
-:width: 100%
+:width: 85%
 :align: center
 ```
 &nbsp;
@@ -174,7 +174,7 @@ These stochastic links might be parametrized. For example, suppose $\bY$ is $1$-
 
 
 ```{image} ../img/lin-reg-0.svg
-:width: 45%
+:width: 35%
 :align: center
 ```
 &nbsp;
@@ -221,7 +221,7 @@ then we mean that $\bX$ is observed while $\by$ is hidden.
 It is important to note that for the simple types of models we consider in this chapter, the datasets consist of observations across _all_ observed nodes in the model. For example, let's suppose that we have a graphical structure of the form
 
 ```{image} ../img/unplated.svg
-:width: 50%
+:width: 40%
 :align: center
 ```
 &nbsp;
@@ -231,31 +231,31 @@ with two observed random vectors and one hidden. Then, by saying that $\bY$ and 
 We may integrate IID random samples into our graphical framework as follows. Suppose that instead of a single copy of the graph above, we have a collection of graphs
 
 ```{image} ../img/unplated-02.svg
+:width: 40%
+:align: center
+```
+&nbsp;
+
+one for each $j=1,\ldots,n$, where the random vector $\bX$ and the parameters $\balpha$ and $\bbeta$ are assumed to be _shared_ across all $j$. In the case that $n=3$ (for example), we may assemble all these graphs together into a single large graph
+
+```{image} ../img/unplated-03.svg
 :width: 50%
 :align: center
 ```
 &nbsp;
 
-one for each $i=1,\ldots,m$, where the random vector $\bX$ and the parameters $\balpha$ and $\bbeta$ are assumed to be _shared_ across all $i$. In the case that $m=3$ (for example), we may assemble all these graphs together into a single large graph
-
-```{image} ../img/unplated-03.svg
-:width: 65%
-:align: center
-```
-&nbsp;
-
-which explicitly shows that $\bX$, $\balpha$, and $\bbeta$ are shared across all $i$. Clearly, drawing these types of graphs becomes unwieldy for large $m$, so analysts have invented a method for depicting repetition in graphs by drawing a rectangle around the portion that is supposed to be duplicated:
+which explicitly shows that $\bX$, $\balpha$, and $\bbeta$ are shared across all $j$. Clearly, drawing these types of graphs becomes unwieldy for large $n$, so analysts have invented a method for depicting repetition in graphs by drawing a rectangle around the portion that is supposed to be duplicated:
 
 ```{image} ../img/plated-01.svg
-:width: 55%
+:width: 40%
 :align: center
 ```
 &nbsp;
 
-This is called _plate notation_, where the rectangle is called the _plate_. The visible nodes in the plate are assumed to be grouped as pairs $(\bY_i,\bZ_i)$, and altogether they form an IID random sample
+This is called _plate notation_, where the rectangle is called the _plate_. The visible nodes in the plate are assumed to be grouped as pairs $(\bY_j,\bZ_j)$, and altogether they form an IID random sample
 
 $$
-(\bY_1,\bZ_2),\ldots,(\bY_m,\bZ_m).
+(\bY_1,\bZ_1),(\bY_2,\bZ_2),\ldots,(\bY_n,\bZ_n).
 $$
 
 We now have everything that we need to define our version of _probabilistic graphical models_. After the definition, the remaining sections in this chapter are devoted to the study of particular examples of such models.
@@ -290,7 +290,7 @@ A _probabilistic graphical model_ (_PGM_) consists of the following:
 The type of PGM defined in this section is one of the simplest, but also one of the most important. Its goal is to model an observed dataset
 
 $$
-(\bx_1, y_1), (\bx_2,y_2),\ldots, (\bx_m,y_m) \in \bbr^{n} \times \bbr
+(\bx_1, y_1), (\bx_2,y_2),\ldots, (\bx_n,y_n) \in \bbr^{m} \times \bbr
 $$
 
 where we believe that
@@ -298,16 +298,16 @@ where we believe that
 ```{math}
 :label: approx-linear-eqn
 
-y_i \approx \beta_0 + \bx_i^\intercal \bbeta
+y_j \approx \beta_0 + \bbeta^\intercal \bx_j
 ```
 
-for some parameters $\beta_0 \in \bbr$ and $\bbeta \in \bbr^{n}$. For example, let's consider the Ames housing dataset from the <a href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and {numref}`Chapter %s <random-vectors>`; it consists of $m=2{,}930$ bivariate observations
+for some parameters $\beta_0 \in \bbr$ and $\bbeta \in \bbr^{m}$. For example, let's consider the Ames housing dataset from the <a href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and {numref}`Chapter %s <random-vectors>`; it consists of $n=2{,}930$ bivariate observations
 
 $$
-(x_1,y_1),(x_2,y_2),\ldots,(x_m,y_m) \in \bbr^2
+(x_1,y_1),(x_2,y_2),\ldots,(x_n,y_n) \in \bbr^2
 $$
 
-where $x_i$ and $y_i$ are the size (in square feet) and selling price (in thousands of US dollars) of the $i$-th house in the dataset. A scatter plot of the dataset looks like
+where $x_j$ and $y_j$ are the size (in square feet) and selling price (in thousands of US dollars) of the $j$-th house in the dataset. A scatter plot of the dataset looks like
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -378,104 +378,182 @@ But for now, let's define our first PGM:
 A _linear regression model_ is a probabilistic graphical model whose underlying graph is of the form
 
 ```{image} ../img/lin-reg-00.svg
-:width: 50%
+:width: 35%
 :align: center
 ```
 &nbsp;
 
-where $\bX\in \bbr^{n}$. The model has the following parameters:
+where $\bX\in \bbr^m$. The model has the following parameters:
 
 * A real parameter $\beta_0\in \mathbb{R}$.
 
-* A parameter vector $\bbeta \in \mathbb{R}^{n}$.
+* A parameter vector $\bbeta \in \mathbb{R}^m$.
 
 * A positive real parameter $\sigma^2>0$.
 
 The link function at $Y$ is given by
 
 $$
-Y \mid \bX; \ \beta_0,\bbeta,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big), \quad \text{where} \quad \mu = \beta_0 + \bx^\intercal \bbeta.
+Y \mid \bX; \ \beta_0,\bbeta,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big), \quad \text{where} \quad \mu = \beta_0 + \bbeta^\intercal \bx.
 $$
 ````
 
-Before we introduce important terminology associated with linear regression models and look at an example, we need to discuss two probability functions that will play a crucial role in the [next chapter](learning). The first is just the conditional probability function of $Y$ given $\bX$, while the second is obtained from the plated version of a linear regression model: 
-
-```{image} ../img/lin-reg-00-plated.svg
-:width: 50%
-:align: center
-```
-&nbsp;
-
-Observations of the visible nodes correspond to an observed dataset.
+Before we introduce important terminology associated with linear regression models and look at an example, we need to discuss two probability functions that will play a crucial role in the [next chapter](learning). The first is just the conditional probability function of $Y$ given $\bX$:
 
 ```{prf:definition}
 :label: linear-reg-pf-def
 
-1. The _model probability function_ for a linear regression model is the conditional probability function
+The _model probability function_ for a linear regression model is the conditional probability function
 
-    $$
-    p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big).
-    $$
+$$
+p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big).
+$$
 
-    On its support consisting of all $y\in \bbr$ and $\bx \in \bbr^{n}$, it is given by the formula
+On its support consisting of all $y\in \bbr$ and $\bx \in \bbr^m$, it is given by the formula
 
-    $$
-    p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} ( y - \mu)^2 \right),
-    $$
+$$
+p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[- \frac{1}{2\sigma^2} ( y - \mu)^2 \right],
+$$
 
-    where $\mu = \beta_0 + \bx^\intercal \bbeta$.
-
-2. Given an observed dataset
-
-    $$
-    (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr,
-    $$
-
-    the _data probability function_ for a linear regression model is the conditional probability density function
-
-    $$
-    p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta,\sigma^2 \big) = \prod_{i=1}^m p\big(y_i \mid \bx_i ; \ \beta_0, \bbeta, \sigma^2\big).
-    $$ (data-pf-eqn)
+where $\mu = \beta_0 + \bbeta^\intercal \bx$.
 ```
 
-Note that the data probability function appears to be _defined_ as a product of model probability functions. However, using independence of the random sample
+The second important probability function associated with a linear regression model is derived from an observed dataset
 
 $$
-(\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_m, Y_m),
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_n,y_n) \in \bbr^{m} \times \bbr.
 $$
 
-one may actually _prove_ that the left-hand side of {eq}`data-pf-eqn` is equal to the product on the right-hand side; see the homework for this section.
+We assume that the dataset is an observation of an IID random sample
 
-Returning to our discussion of the linear regression model, the components of the vector $\bX$ are referred to as _predictors_, _regressors_, _explanatory variables_, or _independent variables_, while the random variable $Y$ is called the _response variable_ or the _dependent variable_. In the case that $n=1$, the model is called a _simple linear regression model_; otherwise, it is called a _multiple linear regression model_.
+$$
+(\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_n, Y_n),
+$$
+
+which fits into a plated version of a linear regression model: 
+
+```{image} ../img/lin-reg-00-plated.svg
+:width: 35%
+:align: center
+```
+&nbsp;
+
+The conditional probability function of the $y$'s given the $\bx$'s is given a new name:
+
+```{prf:theorem} Data probability functions of linear regression models
+:label: linear-reg-data-pf-thm
+
+Given an observed dataset
+
+$$
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_n,y_n) \in \bbr^{m} \times \bbr,
+$$
+
+the _data probability function_ for a linear regression model is the conditional probability function
+
+$$
+p\big(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n; \ \beta_0, \bbeta,\sigma^2 \big).
+$$
+
+It is given by
+
+\begin{align*}
+p\big(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n; \ \beta_0, \bbeta,\sigma^2 \big) &= \prod_{j=1}^n p\big(y_j \mid \bx_j ; \ \beta_0, \bbeta, \sigma^2\big) \\
+&= \frac{1}{(2\pi \sigma^2)^{n/2}} \exp \left[ -\frac{1}{2\sigma^2} \sum_{j=1}^n (y_j - \mu_j)^2 \right],
+\end{align*}
+
+where $\mu_j = \beta_0 + \bbeta^\intercal \bx_j$ for each $j=1,\ldots,n$.
+```
+
+Notice that the density in the last displayed equation is exactly the density of an $\mathcal{N}_n(\bmu,\Sigma)$ distribution, where $\Sigma = \sigma^2 \bI$ and the mean vector
+
+$$
+\bmu^\intercal = \begin{bmatrix} \mu_1 & \cdots & \mu_n \end{bmatrix}.  
+$$
+
+Let's prove the theorem:
+
+```{prf:proof}
+
+We shall only prove the equation
+
+$$
+p(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n ) = \prod_{j=1}^n p(y_j \mid \bx_j),
+$$
+
+where, for ease of notation, we've omitted all parameters. By independence of the random sample
+
+$$
+(\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_n,Y_n)
+$$
+
+and and the "vectorized" version of {prf:ref}`mass-density-ind-thm`, we have
+
+$$
+p(y_1,\ldots,y_n,\bx_1,\ldots,\bx_n) = p(y_1,\bx_1)\cdots p(y_n,\bx_n).
+$$
+
+But the sequence
+
+$$
+\bX_1,\bX_2,\ldots,\bX_n
+$$
+
+is independent as well (see {prf:ref}`ind-components-cor`), and so
+
+$$
+p(\bx_1,\ldots,\bx_n) = p(\bx_1)\cdots p(\bx_n).
+$$
+
+But then
+
+\begin{align*}
+p(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n ) &= \frac{p(y_1,\ldots,y_n,\bx_1,\ldots,\bx_n)}{p(\bx_1,\ldots,\bx_n)} \\
+&= \frac{p(y_1,\bx_1)\cdots p(y_n,\bx_n)}{p(\bx_1)\cdots p(\bx_n)} \\
+&= \prod_{j=1}^n p(y_i \mid \bx_i),
+\end{align*}
+
+which is exactly what we wanted to prove. Q.E.D.
+```
+
+Notice that the proof of the equation
+
+$$
+p(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n ) = \prod_{j=1}^n p(y_j \mid \bx_j)
+$$
+
+used nothing particular about linear regression models, and only relied upon independence of the random sample. This means that this same argument will apply to the data probability functions of the models that we will study in subsequent sections.
+
+Returning to our discussion of the linear regression model, the components of the vector $\bX$ are referred to as _predictors_, _regressors_, _explanatory variables_, or _independent variables_, while the random variable $Y$ is called the _response variable_ or the _dependent variable_. In the case that $m=1$, the model is called a _simple linear regression model_; otherwise, it is called a _multiple linear regression model_.
 
 Note that
 
 $$
-E\big(Y \mid \bX = \bx \big) = \mu = \beta_0 + \bx^\intercal \bbeta,
+E\big(Y \mid \bX = \bx \big) = \mu = \beta_0 + \bbeta^\intercal \bx,
 $$
 
 and so a linear regression model assumes (among other things) that the conditional mean of the response variable is linearly related to the regressors through the link function
 
 $$
-\mu = \beta_0 + \bx^\intercal \bbeta.
+\mu = \beta_0 + \bbeta^\intercal \bx.
 $$ (lin-reg-line-eqn)
 
-The parameter $\beta_0$ is often called the _intercept_ or _bias term_, while the other $\beta_j$'s (for $j>0$) are called _weights_ or _slope coefficients_ since they are exactly the (infinitesimal) slopes:
+The parameter $\beta_0$ is often called the _intercept_ or _bias term_, while the other $\beta_i$'s (for $i>0$) are called _weights_ or _slope coefficients_ since they are exactly the (infinitesimal) slopes:
 
 $$
-\frac{\partial \mu}{\partial x_j} = \beta_j.
+\frac{\partial \mu}{\partial x_i} = \beta_i.
 $$
 
 The random variable
 
 $$
-\dev \stackrel{\text{def}}{=} Y - \beta_0 - \bX^\intercal\bbeta
+\dev \stackrel{\text{def}}{=} Y - \beta_0 - \bbeta^\intercal\bX
 $$
 
 in a linear regression model is called the _error term_; note then that
 
 $$
-Y = \beta_0 + \bX^\intercal \bbeta + \dev \quad \text{and} \quad \dev \sim \mathcal{N}(0, \sigma^2).
+Y = \beta_0 + \bbeta^\intercal \bX + \dev \quad \text{and} \quad \dev \sim \mathcal{N}(0, \sigma^2).
 $$ (random-lin-rel-eqn)
 
 This is the manifestation in terms of random vectors and variables of the approximate linear relationship {eq}`approx-linear-eqn` described at the beginning of this section.
@@ -483,30 +561,30 @@ This is the manifestation in terms of random vectors and variables of the approx
 Suppose we are given an observed dataset
 
 $$
-(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr.
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_n,y_n) \in \bbr^{m} \times \bbr.
 $$
 
-If for each $i=1,\ldots,m$, we define the _predicted values_
+If for each $j=1,\ldots,n$, we define the _predicted values_
 
 $$
-\hat{y}_i = \beta_0 + \bx_i^\intercal\bbeta
+\hat{y}_j = \beta_0 + \bbeta^\intercal \bx_j
 $$
 
 and the _residuals_
 
 $$
-\dev_i = y_i - \hat{y}_i,
+\dev_j = y_j - \hat{y}_j,
 $$
 
 then from {eq}`random-lin-rel-eqn` we get
 
 $$
-y_i = \beta_0 + \bx^\intercal_i \bbeta + \dev_i.
+y_j = \beta_0 + \bbeta^\intercal \bx_j  + \dev_j.
 $$
 
-This shows that the residuals $\dev_i$ are observations of the error term $\dev \sim \mathcal{N}(0,\sigma^2)$. Thus, in a linear regression model, all residuals from a dataset are assumed to be modeled by a normal distribution with mean $0$ and a _fixed_ variance; the fixed-variance assumption is sometimes called _homoscedasticity_.
+This shows that the residuals $\dev_j$ are observations of the error term $\dev \sim \mathcal{N}(0,\sigma^2)$. Thus, in a linear regression model, all residuals from a dataset are assumed to be modeled by a normal distribution with mean $0$ and a _fixed_ variance; the fixed-variance assumption is sometimes called _homoscedasticity_.
 
-In {numref}`Chapter %s <learning>`, we will learn how to train a linear regression model on a dataset to obtain optimal values of the parameters $\beta_0$ and $\bbeta$. Using these training methods, we obtained values for the parameters $\beta_0$ and $\bbeta = \beta_1$ for the Ames housing dataset mentioned at the beginning of this section. The positively-sloped line in the scatter plot at the beginning of this section was the line traced out by the link function $\mu = \beta_0 + \beta_1 x $. The predicted values $\hat{y}_i$ lie along this line, and the magnitude of the residual $\dev_i$ may be visualized as the vertical distance from the true data point $y_i$ to this line. We may plot the residuals $\dev_i$ against the predictor variables $x_i$ to get:
+In {numref}`Chapter %s <learning>`, we will learn how to train a linear regression model on a dataset to obtain optimal values of the parameters $\beta_0$ and $\bbeta$. Using these training methods, we obtained values for the parameters $\beta_0$ and $\bbeta = \beta_1$ for the Ames housing dataset mentioned at the beginning of this section. The positively-sloped line in the scatter plot at the beginning of this section was the line traced out by the link function $\mu = \beta_0 + \beta_1 x $. The predicted values $\hat{y}_j$ lie along this line, and the magnitude of the residual $\dev_j$ may be visualized as the vertical distance from the true data point $y_j$ to this line. We may plot the residuals $\dev_j$ against the predictor variables $x_j$ to get:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -531,7 +609,7 @@ plt.tight_layout()
 
 It is evident from this plot that the homoscedasticity assumption is violated since the distributions of the residuals appear to widen as the area variable increases.
 
-As with the parameters $\beta_0$ and $\bbeta$, it is also possible to learn an optimal value of the variance $\sigma^2$. As another method of model checking, given all the learned parameters $\beta_0$, $\beta_1$, and $\sigma^2$ for the Ames dataset, we may generate a new dataset by sampling from the normal distributions  $\mathcal{N}\big(\hat{y}_i, \sigma^2\big)$ for each $i=1,2,\ldots,m$. A scatter plot of one simulated dataset is on the left in the following figure, while a KDE of the simulated dataset is compared against the "true" KDE on the right:
+As with the parameters $\beta_0$ and $\bbeta$, it is also possible to learn an optimal value of the variance $\sigma^2$. As another method of model checking, given all the learned parameters $\beta_0$, $\beta_1$, and $\sigma^2$ for the Ames dataset, we may generate a new dataset by sampling from the normal distributions  $\mathcal{N}\big(\hat{y}_j, \sigma^2\big)$ for each $j=1,\ldots,n$. A scatter plot of one simulated dataset is on the left in the following figure, while a KDE of the simulated dataset is compared against the "true" KDE on the right:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -558,17 +636,24 @@ df_gen['indicator'] = 'simulated data PDF'
 df_combined = pd.concat(objs=[df, df_gen], axis=0)
 
 # setup the figure
-_, axes = plt.subplots(ncols=2, figsize=(10, 4), sharex=True, sharey=True)
+_, axes = plt.subplots(ncols=3, figsize=(15, 4), sharex=True, sharey=True)
 
 # plot the dataset
 sns.scatterplot(data=df_gen, x='area', y='price', alpha=0.15, ax=axes[0])
 
 # plot the original regression line
 axes[0].plot(grid, beta_0 + beta * grid, color=magenta)
+axes[0].set_title('simulated dataset')
+
+# plot the true data
+axes[1].plot(grid, beta * grid + beta_0, color=magenta)
+axes[1].scatter(x=X, y=y, alpha=0.15)
+axes[1].set_title('true data')
 
 # plot the KDEs
-g = sns.kdeplot(data=df_combined, x='area', y='price', hue='indicator', levels=6, ax=axes[1])
+g = sns.kdeplot(data=df_combined, x='area', y='price', hue='indicator', levels=6, ax=axes[2])
 g.get_legend().set_title(None)
+axes[2].set_title('comparison of simulated to true data')
 
 plt.tight_layout()
 ```
@@ -601,10 +686,10 @@ For smaller values of area, the distribution of the true prices is narrower comp
 The types of models studied in this section are closely related to the linear regression models in the previous, but here the goal is to model a dataset of the form
 
 $$
-(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \{0,1\}.
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_n,y_n) \in \bbr^{m} \times \{0,1\}.
 $$
 
-Such datasets arise naturally in _binary classification problems_, where we aim to determine which of two classes a given object lies in based on predictor features. The true class of the $i$-th object is indicated by the value of $y_i$, while the vector $\bx_i$ consists of the predictor features.
+Such datasets arise naturally in _binary classification problems_, where we aim to determine which of two classes a given object lies in based on predictor features. The true class of the $j$-th object is indicated by the value of $y_j$, while the vector $\bx_j$ consists of the predictor features.
 
 As a running example through this section, consider the data given in following scatter plot:
 
@@ -614,9 +699,24 @@ As a running example through this section, consider the data given in following 
 :   figure:
 :       align: center
 
+# import scaler from scikit-learn
+from sklearn.preprocessing import StandardScaler
+
 # import the data
 url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch10-book-data-01.csv'
 df = pd.read_csv(url)
+
+# convert the data to numpy arrays
+X = df[['x_1', 'x_2']].to_numpy()
+y = df['y'].to_numpy()
+
+# scale the input data
+ss = StandardScaler()
+X = ss.fit_transform(X=X)
+
+# replaced the columns of the dataframe with the transformed data
+df['x_1'] = X[:, 0]
+df['x_2'] = X[:, 1]
 
 # plot the data
 g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
@@ -636,10 +736,10 @@ plt.tight_layout()
 The points represent the $2$-dimensional predictors
 
 $$
-\bx_i^\intercal = \begin{bmatrix} x_{i1} & x_{i2} \end{bmatrix},
+\bx_j = \begin{bmatrix} x_{1j} \\ x_{2j} \end{bmatrix},
 $$
 
-while the color indicates the class $y_i \in \{0,1\}$. Our goal in this section is to capture the evident pattern in the data using a _logistic regression model_.
+while the color indicates the class $y_j \in \{0,1\}$. Our goal in this section is to capture the evident pattern in the data using a _logistic regression model_.
 
 To define these models, we first need to discuss the important _sigmoid function_, defined as
 
@@ -675,140 +775,98 @@ Since the outputs of the sigmoid function land in the open interval $(0,1)$, we 
 A _logistic regression model_ is a probabilistic graphical model whose underlying graph is of the form
 
 ```{image} ../img/log-reg-00.svg
-:width: 50%
+:width: 35%
 :align: center
 ```
 &nbsp;
 
-where $\bX\in \bbr^{n}$. The model has the following parameters:
+where $\bX\in \bbr^{m}$. The model has the following parameters:
 
 * A real parameter $\beta_0\in \mathbb{R}$.
 
-* A parameter vector $\bbeta \in \mathbb{R}^{n}$.
+* A parameter vector $\bbeta \in \mathbb{R}^{m}$.
 
 The link function at $Y$ is given by
 
 $$
-Y \mid \bX; \ \beta_0,\bbeta \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx^\intercal\bbeta),
+Y \mid \bX; \ \beta_0,\bbeta \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\beta_0 + \bbeta^\intercal\bx),
 $$
 
 and where $\sigma$ is the sigmoid function.
 ````
 
-Notice that the link function $\phi = \sigma(\beta_0 + \bx^\intercal\bbeta)$ in a logistic regression model is precisely the affine link function $\mu = \beta_0 + \bx^\intercal\bbeta$ of a linear regression model composed with the sigmoid function.
+Notice that the link function $\phi = \sigma(\beta_0 + \bbeta^\intercal\bx)$ in a logistic regression model is precisely the affine link function $\mu = \beta_0 + \bbeta^\intercal\bx$ of a linear regression model composed with the sigmoid function.
 
-The two probability functions that we will use to train logistic regression models in the [next chapter](learning) are given as follows. The second is obtained from the plated version of a logistic regression model:
-
-```{image} ../img/log-reg-00-plated.svg
-:width: 50%
-:align: center
-```
-&nbsp;
-
-The two probability functions are:
+We describe the two probability functions that we will use to train logistic regression models in the [next chapter](learning). The first is the conditional probability function:
 
 ```{prf:definition}
 :label: log-reg-pf-def
 
-1. The _model probability function_ for a logistic regression model is the conditional probability function
+The _model probability function_ for a logistic regression model is the conditional probability function
 
-    $$
-    p\big(y \mid \bx ; \ \beta_0, \bbeta\big).
-    $$
+$$
+p\big(y \mid \bx ; \ \beta_0, \bbeta\big).
+$$
 
-    On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{n}$, it is given by the formula
+On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{m}$, it is given by the formula
 
-    $$
-    p\big(y \mid \bx ; \ \beta_0, \bbeta\big) = \phi^y (1-\phi)^{1-y}
-    $$
+$$
+p\big(y \mid \bx ; \ \beta_0, \bbeta\big) = \phi^y (1-\phi)^{1-y}
+$$
 
-    where $\phi = \sigma(\beta_0 + \bx^\intercal \bbeta)$.
-
-2. Given a dataset
-
-    $$
-    (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \{0,1\},
-    $$
-
-    the _data probability function for a logistic regression model_ is the conditional probability density function
-
-    $$
-    p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta\big) = \prod_{i=1}^m p\big(y_i \mid \bx_i ; \ \beta_0, \bbeta\big).
-    $$ (log-reg-data-pf-eqn)
+where $\phi = \sigma(\beta_0 + \bbeta^\intercal \bx)$.
 ```
 
-As in {prf:ref}`linear-reg-pf-def`, one may _prove_ that the data probability function of a logistic regression model is given by the product of model probability functions in {eq}`log-reg-data-pf-eqn`.
-
-Let's return to our toy dataset introduced at the beginning of the section. To aid with training, it is often helpful to _standardize_ the predictor features
+The second important probability function is obtained from an observation of an IID random sample
 
 $$
-\bx_1,\ldots,\bx_m \in \bbr^{n}.
+(\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_n,Y_n)
 $$
 
-This means that we compute the (empirical) mean $\bar{x}_j$ and standard deviation $s_j$ of each sequence
+corresponding to a plated version of a logistic regression model
+
+```{image} ../img/log-reg-00-plated.svg
+:width: 35%
+:align: center
+```
+&nbsp;
+
+just as in the run-up to {prf:ref}`linear-reg-data-pf-thm` in the previous section.
+
+```{prf:theorem} Data probability functions of logistic regression models
+:label: log-reg-data-pf-thm
+
+Given a dataset
 
 $$
-x_{1j},\ldots,x_{mj} \in \bbr
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_n,y_n) \in \bbr^{m} \times \{0,1\},
 $$
 
-of components, and then replace each $x_{ij}$ with
+the _data probability function_ for a logistic regression model is the conditional probability function
 
 $$
-\frac{x_{ij} - \bar{x}_j}{s_j}.
+p\big(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n; \ \beta_0, \bbeta\big).
 $$
 
-It is convenient to visualize this process in terms of the so-called _design matrix_
+It is given by
 
-$$
-\mathbfcal{X} = \begin{bmatrix} \leftarrow & \bx_1^\intercal & \rightarrow \\ \vdots & \vdots & \vdots \\ \leftarrow & \bx_m^\intercal & \rightarrow \end{bmatrix} = \begin{bmatrix} x_{11} & \cdots & x_{1n} \\
-\vdots & \ddots & \vdots \\
-x_{m1} & \cdots & x_{mn}
-\end{bmatrix}.
-$$
+\begin{align*}
+p\big(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n; \ \beta_0, \bbeta\big) &= \prod_{j=1}^n p\big(y_j \mid \bx_j ; \ \beta_0, \bbeta\big) \\
+&= \prod_{j=1}^n \phi_j^{y_j} (1-\phi_j)^{1-y_j},
+\end{align*}
 
-Then the empirical means $\bar{x}_j$ and standard deviations $s_j$ are precisely the means and standard deviations of the columns.
-
-If we standardize our toy dataset, we get the following:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-
-# import scaler from scikit-learn
-from sklearn.preprocessing import StandardScaler
-
-# convert the data to numpy arrays
-X = df[['x_1', 'x_2']].to_numpy()
-y = df['y'].to_numpy()
-
-# scale the input data
-ss = StandardScaler()
-X = ss.fit_transform(X=X)
-
-# replaced the columns of the dataframe with the transformed data
-df['x_1'] = X[:, 0]
-df['x_2'] = X[:, 1]
-
-# plot the scaled data
-g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
-
-# change the default seaborn legend
-g.legend_.set_title(None)
-new_labels = ['class 0', 'class 1']
-for t, l in zip(g.legend_.texts, new_labels):
-    t.set_text(l)
-
-plt.xlabel('$x_1$')
-plt.ylabel('$x_2$')
-plt.gcf().set_size_inches(w=5, h=3)
-plt.tight_layout()
+where $\phi_j = \sigma (\beta_0 + \bbeta^\intercal \bx_j)$ for each $j=1,\ldots,n$.
 ```
 
-Notice that the values of the two features $x_1$ and $x_2$ now lie in comparable ranges, while the overall _shape_ of the dataset has not changed.
+To prove the theorem, we would only need to establish the equality
 
-Along with linear regression models, in the [next chapter](learning) we will see how to learn optimal values of the parameters $\beta_0$ and $\bbeta$ from data. With these parameters in hand, one way to check how well a logistic regression model captures the data is to draw a contour plot of the function $\phi = \sigma( \beta_0 + \bx^\intercal \bbeta)$. This contour plot appears on the left in the following:
+$$
+p(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n; \ \beta_0, \bbeta) = \prod_{j=1}^n p(y_j \mid \bx_j ; \ \beta_0, \bbeta).
+$$
+
+But the same proof will work here as the one given for {prf:ref}`linear-reg-data-pf-thm`.
+
+Let's return to our toy dataset introduced at the beginning of the section. In the [next chapter](learning) we will see how to learn optimal values of the parameters $\beta_0$ and $\bbeta$ from data. With these parameters in hand obtained from our toy dataset, one way to check how well a logistic regression model captures the data is to draw a contour plot of the function $\phi = \sigma( \beta_0 + \bbeta^\intercal \bx)$. This contour plot appears on the left in the following:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -857,34 +915,36 @@ for axis in axes[:-1]:
     axis.set_xlabel('$x_1$')
     axis.set_ylabel('$x_2$')
 
+axes[0].set_title('contour plot of $\\phi = \\sigma(\\beta_0 + \\boldsymbol{\\beta}^\\intercal \\mathbf{x})$')
+axes[1].set_title('contour plot of predictor function $f(\mathbf{x})$')
 plt.tight_layout()
 ```
 
-To interpret this plot, remember that $\phi = \sigma( \beta_0 + \bx^\intercal \bbeta)$ is the probability parameter for the class indicator variable $Y \sim \Ber(\phi)$, so we should interpret $\phi$ as the probability that the point $\bx$ is in class $1$ (corresponding to $y=1$). In the right-hand plot, we have "thresholded" the probability $\phi$ at $0.5$, creating a _predictor function_
+To interpret this plot, remember that $\phi = \sigma( \beta_0 + \bbeta^\intercal \bx)$ is the probability parameter for the class indicator variable $Y \sim \Ber(\phi)$, so we should interpret $\phi$ as the probability that the point $\bx$ is in class $1$ (corresponding to $y=1$). In the right-hand plot, we have "thresholded" the probability $\phi$ at $0.5$, creating a _predictor function_
 
 $$
 f:\bbr^{2} \to \{0,1\}, \quad f(\bx) = \begin{cases}
-0 & : \sigma(\beta_0 + \bx^\intercal\bbeta) < 0.5, \\
-1 & : \sigma(\beta_0 + \bx^\intercal\bbeta) \geq 0.5. \\
+0 & : \sigma(\beta_0 + \bbeta^\intercal\bx) < 0.5, \\
+1 & : \sigma(\beta_0 + \bbeta^\intercal\bx) \geq 0.5. \\
 \end{cases}
 $$
 
 The _decision boundary_ is exactly the curve in $\bbr^2$ consisting of those $\bx$ for which the predictor $f$ is "flipping a coin," i.e., it consists of those points $\bx$ such that
 
 $$
-\sigma(\beta_0 + \bx^\intercal \bbeta) = 0.5,
+\sigma(\beta_0 + \bbeta^\intercal \bx) = 0.5,
 $$
 
 which is equivalent to
 
 $$
-\beta_0 + \bx^\intercal \bbeta = 0.
+\beta_0 + \bbeta^\intercal \bx = 0.
 $$
 
 Notice that this defines a _linear_ decision boundary that separates $\bbr^2$ into two unbounded half planes based on whether
 
 $$
-\beta_0 + \bx^\intercal \bbeta > 0 \quad \text{or} \quad \beta_0 + \bx^\intercal \bbeta < 0.
+\beta_0 + \bbeta^\intercal \bx > 0 \quad \text{or} \quad \beta_0 + \bbeta^\intercal \bx < 0.
 $$
 
 Those vectors $\bx$ satisfying the first inequality would be predicted to belong to class $1$, while those satisfying the latter inequality would be predicted to belong to class $0$. As is evident from the plots, our logistic regression model is doing its best to accurately classify as many data points as possible, but our model is handicapped by the fact it will _always_ produce a linear decision boundary.
@@ -931,10 +991,10 @@ plt.ylabel('$\\rho(x)$')
 plt.tight_layout()
 ```
 
-We may apply the ReLU function to vectors $\bx\in \bbr^{n}$ by "vectorization" (in pythonic language), which just means that we apply it componentwise:
+We may apply the ReLU function to vectors $\bx\in \bbr^{m}$ by "vectorization" (in Pythonic language), which just means that we apply it componentwise:
 
 $$
-\rho(\bx)^\intercal \def \begin{bmatrix} \rho(x_1) & \cdots & \rho(x_n) \end{bmatrix}.
+\rho(\bx)^\intercal \def \begin{bmatrix} \rho(x_1) & \cdots & \rho(x_m) \end{bmatrix}.
 $$
 
 Using these pieces, we now state the official definition in the case that the neural network has one hidden layer; later, we shall indicate how one obtains "deeper" neural networks by adding additional hidden layers.
@@ -946,133 +1006,180 @@ Using these pieces, we now state the official definition in the case that the ne
 A _(fully-connected, feedforward) neural network with one hidden layer_ is a probabilistic graphical model whose underlying graph is of the form
 
 ```{image} ../img/nn-00.svg
-:width: 50%
+:width: 40%
 :align: center
 ```
 &nbsp;
 
-where $\bX\in \bbr^{n}$ and $\bz \in \bbr^{k}$. The model has the following parameters:
+where $\bX\in \bbr^m$ and $\bz \in \bbr^k$. The model has the following parameters:
 
-* A parameter matrix $\mathbf{W} \in \mathbb{R}^{n\times k}$.
+* A parameter matrix $\bW_1 \in \mathbb{R}^{m\times k}$.
 
-* A parameter vector $\bb \in \mathbb{R}^{k}$.
+* A parameter vector $\bb_1 \in \mathbb{R}^{k}$.
 
-* A parameter vector $\bw \in \mathbb{R}^{k}$.
+* A parameter vector $\bw_2 \in \mathbb{R}^{k}$.
 
-* A real parameter $b \in \mathbb{R}$.
+* A real parameter $b_2 \in \mathbb{R}$.
 
 The link function at $\mathbf{z}$ is given by
 
 $$
-\mathbf{z} = \rho(\mathbf{x}^\intercal\bW + \bb),
+\mathbf{z}^\intercal = \rho(\bx^\intercal \bW_1 + \bb_1^\intercal),
 $$
 
 while the link function at $Y$ is given by
 
 $$
-Y ;\  \mathbf{z}, \bw, b \sim \mathcal{B}er\big(\phi\big), \quad \text{where} \quad \phi = \sigma(\bz^\intercal\bw + b).
+Y ;\  \mathbf{z}, \bw_2, b_2 \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\bz^\intercal \bw_2 + b_2).
 $$
 
 Here, $\rho$ is the ReLU function and $\sigma$ is the sigmoid function.
 ````
 
-The name "neural network" comes from a loose analogy with networks of biological neurons in the human brain. For this reason, sometimes neural networks just defined are called _artificial neural networks_ (*ANN*s).
+As the proliferation of transposes indicates, the formulas for the link functions given here express a preference for row vectors rather than column vectors. This is, in part, because some of us are psychologically conditioned (including the author) to think of a feature vector of a single example as a _row_ vector rather than a column vector, much as we see in data frames in Python. But by applying the transpose operation to each side of the equations defining the link functions, we obtain formulas that are more in line with what the reader might see in other references:
 
-Following the pattern begun with linear and logistic regression models, we first want to give the probability functions that we will use in the [next chapter](learning) to train neural network models. The second one is obatained from the plated version of a neural network:
+$$
+\mathbf{z} = \rho( \bW_1^\intercal \bx + \bb_1) \quad \text{and} \quad \phi = \sigma(\bw_2^\intercal \bz  + b_2)
+$$
+
+The name "neural network" comes from a loose analogy with networks of biological neurons in the human brain. For this reason, sometimes neural network models are called _artificial neural networks_ (*ANN*s). The parameters $\bW_1$ and $\bw_2$ are called _weights_, while the parameters $\bb_1$ and $b_2$ are called _biases_. The ReLU function $\rho$ and the sigmoid function $\sigma$ are often called the _activation functions_ of the network.
+
+Following the pattern begun with linear and logistic regression models, we want to begin by describing the probability functions that we will use in the [next chapter](learning) to train neural network models. The first is the conditional probability function:
+
+```{prf:definition}
+:label: neural-net-pf-def
+
+The _model probability function_ for a neural network model is the conditional probability function
+
+$$
+p\big(y \mid \bx ; \ \bW_1, \bb_1, \bw_2, b_2 \big).
+$$
+
+On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{m}$, it is given by the formula
+
+$$
+p\big(y \mid \bx ; \ \bW_1, \bb_1, \bw_2, b_2 \big) = \phi^y (1-\phi)^{1-y}
+$$
+
+where $\phi = \sigma(\bz^\intercal \bw_2 + b_2)$ and $\bz^\intercal = \rho(\bx ^\intercal \bW_1 + \bb_1^\intercal)$.
+```
+
+As with linear and logistic regression models, the second probability function is obtained from an IID random sample
+
+$$
+(\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_n,Y_n)
+$$
+
+corresponding to a plated version of a neural network model:
 
 ```{image} ../img/nn-00-plated.svg
+:width: 40%
+:align: center
+```
+&nbsp;
+
+This probability function is described in:
+
+```{prf:theorem} Data probability functions of neural network models
+:label: neural-net-data-pf-thm
+
+Given a dataset
+
+$$
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_n,y_n) \in \bbr^{m} \times \{0,1\},
+$$
+
+the _data probability function_ for a neural network model is the conditional probability function
+
+$$
+p\big(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n; \ \bW_1, \bb_1, \bw_2, b_2\big).
+$$
+
+It is given by
+
+\begin{align*}
+p\big(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n; \ \bW_1, \bb_1, \bw_2, b_2\big) &= \prod_{i=1}^n p\big(y_i \mid \bx_i ; \ \bW_1, \bb_1, \bw_2, b_2\big) \\
+&= \prod_{i=1}^n \phi_i^{y_i} (1-\phi_i)^{1-y_i}
+\end{align*}
+
+where $\phi_i = \sigma(\bz_i^\intercal \bw_2 + b_2)$ and $\bz_i = \rho(\bx_i^\intercal \bW_1 + \bb_1)$ for each $i=1,\ldots,n$.
+```
+
+The proof of the equality
+
+$$
+p\big(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n; \ \bW_1, \bb_1, \bw_2, b_2\big) = \prod_{i=1}^n p\big(y_i \mid \bx_i ; \ \bW_1, \bb_1, \bw_2, b_2\big)
+$$
+
+in the theorem is the same as the proof of the same equality in {prf:ref}`linear-reg-data-pf-thm`.
+
+Very often, one sees the underlying graph of a neural network displayed in terms of the components of the vectors (with the parameters omitted). For example, in the case that $\bX$ is $3$-dimensional and $\bz$ is $4$-dimensional, we might see the graph of the neural network drawn as
+
+```{image} ../img/nn-neuron.svg
 :width: 50%
 :align: center
 ```
 &nbsp;
 
-The two probability functions are:
-
-```{prf:definition}
-:label: neural-net-pf-def
-
-1. The _model probability function_ for a neural network model is the conditional probability function
-
-    $$
-    p\big(y \mid \bx ; \ \bW, \bb, \bw, b \big).
-    $$
-
-    On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{n}$, it is given by the formula
-
-    $$
-    p\big(y \mid \bx ; \ \bW, \bb, \bw, b \big) = \phi^y (1-\phi)^{1-y}
-    $$
-
-    where $\phi = \sigma(\bz^\intercal \bw + b)$ and $\bz = \sigma(\bx^\intercal \bW + \bb)$.
-
-
-2. Given a dataset
-
-    $$
-    (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \{0,1\},
-    $$
-
-    the _data probability function_ for a neural network model is the conditional probability function
-
-    $$
-    p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \bW, \bb, \bw, b\big) = \prod_{i=1}^m p\big(y_i \mid \bx_i ; \ \bW, \bb, \bw, b\big).
-    $$
-```
-
-Very often, one sees the underlying graph of a neural network displayed in terms of the components of the vectors (with the parameters omitted). For example, in the case that $\bX$ is $3$-dimensional and $\bz$ is $4$-dimensional, we might see the graph of the neural network drawn as
-
-```{image} ../img/nn-neuron.svg
-:width: 60%
-:align: center
-```
-&nbsp;
-
-In this format, the nodes are often called _(artificial) neurons_ or _units_. The visible neurons $X_1,X_2,X_3$ are said to comprise the _input layer_ of the network, the hidden neurons $z_1,z_2,z_3,z_4$ make up a _hidden layer_, and the single visible neuron $Y$ makes up the _output layer_. The network is called _fully-connected_ because there is a link function at a given neuron _from_ every neuron in the previous layer and _to_ every neuron in the subsequent layer; it is called a _feedfoward_ network because the link functions only go in one direction, with no feedback links. The link function at $z_j$ is of the form
+In this format, the nodes are often called _(artificial) neurons_ or _units_. The visible neurons $X_1,X_2,X_3$ are said to comprise the _input layer_ of the network, the hidden neurons $z_1,z_2,z_3,z_4$ make up a _hidden layer_, and the single visible neuron $Y$ makes up the _output layer_. The network is called _fully-connected_ because there is a link function at a given neuron _from_ every neuron in the previous layer and _to_ every neuron in the subsequent layer; it is called a _feedfoward_ network because the link functions only go in one direction, with no feedback loops. The link function at $z_j$ is of the form
 
 $$
-z_j = \rho(\bx^\intercal \bw_j + b_j),
+z_j = \rho(\bx^\intercal \bw_{1j} + b_{1j}),
 $$
 
 where
 
 $$
-\bW = \begin{bmatrix} \uparrow & \uparrow & \uparrow & \uparrow \\ \bw_1 & \bw_2 & \bw_3 & \bw_4 \\
-\downarrow & \downarrow & \downarrow & \downarrow \end{bmatrix} \quad \text{and} \quad \bb^\intercal = \begin{bmatrix} b_{1} & b_2 & b_3 & b_{4} \end{bmatrix}.
+\bW_1 = \begin{bmatrix} \uparrow & \uparrow & \uparrow & \uparrow \\ \bw_{11} & \bw_{12} & \bw_{13} & \bw_{14} \\
+\downarrow & \downarrow & \downarrow & \downarrow \end{bmatrix} \quad \text{and} \quad \bb^\intercal_1 = \begin{bmatrix} b_{11} & b_{12} & b_{13} & b_{14} \end{bmatrix}.
 $$
 
-The link function at $Y$ is given by the same formula as before using the sigmoid function. In the literature, the ReLU function $\rho$ and the sigmoid function $\sigma$ are often called _activation functions_ of the network. The parameters $\bW$ and $\bw$ are called _weights_, while the parameters $\bb$ and $b$ are called _biases_.
+Thus, each hidden neuron processes information by first computing an affine combination of the input features $\bx$ (i.e., a weighted sum plus a bias term), and then applies the activation function $\rho$ to the result.
 
 From our networks with just one hidden layer, it is easy to imagine how we might obtain "deeper" networks by adding additional hidden layers; for example, a network with two hidden layers might look like this:
 
 ```{image} ../img/nn-neuron-02.svg
-:width: 80%
+:width: 70%
 :align: center
 ```
 &nbsp;
+
+where
+
+$$
+\bz_1^\intercal = \begin{bmatrix} z_{11} & z_{12} & z_{13} & z_{14} \end{bmatrix} \quad \text{and} \quad
+\bz_2^\intercal = \begin{bmatrix} z_{21} & z_{22} \end{bmatrix}.
+$$
 
 If we collapse the neurons into vectors and bring in the parameters, this network would be drawn as
 
 ```{image} ../img/nn-02.svg
-:width: 65%
+:width: 55%
 :align: center
 ```
 &nbsp;
 
-There are now _two_ weight matrices $\bW_1$ and $\bW_2$, along with _two_ bias vectors $\bb_1$ and $\bb_2$. The link functions at $\bz_1$ and $\bz_2$ are given by
+The link functions at $\bz_1$ and $\bz_2$ are given by
 
 $$
-\bz_\ell = \rho\big(\bz_{\ell-1}^\intercal \bW_\ell + \bb_\ell \big) \quad \text{for $\ell=1,2$,}
+\bz_1^\intercal = \rho\big(\bx^\intercal \bW_1 + \bb_1^\intercal \big) \quad \text{and} \quad \bz_2^\intercal = \rho(\bz_1^\intercal \bW_2 + \bb_2^\intercal),
 $$
 
-where we set $\bz_0 = \bx$. The link function at $Y$ is the same as it was before:
+while the link function at $Y$ is the same as it was before:
 
 $$
-Y; \ \bz_2, \bw, b \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \bz_2^\intercal \bw + b\big).
+Y; \ \bz_2, \bw_3, b_3 \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \bz_2^\intercal \bw_3 + b_3\big).
 $$
 
-The _depth_ of a neural network is defined to be one less than the total number of layers. The "one less" convention is due to the fact that only the hidden and output layers are associated with trainable parameters. Equivalently, the _depth_ is the number of "layers" of link functions (with trainable parameters). The _widths_ of a network are defined to be the dimensions of the hidden vectors.
+The _depth_ $d$ of a neural network is defined to be one less than the total number of layers, or equivalently, the number of (trainable) parameter groups
 
-Let's return to our toy dataset from the [previous section](log-reg-sec), but with an extra four "blobs" of data just to make things interesting:
+$$
+(\bW_1,\bb_1),(\bW_2,\bb_2),\ldots,(\bw_d,b_d).
+$$
+
+The _widths_ of a network are defined to be the dimensions of the hidden vectors.
+
+Let's return to our toy dataset from the [previous section](log-reg-sec), but for extra fun let's add four "blobs" of data:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1117,7 +1224,7 @@ plt.tight_layout()
 Trained on the original dataset (without the "blobs"), we saw that a logistic regression model produces a _linear_ decision boundary and thus misclassifies a nontrivial number of data points. In comparison, not only will a neural network produce a nonlinear decision boundary dividing the data in the original dataset, it will also correctly classify the data in the four new "blobs." Indeed, using the techniques in the [next chapter](learning), we trained a neural network on the new dataset with _three_ hidden layers of widths $8$, $8$, and $4$. Then, a contour plot of the function
 
 $$
-\phi = \sigma\big(\bz_3^\intercal\bw + b\big)
+\phi = \sigma\big(\bz_3^\intercal\bw_4 + b_4\big)
 $$
 
 appears on the left-hand side of the following figure, while the "thresholded" version (at $0.5$) appears on the right-hand side displaying the (nonlinear!) decision boundaries:
@@ -1205,27 +1312,58 @@ for axis in axes[:-1]:
     axis.set_xlabel('$x_1$')
     axis.set_ylabel('$x_2$')
 
+axes[0].set_title('contour plot of $\\phi = \\sigma(\\mathbf{z}_3^\\intercal \\boldsymbol{w}_4 + b_4)$')
+axes[1].set_title('contour plot of predictor function $f(\mathbf{x})$')
 plt.tight_layout()
 ```
 
 Notice that the band of white dividing the original dataset (representing values $\phi \approx 0.5$) in the left-hand plot is much narrower compared to the same plot for the logistic regression model. This indicates that the neural network is making much more confident predictions up to its decision boundary (displayed in the right-hand plot) compared to the logistic regression model.
 
-To be written: Blah, blah blah, talk about activations:
+One of the major differences between neural networks and models like linear and logistic regression is that all variables in the latter types are visible, while neural networks contain layers of hidden variables sandwiched between the visible ones. This presents the analyst with a problem of understanding and interpretability: What exactly are the hidden neurons _doing_ in a neural network model, and how might we interpret their output in human-understandable ways?
 
+Answers to these questions that are simultaneously broad enough to cover many use cases, while narrow enough to actually say something specific and meaningful, are very difficult to come by---indeed, this is an active area of research in machine learning. But generally speaking, it is often useful to think of the hierarchy of layers in a neural network---beginning from the input layer, progressing through the hidden layers to the output layer---as a _hierarchy of representations_ progressing from the broad and general to the specific and refined. Here, by a _representation_, we mean an encoding of some real-world object or concept as a finite-dimensional vector of numerical features. For an example, consider a cat sitting on a chair---how might we represent this scene as a vector of numerical features understandable by a computer? One way is to take a picture of the cat with a digital camera, which encodes the scene into a digital picture consisting of an $m\times n$ rectangular grid of pixels. The color of each pixel is uniquely identified by an _RGB triplet_ $(r,g,b)$, where the components are numbers that specify how much red, green, and blue are needed to form the color. Thus, the cat may be encoded into a feature vector which is actually a $3$-dimensional tensor of size $m\times n \times 3$. This is a _representation_ of the scene.
+
+For another example, consider our familiar Ames housing dataset. The numerical features in this dataset comprise a _representation_ of the housing market in Ames, Iowa. The dataset is not _literally_ the housing market, just as the digital picture that I see on my screen of my cat sitting on a chair is not _literally_ my cat! So, it is important to understand that the datasets we deal with in the real world are _all_ representations, in this sense. And which numerical features to include in a given dataset is often decided by a human based on many factors---the features are identified and extracted from the real world by hand, as they say. As such, these features are often understandable and interpretable by a human since they clearly map onto real-world, tangible things.
+
+Now, suppose that $\bx$ is an input feature vector to a neural network. On its way through the network, it begins by landing in the first hidden layer, transforming into the vector
+
+$$
+\bz_1^\intercal = \rho(\bx^\intercal \bW_1 + \bb_1^\intercal).
+$$
+
+We think of $\bz_1$ as _another_ representation of the data, but the meaning of its components---the "activations of the neurons"---are difficult to interpret because the weight matrix $\bW_1$ and bias vector $\bb_1$ are learned through the (usually very opaque) training process (see {numref}`Chapter %s <learning>`). Then, _this_ new feature vector $\bz_1$ is passed into the second layer, creating _yet another_ new representation
+
+$$
+\bz_2^\intercal = \rho(\bz_1^\intercal \bW_2 + \bb_2^\intercal)
+$$
+
+of the data. For a network of depth $d$, this process of iteratively creating new representations of the data based on the previous ones continues all the way to the vector $\bz_{d-1}$ in the last hidden layer, which is then used to create the probability
+
+$$
+\phi = \sigma( \bz_{d-1}^\intercal \bw_d + b_d)
+$$
+
+that parametrizes the distribution of the random variable $Y\sim \Ber(\phi)$ in the output layer. So, the end result of the "forward pass" through the network is a sequence of representations
+
+$$
+\bx,\bz_1,\bz_2,\ldots,\bz_{d-1}
+$$ (forward-pass-eq)
+
+of the data, beginning with the (often human constructed) feature vector $\bx$. As we mentioned above, one can often think of this sequence of representations as a progression from the broad and general, to the specific and refined. For example, the following contour plots show the activations of the eight neurons in the first hidden layer of our network trained to classify the data in our toy example:
 
 ```{code-cell} ipython3
-:tags: [hide-input]
+:tags: [hide-input, full-width]
 :mystnb:
 :   figure:
 :       align: center
 
-fig = plt.figure(constrained_layout=True, figsize=(14, 14))
-subfigs = fig.subfigures(ncols=2, nrows=3, hspace=0.03, height_ratios=[2, 2, 1], width_ratios=[18, 1])
+fig = plt.figure(constrained_layout=True, figsize=(14, 5))
+subfigs = fig.subfigures(ncols=2, nrows=1, width_ratios=[18, 1])
 
 light_cmap = clr.LinearSegmentedColormap.from_list(name='light', colors=['white', magenta], N=16)
 
 # hidden layer 1, with 8 neurons
-subfig = subfigs[0, 0]
+subfig = subfigs[0]
 subfig.suptitle(f'neurons in hidden layer 1')
 axes = subfig.subplots(nrows=2, ncols=4, sharex=True, sharey=True)
     
@@ -1239,38 +1377,136 @@ for j, axis in enumerate(axes.flatten()):
     axis.set_xlabel('$x_1$')
     axis.set_ylabel('$x_2$')
 
-# hidden layer 2, with 4 neurons
-subfig = subfigs[1, 0]
+# plot the colorbar
+subfig = subfigs[1]
+axis = subfig.subplots()
+cbar = subfig.colorbar(mpl.cm.ScalarMappable(cmap=light_cmap), cax=axis, orientation='vertical')
+cbar.set_ticklabels([round(3 / 5 * k, 1) for k in range(5)] + ['>5.0'])
+```
+
+Specifically, these plots show the contours of the functions
+
+$$
+z_{1j} = \rho( \bx^\intercal \bw_{1j} + \bb_{1j}^\intercal ),
+$$
+
+for each $j=1,\ldots,8$, where
+
+$$
+\bz_1^\intercal = \begin{bmatrix} z_{11} & \cdots & z_{18} \end{bmatrix}, \quad
+\bW_1 = \begin{bmatrix} \uparrow & \cdots & \uparrow \\
+\bw_{11} & \cdots & \bw_{18} \\
+\downarrow & \cdots & \downarrow
+\end{bmatrix}, \quad
+\bb_1^\intercal = \begin{bmatrix} b_{11} & \cdots & b_{18} \end{bmatrix}.
+$$
+
+We see from the plots that the neurons are active on half planes of parameter space---their activations are not highlighting specific, refined structures in the data, but rather broad structures. The components in the representation $\bz_1$ indicate what combination of these half planes the given data point lies in; a larger number for a component indicates that the point is further away from the boundary of the half planes.
+
+This new representation $\bz_1$ is then passed into the second hidden layer, revealing these activations:
+
+```{code-cell} ipython3
+:tags: [hide-input, full-width]
+:mystnb:
+:   figure:
+:       align: center
+
+fig = plt.figure(constrained_layout=True, figsize=(14, 5))
+subfigs = fig.subfigures(ncols=2, nrows=1, width_ratios=[18, 1])
+
+light_cmap = clr.LinearSegmentedColormap.from_list(name='light', colors=['white', magenta], N=16)
+
+# hidden layer 2, with 8 neurons
+subfig = subfigs[0]
 subfig.suptitle(f'neurons in hidden layer 2')
 axes = subfig.subplots(nrows=2, ncols=4, sharex=True, sharey=True)
-
+    
 for j, axis in enumerate(axes.flatten()):
     z = grid_outputs[2][:, j].detach().numpy()
     z = z.reshape(resolution, resolution)
-    axis.contourf(x1_grid, x2_grid, z, cmap=light_cmap, levels=light_cmap.N, vmin=0, vamx=3)
-
+    contour = axis.contourf(x1_grid, x2_grid, z, cmap=light_cmap, levels=light_cmap.N, vmin=0, vmax=3)
+    
     sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axis, legend=False, zorder=3)
     axis.set_title(f'neuron {j + 1}')
     axis.set_xlabel('$x_1$')
     axis.set_ylabel('$x_2$')
 
-subfig = subfigs[2, 0]
-subfig.suptitle('neurons in hidden layer 3')
-axes = subfig.subplots(nrows=1, ncols=4, sharex=True, sharey=True)
+# plot the colorbar
+subfig = subfigs[1]
+axis = subfig.subplots()
+cbar = subfig.colorbar(mpl.cm.ScalarMappable(cmap=light_cmap), cax=axis, orientation='vertical')
+cbar.set_ticklabels([round(3 / 5 * k, 1) for k in range(5)] + ['>5.0'])
+```
 
+These are contour plots of the functions
+
+$$
+\bz_{2j} = \rho(\bz_1^\intercal \bw_{2j} + \bb_{2j})
+$$
+
+for each $j=1,\ldots,8$, where
+
+$$
+\bz_2^\intercal = \begin{bmatrix} z_{21} & \cdots & z_{28} \end{bmatrix}, \quad
+\bW_2 = \begin{bmatrix} \uparrow & \cdots & \uparrow \\
+\bw_{21} & \cdots & \bw_{28} \\
+\downarrow & \cdots & \downarrow
+\end{bmatrix}, \quad
+\bb_2^\intercal = \begin{bmatrix} b_{21} & \cdots & b_{28} \end{bmatrix}.
+$$
+
+In comparison to the broad activations of the neurons in the first layer, these activations are starting to take on a more refined structure, with some of the activation boundaries beginning to conform to the shape of the data.
+
+Finally, this second representation $\bz_2$ is passed into the third and final hidden layer, revealing the following activations:
+
+```{code-cell} ipython3
+:tags: [hide-input, full-width]
+:mystnb:
+:   figure:
+:       align: center
+
+fig = plt.figure(constrained_layout=True, figsize=(14, 3))
+subfigs = fig.subfigures(ncols=2, nrows=1, width_ratios=[18, 1])
+
+light_cmap = clr.LinearSegmentedColormap.from_list(name='light', colors=['white', magenta], N=16)
+
+# hidden layer 3, with 4 neurons
+subfig = subfigs[0]
+subfig.suptitle(f'neurons in hidden layer 3')
+axes = subfig.subplots(nrows=1, ncols=4, sharex=True, sharey=True)
+    
 for j, axis in enumerate(axes.flatten()):
     z = grid_outputs[3][:, j].detach().numpy()
     z = z.reshape(resolution, resolution)
-    axis.contourf(x1_grid, x2_grid, z, cmap=light_cmap, levels=light_cmap.N, vmin=0, vamx=10)
-
+    contour = axis.contourf(x1_grid, x2_grid, z, cmap=light_cmap, levels=light_cmap.N, vmin=0, vmax=3)
+    
     sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axis, legend=False, zorder=3)
     axis.set_title(f'neuron {j + 1}')
     axis.set_xlabel('$x_1$')
     axis.set_ylabel('$x_2$')
 
-# plot the colorbars
-for subfig in subfigs[:, 1]:
-    axis = subfig.subplots()
-    cbar = subfig.colorbar(mpl.cm.ScalarMappable(cmap=light_cmap), cax=axis, orientation='vertical')
-    cbar.set_ticklabels([round(3 / 5 * k, 1) for k in range(5)] + ['>5.0'])
+# plot the colorbar
+subfig = subfigs[1]
+axis = subfig.subplots()
+cbar = subfig.colorbar(mpl.cm.ScalarMappable(cmap=light_cmap), cax=axis, orientation='vertical')
+cbar.set_ticklabels([round(3 / 5 * k, 1) for k in range(5)] + ['>5.0'])
 ```
+
+These are contour plots of the functions
+
+$$
+z_{3j} = \rho(\bz_2^\intercal \bw_{3j} + \bb_{3j})
+$$
+
+for each $j=1,\ldots,4$, where
+
+$$
+\bz_3^\intercal = \begin{bmatrix} z_{31} & \cdots & z_{34} \end{bmatrix}, \quad
+\bW_3 = \begin{bmatrix} \uparrow & \cdots & \uparrow \\
+\bw_{31} & \cdots & \bw_{34} \\
+\downarrow & \cdots & \downarrow
+\end{bmatrix}, \quad
+\bb_3^\intercal = \begin{bmatrix} b_{31} & \cdots & b_{34} \end{bmatrix}.
+$$
+
+One now sees that the activations of the first and third neurons combine to form the decision boundary of the entire network, as shown earlier. The shapes of these activations are even more refined than those in the previous hidden layer, taking on more of the shape of the data. Interestingly, the second and fourth neurons appear to be inactive, at least in the region of parameter space containing the dataset. One might "prune" inactive neurons from the network _after_ training, but care must be exercised in "pruning" _before_ training. Indeed, even if a neuron is ultimately inactive in the trained network, it may play a nontrivial role _during_ training, and the effect of its removal is, in general, difficult to estimate.

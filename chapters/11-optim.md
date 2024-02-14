@@ -111,10 +111,10 @@ The loop runs from $t=0$ to $t=N-1$, inclusive. This convention is intended to m
 
 ---
 
-&nbsp;&nbsp; 1. $\theta := \theta_0$ <br>
-&nbsp;&nbsp; 2. For $t$ from $0$ to $N-1$, do: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. $\theta := \theta - \alpha J'(\theta)$ <br>
-&nbsp;&nbsp; 4. Return $\theta$
+&nbsp;&nbsp; $\theta := \theta_0$ <br>
+&nbsp;&nbsp; For $t$ from $0$ to $N-1$, do: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $\theta := \theta - \alpha J'(\theta)$ <br>
+&nbsp;&nbsp; Return $\theta$
 ```
 
 Though this simple description of the algorithm outputs just a single approximation to a local minimizer, in practice it is often convenient to output the entire sequence of $\theta$'s produced as the algorithm iterates through the `for` loop:
@@ -312,10 +312,10 @@ Of course, one can often prevent divergence by simply using a smaller learning r
 
 ---
 
-&nbsp;&nbsp; 1. $\theta := \theta_0$ <br>
-&nbsp;&nbsp; 2. For $t$ from $0$ to $N-1$, do: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. $\theta := \theta - \alpha (1-\beta)^{t+1} J'(\theta)$ <br>
-&nbsp;&nbsp; 4. Return $\theta$
+&nbsp;&nbsp; $\theta := \theta_0$ <br>
+&nbsp;&nbsp; For $t$ from $0$ to $N-1$, do: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $\theta := \theta - \alpha (1-\beta)^{t+1} J'(\theta)$ <br>
+&nbsp;&nbsp; Return $\theta$
 ```
 
 The new parameter $\beta$, called the _decay rate_, shrinks the learning rate as
@@ -923,10 +923,10 @@ With the gradient vector taking the place of the derivative, it is easy to gener
 
 ---
 
-&nbsp;&nbsp; 1. $\btheta := \btheta_0$ <br>
-&nbsp;&nbsp; 2. For $t$ from $0$ to $N-1$, do: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. $\btheta := \btheta - \alpha(1-\beta)^{t+1} \nabla J(\btheta)$ <br>
-&nbsp;&nbsp; 4. Return $\btheta$.
+&nbsp;&nbsp; $\btheta := \btheta_0$ <br>
+&nbsp;&nbsp; For $t$ from $0$ to $N-1$, do: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $\btheta := \btheta - \alpha(1-\beta)^{t+1} \nabla J(\btheta)$ <br>
+&nbsp;&nbsp; Return $\btheta$.
 ```
 
 Just like the single-variable version, in practice it is convenient to track the entire sequence of $\btheta$'s produced by the algorithm:
@@ -1567,14 +1567,14 @@ The mini-batch version of the gradient descent algorithm loops over the mini-bat
 
 ---
 
-&nbsp;&nbsp; 1. $\btheta := \btheta_0$ <br>
-&nbsp;&nbsp; 2. $s := 0$ <br>
-&nbsp;&nbsp; 3. For $t$ from $0$ to $N-1$, do: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. Randomly partition the dataset into mini-batches $B_1,B_2,\ldots,B_p$ <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5. For each mini-batch $B_j$, do: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6. $\btheta := \btheta - \displaystyle \alpha(1-\beta)^{s+1} \frac{1}{|B_j|} \sum_{\bx \in B_j} \nabla_\btheta g\big(\bx; \btheta\big)$ <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7. $s := s+1$ <br>
-&nbsp;&nbsp; 8. Return $\btheta$
+&nbsp;&nbsp; $\btheta := \btheta_0$ <br>
+&nbsp;&nbsp; $s := 0$ <br>
+&nbsp;&nbsp; For $t$ from $0$ to $N-1$, do: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Randomly partition the dataset into mini-batches $B_1,B_2,\ldots,B_p$ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For each mini-batch $B_j$, do: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $\btheta := \btheta - \displaystyle \alpha(1-\beta)^{s+1} \frac{1}{|B_j|} \sum_{\bx \in B_j} \nabla_\btheta g\big(\bx; \btheta\big)$ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $s := s+1$ <br>
+&nbsp;&nbsp; Return $\btheta$
 ```
 
 Notice the auxiliary variable $s$, which counts the number of gradient steps and is used to decay the learning rate. As we mentioned above, very often the mini-batches are chosen to be of equal size $k$, except (possibly) for one mini-batch to compensate for the fact that $m$ may not be divisible by $k$. In this case, we pass in the mini-batch size $k$ as an additional parameter.

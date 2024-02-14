@@ -433,7 +433,7 @@ g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
 <a class="reference internal image-reference" href="../_images/det-link.svg"><img alt="../_images/det-link.svg" class="align-center" src="../_images/det-link.svg" width="25%" /></a>
 <p> </p>
 <p>Very often, the label <span class="math notranslate nohighlight">\(g\)</span> on the link function will be omitted. In the case that both <span class="math notranslate nohighlight">\(\bx\)</span> and <span class="math notranslate nohighlight">\(\by\)</span> are <span class="math notranslate nohighlight">\(1\)</span>-dimensional, we visualized a deterministic flow like this:</p>
-<a class="reference internal image-reference" href="../_images/det-kernel.svg"><img alt="../_images/det-kernel.svg" class="align-center" src="../_images/det-kernel.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/det-kernel.svg"><img alt="../_images/det-kernel.svg" class="align-center" src="../_images/det-kernel.svg" width="85%" /></a>
 <p> </p>
 <p>It could be the case that flow of influence is parametrized. For example, <span class="math notranslate nohighlight">\(g\)</span> might be a linear transformation that is represented by a matrix <span class="math notranslate nohighlight">\(\bA \in \bbr^{m\times n}\)</span>, with the entries in the matrix serving as parameters for the flow. We would represent this situation as</p>
 <a class="reference internal image-reference" href="../_images/det-link-2.svg"><img alt="../_images/det-link-2.svg" class="align-center" src="../_images/det-link-2.svg" width="25%" /></a>
@@ -452,11 +452,11 @@ g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
 <a class="reference internal image-reference" href="../_images/random-link.svg"><img alt="../_images/random-link.svg" class="align-center" src="../_images/random-link.svg" width="25%" /></a>
 <p> </p>
 <p>This flow is represented mathematically via a <em>link function</em> <span class="math notranslate nohighlight">\(\btheta = g(\bx)\)</span> where <span class="math notranslate nohighlight">\(\bx\)</span> is an observed value of <span class="math notranslate nohighlight">\(\bX\)</span> and <span class="math notranslate nohighlight">\(\btheta\)</span> is a parameter that uniquely determines the probability distribution of <span class="math notranslate nohighlight">\(\bY\)</span>. So, in this case, an observed value <span class="math notranslate nohighlight">\(\bx\)</span> does <em>not</em> determine a particular observed value <span class="math notranslate nohighlight">\(\by\)</span> of <span class="math notranslate nohighlight">\(Y\)</span>, but rather an entire probability distribution over the <span class="math notranslate nohighlight">\(\by\)</span>’s. This probability distribution is conditioned on <span class="math notranslate nohighlight">\(\bX\)</span>, so the link function is often specified by giving the functional form of the conditional probability function <span class="math notranslate nohighlight">\(p(\by | \bx)\)</span>. In other words, a stochastic flow of information is exactly a Markov kernel (communication channel), as we discussed in <a class="reference internal" href="10-info-theory.html#cond-entropy-mutual-info-sec"><span class="std std-numref">Section 10.3</span></a>:</p>
-<a class="reference internal image-reference" href="../_images/stochastic-flow.svg"><img alt="../_images/stochastic-flow.svg" class="align-center" src="../_images/stochastic-flow.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/stochastic-flow.svg"><img alt="../_images/stochastic-flow.svg" class="align-center" src="../_images/stochastic-flow.svg" width="85%" /></a>
 <p> </p>
 <p>In the picture, both <span class="math notranslate nohighlight">\(\bX\)</span> and <span class="math notranslate nohighlight">\(\bY\)</span> are <span class="math notranslate nohighlight">\(1\)</span>-dimensional. Notice that only observed values <span class="math notranslate nohighlight">\(\bx\)</span> of <span class="math notranslate nohighlight">\(\bX\)</span> are used to determine the distribution of <span class="math notranslate nohighlight">\(\bY\)</span> through the link—the distribution of <span class="math notranslate nohighlight">\(\bX\)</span> itself plays no role.</p>
 <p>These stochastic links might be parametrized. For example, suppose <span class="math notranslate nohighlight">\(\bY\)</span> is <span class="math notranslate nohighlight">\(1\)</span>-dimensional, equal to a random variable <span class="math notranslate nohighlight">\(Y\)</span>, while <span class="math notranslate nohighlight">\(\bX\in \mathbb{R}^{n}\)</span> is an <span class="math notranslate nohighlight">\(n\)</span>-dimensional random vector. Then, a particular example of a stochastic link is given by the graph</p>
-<a class="reference internal image-reference" href="../_images/lin-reg-0.svg"><img alt="../_images/lin-reg-0.svg" class="align-center" src="../_images/lin-reg-0.svg" width="45%" /></a>
+<a class="reference internal image-reference" href="../_images/lin-reg-0.svg"><img alt="../_images/lin-reg-0.svg" class="align-center" src="../_images/lin-reg-0.svg" width="35%" /></a>
 <p> </p>
 <p>The parameters consist of a real number <span class="math notranslate nohighlight">\(\beta_0 \in \bbr\)</span>, a vector <span class="math notranslate nohighlight">\(\bbeta \in \bbr^{n}\)</span>, and a positive number <span class="math notranslate nohighlight">\(\sigma^2 &gt;0\)</span>. A complete description of the link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by</p>
 <div class="math notranslate nohighlight">
@@ -477,22 +477,22 @@ Y \mid \bX; \ \beta_0, \bbeta,\sigma^2 \sim \mathcal{N}(\mu, \sigma^2), \quad \t
 <p> </p>
 <p>then we mean that <span class="math notranslate nohighlight">\(\bX\)</span> is observed while <span class="math notranslate nohighlight">\(\by\)</span> is hidden.</p>
 <p>It is important to note that for the simple types of models we consider in this chapter, the datasets consist of observations across <em>all</em> observed nodes in the model. For example, let’s suppose that we have a graphical structure of the form</p>
-<a class="reference internal image-reference" href="../_images/unplated.svg"><img alt="../_images/unplated.svg" class="align-center" src="../_images/unplated.svg" width="50%" /></a>
+<a class="reference internal image-reference" href="../_images/unplated.svg"><img alt="../_images/unplated.svg" class="align-center" src="../_images/unplated.svg" width="40%" /></a>
 <p> </p>
 <p>with two observed random vectors and one hidden. Then, by saying that <span class="math notranslate nohighlight">\(\bY\)</span> and <span class="math notranslate nohighlight">\(\bZ\)</span> are observed, we mean that we have in possession a pair <span class="math notranslate nohighlight">\((\by, \bz) \)</span> consisting of observed values of <span class="math notranslate nohighlight">\(\bY\)</span> and <span class="math notranslate nohighlight">\(\bZ\)</span>.</p>
 <p>We may integrate IID random samples into our graphical framework as follows. Suppose that instead of a single copy of the graph above, we have a collection of graphs</p>
-<a class="reference internal image-reference" href="../_images/unplated-02.svg"><img alt="../_images/unplated-02.svg" class="align-center" src="../_images/unplated-02.svg" width="50%" /></a>
+<a class="reference internal image-reference" href="../_images/unplated-02.svg"><img alt="../_images/unplated-02.svg" class="align-center" src="../_images/unplated-02.svg" width="40%" /></a>
 <p> </p>
-<p>one for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>, where the random vector <span class="math notranslate nohighlight">\(\bX\)</span> and the parameters <span class="math notranslate nohighlight">\(\balpha\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span> are assumed to be <em>shared</em> across all <span class="math notranslate nohighlight">\(i\)</span>. In the case that <span class="math notranslate nohighlight">\(m=3\)</span> (for example), we may assemble all these graphs together into a single large graph</p>
-<a class="reference internal image-reference" href="../_images/unplated-03.svg"><img alt="../_images/unplated-03.svg" class="align-center" src="../_images/unplated-03.svg" width="65%" /></a>
+<p>one for each <span class="math notranslate nohighlight">\(j=1,\ldots,n\)</span>, where the random vector <span class="math notranslate nohighlight">\(\bX\)</span> and the parameters <span class="math notranslate nohighlight">\(\balpha\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span> are assumed to be <em>shared</em> across all <span class="math notranslate nohighlight">\(j\)</span>. In the case that <span class="math notranslate nohighlight">\(n=3\)</span> (for example), we may assemble all these graphs together into a single large graph</p>
+<a class="reference internal image-reference" href="../_images/unplated-03.svg"><img alt="../_images/unplated-03.svg" class="align-center" src="../_images/unplated-03.svg" width="50%" /></a>
 <p> </p>
-<p>which explicitly shows that <span class="math notranslate nohighlight">\(\bX\)</span>, <span class="math notranslate nohighlight">\(\balpha\)</span>, and <span class="math notranslate nohighlight">\(\bbeta\)</span> are shared across all <span class="math notranslate nohighlight">\(i\)</span>. Clearly, drawing these types of graphs becomes unwieldy for large <span class="math notranslate nohighlight">\(m\)</span>, so analysts have invented a method for depicting repetition in graphs by drawing a rectangle around the portion that is supposed to be duplicated:</p>
-<a class="reference internal image-reference" href="../_images/plated-01.svg"><img alt="../_images/plated-01.svg" class="align-center" src="../_images/plated-01.svg" width="55%" /></a>
+<p>which explicitly shows that <span class="math notranslate nohighlight">\(\bX\)</span>, <span class="math notranslate nohighlight">\(\balpha\)</span>, and <span class="math notranslate nohighlight">\(\bbeta\)</span> are shared across all <span class="math notranslate nohighlight">\(j\)</span>. Clearly, drawing these types of graphs becomes unwieldy for large <span class="math notranslate nohighlight">\(n\)</span>, so analysts have invented a method for depicting repetition in graphs by drawing a rectangle around the portion that is supposed to be duplicated:</p>
+<a class="reference internal image-reference" href="../_images/plated-01.svg"><img alt="../_images/plated-01.svg" class="align-center" src="../_images/plated-01.svg" width="40%" /></a>
 <p> </p>
-<p>This is called <em>plate notation</em>, where the rectangle is called the <em>plate</em>. The visible nodes in the plate are assumed to be grouped as pairs <span class="math notranslate nohighlight">\((\bY_i,\bZ_i)\)</span>, and altogether they form an IID random sample</p>
+<p>This is called <em>plate notation</em>, where the rectangle is called the <em>plate</em>. The visible nodes in the plate are assumed to be grouped as pairs <span class="math notranslate nohighlight">\((\bY_j,\bZ_j)\)</span>, and altogether they form an IID random sample</p>
 <div class="math notranslate nohighlight">
 \[
-(\bY_1,\bZ_2),\ldots,(\bY_m,\bZ_m).
+(\bY_1,\bZ_1),(\bY_2,\bZ_2),\ldots,(\bY_n,\bZ_n).
 \]</div>
 <p>We now have everything that we need to define our version of <em>probabilistic graphical models</em>. After the definition, the remaining sections in this chapter are devoted to the study of particular examples of such models.</p>
 <div class="proof definition admonition" id="pgm-def">
@@ -511,17 +511,17 @@ Y \mid \bX; \ \beta_0, \bbeta,\sigma^2 \sim \mathcal{N}(\mu, \sigma^2), \quad \t
 <p>The type of PGM defined in this section is one of the simplest, but also one of the most important. Its goal is to model an observed dataset</p>
 <div class="math notranslate nohighlight">
 \[
-(\bx_1, y_1), (\bx_2,y_2),\ldots, (\bx_m,y_m) \in \bbr^{n} \times \bbr
+(\bx_1, y_1), (\bx_2,y_2),\ldots, (\bx_n,y_n) \in \bbr^{m} \times \bbr
 \]</div>
 <p>where we believe that</p>
 <div class="math notranslate nohighlight" id="equation-approx-linear-eqn">
-<span class="eqno">(12.1)<a class="headerlink" href="#equation-approx-linear-eqn" title="Permalink to this equation">#</a></span>\[y_i \approx \beta_0 + \bx_i^\intercal \bbeta\]</div>
-<p>for some parameters <span class="math notranslate nohighlight">\(\beta_0 \in \bbr\)</span> and <span class="math notranslate nohighlight">\(\bbeta \in \bbr^{n}\)</span>. For example, let’s consider the Ames housing dataset from the <a href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and <a class="reference internal" href="07-random-vectors.html#random-vectors"><span class="std std-numref">Chapter 7</span></a>; it consists of <span class="math notranslate nohighlight">\(m=2{,}930\)</span> bivariate observations</p>
+<span class="eqno">(12.1)<a class="headerlink" href="#equation-approx-linear-eqn" title="Permalink to this equation">#</a></span>\[y_j \approx \beta_0 + \bbeta^\intercal \bx_j\]</div>
+<p>for some parameters <span class="math notranslate nohighlight">\(\beta_0 \in \bbr\)</span> and <span class="math notranslate nohighlight">\(\bbeta \in \bbr^{m}\)</span>. For example, let’s consider the Ames housing dataset from the <a href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and <a class="reference internal" href="07-random-vectors.html#random-vectors"><span class="std std-numref">Chapter 7</span></a>; it consists of <span class="math notranslate nohighlight">\(n=2{,}930\)</span> bivariate observations</p>
 <div class="math notranslate nohighlight">
 \[
-(x_1,y_1),(x_2,y_2),\ldots,(x_m,y_m) \in \bbr^2
+(x_1,y_1),(x_2,y_2),\ldots,(x_n,y_n) \in \bbr^2
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(y_i\)</span> are the size (in square feet) and selling price (in thousands of US dollars) of the <span class="math notranslate nohighlight">\(i\)</span>-th house in the dataset. A scatter plot of the dataset looks like</p>
+<p>where <span class="math notranslate nohighlight">\(x_j\)</span> and <span class="math notranslate nohighlight">\(y_j\)</span> are the size (in square feet) and selling price (in thousands of US dollars) of the <span class="math notranslate nohighlight">\(j\)</span>-th house in the dataset. A scatter plot of the dataset looks like</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -586,7 +586,7 @@ Y \mid \bX; \ \beta_0, \bbeta,\sigma^2 \sim \mathcal{N}(\mu, \sigma^2), \quad \t
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/afe7be4b2b2435a8701016241ba97bd8b04f426d673f79f105b17a5ea7213fa2.svg" src="../_images/afe7be4b2b2435a8701016241ba97bd8b04f426d673f79f105b17a5ea7213fa2.svg" /></figure>
+<img alt="../_images/7f7ad9f88d3d38655e1107d6fb1e1255788a1857d580c641f6f1050aaf179788.svg" src="../_images/7f7ad9f88d3d38655e1107d6fb1e1255788a1857d580c641f6f1050aaf179788.svg" /></figure>
 </div>
 </div>
 <p>The positively-sloped line is used to visualize the approximate linear relationship <a class="reference internal" href="#equation-approx-linear-eqn">(12.1)</a>. This is a so-called <em>least squares line</em> or <em>regression line</em>; we will learn how to compute them in <a class="reference internal" href="13-learning.html#learning"><span class="std std-numref">Chapter 13</span></a>.</p>
@@ -595,108 +595,167 @@ Y \mid \bX; \ \beta_0, \bbeta,\sigma^2 \sim \mathcal{N}(\mu, \sigma^2), \quad \t
 <p class="admonition-title"><span class="caption-number">Definition 12.2 </span></p>
 <section class="definition-content" id="proof-content">
 <p>A <em>linear regression model</em> is a probabilistic graphical model whose underlying graph is of the form</p>
-<a class="reference internal image-reference" href="../_images/lin-reg-00.svg"><img alt="../_images/lin-reg-00.svg" class="align-center" src="../_images/lin-reg-00.svg" width="50%" /></a>
+<a class="reference internal image-reference" href="../_images/lin-reg-00.svg"><img alt="../_images/lin-reg-00.svg" class="align-center" src="../_images/lin-reg-00.svg" width="35%" /></a>
 <p> </p>
-<p>where <span class="math notranslate nohighlight">\(\bX\in \bbr^{n}\)</span>. The model has the following parameters:</p>
+<p>where <span class="math notranslate nohighlight">\(\bX\in \bbr^m\)</span>. The model has the following parameters:</p>
 <ul class="simple">
 <li><p>A real parameter <span class="math notranslate nohighlight">\(\beta_0\in \mathbb{R}\)</span>.</p></li>
-<li><p>A parameter vector <span class="math notranslate nohighlight">\(\bbeta \in \mathbb{R}^{n}\)</span>.</p></li>
+<li><p>A parameter vector <span class="math notranslate nohighlight">\(\bbeta \in \mathbb{R}^m\)</span>.</p></li>
 <li><p>A positive real parameter <span class="math notranslate nohighlight">\(\sigma^2&gt;0\)</span>.</p></li>
 </ul>
 <p>The link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-Y \mid \bX; \ \beta_0,\bbeta,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big), \quad \text{where} \quad \mu = \beta_0 + \bx^\intercal \bbeta.
+Y \mid \bX; \ \beta_0,\bbeta,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big), \quad \text{where} \quad \mu = \beta_0 + \bbeta^\intercal \bx.
 \]</div>
 </section>
-</div><p>Before we introduce important terminology associated with linear regression models and look at an example, we need to discuss two probability functions that will play a crucial role in the <a class="reference internal" href="13-learning.html#learning"><span class="std std-ref">next chapter</span></a>. The first is just the conditional probability function of <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(\bX\)</span>, while the second is obtained from the plated version of a linear regression model:</p>
-<a class="reference internal image-reference" href="../_images/lin-reg-00-plated.svg"><img alt="../_images/lin-reg-00-plated.svg" class="align-center" src="../_images/lin-reg-00-plated.svg" width="50%" /></a>
-<p> </p>
-<p>Observations of the visible nodes correspond to an observed dataset.</p>
+</div><p>Before we introduce important terminology associated with linear regression models and look at an example, we need to discuss two probability functions that will play a crucial role in the <a class="reference internal" href="13-learning.html#learning"><span class="std std-ref">next chapter</span></a>. The first is just the conditional probability function of <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(\bX\)</span>:</p>
 <div class="proof definition admonition" id="linear-reg-pf-def">
 <p class="admonition-title"><span class="caption-number">Definition 12.3 </span></p>
 <section class="definition-content" id="proof-content">
-<ol class="arabic">
-<li><p>The <em>model probability function</em> for a linear regression model is the conditional probability function</p>
+<p>The <em>model probability function</em> for a linear regression model is the conditional probability function</p>
 <div class="math notranslate nohighlight">
 \[
-    p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big).
-    \]</div>
-<p>On its support consisting of all <span class="math notranslate nohighlight">\(y\in \bbr\)</span> and <span class="math notranslate nohighlight">\(\bx \in \bbr^{n}\)</span>, it is given by the formula</p>
-<div class="math notranslate nohighlight">
-\[
-    p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} ( y - \mu)^2 \right),
-    \]</div>
-<p>where <span class="math notranslate nohighlight">\(\mu = \beta_0 + \bx^\intercal \bbeta\)</span>.</p>
-</li>
-<li><p>Given an observed dataset</p>
-<div class="math notranslate nohighlight">
-\[
-    (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr,
-    \]</div>
-<p>the <em>data probability function</em> for a linear regression model is the conditional probability density function</p>
-<div class="math notranslate nohighlight" id="equation-data-pf-eqn">
-<span class="eqno">(12.2)<a class="headerlink" href="#equation-data-pf-eqn" title="Permalink to this equation">#</a></span>\[
-    p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta,\sigma^2 \big) = \prod_{i=1}^m p\big(y_i \mid \bx_i ; \ \beta_0, \bbeta, \sigma^2\big).
-    \]</div>
-</li>
-</ol>
-</section>
-</div><p>Note that the data probability function appears to be <em>defined</em> as a product of model probability functions. However, using independence of the random sample</p>
-<div class="math notranslate nohighlight">
-\[
-(\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_m, Y_m),
+p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big).
 \]</div>
-<p>one may actually <em>prove</em> that the left-hand side of <a class="reference internal" href="#equation-data-pf-eqn">(12.2)</a> is equal to the product on the right-hand side; see the homework for this section.</p>
-<p>Returning to our discussion of the linear regression model, the components of the vector <span class="math notranslate nohighlight">\(\bX\)</span> are referred to as <em>predictors</em>, <em>regressors</em>, <em>explanatory variables</em>, or <em>independent variables</em>, while the random variable <span class="math notranslate nohighlight">\(Y\)</span> is called the <em>response variable</em> or the <em>dependent variable</em>. In the case that <span class="math notranslate nohighlight">\(n=1\)</span>, the model is called a <em>simple linear regression model</em>; otherwise, it is called a <em>multiple linear regression model</em>.</p>
+<p>On its support consisting of all <span class="math notranslate nohighlight">\(y\in \bbr\)</span> and <span class="math notranslate nohighlight">\(\bx \in \bbr^m\)</span>, it is given by the formula</p>
+<div class="math notranslate nohighlight">
+\[
+p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[- \frac{1}{2\sigma^2} ( y - \mu)^2 \right],
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu = \beta_0 + \bbeta^\intercal \bx\)</span>.</p>
+</section>
+</div><p>The second important probability function associated with a linear regression model is derived from an observed dataset</p>
+<div class="math notranslate nohighlight">
+\[
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_n,y_n) \in \bbr^{m} \times \bbr.
+\]</div>
+<p>We assume that the dataset is an observation of an IID random sample</p>
+<div class="math notranslate nohighlight">
+\[
+(\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_n, Y_n),
+\]</div>
+<p>which fits into a plated version of a linear regression model:</p>
+<a class="reference internal image-reference" href="../_images/lin-reg-00-plated.svg"><img alt="../_images/lin-reg-00-plated.svg" class="align-center" src="../_images/lin-reg-00-plated.svg" width="35%" /></a>
+<p> </p>
+<p>The conditional probability function of the <span class="math notranslate nohighlight">\(y\)</span>’s given the <span class="math notranslate nohighlight">\(\bx\)</span>’s is given a new name:</p>
+<div class="proof theorem admonition" id="linear-reg-data-pf-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 12.1 </span> (Data probability functions of linear regression models)</p>
+<section class="theorem-content" id="proof-content">
+<p>Given an observed dataset</p>
+<div class="math notranslate nohighlight">
+\[
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_n,y_n) \in \bbr^{m} \times \bbr,
+\]</div>
+<p>the <em>data probability function</em> for a linear regression model is the conditional probability function</p>
+<div class="math notranslate nohighlight">
+\[
+p\big(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n; \ \beta_0, \bbeta,\sigma^2 \big).
+\]</div>
+<p>It is given by</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+p\big(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n; \ \beta_0, \bbeta,\sigma^2 \big) &amp;= \prod_{j=1}^n p\big(y_j \mid \bx_j ; \ \beta_0, \bbeta, \sigma^2\big) \\
+&amp;= \frac{1}{(2\pi \sigma^2)^{n/2}} \exp \left[ -\frac{1}{2\sigma^2} \sum_{j=1}^n (y_j - \mu_j)^2 \right],
+\end{align*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu_j = \beta_0 + \bbeta^\intercal \bx_j\)</span> for each <span class="math notranslate nohighlight">\(j=1,\ldots,n\)</span>.</p>
+</section>
+</div><p>Notice that the density in the last displayed equation is exactly the density of an <span class="math notranslate nohighlight">\(\mathcal{N}_n(\bmu,\Sigma)\)</span> distribution, where <span class="math notranslate nohighlight">\(\Sigma = \sigma^2 \bI\)</span> and the mean vector</p>
+<div class="math notranslate nohighlight">
+\[
+\bmu^\intercal = \begin{bmatrix} \mu_1 &amp; \cdots &amp; \mu_n \end{bmatrix}.  
+\]</div>
+<p>Let’s prove the theorem:</p>
+<div class="proof admonition" id="proof">
+<p>Proof. We shall only prove the equation</p>
+<div class="math notranslate nohighlight">
+\[
+p(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n ) = \prod_{j=1}^n p(y_j \mid \bx_j),
+\]</div>
+<p>where, for ease of notation, we’ve omitted all parameters. By independence of the random sample</p>
+<div class="math notranslate nohighlight">
+\[
+(\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_n,Y_n)
+\]</div>
+<p>and and the “vectorized” version of <a class="reference internal" href="07-random-vectors.html#mass-density-ind-thm">Theorem 7.7</a>, we have</p>
+<div class="math notranslate nohighlight">
+\[
+p(y_1,\ldots,y_n,\bx_1,\ldots,\bx_n) = p(y_1,\bx_1)\cdots p(y_n,\bx_n).
+\]</div>
+<p>But the sequence</p>
+<div class="math notranslate nohighlight">
+\[
+\bX_1,\bX_2,\ldots,\bX_n
+\]</div>
+<p>is independent as well (see <a class="reference internal" href="07-random-vectors.html#ind-components-cor">Corollary 7.1</a>), and so</p>
+<div class="math notranslate nohighlight">
+\[
+p(\bx_1,\ldots,\bx_n) = p(\bx_1)\cdots p(\bx_n).
+\]</div>
+<p>But then</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+p(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n ) &amp;= \frac{p(y_1,\ldots,y_n,\bx_1,\ldots,\bx_n)}{p(\bx_1,\ldots,\bx_n)} \\
+&amp;= \frac{p(y_1,\bx_1)\cdots p(y_n,\bx_n)}{p(\bx_1)\cdots p(\bx_n)} \\
+&amp;= \prod_{j=1}^n p(y_i \mid \bx_i),
+\end{align*}\]</div>
+<p>which is exactly what we wanted to prove. Q.E.D.</p>
+</div>
+<p>Notice that the proof of the equation</p>
+<div class="math notranslate nohighlight">
+\[
+p(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n ) = \prod_{j=1}^n p(y_j \mid \bx_j)
+\]</div>
+<p>used nothing particular about linear regression models, and only relied upon independence of the random sample. This means that this same argument will apply to the data probability functions of the models that we will study in subsequent sections.</p>
+<p>Returning to our discussion of the linear regression model, the components of the vector <span class="math notranslate nohighlight">\(\bX\)</span> are referred to as <em>predictors</em>, <em>regressors</em>, <em>explanatory variables</em>, or <em>independent variables</em>, while the random variable <span class="math notranslate nohighlight">\(Y\)</span> is called the <em>response variable</em> or the <em>dependent variable</em>. In the case that <span class="math notranslate nohighlight">\(m=1\)</span>, the model is called a <em>simple linear regression model</em>; otherwise, it is called a <em>multiple linear regression model</em>.</p>
 <p>Note that</p>
 <div class="math notranslate nohighlight">
 \[
-E\big(Y \mid \bX = \bx \big) = \mu = \beta_0 + \bx^\intercal \bbeta,
+E\big(Y \mid \bX = \bx \big) = \mu = \beta_0 + \bbeta^\intercal \bx,
 \]</div>
 <p>and so a linear regression model assumes (among other things) that the conditional mean of the response variable is linearly related to the regressors through the link function</p>
 <div class="math notranslate nohighlight" id="equation-lin-reg-line-eqn">
-<span class="eqno">(12.3)<a class="headerlink" href="#equation-lin-reg-line-eqn" title="Permalink to this equation">#</a></span>\[
-\mu = \beta_0 + \bx^\intercal \bbeta.
+<span class="eqno">(12.2)<a class="headerlink" href="#equation-lin-reg-line-eqn" title="Permalink to this equation">#</a></span>\[
+\mu = \beta_0 + \bbeta^\intercal \bx.
 \]</div>
-<p>The parameter <span class="math notranslate nohighlight">\(\beta_0\)</span> is often called the <em>intercept</em> or <em>bias term</em>, while the other <span class="math notranslate nohighlight">\(\beta_j\)</span>’s (for <span class="math notranslate nohighlight">\(j&gt;0\)</span>) are called <em>weights</em> or <em>slope coefficients</em> since they are exactly the (infinitesimal) slopes:</p>
+<p>The parameter <span class="math notranslate nohighlight">\(\beta_0\)</span> is often called the <em>intercept</em> or <em>bias term</em>, while the other <span class="math notranslate nohighlight">\(\beta_i\)</span>’s (for <span class="math notranslate nohighlight">\(i&gt;0\)</span>) are called <em>weights</em> or <em>slope coefficients</em> since they are exactly the (infinitesimal) slopes:</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{\partial \mu}{\partial x_j} = \beta_j.
+\frac{\partial \mu}{\partial x_i} = \beta_i.
 \]</div>
 <p>The random variable</p>
 <div class="math notranslate nohighlight">
 \[
-\dev \stackrel{\text{def}}{=} Y - \beta_0 - \bX^\intercal\bbeta
+\dev \stackrel{\text{def}}{=} Y - \beta_0 - \bbeta^\intercal\bX
 \]</div>
 <p>in a linear regression model is called the <em>error term</em>; note then that</p>
 <div class="math notranslate nohighlight" id="equation-random-lin-rel-eqn">
-<span class="eqno">(12.4)<a class="headerlink" href="#equation-random-lin-rel-eqn" title="Permalink to this equation">#</a></span>\[
-Y = \beta_0 + \bX^\intercal \bbeta + \dev \quad \text{and} \quad \dev \sim \mathcal{N}(0, \sigma^2).
+<span class="eqno">(12.3)<a class="headerlink" href="#equation-random-lin-rel-eqn" title="Permalink to this equation">#</a></span>\[
+Y = \beta_0 + \bbeta^\intercal \bX + \dev \quad \text{and} \quad \dev \sim \mathcal{N}(0, \sigma^2).
 \]</div>
 <p>This is the manifestation in terms of random vectors and variables of the approximate linear relationship <a class="reference internal" href="#equation-approx-linear-eqn">(12.1)</a> described at the beginning of this section.</p>
 <p>Suppose we are given an observed dataset</p>
 <div class="math notranslate nohighlight">
 \[
-(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr.
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_n,y_n) \in \bbr^{m} \times \bbr.
 \]</div>
-<p>If for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>, we define the <em>predicted values</em></p>
+<p>If for each <span class="math notranslate nohighlight">\(j=1,\ldots,n\)</span>, we define the <em>predicted values</em></p>
 <div class="math notranslate nohighlight">
 \[
-\hat{y}_i = \beta_0 + \bx_i^\intercal\bbeta
+\hat{y}_j = \beta_0 + \bbeta^\intercal \bx_j
 \]</div>
 <p>and the <em>residuals</em></p>
 <div class="math notranslate nohighlight">
 \[
-\dev_i = y_i - \hat{y}_i,
+\dev_j = y_j - \hat{y}_j,
 \]</div>
-<p>then from <a class="reference internal" href="#equation-random-lin-rel-eqn">(12.4)</a> we get</p>
+<p>then from <a class="reference internal" href="#equation-random-lin-rel-eqn">(12.3)</a> we get</p>
 <div class="math notranslate nohighlight">
 \[
-y_i = \beta_0 + \bx^\intercal_i \bbeta + \dev_i.
+y_j = \beta_0 + \bbeta^\intercal \bx_j  + \dev_j.
 \]</div>
-<p>This shows that the residuals <span class="math notranslate nohighlight">\(\dev_i\)</span> are observations of the error term <span class="math notranslate nohighlight">\(\dev \sim \mathcal{N}(0,\sigma^2)\)</span>. Thus, in a linear regression model, all residuals from a dataset are assumed to be modeled by a normal distribution with mean <span class="math notranslate nohighlight">\(0\)</span> and a <em>fixed</em> variance; the fixed-variance assumption is sometimes called <em>homoscedasticity</em>.</p>
-<p>In <a class="reference internal" href="13-learning.html#learning"><span class="std std-numref">Chapter 13</span></a>, we will learn how to train a linear regression model on a dataset to obtain optimal values of the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span>. Using these training methods, we obtained values for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta = \beta_1\)</span> for the Ames housing dataset mentioned at the beginning of this section. The positively-sloped line in the scatter plot at the beginning of this section was the line traced out by the link function <span class="math notranslate nohighlight">\(\mu = \beta_0 + \beta_1 x \)</span>. The predicted values <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> lie along this line, and the magnitude of the residual <span class="math notranslate nohighlight">\(\dev_i\)</span> may be visualized as the vertical distance from the true data point <span class="math notranslate nohighlight">\(y_i\)</span> to this line. We may plot the residuals <span class="math notranslate nohighlight">\(\dev_i\)</span> against the predictor variables <span class="math notranslate nohighlight">\(x_i\)</span> to get:</p>
+<p>This shows that the residuals <span class="math notranslate nohighlight">\(\dev_j\)</span> are observations of the error term <span class="math notranslate nohighlight">\(\dev \sim \mathcal{N}(0,\sigma^2)\)</span>. Thus, in a linear regression model, all residuals from a dataset are assumed to be modeled by a normal distribution with mean <span class="math notranslate nohighlight">\(0\)</span> and a <em>fixed</em> variance; the fixed-variance assumption is sometimes called <em>homoscedasticity</em>.</p>
+<p>In <a class="reference internal" href="13-learning.html#learning"><span class="std std-numref">Chapter 13</span></a>, we will learn how to train a linear regression model on a dataset to obtain optimal values of the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span>. Using these training methods, we obtained values for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta = \beta_1\)</span> for the Ames housing dataset mentioned at the beginning of this section. The positively-sloped line in the scatter plot at the beginning of this section was the line traced out by the link function <span class="math notranslate nohighlight">\(\mu = \beta_0 + \beta_1 x \)</span>. The predicted values <span class="math notranslate nohighlight">\(\hat{y}_j\)</span> lie along this line, and the magnitude of the residual <span class="math notranslate nohighlight">\(\dev_j\)</span> may be visualized as the vertical distance from the true data point <span class="math notranslate nohighlight">\(y_j\)</span> to this line. We may plot the residuals <span class="math notranslate nohighlight">\(\dev_j\)</span> against the predictor variables <span class="math notranslate nohighlight">\(x_j\)</span> to get:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -723,11 +782,11 @@ y_i = \beta_0 + \bx^\intercal_i \bbeta + \dev_i.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0c4db4f16c514e606c7c3fb1ab191e1f827043f58736449334c2972ec726470d.svg" src="../_images/0c4db4f16c514e606c7c3fb1ab191e1f827043f58736449334c2972ec726470d.svg" /></figure>
+<img alt="../_images/98f75fe9ce780b758aedfd46503f4d555443f4cb3f2d619d1ef2873b111ba889.svg" src="../_images/98f75fe9ce780b758aedfd46503f4d555443f4cb3f2d619d1ef2873b111ba889.svg" /></figure>
 </div>
 </div>
 <p>It is evident from this plot that the homoscedasticity assumption is violated since the distributions of the residuals appear to widen as the area variable increases.</p>
-<p>As with the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span>, it is also possible to learn an optimal value of the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>. As another method of model checking, given all the learned parameters <span class="math notranslate nohighlight">\(\beta_0\)</span>, <span class="math notranslate nohighlight">\(\beta_1\)</span>, and <span class="math notranslate nohighlight">\(\sigma^2\)</span> for the Ames dataset, we may generate a new dataset by sampling from the normal distributions  <span class="math notranslate nohighlight">\(\mathcal{N}\big(\hat{y}_i, \sigma^2\big)\)</span> for each <span class="math notranslate nohighlight">\(i=1,2,\ldots,m\)</span>. A scatter plot of one simulated dataset is on the left in the following figure, while a KDE of the simulated dataset is compared against the “true” KDE on the right:</p>
+<p>As with the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span>, it is also possible to learn an optimal value of the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>. As another method of model checking, given all the learned parameters <span class="math notranslate nohighlight">\(\beta_0\)</span>, <span class="math notranslate nohighlight">\(\beta_1\)</span>, and <span class="math notranslate nohighlight">\(\sigma^2\)</span> for the Ames dataset, we may generate a new dataset by sampling from the normal distributions  <span class="math notranslate nohighlight">\(\mathcal{N}\big(\hat{y}_j, \sigma^2\big)\)</span> for each <span class="math notranslate nohighlight">\(j=1,\ldots,n\)</span>. A scatter plot of one simulated dataset is on the left in the following figure, while a KDE of the simulated dataset is compared against the “true” KDE on the right:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -754,17 +813,24 @@ y_i = \beta_0 + \bx^\intercal_i \bbeta + \dev_i.
 <span class="n">df_combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">objs</span><span class="o">=</span><span class="p">[</span><span class="n">df</span><span class="p">,</span> <span class="n">df_gen</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># setup the figure</span>
-<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># plot the dataset</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_gen</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
 <span class="c1"># plot the original regression line</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">beta_0</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">grid</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;simulated dataset&#39;</span><span class="p">)</span>
+
+<span class="c1"># plot the true data</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">grid</span> <span class="o">+</span> <span class="n">beta_0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;true data&#39;</span><span class="p">)</span>
 
 <span class="c1"># plot the KDEs</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_combined</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;indicator&#39;</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_combined</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;indicator&#39;</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">g</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;comparison of simulated to true data&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
@@ -773,7 +839,7 @@ y_i = \beta_0 + \bx^\intercal_i \bbeta + \dev_i.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ce0eeef1f82d0a2bd3ef5517f39e44da71be53586060bd8aa781207dd068b0c6.svg" src="../_images/ce0eeef1f82d0a2bd3ef5517f39e44da71be53586060bd8aa781207dd068b0c6.svg" /></figure>
+<img alt="../_images/1def919dd4dfff7fdf1c35e0e3b05ff02d1f976dee87164abeac2e3e069a6a21.svg" src="../_images/1def919dd4dfff7fdf1c35e0e3b05ff02d1f976dee87164abeac2e3e069a6a21.svg" /></figure>
 </div>
 </div>
 <p>For smaller values of area, the distribution of the true prices is narrower compared to the simulated prices, while for larger values of area, the distribution of the true prices is wider.</p>
@@ -783,9 +849,9 @@ y_i = \beta_0 + \bx^\intercal_i \bbeta + \dev_i.
 <p>The types of models studied in this section are closely related to the linear regression models in the previous, but here the goal is to model a dataset of the form</p>
 <div class="math notranslate nohighlight">
 \[
-(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \{0,1\}.
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_n,y_n) \in \bbr^{m} \times \{0,1\}.
 \]</div>
-<p>Such datasets arise naturally in <em>binary classification problems</em>, where we aim to determine which of two classes a given object lies in based on predictor features. The true class of the <span class="math notranslate nohighlight">\(i\)</span>-th object is indicated by the value of <span class="math notranslate nohighlight">\(y_i\)</span>, while the vector <span class="math notranslate nohighlight">\(\bx_i\)</span> consists of the predictor features.</p>
+<p>Such datasets arise naturally in <em>binary classification problems</em>, where we aim to determine which of two classes a given object lies in based on predictor features. The true class of the <span class="math notranslate nohighlight">\(j\)</span>-th object is indicated by the value of <span class="math notranslate nohighlight">\(y_j\)</span>, while the vector <span class="math notranslate nohighlight">\(\bx_j\)</span> consists of the predictor features.</p>
 <p>As a running example through this section, consider the data given in following scatter plot:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -794,9 +860,24 @@ y_i = \beta_0 + \bx^\intercal_i \bbeta + \dev_i.
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import the data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import scaler from scikit-learn</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="c1"># import the data</span>
 <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch10-book-data-01.csv&#39;</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c1"># convert the data to numpy arrays</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="s1">&#39;x_2&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<span class="c1"># scale the input data</span>
+<span class="n">ss</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># replaced the columns of the dataframe with the transformed data</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;x_1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;x_2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
 
 <span class="c1"># plot the data</span>
 <span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;x_2&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
@@ -817,15 +898,15 @@ y_i = \beta_0 + \bx^\intercal_i \bbeta + \dev_i.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/d0623ae7005f7c86c9d2829c4e9c7a7a07b547eee6ae7355dc08b7b5fa34c189.svg" src="../_images/d0623ae7005f7c86c9d2829c4e9c7a7a07b547eee6ae7355dc08b7b5fa34c189.svg" /></figure>
+<img alt="../_images/ee8d7028d47904a6e19a022f308fd3c47ca2c71bb426569cc0a4f2943147f1ea.svg" src="../_images/ee8d7028d47904a6e19a022f308fd3c47ca2c71bb426569cc0a4f2943147f1ea.svg" /></figure>
 </div>
 </div>
 <p>The points represent the <span class="math notranslate nohighlight">\(2\)</span>-dimensional predictors</p>
 <div class="math notranslate nohighlight">
-\[
-\bx_i^\intercal = \begin{bmatrix} x_{i1} &amp; x_{i2} \end{bmatrix},
-\]</div>
-<p>while the color indicates the class <span class="math notranslate nohighlight">\(y_i \in \{0,1\}\)</span>. Our goal in this section is to capture the evident pattern in the data using a <em>logistic regression model</em>.</p>
+\[\begin{split}
+\bx_j = \begin{bmatrix} x_{1j} \\ x_{2j} \end{bmatrix},
+\end{split}\]</div>
+<p>while the color indicates the class <span class="math notranslate nohighlight">\(y_j \in \{0,1\}\)</span>. Our goal in this section is to capture the evident pattern in the data using a <em>logistic regression model</em>.</p>
 <p>To define these models, we first need to discuss the important <em>sigmoid function</em>, defined as</p>
 <div class="math notranslate nohighlight">
 \[
@@ -854,7 +935,7 @@ y_i = \beta_0 + \bx^\intercal_i \bbeta + \dev_i.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/cacb119541913781d77049ca82d29f1cc2228e2a2f43f559f9fbc6a4eb1838c2.svg" src="../_images/cacb119541913781d77049ca82d29f1cc2228e2a2f43f559f9fbc6a4eb1838c2.svg" /></figure>
+<img alt="../_images/b007bb1140e948292c2bffcc1335dc90882b8c604b5261b81f4e5e4a600527db.svg" src="../_images/b007bb1140e948292c2bffcc1335dc90882b8c604b5261b81f4e5e4a600527db.svg" /></figure>
 </div>
 </div>
 <p>Since the outputs of the sigmoid function land in the open interval <span class="math notranslate nohighlight">\((0,1)\)</span>, we may use it to convert <em>any</em> real number into a <em>probability</em>. Indeed, this is precisely its role in a <em>logistic regression model</em>:</p>
@@ -862,126 +943,74 @@ y_i = \beta_0 + \bx^\intercal_i \bbeta + \dev_i.
 <p class="admonition-title"><span class="caption-number">Definition 12.4 </span></p>
 <section class="definition-content" id="proof-content">
 <p>A <em>logistic regression model</em> is a probabilistic graphical model whose underlying graph is of the form</p>
-<a class="reference internal image-reference" href="../_images/log-reg-00.svg"><img alt="../_images/log-reg-00.svg" class="align-center" src="../_images/log-reg-00.svg" width="50%" /></a>
+<a class="reference internal image-reference" href="../_images/log-reg-00.svg"><img alt="../_images/log-reg-00.svg" class="align-center" src="../_images/log-reg-00.svg" width="35%" /></a>
 <p> </p>
-<p>where <span class="math notranslate nohighlight">\(\bX\in \bbr^{n}\)</span>. The model has the following parameters:</p>
+<p>where <span class="math notranslate nohighlight">\(\bX\in \bbr^{m}\)</span>. The model has the following parameters:</p>
 <ul class="simple">
 <li><p>A real parameter <span class="math notranslate nohighlight">\(\beta_0\in \mathbb{R}\)</span>.</p></li>
-<li><p>A parameter vector <span class="math notranslate nohighlight">\(\bbeta \in \mathbb{R}^{n}\)</span>.</p></li>
+<li><p>A parameter vector <span class="math notranslate nohighlight">\(\bbeta \in \mathbb{R}^{m}\)</span>.</p></li>
 </ul>
 <p>The link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-Y \mid \bX; \ \beta_0,\bbeta \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx^\intercal\bbeta),
+Y \mid \bX; \ \beta_0,\bbeta \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\beta_0 + \bbeta^\intercal\bx),
 \]</div>
 <p>and where <span class="math notranslate nohighlight">\(\sigma\)</span> is the sigmoid function.</p>
 </section>
-</div><p>Notice that the link function <span class="math notranslate nohighlight">\(\phi = \sigma(\beta_0 + \bx^\intercal\bbeta)\)</span> in a logistic regression model is precisely the affine link function <span class="math notranslate nohighlight">\(\mu = \beta_0 + \bx^\intercal\bbeta\)</span> of a linear regression model composed with the sigmoid function.</p>
-<p>The two probability functions that we will use to train logistic regression models in the <a class="reference internal" href="13-learning.html#learning"><span class="std std-ref">next chapter</span></a> are given as follows. The second is obtained from the plated version of a logistic regression model:</p>
-<a class="reference internal image-reference" href="../_images/log-reg-00-plated.svg"><img alt="../_images/log-reg-00-plated.svg" class="align-center" src="../_images/log-reg-00-plated.svg" width="50%" /></a>
-<p> </p>
-<p>The two probability functions are:</p>
+</div><p>Notice that the link function <span class="math notranslate nohighlight">\(\phi = \sigma(\beta_0 + \bbeta^\intercal\bx)\)</span> in a logistic regression model is precisely the affine link function <span class="math notranslate nohighlight">\(\mu = \beta_0 + \bbeta^\intercal\bx\)</span> of a linear regression model composed with the sigmoid function.</p>
+<p>We describe the two probability functions that we will use to train logistic regression models in the <a class="reference internal" href="13-learning.html#learning"><span class="std std-ref">next chapter</span></a>. The first is the conditional probability function:</p>
 <div class="proof definition admonition" id="log-reg-pf-def">
 <p class="admonition-title"><span class="caption-number">Definition 12.5 </span></p>
 <section class="definition-content" id="proof-content">
-<ol class="arabic">
-<li><p>The <em>model probability function</em> for a logistic regression model is the conditional probability function</p>
+<p>The <em>model probability function</em> for a logistic regression model is the conditional probability function</p>
 <div class="math notranslate nohighlight">
 \[
-    p\big(y \mid \bx ; \ \beta_0, \bbeta\big).
-    \]</div>
-<p>On its support consisting of all <span class="math notranslate nohighlight">\(y\in \{0,1\}\)</span> and <span class="math notranslate nohighlight">\(\bx \in \bbr^{n}\)</span>, it is given by the formula</p>
+p\big(y \mid \bx ; \ \beta_0, \bbeta\big).
+\]</div>
+<p>On its support consisting of all <span class="math notranslate nohighlight">\(y\in \{0,1\}\)</span> and <span class="math notranslate nohighlight">\(\bx \in \bbr^{m}\)</span>, it is given by the formula</p>
 <div class="math notranslate nohighlight">
 \[
-    p\big(y \mid \bx ; \ \beta_0, \bbeta\big) = \phi^y (1-\phi)^{1-y}
-    \]</div>
-<p>where <span class="math notranslate nohighlight">\(\phi = \sigma(\beta_0 + \bx^\intercal \bbeta)\)</span>.</p>
-</li>
-<li><p>Given a dataset</p>
-<div class="math notranslate nohighlight">
-\[
-    (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \{0,1\},
-    \]</div>
-<p>the <em>data probability function for a logistic regression model</em> is the conditional probability density function</p>
-<div class="math notranslate nohighlight" id="equation-log-reg-data-pf-eqn">
-<span class="eqno">(12.5)<a class="headerlink" href="#equation-log-reg-data-pf-eqn" title="Permalink to this equation">#</a></span>\[
-    p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta\big) = \prod_{i=1}^m p\big(y_i \mid \bx_i ; \ \beta_0, \bbeta\big).
-    \]</div>
-</li>
-</ol>
+p\big(y \mid \bx ; \ \beta_0, \bbeta\big) = \phi^y (1-\phi)^{1-y}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\phi = \sigma(\beta_0 + \bbeta^\intercal \bx)\)</span>.</p>
 </section>
-</div><p>As in <a class="reference internal" href="#linear-reg-pf-def">Definition 12.3</a>, one may <em>prove</em> that the data probability function of a logistic regression model is given by the product of model probability functions in <a class="reference internal" href="#equation-log-reg-data-pf-eqn">(12.5)</a>.</p>
-<p>Let’s return to our toy dataset introduced at the beginning of the section. To aid with training, it is often helpful to <em>standardize</em> the predictor features</p>
+</div><p>The second important probability function is obtained from an observation of an IID random sample</p>
 <div class="math notranslate nohighlight">
 \[
-\bx_1,\ldots,\bx_m \in \bbr^{n}.
+(\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_n,Y_n)
 \]</div>
-<p>This means that we compute the (empirical) mean <span class="math notranslate nohighlight">\(\bar{x}_j\)</span> and standard deviation <span class="math notranslate nohighlight">\(s_j\)</span> of each sequence</p>
+<p>corresponding to a plated version of a logistic regression model</p>
+<a class="reference internal image-reference" href="../_images/log-reg-00-plated.svg"><img alt="../_images/log-reg-00-plated.svg" class="align-center" src="../_images/log-reg-00-plated.svg" width="35%" /></a>
+<p> </p>
+<p>just as in the run-up to <a class="reference internal" href="#linear-reg-data-pf-thm">Theorem 12.1</a> in the previous section.</p>
+<div class="proof theorem admonition" id="log-reg-data-pf-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 12.2 </span> (Data probability functions of logistic regression models)</p>
+<section class="theorem-content" id="proof-content">
+<p>Given a dataset</p>
 <div class="math notranslate nohighlight">
 \[
-x_{1j},\ldots,x_{mj} \in \bbr
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_n,y_n) \in \bbr^{m} \times \{0,1\},
 \]</div>
-<p>of components, and then replace each <span class="math notranslate nohighlight">\(x_{ij}\)</span> with</p>
+<p>the <em>data probability function</em> for a logistic regression model is the conditional probability function</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{x_{ij} - \bar{x}_j}{s_j}.
+p\big(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n; \ \beta_0, \bbeta\big).
 \]</div>
-<p>It is convenient to visualize this process in terms of the so-called <em>design matrix</em></p>
+<p>It is given by</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+p\big(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n; \ \beta_0, \bbeta\big) &amp;= \prod_{j=1}^n p\big(y_j \mid \bx_j ; \ \beta_0, \bbeta\big) \\
+&amp;= \prod_{j=1}^n \phi_j^{y_j} (1-\phi_j)^{1-y_j},
+\end{align*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\phi_j = \sigma (\beta_0 + \bbeta^\intercal \bx_j)\)</span> for each <span class="math notranslate nohighlight">\(j=1,\ldots,n\)</span>.</p>
+</section>
+</div><p>To prove the theorem, we would only need to establish the equality</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}
-\mathbfcal{X} = \begin{bmatrix} \leftarrow &amp; \bx_1^\intercal &amp; \rightarrow \\ \vdots &amp; \vdots &amp; \vdots \\ \leftarrow &amp; \bx_m^\intercal &amp; \rightarrow \end{bmatrix} = \begin{bmatrix} x_{11} &amp; \cdots &amp; x_{1n} \\
-\vdots &amp; \ddots &amp; \vdots \\
-x_{m1} &amp; \cdots &amp; x_{mn}
-\end{bmatrix}.
-\end{split}\]</div>
-<p>Then the empirical means <span class="math notranslate nohighlight">\(\bar{x}_j\)</span> and standard deviations <span class="math notranslate nohighlight">\(s_j\)</span> are precisely the means and standard deviations of the columns.</p>
-<p>If we standardize our toy dataset, we get the following:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import scaler from scikit-learn</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
-
-<span class="c1"># convert the data to numpy arrays</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="s1">&#39;x_2&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-
-<span class="c1"># scale the input data</span>
-<span class="n">ss</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">)</span>
-
-<span class="c1"># replaced the columns of the dataframe with the transformed data</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;x_1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;x_2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
-
-<span class="c1"># plot the scaled data</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;x_2&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
-
-<span class="c1"># change the default seaborn legend</span>
-<span class="n">g</span><span class="o">.</span><span class="n">legend_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">new_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;class 0&#39;</span><span class="p">,</span> <span class="s1">&#39;class 1&#39;</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">legend_</span><span class="o">.</span><span class="n">texts</span><span class="p">,</span> <span class="n">new_labels</span><span class="p">):</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<figure class="align-center">
-<img alt="../_images/19aa7abb2707d0e7a419c17eecac440aa32d92757832601762075efcd804a062.svg" src="../_images/19aa7abb2707d0e7a419c17eecac440aa32d92757832601762075efcd804a062.svg" /></figure>
-</div>
-</div>
-<p>Notice that the values of the two features <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> now lie in comparable ranges, while the overall <em>shape</em> of the dataset has not changed.</p>
-<p>Along with linear regression models, in the <a class="reference internal" href="13-learning.html#learning"><span class="std std-ref">next chapter</span></a> we will see how to learn optimal values of the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span> from data. With these parameters in hand, one way to check how well a logistic regression model captures the data is to draw a contour plot of the function <span class="math notranslate nohighlight">\(\phi = \sigma( \beta_0 + \bx^\intercal \bbeta)\)</span>. This contour plot appears on the left in the following:</p>
+\[
+p(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n; \ \beta_0, \bbeta) = \prod_{j=1}^n p(y_j \mid \bx_j ; \ \beta_0, \bbeta).
+\]</div>
+<p>But the same proof will work here as the one given for <a class="reference internal" href="#linear-reg-data-pf-thm">Theorem 12.1</a>.</p>
+<p>Let’s return to our toy dataset introduced at the beginning of the section. In the <a class="reference internal" href="13-learning.html#learning"><span class="std std-ref">next chapter</span></a> we will see how to learn optimal values of the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span> from data. With these parameters in hand obtained from our toy dataset, one way to check how well a logistic regression model captures the data is to draw a contour plot of the function <span class="math notranslate nohighlight">\(\phi = \sigma( \beta_0 + \bbeta^\intercal \bx)\)</span>. This contour plot appears on the left in the following:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1030,6 +1059,8 @@ x_{m1} &amp; \cdots &amp; x_{mn}
     <span class="n">axis</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
     <span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
 
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;contour plot of $</span><span class="se">\\</span><span class="s1">phi = </span><span class="se">\\</span><span class="s1">sigma(</span><span class="se">\\</span><span class="s1">beta_0 + </span><span class="se">\\</span><span class="s1">boldsymbol{</span><span class="se">\\</span><span class="s1">beta}^</span><span class="se">\\</span><span class="s1">intercal </span><span class="se">\\</span><span class="s1">mathbf</span><span class="si">{x}</span><span class="s1">)$&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;contour plot of predictor function $f(\mathbf</span><span class="si">{x}</span><span class="s1">)$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1037,31 +1068,31 @@ x_{m1} &amp; \cdots &amp; x_{mn}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a47ae7e57a9eaf249eff8af7bbf9317fc4f86590e85941dbf2339d60a8365b20.svg" src="../_images/a47ae7e57a9eaf249eff8af7bbf9317fc4f86590e85941dbf2339d60a8365b20.svg" /></figure>
+<img alt="../_images/853963f1a683ef79771094b369991cf698f4ab93b60ee5e92bc3922aeb0628ba.svg" src="../_images/853963f1a683ef79771094b369991cf698f4ab93b60ee5e92bc3922aeb0628ba.svg" /></figure>
 </div>
 </div>
-<p>To interpret this plot, remember that <span class="math notranslate nohighlight">\(\phi = \sigma( \beta_0 + \bx^\intercal \bbeta)\)</span> is the probability parameter for the class indicator variable <span class="math notranslate nohighlight">\(Y \sim \Ber(\phi)\)</span>, so we should interpret <span class="math notranslate nohighlight">\(\phi\)</span> as the probability that the point <span class="math notranslate nohighlight">\(\bx\)</span> is in class <span class="math notranslate nohighlight">\(1\)</span> (corresponding to <span class="math notranslate nohighlight">\(y=1\)</span>). In the right-hand plot, we have “thresholded” the probability <span class="math notranslate nohighlight">\(\phi\)</span> at <span class="math notranslate nohighlight">\(0.5\)</span>, creating a <em>predictor function</em></p>
+<p>To interpret this plot, remember that <span class="math notranslate nohighlight">\(\phi = \sigma( \beta_0 + \bbeta^\intercal \bx)\)</span> is the probability parameter for the class indicator variable <span class="math notranslate nohighlight">\(Y \sim \Ber(\phi)\)</span>, so we should interpret <span class="math notranslate nohighlight">\(\phi\)</span> as the probability that the point <span class="math notranslate nohighlight">\(\bx\)</span> is in class <span class="math notranslate nohighlight">\(1\)</span> (corresponding to <span class="math notranslate nohighlight">\(y=1\)</span>). In the right-hand plot, we have “thresholded” the probability <span class="math notranslate nohighlight">\(\phi\)</span> at <span class="math notranslate nohighlight">\(0.5\)</span>, creating a <em>predictor function</em></p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 f:\bbr^{2} \to \{0,1\}, \quad f(\bx) = \begin{cases}
-0 &amp; : \sigma(\beta_0 + \bx^\intercal\bbeta) &lt; 0.5, \\
-1 &amp; : \sigma(\beta_0 + \bx^\intercal\bbeta) \geq 0.5. \\
+0 &amp; : \sigma(\beta_0 + \bbeta^\intercal\bx) &lt; 0.5, \\
+1 &amp; : \sigma(\beta_0 + \bbeta^\intercal\bx) \geq 0.5. \\
 \end{cases}
 \end{split}\]</div>
 <p>The <em>decision boundary</em> is exactly the curve in <span class="math notranslate nohighlight">\(\bbr^2\)</span> consisting of those <span class="math notranslate nohighlight">\(\bx\)</span> for which the predictor <span class="math notranslate nohighlight">\(f\)</span> is “flipping a coin,” i.e., it consists of those points <span class="math notranslate nohighlight">\(\bx\)</span> such that</p>
 <div class="math notranslate nohighlight">
 \[
-\sigma(\beta_0 + \bx^\intercal \bbeta) = 0.5,
+\sigma(\beta_0 + \bbeta^\intercal \bx) = 0.5,
 \]</div>
 <p>which is equivalent to</p>
 <div class="math notranslate nohighlight">
 \[
-\beta_0 + \bx^\intercal \bbeta = 0.
+\beta_0 + \bbeta^\intercal \bx = 0.
 \]</div>
 <p>Notice that this defines a <em>linear</em> decision boundary that separates <span class="math notranslate nohighlight">\(\bbr^2\)</span> into two unbounded half planes based on whether</p>
 <div class="math notranslate nohighlight">
 \[
-\beta_0 + \bx^\intercal \bbeta &gt; 0 \quad \text{or} \quad \beta_0 + \bx^\intercal \bbeta &lt; 0.
+\beta_0 + \bbeta^\intercal \bx &gt; 0 \quad \text{or} \quad \beta_0 + \bbeta^\intercal \bx &lt; 0.
 \]</div>
 <p>Those vectors <span class="math notranslate nohighlight">\(\bx\)</span> satisfying the first inequality would be predicted to belong to class <span class="math notranslate nohighlight">\(1\)</span>, while those satisfying the latter inequality would be predicted to belong to class <span class="math notranslate nohighlight">\(0\)</span>. As is evident from the plots, our logistic regression model is doing its best to accurately classify as many data points as possible, but our model is handicapped by the fact it will <em>always</em> produce a linear decision boundary.</p>
 </section>
@@ -1093,107 +1124,142 @@ f:\bbr^{2} \to \{0,1\}, \quad f(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/3904a9448890ec37a709b105b3b1582e8e49aa61a291866cc356a761671b0e46.svg" src="../_images/3904a9448890ec37a709b105b3b1582e8e49aa61a291866cc356a761671b0e46.svg" /></figure>
+<img alt="../_images/b56069cb1acc09dee04aeb7a3954d48578345be37b1f685f187cf79fdc2ae91c.svg" src="../_images/b56069cb1acc09dee04aeb7a3954d48578345be37b1f685f187cf79fdc2ae91c.svg" /></figure>
 </div>
 </div>
-<p>We may apply the ReLU function to vectors <span class="math notranslate nohighlight">\(\bx\in \bbr^{n}\)</span> by “vectorization” (in pythonic language), which just means that we apply it componentwise:</p>
+<p>We may apply the ReLU function to vectors <span class="math notranslate nohighlight">\(\bx\in \bbr^{m}\)</span> by “vectorization” (in Pythonic language), which just means that we apply it componentwise:</p>
 <div class="math notranslate nohighlight">
 \[
-\rho(\bx)^\intercal \def \begin{bmatrix} \rho(x_1) &amp; \cdots &amp; \rho(x_n) \end{bmatrix}.
+\rho(\bx)^\intercal \def \begin{bmatrix} \rho(x_1) &amp; \cdots &amp; \rho(x_m) \end{bmatrix}.
 \]</div>
 <p>Using these pieces, we now state the official definition in the case that the neural network has one hidden layer; later, we shall indicate how one obtains “deeper” neural networks by adding additional hidden layers.</p>
 <div class="proof definition admonition" id="neural-net-def">
 <p class="admonition-title"><span class="caption-number">Definition 12.6 </span></p>
 <section class="definition-content" id="proof-content">
 <p>A <em>(fully-connected, feedforward) neural network with one hidden layer</em> is a probabilistic graphical model whose underlying graph is of the form</p>
-<a class="reference internal image-reference" href="../_images/nn-00.svg"><img alt="../_images/nn-00.svg" class="align-center" src="../_images/nn-00.svg" width="50%" /></a>
+<a class="reference internal image-reference" href="../_images/nn-00.svg"><img alt="../_images/nn-00.svg" class="align-center" src="../_images/nn-00.svg" width="40%" /></a>
 <p> </p>
-<p>where <span class="math notranslate nohighlight">\(\bX\in \bbr^{n}\)</span> and <span class="math notranslate nohighlight">\(\bz \in \bbr^{k}\)</span>. The model has the following parameters:</p>
+<p>where <span class="math notranslate nohighlight">\(\bX\in \bbr^m\)</span> and <span class="math notranslate nohighlight">\(\bz \in \bbr^k\)</span>. The model has the following parameters:</p>
 <ul class="simple">
-<li><p>A parameter matrix <span class="math notranslate nohighlight">\(\mathbf{W} \in \mathbb{R}^{n\times k}\)</span>.</p></li>
-<li><p>A parameter vector <span class="math notranslate nohighlight">\(\bb \in \mathbb{R}^{k}\)</span>.</p></li>
-<li><p>A parameter vector <span class="math notranslate nohighlight">\(\bw \in \mathbb{R}^{k}\)</span>.</p></li>
-<li><p>A real parameter <span class="math notranslate nohighlight">\(b \in \mathbb{R}\)</span>.</p></li>
+<li><p>A parameter matrix <span class="math notranslate nohighlight">\(\bW_1 \in \mathbb{R}^{m\times k}\)</span>.</p></li>
+<li><p>A parameter vector <span class="math notranslate nohighlight">\(\bb_1 \in \mathbb{R}^{k}\)</span>.</p></li>
+<li><p>A parameter vector <span class="math notranslate nohighlight">\(\bw_2 \in \mathbb{R}^{k}\)</span>.</p></li>
+<li><p>A real parameter <span class="math notranslate nohighlight">\(b_2 \in \mathbb{R}\)</span>.</p></li>
 </ul>
 <p>The link function at <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-\mathbf{z} = \rho(\mathbf{x}^\intercal\bW + \bb),
+\mathbf{z}^\intercal = \rho(\bx^\intercal \bW_1 + \bb_1^\intercal),
 \]</div>
 <p>while the link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-Y ;\  \mathbf{z}, \bw, b \sim \mathcal{B}er\big(\phi\big), \quad \text{where} \quad \phi = \sigma(\bz^\intercal\bw + b).
+Y ;\  \mathbf{z}, \bw_2, b_2 \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\bz^\intercal \bw_2 + b_2).
 \]</div>
 <p>Here, <span class="math notranslate nohighlight">\(\rho\)</span> is the ReLU function and <span class="math notranslate nohighlight">\(\sigma\)</span> is the sigmoid function.</p>
 </section>
-</div><p>The name “neural network” comes from a loose analogy with networks of biological neurons in the human brain. For this reason, sometimes neural networks just defined are called <em>artificial neural networks</em> (<em>ANN</em>s).</p>
-<p>Following the pattern begun with linear and logistic regression models, we first want to give the probability functions that we will use in the <a class="reference internal" href="13-learning.html#learning"><span class="std std-ref">next chapter</span></a> to train neural network models. The second one is obatained from the plated version of a neural network:</p>
-<a class="reference internal image-reference" href="../_images/nn-00-plated.svg"><img alt="../_images/nn-00-plated.svg" class="align-center" src="../_images/nn-00-plated.svg" width="50%" /></a>
-<p> </p>
-<p>The two probability functions are:</p>
+</div><p>As the proliferation of transposes indicates, the formulas for the link functions given here express a preference for row vectors rather than column vectors. This is, in part, because some of us are psychologically conditioned (including the author) to think of a feature vector of a single example as a <em>row</em> vector rather than a column vector, much as we see in data frames in Python. But by applying the transpose operation to each side of the equations defining the link functions, we obtain formulas that are more in line with what the reader might see in other references:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{z} = \rho( \bW_1^\intercal \bx + \bb_1) \quad \text{and} \quad \phi = \sigma(\bw_2^\intercal \bz  + b_2)
+\]</div>
+<p>The name “neural network” comes from a loose analogy with networks of biological neurons in the human brain. For this reason, sometimes neural network models are called <em>artificial neural networks</em> (<em>ANN</em>s). The parameters <span class="math notranslate nohighlight">\(\bW_1\)</span> and <span class="math notranslate nohighlight">\(\bw_2\)</span> are called <em>weights</em>, while the parameters <span class="math notranslate nohighlight">\(\bb_1\)</span> and <span class="math notranslate nohighlight">\(b_2\)</span> are called <em>biases</em>. The ReLU function <span class="math notranslate nohighlight">\(\rho\)</span> and the sigmoid function <span class="math notranslate nohighlight">\(\sigma\)</span> are often called the <em>activation functions</em> of the network.</p>
+<p>Following the pattern begun with linear and logistic regression models, we want to begin by describing the probability functions that we will use in the <a class="reference internal" href="13-learning.html#learning"><span class="std std-ref">next chapter</span></a> to train neural network models. The first is the conditional probability function:</p>
 <div class="proof definition admonition" id="neural-net-pf-def">
 <p class="admonition-title"><span class="caption-number">Definition 12.7 </span></p>
 <section class="definition-content" id="proof-content">
-<ol class="arabic">
-<li><p>The <em>model probability function</em> for a neural network model is the conditional probability function</p>
+<p>The <em>model probability function</em> for a neural network model is the conditional probability function</p>
 <div class="math notranslate nohighlight">
 \[
-    p\big(y \mid \bx ; \ \bW, \bb, \bw, b \big).
-    \]</div>
-<p>On its support consisting of all <span class="math notranslate nohighlight">\(y\in \{0,1\}\)</span> and <span class="math notranslate nohighlight">\(\bx \in \bbr^{n}\)</span>, it is given by the formula</p>
+p\big(y \mid \bx ; \ \bW_1, \bb_1, \bw_2, b_2 \big).
+\]</div>
+<p>On its support consisting of all <span class="math notranslate nohighlight">\(y\in \{0,1\}\)</span> and <span class="math notranslate nohighlight">\(\bx \in \bbr^{m}\)</span>, it is given by the formula</p>
 <div class="math notranslate nohighlight">
 \[
-    p\big(y \mid \bx ; \ \bW, \bb, \bw, b \big) = \phi^y (1-\phi)^{1-y}
-    \]</div>
-<p>where <span class="math notranslate nohighlight">\(\phi = \sigma(\bz^\intercal \bw + b)\)</span> and <span class="math notranslate nohighlight">\(\bz = \sigma(\bx^\intercal \bW + \bb)\)</span>.</p>
-</li>
-<li><p>Given a dataset</p>
+p\big(y \mid \bx ; \ \bW_1, \bb_1, \bw_2, b_2 \big) = \phi^y (1-\phi)^{1-y}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\phi = \sigma(\bz^\intercal \bw_2 + b_2)\)</span> and <span class="math notranslate nohighlight">\(\bz^\intercal = \rho(\bx ^\intercal \bW_1 + \bb_1^\intercal)\)</span>.</p>
+</section>
+</div><p>As with linear and logistic regression models, the second probability function is obtained from an IID random sample</p>
 <div class="math notranslate nohighlight">
 \[
-    (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \{0,1\},
-    \]</div>
+(\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_n,Y_n)
+\]</div>
+<p>corresponding to a plated version of a neural network model:</p>
+<a class="reference internal image-reference" href="../_images/nn-00-plated.svg"><img alt="../_images/nn-00-plated.svg" class="align-center" src="../_images/nn-00-plated.svg" width="40%" /></a>
+<p> </p>
+<p>This probability function is described in:</p>
+<div class="proof theorem admonition" id="neural-net-data-pf-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 12.3 </span> (Data probability functions of neural network models)</p>
+<section class="theorem-content" id="proof-content">
+<p>Given a dataset</p>
+<div class="math notranslate nohighlight">
+\[
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_n,y_n) \in \bbr^{m} \times \{0,1\},
+\]</div>
 <p>the <em>data probability function</em> for a neural network model is the conditional probability function</p>
 <div class="math notranslate nohighlight">
 \[
-    p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \bW, \bb, \bw, b\big) = \prod_{i=1}^m p\big(y_i \mid \bx_i ; \ \bW, \bb, \bw, b\big).
-    \]</div>
-</li>
-</ol>
+p\big(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n; \ \bW_1, \bb_1, \bw_2, b_2\big).
+\]</div>
+<p>It is given by</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+p\big(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n; \ \bW_1, \bb_1, \bw_2, b_2\big) &amp;= \prod_{i=1}^n p\big(y_i \mid \bx_i ; \ \bW_1, \bb_1, \bw_2, b_2\big) \\
+&amp;= \prod_{i=1}^n \phi_i^{y_i} (1-\phi_i)^{1-y_i}
+\end{align*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\phi_i = \sigma(\bz_i^\intercal \bw_2 + b_2)\)</span> and <span class="math notranslate nohighlight">\(\bz_i = \rho(\bx_i^\intercal \bW_1 + \bb_1)\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,n\)</span>.</p>
 </section>
-</div><p>Very often, one sees the underlying graph of a neural network displayed in terms of the components of the vectors (with the parameters omitted). For example, in the case that <span class="math notranslate nohighlight">\(\bX\)</span> is <span class="math notranslate nohighlight">\(3\)</span>-dimensional and <span class="math notranslate nohighlight">\(\bz\)</span> is <span class="math notranslate nohighlight">\(4\)</span>-dimensional, we might see the graph of the neural network drawn as</p>
-<a class="reference internal image-reference" href="../_images/nn-neuron.svg"><img alt="../_images/nn-neuron.svg" class="align-center" src="../_images/nn-neuron.svg" width="60%" /></a>
-<p> </p>
-<p>In this format, the nodes are often called <em>(artificial) neurons</em> or <em>units</em>. The visible neurons <span class="math notranslate nohighlight">\(X_1,X_2,X_3\)</span> are said to comprise the <em>input layer</em> of the network, the hidden neurons <span class="math notranslate nohighlight">\(z_1,z_2,z_3,z_4\)</span> make up a <em>hidden layer</em>, and the single visible neuron <span class="math notranslate nohighlight">\(Y\)</span> makes up the <em>output layer</em>. The network is called <em>fully-connected</em> because there is a link function at a given neuron <em>from</em> every neuron in the previous layer and <em>to</em> every neuron in the subsequent layer; it is called a <em>feedfoward</em> network because the link functions only go in one direction, with no feedback links. The link function at <span class="math notranslate nohighlight">\(z_j\)</span> is of the form</p>
+</div><p>The proof of the equality</p>
 <div class="math notranslate nohighlight">
 \[
-z_j = \rho(\bx^\intercal \bw_j + b_j),
+p\big(y_1,\ldots,y_n \mid \bx_1,\ldots,\bx_n; \ \bW_1, \bb_1, \bw_2, b_2\big) = \prod_{i=1}^n p\big(y_i \mid \bx_i ; \ \bW_1, \bb_1, \bw_2, b_2\big)
+\]</div>
+<p>in the theorem is the same as the proof of the same equality in <a class="reference internal" href="#linear-reg-data-pf-thm">Theorem 12.1</a>.</p>
+<p>Very often, one sees the underlying graph of a neural network displayed in terms of the components of the vectors (with the parameters omitted). For example, in the case that <span class="math notranslate nohighlight">\(\bX\)</span> is <span class="math notranslate nohighlight">\(3\)</span>-dimensional and <span class="math notranslate nohighlight">\(\bz\)</span> is <span class="math notranslate nohighlight">\(4\)</span>-dimensional, we might see the graph of the neural network drawn as</p>
+<a class="reference internal image-reference" href="../_images/nn-neuron.svg"><img alt="../_images/nn-neuron.svg" class="align-center" src="../_images/nn-neuron.svg" width="50%" /></a>
+<p> </p>
+<p>In this format, the nodes are often called <em>(artificial) neurons</em> or <em>units</em>. The visible neurons <span class="math notranslate nohighlight">\(X_1,X_2,X_3\)</span> are said to comprise the <em>input layer</em> of the network, the hidden neurons <span class="math notranslate nohighlight">\(z_1,z_2,z_3,z_4\)</span> make up a <em>hidden layer</em>, and the single visible neuron <span class="math notranslate nohighlight">\(Y\)</span> makes up the <em>output layer</em>. The network is called <em>fully-connected</em> because there is a link function at a given neuron <em>from</em> every neuron in the previous layer and <em>to</em> every neuron in the subsequent layer; it is called a <em>feedfoward</em> network because the link functions only go in one direction, with no feedback loops. The link function at <span class="math notranslate nohighlight">\(z_j\)</span> is of the form</p>
+<div class="math notranslate nohighlight">
+\[
+z_j = \rho(\bx^\intercal \bw_{1j} + b_{1j}),
 \]</div>
 <p>where</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\bW = \begin{bmatrix} \uparrow &amp; \uparrow &amp; \uparrow &amp; \uparrow \\ \bw_1 &amp; \bw_2 &amp; \bw_3 &amp; \bw_4 \\
-\downarrow &amp; \downarrow &amp; \downarrow &amp; \downarrow \end{bmatrix} \quad \text{and} \quad \bb^\intercal = \begin{bmatrix} b_{1} &amp; b_2 &amp; b_3 &amp; b_{4} \end{bmatrix}.
+\bW_1 = \begin{bmatrix} \uparrow &amp; \uparrow &amp; \uparrow &amp; \uparrow \\ \bw_{11} &amp; \bw_{12} &amp; \bw_{13} &amp; \bw_{14} \\
+\downarrow &amp; \downarrow &amp; \downarrow &amp; \downarrow \end{bmatrix} \quad \text{and} \quad \bb^\intercal_1 = \begin{bmatrix} b_{11} &amp; b_{12} &amp; b_{13} &amp; b_{14} \end{bmatrix}.
 \end{split}\]</div>
-<p>The link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by the same formula as before using the sigmoid function. In the literature, the ReLU function <span class="math notranslate nohighlight">\(\rho\)</span> and the sigmoid function <span class="math notranslate nohighlight">\(\sigma\)</span> are often called <em>activation functions</em> of the network. The parameters <span class="math notranslate nohighlight">\(\bW\)</span> and <span class="math notranslate nohighlight">\(\bw\)</span> are called <em>weights</em>, while the parameters <span class="math notranslate nohighlight">\(\bb\)</span> and <span class="math notranslate nohighlight">\(b\)</span> are called <em>biases</em>.</p>
+<p>Thus, each hidden neuron processes information by first computing an affine combination of the input features <span class="math notranslate nohighlight">\(\bx\)</span> (i.e., a weighted sum plus a bias term), and then applies the activation function <span class="math notranslate nohighlight">\(\rho\)</span> to the result.</p>
 <p>From our networks with just one hidden layer, it is easy to imagine how we might obtain “deeper” networks by adding additional hidden layers; for example, a network with two hidden layers might look like this:</p>
-<a class="reference internal image-reference" href="../_images/nn-neuron-02.svg"><img alt="../_images/nn-neuron-02.svg" class="align-center" src="../_images/nn-neuron-02.svg" width="80%" /></a>
+<a class="reference internal image-reference" href="../_images/nn-neuron-02.svg"><img alt="../_images/nn-neuron-02.svg" class="align-center" src="../_images/nn-neuron-02.svg" width="70%" /></a>
 <p> </p>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+\bz_1^\intercal = \begin{bmatrix} z_{11} &amp; z_{12} &amp; z_{13} &amp; z_{14} \end{bmatrix} \quad \text{and} \quad
+\bz_2^\intercal = \begin{bmatrix} z_{21} &amp; z_{22} \end{bmatrix}.
+\]</div>
 <p>If we collapse the neurons into vectors and bring in the parameters, this network would be drawn as</p>
-<a class="reference internal image-reference" href="../_images/nn-02.svg"><img alt="../_images/nn-02.svg" class="align-center" src="../_images/nn-02.svg" width="65%" /></a>
+<a class="reference internal image-reference" href="../_images/nn-02.svg"><img alt="../_images/nn-02.svg" class="align-center" src="../_images/nn-02.svg" width="55%" /></a>
 <p> </p>
-<p>There are now <em>two</em> weight matrices <span class="math notranslate nohighlight">\(\bW_1\)</span> and <span class="math notranslate nohighlight">\(\bW_2\)</span>, along with <em>two</em> bias vectors <span class="math notranslate nohighlight">\(\bb_1\)</span> and <span class="math notranslate nohighlight">\(\bb_2\)</span>. The link functions at <span class="math notranslate nohighlight">\(\bz_1\)</span> and <span class="math notranslate nohighlight">\(\bz_2\)</span> are given by</p>
+<p>The link functions at <span class="math notranslate nohighlight">\(\bz_1\)</span> and <span class="math notranslate nohighlight">\(\bz_2\)</span> are given by</p>
 <div class="math notranslate nohighlight">
 \[
-\bz_\ell = \rho\big(\bz_{\ell-1}^\intercal \bW_\ell + \bb_\ell \big) \quad \text{for $\ell=1,2$,}
+\bz_1^\intercal = \rho\big(\bx^\intercal \bW_1 + \bb_1^\intercal \big) \quad \text{and} \quad \bz_2^\intercal = \rho(\bz_1^\intercal \bW_2 + \bb_2^\intercal),
 \]</div>
-<p>where we set <span class="math notranslate nohighlight">\(\bz_0 = \bx\)</span>. The link function at <span class="math notranslate nohighlight">\(Y\)</span> is the same as it was before:</p>
+<p>while the link function at <span class="math notranslate nohighlight">\(Y\)</span> is the same as it was before:</p>
 <div class="math notranslate nohighlight">
 \[
-Y; \ \bz_2, \bw, b \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \bz_2^\intercal \bw + b\big).
+Y; \ \bz_2, \bw_3, b_3 \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \bz_2^\intercal \bw_3 + b_3\big).
 \]</div>
-<p>The <em>depth</em> of a neural network is defined to be one less than the total number of layers. The “one less” convention is due to the fact that only the hidden and output layers are associated with trainable parameters. Equivalently, the <em>depth</em> is the number of “layers” of link functions (with trainable parameters). The <em>widths</em> of a network are defined to be the dimensions of the hidden vectors.</p>
-<p>Let’s return to our toy dataset from the <a class="reference internal" href="#log-reg-sec"><span class="std std-ref">previous section</span></a>, but with an extra four “blobs” of data just to make things interesting:</p>
+<p>The <em>depth</em> <span class="math notranslate nohighlight">\(d\)</span> of a neural network is defined to be one less than the total number of layers, or equivalently, the number of (trainable) parameter groups</p>
+<div class="math notranslate nohighlight">
+\[
+(\bW_1,\bb_1),(\bW_2,\bb_2),\ldots,(\bw_d,b_d).
+\]</div>
+<p>The <em>widths</em> of a network are defined to be the dimensions of the hidden vectors.</p>
+<p>Let’s return to our toy dataset from the <a class="reference internal" href="#log-reg-sec"><span class="std std-ref">previous section</span></a>, but for extra fun let’s add four “blobs” of data:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1239,13 +1305,13 @@ Y; \ \bz_2, \bw, b \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big(
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a0655f47a45beb1224367968a92f92f28805983ff247d6970514d436ad20ff08.svg" src="../_images/a0655f47a45beb1224367968a92f92f28805983ff247d6970514d436ad20ff08.svg" /></figure>
+<img alt="../_images/e1859951d2e049cf670f400fb604afaeaa31655993809caf8e9ed6266f7144a2.svg" src="../_images/e1859951d2e049cf670f400fb604afaeaa31655993809caf8e9ed6266f7144a2.svg" /></figure>
 </div>
 </div>
 <p>Trained on the original dataset (without the “blobs”), we saw that a logistic regression model produces a <em>linear</em> decision boundary and thus misclassifies a nontrivial number of data points. In comparison, not only will a neural network produce a nonlinear decision boundary dividing the data in the original dataset, it will also correctly classify the data in the four new “blobs.” Indeed, using the techniques in the <a class="reference internal" href="13-learning.html#learning"><span class="std std-ref">next chapter</span></a>, we trained a neural network on the new dataset with <em>three</em> hidden layers of widths <span class="math notranslate nohighlight">\(8\)</span>, <span class="math notranslate nohighlight">\(8\)</span>, and <span class="math notranslate nohighlight">\(4\)</span>. Then, a contour plot of the function</p>
 <div class="math notranslate nohighlight">
 \[
-\phi = \sigma\big(\bz_3^\intercal\bw + b\big)
+\phi = \sigma\big(\bz_3^\intercal\bw_4 + b_4\big)
 \]</div>
 <p>appears on the left-hand side of the following figure, while the “thresholded” version (at <span class="math notranslate nohighlight">\(0.5\)</span>) appears on the right-hand side displaying the (nonlinear!) decision boundaries:</p>
 <div class="cell tag_hide-input docutils container">
@@ -1332,6 +1398,8 @@ Y; \ \bz_2, \bw, b \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big(
     <span class="n">axis</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
     <span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
 
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;contour plot of $</span><span class="se">\\</span><span class="s1">phi = </span><span class="se">\\</span><span class="s1">sigma(</span><span class="se">\\</span><span class="s1">mathbf</span><span class="si">{z}</span><span class="s1">_3^</span><span class="se">\\</span><span class="s1">intercal </span><span class="se">\\</span><span class="s1">boldsymbol</span><span class="si">{w}</span><span class="s1">_4 + b_4)$&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;contour plot of predictor function $f(\mathbf</span><span class="si">{x}</span><span class="s1">)$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1339,25 +1407,48 @@ Y; \ \bz_2, \bw, b \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big(
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/4d798bfa38c77688b6d3d6a648d6262d2092c1f889a957c92417872886e6a679.svg" src="../_images/4d798bfa38c77688b6d3d6a648d6262d2092c1f889a957c92417872886e6a679.svg" /></figure>
+<img alt="../_images/f71d6608b44b14bfcbc9627ddb0e46be997fcc6f52b89c37284fa45564c0b3e0.svg" src="../_images/f71d6608b44b14bfcbc9627ddb0e46be997fcc6f52b89c37284fa45564c0b3e0.svg" /></figure>
 </div>
 </div>
 <p>Notice that the band of white dividing the original dataset (representing values <span class="math notranslate nohighlight">\(\phi \approx 0.5\)</span>) in the left-hand plot is much narrower compared to the same plot for the logistic regression model. This indicates that the neural network is making much more confident predictions up to its decision boundary (displayed in the right-hand plot) compared to the logistic regression model.</p>
-<p>To be written: Blah, blah blah, talk about activations:</p>
-<div class="cell tag_hide-input docutils container">
+<p>One of the major differences between neural networks and models like linear and logistic regression is that all variables in the latter types are visible, while neural networks contain layers of hidden variables sandwiched between the visible ones. This presents the analyst with a problem of understanding and interpretability: What exactly are the hidden neurons <em>doing</em> in a neural network model, and how might we interpret their output in human-understandable ways?</p>
+<p>Answers to these questions that are simultaneously broad enough to cover many use cases, while narrow enough to actually say something specific and meaningful, are very difficult to come by—indeed, this is an active area of research in machine learning. But generally speaking, it is often useful to think of the hierarchy of layers in a neural network—beginning from the input layer, progressing through the hidden layers to the output layer—as a <em>hierarchy of representations</em> progressing from the broad and general to the specific and refined. Here, by a <em>representation</em>, we mean an encoding of some real-world object or concept as a finite-dimensional vector of numerical features. For an example, consider a cat sitting on a chair—how might we represent this scene as a vector of numerical features understandable by a computer? One way is to take a picture of the cat with a digital camera, which encodes the scene into a digital picture consisting of an <span class="math notranslate nohighlight">\(m\times n\)</span> rectangular grid of pixels. The color of each pixel is uniquely identified by an <em>RGB triplet</em> <span class="math notranslate nohighlight">\((r,g,b)\)</span>, where the components are numbers that specify how much red, green, and blue are needed to form the color. Thus, the cat may be encoded into a feature vector which is actually a <span class="math notranslate nohighlight">\(3\)</span>-dimensional tensor of size <span class="math notranslate nohighlight">\(m\times n \times 3\)</span>. This is a <em>representation</em> of the scene.</p>
+<p>For another example, consider our familiar Ames housing dataset. The numerical features in this dataset comprise a <em>representation</em> of the housing market in Ames, Iowa. The dataset is not <em>literally</em> the housing market, just as the digital picture that I see on my screen of my cat sitting on a chair is not <em>literally</em> my cat! So, it is important to understand that the datasets we deal with in the real world are <em>all</em> representations, in this sense. And which numerical features to include in a given dataset is often decided by a human based on many factors—the features are identified and extracted from the real world by hand, as they say. As such, these features are often understandable and interpretable by a human since they clearly map onto real-world, tangible things.</p>
+<p>Now, suppose that <span class="math notranslate nohighlight">\(\bx\)</span> is an input feature vector to a neural network. On its way through the network, it begins by landing in the first hidden layer, transforming into the vector</p>
+<div class="math notranslate nohighlight">
+\[
+\bz_1^\intercal = \rho(\bx^\intercal \bW_1 + \bb_1^\intercal).
+\]</div>
+<p>We think of <span class="math notranslate nohighlight">\(\bz_1\)</span> as <em>another</em> representation of the data, but the meaning of its components—the “activations of the neurons”—are difficult to interpret because the weight matrix <span class="math notranslate nohighlight">\(\bW_1\)</span> and bias vector <span class="math notranslate nohighlight">\(\bb_1\)</span> are learned through the (usually very opaque) training process (see <a class="reference internal" href="13-learning.html#learning"><span class="std std-numref">Chapter 13</span></a>). Then, <em>this</em> new feature vector <span class="math notranslate nohighlight">\(\bz_1\)</span> is passed into the second layer, creating <em>yet another</em> new representation</p>
+<div class="math notranslate nohighlight">
+\[
+\bz_2^\intercal = \rho(\bz_1^\intercal \bW_2 + \bb_2^\intercal)
+\]</div>
+<p>of the data. For a network of depth <span class="math notranslate nohighlight">\(d\)</span>, this process of iteratively creating new representations of the data based on the previous ones continues all the way to the vector <span class="math notranslate nohighlight">\(\bz_{d-1}\)</span> in the last hidden layer, which is then used to create the probability</p>
+<div class="math notranslate nohighlight">
+\[
+\phi = \sigma( \bz_{d-1}^\intercal \bw_d + b_d)
+\]</div>
+<p>that parametrizes the distribution of the random variable <span class="math notranslate nohighlight">\(Y\sim \Ber(\phi)\)</span> in the output layer. So, the end result of the “forward pass” through the network is a sequence of representations</p>
+<div class="math notranslate nohighlight" id="equation-forward-pass-eq">
+<span class="eqno">(12.4)<a class="headerlink" href="#equation-forward-pass-eq" title="Permalink to this equation">#</a></span>\[
+\bx,\bz_1,\bz_2,\ldots,\bz_{d-1}
+\]</div>
+<p>of the data, beginning with the (often human constructed) feature vector <span class="math notranslate nohighlight">\(\bx\)</span>. As we mentioned above, one can often think of this sequence of representations as a progression from the broad and general, to the specific and refined. For example, the following contour plots show the activations of the eight neurons in the first hidden layer of our network trained to classify the data in our toy example:</p>
+<div class="cell tag_hide-input tag_full-width docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
 <span class="collapsed">Show code cell source</span>
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">))</span>
-<span class="n">subfigs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subfigures</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span> <span class="n">height_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">subfigs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subfigures</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 
 <span class="n">light_cmap</span> <span class="o">=</span> <span class="n">clr</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;light&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">magenta</span><span class="p">],</span> <span class="n">N</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 
 <span class="c1"># hidden layer 1, with 8 neurons</span>
-<span class="n">subfig</span> <span class="o">=</span> <span class="n">subfigs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">subfig</span> <span class="o">=</span> <span class="n">subfigs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">subfig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;neurons in hidden layer 1&#39;</span><span class="p">)</span>
 <span class="n">axes</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     
@@ -1371,49 +1462,152 @@ Y; \ \bz_2, \bw, b \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big(
     <span class="n">axis</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
     <span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
 
-<span class="c1"># hidden layer 2, with 4 neurons</span>
-<span class="n">subfig</span> <span class="o">=</span> <span class="n">subfigs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">subfig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;neurons in hidden layer 2&#39;</span><span class="p">)</span>
-<span class="n">axes</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">axis</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">grid_outputs</span><span class="p">[</span><span class="mi">2</span><span class="p">][:,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">resolution</span><span class="p">,</span> <span class="n">resolution</span><span class="p">)</span>
-    <span class="n">axis</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1_grid</span><span class="p">,</span> <span class="n">x2_grid</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">light_cmap</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">light_cmap</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vamx</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-
-    <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;x_2&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-    <span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;neuron </span><span class="si">{</span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">axis</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
-    <span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
-
-<span class="n">subfig</span> <span class="o">=</span> <span class="n">subfigs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">subfig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;neurons in hidden layer 3&#39;</span><span class="p">)</span>
-<span class="n">axes</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">axis</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">grid_outputs</span><span class="p">[</span><span class="mi">3</span><span class="p">][:,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">resolution</span><span class="p">,</span> <span class="n">resolution</span><span class="p">)</span>
-    <span class="n">axis</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1_grid</span><span class="p">,</span> <span class="n">x2_grid</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">light_cmap</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">light_cmap</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vamx</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-    <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;x_2&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-    <span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;neuron </span><span class="si">{</span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">axis</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
-    <span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
-
-<span class="c1"># plot the colorbars</span>
-<span class="k">for</span> <span class="n">subfig</span> <span class="ow">in</span> <span class="n">subfigs</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]:</span>
-    <span class="n">axis</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-    <span class="n">cbar</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">light_cmap</span><span class="p">),</span> <span class="n">cax</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
-    <span class="n">cbar</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="mi">3</span> <span class="o">/</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;&gt;5.0&#39;</span><span class="p">])</span>
+<span class="c1"># plot the colorbar</span>
+<span class="n">subfig</span> <span class="o">=</span> <span class="n">subfigs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">axis</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">light_cmap</span><span class="p">),</span> <span class="n">cax</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="mi">3</span> <span class="o">/</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;&gt;5.0&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/337d0c3ca7c308eab9cef5044160fe27aa774424bcff3a0c1fd967aa6ac43c9b.svg" src="../_images/337d0c3ca7c308eab9cef5044160fe27aa774424bcff3a0c1fd967aa6ac43c9b.svg" /></figure>
+<img alt="../_images/b8ec1e98663621434351fe92de519c48502b4453bdba278afd9a850181d9d5b3.svg" src="../_images/b8ec1e98663621434351fe92de519c48502b4453bdba278afd9a850181d9d5b3.svg" /></figure>
 </div>
 </div>
+<p>Specifically, these plots show the contours of the functions</p>
+<div class="math notranslate nohighlight">
+\[
+z_{1j} = \rho( \bx^\intercal \bw_{1j} + \bb_{1j}^\intercal ),
+\]</div>
+<p>for each <span class="math notranslate nohighlight">\(j=1,\ldots,8\)</span>, where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\bz_1^\intercal = \begin{bmatrix} z_{11} &amp; \cdots &amp; z_{18} \end{bmatrix}, \quad
+\bW_1 = \begin{bmatrix} \uparrow &amp; \cdots &amp; \uparrow \\
+\bw_{11} &amp; \cdots &amp; \bw_{18} \\
+\downarrow &amp; \cdots &amp; \downarrow
+\end{bmatrix}, \quad
+\bb_1^\intercal = \begin{bmatrix} b_{11} &amp; \cdots &amp; b_{18} \end{bmatrix}.
+\end{split}\]</div>
+<p>We see from the plots that the neurons are active on half planes of parameter space—their activations are not highlighting specific, refined structures in the data, but rather broad structures. The components in the representation <span class="math notranslate nohighlight">\(\bz_1\)</span> indicate what combination of these half planes the given data point lies in; a larger number for a component indicates that the point is further away from the boundary of the half planes.</p>
+<p>This new representation <span class="math notranslate nohighlight">\(\bz_1\)</span> is then passed into the second hidden layer, revealing these activations:</p>
+<div class="cell tag_hide-input tag_full-width docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">subfigs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subfigures</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">light_cmap</span> <span class="o">=</span> <span class="n">clr</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;light&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">magenta</span><span class="p">],</span> <span class="n">N</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="c1"># hidden layer 2, with 8 neurons</span>
+<span class="n">subfig</span> <span class="o">=</span> <span class="n">subfigs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">subfig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;neurons in hidden layer 2&#39;</span><span class="p">)</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">axis</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">grid_outputs</span><span class="p">[</span><span class="mi">2</span><span class="p">][:,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">resolution</span><span class="p">,</span> <span class="n">resolution</span><span class="p">)</span>
+    <span class="n">contour</span> <span class="o">=</span> <span class="n">axis</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1_grid</span><span class="p">,</span> <span class="n">x2_grid</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">light_cmap</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">light_cmap</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    
+    <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;x_2&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;neuron </span><span class="si">{</span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+
+<span class="c1"># plot the colorbar</span>
+<span class="n">subfig</span> <span class="o">=</span> <span class="n">subfigs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">axis</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">light_cmap</span><span class="p">),</span> <span class="n">cax</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="mi">3</span> <span class="o">/</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;&gt;5.0&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/d795c3e010e3aa40ed47c3d08490a5826f283dec7b6fc9b1fb887551ef6ec76c.svg" src="../_images/d795c3e010e3aa40ed47c3d08490a5826f283dec7b6fc9b1fb887551ef6ec76c.svg" /></figure>
+</div>
+</div>
+<p>These are contour plots of the functions</p>
+<div class="math notranslate nohighlight">
+\[
+\bz_{2j} = \rho(\bz_1^\intercal \bw_{2j} + \bb_{2j})
+\]</div>
+<p>for each <span class="math notranslate nohighlight">\(j=1,\ldots,8\)</span>, where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\bz_2^\intercal = \begin{bmatrix} z_{21} &amp; \cdots &amp; z_{28} \end{bmatrix}, \quad
+\bW_2 = \begin{bmatrix} \uparrow &amp; \cdots &amp; \uparrow \\
+\bw_{21} &amp; \cdots &amp; \bw_{28} \\
+\downarrow &amp; \cdots &amp; \downarrow
+\end{bmatrix}, \quad
+\bb_2^\intercal = \begin{bmatrix} b_{21} &amp; \cdots &amp; b_{28} \end{bmatrix}.
+\end{split}\]</div>
+<p>In comparison to the broad activations of the neurons in the first layer, these activations are starting to take on a more refined structure, with some of the activation boundaries beginning to conform to the shape of the data.</p>
+<p>Finally, this second representation <span class="math notranslate nohighlight">\(\bz_2\)</span> is passed into the third and final hidden layer, revealing the following activations:</p>
+<div class="cell tag_hide-input tag_full-width docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">subfigs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subfigures</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">light_cmap</span> <span class="o">=</span> <span class="n">clr</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;light&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">magenta</span><span class="p">],</span> <span class="n">N</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="c1"># hidden layer 3, with 4 neurons</span>
+<span class="n">subfig</span> <span class="o">=</span> <span class="n">subfigs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">subfig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;neurons in hidden layer 3&#39;</span><span class="p">)</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">axis</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">grid_outputs</span><span class="p">[</span><span class="mi">3</span><span class="p">][:,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">resolution</span><span class="p">,</span> <span class="n">resolution</span><span class="p">)</span>
+    <span class="n">contour</span> <span class="o">=</span> <span class="n">axis</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1_grid</span><span class="p">,</span> <span class="n">x2_grid</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">light_cmap</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">light_cmap</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    
+    <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;x_2&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;neuron </span><span class="si">{</span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+
+<span class="c1"># plot the colorbar</span>
+<span class="n">subfig</span> <span class="o">=</span> <span class="n">subfigs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">axis</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">subfig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">light_cmap</span><span class="p">),</span> <span class="n">cax</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="mi">3</span> <span class="o">/</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;&gt;5.0&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/d0c7522205beb7d7f427bd6bd74b13ecaf3864e9fb1f9d1dc07eb4a798e03551.svg" src="../_images/d0c7522205beb7d7f427bd6bd74b13ecaf3864e9fb1f9d1dc07eb4a798e03551.svg" /></figure>
+</div>
+</div>
+<p>These are contour plots of the functions</p>
+<div class="math notranslate nohighlight">
+\[
+z_{3j} = \rho(\bz_2^\intercal \bw_{3j} + \bb_{3j})
+\]</div>
+<p>for each <span class="math notranslate nohighlight">\(j=1,\ldots,4\)</span>, where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\bz_3^\intercal = \begin{bmatrix} z_{31} &amp; \cdots &amp; z_{34} \end{bmatrix}, \quad
+\bW_3 = \begin{bmatrix} \uparrow &amp; \cdots &amp; \uparrow \\
+\bw_{31} &amp; \cdots &amp; \bw_{34} \\
+\downarrow &amp; \cdots &amp; \downarrow
+\end{bmatrix}, \quad
+\bb_3^\intercal = \begin{bmatrix} b_{31} &amp; \cdots &amp; b_{34} \end{bmatrix}.
+\end{split}\]</div>
+<p>One now sees that the activations of the first and third neurons combine to form the decision boundary of the entire network, as shown earlier. The shapes of these activations are even more refined than those in the previous hidden layer, taking on more of the shape of the data. Interestingly, the second and fourth neurons appear to be inactive, at least in the region of parameter space containing the dataset. One might “prune” inactive neurons from the network <em>after</em> training, but care must be exercised in “pruning” <em>before</em> training. Indeed, even if a neuron is ultimately inactive in the trained network, it may play a nontrivial role <em>during</em> training, and the effect of its removal is, in general, difficult to estimate.</p>
 </section>
 </section>
 
