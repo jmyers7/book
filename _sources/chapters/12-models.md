@@ -1401,9 +1401,7 @@ $$
 \bb_1^\intercal = \begin{bmatrix} b_{11} & \cdots & b_{18} \end{bmatrix}.
 $$
 
-We see from the plots that the neurons are active on half planes of parameter space---their activations are not highlighting specific, refined structures in the data, but rather broad structures. The components in the representation $\bz_1$ indicate what combination of these half planes the given data point lies in; a larger number for a component indicates that the point is further away from the boundary of the half planes.
-
-This new representation $\bz_1$ is then passed into the second hidden layer, revealing these activations:
+We see from the plots that the neurons are active on half planes of parameter space---their activations are not highlighting specific, refined structures in the data, but rather broad structures. The components in the representation $\bz_1$ indicate what combination of these half planes the given data point lies in; a larger number for a component indicates that the point is further away from the boundary of the half planes. This new representation $\bz_1$ is then passed into the second hidden layer, revealing these activations:
 
 ```{code-cell} ipython3
 :tags: [hide-input, full-width]
@@ -1455,9 +1453,7 @@ $$
 \bb_2^\intercal = \begin{bmatrix} b_{21} & \cdots & b_{28} \end{bmatrix}.
 $$
 
-In comparison to the broad activations of the neurons in the first layer, these activations are starting to take on a more refined structure, with some of the activation boundaries beginning to conform to the shape of the data.
-
-Finally, this second representation $\bz_2$ is passed into the third and final hidden layer, revealing the following activations:
+In comparison to the broad activations of the neurons in the first layer, these activations are starting to take on a more refined structure, with some of the activation boundaries beginning to conform to the shape of the data. This second representation $\bz_2$ is passed into the third and final hidden layer, revealing the following activations:
 
 ```{code-cell} ipython3
 :tags: [hide-input, full-width]
@@ -1509,4 +1505,11 @@ $$
 \bb_3^\intercal = \begin{bmatrix} b_{31} & \cdots & b_{34} \end{bmatrix}.
 $$
 
-One now sees that the activations of the first and third neurons combine to form the decision boundary of the entire network, as shown earlier. The shapes of these activations are even more refined than those in the previous hidden layer, taking on more of the shape of the data. Interestingly, the second and fourth neurons appear to be inactive, at least in the region of parameter space containing the dataset. One might "prune" inactive neurons from the network _after_ training, but care must be exercised in "pruning" _before_ training. Indeed, even if a neuron is ultimately inactive in the trained network, it may play a nontrivial role _during_ training, and the effect of its removal is, in general, difficult to estimate.
+The shapes of these activations are even more refined than those in the previous hidden layer, taking on more of the shape of the data. The job of the final link function
+
+$$
+\phi = \sigma(\bz_3^\intercal \bw_4 + b_4)
+$$
+
+is to combine these activations to produce an output probability $\phi$. Interestingly, the second and fourth neurons appear to be inactive, at least in the region of parameter space containing the dataset. One might "prune" inactive neurons from the network _after_ training, but care must be exercised in "pruning" _before_ training. Indeed, even if a neuron is ultimately inactive in the trained network, it may play a nontrivial role _during_ training, and the effect of its removal is, in general, difficult to estimate.
+
