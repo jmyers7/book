@@ -10,11 +10,18 @@ kernelspec:
   name: python3
 ---
 
-**THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!**
-
 (prob-models)=
 # Probabilistic graphical models
 
+This is the third of the four-chapter sequence described in {numref}`Chapter %s <halfway>` aimed at building and training _probabilistic graphical models_ (*PGM*s) on datasets. This chapter is devoted toward the definition of general PGMs and building up a modest collection of examples.
+
+As the terminology indicates, each PGM is based on an underlying graph, consisting of directed edges (i.e., arrows) connecting a network of nodes. In our formulation, the nodes represent either random or deterministic vectors, and the edges represent flows of "information" or "influence." Between two _random_ vectors, such a directed flow is modeled as the _communication channel_ (in the sense of {prf:ref}`comm-channel-def` and {prf:ref}`conditional-markov-kernel-thm`) induced by the conditional probability distribution of the random vectors---but, as we know, this communication channel is reversible via Bayes' theorem, and so the direction of the edge between the random vectors singles out one link over the other. This distinguished direction is often chosen because it represents a natural cause-and-effect relationship. This leads to a _causal_ interpretation of the underlying graphs of PGMs, which we briefly describe in {numref}`causal`. Our description of such _causal structures_ is extraordinarily brief, intended only for motivation. To learn more about the formal theory of causality, we direct the reader toward the introductions in Chapter 9 of {cite}`HardtRecht2022` and Chapter 36 of {cite}`Murphy2023`, and to {cite}`Pearl2009` for a comprehensive treatment.
+
+The general definition of a PGM comes afterward in {numref}`general-pgm-sec`. Our definition slightly extends the one often found in the literature, as we allow deterministic variables in the graphical structure that do not carry probability distributions.
+
+The remaining three sections in the chapter study three special classes of PGMs, beginning with _linear regression models_ in {numref}`lin-reg-sec`. These models are used in situations where we believe one feature in a dataset is (approximately) an affine function of some other subset of features. Then, in {numref}`log-reg-sec`, we turn toward _logistic regression models_, which are used in binary classification problems. Finally, in {numref}`nn-sec`, we get a brief glimpse into the fascinating world of _deep learning_, based on _neural network models_. We will study the most basic version of these models, so-called _fully-connected, feedforward neural networks_ or _multilayer perceptrons_. Our treatment here is also extraordinarily brief---the interested reader is directed toward {cite}`GBC2016` for an authoritative treatment of deep learning and neural networks.
+
+(causal)=
 ## A brief look at causal inference
 
 Suppose that we are given two random variables $X$ and $Y$. As we explained in {numref}`cond-entropy-mutual-info-sec`, the two-way flow of "information" and "influence" between the random variables is conceptualized via the Markov kernels
@@ -94,7 +101,6 @@ The very simple types of graphs that we have drawn to represent causal structure
 Do problem 1 on the worksheet.
 ```
 
-This has been a very (_very_) short introduction to the ideas of the formal theory of causality, intended only to motivate the causal graphs that we will see over the next few sections. To learn more, see the introductions in Chapter 9 of {cite}`HardtRecht2022` and Chapter 36 of {cite}`Murphy2023`. For a more comprehensive treatment, see {cite}`Pearl2009`.
 
 
 
@@ -107,7 +113,8 @@ This has been a very (_very_) short introduction to the ideas of the formal theo
 
 
 
-## Probabilistic graphical models
+(general-pgm-sec)=
+## General probabilistic graphical models
 
 By way of introduction, let's begin with two deterministic vectors $\bx\in \bbr^n$ and $\by \in \bbr^m$. As we discussed at the beginning of {numref}`cond-entropy-mutual-info-sec`, by saying that there is a _deterministic flow of information_ from $\bx$ to $\by$, we shall mean simply that there is a function
 
@@ -416,7 +423,7 @@ where $\bX\in \bbr^n$. The model has the following parameters:
 The link function at $Y$ is given by
 
 $$
-Y \mid \bX; \ \beta_0,\bbeta,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big), \quad \text{where} \quad \mu = \beta_0 + \bx^\intercal \bbeta.
+Y \mid \bX=\bx; \ \beta_0,\bbeta,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big), \quad \text{where} \quad \mu = \beta_0 + \bx^\intercal \bbeta.
 $$
 ````
 
@@ -487,14 +494,6 @@ p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta,\sigma^2 \big) &
 where $\mu_i = \beta_0 + \bx_i^\intercal \bbeta$ for each $i=1,\ldots,m$.
 ```
 
-Notice that the density in the last displayed equation is exactly the density of an $\mathcal{N}_m(\bmu,\Sigma)$ distribution, where $\Sigma = \sigma^2 \bI$ and the mean vector
-
-$$
-\bmu^\intercal = \begin{bmatrix} \mu_1 & \cdots & \mu_m \end{bmatrix}.  
-$$
-
-Let's prove the theorem:
-
 ```{prf:proof}
 
 We shall only prove the equation
@@ -544,9 +543,9 @@ $$
 p(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m ) = \prod_{i=1}^m p(y_i \mid \bx_i)
 $$
 
-used nothing particular about linear regression models, and only relied upon independence of the random sample. This means that this same argument will apply to the data probability functions of the models that we will study in subsequent sections.
+used nothing particular about linear regression models, and only relied upon independence of the random sample. This means that this same argument will apply to the data probability functions of the models that we will study in subsequent sections. (See {prf:ref}`log-reg-data-pf-thm` and {prf:ref}`neural-net-data-pf-thm`.)
 
-Returning to our discussion of the linear regression model, the components of the vector $\bX$ are referred to as _predictors_, _regressors_, _explanatory variables_, or _independent variables_, while the random variable $Y$ is called the _response variable_ or the _dependent variable_. In the case that $m=1$, the model is called a _simple linear regression model_; otherwise, it is called a _multiple linear regression model_.
+Returning to our discussion of the linear regression model, the components of the vector $\bX$ are referred to as _predictors_, _regressors_, _explanatory variables_, or _independent variables_, while the random variable $Y$ is called the _response variable_ or the _dependent variable_. In the case that $n=1$, the model is called a _simple linear regression model_; otherwise, it is called a _multiple linear regression model_.
 
 Note that
 
@@ -560,53 +559,84 @@ $$
 \mu = \beta_0 + \bx^\intercal \bbeta.
 $$ (lin-reg-line-eqn)
 
-The parameter $\beta_0$ is often called the _intercept_ or _bias term_, while the other $\beta_j$'s (for $j>0$) are called _weights_ or _slope coefficients_ since they are exactly the (infinitesimal) slopes:
+The parameter $\beta_0$ is often called the _intercept_ or _bias term_, while the other $\beta_j$'s (for $j>0$) in the parameter vector
 
 $$
-\frac{\partial \mu}{\partial x_j} = \beta_j.
+\bbeta^\intercal = \begin{bmatrix} \beta_1 & \cdots & \beta_n \end{bmatrix}
+$$
+
+are called _weights_ or _slope coefficients_, since they are exactly the (infinitesimal) slopes:
+
+$$
+\frac{\partial \mu}{\partial x_j} = \beta_j
+$$
+
+where
+
+$$
+\bx^\intercal = \begin{bmatrix} x_1 & \cdots & x_n \end{bmatrix}.
 $$
 
 The random variable
 
 $$
-\dev \stackrel{\text{def}}{=} Y - \beta_0 - \bX^\intercal \bbeta
+R \def Y - \beta_0 - \bX^\intercal \bbeta
 $$
 
-in a linear regression model is called the _error term_; note then that
+in a linear regression model is called the _residual_ or _error term_; note then that
 
 $$
-Y = \beta_0 + \bX^\intercal \bbeta + \dev \quad \text{and} \quad \dev \sim \mathcal{N}(0, \sigma^2).
+Y = \beta_0 + \bX^\intercal \bbeta + R \quad \text{and} \quad R \mid \bX = \bx \sim \mathcal{N}(0, \sigma^2).
 $$ (random-lin-rel-eqn)
 
 This is the manifestation in terms of random vectors and variables of the approximate linear relationship {eq}`approx-linear-eqn` described at the beginning of this section.
 
+```{admonition} Problem Prompt
+
+Do problem 3 on the worksheet.
+```
+
 Suppose we are given an observed dataset
 
 $$
-(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr.
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr,
 $$
 
-If for each $i=1,\ldots,m$, we define the _predicted values_
+corresponding to an IID sequence
 
 $$
-\hat{y}_i = \beta_0 + \bx_i^\intercal \bbeta
+(\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_m,Y_m).
 $$
 
-and the _residuals_
+This yields an associated sequence of residuals
 
 $$
-\dev_i = y_i - \hat{y}_i,
+R_1,R_2,\ldots,R_m,
 $$
 
-then from {eq}`random-lin-rel-eqn` we get
+where $R_i = Y_i - \beta_0 - \bX_i^\intercal \bbeta$ for each $i=1,\ldots,m$. By invariance of independence (see {prf:ref}`invar-independent-thm`), the residuals form an IID sequence of random variables.
+
+For each $i=1,\ldots,m$, we define the _predicted values_
 
 $$
-y_i = \beta_0 + \bx_i^\intercal \bbeta + \dev_i.
+\hat{y}_i = \beta_0 + \bx_i^\intercal \bbeta.
 $$
 
-This shows that the residuals $\dev_i$ are observations of the error term $\dev \sim \mathcal{N}(0,\sigma^2)$. Thus, in a linear regression model, all residuals from a dataset are assumed to be modeled by a normal distribution with mean $0$ and a _fixed_ variance; the fixed-variance assumption is sometimes called _homoscedasticity_.
+Then we see that the difference
 
-In {numref}`Chapter %s <learning>`, we will learn how to train a linear regression model on a dataset to obtain optimal values of the parameters $\beta_0$ and $\bbeta$. Using these training methods, we obtained values for the parameters $\beta_0$ and $\bbeta = \beta_1$ for the Ames housing dataset mentioned at the beginning of this section. The positively-sloped line in the scatter plot at the beginning of this section was the line traced out by the link function $\mu = \beta_0 + x\beta_1 $. The predicted values $\hat{y}_i$ lie along this line, and the magnitude of the residual $\dev_i$ may be visualized as the vertical distance from the true data point $y_i$ to this line. We may plot the residuals $\dev_i$ against the predictor variables $x_i$ to get:
+$$
+r_i \def y_i - \hat{y}_i,
+$$
+
+also called a _residual_, is an observation of
+
+$$
+R_i \mid \bX_i = \bx_i \sim N(0,\sigma^2).
+$$
+
+Notice that the variance $\sigma^2$ does _not_ depend on the choice of data point $(\bx_i,y_i)$. This fixed-variance assumption built into linear regression models is sometimes called _homoscedasticity_.
+
+In {numref}`Chapter %s <learning>`, we will learn how to train a linear regression model on a dataset to obtain optimal values of the parameters $\beta_0$ and $\bbeta$. Using these training methods, we obtained values for the parameters $\beta_0$ and $\bbeta = \beta_1$ for the Ames housing dataset mentioned at the beginning of this section. The positively-sloped line in the scatter plot at the beginning of this section was the line traced out by the link function $\mu = \beta_0 + x\beta_1 $. The predicted values $\hat{y}_i$ lie along this line, and the magnitude of the residual $r_i$ may be visualized as the vertical distance from the true data point $y_i$ to this line. We may plot the residuals $r_i$ against the predictor variables $x_i$ to get:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -713,7 +743,7 @@ $$
 
 Such datasets arise naturally in _binary classification problems_, where we aim to determine which of two classes a given object lies in based on predictor features. The true class of the $i$-th object is indicated by the value of $y_i$, while the vector $\bx_i$ consists of the predictor features.
 
-As a running example through this section, consider the data given in following scatter plot:
+As a running example through this section, consider the data given in the following scatter plot:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -758,7 +788,7 @@ plt.tight_layout()
 The points represent the $2$-dimensional predictors
 
 $$
-\bx_i^\intercal = \begin{bmatrix} x_{i1} \\ x_{i2} \end{bmatrix},
+\bx_i^\intercal = \begin{bmatrix} x_{i1} & x_{i2} \end{bmatrix},
 $$
 
 while the color indicates the class $y_i \in \{0,1\}$. Our goal in this section is to capture the evident pattern in the data using a _logistic regression model_.
@@ -788,8 +818,14 @@ plt.ylabel('$\sigma(x)$')
 plt.tight_layout()
 ```
 
-Since the outputs of the sigmoid function land in the open interval $(0,1)$, we may use it to convert _any_ real number into a _probability_. Indeed, this is precisely its role in a _logistic regression model_:
+Since the outputs of the sigmoid function land in the open interval $(0,1)$, we may use it to convert _any_ real number into a _probability_. 
 
+```{admonition} Problem Prompt
+
+Do problem 5 on the worksheet.
+```
+
+Using the sigmoid function, we define the models studied in this section:
 
 ````{prf:definition}
 :label: log-reg-def
@@ -811,7 +847,7 @@ where $\bX\in \bbr^{n}$. The model has the following parameters:
 The link function at $Y$ is given by
 
 $$
-Y \mid \bX; \ \beta_0,\bbeta \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx^\intercal\bbeta),
+Y \mid \bX = \bx; \ \beta_0,\bbeta \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx^\intercal\bbeta),
 $$
 
 and where $\sigma$ is the sigmoid function.
@@ -888,7 +924,7 @@ $$
 
 But the same proof will work here as the one given for {prf:ref}`linear-reg-data-pf-thm`.
 
-Let's return to our toy dataset introduced at the beginning of the section. In the [next chapter](learning) we will see how to learn optimal values of the parameters $\beta_0$ and $\bbeta$ from data. With these parameters in hand obtained from our toy dataset, one way to check how well a logistic regression model captures the data is to draw a contour plot of the function $\phi = \sigma( \beta_0 + \bx^\intercal \bbeta )$. This contour plot appears on the left in the following:
+Let's return to our toy dataset introduced at the beginning of the section. In the [next chapter](learning) we will see how to learn optimal values of the parameters $\beta_0$ and $\bbeta$ from the data. With these parameters in hand, one way to check how well a logistic regression model captures the data is to draw a contour plot of the function $\phi = \sigma( \beta_0 + \bx^\intercal \bbeta )$. This contour plot appears on the left in the following:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -969,7 +1005,12 @@ $$
 \beta_0 + \bx^\intercal\bbeta > 0 \quad \text{or} \quad \beta_0 + \bx^\intercal \bbeta < 0.
 $$
 
-Those vectors $\bx$ satisfying the first inequality would be predicted to belong to class $1$, while those satisfying the latter inequality would be predicted to belong to class $0$. As is evident from the plots, our logistic regression model is doing its best to accurately classify as many data points as possible, but our model is handicapped by the fact it will _always_ produce a linear decision boundary.
+Those vectors $\bx$ satisfying the first inequality would be predicted to belong to class $1$, while those satisfying the latter inequality would be predicted to belong to class $0$. As is evident from the plots, our logistic regression model is doing its best to accurately classify as many data points as possible, but it is handicapped by the fact it will _always_ produce a linear decision boundary.
+
+```{admonition} Problem Prompt
+
+Do problem 6 on the worksheet.
+```
 
 
 
@@ -1052,7 +1093,7 @@ $$
 while the link function at $Y$ is given by
 
 $$
-Y ;\ \mathbf{z}, \bw_2, b_2 \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\bz^\intercal \bw_2 + b_2).
+Y \mid \bX = \bx ;\ \mathbf{z}, \bw_2, b_2 \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\bz^\intercal \bw_2 + b_2).
 $$
 
 Here, $\rho$ is the ReLU function and $\sigma$ is the sigmoid function.
@@ -1077,7 +1118,7 @@ $$
 p\big(y \mid \bx ; \ \bW_1, \bb_1, \bw_2, b_2 \big).
 $$
 
-On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{m}$, it is given by the formula
+On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{n}$, it is given by the formula
 
 $$
 p\big(y \mid \bx ; \ \bW_1, \bb_1, \bw_2, b_2 \big) = \phi^y (1-\phi)^{1-y}
@@ -1190,7 +1231,7 @@ $$
 while the link function at $Y$ is the same as it was before:
 
 $$
-Y; \ \bz_2, \bw_3, b_3 \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \bz_2^\intercal \bw_3 + b_3\big).
+Y \mid \bX = \bx; \ \bz_2, \bw_3, b_3 \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \bz_2^\intercal \bw_3 + b_3\big).
 $$
 
 The _depth_ $d$ of a neural network is defined to be one less than the total number of layers, or equivalently, the number of (trainable) parameter groups
@@ -1199,7 +1240,7 @@ $$
 (\bW_1,\bb_1),(\bW_2,\bb_2),\ldots,(\bw_d,b_d).
 $$
 
-The _widths_ of a network are defined to be the dimensions of the hidden vectors.
+The _widths_ of a network are the dimensions of the input and output vectors of the network, as well as the dimensions of the hidden vectors.
 
 Let's return to our toy dataset from the [previous section](log-reg-sec), but for extra fun let's add four "blobs" of data:
 
@@ -1542,3 +1583,7 @@ $$
 
 is to combine these activations to produce an output probability $\phi$. Interestingly, the second and fourth neurons appear to be inactive, at least in the region of parameter space containing the dataset. One might "prune" inactive neurons from the network _after_ training, but care must be exercised in "pruning" _before_ training. Indeed, even if a neuron is ultimately inactive in the trained network, it may play a nontrivial role _during_ training, and the effect of its removal is, in general, difficult to estimate.
 
+```{admonition} Problem Prompt
+
+Do problem 7 on the worksheet.
+```
