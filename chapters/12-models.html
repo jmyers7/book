@@ -355,7 +355,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-brief-look-at-causal-inference">12.1. A brief look at causal inference</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">12.2. Probabilistic graphical models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-probabilistic-graphical-models">12.2. General probabilistic graphical models</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-models">12.3. Linear regression models</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-models">12.4. Logistic regression models</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-network-models">12.5. Neural network models</a></li>
@@ -370,11 +370,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
-<section class="tex2jax_ignore mathjax_ignore" id="probabilistic-graphical-models">
+  <section class="tex2jax_ignore mathjax_ignore" id="probabilistic-graphical-models">
 <span id="prob-models"></span><h1><span class="section-number">12. </span>Probabilistic graphical models<a class="headerlink" href="#probabilistic-graphical-models" title="Permalink to this heading">#</a></h1>
+<p>This is the third of the four-chapter sequence described in <a class="reference internal" href="09-halfway.html#halfway"><span class="std std-numref">Chapter 9</span></a> aimed at building and training <em>probabilistic graphical models</em> (<em>PGM</em>s) on datasets. This chapter is devoted toward the definition of general PGMs and building up a modest collection of examples.</p>
+<p>As the terminology indicates, each PGM is based on an underlying graph, consisting of directed edges (i.e., arrows) connecting a network of nodes. In our formulation, the nodes represent either random or deterministic vectors, and the edges represent flows of “information” or “influence.” Between two <em>random</em> vectors, such a directed flow is modeled as the <em>communication channel</em> (in the sense of <a class="reference internal" href="10-info-theory.html#comm-channel-def">Definition 10.6</a> and <a class="reference internal" href="10-info-theory.html#conditional-markov-kernel-thm">Theorem 10.4</a>) induced by the conditional probability distribution of the random vectors—but, as we know, this communication channel is reversible via Bayes’ theorem, and so the direction of the edge between the random vectors singles out one link over the other. This distinguished direction is often chosen because it represents a natural cause-and-effect relationship. This leads to a <em>causal</em> interpretation of the underlying graphs of PGMs, which we briefly describe in <a class="reference internal" href="#causal"><span class="std std-numref">Section 12.1</span></a>. Our description of such <em>causal structures</em> is extraordinarily brief, intended only for motivation. To learn more about the formal theory of causality, we direct the reader toward the introductions in Chapter 9 of <span id="id1">[<a class="reference internal" href="bib.html#id11" title="M. Hardt and B. Recht. Patterns, predictions, and actions. Foundations of machine learning. Princeton University Press, 2022.">HR22</a>]</span> and Chapter 36 of <span id="id2">[<a class="reference internal" href="bib.html#id9" title="K. P. Murphy. Probabilistic machine learning. Advanced topics. MIT Press, 2023.">Mur23</a>]</span>, and to <span id="id3">[<a class="reference internal" href="bib.html#id27" title="J. Pearl. Causality. Cambridge University Press, second edition, 2009.">Pea09</a>]</span> for a comprehensive treatment.</p>
+<p>The general definition of a PGM comes afterward in <a class="reference internal" href="#general-pgm-sec"><span class="std std-numref">Section 12.2</span></a>. Our definition slightly extends the one often found in the literature, as we allow deterministic variables in the graphical structure that do not carry probability distributions.</p>
+<p>The remaining three sections in the chapter study three special classes of PGMs, beginning with <em>linear regression models</em> in <a class="reference internal" href="#lin-reg-sec"><span class="std std-numref">Section 12.3</span></a>. These models are used in situations where we believe one feature in a dataset is (approximately) an affine function of some other subset of features. Then, in <a class="reference internal" href="#log-reg-sec"><span class="std std-numref">Section 12.4</span></a>, we turn toward <em>logistic regression models</em>, which are used in binary classification problems. Finally, in <a class="reference internal" href="#nn-sec"><span class="std std-numref">Section 12.5</span></a>, we get a brief glimpse into the fascinating world of <em>deep learning</em>, based on <em>neural network models</em>. We will study the most basic version of these models, so-called <em>fully-connected, feedforward neural networks</em> or <em>multilayer perceptrons</em>. Our treatment here is also extraordinarily brief—the interested reader is directed toward <span id="id4">[<a class="reference internal" href="bib.html#id10" title="I. Goodfellow, Y. Bengio, and A. Courville. Deep learning. MIT Press, 2016.">GBC16</a>]</span> for an authoritative treatment of deep learning and neural networks.</p>
 <section id="a-brief-look-at-causal-inference">
-<h2><span class="section-number">12.1. </span>A brief look at causal inference<a class="headerlink" href="#a-brief-look-at-causal-inference" title="Permalink to this heading">#</a></h2>
+<span id="causal"></span><h2><span class="section-number">12.1. </span>A brief look at causal inference<a class="headerlink" href="#a-brief-look-at-causal-inference" title="Permalink to this heading">#</a></h2>
 <p>Suppose that we are given two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. As we explained in <a class="reference internal" href="10-info-theory.html#cond-entropy-mutual-info-sec"><span class="std std-numref">Section 10.3</span></a>, the two-way flow of “information” and “influence” between the random variables is conceptualized via the Markov kernels</p>
 <div class="math notranslate nohighlight">
 \[
@@ -424,10 +427,9 @@ x\mapsto p(y|x) \quad \text{and} \quad y \mapsto p(x|y)
 <p class="admonition-title">Problem Prompt</p>
 <p>Do problem 1 on the worksheet.</p>
 </div>
-<p>This has been a very (<em>very</em>) short introduction to the ideas of the formal theory of causality, intended only to motivate the causal graphs that we will see over the next few sections. To learn more, see the introductions in Chapter 9 of <span id="id1">[<a class="reference internal" href="bib.html#id11" title="M. Hardt and B. Recht. Patterns, predictions, and actions. Foundations of machine learning. Princeton University Press, 2022.">HR22</a>]</span> and Chapter 36 of <span id="id2">[<a class="reference internal" href="bib.html#id9" title="K. P. Murphy. Probabilistic machine learning. Advanced topics. MIT Press, 2023.">Mur23</a>]</span>. For a more comprehensive treatment, see <span id="id3">[<a class="reference internal" href="bib.html#id27" title="J. Pearl. Causality. Cambridge University Press, second edition, 2009.">Pea09</a>]</span>.</p>
 </section>
-<section id="id4">
-<h2><span class="section-number">12.2. </span>Probabilistic graphical models<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<section id="general-probabilistic-graphical-models">
+<span id="general-pgm-sec"></span><h2><span class="section-number">12.2. </span>General probabilistic graphical models<a class="headerlink" href="#general-probabilistic-graphical-models" title="Permalink to this heading">#</a></h2>
 <p>By way of introduction, let’s begin with two deterministic vectors <span class="math notranslate nohighlight">\(\bx\in \bbr^n\)</span> and <span class="math notranslate nohighlight">\(\by \in \bbr^m\)</span>. As we discussed at the beginning of <a class="reference internal" href="10-info-theory.html#cond-entropy-mutual-info-sec"><span class="std std-numref">Section 10.3</span></a>, by saying that there is a <em>deterministic flow of information</em> from <span class="math notranslate nohighlight">\(\bx\)</span> to <span class="math notranslate nohighlight">\(\by\)</span>, we shall mean simply that there is a function</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
@@ -602,7 +604,7 @@ Y \mid \bX; \ \beta_0, \bbeta,\sigma^2 \sim \mathcal{N}(\mu, \sigma^2), \quad \t
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/be138a3cbe96d1a1463e5db637ea7dd56a4854ae2581946a4d5f95343eb7109c.svg" src="../_images/be138a3cbe96d1a1463e5db637ea7dd56a4854ae2581946a4d5f95343eb7109c.svg" /></figure>
+<img alt="../_images/e48184c4da4bde31d73a6cc6317cfae8c150d4b645f3986f4fd4239794ebe972.svg" src="../_images/e48184c4da4bde31d73a6cc6317cfae8c150d4b645f3986f4fd4239794ebe972.svg" /></figure>
 </div>
 </div>
 <p>The positively-sloped line is used to visualize the approximate linear relationship <a class="reference internal" href="#equation-approx-linear-eqn">(12.1)</a>. This is a so-called <em>least squares line</em> or <em>regression line</em>; we will learn how to compute them in <a class="reference internal" href="13-learning.html#learning"><span class="std std-numref">Chapter 13</span></a>.</p>
@@ -622,7 +624,7 @@ Y \mid \bX; \ \beta_0, \bbeta,\sigma^2 \sim \mathcal{N}(\mu, \sigma^2), \quad \t
 <p>The link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-Y \mid \bX; \ \beta_0,\bbeta,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big), \quad \text{where} \quad \mu = \beta_0 + \bx^\intercal \bbeta.
+Y \mid \bX=\bx; \ \beta_0,\bbeta,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big), \quad \text{where} \quad \mu = \beta_0 + \bx^\intercal \bbeta.
 \]</div>
 </section>
 </div><p>Before we introduce important terminology associated with linear regression models and look at an example, we need to discuss two probability functions that will play a crucial role in the <a class="reference internal" href="13-learning.html#learning"><span class="std std-ref">next chapter</span></a>. The first is just the conditional probability function of <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(\bX\)</span>:</p>
@@ -676,13 +678,7 @@ p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta,\sigma^2 \big) &
 \end{align*}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mu_i = \beta_0 + \bx_i^\intercal \bbeta\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>.</p>
 </section>
-</div><p>Notice that the density in the last displayed equation is exactly the density of an <span class="math notranslate nohighlight">\(\mathcal{N}_m(\bmu,\Sigma)\)</span> distribution, where <span class="math notranslate nohighlight">\(\Sigma = \sigma^2 \bI\)</span> and the mean vector</p>
-<div class="math notranslate nohighlight">
-\[
-\bmu^\intercal = \begin{bmatrix} \mu_1 &amp; \cdots &amp; \mu_m \end{bmatrix}.  
-\]</div>
-<p>Let’s prove the theorem:</p>
-<div class="proof admonition" id="proof">
+</div><div class="proof admonition" id="proof">
 <p>Proof. We shall only prove the equation</p>
 <div class="math notranslate nohighlight">
 \[
@@ -722,8 +718,8 @@ p(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m ) &amp;= \frac{p(y_1,\ldots,y_m,\bx_1,\
 \[
 p(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m ) = \prod_{i=1}^m p(y_i \mid \bx_i)
 \]</div>
-<p>used nothing particular about linear regression models, and only relied upon independence of the random sample. This means that this same argument will apply to the data probability functions of the models that we will study in subsequent sections.</p>
-<p>Returning to our discussion of the linear regression model, the components of the vector <span class="math notranslate nohighlight">\(\bX\)</span> are referred to as <em>predictors</em>, <em>regressors</em>, <em>explanatory variables</em>, or <em>independent variables</em>, while the random variable <span class="math notranslate nohighlight">\(Y\)</span> is called the <em>response variable</em> or the <em>dependent variable</em>. In the case that <span class="math notranslate nohighlight">\(m=1\)</span>, the model is called a <em>simple linear regression model</em>; otherwise, it is called a <em>multiple linear regression model</em>.</p>
+<p>used nothing particular about linear regression models, and only relied upon independence of the random sample. This means that this same argument will apply to the data probability functions of the models that we will study in subsequent sections. (See <a class="reference internal" href="#log-reg-data-pf-thm">Theorem 12.2</a> and <a class="reference internal" href="#neural-net-data-pf-thm">Theorem 12.3</a>.)</p>
+<p>Returning to our discussion of the linear regression model, the components of the vector <span class="math notranslate nohighlight">\(\bX\)</span> are referred to as <em>predictors</em>, <em>regressors</em>, <em>explanatory variables</em>, or <em>independent variables</em>, while the random variable <span class="math notranslate nohighlight">\(Y\)</span> is called the <em>response variable</em> or the <em>dependent variable</em>. In the case that <span class="math notranslate nohighlight">\(n=1\)</span>, the model is called a <em>simple linear regression model</em>; otherwise, it is called a <em>multiple linear regression model</em>.</p>
 <p>Note that</p>
 <div class="math notranslate nohighlight">
 \[
@@ -734,44 +730,69 @@ E\big(Y \mid \bX = \bx \big) = \mu = \beta_0 + \bx^\intercal \bbeta,
 <span class="eqno">(12.2)<a class="headerlink" href="#equation-lin-reg-line-eqn" title="Permalink to this equation">#</a></span>\[
 \mu = \beta_0 + \bx^\intercal \bbeta.
 \]</div>
-<p>The parameter <span class="math notranslate nohighlight">\(\beta_0\)</span> is often called the <em>intercept</em> or <em>bias term</em>, while the other <span class="math notranslate nohighlight">\(\beta_j\)</span>’s (for <span class="math notranslate nohighlight">\(j&gt;0\)</span>) are called <em>weights</em> or <em>slope coefficients</em> since they are exactly the (infinitesimal) slopes:</p>
+<p>The parameter <span class="math notranslate nohighlight">\(\beta_0\)</span> is often called the <em>intercept</em> or <em>bias term</em>, while the other <span class="math notranslate nohighlight">\(\beta_j\)</span>’s (for <span class="math notranslate nohighlight">\(j&gt;0\)</span>) in the parameter vector</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{\partial \mu}{\partial x_j} = \beta_j.
+\bbeta^\intercal = \begin{bmatrix} \beta_1 &amp; \cdots &amp; \beta_n \end{bmatrix}
+\]</div>
+<p>are called <em>weights</em> or <em>slope coefficients</em>, since they are exactly the (infinitesimal) slopes:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \mu}{\partial x_j} = \beta_j
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+\bx^\intercal = \begin{bmatrix} x_1 &amp; \cdots &amp; x_n \end{bmatrix}.
 \]</div>
 <p>The random variable</p>
 <div class="math notranslate nohighlight">
 \[
-\dev \stackrel{\text{def}}{=} Y - \beta_0 - \bX^\intercal \bbeta
+R \def Y - \beta_0 - \bX^\intercal \bbeta
 \]</div>
-<p>in a linear regression model is called the <em>error term</em>; note then that</p>
+<p>in a linear regression model is called the <em>residual</em> or <em>error term</em>; note then that</p>
 <div class="math notranslate nohighlight" id="equation-random-lin-rel-eqn">
 <span class="eqno">(12.3)<a class="headerlink" href="#equation-random-lin-rel-eqn" title="Permalink to this equation">#</a></span>\[
-Y = \beta_0 + \bX^\intercal \bbeta + \dev \quad \text{and} \quad \dev \sim \mathcal{N}(0, \sigma^2).
+Y = \beta_0 + \bX^\intercal \bbeta + R \quad \text{and} \quad R \mid \bX = \bx \sim \mathcal{N}(0, \sigma^2).
 \]</div>
 <p>This is the manifestation in terms of random vectors and variables of the approximate linear relationship <a class="reference internal" href="#equation-approx-linear-eqn">(12.1)</a> described at the beginning of this section.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 3 on the worksheet.</p>
+</div>
 <p>Suppose we are given an observed dataset</p>
 <div class="math notranslate nohighlight">
 \[
-(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr.
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr,
 \]</div>
-<p>If for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>, we define the <em>predicted values</em></p>
+<p>corresponding to an IID sequence</p>
 <div class="math notranslate nohighlight">
 \[
-\hat{y}_i = \beta_0 + \bx_i^\intercal \bbeta
+(\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_m,Y_m).
 \]</div>
-<p>and the <em>residuals</em></p>
+<p>This yields an associated sequence of residuals</p>
 <div class="math notranslate nohighlight">
 \[
-\dev_i = y_i - \hat{y}_i,
+R_1,R_2,\ldots,R_m,
 \]</div>
-<p>then from <a class="reference internal" href="#equation-random-lin-rel-eqn">(12.3)</a> we get</p>
+<p>where <span class="math notranslate nohighlight">\(R_i = Y_i - \beta_0 - \bX_i^\intercal \bbeta\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>. By invariance of independence (see <a class="reference internal" href="07-random-vectors.html#invar-independent-thm">Theorem 7.8</a>), the residuals form an IID sequence of random variables.</p>
+<p>For each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>, we define the <em>predicted values</em></p>
 <div class="math notranslate nohighlight">
 \[
-y_i = \beta_0 + \bx_i^\intercal \bbeta + \dev_i.
+\hat{y}_i = \beta_0 + \bx_i^\intercal \bbeta.
 \]</div>
-<p>This shows that the residuals <span class="math notranslate nohighlight">\(\dev_i\)</span> are observations of the error term <span class="math notranslate nohighlight">\(\dev \sim \mathcal{N}(0,\sigma^2)\)</span>. Thus, in a linear regression model, all residuals from a dataset are assumed to be modeled by a normal distribution with mean <span class="math notranslate nohighlight">\(0\)</span> and a <em>fixed</em> variance; the fixed-variance assumption is sometimes called <em>homoscedasticity</em>.</p>
-<p>In <a class="reference internal" href="13-learning.html#learning"><span class="std std-numref">Chapter 13</span></a>, we will learn how to train a linear regression model on a dataset to obtain optimal values of the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span>. Using these training methods, we obtained values for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta = \beta_1\)</span> for the Ames housing dataset mentioned at the beginning of this section. The positively-sloped line in the scatter plot at the beginning of this section was the line traced out by the link function <span class="math notranslate nohighlight">\(\mu = \beta_0 + x\beta_1 \)</span>. The predicted values <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> lie along this line, and the magnitude of the residual <span class="math notranslate nohighlight">\(\dev_i\)</span> may be visualized as the vertical distance from the true data point <span class="math notranslate nohighlight">\(y_i\)</span> to this line. We may plot the residuals <span class="math notranslate nohighlight">\(\dev_i\)</span> against the predictor variables <span class="math notranslate nohighlight">\(x_i\)</span> to get:</p>
+<p>Then we see that the difference</p>
+<div class="math notranslate nohighlight">
+\[
+r_i \def y_i - \hat{y}_i,
+\]</div>
+<p>also called a <em>residual</em>, is an observation of</p>
+<div class="math notranslate nohighlight">
+\[
+R_i \mid \bX_i = \bx_i \sim N(0,\sigma^2).
+\]</div>
+<p>Notice that the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> does <em>not</em> depend on the choice of data point <span class="math notranslate nohighlight">\((\bx_i,y_i)\)</span>. This fixed-variance assumption built into linear regression models is sometimes called <em>homoscedasticity</em>.</p>
+<p>In <a class="reference internal" href="13-learning.html#learning"><span class="std std-numref">Chapter 13</span></a>, we will learn how to train a linear regression model on a dataset to obtain optimal values of the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span>. Using these training methods, we obtained values for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta = \beta_1\)</span> for the Ames housing dataset mentioned at the beginning of this section. The positively-sloped line in the scatter plot at the beginning of this section was the line traced out by the link function <span class="math notranslate nohighlight">\(\mu = \beta_0 + x\beta_1 \)</span>. The predicted values <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> lie along this line, and the magnitude of the residual <span class="math notranslate nohighlight">\(r_i\)</span> may be visualized as the vertical distance from the true data point <span class="math notranslate nohighlight">\(y_i\)</span> to this line. We may plot the residuals <span class="math notranslate nohighlight">\(r_i\)</span> against the predictor variables <span class="math notranslate nohighlight">\(x_i\)</span> to get:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -798,7 +819,7 @@ y_i = \beta_0 + \bx_i^\intercal \bbeta + \dev_i.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/81dbc21215c2f027c91e8e3650c3a2ac612aff1e857bda91ac7fcc4b69767529.svg" src="../_images/81dbc21215c2f027c91e8e3650c3a2ac612aff1e857bda91ac7fcc4b69767529.svg" /></figure>
+<img alt="../_images/8d1b4083ebbff549ef1d1faca822edb62c84387b605fb158c4ece1b2a8b3ccc8.svg" src="../_images/8d1b4083ebbff549ef1d1faca822edb62c84387b605fb158c4ece1b2a8b3ccc8.svg" /></figure>
 </div>
 </div>
 <p>It is evident from this plot that the homoscedasticity assumption is violated since the distributions of the residuals appear to widen as the area variable increases.</p>
@@ -855,7 +876,7 @@ y_i = \beta_0 + \bx_i^\intercal \bbeta + \dev_i.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/10416408980010057fbec7e27f46c8f13f4dcfe507dc777a4c692c0f481ba02a.svg" src="../_images/10416408980010057fbec7e27f46c8f13f4dcfe507dc777a4c692c0f481ba02a.svg" /></figure>
+<img alt="../_images/70ea837e2862ce1069278dd8e79c793de3c916be6fd894a3432ea1658619daf4.svg" src="../_images/70ea837e2862ce1069278dd8e79c793de3c916be6fd894a3432ea1658619daf4.svg" /></figure>
 </div>
 </div>
 <p>For smaller values of area, the distribution of the true prices is narrower compared to the simulated prices, while for larger values of area, the distribution of the true prices is wider.</p>
@@ -868,7 +889,7 @@ y_i = \beta_0 + \bx_i^\intercal \bbeta + \dev_i.
 (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \{0,1\}.
 \]</div>
 <p>Such datasets arise naturally in <em>binary classification problems</em>, where we aim to determine which of two classes a given object lies in based on predictor features. The true class of the <span class="math notranslate nohighlight">\(i\)</span>-th object is indicated by the value of <span class="math notranslate nohighlight">\(y_i\)</span>, while the vector <span class="math notranslate nohighlight">\(\bx_i\)</span> consists of the predictor features.</p>
-<p>As a running example through this section, consider the data given in following scatter plot:</p>
+<p>As a running example through this section, consider the data given in the following scatter plot:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -914,14 +935,14 @@ y_i = \beta_0 + \bx_i^\intercal \bbeta + \dev_i.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/81f5a691a8d59ca21f414dcdc9304c8680fff732f5e79b6170289da49bce23cd.svg" src="../_images/81f5a691a8d59ca21f414dcdc9304c8680fff732f5e79b6170289da49bce23cd.svg" /></figure>
+<img alt="../_images/d2a893438c897541a51c60ff321517b9dcbb22bf634d79e8a4ced5dbe2817dad.svg" src="../_images/d2a893438c897541a51c60ff321517b9dcbb22bf634d79e8a4ced5dbe2817dad.svg" /></figure>
 </div>
 </div>
 <p>The points represent the <span class="math notranslate nohighlight">\(2\)</span>-dimensional predictors</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}
-\bx_i^\intercal = \begin{bmatrix} x_{i1} \\ x_{i2} \end{bmatrix},
-\end{split}\]</div>
+\[
+\bx_i^\intercal = \begin{bmatrix} x_{i1} &amp; x_{i2} \end{bmatrix},
+\]</div>
 <p>while the color indicates the class <span class="math notranslate nohighlight">\(y_i \in \{0,1\}\)</span>. Our goal in this section is to capture the evident pattern in the data using a <em>logistic regression model</em>.</p>
 <p>To define these models, we first need to discuss the important <em>sigmoid function</em>, defined as</p>
 <div class="math notranslate nohighlight">
@@ -951,10 +972,15 @@ y_i = \beta_0 + \bx_i^\intercal \bbeta + \dev_i.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c7e0d130cc620bd4f411d1330bcdbde251adc19d1155956aecaf8d12aa5d9eef.svg" src="../_images/c7e0d130cc620bd4f411d1330bcdbde251adc19d1155956aecaf8d12aa5d9eef.svg" /></figure>
+<img alt="../_images/8a3fdea8ea874ff0b3599ddabee8edff41a707309a6ed224183ee6fcfb41e181.svg" src="../_images/8a3fdea8ea874ff0b3599ddabee8edff41a707309a6ed224183ee6fcfb41e181.svg" /></figure>
 </div>
 </div>
-<p>Since the outputs of the sigmoid function land in the open interval <span class="math notranslate nohighlight">\((0,1)\)</span>, we may use it to convert <em>any</em> real number into a <em>probability</em>. Indeed, this is precisely its role in a <em>logistic regression model</em>:</p>
+<p>Since the outputs of the sigmoid function land in the open interval <span class="math notranslate nohighlight">\((0,1)\)</span>, we may use it to convert <em>any</em> real number into a <em>probability</em>.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 5 on the worksheet.</p>
+</div>
+<p>Using the sigmoid function, we define the models studied in this section:</p>
 <div class="proof definition admonition" id="log-reg-def">
 <p class="admonition-title"><span class="caption-number">Definition 12.4 </span></p>
 <section class="definition-content" id="proof-content">
@@ -969,7 +995,7 @@ y_i = \beta_0 + \bx_i^\intercal \bbeta + \dev_i.
 <p>The link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-Y \mid \bX; \ \beta_0,\bbeta \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx^\intercal\bbeta),
+Y \mid \bX = \bx; \ \beta_0,\bbeta \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx^\intercal\bbeta),
 \]</div>
 <p>and where <span class="math notranslate nohighlight">\(\sigma\)</span> is the sigmoid function.</p>
 </section>
@@ -1026,7 +1052,7 @@ p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta\big) &amp;= \pro
 p(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta) = \prod_{i=1}^m p(y_i \mid \bx_i ; \ \beta_0, \bbeta).
 \]</div>
 <p>But the same proof will work here as the one given for <a class="reference internal" href="#linear-reg-data-pf-thm">Theorem 12.1</a>.</p>
-<p>Let’s return to our toy dataset introduced at the beginning of the section. In the <a class="reference internal" href="13-learning.html#learning"><span class="std std-ref">next chapter</span></a> we will see how to learn optimal values of the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span> from data. With these parameters in hand obtained from our toy dataset, one way to check how well a logistic regression model captures the data is to draw a contour plot of the function <span class="math notranslate nohighlight">\(\phi = \sigma( \beta_0 + \bx^\intercal \bbeta )\)</span>. This contour plot appears on the left in the following:</p>
+<p>Let’s return to our toy dataset introduced at the beginning of the section. In the <a class="reference internal" href="13-learning.html#learning"><span class="std std-ref">next chapter</span></a> we will see how to learn optimal values of the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span> from the data. With these parameters in hand, one way to check how well a logistic regression model captures the data is to draw a contour plot of the function <span class="math notranslate nohighlight">\(\phi = \sigma( \beta_0 + \bx^\intercal \bbeta )\)</span>. This contour plot appears on the left in the following:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1084,7 +1110,7 @@ p(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta) = \prod_{i=1}^m p(y
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/7b60ebf25915f34bb1b117536301c0978afcf70cc43f433ea8ff0d27f5fff89a.svg" src="../_images/7b60ebf25915f34bb1b117536301c0978afcf70cc43f433ea8ff0d27f5fff89a.svg" /></figure>
+<img alt="../_images/e95109b504ff5d8d873f62d4676cd4b160801acd92400bca56f2f0dc84bfe451.svg" src="../_images/e95109b504ff5d8d873f62d4676cd4b160801acd92400bca56f2f0dc84bfe451.svg" /></figure>
 </div>
 </div>
 <p>To interpret this plot, remember that <span class="math notranslate nohighlight">\(\phi = \sigma( \beta_0 + \bx^\intercal \bbeta )\)</span> is the probability parameter for the class indicator variable <span class="math notranslate nohighlight">\(Y \sim \Ber(\phi)\)</span>, so we should interpret <span class="math notranslate nohighlight">\(\phi\)</span> as the probability that the point <span class="math notranslate nohighlight">\(\bx\)</span> is in class <span class="math notranslate nohighlight">\(1\)</span> (corresponding to <span class="math notranslate nohighlight">\(y=1\)</span>). In the right-hand plot, we have “thresholded” the probability <span class="math notranslate nohighlight">\(\phi\)</span> at <span class="math notranslate nohighlight">\(0.5\)</span>, creating a <em>predictor function</em></p>
@@ -1110,7 +1136,11 @@ f:\bbr^{2} \to \{0,1\}, \quad f(\bx) = \begin{cases}
 \[
 \beta_0 + \bx^\intercal\bbeta &gt; 0 \quad \text{or} \quad \beta_0 + \bx^\intercal \bbeta &lt; 0.
 \]</div>
-<p>Those vectors <span class="math notranslate nohighlight">\(\bx\)</span> satisfying the first inequality would be predicted to belong to class <span class="math notranslate nohighlight">\(1\)</span>, while those satisfying the latter inequality would be predicted to belong to class <span class="math notranslate nohighlight">\(0\)</span>. As is evident from the plots, our logistic regression model is doing its best to accurately classify as many data points as possible, but our model is handicapped by the fact it will <em>always</em> produce a linear decision boundary.</p>
+<p>Those vectors <span class="math notranslate nohighlight">\(\bx\)</span> satisfying the first inequality would be predicted to belong to class <span class="math notranslate nohighlight">\(1\)</span>, while those satisfying the latter inequality would be predicted to belong to class <span class="math notranslate nohighlight">\(0\)</span>. As is evident from the plots, our logistic regression model is doing its best to accurately classify as many data points as possible, but it is handicapped by the fact it will <em>always</em> produce a linear decision boundary.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 6 on the worksheet.</p>
+</div>
 </section>
 <section id="neural-network-models">
 <span id="nn-sec"></span><h2><span class="section-number">12.5. </span>Neural network models<a class="headerlink" href="#neural-network-models" title="Permalink to this heading">#</a></h2>
@@ -1140,7 +1170,7 @@ f:\bbr^{2} \to \{0,1\}, \quad f(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0a05e1a7dd7fdf26c122b34b4405c9d385d3ee8a0650c1c4d0d68d2efea5f68d.svg" src="../_images/0a05e1a7dd7fdf26c122b34b4405c9d385d3ee8a0650c1c4d0d68d2efea5f68d.svg" /></figure>
+<img alt="../_images/d4a3cb84fd5706a62255e093246c5d06d914634b1fb5667b7469a1f93dbde4e8.svg" src="../_images/d4a3cb84fd5706a62255e093246c5d06d914634b1fb5667b7469a1f93dbde4e8.svg" /></figure>
 </div>
 </div>
 <p>We may apply the ReLU function to vectors <span class="math notranslate nohighlight">\(\bx\in \bbr^{n}\)</span> by “vectorization” (in Pythonic language), which just means that we apply it componentwise:</p>
@@ -1170,7 +1200,7 @@ f:\bbr^{2} \to \{0,1\}, \quad f(\bx) = \begin{cases}
 <p>while the link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by</p>
 <div class="math notranslate nohighlight">
 \[
-Y ;\ \mathbf{z}, \bw_2, b_2 \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\bz^\intercal \bw_2 + b_2).
+Y \mid \bX = \bx ;\ \mathbf{z}, \bw_2, b_2 \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\bz^\intercal \bw_2 + b_2).
 \]</div>
 <p>Here, <span class="math notranslate nohighlight">\(\rho\)</span> is the ReLU function and <span class="math notranslate nohighlight">\(\sigma\)</span> is the sigmoid function.</p>
 </section>
@@ -1189,7 +1219,7 @@ Y ;\ \mathbf{z}, \bw_2, b_2 \sim \mathcal{B}er(\phi), \quad \text{where} \quad \
 \[
 p\big(y \mid \bx ; \ \bW_1, \bb_1, \bw_2, b_2 \big).
 \]</div>
-<p>On its support consisting of all <span class="math notranslate nohighlight">\(y\in \{0,1\}\)</span> and <span class="math notranslate nohighlight">\(\bx \in \bbr^{m}\)</span>, it is given by the formula</p>
+<p>On its support consisting of all <span class="math notranslate nohighlight">\(y\in \{0,1\}\)</span> and <span class="math notranslate nohighlight">\(\bx \in \bbr^{n}\)</span>, it is given by the formula</p>
 <div class="math notranslate nohighlight">
 \[
 p\big(y \mid \bx ; \ \bW_1, \bb_1, \bw_2, b_2 \big) = \phi^y (1-\phi)^{1-y}
@@ -1267,14 +1297,14 @@ z_j = \rho(\bx^\intercal \bw_{1j} + b_{1j}),
 <p>while the link function at <span class="math notranslate nohighlight">\(Y\)</span> is the same as it was before:</p>
 <div class="math notranslate nohighlight">
 \[
-Y; \ \bz_2, \bw_3, b_3 \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \bz_2^\intercal \bw_3 + b_3\big).
+Y \mid \bX = \bx; \ \bz_2, \bw_3, b_3 \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \bz_2^\intercal \bw_3 + b_3\big).
 \]</div>
 <p>The <em>depth</em> <span class="math notranslate nohighlight">\(d\)</span> of a neural network is defined to be one less than the total number of layers, or equivalently, the number of (trainable) parameter groups</p>
 <div class="math notranslate nohighlight">
 \[
 (\bW_1,\bb_1),(\bW_2,\bb_2),\ldots,(\bw_d,b_d).
 \]</div>
-<p>The <em>widths</em> of a network are defined to be the dimensions of the hidden vectors.</p>
+<p>The <em>widths</em> of a network are the dimensions of the input and output vectors of the network, as well as the dimensions of the hidden vectors.</p>
 <p>Let’s return to our toy dataset from the <a class="reference internal" href="#log-reg-sec"><span class="std std-ref">previous section</span></a>, but for extra fun let’s add four “blobs” of data:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1321,7 +1351,7 @@ Y; \ \bz_2, \bw_3, b_3 \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/24584429dfe27eaf22f62a06b01ac941b7d4eb2ca17072f7131121fb87f53fd0.svg" src="../_images/24584429dfe27eaf22f62a06b01ac941b7d4eb2ca17072f7131121fb87f53fd0.svg" /></figure>
+<img alt="../_images/b7a00253326670d7b8523d383a87bfeee19a8cceefaabd765c8c4a1e5df177cc.svg" src="../_images/b7a00253326670d7b8523d383a87bfeee19a8cceefaabd765c8c4a1e5df177cc.svg" /></figure>
 </div>
 </div>
 <p>Trained on the original dataset (without the “blobs”), we saw that a logistic regression model produces a <em>linear</em> decision boundary and thus misclassifies a nontrivial number of data points. In comparison, not only will a neural network produce a nonlinear decision boundary dividing the data in the original dataset, it will also correctly classify the data in the four new “blobs.” Indeed, using the techniques in the <a class="reference internal" href="13-learning.html#learning"><span class="std std-ref">next chapter</span></a>, we trained a neural network on the new dataset with <em>three</em> hidden layers of widths <span class="math notranslate nohighlight">\(8\)</span>, <span class="math notranslate nohighlight">\(8\)</span>, and <span class="math notranslate nohighlight">\(4\)</span>. Then, a contour plot of the function</p>
@@ -1423,7 +1453,7 @@ Y; \ \bz_2, \bw_3, b_3 \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/6e8eaa614db38e616bff5e60b69a559ebf64dca923f048280ee1b5805343f91b.svg" src="../_images/6e8eaa614db38e616bff5e60b69a559ebf64dca923f048280ee1b5805343f91b.svg" /></figure>
+<img alt="../_images/b5c5be984ef15f3cf9ff99a2093d5da42e3229bed79ab5d2c554384aeb7b65c0.svg" src="../_images/b5c5be984ef15f3cf9ff99a2093d5da42e3229bed79ab5d2c554384aeb7b65c0.svg" /></figure>
 </div>
 </div>
 <p>Notice that the band of white dividing the original dataset (representing values <span class="math notranslate nohighlight">\(\phi \approx 0.5\)</span>) in the left-hand plot is much narrower compared to the same plot for the logistic regression model. This indicates that the neural network is making much more confident predictions up to its decision boundary (displayed in the right-hand plot) compared to the logistic regression model.</p>
@@ -1492,7 +1522,7 @@ Y; \ \bz_2, \bw_3, b_3 \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a368098578df8e4aaebf3434d59afd911a1149c2ba9e175293e254616de47e23.svg" src="../_images/a368098578df8e4aaebf3434d59afd911a1149c2ba9e175293e254616de47e23.svg" /></figure>
+<img alt="../_images/f37522804f6cd5cd52e644598baa2a4552f94981bae12a86ca497b86a1af4f58.svg" src="../_images/f37522804f6cd5cd52e644598baa2a4552f94981bae12a86ca497b86a1af4f58.svg" /></figure>
 </div>
 </div>
 <p>Specifically, these plots show the contours of the functions</p>
@@ -1549,7 +1579,7 @@ z_{1j} = \rho( \bx^\intercal \bw_{1j} + \bb_{1j}^\intercal ),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c0c4f050731d3e7bf850251378ea9cc64ff8cdf3270c4b6151815a819de14b1f.svg" src="../_images/c0c4f050731d3e7bf850251378ea9cc64ff8cdf3270c4b6151815a819de14b1f.svg" /></figure>
+<img alt="../_images/ec70500a8faf6f763f787eb0a18d30bc354f9cb183b6e3ae28218fde62dde346.svg" src="../_images/ec70500a8faf6f763f787eb0a18d30bc354f9cb183b6e3ae28218fde62dde346.svg" /></figure>
 </div>
 </div>
 <p>These are contour plots of the functions</p>
@@ -1606,7 +1636,7 @@ z_{1j} = \rho( \bx^\intercal \bw_{1j} + \bb_{1j}^\intercal ),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c260df67668882e2328454b13514b290dc10c2b4025b7568971dfa4748836308.svg" src="../_images/c260df67668882e2328454b13514b290dc10c2b4025b7568971dfa4748836308.svg" /></figure>
+<img alt="../_images/c3aacecab91986c83cbbac1cf6dc5bbd5ad0035c7ff626b79aac5aace7fbb943.svg" src="../_images/c3aacecab91986c83cbbac1cf6dc5bbd5ad0035c7ff626b79aac5aace7fbb943.svg" /></figure>
 </div>
 </div>
 <p>These are contour plots of the functions</p>
@@ -1630,6 +1660,10 @@ z_{3j} = \rho(\bz_2^\intercal \bw_{3j} + \bb_{3j})
 \phi = \sigma(\bz_3^\intercal \bw_4 + b_4)
 \]</div>
 <p>is to combine these activations to produce an output probability <span class="math notranslate nohighlight">\(\phi\)</span>. Interestingly, the second and fourth neurons appear to be inactive, at least in the region of parameter space containing the dataset. One might “prune” inactive neurons from the network <em>after</em> training, but care must be exercised in “pruning” <em>before</em> training. Indeed, even if a neuron is ultimately inactive in the trained network, it may play a nontrivial role <em>during</em> training, and the effect of its removal is, in general, difficult to estimate.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 7 on the worksheet.</p>
+</div>
 </section>
 </section>
 
@@ -1697,7 +1731,7 @@ z_{3j} = \rho(\bz_2^\intercal \bw_{3j} + \bb_{3j})
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-brief-look-at-causal-inference">12.1. A brief look at causal inference</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">12.2. Probabilistic graphical models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-probabilistic-graphical-models">12.2. General probabilistic graphical models</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-models">12.3. Linear regression models</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression-models">12.4. Logistic regression models</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-network-models">12.5. Neural network models</a></li>
