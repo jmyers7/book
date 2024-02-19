@@ -450,6 +450,7 @@ for i, epoch in enumerate(epoch_list):
     for t, l in zip(g.legend_.texts, new_labels):
         t.set_text(l)
     
+plt.suptitle(f'gradient descent\n$\\alpha={alpha}$, $\\beta=0$, $N={N}$')
 plt.tight_layout()
 ```
 
@@ -591,5 +592,6 @@ for i, epoch in enumerate(epoch_list):
     for t, l in zip(g.legend_.texts, new_labels):
         t.set_text(l)
     
+plt.suptitle(f'mini-batch gradient descent\n$\\alpha={alpha}$, $\\beta=0$, $k={k}$, $N={N}$')
 plt.tight_layout()
 ```
