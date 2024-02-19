@@ -566,8 +566,8 @@ for i, epoch in enumerate(epoch_list):
     parameters = {key: value[epoch] for key, value in running_parameters.items()}
     
     # plot the objective function
-    axes[i, 0].plot(sgd_output.grad_steps, sgd_output.per_step_objectives, alpha=0.25, label='per step cross entropy')
-    axes[i, 0].plot(sgd_output.epoch_step_nums, sgd_output.per_epoch_objectives, label='per epoch mean cross entropy')
+    axes[i, 0].plot(sgd_output.grad_steps, sgd_output.per_step_objectives, alpha=0.25, label='cross entropy per step')
+    axes[i, 0].plot(sgd_output.epoch_step_nums, sgd_output.per_epoch_objectives, label='mean cross entropy per epoch')
     axes[i, 0].set_xlabel('gradient steps')
     axes[i, 0].set_ylabel('cross entropy')
     axes[i, 0].scatter(epoch_list[i], sgd_output.per_step_objectives[epoch], color=magenta, s=100, zorder=3)
