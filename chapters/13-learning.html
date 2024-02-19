@@ -591,7 +591,7 @@ x_1,x_2,\ldots,x_{128} \in \{0,1\}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/47529eb3ffd1452b44465a6b4ea4fd4f5929f7e4ef333c2061e4391c09218d94.svg" src="../_images/47529eb3ffd1452b44465a6b4ea4fd4f5929f7e4ef333c2061e4391c09218d94.svg" /></figure>
+<img alt="../_images/530e0f111d850c053114e7f28492570340b8d72925bbed4cf7f9f591d54959bb.svg" src="../_images/530e0f111d850c053114e7f28492570340b8d72925bbed4cf7f9f591d54959bb.svg" /></figure>
 </div>
 </div>
 <p>The blue curve in the left-hand plot is the graph of the <em>exact</em> cross entropy function <span class="math notranslate nohighlight">\(H_{\hat{P}}(P_\theta)\)</span>. The magenta points—which represent a selection of outputs of the algorithm—do not fall <em>precisely</em> on this graph since they are <em>approximations</em> to the cross entropy, obtained as realizations of the expression on the right-hand side of</p>
@@ -649,7 +649,7 @@ H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} I_{P_\theta}(x),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ccfac52c8c0aef1e2a010cc28566d69e6b5c378c3fd3e0b423043fabee8de468.svg" src="../_images/ccfac52c8c0aef1e2a010cc28566d69e6b5c378c3fd3e0b423043fabee8de468.svg" /></figure>
+<img alt="../_images/cd8cb0f4a7e58c4eb1fbeebef95178e1592cd6d4219894b7921c5c92dc2fe2da.svg" src="../_images/cd8cb0f4a7e58c4eb1fbeebef95178e1592cd6d4219894b7921c5c92dc2fe2da.svg" /></figure>
 </div>
 </div>
 </section>
@@ -692,7 +692,7 @@ H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} I_{P_\theta}(x),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/3cc046ae7c2b28363211c6a8622499c3d88bf886105a5cbb14f2e303700c443b.svg" src="../_images/3cc046ae7c2b28363211c6a8622499c3d88bf886105a5cbb14f2e303700c443b.svg" /></figure>
+<img alt="../_images/07e47da0e297d0910f286868f4b1c608d4c56d7bb72123a165d0ac65f0b2eec7.svg" src="../_images/07e47da0e297d0910f286868f4b1c608d4c56d7bb72123a165d0ac65f0b2eec7.svg" /></figure>
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -750,10 +750,11 @@ H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} I_{P_\theta}(x),
     <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">[</span><span class="n">epoch</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">running_parameters</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
     
     <span class="c1"># plot the objective function</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gd_output</span><span class="o">.</span><span class="n">objectives</span><span class="p">)),</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">objectives</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gd_output</span><span class="o">.</span><span class="n">objectives</span><span class="p">)),</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">objectives</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;surprisal per step&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;gradient steps&#39;</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;data surprisal&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;surprisal&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">objectives</span><span class="p">[</span><span class="n">epoch</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
     <span class="c1"># apply the fitted model to the grid</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">predictor</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
@@ -781,7 +782,7 @@ H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} I_{P_\theta}(x),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/042d8f1929a0b6fa331ef95787c36a17020f620ef4dc6a510861fbd0ef1397e2.svg" src="../_images/042d8f1929a0b6fa331ef95787c36a17020f620ef4dc6a510861fbd0ef1397e2.svg" /></figure>
+<img alt="../_images/2d536beaed7b57e0faabbb5a072d1d56a81448131d7ad569c57a33e7975a4383.svg" src="../_images/2d536beaed7b57e0faabbb5a072d1d56a81448131d7ad569c57a33e7975a4383.svg" /></figure>
 </div>
 </div>
 </section>
@@ -824,7 +825,7 @@ H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} I_{P_\theta}(x),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/8ab23ee881230931ffeb3a50bd69b3362bd0462d578f71a731fc394a159f58cf.svg" src="../_images/8ab23ee881230931ffeb3a50bd69b3362bd0462d578f71a731fc394a159f58cf.svg" /></figure>
+<img alt="../_images/5b61cba55ad6962becb2bc710574f6ad614dd653d1ce6c2a5911286f645979e2.svg" src="../_images/5b61cba55ad6962becb2bc710574f6ad614dd653d1ce6c2a5911286f645979e2.svg" /></figure>
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -924,7 +925,7 @@ H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} I_{P_\theta}(x),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/5de99aa51d7225d04ca0872318477ae8a1788c2b4676f081907a3054dfaf92de.svg" src="../_images/5de99aa51d7225d04ca0872318477ae8a1788c2b4676f081907a3054dfaf92de.svg" /></figure>
+<img alt="../_images/ec4377a4267bbc41199677d279b8d30e812a17ff1855ee6e13ba14aa218e5e16.svg" src="../_images/ec4377a4267bbc41199677d279b8d30e812a17ff1855ee6e13ba14aa218e5e16.svg" /></figure>
 </div>
 </div>
 </section>
