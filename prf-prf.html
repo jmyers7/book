@@ -325,8 +325,7 @@ document.write(`
    <a href="#cap-bayes-risk-def"><strong>bayes-risk-def</strong></a> | 
    <a href="#cap-bayes-rvs-thm"><strong>bayes-rvs-thm</strong></a> | 
    <a href="#cap-bern-bin-thm"><strong>bern-bin-thm</strong></a> | 
-   <a href="#cap-bern-mle-1-thm"><strong>bern-mle-1-thm</strong></a> | 
-   <a href="#cap-bern-mle-2-thm"><strong>bern-mle-2-thm</strong></a> | 
+   <a href="#cap-bern-mle-thm"><strong>bern-mle-thm</strong></a> | 
    <a href="#cap-bernoulli-def"><strong>bernoulli-def</strong></a> | 
    <a href="#cap-beta-def"><strong>beta-def</strong></a> | 
    <a href="#cap-bilinear-thm"><strong>bilinear-thm</strong></a> | 
@@ -377,6 +376,7 @@ document.write(`
    <a href="#cap-empirical-iqr-def"><strong>empirical-iqr-def</strong></a> | 
    <a href="#cap-empirical-stats-def"><strong>empirical-stats-def</strong></a> | 
    <a href="#cap-entropy-def"><strong>entropy-def</strong></a> | 
+   <a href="#cap-equiv-obj-bern-thm"><strong>equiv-obj-bern-thm</strong></a> | 
    <a href="#cap-exp-beta-thm"><strong>exp-beta-thm</strong></a> | 
    <a href="#cap-exp-var-bernoulli-thm"><strong>exp-var-bernoulli-thm</strong></a> | 
    <a href="#cap-exp-var-binomial-thm"><strong>exp-var-binomial-thm</strong></a> | 
@@ -445,12 +445,6 @@ document.write(`
    <a href="#cap-mgf-norm-thm"><strong>mgf-norm-thm</strong></a> | 
    <a href="#cap-mgf-sum-eqn"><strong>mgf-sum-eqn</strong></a> | 
    <a href="#cap-mgf-uniqueness-thm"><strong>mgf-uniqueness-thm</strong></a> | 
-   <a href="#cap-mle-formulas-thm"><strong>mle-formulas-thm</strong></a> | 
-   <a href="#cap-mle-fully-observed-def"><strong>mle-fully-observed-def</strong></a> | 
-   <a href="#cap-mle-lin-reg-thm"><strong>mle-lin-reg-thm</strong></a> | 
-   <a href="#cap-mle-log-reg-thm"><strong>mle-log-reg-thm</strong></a> | 
-   <a href="#cap-mle-simple-lin-reg-cor"><strong>mle-simple-lin-reg-cor</strong></a> | 
-   <a href="#cap-mle-training-objectives-def"><strong>mle-training-objectives-def</strong></a> | 
    <a href="#cap-moments-def"><strong>moments-def</strong></a> | 
    <a href="#cap-multi-dim-def"><strong>multi-dim-def</strong></a> | 
    <a href="#cap-multivar-density-trans-thm"><strong>multivar-density-trans-thm</strong></a> | 
@@ -513,7 +507,6 @@ document.write(`
    <a href="#cap-support-def"><strong>support-def</strong></a> | 
    <a href="#cap-symm-info-thm"><strong>symm-info-thm</strong></a> | 
    <a href="#cap-taylor-thm"><strong>taylor-thm</strong></a> | 
-   <a href="#cap-three-mle-thm"><strong>three-mle-thm</strong></a> | 
    <a href="#cap-two-dim-vector-def"><strong>two-dim-vector-def</strong></a> | 
    <a href="#cap-uncorrelated-def"><strong>uncorrelated-def</strong></a> | 
    <a href="#cap-uniform-def"><strong>uniform-def</strong></a> | 
@@ -614,20 +607,12 @@ document.write(`
        <a href="chapters/05-examples-of-rvs.html#bern-bin-thm"><code class="xref">bern-bin-thm</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-bern-mle-1-thm"><td></td><td>
-       <strong>bern-mle-1-thm</strong></td><td></td></tr>
+     <tr class="cap" id="cap-bern-mle-thm"><td></td><td>
+       <strong>bern-mle-thm</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/13-learning.html#bern-mle-1-thm"><code class="xref">bern-mle-1-thm</code></a> <em>(chapters/13-learning)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-bern-mle-2-thm"><td></td><td>
-       <strong>bern-mle-2-thm</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/13-learning.html#bern-mle-2-thm"><code class="xref">bern-mle-2-thm</code></a> <em>(chapters/13-learning)</em></td><td>
+       <a href="chapters/13-learning.html#bern-mle-thm"><code class="xref">bern-mle-thm</code></a> <em>(chapters/13-learning)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-bernoulli-def"><td></td><td>
@@ -1029,6 +1014,14 @@ document.write(`
        <td>
        <a href="chapters/10-info-theory.html#entropy-def"><code class="xref">entropy-def</code></a> <em>(chapters/10-info-theory)</em></td><td>
        <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-equiv-obj-bern-thm"><td></td><td>
+       <strong>equiv-obj-bern-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-learning.html#equiv-obj-bern-thm"><code class="xref">equiv-obj-bern-thm</code></a> <em>(chapters/13-learning)</em></td><td>
+       <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-exp-beta-thm"><td></td><td>
        <strong>exp-beta-thm</strong></td><td></td></tr>
@@ -1574,54 +1567,6 @@ document.write(`
        <a href="chapters/08-more-prob.html#mgf-uniqueness-thm"><code class="xref">mgf-uniqueness-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-mle-formulas-thm"><td></td><td>
-       <strong>mle-formulas-thm</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/13-learning.html#mle-formulas-thm"><code class="xref">mle-formulas-thm</code></a> <em>(chapters/13-learning)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-mle-fully-observed-def"><td></td><td>
-       <strong>mle-fully-observed-def</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/13-learning.html#mle-fully-observed-def"><code class="xref">mle-fully-observed-def</code></a> <em>(chapters/13-learning)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-mle-lin-reg-thm"><td></td><td>
-       <strong>mle-lin-reg-thm</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/13-learning.html#mle-lin-reg-thm"><code class="xref">mle-lin-reg-thm</code></a> <em>(chapters/13-learning)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-mle-log-reg-thm"><td></td><td>
-       <strong>mle-log-reg-thm</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/13-learning.html#mle-log-reg-thm"><code class="xref">mle-log-reg-thm</code></a> <em>(chapters/13-learning)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-mle-simple-lin-reg-cor"><td></td><td>
-       <strong>mle-simple-lin-reg-cor</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/13-learning.html#mle-simple-lin-reg-cor"><code class="xref">mle-simple-lin-reg-cor</code></a> <em>(chapters/13-learning)</em></td><td>
-       <em>corollary</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-mle-training-objectives-def"><td></td><td>
-       <strong>mle-training-objectives-def</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/13-learning.html#mle-training-objectives-def"><code class="xref">mle-training-objectives-def</code></a> <em>(chapters/13-learning)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-moments-def"><td></td><td>
        <strong>moments-def</strong></td><td></td></tr>
      <tr>
@@ -2116,14 +2061,6 @@ document.write(`
        <td></td>
        <td>
        <a href="chapters/08-more-prob.html#taylor-thm"><code class="xref">taylor-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-three-mle-thm"><td></td><td>
-       <strong>three-mle-thm</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/13-learning.html#three-mle-thm"><code class="xref">three-mle-thm</code></a> <em>(chapters/13-learning)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-two-dim-vector-def"><td></td><td>

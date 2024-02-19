@@ -427,27 +427,27 @@ Y \mid \bX=\bx; \ \beta_0,\bbeta,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big)
 $$
 ````
 
-Before we introduce important terminology associated with linear regression models and look at an example, we need to discuss two probability functions that will play a crucial role in the [next chapter](learning). The first is just the conditional probability function of $Y$ given $\bX$:
+Before we introduce important terminology associated with linear regression models and look at an example, we need to discuss two probability density functions that will play a crucial role in the [next chapter](learning). The first is just the conditional density function of $Y$ given $\bX$:
 
 ```{prf:definition}
 :label: linear-reg-pf-def
 
-The _model probability function_ for a linear regression model is the conditional probability function
+The _model probability density function_ for a linear regression model is the conditional probability density function
 
 $$
-p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big).
+f\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big).
 $$
 
 On its support consisting of all $y\in \bbr$ and $\bx \in \bbr^n$, it is given by the formula
 
 $$
-p\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[- \frac{1}{2\sigma^2} ( y - \mu)^2 \right],
+f\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[- \frac{1}{2\sigma^2} ( y - \mu)^2 \right],
 $$
 
 where $\mu = \beta_0 + \bx^\intercal \bbeta$.
 ```
 
-The second important probability function associated with a linear regression model is derived from an observed dataset
+The second important probability density function associated with a linear regression model is derived from an observed dataset
 
 $$
 (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr.
@@ -467,9 +467,9 @@ which fits into a plated version of a linear regression model:
 ```
 &nbsp;
 
-The conditional probability function of the $y$'s given the $\bx$'s is given a new name:
+The conditional probability density function of the $y$'s given the $\bx$'s is given a new name:
 
-```{prf:theorem} Data probability functions of linear regression models
+```{prf:theorem} Data probability density functions of linear regression models
 :label: linear-reg-data-pf-thm
 
 Given an observed dataset
@@ -478,16 +478,16 @@ $$
 (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr,
 $$
 
-the _data probability function_ for a linear regression model is the conditional probability function
+the _data probability density function_ for a linear regression model is the conditional probability density function
 
 $$
-p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta,\sigma^2 \big).
+f\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta,\sigma^2 \big).
 $$
 
 It is given by
 
 \begin{align*}
-p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta,\sigma^2 \big) &= \prod_{i=1}^m p\big(y_i \mid \bx_i ; \ \beta_0, \bbeta, \sigma^2\big) \\
+f\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta,\sigma^2 \big) &= \prod_{i=1}^m f\big(y_i \mid \bx_i ; \ \beta_0, \bbeta, \sigma^2\big) \\
 &= \frac{1}{(2\pi \sigma^2)^{m/2}} \exp \left[ -\frac{1}{2\sigma^2} \sum_{i=1}^m (y_i - \mu_i)^2 \right],
 \end{align*}
 
@@ -499,7 +499,7 @@ where $\mu_i = \beta_0 + \bx_i^\intercal \bbeta$ for each $i=1,\ldots,m$.
 We shall only prove the equation
 
 $$
-p(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m ) = \prod_{i=1}^m p(y_i \mid \bx_i),
+f(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m ) = \prod_{i=1}^m f(y_i \mid \bx_i),
 $$
 
 where, for ease of notation, we've omitted all parameters. By independence of the random sample
@@ -511,7 +511,7 @@ $$
 and and the "vectorized" version of {prf:ref}`mass-density-ind-thm`, we have
 
 $$
-p(y_1,\ldots,y_m,\bx_1,\ldots,\bx_m) = p(y_1,\bx_1)p(y_2,\bx_2)\cdots p(y_m,\bx_m).
+f(y_1,\ldots,y_m,\bx_1,\ldots,\bx_m) = f(y_1,\bx_1)f(y_2,\bx_2)\cdots f(y_m,\bx_m).
 $$
 
 But the sequence
@@ -523,15 +523,15 @@ $$
 is independent as well (see {prf:ref}`ind-components-cor`), and so
 
 $$
-p(\bx_1,\ldots,\bx_m) = p(\bx_1)p(\bx_2)\cdots p(\bx_m).
+f(\bx_1,\ldots,\bx_m) = f(\bx_1)f(\bx_2)\cdots f(\bx_m).
 $$
 
 But then
 
 \begin{align*}
-p(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m ) &= \frac{p(y_1,\ldots,y_m,\bx_1,\ldots,\bx_m)}{p(\bx_1,\ldots,\bx_m)} \\
-&= \frac{p(y_1,\bx_1)\cdots p(y_m,\bx_m)}{p(\bx_1)\cdots p(\bx_m)} \\
-&= \prod_{i=1}^m p(y_i \mid \bx_i),
+f(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m ) &= \frac{f(y_1,\ldots,y_m,\bx_1,\ldots,\bx_m)}{f(\bx_1,\ldots,\bx_m)} \\
+&= \frac{f(y_1,\bx_1)\cdots f(y_m,\bx_m)}{f(\bx_1)\cdots f(\bx_m)} \\
+&= \prod_{i=1}^m f(y_i \mid \bx_i),
 \end{align*}
 
 which is exactly what we wanted to prove. Q.E.D.
@@ -540,10 +540,10 @@ which is exactly what we wanted to prove. Q.E.D.
 Notice that the proof of the equation
 
 $$
-p(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m ) = \prod_{i=1}^m p(y_i \mid \bx_i)
+f(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m ) = \prod_{i=1}^m f(y_i \mid \bx_i)
 $$
 
-used nothing particular about linear regression models, and only relied upon independence of the random sample. This means that this same argument will apply to the data probability functions of the models that we will study in subsequent sections. (See {prf:ref}`log-reg-data-pf-thm` and {prf:ref}`neural-net-data-pf-thm`.)
+used nothing particular about linear regression models, and only relied upon independence of the random sample. This means that this same argument will apply to the data probability density functions of the models that we will study in subsequent sections. (See {prf:ref}`log-reg-data-pf-thm` and {prf:ref}`neural-net-data-pf-thm`.)
 
 Returning to our discussion of the linear regression model, the components of the vector $\bX$ are referred to as _predictors_, _regressors_, _explanatory variables_, or _independent variables_, while the random variable $Y$ is called the _response variable_ or the _dependent variable_. In the case that $n=1$, the model is called a _simple linear regression model_; otherwise, it is called a _multiple linear regression model_.
 
@@ -661,7 +661,7 @@ plt.tight_layout()
 
 It is evident from this plot that the homoscedasticity assumption is violated since the distributions of the residuals appear to widen as the area variable increases.
 
-As with the parameters $\beta_0$ and $\bbeta$, it is also possible to learn an optimal value of the variance $\sigma^2$. As another method of model checking, given all the learned parameters $\beta_0$, $\beta_1$, and $\sigma^2$ for the Ames dataset, we may generate a new dataset by sampling from the normal distributions  $\mathcal{N}\big(\hat{y}_i, \sigma^2\big)$ for each $i=1,\ldots,m$. A scatter plot of one simulated dataset is on the left in the following figure, while a KDE of the simulated dataset is compared against the "true" KDE on the right:
+As with the parameters $\beta_0$ and $\bbeta$, it is also possible to learn an optimal value of the variance $\sigma^2$. As another method of model checking, given all the learned parameters $\beta_0$, $\beta_1$, and $\sigma^2$ for the Ames dataset, we may generate a new dataset by sampling from the normal distributions $\mathcal{N}\big(\hat{y}_i, \sigma^2\big)$ for each $i=1,\ldots,m$. A scatter plot of one simulated dataset is on the left in the following figure, while a KDE of the simulated dataset is compared against the "true" KDE on the right:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -855,12 +855,12 @@ and where $\sigma$ is the sigmoid function.
 
 Notice that the link function $\phi = \sigma(\beta_0 + \bx^\intercal\bbeta )$ in a logistic regression model is precisely the affine link function $\mu = \beta_0 + \bx^\intercal \bbeta$ of a linear regression model composed with the sigmoid function.
 
-We describe the two probability functions that we will use to train logistic regression models in the [next chapter](learning). The first is the conditional probability function:
+We describe the two probability mass functions that we will use to train logistic regression models in the [next chapter](learning). The first is the conditional probability mass function:
 
 ```{prf:definition}
 :label: log-reg-pf-def
 
-The _model probability function_ for a logistic regression model is the conditional probability function
+The _model probability mass function_ for a logistic regression model is the conditional probability mass function
 
 $$
 p\big(y \mid \bx ; \ \beta_0, \bbeta\big).
@@ -875,7 +875,7 @@ $$
 where $\phi = \sigma(\beta_0 + \bx^\intercal \bbeta )$.
 ```
 
-The second important probability function is obtained from an observation of an IID random sample
+The second important probability mass function is obtained from an observation of an IID random sample
 
 $$
 (\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_m,Y_m)
@@ -891,7 +891,7 @@ corresponding to a plated version of a logistic regression model
 
 just as in the run-up to {prf:ref}`linear-reg-data-pf-thm` in the previous section.
 
-```{prf:theorem} Data probability functions of logistic regression models
+```{prf:theorem} Data probability mass functions of logistic regression models
 :label: log-reg-data-pf-thm
 
 Given a dataset
@@ -900,7 +900,7 @@ $$
 (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \{0,1\},
 $$
 
-the _data probability function_ for a logistic regression model is the conditional probability function
+the _data probability mass function_ for a logistic regression model is the conditional probability mass function
 
 $$
 p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta\big).
@@ -1107,12 +1107,12 @@ $$
 
 The name "neural network" comes from a loose analogy with networks of biological neurons in the human brain. For this reason, sometimes neural network models are called _artificial neural networks_ (*ANN*s). The parameters $\bW_1$ and $\bw_2$ are called _weights_, while the parameters $\bb_1$ and $b_2$ are called _biases_. The ReLU function $\rho$ and the sigmoid function $\sigma$ are often called the _activation functions_ of the network.
 
-Following the pattern begun with linear and logistic regression models, we want to begin by describing the probability functions that we will use in the [next chapter](learning) to train neural network models. The first is the conditional probability function:
+Following the pattern begun with linear and logistic regression models, we want to begin by describing the probability mass functions that we will use in the [next chapter](learning) to train neural network models. The first is the conditional probability mass function:
 
 ```{prf:definition}
 :label: neural-net-pf-def
 
-The _model probability function_ for a neural network model is the conditional probability function
+The _model probability mass function_ for a neural network model is the conditional probability mass function
 
 $$
 p\big(y \mid \bx ; \ \bW_1, \bb_1, \bw_2, b_2 \big).
@@ -1127,7 +1127,7 @@ $$
 where $\phi = \sigma(\bz^\intercal \bw_2 + b_2)$ and $\bz^\intercal = \rho(\bx ^\intercal \bW_1 + \bb_1^\intercal)$.
 ```
 
-As with linear and logistic regression models, the second probability function is obtained from an IID random sample
+As with linear and logistic regression models, the second probability mass function is obtained from an IID random sample
 
 $$
 (\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_m,Y_m)
@@ -1141,9 +1141,9 @@ corresponding to a plated version of a neural network model:
 ```
 &nbsp;
 
-This probability function is described in:
+This probability mass function is described in:
 
-```{prf:theorem} Data probability functions of neural network models
+```{prf:theorem} Data probability mass functions of neural network models
 :label: neural-net-data-pf-thm
 
 Given a dataset
@@ -1152,7 +1152,7 @@ $$
 (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \{0,1\},
 $$
 
-the _data probability function_ for a neural network model is the conditional probability function
+the _data probability mass function_ for a neural network model is the conditional probability mass function
 
 $$
 p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \bW_1, \bb_1, \bw_2, b_2\big).
