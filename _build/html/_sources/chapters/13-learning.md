@@ -427,10 +427,11 @@ for i, epoch in enumerate(epoch_list):
     parameters = {key: value[epoch] for key, value in running_parameters.items()}
     
     # plot the objective function
-    axes[i, 0].plot(range(len(gd_output.objectives)), gd_output.objectives)
+    axes[i, 0].plot(range(len(gd_output.objectives)), gd_output.objectives, label='surprisal per step')
     axes[i, 0].set_xlabel('gradient steps')
-    axes[i, 0].set_ylabel('data surprisal')
+    axes[i, 0].set_ylabel('surprisal')
     axes[i, 0].scatter(epoch_list[i], gd_output.objectives[epoch], color=magenta, s=100, zorder=3)
+    axes[i, 0].legend()
 
     # apply the fitted model to the grid
     z = predictor(grid, parameters)
