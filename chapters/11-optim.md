@@ -229,10 +229,10 @@ Let's run the gradient algorithm four times, with various settings of the parame
 :   figure:
 :       align: center
 
-gd_parameters = {'theta0': [torch.tensor([-0.5]),
-                            torch.tensor([3.45]),
-                            torch.tensor([-0.5]),
-                            torch.tensor([3.45])],
+gd_parameters = {'init_parameters': [torch.tensor([-0.5]),
+                                     torch.tensor([3.45]),
+                                     torch.tensor([-0.5]),
+                                     torch.tensor([3.45])],
                  'num_steps': [8, 7, 5, 5],
                  'lr': [1e-2, 1e-2, 1e-1, 2e-1]}
 
@@ -245,11 +245,12 @@ for i, axis in enumerate(axes.flatten()):
     
     alpha = gd_parameters_slice['lr']
     N = gd_parameters_slice['num_steps']
+    thetas = gd_output.parameters['theta']
     
     axis.plot(grid, J(grid))
-    axis.step(x=gd_output.thetas, y=gd_output.objectives, where='post', color=magenta, zorder=2)
-    axis.scatter(x=gd_output.thetas, y=gd_output.objectives, s=30, color=magenta, zorder=2)
-    axis.scatter(x=gd_output.thetas[0], y=gd_output.objectives[0], s=100, color=magenta, zorder=2)
+    axis.step(x=thetas, y=gd_output.objectives, where='post', color=magenta, zorder=2)
+    axis.scatter(x=thetas, y=gd_output.objectives, s=30, color=magenta, zorder=2)
+    axis.scatter(x=thetas[0], y=gd_output.objectives[0], s=100, color=magenta, zorder=2)
     axis.set_xlabel('$\\theta$')
     axis.set_ylabel('$J(\\theta)$')
     axis.set_title(f'$\\alpha={alpha}$, $N={N}$')
@@ -277,16 +278,14 @@ It is possible for the gradient descent algorithm to diverge, especially if the 
 :   figure:
 :       align: center
 
-gd_output = GD(J=J,
-               theta0=torch.tensor([3.5]),
-               lr=2e-1,
-               num_steps=3)
+gd_output = GD(J=J, init_parameters=torch.tensor([3.5]), lr=2e-1, num_steps=3)
+thetas = gd_output.parameters['theta']
 
 grid = torch.linspace(start=-55, end=50, steps=300)
 plt.plot(grid, J(grid))
-plt.step(x=gd_output.thetas, y=gd_output.objectives, where='post', color=magenta, zorder=2)
-plt.scatter(x=gd_output.thetas, y=gd_output.objectives, s=30, color=magenta, zorder=2)
-plt.scatter(x=gd_output.thetas[0], y=gd_output.objectives[0], s=100, color=magenta, zorder=2)
+plt.step(x=thetas, y=gd_output.objectives, where='post', color=magenta, zorder=2)
+plt.scatter(x=thetas, y=gd_output.objectives, s=30, color=magenta, zorder=2)
+plt.scatter(x=thetas[0], y=gd_output.objectives[0], s=100, color=magenta, zorder=2)
 
 plt.xlabel('$\\theta$')
 plt.ylabel('$J(\\theta)$')
@@ -332,17 +331,14 @@ provided that $\beta> 0$. Setting $\beta=0$ results in _no_ change in the learni
 :   figure:
 :       align: center
 
-gd_output = GD(J=J,
-               theta0=torch.tensor([3.5]),
-               lr=2e-1,
-               num_steps=8,
-               decay_rate=0.1)
+gd_output = GD(J=J, init_parameters=torch.tensor([3.5]), lr=2e-1, num_steps=8, decay_rate=0.1)
+thetas = gd_output.parameters['theta']
 
 grid = torch.linspace(start=-0.5, end=3.5, steps=300)
 plt.plot(grid, J(grid))
-plt.step(x=gd_output.thetas, y=gd_output.objectives, where='post', color=magenta, zorder=2)
-plt.scatter(x=gd_output.thetas, y=gd_output.objectives, s=30, color=magenta, zorder=2)
-plt.scatter(x=gd_output.thetas[0], y=gd_output.objectives[0], s=100, color=magenta, zorder=2)
+plt.step(x=thetas, y=gd_output.objectives, where='post', color=magenta, zorder=2)
+plt.scatter(x=thetas, y=gd_output.objectives, s=30, color=magenta, zorder=2)
+plt.scatter(x=thetas[0], y=gd_output.objectives[0], s=100, color=magenta, zorder=2)
 
 plt.xlabel('$\\theta$')
 plt.ylabel('$J(\\theta)$')
@@ -372,11 +368,7 @@ we would plot the following:
 :   figure:
 :       align: center
 
-gd_output = GD(J=J,
-               theta0=torch.tensor([-0.5]),
-               lr=1e-2,
-               num_steps=15,
-               decay_rate=0.1)
+gd_output = GD(J=J, init_parameters=torch.tensor([-0.5]), lr=1e-2, num_steps=15, decay_rate=0.1)
 
 plt.plot(range(len(gd_output.objectives)), gd_output.objectives)
 plt.xlabel('gradient steps')
@@ -988,10 +980,10 @@ as well as a "saddle point" at $(0.5, 0.5)$ where the gradient $\nabla J(\btheta
 :   figure:
 :       align: center
 
-gd_parameters = {'theta0': [torch.tensor([0.25, 0.9]),
-                            torch.tensor([0.25, 1]),
-                            torch.tensor([0.75, 1.2]),
-                            torch.tensor([0.5, 0.49])]}
+gd_parameters = {'init_parameters': [torch.tensor([0.25, 0.9]),
+                                     torch.tensor([0.25, 1]),
+                                     torch.tensor([0.75, 1.2]),
+                                     torch.tensor([0.5, 0.49])]}
 alpha = 1e-2
 beta = 0
 N = 20
@@ -1005,11 +997,12 @@ for i, axis in enumerate(axes.flatten()):
                    num_steps=N,
                    decay_rate=beta,
                    **gd_parameters_slice)
+    thetas = gd_output.parameters['theta']
         
     axis.contour(x, y, z, levels=range(11), colors=blue, alpha=0.5)
-    axis.plot(gd_output.thetas[:, 0], gd_output.thetas[:, 1], color=magenta)
-    axis.scatter(gd_output.thetas[:, 0], gd_output.thetas[:, 1], s=30, color=magenta, zorder=2)
-    axis.scatter(x=gd_output.thetas[0, 0], y=gd_output.thetas[0, 1], s=100, color=magenta, zorder=2)
+    axis.plot(thetas[:, 0], thetas[:, 1], color=magenta)
+    axis.scatter(thetas[:, 0], thetas[:, 1], s=30, color=magenta, zorder=2)
+    axis.scatter(x=thetas[0, 0], y=thetas[0, 1], s=100, color=magenta, zorder=2)
     
     axis.set_xlabel('$\\theta_1$')
     axis.set_ylabel('$\\theta_2$')
@@ -1028,10 +1021,10 @@ Let's carry the runs out further, to $N=125$ gradient steps, and plot the object
 :   figure:
 :       align: center
 
-gd_parameters = {'theta0': [torch.tensor([0.25, 0.9]),
-                            torch.tensor([0.25, 1]),
-                            torch.tensor([0.75, 1.2]),
-                            torch.tensor([0.5, 0.49])]}
+gd_parameters = {'init_parameters': [torch.tensor([0.25, 0.9]),
+                                     torch.tensor([0.25, 1]),
+                                     torch.tensor([0.75, 1.2]),
+                                     torch.tensor([0.5, 0.49])]}
 alpha = 1e-2
 beta = 0
 N = 125
@@ -1067,21 +1060,22 @@ theta0 = torch.tensor([0.25, 0.9])
 alpha = 1e-2
 beta = 0
 N = 125
-gd_output = GD(J=J, theta0=theta0, lr=alpha, num_steps=N, decay_rate=beta)
+gd_output = GD(J=J, init_parameters=theta0, lr=alpha, num_steps=N, decay_rate=beta)
+thetas = gd_output.parameters['theta']
 
 fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(9, 4))
 
 axes[0].contour(x, y, z, levels=range(11), colors=blue, alpha=0.5)
-axes[0].plot(gd_output.thetas[:, 0], gd_output.thetas[:, 1], color=magenta)
-axes[0].scatter(gd_output.thetas[:, 0], gd_output.thetas[:, 1], s=30, color=magenta, zorder=2)
-axes[0].scatter(x=gd_output.thetas[0, 0], y=gd_output.thetas[0, 1], s=100, color=magenta, zorder=2)
+axes[0].plot(thetas[:, 0], thetas[:, 1], color=magenta)
+axes[0].scatter(thetas[:, 0], thetas[:, 1], s=30, color=magenta, zorder=2)
+axes[0].scatter(x=thetas[0, 0], y=thetas[0, 1], s=100, color=magenta, zorder=2)
 axes[0].set_xlabel('$\\theta_1$')
 axes[0].set_ylabel('$\\theta_2$')
 axes[0].set_xlim(0.2, 1.2)
 axes[0].set_ylim(0.8, 1.15)
 
-axes[1].plot(range(len(gd_output.objectives)), gd_output.thetas[:, 0], label='$\\theta_1$')
-axes[1].plot(range(len(gd_output.objectives)), gd_output.thetas[:, 1], alpha=0.3, label='$\\theta_2$')
+axes[1].plot(range(len(gd_output.objectives)), thetas[:, 0], label='$\\theta_1$')
+axes[1].plot(range(len(gd_output.objectives)), thetas[:, 1], alpha=0.3, label='$\\theta_2$')
 axes[1].set_xlabel('gradient steps')
 axes[1].set_ylim(0.8, 1.1)
 axes[1].legend()
@@ -1241,10 +1235,10 @@ For our polynomial objective $J$ given in {eq}`two-dim-poly-eq` above, we comput
 :   figure:
 :       align: center
 
-gd_parameters = {'theta0': [torch.tensor([0.25, 0.9]),
-                            torch.tensor([0.25, 1]),
-                            torch.tensor([0.75, 1.2]),
-                            torch.tensor([0.5, 0.49])]}
+gd_parameters = {'init_parameters': [torch.tensor([0.25, 0.9]),
+                                     torch.tensor([0.25, 1]),
+                                     torch.tensor([0.75, 1.2]),
+                                     torch.tensor([0.5, 0.49])]}
 alpha = 8e-3
 beta = 0
 N = 40
@@ -1258,11 +1252,12 @@ for i, axis in enumerate(axes.flatten()):
                    num_steps=N,
                    decay_rate=beta,
                    **gd_parameters_slice)
+    thetas = gd_output.parameters['theta']
     
     axis.contour(x, y, z, levels=range(11), colors=blue, alpha=0.5)
-    axis.plot(gd_output.thetas[:, 0], gd_output.thetas[:, 1], color=magenta)
-    axis.scatter(gd_output.thetas[:, 0], gd_output.thetas[:, 1], s=30, color=magenta, zorder=2)
-    axis.scatter(x=gd_output.thetas[0, 0], y=gd_output.thetas[0, 1], s=100, color=magenta, zorder=2)
+    axis.plot(thetas[:, 0], thetas[:, 1], color=magenta)
+    axis.scatter(thetas[:, 0], thetas[:, 1], s=30, color=magenta, zorder=2)
+    axis.scatter(x=thetas[0, 0], y=thetas[0, 1], s=100, color=magenta, zorder=2)
     
     axis.set_xlabel('$\\theta_1$')
     axis.set_ylabel('$\\theta_2$')
@@ -1283,21 +1278,22 @@ theta0 = torch.tensor([0.75, 1.2])
 alpha = 8e-3
 beta = 0
 N = 125
-gd_output = GD(J=J, theta0=theta0, lr=alpha, num_steps=N, decay_rate=beta)
+gd_output = GD(J=J, init_parameters=theta0, lr=alpha, num_steps=N, decay_rate=beta)
+thetas = gd_output.parameters['theta']
 
 fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(9, 4))
 
 axes[0].contour(x, y, z, levels=range(11), colors=blue, alpha=0.5)
-axes[0].plot(gd_output.thetas[:, 0], gd_output.thetas[:, 1], color=magenta)
-axes[0].scatter(gd_output.thetas[:, 0], gd_output.thetas[:, 1], s=30, color=magenta, zorder=2)
-axes[0].scatter(x=gd_output.thetas[0, 0], y=gd_output.thetas[0, 1], s=100, color=magenta, zorder=2)
+axes[0].plot(thetas[:, 0], thetas[:, 1], color=magenta)
+axes[0].scatter(thetas[:, 0], thetas[:, 1], s=30, color=magenta, zorder=2)
+axes[0].scatter(x=thetas[0, 0], y=thetas[0, 1], s=100, color=magenta, zorder=2)
 axes[0].set_xlabel('$\\theta_1$')
 axes[0].set_ylabel('$\\theta_2$')
 axes[0].set_xlim(0.2, 1.2)
 axes[0].set_ylim(0.6, 1.25)
 
-axes[1].plot(range(len(gd_output.objectives)), gd_output.thetas[:, 0], label='$\\theta_1$')
-axes[1].plot(range(len(gd_output.objectives)), gd_output.thetas[:, 1], alpha=0.5, label='$\\theta_2$')
+axes[1].plot(range(len(gd_output.objectives)), thetas[:, 0], label='$\\theta_1$')
+axes[1].plot(range(len(gd_output.objectives)), thetas[:, 1], alpha=0.5, label='$\\theta_2$')
 axes[1].set_xlabel('gradient steps')
 axes[1].set_ylim(0.9, 1.1)
 axes[1].legend()
@@ -1314,10 +1310,10 @@ We may also dampen the oscillations and keep the original (relatively large) lea
 :   figure:
 :       align: center
 
-gd_parameters = {'theta0': [torch.tensor([0.25, 0.9]),
-                            torch.tensor([0.25, 1]),
-                            torch.tensor([0.75, 1.2]),
-                            torch.tensor([0.5, 0.49])]}
+gd_parameters = {'init_parameters': [torch.tensor([0.25, 0.9]),
+                                     torch.tensor([0.25, 1]),
+                                     torch.tensor([0.75, 1.2]),
+                                     torch.tensor([0.5, 0.49])]}
 alpha = 1e-2
 N = 40
 beta = 0.05
@@ -1331,11 +1327,12 @@ for i, axis in enumerate(axes.flatten()):
                    num_steps=N,
                    decay_rate=beta,
                    **gd_parameters_slice)
+    thetas = gd_output.parameters['theta']
 
     axis.contour(x, y, z, levels=range(11), colors=blue, alpha=0.5)
-    axis.plot(gd_output.thetas[:, 0], gd_output.thetas[:, 1], color=magenta)
-    axis.scatter(gd_output.thetas[:, 0], gd_output.thetas[:, 1], s=30, color=magenta, zorder=2)
-    axis.scatter(x=gd_output.thetas[0, 0], y=gd_output.thetas[0, 1], s=100, color=magenta, zorder=2)
+    axis.plot(thetas[:, 0], thetas[:, 1], color=magenta)
+    axis.scatter(thetas[:, 0], thetas[:, 1], s=30, color=magenta, zorder=2)
+    axis.scatter(x=thetas[0, 0], y=thetas[0, 1], s=100, color=magenta, zorder=2)
     
     axis.set_xlabel('$\\theta_1$')
     axis.set_ylabel('$\\theta_2$')
@@ -1352,10 +1349,10 @@ Here are the values of the objective function for these last runs with learning 
 :   figure:
 :       align: center
 
-gd_parameters = {'theta0': [torch.tensor([0.25, 0.9]),
-                            torch.tensor([0.25, 1]),
-                            torch.tensor([0.75, 1.2]),
-                            torch.tensor([0.5, 0.49])]}
+gd_parameters = {'init_parameters': [torch.tensor([0.25, 0.9]),
+                                     torch.tensor([0.25, 1]),
+                                     torch.tensor([0.75, 1.2]),
+                                     torch.tensor([0.5, 0.49])]}
 alpha = 1e-2
 N = 40
 beta = 0.05
@@ -1414,7 +1411,7 @@ so that
 
 $$
 J(\btheta) = \frac{1}{m} \sum_{i=1}^m g \big(\bx_i; \btheta \big).
-$$
+$$ (obj-approx-eq)
 
 By linearity of the gradient operation, we have
 
@@ -1490,7 +1487,7 @@ fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(7, 3), sharey=True)
 
 for i, axis in enumerate(axes):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
-    gd_output = GD(**gd_parameters_slice, J=J, decay_rate=beta, theta0=theta0)
+    gd_output = GD(**gd_parameters_slice, J=J, decay_rate=beta, init_parameters=theta0)
     
     alpha = gd_parameters_slice['lr']
     
@@ -1519,15 +1516,16 @@ fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(9, 4.5), sharey=True)
 
 for i, axis in enumerate(axes):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
-    gd_output = GD(**gd_parameters_slice, J=J, decay_rate=beta, theta0=theta0)
+    gd_output = GD(**gd_parameters_slice, J=J, decay_rate=beta, init_parameters=theta0)
+    thetas = gd_output.parameters['theta']
     
     alpha = gd_parameters_slice['lr']
     N = gd_parameters_slice['num_steps']
     
     axis.contour(x, y, z, colors=blue, alpha=0.5, levels=np.arange(0, 10, 0.5))
-    axis.plot(gd_output.thetas[:, 0], gd_output.thetas[:, 1], color=magenta)
-    axis.scatter(gd_output.thetas[:, 0], gd_output.thetas[:, 1], s=30, color=magenta, zorder=2)
-    axis.scatter(gd_output.thetas[0, 0], gd_output.thetas[0, 1], s=100, color=magenta, zorder=2)
+    axis.plot(thetas[:, 0], thetas[:, 1], color=magenta)
+    axis.scatter(thetas[:, 0], thetas[:, 1], s=30, color=magenta, zorder=2)
+    axis.scatter(thetas[0, 0], thetas[0, 1], s=100, color=magenta, zorder=2)
     
     axis.set_title(f'$\\alpha={alpha}$, $\\beta={beta}$, gradient steps$={N}$')
     axis.set_xlabel('$\\theta_1$')
@@ -1548,7 +1546,13 @@ One method for dealing with this bottleneck is to use _mini-batches_ of the data
 B_1 \cup B_2 \cup \cdots \cup B_p = \{\bx_1,\bx_2,\ldots,\bx_m\}.
 ```
 
-We would then expect from {eq}`batch-eqn` that
+We would then expect from {eq}`obj-approx-eq` and {eq}`batch-eqn` that
+
+$$
+J(\btheta) \approx \frac{1}{|B_j|} \sum_{\bx \in B_j} g\big(\bx; \btheta\big)
+$$
+
+and
 
 $$
 \nabla J(\btheta) \approx \frac{1}{|B_j|} \sum_{\bx \in B_j} \nabla_\btheta g\big(\bx; \btheta\big),
@@ -1605,7 +1609,13 @@ N & J(\btheta_{(N-1)p+1}), J(\btheta_{(N-1)p+2}),\ldots, J(\btheta_{Np})
 \end{array}
 $$
 
-In order to monitor convergence, we may plot the per-step objective values versus the gradient steps, as we have done in the previous two sections. But, depending on the mini-batch size, these plots may be quite noisy, so sometimes to get a better sense of the trend it is convenient to also track the _mean_ objective values per epoch. We will see examples below.
+However, rather than have the algorithm output the _exact_ objective values $J(\btheta)$, we will rather have it output the _approximate_ objective values obtained as realizations of the right-hand side of
+
+$$
+J(\btheta) \approx \frac{1}{|B|} \sum_{\bx \in B} g(\bx; \btheta),
+$$
+
+where $B$ is a mini-batch of data. In order to monitor convergence, we may plot these per-step (approximate) objective values versus gradient steps, as we have done in the previous two sections. But, depending on the mini-batch size, these plots may be quite noisy, so sometimes to get a better sense of the trend it is convenient to also track the _mean_ (approximate) objective values per epoch. We will see examples below.
 
 But first, we note that it is possible to select a mini-batch size of $k=1$, so that the algorithm computes a gradient step per data point. (Some references refer to _this_ algorithm as _stochastic gradient descent_.) In our example {eq}`quadratic-eqn` from above, a batch size of $k=1$ yields the following plots of objective values versus gradient steps:
 
@@ -1629,7 +1639,7 @@ for i, axis in enumerate(axes.flatten()):
     sgd_output = SGD(**gd_parameters_slice,
                     g=g,
                     X=X,
-                    theta0=theta0,
+                    init_parameters=theta0,
                     batch_size=k,
                     decay_rate=beta,
                     num_epochs=N,
@@ -1660,7 +1670,7 @@ for i, axis in enumerate(axes.flatten()):
     sgd_output = SGD(**gd_parameters_slice,
                     g=g,
                     X=X,
-                    theta0=theta0,
+                    init_parameters=theta0,
                     batch_size=k,
                     decay_rate=beta,
                     num_epochs=N,
@@ -1668,11 +1678,12 @@ for i, axis in enumerate(axes.flatten()):
     
     alpha = gd_parameters_slice['lr']
     max_steps = gd_parameters_slice['max_steps']
+    thetas = sgd_output.parameters['theta']
     
     axis.contour(x, y, z, levels=np.arange(0, 10, 0.5), colors=blue, alpha=0.5)
-    axis.plot(sgd_output.thetas[:, 0], sgd_output.thetas[:, 1], color=magenta)
-    axis.scatter(sgd_output.thetas[:, 0], sgd_output.thetas[:, 1], s=30, color=magenta, zorder=2)
-    axis.scatter(sgd_output.thetas[0, 0], sgd_output.thetas[0, 1], s=100, color=magenta, zorder=2)
+    axis.plot(thetas[:, 0], thetas[:, 1], color=magenta)
+    axis.scatter(thetas[:, 0], thetas[:, 1], s=30, color=magenta, zorder=2)
+    axis.scatter(thetas[0, 0], thetas[0, 1], s=100, color=magenta, zorder=2)
     
     axis.set_title(f'$k={k}$, $\\alpha={alpha}$, $\\beta={beta}$, $N={N}$,\n gradient steps$={max_steps}$')
     axis.set_xlabel('$\\theta_1$')
@@ -1704,7 +1715,7 @@ for i, axis in enumerate(axes.flatten()):
                     g=g,
                     X=X,
                     lr=alpha,
-                    theta0=theta0,
+                    init_parameters=theta0,
                     decay_rate=beta,
                     random_state=42)
     
@@ -1738,17 +1749,18 @@ for i, axis in enumerate(axes.flatten()):
                     X=X,
                     lr=alpha,
                     decay_rate=beta,
-                    theta0=theta0,
+                    init_parameters=theta0,
                     random_state=42)
     
     k = gd_parameters_slice['batch_size']
     max_steps = gd_parameters_slice['max_steps']
     N = gd_parameters_slice['num_epochs']
+    thetas = sgd_output.parameters['theta']
     
     axis.contour(x, y, z, levels=np.arange(0, 10, 0.5), colors=blue, alpha=0.5)
-    axis.plot(sgd_output.thetas[:, 0], sgd_output.thetas[:, 1], color=magenta)
-    axis.scatter(sgd_output.thetas[:, 0], sgd_output.thetas[:, 1], s=30, color=magenta, zorder=2)
-    axis.scatter(sgd_output.thetas[0, 0], sgd_output.thetas[0, 1], s=100, color=magenta, zorder=2)
+    axis.plot(thetas[:, 0], thetas[:, 1], color=magenta)
+    axis.scatter(thetas[:, 0], thetas[:, 1], s=30, color=magenta, zorder=2)
+    axis.scatter(thetas[0, 0], thetas[0, 1], s=100, color=magenta, zorder=2)
     
     axis.set_title(f'$k={k}$, $\\alpha={alpha}$, $\\beta={beta}$, $N={N}$,\n gradient steps$={max_steps}$')
     axis.set_xlabel('$\\theta_1$')
@@ -1779,7 +1791,7 @@ for i, axis in enumerate(axes.flatten()):
                     g=g,
                     X=X,
                     lr=alpha,
-                    theta0=theta0,
+                    init_parameters=theta0,
                     num_epochs=N,
                     decay_rate=beta,
                     random_state=42)

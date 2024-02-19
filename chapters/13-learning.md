@@ -15,414 +15,261 @@ kernelspec:
 (learning)=
 # Learning
 
-In the [last chapter](prob-models), we studied general probabilistic models and described several specific and important examples. These descriptions included careful identifications of the parameters of the models, but the question was left open concerning exactly _how_ these parameters are chosen in practice. To cut straight to the chase:
-
-> The goal is to _learn_ the parameters of a model based on an observed dataset.
-
-The actual implementation of a concrete learning procedure is called a _learning algorithm_ by machine learning researchers and engineers, and they will refer to _training_ or _fitting_ a model. Statisticians refer to learning as _parameter estimation_. But no matter what you call them, the values of the parameters that these learning procedures seek are very often solutions to some sort of optimization problem. Intuitively, we want to choose parameters to minimize the "distance" between the model probability distribution and the empirical probability distribution of the dataset:
-
-```{image} ../img/prob-distance.svg
-:width: 75%
-:align: center
-```
-&nbsp;
-
-How one precisely defines and measures "distance" (or "discrepancy") is essentially a matter of choosing an objective function to minimize. Some learning algorithms we will study below are actually posed as maximization problems, but these may be reframed as minimization problems via the usual trick of replacing the objective function with its negative.
-
-So, our first goal in this chapter is to describe objective functions for parameter learning. In some form or fashion, all these objectives will involve the data and model probability functions described in {numref}`Chapter %s <prob-models>`, though these functions will be called _likelihood functions_ in this chapter. Thus, all the learning algorithms in this book are _likelihood based_. For some simple models, the solutions to these optimization problems may be obtained in closed form; for others, the gradient-based optimization algorithms that we studied in {numref}`Chapter %s <optim>` are required to obtain approximate solutions.
-
-Our focus in this chapter is using likelihood-based learning algorithms in a framework inspired by machine learning practice; in the chapters that follow, we will turn toward theoretical and statistical properties of likelihood-based parameter estimators in a more traditional statistics-based context.
-
-
-
-
-
-
 
 
 (likelihood-learning-sec)=
-## Likelihood-based learning objectives
+## A first look at likelihood-based learning objectives
 
-To help motivate likelihood-based learning objectives, let's begin with a simple example. Suppose that we flip a coin $m\geq 1$ times and let $x^{(i)}$ be the number of heads obtained on the $i$-th toss; thus, $x^{(i)}$ is an observed value of a random variable
+To help motivate the learning objectives obtained in this section, let's begin with a simple example. Suppose that we have an observed dataset
 
 $$
-X \sim \Ber(\theta).
+x_1,x_2,\ldots,x_m \in \{0,1\}
 $$
 
-This is a very simple example of a probabilistic graphical model whose underlying graph consists of only two nodes, one for the parameter $\theta$ and one for the (observed) random variable $X$:
+drawn from a random variable $X \sim \Ber(\theta)$ with unknown parameter $\theta \in [0,1]$. This is a very simple example of a probabilistic graphical model whose underlying graph consists of only two nodes, one for the parameter $\theta$ and one for the (observed) random variable $X$:
 
 ```{image} ../img/bern-pgm.svg
-:width: 25%
+:width: 18%
 :align: center
 ```
 &nbsp;
 
-Our observations together form a dataset of size $m$:
+The probability measure $P_\theta$ proposed by the model has mass function
 
 $$
-x^{(1)},\ldots,x^{(m)} \in \{0,1\}.
-$$
+p(x;\theta) = \theta^x (1-\theta)^{1-x},
+$$ (bern-model-eq)
 
-Based on this dataset, our goal is to _learn_ an optimal value for $\theta$ that minimizes the discrepancy between the model distribution and the empirical distribution of the dataset. To do this, it will be convenient to introduce the sum
-
-$$
-\Sigma x \def x^{(1)} + \cdots + x^{(m)}
-$$ (sum-dep-eqn)
-
-which counts the total number of heads seen during the $m$ flips of the coin. To make this concrete, suppose that $m=10$ and $\Sigma x=7$, so that we see seven heads over ten flips. Then, intuition suggests that $\theta=0.7$ would be a "more optimal" estimate for the parameter then, say, $\theta=0.1$. Indeed, if $\theta=0.1$, we would expect it highly unlikely to observe seven heads over ten flips when there is only a one-in-ten chance of seeing a head on a single flip.
-
-We may confirm our hunch by actually computing probabilities. Assuming, as always, that the observations in the dataset are independent, we have
+for $x\in \{0,1\}$, while the dataset has its empirical probability measure $\hat{P}$ with mass function $\hat{p}(x)$ defined as
 
 $$
-p\big(x^{(1)},\ldots,x^{(m)};\theta\big) = \prod_{i=1}^m \theta^{x^{(i)}}(1-\theta)^{1-x^{(i)}} = \theta^x (1-\theta)^{m-\Sigma x}.
-$$ (likelihood-bern-eqn)
+\hat{p}(x) = \frac{\text{frequency of $x$ in the dataset}}{m} = \begin{cases}
+\displaystyle\frac{\Sigma x}{m} & : x=1, \\
+\displaystyle\frac{m - \Sigma x}{m} & : x=0,
+\end{cases}
+$$ (bern-empirical-eq)
 
-Notice that the value of the joint mass function depends only on the sum {eq}`sum-dep-eqn`. If this sum is $\Sigma x=7$ and we have $m=10$ and $\theta=0.1$, then
-
-$$
-p\big(x^{(1)},\ldots,x^{(m)};\theta=0.1\big) = 0.1^{7} (1-0.1)^{10-7} = 7.29 \times 10^{-8}.
-$$
-
-On the other hand, when $\theta=0.7$, we have
-
-$$
-p\big(x^{(1)},\ldots,x^{(m)};\theta=0.7\big) = 0.7^{7} (1-0.7)^{10-7} \approx 2.22 \times 10^{-3}.
-$$
-
-Thus, it is five orders of magnitude more likely to observe our dataset when $\theta=0.7$ compared to $\theta=0.1$. In fact, the value $\theta = 0.7$ is a global maximizer of {eq}`likelihood-bern-eqn` as a function of $\theta$, which may be verified by inspecting the graph:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-
-import torch
-from torch.utils.data import DataLoader, TensorDataset
-import torch.nn.functional as F
-from torch.distributions.normal import Normal
-from torch.distributions.bernoulli import Bernoulli
-import numpy as np
-import scipy as sp
-import seaborn as sns
-import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib_inline.backend_inline
-import matplotlib.colors as clr
-from collections import defaultdict
-import warnings
-plt.style.use('../aux-files/custom_style_light.mplstyle')
-matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
-warnings.filterwarnings("ignore")
-blue = '#486AFB'
-magenta = '#FD46FC'
-
-m = 10
-x = 7
-
-def likelihood(theta, x, m):
-    return (theta ** x) * ((1 - theta) ** (m - x))
-
-predict_grid = np.linspace(0, 1)
-plt.plot(predict_grid, likelihood(predict_grid, x, m))
-plt.axvline(x=0.7, color=magenta, linestyle='--')
-plt.xlabel('$\\theta$')
-plt.ylabel('likelihood')
-plt.gcf().set_size_inches(w=5, h=3)
-plt.tight_layout()
-```
-
-```{margin}
-**Warning**: Note that the likelihood function $\mathcal{L}(\theta)$ is **not** a probability density function over $\theta$!
-```
-
-Note the label along the vertical axis; when the dataset is held fixed, the values of the joint mass function {eq}`likelihood-bern-eqn` as a function of the parameter $\theta$ are referred to as _likelihoods_. This function is called the _data likelihood function_ and is denoted
-
-$$
-\mathcal{L}\big(\theta;x^{(1)},\ldots,x^{(m)}\big) = p\big(x^{(1)},\ldots,x^{(m)};\theta\big).
-$$
-
-When the dependence of the likelihood function on the dataset does not need to be explicitly indicated, we shall often simply write $\mathcal{L}(\theta)$.
-
-Thus, we see that the parameter $\theta = 0.7$ is a solution to the optimization problem that consists of maximizing the likelihood function $\mathcal{L}(\theta)$. This is a simple example of _maximum likelihood estimation_, or _MLE_.
-
-We see from {eq}`likelihood-bern-eqn` that the data likelihood function is a product of probabilities. Thus, if $m$ is very large, the values of $\mathcal{L}(\theta)$ will be very small. For example, in the case that $m=100$ and $\Sigma x=70$ (which are still quite small values), we get the following plot:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-
-m = 100
-x = 70
-
-plt.plot(predict_grid, likelihood(predict_grid, x, m))
-plt.axvline(x=0.7, color=magenta, linestyle='--')
-plt.xlabel('$\\theta$')
-plt.ylabel('likelihood')
-plt.gcf().set_size_inches(w=5, h=3)
-plt.tight_layout()
-```
-
-This often leads to difficulties when implementing MLE in computer algorithms due to numerical round-off. The machine is liable to round very small numbers to $0$. For this reason (and others), we often work with the (base-$e$) logarithm of the data likelihood function, denoted by
-
-$$
-\ell\big(\theta; x^{(1)},\ldots,x^{(m)}\big) \def \log{\mathcal{L}\big(\theta; x^{(1)},\ldots,x^{(m)}\big)}.
-$$
-
-This is called the _data log-likelihood function_. As with the data likelihood function, if the dataset does not need to be explicitly mentioned, we will often write $\ell(\theta)$.
-
-MLE is the optimization problem with the data likelihood function $\mathcal{L}(\theta)$ as the objective function. But it is not hard to prove (see the suggested problems for this section) that the maximizers of the data likelihood function $\mathcal{L}(\theta)$ are the _same_ as the maximizers of the data log-likelihood function $\ell(\theta)$. For our Bernoulli model with $m=100$ and $\Sigma x=70$, a visual comparison of $\mathcal{L}(\theta)$ and $\ell(\theta)$ is given in:
-
-```{code-cell} ipython3
-:tags: [hide-input]
-:mystnb:
-:   figure:
-:       align: center
-
-def log_likelihood(theta, x, m):
-    return x * np.log(theta) + (m - x) * np.log(1 - theta)
-
-predict_grid = np.linspace(0, 1)
-_, axes = plt.subplots(ncols=2, figsize=(10, 3))
-
-axes[0].plot(predict_grid, likelihood(predict_grid, x, m))
-axes[1].plot(predict_grid, log_likelihood(predict_grid, x, m))
-axes[0].axvline(x=0.7, color=magenta, linestyle='--')
-axes[1].axvline(x=0.7, color=magenta, linestyle='--')
-axes[0].set_xlabel('$\\theta$')
-axes[0].set_ylabel('likelihood')
-axes[1].set_xlabel('$\\theta$')
-axes[1].set_ylabel('log-likelihood')
-plt.tight_layout()
-```
-
-Notice that the values of $\ell(\theta)$ are on a much more manageable scale compared to the values of $\mathcal{L}(\theta)$, and that the two functions have the same global maximizer at $\theta=0.7$.
-
+where $\Sigma x \def x_1 + x_2 + \cdots + x_m$. The goal, of course, is to model the observed dataset with our simple PGM, but the parameter $\theta$ is unknown. An "optimal" value for the parameter will minimize the discrepancy (or "distance") between the two distributions $\hat{P}$ and $P_\theta$. We seek to "learn" this optimal value from the dataset.
 
 ```{margin}
 
-The acronym _MLE_ often serves double duty: It stands for the procedure of _maximum likelihood estimation_, but it also sometimes stands for the results of this procedure, called _maximum likelihood estimates_.
+Technically, according to {prf:ref}`KL-def`, in order to discuss the KL divergence we must require that the empirical distribution is absolutely continuous with respect to the model distribution, in the sense that $p(x;\theta)=0$ implies $\hat{p}(x)=0$ for all $x$. This may create some minor headaches that require addressing special cases in proofs. For an example, see the proof of {prf:ref}`bern-mle-thm` below.
 ```
 
-Using the data log-likelihood function as the objective, we may easily compute the MLE in closed form for our Bernoulli model:
+Of course, by now we know that "distance" means KL divergence, so the goal is to locate the minimizer
 
-```{prf:theorem} MLE for the Bernoulli model, part 1
-:label: bern-mle-1-thm
+$$
+\theta^\star = \argmin_{\theta\in [0,1]} D(\hat{P} \parallel P_\theta).
+$$
 
-Consider the Bernoulli model described above and suppose that $0 < \Sigma x < m$. The (unique) global maximizer $\theta^\star$ of the data log-likelihood function $\ell(\theta)$ over $\theta \in (0,1)$ is given by $\theta^\star = \Sigma x/m$. Thus, $\theta^\star=\Sigma x/m$ is the maximum likelihood estimate.
+But from {prf:ref}`KL-and-entropy-thm`, the KL divergence may be expressed as a difference of two entropies,
+
+$$
+D(\hat{P} \parallel P_\theta) = H_{\hat{P}}(P_\theta) - H(\hat{P}),
+$$
+
+and since the entropy $H(\hat{P})$ does not depend on $\theta$ it may be dropped from the optimization objective, and we see that we are equivalently searching for the minimizer of cross entropy:
+
+$$
+\theta^\star = \argmin_{\theta\in [0,1]} H_{\hat{P}}(P_\theta).
+$$
+
+Let's unpack this cross entropy, using {eq}`bern-model-eq` and {eq}`bern-empirical-eq`. By definition, we have
+
+$$
+H_{\hat{P}}(P_\theta) = E_{x \sim \hat{p}(x)} \left[ I_{P_\theta}(x) \right],
+$$ (cross-ent-stoch-eq)
+
+where $I_{P_\theta}(x) = -\log\left[ p(x;\theta) \right]$ might be called the _model surprisal function_. So, we have
+
+\begin{align*}
+E_{x \sim \hat{p}(x)} \left[ I_{P_\theta}(x) \right] &= -\sum_{x\in \bbr} \hat{p}(x) \log\left[ p(x;\theta) \right] \\
+&= - \hat{p}(1) \log\left[p(1;\theta) \right] - \hat{p}(0) \log\left[ p(0;\theta)\right]  \\
+&= -\frac{1}{m} \left[ \Sigma x \log(\theta) + (m-\Sigma x)\log(1-\theta) \right] \\
+&= -\frac{1}{m} \log\left[ \theta^{\Sigma x} (1-\theta)^{m - \Sigma x}\right].
+\end{align*}
+
+By independence of the observed dataset, we have
+
+$$
+p(x_1,\ldots,x_m; \theta) = \prod_{i=1}^m p(x_i;\theta) = \prod_{i=1}^m \theta^{x_i} (1-\theta)^{1-x_i} = \theta^{\Sigma x} (1-\theta)^{m-\Sigma x}.
+$$
+
+Using the terminology from {numref}`Chapter %s <prob-models>`, this latter joint probability mass function might be called the _data probability mass function_. It is then natural to call
+
+$$
+I_{P_\theta}(x_1,\ldots,x_m) \def - \log\left[ p(x_1,\ldots,x_m;\theta) \right]
+$$ (data-sur-eq)
+
+the _data surprisal function_. So, putting everything together, we get that
+
+$$
+D(\hat{P} \parallel P_\theta) + H(\hat{P}) = H_{\hat{P}}(P_\theta) = E_{x \sim \hat{p}(x)} \left[ I_{P_\theta}(x) \right] \propto I_{P_\theta}(x_1,\ldots,x_m),
+$$ (list-objs-eq)
+
+where the constant of proportionality is the (positive) number $1/m$. Moreover, since the negative logarithm function is strictly decreasing, minimizing the data surprisal function {eq}`data-sur-eq` with respect to $\theta$ is equivalent to maximizing the data probability mass function $p(x_1,\ldots,x_m; \theta)$ with respect to $\theta$. In this context, this latter mass function is called the _data likelihood function_. If we combine all of our observations into a single theorem, we get:
+
+```{margin}
+
+As mentioned in the margin note above, in this theorem we are implicitly restricting our attention to those parameters $\theta$ for which the empirical distribution $\hat{P}$ is absolutely continuous with respect to the model distribution $P_\theta$.
+```
+
+```{prf:theorem} Equivalent learning objectives for the simple Bernoulli model
+:label: equiv-obj-bern-thm
+
+Let $ x_1,x_2,\ldots,x_m \in \{0,1\}$ be an observed dataset corresponding to a Bernoulli random variable $X\sim \Ber(\theta)$ with unknown $\theta$. Let $P_\theta$ be the model distribution of $X$ and let $\hat{P}$ be the empirical distribution of the dataset. The following optimization objectives are equivalent:
+
+1. Minimize the KL divergence $D(\hat{P} \parallel P_\theta)$ with respect to $\theta$.
+2. Minimize the cross entropy $H_{\hat{P}}(P_\theta)$ with respect to $\theta$.
+3. Minimize the data surprisal function $I_{P_\theta}(x_1,\ldots,x_m)$ with respect to $\theta$.
+4. Maximize the data likelihood function $p(x_1,\ldots,x_m;\theta)$ with respect to $\theta$.
+```
+
+Though these optimization objectives are all equivalent to each other, they have different interpretations, conceptualizations, and advantages:
+
+> 1. Minimizing the KL divergence between the empirical and model distributions has an immediate and concrete interpretation as minimizing the "distance" between these two distributions.
+> 2. As a function of $\theta$, the cross entropy $H_{\hat{P}}(P_\theta)$ may be viewed as a stochastic objective function, since it is exactly the mean of the model surprisal function; see {eq}`cross-ent-stoch-eq` above. This opens the door for applications of the stochastic gradient descent algorithm studied in {numref}`sgd-sec`.
+> 3. The third optimization objective seeks the model probability distribution according to which the data is _least surprising_.
+> 4. The fourth optimization objective seeks the model probability distribution according to which the data is _most likely_.
+
+Due to the equivalence with the fourth optimization objective, all these optimization objectives are referred to as _likelihood-based learning objectives_. The optimization process is then called _maximum likelihood estimation_ (*MLE*), and the value
+
+\begin{align*}
+\theta^\star_\text{MLE} &\def \argmax_{\theta \in [0,1]} p(x_1,\ldots,x_m;\theta) \\
+&= \argmin_{\theta \in [0,1]} I_{P_\theta}(x_1,\ldots,x_m) \\
+&= \argmin_{\theta \in [0,1]} H_{\hat{P}}(P_\theta) \\
+&= \argmin_{\theta \in [0,1]} D(\hat{P} \parallel P_\theta)
+\end{align*}
+
+is called the _maximum likelihood estimate_ (also _MLE_). But in actual real-world practice, nobody _ever_ maximizes the likelihood function directly due to numerical instability (and other reasons), and instead one of the other three learning objectives is used. Due to this, we prefer the terminology _surprisal-based learning objectives_.
+
+It will turn out that an identical version of {prf:ref}`equiv-obj-bern-thm` holds for all probabilistic graphical models with discrete model distributions, not just our simple Bernoulli model. But for the Bernoulli model, the MLE may be computed in closed form:
+
+```{prf:theorem} MLE for the simple Bernoulli model
+:label: bern-mle-thm
+
+Let $ x_1,x_2,\ldots,x_m \in \{0,1\}$ be an observed dataset corresponding to a Bernoulli random variable $X\sim \Ber(\theta)$ with unknown $\theta$. Then the (unique) maximum likelihood estimate $\theta^\star_\text{MLE}$ is the ratio $ \Sigma x/m$.
 ```
 
 ```{prf:proof}
-First note that
+We first address the special cases that $\Sigma x =0$ or $m$. In the first case, the data likelihood function is given by
 
 $$
-\ell(\theta) = \Sigma x \log{\theta} + (m-\Sigma x) \log{(1-\theta)}
-$$ (data-log-like-bern-eqn)
-
-from {eq}`likelihood-bern-eqn`.  As you well know, the maximizers of $\ell(\theta)$ over $(0,1)$ must occur at points where $\ell'(\theta)=0$. But
-
-$$
-\ell'(\theta) = \frac{\Sigma x}{\theta} - \frac{m-\Sigma x}{1-\theta},
+p(x_1,\ldots,x_m; \theta) = \theta^{\Sigma x} (1-\theta)^{m-\Sigma x} = (1-\theta)^m.
 $$
 
-and a little algebra yields the solution $\theta = \Sigma x/m$ to the equation $\ell'(\theta)=0$. To confirm that $\theta = \Sigma x/m$ is a global maximizer over $(0,1)$, note that the second derivatives of both $\log{\theta}$ and $\log{(1-\theta)}$ are always negative, and hence $\ell''(\theta)<0$ as well since $\Sigma x$ and $m-\Sigma x$ are positive (this is a manifestation of [concavity](https://en.wikipedia.org/wiki/Concave_function)). Thus, $\theta^\star = \Sigma x/m$ must be the (unique) global maximizer of $\ell(\theta)$. Q.E.D.
+But the latter expression is maximized at $\theta^\star=0$, and so $\theta^\star_\text{MLE} = \Sigma x/m$, as claimed. A similar argument shows that if $\Sigma x = m$, then the likelihood function is maximized at $\theta^\star = 1$, and so $\theta^\star_\text{MLE} = \Sigma x / m$ again.
+
+So, we may assume that $0 < \Sigma x < m$. In this case, the maximizer of the likelihood function must occur in the open interval $(0,1)$. Thus, by {prf:ref}`equiv-obj-bern-thm`, the parameter $\theta^\star_\text{MLE}$ is equivalently the global minimizer of the data surprisal function
+
+$$
+I_{P_\theta}(x_1,\ldots,x_m) = -\Sigma x \log{\theta} - (m-\Sigma x) \log{(1-\theta)}.
+$$
+
+But minimizers of this function can only occur at points $\theta^\star \in (0,1)$ where
+
+$$
+\frac{\text{d}}{\text{d} \theta}\Bigg|_{\theta = \theta^\star} I_{P_\theta}(x_1,\ldots,x_m) = 0.
+$$ (sur-station-eq)
+
+But 
+
+$$
+\frac{\text{d}}{\text{d} \theta} I_{P_\theta}(x_1,\ldots,x_m) = -\frac{\Sigma x}{\theta} + \frac{m-\Sigma x}{1-\theta},
+$$
+
+and a little algebra yields the solution $\theta^\star = \Sigma x/m$ to the stationarity equation {eq}`sur-station-eq`. To confirm that $\theta^\star = \Sigma x/m$ is a global minimizer over $(0,1)$, note that the second derivatives of both $-\log{\theta}$ and $-\log{(1-\theta)}$ are always positive, and hence the data surprisal function is strictly convex. Thus, $\theta^\star_\text{MLE} = \Sigma x/m$ must indeed be the (unique) MLE. Q.E.D.
 ```
 
-Note that the data likelihood function
+Though the $\theta^\star_\text{MLE}$ is available in closed form for our simple Bernoulli model, it is still amusing to search for $\theta^\star$ by running stochastic gradient descent on the stochastic objective function given by cross entropy:
 
 $$
-\mathcal{L}\big(\theta; x^{(1)},\ldots,x^{(m)}\big) = p\big(x^{(1)},\ldots,x^{(m)};\theta\big)
+H_{\hat{P}}(P_\theta) = E_{x\sim \hat{p}(x)} \left[ I_{P_\theta}(x) \right].
 $$
 
-is exactly the _data probability function_, in the language of {numref}`Chapter %s <prob-models>`. The latter is the product
+To create the following figure, we generated a sequence of $128$ observations
 
 $$
-p\big(x^{(1)},\ldots,x^{(m)};\theta\big) = \prod_{i=1}^m p\big(x^{(i)};\theta\big)
+x_1,x_2,\ldots,x_{128} \in \{0,1\}
 $$
 
-where
+with $\Sigma x = 87$. Then, a run of mini-batch gradient descent yields the following:
 
-$$
-p(x;\theta) = \theta^x (1-\theta)^{1-x}
-$$
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
 
-is the _model probability function_. As a function of $\theta$ with $x$ held fixed, we call
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+import torch
+import torch.nn.functional as F
+import torch.nn as nn
+from math import sqrt
+import sys
+sys.path.append('/Users/johnmyers/code/stats-book-materials/notebooks')
+from gd_utils import GD, SGD
+import matplotlib_inline.backend_inline
+import matplotlib.colors as clr
+plt.style.use('../aux-files/custom_style_light.mplstyle')
+matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
+import warnings
+warnings.filterwarnings('ignore', category=UserWarning)
+blue = '#486AFB'
+magenta = '#FD46FC'
 
-$$
-\mathcal{L}(\theta; x) \stackrel{\text{def}}{=} p(\theta; x)
-$$
+torch.manual_seed(42)
+theta = 0.65
+m = 128
+X = torch.bernoulli(torch.tensor([theta] * m))
 
-the _model likelihood function_ and
+def g(X, parameters):
+    theta = parameters['theta']
+    return -X * torch.log(theta) - (1 - X) * torch.log(1 - theta)
 
-$$
-\ell(\theta;x) \stackrel{\text{def}}{=} \log{\mathcal{L}(\theta;x)}
-$$
+def cross_entropy(theta):
+    Sigmax = sum(X)
+    return -(1 / m) * (Sigmax * np.log(theta) + (m - Sigmax) * np.log(1 - theta))
 
-the _model log-likelihood function_. When the data point $x$ does not need to be mentioned explicitly, we will write $\mathcal{L}(\theta)$ and $\ell(\theta)$ in place of $\mathcal{L}(\theta;x)$ and $\ell(\theta;x)$. Note that this clashes with our usage of $\mathcal{L}(\theta)$ and $\ell(\theta)$ to represent the _data_ likelihood and log-likelihood functions when the dataset is not made explicit. You will need to rely on context to clarify which of the two types of likelihood functions (data or model) is meant when we write $\mathcal{L}(\theta)$ or $\ell(\theta)$.
+parameters = {'theta': torch.tensor([0.05])}
+alpha = 0.01
+k = 8
+N = 10
 
-It will be convenient to describe an optimization problem involving the _model_ likelihood function that is equivalent to MLE. Here, _equivalence_ means that the two optimization problems have the same solutions. This new (but equivalent!) optimization problem is appealing in part because it directly uses the empirical probability distribution of the dataset and thus more closely aligns with the intuitive scheme described in the introduction to this chapter, that the goal of parameter learning is to minimize the "distance" (or "discrepancy") between the model distribution and the empirical distribution. This optimization problem is also useful because it opens the door for the _stochastic gradient descent algorithm_ from {numref}`Chapter %s <optim>` when closed form solutions are not available.
+sgd_output = SGD(g=g, init_parameters=parameters, X=X, lr=alpha, batch_size=k, num_epochs=N)
 
-To describe the new optimization problem, let's consider again our Bernoulli model. Let $\hat{p}(x)$ be the empirical mass function of the dataset
+epoch_step_nums = sgd_output.epoch_step_nums
+objectives = sgd_output.per_step_objectives[epoch_step_nums]
+running_parameters = sgd_output.parameters['theta']
+running_parameters = running_parameters[epoch_step_nums]
+grid = np.linspace(start=0.01, stop=0.99, num=200)
 
-$$
-x^{(1)},\ldots,x^{(m)} \in \{0,1\}.
-$$
+_, axes = plt.subplots(ncols=2, figsize=(10, 4), sharey=True)
 
-Thus, in general we have
+axes[0].plot(grid, cross_entropy(grid))
+axes[0].step(running_parameters, objectives, where='post', color=magenta)
+axes[0].scatter(running_parameters, objectives, color=magenta, s=45, zorder=3)
+axes[0].set_xlabel('$\\theta$')
+axes[0].set_ylabel('cross entropy')
 
-$$
-\hat{p}(x) = \frac{\text{number of data points $x^{(i)}$ that match $x$}}{m}
-$$
+axes[1].plot(range(len(sgd_output.per_step_objectives)), sgd_output.per_step_objectives, color=magenta, alpha=0.45)
+axes[1].scatter(epoch_step_nums, objectives, s=50, color=magenta, zorder=3)
+axes[1].set_xlabel('gradient steps')
 
-for all $x\in \bbr$, but for our particular Bernoulli model, this simplifies to
-
-$$
-\hat{p}(0) = \frac{m-\Sigma x}{m} \quad \text{and} \quad \hat{p}(1) = \frac{\Sigma x}{m},
-$$
-
-where $\Sigma x=x^{(1)} + \cdots + x^{(m)}$. Letting $\widehat{X}$ be a Bernoulli random variable with $\hat{p}(x)$ as its mass function, we consider the stochastic objective function
-
-$$
-J(\theta) \stackrel{\text{def}}{=} E \big( \ell\big(\theta; \widehat{X} \big) \big),
-$$
-
-where $\ell(\theta;x)$ is the model log-likelihood function. Note that
-
-$$
-J(\theta) = \ell(\theta;1) \hat{p}(1)+ \ell(\theta; 0) \hat{p}(0) = \frac{1}{m} \left[ \Sigma x \log{\theta}  + (m-\Sigma x)\log{(1-\theta)} \right],
-$$
-
-and so by comparison with {eq}`data-log-like-bern-eqn` we see that the stochastic objective function $J(\theta)$ differs from the data log-likelihood function $\ell\big( \theta; x^{(1)},\ldots,x^{(m)}\big)$ only by a constant factor of $1/m$. Therefore, MLE is equivalent to the optimization problem with $J(\theta)$ as an objective function, where _equivalence_ means that the two problems have the same solutions. Thus:
-
-```{prf:theorem} MLE for the Bernoulli model, part 2
-:label: bern-mle-2-thm
-
-Consider the Bernoulli model described above, suppose that $0 < \Sigma x < m$, and let $\hat{p}(x)$ be the empirical mass function of a dataset. The (unique) maximum likelihood estimate $\theta^\star = \Sigma x/m$ is the global maximizer for the optimization problem with the stochastic objective function
-
-$$
-J(\theta) = E \big( \ell\big(\theta; \widehat{X} \big) \big),
-$$
-
-where $\ell(\theta;x)$ is the model log-likelihood function and $\widehat{X} \sim \hat{p}(x)$.
+plt.suptitle(f'mini-batch gradient descent\n$k={k}$, $\\alpha = {alpha}$, $\\beta=0$, $N = {N}$')
+plt.tight_layout()
 ```
 
-Then, by combining {prf:ref}`bern-mle-1-thm` and {prf:ref}`bern-mle-2-thm`, we conclude:
-
-```{prf:theorem} Three ways to obtain an MLE
-:label: three-mle-thm
-
-The maximum likelihoood estimate for the Bernoulli model may be obtained by maximizing the data likelihood function $\mathcal{L}(\theta)$, the data log-likelihood function $\ell(\theta)$, or the stochastic objective function $J(\theta)$.
-```
-
-Our description of likelihood-based learning methods thus far has focused on the simple Bernoulli model. However, from this specific and simple case I am hoping that you can see an outline of a general method able to fit _any_ probabilistic model to data. In particular, _all_ the models we studied in the [previous chapter](prob-models) have model and data likelihood functions, and thus these general methods apply to them.
-
-To be more precise, we need to distinguish between two types of models. The [linear regression](lin-reg-sec), [logistic regression](log-reg-sec), and [neural network models](nn-sec) that we studied in the previous chapter will all be trained as _fully-observed discriminative models_. This means two things: (1) all stochastic nodes in the underlying graphs are observed, and (2) the likelihood functions are obtained from the _conditional_ probability functions of the models. The [Gaussian mixture models](gmm-sec) will be trained as _partially-observed generative models_, which means that the straightfoward MLE algorithm will need to be replaced with the _expectation maximization_ (or _EM_) algorithm. We will address the EM algorithm separately in {numref}`em-gmm-sec` below.
-
-To describe the MLE algorithm for fully-observed discriminative models, we need to define the likelihood-based objective functions. These functions are all defined in terms of the data and model probability functions from {numref}`prob-models`.
-
-```{prf:definition} MLE training objectives for fully-observed discriminative models
-:label: mle-training-objectives-def
-
-Let $\btheta\in \bbr^{k}$ be the parameter vector of a fully-observed discriminative model and let $\hat{p}(\bx,y)$ be the empirical mass function of a dataset
+The blue curve in the left-hand plot is the graph of the _exact_ cross entropy function $H_{\hat{P}}(P_\theta)$. The magenta points---which represent a selection of outputs of the algorithm---do not fall _precisely_ on this graph since they are _approximations_ to the cross entropy, obtained as realizations of the expression on the right-hand side of
 
 $$
-(\bx^{(1)},y^{(1)}),\ldots,(\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr.
+H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} I_{P_\theta}(x),
 $$
 
-1. Define the _data likelihood function_
-
-    $$
-    \mathcal{L}\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) \def p \big(y^{(1)},\ldots,y^{(m)} \mid \bx^{(1)},\ldots,\bx^{(m)}; \ \btheta \big)
-    $$
-
-    and the _model likelihood function_
-
-    $$
-    \mathcal{L}(\btheta; \ \bx, y) \def p ( y \mid \bx ; \ \btheta) 
-    $$
-
-2. Define the _data log-likelihood function_
-
-    $$
-    \ell\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) \def \log{\mathcal{L}\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big)}.
-    $$
-
-    and the _model log-likelihood function_
-
-    $$
-    \ell(\btheta; \ \bx, y) \def \log{\mathcal{L}(\btheta; \ \bx, y)}.
-    $$
-
-3. Define the stochastic objective function
-
-    $$
-    J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) \def E \big( \ell\big(\btheta; \widehat{\bX}, \widehat{Y}\big) \big),
-    $$
-
-    where $(\widehat{\bX}, \widehat{Y}) \sim \hat{p}(\bx, y)$.
-```
-
-From independence of the dataset, we obtain the following expressions for these training objectives:
-
-```{prf:theorem} Formulas for MLE training objectives
-:label: mle-formulas-thm
-
-Let the notation be as in {prf:ref}`mle-training-objectives-def`. We have
-
-$$
-\mathcal{L}\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \prod_{i=1}^m \mathcal{L}\big( \btheta;\ \bx^{(i)}, y^{(i)} \big)
-$$
-
-and
-
-$$
-\ell\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \sum_{i=1}^m \ell\big(\btheta; \ \bx^{(i)}, y^{(i)} \big)
-$$ (log-like-simp-eqn)
-
-and
-
-$$
-J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big) = \frac{1}{m} \sum_{i=1}^m \ell\big(\btheta; \ \bx^{(i)}, y^{(i)} \big).
-$$ (stochastic-simp-eqn)
-
-```
-
-We now state the MLE algorithm for fully-observed discriminative models; note the similarity to {prf:ref}`three-mle-thm`.
-
-```{prf:definition} Maximum likelihood estimation for fully-observed discriminative models
-:label: mle-fully-observed-def
-
-Let the notation be as in {prf:ref}`mle-training-objectives-def`. A _maximum likelihood estimate_ is a parameter vector $\btheta^\star$ that is a solution to one of the following three equivalent optimization problems:
-
-1. Maximize the data likelihood function
-
-  $$
-  \mathcal{L}\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big).
-  $$
-
-2. Maximize the data log-likelihood function
-
-  $$
-  \ell\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big).
-  $$
-
-3. Maximize the stochastic objective function
-
-  $$
-  J\big(\btheta; \ \bx^{(1)},\ldots,\bx^{(m)}, y^{(1)},\ldots,y^{(m)}\big).
-  $$
-
-```
-
-In practice, nobody ever maximizes the data likelihood function directly; instead, maximum likelihood estimates are obtained via the other two objective functions in the forms {eq}`log-like-simp-eqn` and {eq}`stochastic-simp-eqn`. As we mentiond above, the stochastic objective function has the advantage of allowing the use of stochastic gradient descent when closed form solutions are not available.
-
-
-
-
-
-
+where $B$ is a mini-batch of data of size $k=8$. (This was discussed right after we introduced {prf:ref}`sgd-alg` in {numref}`Chapter %s <optim>`.) On the right-hand size of the figure, we have plotted the (approximate) cross entropy versus gradient steps, a type of plot familiar from {numref}`Chapter %s <optim>`. The magenta dots on the two sides of the figure correspond to each other; they represent the (approximate) cross entropies every 16 gradient steps ($=1$ epoch). Notice that the algorithm appears to be converging to the true value $\theta^\star_\text{MLE} = 87/128 \approx 0.68$ given by {prf:ref}`bern-mle-thm`.
 
 
 
@@ -436,205 +283,6 @@ In practice, nobody ever maximizes the data likelihood function directly; instea
 
 
 ## MLE for linear regression
-
-Linear regression models have the special property that maximum likelihood estimates may be obtained in _closed form_. To derive them, we shall assume---as many books in statistics and machine learning do---that the variance parameter $\sigma^2$ is a _fixed_, _known_ number and does not need to be learned. You will address the case that $\sigma^2$ is unknown in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-3) for this section.
-
-Therefore, the underlying graph of the linear regression model is of the form
-
-```{image} ../img/log-reg-00.svg
-:width: 50%
-:align: center
-```
-&nbsp;
-
-where $\beta_0 \in \bbr$ and $\bbeta \in \mathbb{R}^{n\times 1}$ are the only parameters. The link function at $Y$ is still given by
-
-$$
-Y \mid \bX ; \ \beta_0,\bbeta \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu = \beta_0 + \bx \bbeta.
-$$
-
-Then, given a dataset
-
-$$
-(\bx^{(1)},y^{(1)}),\ldots,(\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \bbr,
-$$
-
-we may retrieve the data log-likelihood function from {numref}`lin-reg-sec`:
-
-\begin{align*}
-\ell(\beta_0, \bbeta) &= \sum_{i=1}^m \log \left[ \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} \big( y^{(i)} - \mu^{(i)} \big)^2 \right) \right] \\
-&= - m\log{\sqrt{2\pi\sigma^2}} - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2,
-\end{align*}
-
-where $\mu^{(i)} = \beta_0 + \bx^{(i)} \bbeta $ for each $i=1,\ldots,m$.
-
-The maximizers of $\ell(\beta_0,\bbeta)$ will occur at those parameter values for which $\nabla \ell(\beta_0, \bbeta)=0$. Since $-m\log{\sqrt{2\pi\sigma^2}}$ is constant with respect to the parameters, it may be dropped, leaving the equivalent objective function
-
-$$
-(\beta_0,\bbeta) \mapsto - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
-$$
-
-But the reciprocal variance $1/\sigma^2$ (i.e., the _precision_) is fixed, and so it too may be dropped, leaving us with the equivalent objective function
-
-$$
-J(\beta_0,\bbeta) \def - \frac{1}{2}\sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
-$$ (lin-reg-mle-objective-eqn)
-
-Using this latter objective function, we obtain:
-
-
-```{prf:theorem} Maximum likelihood estimates for linear regression with known variance
-:label: mle-lin-reg-thm
-
-Let the notation be as above, and let
-
-$$
-\mathcal{X} = \begin{bmatrix}
-1 & x^{(1)}_1 & \cdots & x^{(1)}_n \\
-\vdots & \vdots & \ddots & \vdots \\
-1 & x^{(m)}_1 & \cdots & x^{(m)}_n
-\end{bmatrix}, \quad \by = \begin{bmatrix} y^{(1)} \\ \vdots \\ y^{(m)} \end{bmatrix}, \quad \btheta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_n \end{bmatrix}
-$$
-
-where $\bbeta^T = (\beta_1,\ldots,\beta_n)$. Provided that the $(n+1) \times (n+1)$ square matrix $\mathcal{X}^T \mathcal{X}$ is invertible, the maximum likelihood estimates for the parameters $\bbeta$ and $\beta_0$ are given by
-
-$$
-\btheta = \left(\mathcal{X}^T \mathcal{X}\right)^{-1}\mathcal{X}^T \by.
-$$
-```
-
-```{prf:proof}
-As we noted above, the MLEs may be obtained by maximizing the function $J(\btheta)$ given in {eq}`lin-reg-mle-objective-eqn`, which may be rewritten as
-
-$$
-J(\btheta) = -\frac{1}{2} \left( \by - \mathcal{X}\btheta\right)^T\left( \by - \mathcal{X}\btheta\right).
-$$
-
-But as you will prove in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-1-solution), taking the gradient gives
-
-$$
-\nabla J(\btheta) = - \left( \by - \mathcal{X}\btheta\right)^T \text{Jac}\left(\by - \mathcal{X}\btheta \right),
-$$
-
-where $\text{Jac}\left(\by - \mathcal{X}\btheta \right)$ is the Jacobian matrix of the function
-
-$$
-\bbr^{n+1} \to \bbr^m, \quad \btheta \mapsto \by - \mathcal{X}\btheta.
-$$
-
-But it is easy to show that $\text{Jac}\left(\by - \mathcal{X}\btheta \right) = - \mathcal{X}$, and so
-
-$$
-\nabla J(\btheta) =  \left( \by - \mathcal{X}\btheta\right)^T \mathcal{X}.
-$$
-
-Setting the gradient to zero and solving gives
-
-$$
-\mathcal{X}^T \mathcal{X} \btheta = \mathcal{X}^T \by,
-$$
-
-from which the desired equation follows. The only thing that is left to prove is that we have actually obtained a _maximizer_. This follows from concavity of the objective function $J(\btheta)$, which you will establish in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-2-solution). Q.E.D.
-```
-
-
-Note that the maximizer of the objective function
-
-$$
-J(\beta_0,\bbeta) = - \frac{1}{2} \sum_{i=1}^m \left( y^{(i)} - \mu^{(i)} \right)^2
-$$
-
-is the same as the minimizer of the objective function
-
-$$
-\text{RSS}(\beta_0, \bbeta) \def \sum_{i=1}^m \left( y^{(i)} - \mu^{(i)} \right)^2,
-$$
-
-called the _residual sum of squares_. The name comes about from the terminology introduced in {numref}`lin-reg-sec`, where we learned that the differences
-
-$$
-y^{(i)} - \mu^{(i)} = y^{(i)} - \beta_0 - \beta_1 x_1^{(i)} - \cdots - \beta_n x_n^{(i)}
-$$
-
-are called the _residuals_. Thus, the maximum likelihood parameter estimates are those that minimize the residual sum of squares, which explains why the MLEs are also often called the _ordinary least squares_ (_OLS_) estimates.
-
-
-
-It is worth writing out the MLEs in the case of simple linear regression:
-
-```{prf:corollary} Maximum likelihood estimates for simple linear regression with known variance
-:label: mle-simple-lin-reg-cor
-
-Letting the notation be as above, the MLEs for the parameters $\beta_0$ and $\beta_1$ in a simple linear regression model are given by
-
-\begin{align*}
-\beta_1 &= \frac{\sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)\left( y^{(i)} - \bar{y} \right)}{\sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)^2}, \\
-\beta_0 &= \bar{y} - \beta_1 \bar{x},
-\end{align*}
-
-where $\bar{x} = \frac{1}{m} \sum_{i=1}^m x^{(i)}$ and $\bar{y} = \frac{1}{m} \sum_{i=1}^m y^{(i)}$ are the empirical means.
-```
-
-```{prf:proof}
-
-First note that
-
-$$
-\mathcal{X}^T \mathcal{X} = \begin{bmatrix} m & m \bar{x} \\ m \bar{x} & \sum_{i=1}^m {x^{(i)}}^2 \end{bmatrix}.
-$$
-
-Assuming this matrix has nonzero determinant, we have
-
-$$
-\left(\mathcal{X}^T \mathcal{X} \right)^{-1} = \frac{1}{m \sum_{i=1}^m {x^{(i)}}^2 - m^2 \bar{x}^2} \begin{bmatrix} \sum_{i=1}^m {x^{(i)}}^2 & -m \bar{x} \\ -m \bar{x} & m \end{bmatrix}.
-$$
-
-But
-
-$$
-\mathcal{X}^T \by = \begin{bmatrix} m \bar{y} \\ \sum_{i=1}^m x^{(i)} y^{(i)} \end{bmatrix},
-$$
-
-and so from
-
-$$
-\begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \btheta =  \left(\mathcal{X}^T \mathcal{X}\right)^{-1}\mathcal{X}^T \by
-$$
-
-we conclude
-
-$$
-\beta_1 = \frac{\sum_{i=1}^m x^{(i)} y^{(i)} -m \bar{x}\bar{y} }{ \sum_{i=1}^m {x^{(i)}}^2 - m \bar{x}^2}.
-$$
-
-But as you may easily check, we have
-
-$$
-\sum_{i=1}^m x^{(i)} y^{(i)} -m \bar{x}\bar{y}  = \sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)\left( y^{(i)} - \bar{y} \right)
-$$
-
-and
-
-$$
-\sum_{i=1}^m {x^{(i)}}^2 - m \bar{x}^2 = \sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)^2,
-$$
-
-from which the desired equation for $\beta_1$ follows. To obtain the equation for $\beta_0$, note that
-
-$$
-\mathcal{X}^T \mathcal{X} \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \mathcal{X}^T \by 
-$$
-
-implies $m \beta_0  + m \beta_1 \bar{x} = m \bar{y}$, and so $\beta_0 = \bar{y} - \beta_1 \bar{x}$. Q.E.D.
-```
-
-To illustrate the concepts, let's take a simple toy dataset consisting of the three points
-
-$$
-(0, 0), (1, 1), (2, 3) \in \bbr^2.
-$$
-
-We may use the formulas above to obtain the MLEs for the two parameters $\beta_0,\beta_1 \in \bbr$. Plotting the regression line $y=\beta_0 + \beta_1 x$ along with the data yields the left-hand plot in what follows, while the contours of the objective function $J(\btheta)$ along with the MLE yield the right-hand plot:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -654,11 +302,11 @@ def J(theta, X, y):
     return -0.5 * np.linalg.norm(y - X @ theta, axis=0) ** 2
 
 # define grid
-linspace_x = np.linspace(-5, 6)
-linspace_y = np.linspace(-4, 5)
-x_grid, y_grid = np.meshgrid(linspace_x, linspace_y)
-contour_grid = np.column_stack((x_grid.reshape(-1, 1), y_grid.reshape(-1, 1))).T
-z = J(contour_grid, X, y).reshape(x_grid.shape)
+x_grid = np.linspace(-5, 6)
+y_grid = np.linspace(-4, 5)
+x_grid, y_grid = np.meshgrid(x_grid, y_grid)
+grid = np.column_stack((x_grid.reshape(-1, 1), y_grid.reshape(-1, 1))).T
+z = J(grid, X, y).reshape(x_grid.shape)
 
 # plot
 _, axes = plt.subplots(ncols=2, figsize=(9, 3))
@@ -677,9 +325,6 @@ axes[1].set_ylabel('$\\beta_1$')
 plt.tight_layout()
 ```
 
-You will compute the maximum likelihood estimates for the parameters $\beta_0$ and $\beta_1$ in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-4).
-
-
 
 
 
@@ -693,52 +338,6 @@ You will compute the maximum likelihood estimates for the parameters $\beta_0$ a
 
 ## MLE for logistic regression
 
-Recall from {numref}`log-reg-sec` that the underlying graph of a logistic regression model is given by 
-
-```{image} ../img/log-reg-00.svg
-:width: 50%
-:align: center
-```
-&nbsp;
-
-where $\beta_0 \in \bbr$ is the bias term and $\bbeta \in \mathbb{R}^{n\times 1}$ is the weight vector. The link function at $Y$ is given by
-
-$$
-Y \mid \bX ; \ \beta_0,\bbeta \sim \Ber(\phi) \quad \text{where} \quad \phi = \sigma( \beta_0 + \bx\bbeta),
-$$
-
-and
-
-$$
-\sigma(z) \def \frac{1}{1+e^{-z}}
-$$
-
-is the _sigmoid function_. Given a dataset
-
-$$
-(\bx^{(1)},y^{(1)}),\ldots,(\bx^{(m)},y^{(m)}) \in \bbr^{1\times n} \times \{0,1\},
-$$
-
-the data log-likelihood function is given by
-
-\begin{align*}
-\ell(\beta_0, \bbeta) &= \sum_{i=1}^m \log \left[ \big(\phi^{(i)}\big)^{y^{(i)}} \big(1-\phi^{(i)}\big)^{1-y^{(i)}} \right] \\
-&= \sum_{i=1}^m \left[ y^{(i)} \log{\phi^{(i)}} + \big( 1-y^{(i)}\big) \log{ \big( 1- \phi^{(i)} \big)}  \right]
-\end{align*}
-
-where $\phi^{(i)} = \sigma \big(\beta_0 + \bx^{(i)} \bbeta\big)$ for each $i=1,\ldots,m$.
-
-As always, maximizers of $\ell(\beta_0,\bbeta)$ will occur at places where the gradient vanishes, $\nabla \ell(\beta_0,\bbeta)=0$. Unlike linear regression models, closed form solutions to this latter equation are not available in general, so numerical approximation algorithms like those studied in {numref}`Chapter %s <optim>` are needed. However, linear and logistic regression models _do_ have the following important property in common:
-
-```{prf:theorem} Maximum likelihood estimates for logistic regression
-:label: mle-log-reg-thm
-
-The data log-likelihood function $\ell(\beta_0,\bbeta)$ for a logistic regression model is concave.
-```
-
-You will prove this in the suggested problems for this section.
-
-In {numref}`log-reg-sec`, we used a black-box learning algorithm to train a logistic regression model on the following dataset:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -746,26 +345,14 @@ In {numref}`log-reg-sec`, we used a black-box learning algorithm to train a logi
 :   figure:
 :       align: center
 
-# import scaler from scikit-learn
-from sklearn.preprocessing import StandardScaler
-
-# import the data
-url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch10-book-data-01.csv'
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch12-book-data-01.csv'
 df = pd.read_csv(url)
 
 # convert the data to numpy arrays
 X = df[['x_1', 'x_2']].to_numpy()
 y = df['y'].to_numpy()
 
-# scale the input data
-ss = StandardScaler()
-X = ss.fit_transform(X=X)
-
-# replaced the columns of the dataframe with the transformed data
-df['x_1'] = X[:, 0]
-df['x_2'] = X[:, 1]
-
-# convert the data to tensors
+# convert the data to torch tensors
 X = torch.tensor(data=X, dtype=torch.float32)
 y = torch.tensor(data=y, dtype=torch.float32)
 
@@ -775,8 +362,8 @@ g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
 # change the default seaborn legend
 g.legend_.set_title(None)
 new_labels = ['class 0', 'class 1']
-for t, k2 in zip(g.legend_.texts, new_labels):
-    t.set_text(k2)
+for t, l in zip(g.legend_.texts, new_labels):
+    t.set_text(l)
 
 plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
@@ -784,13 +371,6 @@ plt.gcf().set_size_inches(w=5, h=3)
 plt.tight_layout()
 ```
 
-Now, however, we may train a logistic regression model from scratch using MLE. In the following series of plots, we compute the (approximate) MLE using batch gradient descent to find the (approximate) minimizer of the negative stochastic objective function
-
-$$
-- J(\beta_0, \bbeta) =  - E\big( \ell(\beta_0,\bbeta; \widehat{\bX}, \widehat{Y}) \big) =  -\frac{1}{m} \sum_{i=1}^m \left[ y^{(i)} \log{\phi^{(i)}} + \big( 1-y^{(i)}\big) \log{ \big( 1- \phi^{(i)} \big)}  \right]
-$$
-
-where $\hat{p}(\bx, y)$ is the empirical mass function of the dataset, $\widehat{\bX},\widehat{Y}\sim \hat{p}(\bx, y)$, and $\phi^{(i)} = \sigma \big(\beta_0 + \bx^{(i)} \bbeta\big)$ for each $i=1,\ldots,m$. The plots in the first column show the values of the objective function $J(\beta_0,\bbeta)$ versus the gradient steps. The plots in the second column show the decision boundary at the given point in the execution of the algorithm represented by the large magenta dots in the plots in the first column. As the algorithm executes, we can _see_ the decision boundary moving to the optimal position.
 
 
 ```{code-cell} ipython3
@@ -799,122 +379,32 @@ where $\hat{p}(\bx, y)$ is the empirical mass function of the dataset, $\widehat
 :   figure:
 :       align: center
 
-# define the SGD function
-def SGD(parameters, J, X, num_epochs, batch_size, lr, maximize=False, tracking='epoch', y=None, decay=0, max_steps=-1, J_args=None, shuffle=True, random_state=None):
-
-    # if no arguments to the objective are passed, set `J_args` to the empty dictionary
-    J_args = {} if J_args is None else J_args
-
-    # define data loader
-    if random_state is not None:
-        torch.manual_seed(random_state)
-    dataset = TensorDataset(X, y) if y is not None else X
-    data_loader = DataLoader(dataset=dataset, batch_size=batch_size, shuffle=shuffle)
-    
-    # initialize lists and a dictionary to track objectives and parameters
-    running_objectives = []
-    running_parameters = defaultdict(list)
-    step_count = 0
-
-    # begin looping through epochs
-    for t in range(num_epochs):
-        
-        # initialize a list to track per-step objectives. this will only be used if
-        # tracking is set to 'epoch'
-        per_step_objectives = []
-        
-        # begin gradient descent loop
-        for mini_batch in data_loader:
-            
-            # `mini_batch` will be a pair of tensors if `y` is not None; otherwise it will be a single tensor. when
-            # computing the objective, we need to distinguish the case:
-            if y is not None:
-                objective = J(*mini_batch, parameters=parameters, **J_args)
-            else:
-                objective = J(mini_batch, parameters=parameters, **J_args)
-
-            # if we are tracking per gradient step, then add objective value and parameters to the 
-            # running lists. otherwise, we are tracking per epoch, so add the objective value to
-            # the list of per-step objectives
-            if tracking == 'gd_step':
-                running_objectives.append(objective.detach().view(1))
-                for name, parameter in parameters.items():
-                    running_parameters[name].append(parameter.detach().clone())
-            else:
-                per_step_objectives.append(objective.detach().view(1))
-        
-            # compute gradients    
-            objective.backward()
-
-            # take a gradient step and update the parameters
-            with torch.no_grad():
-                for parameter in parameters.values():
-                    g = ((1 - decay) ** (t + 1)) * parameter.grad
-                    if maximize:
-                        parameter += lr * g
-                    else:
-                        parameter -= lr * g
-            
-            # zero out the gradients to prepare for the next iteration
-            for parameter in parameters.values():
-                parameter.grad.zero_()
-
-            # if we hit the maximum number of gradient steps, break out of the inner `for`
-            # loop
-            step_count += 1
-            if step_count == max_steps:
-                break
-        
-        # if we are tracking per epoch, then add the average per-step objective to the
-        # list of running objectives. also, add the current parameters to the list of running
-        # parameters
-        if tracking == 'epoch':
-            per_step_objectives = torch.row_stack(per_step_objectives)
-            running_objectives.append(torch.mean(per_step_objectives))
-            for name, parameter in parameters.items():
-                running_parameters[name].append(parameter.detach().clone())
-        
-        # if we hit the maximum number of gradient steps, break out of the outer `for`
-        # loop
-        if step_count == max_steps:
-            break
-
-    return dict(running_parameters), running_objectives
-
+# define the link function at Y
 def phi(X, parameters):
-    beta = parameters['beta']
     beta0 = parameters['beta0']
-    return torch.sigmoid(X @ beta + beta0).squeeze()
+    beta = parameters['beta']
+    return torch.sigmoid(beta0 + X @ beta)
 
-# define the logistic regression model
-def model(X, parameters):
+# define the data surprisal function
+def I(parameters):
+    probs = phi(X, parameters)
+    return torch.sum(-y * torch.log(probs) - (1 - y) * torch.log(1 - probs))
+
+# define the predictor
+def predictor(X, parameters):
     probs = phi(X, parameters)
     return (probs >= 0.5).to(torch.int)
 
-# define the objective function for logistic regression
-def J(X, y, parameters):
-    probs = phi(X, parameters)
-    return torch.mean(y * torch.log(probs) + (1 - y) * torch.log(1 - probs))
-
-# initialize the parameters
+# initialize the weights and biases
 torch.manual_seed(42)
-beta = torch.normal(mean=0, std=1e-1, size=(2, 1)).requires_grad_(True)
-beta0 = torch.normal(mean=0, std=1e-1, size=(1,)).requires_grad_(True)
-parameters = {'beta': beta, 'beta0': beta0}
+beta0 = torch.normal(mean=0, std=1e-1, size=(1,))
+beta = torch.normal(mean=0, std=1e-1, size=(2,))
+theta0 = {'beta0': beta0, 'beta': beta}
 
-# define parameters for SGD
-sgd_parameters = {'parameters': parameters,
-                  'J': J,
-                  'X': X,
-                  'y': y,
-                  'num_epochs': 50,
-                  'batch_size': 1024,
-                  'lr': 1,
-                  'maximize': True,
-                  'tracking': 'gd_step'}
-
-# run SGD
-running_parameters, running_objectives = SGD(**sgd_parameters)
+# run gradient descent
+N = 50
+alpha = 1e-3
+gd_output = GD(J=I, init_parameters=theta0, lr=alpha, num_steps=N)
 
 # define grid for contour plot
 resolution = 1000
@@ -928,20 +418,22 @@ desat_blue = '#7F93FF'
 desat_magenta = '#FF7CFE'
 binary_cmap = clr.LinearSegmentedColormap.from_list(name='binary', colors=[desat_blue, desat_magenta], N=2)
 
-epoch_list = [0, 3, sgd_parameters['num_epochs'] - 1]
+epoch_list = [0, 3, N]
+running_parameters = gd_output.parameters
+
 _, axes = plt.subplots(ncols=2, nrows=len(epoch_list), figsize=(10, 9))
 
 for i, epoch in enumerate(epoch_list):
     parameters = {key: value[epoch] for key, value in running_parameters.items()}
     
     # plot the objective function
-    axes[i, 0].plot(range(len(running_objectives)), running_objectives)
+    axes[i, 0].plot(range(len(gd_output.objectives)), gd_output.objectives)
     axes[i, 0].set_xlabel('gradient steps')
-    axes[i, 0].set_ylabel('objective $J(\\theta)$')
-    axes[i, 0].scatter(epoch_list[i], running_objectives[epoch], color=magenta, s=50, zorder=3)
+    axes[i, 0].set_ylabel('data surprisal')
+    axes[i, 0].scatter(epoch_list[i], gd_output.objectives[epoch], color=magenta, s=100, zorder=3)
 
     # apply the fitted model to the grid
-    z = model(X=grid, parameters=parameters)
+    z = predictor(grid, parameters)
 
     # plot the decision boundary and colors
     z = z.reshape(shape=(resolution, resolution))
@@ -977,17 +469,127 @@ plt.tight_layout()
 ## MLE for neural networks
 
 
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch12-book-data-02.csv'
+df = pd.read_csv(url)
+
+# convert the data to numpy arrays
+X = df[['x_1', 'x_2']].to_numpy()
+y = df['y'].to_numpy()
+
+# convert the data to torch tensors
+X = torch.tensor(data=X, dtype=torch.float32)
+y = torch.tensor(data=y, dtype=torch.float32)
+
+# plot the data
+g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y')
+
+# change the default seaborn legend
+g.legend_.set_title(None)
+new_labels = ['class 0', 'class 1']
+for t, l in zip(g.legend_.texts, new_labels):
+    t.set_text(l)
+
+plt.xlabel('$x_1$')
+plt.ylabel('$x_2$')
+plt.gcf().set_size_inches(w=5, h=3)
+plt.tight_layout()
+```
 
 
 
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
 
+# define the link function at Y
+def phi(X, parameters):
+    Z_0 = X
+    Z_1 = F.relu(Z_0 @ parameters['weight_1'] + parameters['bias_1'])
+    Z_2 = F.relu(Z_1 @ parameters['weight_2'] + parameters['bias_2'])
+    Z_3 = F.relu(Z_2 @ parameters['weight_3'] + parameters['bias_3'])
+    return torch.sigmoid(Z_3 @ parameters['weight_4'] + parameters['bias_4'])
 
+# define the model surprisal function
+def I(X, y, parameters):
+    probs = phi(X, parameters)
+    return -y * torch.log(probs) - (1 - y) * torch.log(1 - probs)
 
+# define the predictor
+def predictor(X, parameters):
+    probs = phi(X, parameters)
+    return (probs >= 0.5).to(torch.int)
 
+# define the network architecture
+k1 = 8 # width of first hidden layer
+k2 = 8 # width of second hidden layer
+k3 = 4 # width of third hidden layer
+widths = [2, k1, k2, k3, 1]
 
+# initialize the weights and biases
+torch.manual_seed(42)
+theta0 = {}
+for i in range(1, 5):
+    weight = torch.empty(widths[i-1], widths[i])
+    bias = torch.empty(widths[i])
+    nn.init.uniform_(weight, a=-1/sqrt(widths[i-1]), b=1/sqrt(widths[i-1]))
+    nn.init.uniform_(bias, a=-1/sqrt(widths[i-1]), b=1/sqrt(widths[i-1]))
+    theta0 = theta0 | {'weight_' + str(i): weight.squeeze()}
+    theta0 = theta0 | {'bias_' + str(i): bias}
 
+# run SGD
+N = 80
+k = 128
+alpha = 0.1
+sgd_output = SGD(g=I, init_parameters=theta0, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
 
-(em-gmm-sec)=
-## Expectation maximization for Gaussian mixture models
+# get the grid for the contour plot
+resolution = 1000
+x1_grid = torch.linspace(-1.75, 1.75, resolution)
+x2_grid = torch.linspace(-1.5, 1.5, resolution)
+x1_grid, x2_grid = torch.meshgrid(x1_grid, x2_grid)
+grid = torch.column_stack((x1_grid.reshape((resolution ** 2, -1)), x2_grid.reshape((resolution ** 2, -1))))
 
+epoch_list = [0, 750, len(sgd_output.per_step_objectives) - 1]
+running_parameters = sgd_output.parameters
 
+_, axes = plt.subplots(ncols=2, nrows=len(epoch_list), figsize=(10, 9))
+
+for i, epoch in enumerate(epoch_list):
+    parameters = {key: value[epoch] for key, value in running_parameters.items()}
+    
+    # plot the objective function
+    axes[i, 0].plot(sgd_output.grad_steps, sgd_output.per_step_objectives, alpha=0.25, label='per step cross entropy')
+    axes[i, 0].plot(sgd_output.epoch_step_nums, sgd_output.per_epoch_objectives, label='per epoch mean cross entropy')
+    axes[i, 0].set_xlabel('gradient steps')
+    axes[i, 0].set_ylabel('cross entropy')
+    axes[i, 0].scatter(epoch_list[i], sgd_output.per_step_objectives[epoch], color=magenta, s=100, zorder=3)
+    axes[i, 0].legend()
+
+    # apply the fitted model to the grid
+    z = predictor(grid, parameters)
+
+    # plot the decision boundary and colors
+    z = z.reshape(shape=(resolution, resolution))
+    axes[i, 1].contourf(x1_grid, x2_grid, z, cmap=binary_cmap)
+    axes[i, 1].set_xlabel('$x_1$')
+    axes[i, 1].set_ylabel('$x_2$')
+
+    # plot the data
+    g = sns.scatterplot(data=df, x='x_1', y='x_2', hue='y', ax=axes[i, 1])
+
+    # change the default seaborn legend
+    g.legend_.set_title(None)
+    new_labels = ['class 0', 'class 1']
+    for t, l in zip(g.legend_.texts, new_labels):
+        t.set_text(l)
+    
+plt.tight_layout()
+```

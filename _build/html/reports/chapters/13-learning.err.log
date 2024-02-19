@@ -1,0 +1,84 @@
+Traceback (most recent call last):
+  File "/Users/johnmyers/miniconda3/envs/python-2023-12/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/Users/johnmyers/miniconda3/envs/python-2023-12/lib/python3.10/site-packages/nbclient/client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/johnmyers/miniconda3/envs/python-2023-12/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 173, in wrapped
+    return loop.run_until_complete(inner)
+  File "/Users/johnmyers/miniconda3/envs/python-2023-12/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/Users/johnmyers/miniconda3/envs/python-2023-12/lib/python3.10/site-packages/nbclient/client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "/Users/johnmyers/miniconda3/envs/python-2023-12/lib/python3.10/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/johnmyers/miniconda3/envs/python-2023-12/lib/python3.10/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+import torch
+import sys
+sys.path.append('/Users/johnmyers/code/stats-book-materials/notebooks')
+from gd_utils import SGD
+import matplotlib_inline.backend_inline
+plt.style.use('../aux-files/custom_style_light.mplstyle')
+matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
+blue = '#486AFB'
+magenta = '#FD46FC'
+
+torch.manual_seed(42)
+theta = 0.65
+m = 128
+X = torch.bernoulli(torch.tensor([theta] * m))
+
+def g(X, theta):
+    return -X * torch.log(theta) - (1 - X) * torch.log(1 - theta)
+
+def cross_entropy(theta):
+    Sigmax = sum(X)
+    return -(1 / m) * (Sigmax * np.log(theta) + (m - Sigmax) * np.log(1 - theta))
+
+theta0 = torch.tensor([0.05])
+alpha = 0.01
+k = 8
+N = 10
+
+sgd_output = SGD(g=g, theta0=theta0, X=X, lr=alpha, batch_size=k, num_epochs=N)
+
+epoch_step_nums = sgd_output.epoch_step_nums
+objectives = sgd_output.per_step_objectives[epoch_step_nums]
+thetas = sgd_output.get_thetas()
+thetas = thetas[epoch_step_nums]
+grid = np.linspace(start=0.01, stop=0.99, num=200)
+
+_, axes = plt.subplots(ncols=2, figsize=(10, 4), sharey=True)
+
+axes[0].plot(grid, cross_entropy(grid))
+axes[0].step(thetas, objectives, where='post', color=magenta)
+axes[0].scatter(thetas, objectives, color=magenta, s=45, zorder=3)
+axes[0].set_xlabel('$\\theta$')
+axes[0].set_ylabel('cross entropy')
+
+axes[1].plot(range(len(sgd_output.per_step_objectives)), sgd_output.per_step_objectives, color=magenta, alpha=0.45)
+axes[1].scatter(epoch_step_nums, objectives, s=50, color=magenta, zorder=3)
+axes[1].set_xlabel('gradient steps')
+
+plt.suptitle(f'mini-batch gradient descent\n$k={k}$, $\\alpha = {alpha}$, $\\beta=0$, $N = {N}$')
+plt.tight_layout()
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn[1], line 32[0m
+[1;32m     29[0m k [38;5;241m=[39m [38;5;241m8[39m
+[1;32m     30[0m N [38;5;241m=[39m [38;5;241m10[39m
+[0;32m---> 32[0m sgd_output [38;5;241m=[39m [43mSGD[49m[43m([49m[43mg[49m[38;5;241;43m=[39;49m[43mg[49m[43m,[49m[43m [49m[43mtheta0[49m[38;5;241;43m=[39;49m[43mtheta0[49m[43m,[49m[43m [49m[43mX[49m[38;5;241;43m=[39;49m[43mX[49m[43m,[49m[43m [49m[43mlr[49m[38;5;241;43m=[39;49m[43malpha[49m[43m,[49m[43m [49m[43mbatch_size[49m[38;5;241;43m=[39;49m[43mk[49m[43m,[49m[43m [49m[43mnum_epochs[49m[38;5;241;43m=[39;49m[43mN[49m[43m)[49m
+[1;32m     34[0m epoch_step_nums [38;5;241m=[39m sgd_output[38;5;241m.[39mepoch_step_nums
+[1;32m     35[0m objectives [38;5;241m=[39m sgd_output[38;5;241m.[39mper_step_objectives[epoch_step_nums]
+
+[0;31mTypeError[0m: SGD() got an unexpected keyword argument 'theta0'
+
