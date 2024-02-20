@@ -57,7 +57,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib_inline.backend_inline
-from math_stats_ml.gd import GD, SGD
+from math_stats_ml.gd import GD, SGD, plot_gd, plot_sgd
 plt.style.use('../aux-files/custom_style_light.mplstyle')
 matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
 blue = '#486AFB'
@@ -245,9 +245,9 @@ for i, axis in enumerate(axes.flatten()):
     thetas = gd_output.parameters['theta']
     
     axis.plot(grid, J(grid))
-    axis.step(x=thetas, y=gd_output.objectives, where='post', color=magenta, zorder=2)
-    axis.scatter(x=thetas, y=gd_output.objectives, s=30, color=magenta, zorder=2)
-    axis.scatter(x=thetas[0], y=gd_output.objectives[0], s=100, color=magenta, zorder=2)
+    axis.step(x=thetas, y=gd_output.per_step_objectives, where='post', color=magenta, zorder=2)
+    axis.scatter(x=thetas, y=gd_output.per_step_objectives, s=30, color=magenta, zorder=2)
+    axis.scatter(x=thetas[0], y=gd_output.per_step_objectives[0], s=100, color=magenta, zorder=2)
     axis.set_xlabel('$\\theta$')
     axis.set_ylabel('$J(\\theta)$')
     axis.set_title(f'$\\alpha={alpha}$, $N={N}$')
@@ -280,9 +280,9 @@ thetas = gd_output.parameters['theta']
 
 grid = torch.linspace(start=-55, end=50, steps=300)
 plt.plot(grid, J(grid))
-plt.step(x=thetas, y=gd_output.objectives, where='post', color=magenta, zorder=2)
-plt.scatter(x=thetas, y=gd_output.objectives, s=30, color=magenta, zorder=2)
-plt.scatter(x=thetas[0], y=gd_output.objectives[0], s=100, color=magenta, zorder=2)
+plt.step(x=thetas, y=gd_output.per_step_objectives, where='post', color=magenta, zorder=2)
+plt.scatter(x=thetas, y=gd_output.per_step_objectives, s=30, color=magenta, zorder=2)
+plt.scatter(x=thetas[0], y=gd_output.per_step_objectives[0], s=100, color=magenta, zorder=2)
 
 plt.xlabel('$\\theta$')
 plt.ylabel('$J(\\theta)$')
@@ -333,9 +333,9 @@ thetas = gd_output.parameters['theta']
 
 grid = torch.linspace(start=-0.5, end=3.5, steps=300)
 plt.plot(grid, J(grid))
-plt.step(x=thetas, y=gd_output.objectives, where='post', color=magenta, zorder=2)
-plt.scatter(x=thetas, y=gd_output.objectives, s=30, color=magenta, zorder=2)
-plt.scatter(x=thetas[0], y=gd_output.objectives[0], s=100, color=magenta, zorder=2)
+plt.step(x=thetas, y=gd_output.per_step_objectives, where='post', color=magenta, zorder=2)
+plt.scatter(x=thetas, y=gd_output.per_step_objectives, s=30, color=magenta, zorder=2)
+plt.scatter(x=thetas[0], y=gd_output.per_step_objectives[0], s=100, color=magenta, zorder=2)
 
 plt.xlabel('$\\theta$')
 plt.ylabel('$J(\\theta)$')
@@ -366,11 +366,7 @@ we would plot the following:
 :       align: center
 
 gd_output = GD(J=J, init_parameters=torch.tensor([-0.5]), lr=1e-2, num_steps=15, decay_rate=0.1)
-
-plt.plot(range(len(gd_output.objectives)), gd_output.objectives)
-plt.xlabel('gradient steps')
-plt.ylabel('objective')
-plt.gcf().set_size_inches(w=5, h=3)
+plot_gd(gd_output, h=3, plot_title=False, parameter_title=False, ylabel='objective')
 plt.tight_layout()
 ```
 
@@ -1035,12 +1031,7 @@ for i, axis in enumerate(axes.flatten()):
                    num_steps=N,
                    decay_rate=beta,
                    **gd_parameters_slice)
-    
-    axis.plot(range(len(gd_output.objectives)), gd_output.objectives)
-    
-    axis.set_xlabel('gradient steps')
-    axis.set_ylabel('objective')
-    axis.set_title(f'$\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
+    plot_gd(gd_output=gd_output, ylabel='objective', ax=axis, plot_title=False)
 fig.suptitle('first runs of gradient descent')
 plt.tight_layout()
 ```
@@ -1071,11 +1062,14 @@ axes[0].set_ylabel('$\\theta_2$')
 axes[0].set_xlim(0.2, 1.2)
 axes[0].set_ylim(0.8, 1.15)
 
-axes[1].plot(range(len(gd_output.objectives)), thetas[:, 0], label='$\\theta_1$')
-axes[1].plot(range(len(gd_output.objectives)), thetas[:, 1], alpha=0.3, label='$\\theta_2$')
+axes[1].plot(range(len(gd_output.per_step_objectives)), thetas[:, 0], label='$\\theta_1$')
+axes[1].plot(range(len(gd_output.per_step_objectives)), thetas[:, 1], alpha=0.3, label='$\\theta_2$')
 axes[1].set_xlabel('gradient steps')
 axes[1].set_ylim(0.8, 1.1)
 axes[1].legend()
+
+fig.suptitle(f'$\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
+plt.tight_layout()
 
 fig.suptitle(f'$\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
 plt.tight_layout()
@@ -1289,8 +1283,8 @@ axes[0].set_ylabel('$\\theta_2$')
 axes[0].set_xlim(0.2, 1.2)
 axes[0].set_ylim(0.6, 1.25)
 
-axes[1].plot(range(len(gd_output.objectives)), thetas[:, 0], label='$\\theta_1$')
-axes[1].plot(range(len(gd_output.objectives)), thetas[:, 1], alpha=0.5, label='$\\theta_2$')
+axes[1].plot(range(len(gd_output.per_step_objectives)), thetas[:, 0], label='$\\theta_1$')
+axes[1].plot(range(len(gd_output.per_step_objectives)), thetas[:, 1], alpha=0.5, label='$\\theta_2$')
 axes[1].set_xlabel('gradient steps')
 axes[1].set_ylim(0.9, 1.1)
 axes[1].legend()
@@ -1363,12 +1357,7 @@ for i, axis in enumerate(axes.flatten()):
                    num_steps=N,
                    decay_rate=beta,
                    **gd_parameters_slice)
-    
-    axis.plot(range(len(gd_output.objectives)), gd_output.objectives)
-    
-    axis.set_xlabel('gradient steps')
-    axis.set_ylabel('objective')
-    axis.set_title(f'$\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
+    plot_gd(gd_output=gd_output, ylabel='objective', ax=axis, plot_title=False)
 fig.suptitle('third runs of gradient descent with learning rate decay')
 plt.tight_layout()
 ```
@@ -1485,14 +1474,7 @@ fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(7, 3), sharey=True)
 for i, axis in enumerate(axes):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
     gd_output = GD(**gd_parameters_slice, J=J, decay_rate=beta, init_parameters=theta0)
-    
-    alpha = gd_parameters_slice['lr']
-    
-    axis.plot(range(len(gd_output.objectives)), gd_output.objectives)
-    
-    axis.set_xlabel('gradient steps')
-    axis.set_ylabel('objective')
-    axis.set_title(f'$\\alpha={alpha}$, $\\beta={beta}$')
+    plot_gd(gd_output=gd_output, ylabel='objective', ax=axis, plot_title=False)
 fig.suptitle('batch gradient descent')
 plt.tight_layout()
 ```
@@ -1641,13 +1623,7 @@ for i, axis in enumerate(axes.flatten()):
                     decay_rate=beta,
                     num_epochs=N,
                     random_state=42)
-    
-    alpha = gd_parameters_slice['lr']
-    
-    axis.plot(range(len(sgd_output.per_step_objectives)), sgd_output.per_step_objectives)
-    axis.set_xlabel('gradient steps')
-    axis.set_ylabel('objective')
-    axis.set_title(f'$k={k}$, $\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
+    plot_sgd(sgd_output, plot_title=False, ax=axis, show_epoch=False, per_step_alpha=1, legend=False, ylabel='objective')
 fig.suptitle(f'stochastic gradient descent with $k=1$')
 plt.tight_layout()
 ```
@@ -1719,7 +1695,8 @@ for i, axis in enumerate(axes.flatten()):
     k = gd_parameters_slice['batch_size']
     N = gd_parameters_slice['num_epochs']
     
-    axis.plot(range(len(sgd_output.per_step_objectives)), sgd_output.per_step_objectives)
+    plot_sgd(sgd_output, plot_title=False, ax=axis, show_epoch=False, per_step_alpha=1, legend=False, ylabel='objective', per_step_label='objective per step')
+    #axis.plot(range(len(sgd_output.per_step_objectives)), sgd_output.per_step_objectives)
     axis.scatter(sgd_output.epoch_step_nums, sgd_output.per_step_objectives[sgd_output.epoch_step_nums], color=magenta, s=50, zorder=2, label='epoch')
     axis.set_xlabel('gradient steps')
     axis.set_ylabel('objective')
@@ -1792,16 +1769,14 @@ for i, axis in enumerate(axes.flatten()):
                     num_epochs=N,
                     decay_rate=beta,
                     random_state=42)
-    
-    k = gd_parameters_slice['batch_size']
-    
-    axis.plot(range(len(sgd_output.per_step_objectives)), sgd_output.per_step_objectives, alpha=0.25, label='objective per step')
-    axis.plot(sgd_output.epoch_step_nums, sgd_output.per_epoch_objectives)
-    axis.scatter(sgd_output.epoch_step_nums, sgd_output.per_epoch_objectives, s=50, color=magenta, zorder=3, label='mean objective per epoch')
-    axis.set_xlabel('gradient steps')
-    axis.set_ylabel('objective')
-    axis.set_title(f'$k={k}$, $\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
-    axis.legend()
+    plot_sgd(sgd_output,
+             plot_title=False,
+             ax=axis,
+             per_step_alpha=0.25,
+             ylabel='objective',
+             per_epoch_color=magenta,
+             per_step_label='objective per step',
+             per_epoch_label='mean objective per epoch')
 fig.suptitle('mini-batch gradient descent')
 plt.tight_layout()
 ```
