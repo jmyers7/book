@@ -52,15 +52,12 @@ This function is called the _objective function_ of the optimization problem. It
 :       align: center
 
 import torch
-from torch.utils.data import DataLoader
 from torch.distributions.multivariate_normal import MultivariateNormal
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib_inline.backend_inline
-import sys
-sys.path.append('/Users/johnmyers/code/stats-book-materials/notebooks')
-from gd_utils import GD, SGD
+from math_stats_ml.gd import GD, SGD
 plt.style.use('../aux-files/custom_style_light.mplstyle')
 matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
 blue = '#486AFB'
