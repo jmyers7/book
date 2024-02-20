@@ -533,9 +533,7 @@ x_1,x_2,\ldots,x_{128} \in \{0,1\}
 <span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/Users/johnmyers/code/stats-book-materials/notebooks&#39;</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">gd_utils</span> <span class="kn">import</span> <span class="n">GD</span><span class="p">,</span> <span class="n">SGD</span>
+<span class="kn">from</span> <span class="nn">math_stats_ml.gd</span> <span class="kn">import</span> <span class="n">GD</span><span class="p">,</span> <span class="n">SGD</span>
 <span class="kn">import</span> <span class="nn">matplotlib_inline.backend_inline</span>
 <span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">clr</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
@@ -591,7 +589,7 @@ x_1,x_2,\ldots,x_{128} \in \{0,1\}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/530e0f111d850c053114e7f28492570340b8d72925bbed4cf7f9f591d54959bb.svg" src="../_images/530e0f111d850c053114e7f28492570340b8d72925bbed4cf7f9f591d54959bb.svg" /></figure>
+<img alt="../_images/53ca73a480190dafe956fbe51d4dc4b67864af564815ffd34da089a943a745a0.svg" src="../_images/53ca73a480190dafe956fbe51d4dc4b67864af564815ffd34da089a943a745a0.svg" /></figure>
 </div>
 </div>
 <p>The blue curve in the left-hand plot is the graph of the <em>exact</em> cross entropy function <span class="math notranslate nohighlight">\(H_{\hat{P}}(P_\theta)\)</span>. The magenta points—which represent a selection of outputs of the algorithm—do not fall <em>precisely</em> on this graph since they are <em>approximations</em> to the cross entropy, obtained as realizations of the expression on the right-hand side of</p>
@@ -603,6 +601,167 @@ H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} I_{P_\theta}(x),
 </section>
 <section id="mle-for-linear-regression">
 <h2><span class="section-number">13.2. </span>MLE for linear regression<a class="headerlink" href="#mle-for-linear-regression" title="Permalink to this heading">#</a></h2>
+<p>Linear regression models are trained on datasets through maximum likelihood estimation as <em>discriminative models</em>. This means that the <em>model</em> and <em>data surprisal functions</em> are obtained via the <em>conditional</em> likelihood functions</p>
+<div class="math notranslate nohighlight">
+\[
+f(y \mid \bx; \ \beta_0,\bbeta,\sigma^2) \quad \text{and} \quad f(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0,\bbeta,\sigma^2),
+\]</div>
+<p>which were called the <em>model</em> and <em>data probability densities functions</em> in <a class="reference internal" href="12-models.html#linear-reg-pf-def">Definition 12.3</a> and <a class="reference internal" href="12-models.html#linear-reg-data-pf-thm">Theorem 12.1</a>, respectively.</p>
+<p>Linear regression models have the special property that maximum likelihood estimates may be obtained in <em>closed form</em>. To derive them, we shall assume—as many books in statistics and machine learning do—that the variance parameter <span class="math notranslate nohighlight">\(\sigma^2\)</span> is a <em>fixed</em>, <em>known</em> number and does not need to be learned. You will address the case that <span class="math notranslate nohighlight">\(\sigma^2\)</span> is unknown in the homework for this section.</p>
+<p>Therefore, the underlying graph of the linear regression model is of the form</p>
+<a class="reference internal image-reference" href="../_images/log-reg-00.svg"><img alt="../_images/log-reg-00.svg" class="align-center" src="../_images/log-reg-00.svg" width="35%" /></a>
+<p> </p>
+<p>where <span class="math notranslate nohighlight">\(\beta_0 \in \bbr\)</span> and <span class="math notranslate nohighlight">\(\bbeta \in \mathbb{R}^{n}\)</span> are the only parameters. The link function at <span class="math notranslate nohighlight">\(Y\)</span> is still given by</p>
+<div class="math notranslate nohighlight">
+\[
+Y \mid \bX=\bx ; \ \beta_0,\bbeta \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu = \beta_0 + \bx^\intercal \bbeta.
+\]</div>
+<p>Then, given a dataset</p>
+<div class="math notranslate nohighlight">
+\[
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr,
+\]</div>
+<p>we may retrieve the data log-likelihood function from <a class="reference internal" href="12-models.html#lin-reg-sec"><span class="std std-numref">Section 12.3</span></a>:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\ell(\beta_0, \bbeta) &amp;= \sum_{i=1}^m \log \left[ \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} \big( y^{(i)} - \mu^{(i)} \big)^2 \right) \right] \\
+&amp;= - m\log{\sqrt{2\pi\sigma^2}} - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2,
+\end{align*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu^{(i)} = \beta_0 + \bx^{(i)} \bbeta \)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>.</p>
+<p>The maximizers of <span class="math notranslate nohighlight">\(\ell(\beta_0,\bbeta)\)</span> will occur at those parameter values for which <span class="math notranslate nohighlight">\(\nabla \ell(\beta_0, \bbeta)=0\)</span>. Since <span class="math notranslate nohighlight">\(-m\log{\sqrt{2\pi\sigma^2}}\)</span> is constant with respect to the parameters, it may be dropped, leaving the equivalent objective function</p>
+<div class="math notranslate nohighlight">
+\[
+(\beta_0,\bbeta) \mapsto - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
+\]</div>
+<p>But the reciprocal variance <span class="math notranslate nohighlight">\(1/\sigma^2\)</span> (i.e., the <em>precision</em>) is fixed, and so it too may be dropped, leaving us with the equivalent objective function</p>
+<div class="math notranslate nohighlight" id="equation-lin-reg-mle-objective-eqn">
+<span class="eqno">(13.7)<a class="headerlink" href="#equation-lin-reg-mle-objective-eqn" title="Permalink to this equation">#</a></span>\[
+J(\beta_0,\bbeta) \def - \frac{1}{2}\sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
+\]</div>
+<p>Using this latter objective function, we obtain:</p>
+<div class="proof theorem admonition" id="mle-lin-reg-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 13.3 </span> (Maximum likelihood estimates for linear regression with known variance)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let the notation be as above, and let</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathcal{X} = \begin{bmatrix}
+1 &amp; x^{(1)}_1 &amp; \cdots &amp; x^{(1)}_n \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+1 &amp; x^{(m)}_1 &amp; \cdots &amp; x^{(m)}_n
+\end{bmatrix}, \quad \by = \begin{bmatrix} y^{(1)} \\ \vdots \\ y^{(m)} \end{bmatrix}, \quad \btheta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_n \end{bmatrix}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bbeta^T = (\beta_1,\ldots,\beta_n)\)</span>. Provided that the <span class="math notranslate nohighlight">\((n+1) \times (n+1)\)</span> square matrix <span class="math notranslate nohighlight">\(\mathcal{X}^T \mathcal{X}\)</span> is invertible, the maximum likelihood estimates for the parameters <span class="math notranslate nohighlight">\(\bbeta\)</span> and <span class="math notranslate nohighlight">\(\beta_0\)</span> are given by</p>
+<div class="math notranslate nohighlight">
+\[
+\btheta = \left(\mathcal{X}^T \mathcal{X}\right)^{-1}\mathcal{X}^T \by.
+\]</div>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. As we noted above, the MLEs may be obtained by maximizing the function <span class="math notranslate nohighlight">\(J(\btheta)\)</span> given in <a class="reference internal" href="#equation-lin-reg-mle-objective-eqn">(13.7)</a>, which may be rewritten as</p>
+<div class="math notranslate nohighlight">
+\[
+J(\btheta) = -\frac{1}{2} \left( \by - \mathcal{X}\btheta\right)^T\left( \by - \mathcal{X}\btheta\right).
+\]</div>
+<p>But as you will prove in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-1-solution">suggested problems</a>, taking the gradient gives</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla J(\btheta) = - \left( \by - \mathcal{X}\btheta\right)^T \text{Jac}\left(\by - \mathcal{X}\btheta \right),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\text{Jac}\left(\by - \mathcal{X}\btheta \right)\)</span> is the Jacobian matrix of the function</p>
+<div class="math notranslate nohighlight">
+\[
+\bbr^{n+1} \to \bbr^m, \quad \btheta \mapsto \by - \mathcal{X}\btheta.
+\]</div>
+<p>But it is easy to show that <span class="math notranslate nohighlight">\(\text{Jac}\left(\by - \mathcal{X}\btheta \right) = - \mathcal{X}\)</span>, and so</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla J(\btheta) =  \left( \by - \mathcal{X}\btheta\right)^T \mathcal{X}.
+\]</div>
+<p>Setting the gradient to zero and solving gives</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{X}^T \mathcal{X} \btheta = \mathcal{X}^T \by,
+\]</div>
+<p>from which the desired equation follows. The only thing that is left to prove is that we have actually obtained a <em>maximizer</em>. This follows from concavity of the objective function <span class="math notranslate nohighlight">\(J(\btheta)\)</span>, which you will establish in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-2-solution">suggested problems</a>. Q.E.D.</p>
+</div>
+<p>Note that the maximizer of the objective function</p>
+<div class="math notranslate nohighlight">
+\[
+J(\beta_0,\bbeta) = - \frac{1}{2} \sum_{i=1}^m \left( y^{(i)} - \mu^{(i)} \right)^2
+\]</div>
+<p>is the same as the minimizer of the objective function</p>
+<div class="math notranslate nohighlight">
+\[
+\text{RSS}(\beta_0, \bbeta) \def \sum_{i=1}^m \left( y^{(i)} - \mu^{(i)} \right)^2,
+\]</div>
+<p>called the <em>residual sum of squares</em>. The name comes about from the terminology introduced in <a class="reference internal" href="12-models.html#lin-reg-sec"><span class="std std-numref">Section 12.3</span></a>, where we learned that the differences</p>
+<div class="math notranslate nohighlight">
+\[
+y^{(i)} - \mu^{(i)} = y^{(i)} - \beta_0 - \beta_1 x_1^{(i)} - \cdots - \beta_n x_n^{(i)}
+\]</div>
+<p>are called the <em>residuals</em>. Thus, the maximum likelihood parameter estimates are those that minimize the residual sum of squares, which explains why the MLEs are also often called the <em>ordinary least squares</em> (<em>OLS</em>) estimates.</p>
+<p>It is worth writing out the MLEs in the case of simple linear regression:</p>
+<div class="proof corollary admonition" id="mle-simple-lin-reg-cor">
+<p class="admonition-title"><span class="caption-number">Corollary 13.1 </span> (Maximum likelihood estimates for simple linear regression with known variance)</p>
+<section class="corollary-content" id="proof-content">
+<p>Letting the notation be as above, the MLEs for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span> in a simple linear regression model are given by</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\beta_1 &amp;= \frac{\sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)\left( y^{(i)} - \bar{y} \right)}{\sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)^2}, \\
+\beta_0 &amp;= \bar{y} - \beta_1 \bar{x},
+\end{align*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bar{x} = \frac{1}{m} \sum_{i=1}^m x^{(i)}\)</span> and <span class="math notranslate nohighlight">\(\bar{y} = \frac{1}{m} \sum_{i=1}^m y^{(i)}\)</span> are the empirical means.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. First note that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathcal{X}^T \mathcal{X} = \begin{bmatrix} m &amp; m \bar{x} \\ m \bar{x} &amp; \sum_{i=1}^m {x^{(i)}}^2 \end{bmatrix}.
+\end{split}\]</div>
+<p>Assuming this matrix has nonzero determinant, we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left(\mathcal{X}^T \mathcal{X} \right)^{-1} = \frac{1}{m \sum_{i=1}^m {x^{(i)}}^2 - m^2 \bar{x}^2} \begin{bmatrix} \sum_{i=1}^m {x^{(i)}}^2 &amp; -m \bar{x} \\ -m \bar{x} &amp; m \end{bmatrix}.
+\end{split}\]</div>
+<p>But</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathcal{X}^T \by = \begin{bmatrix} m \bar{y} \\ \sum_{i=1}^m x^{(i)} y^{(i)} \end{bmatrix},
+\end{split}\]</div>
+<p>and so from</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \btheta =  \left(\mathcal{X}^T \mathcal{X}\right)^{-1}\mathcal{X}^T \by
+\end{split}\]</div>
+<p>we conclude</p>
+<div class="math notranslate nohighlight">
+\[
+\beta_1 = \frac{\sum_{i=1}^m x^{(i)} y^{(i)} -m \bar{x}\bar{y} }{ \sum_{i=1}^m {x^{(i)}}^2 - m \bar{x}^2}.
+\]</div>
+<p>But as you may easily check, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^m x^{(i)} y^{(i)} -m \bar{x}\bar{y}  = \sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)\left( y^{(i)} - \bar{y} \right)
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^m {x^{(i)}}^2 - m \bar{x}^2 = \sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)^2,
+\]</div>
+<p>from which the desired equation for <span class="math notranslate nohighlight">\(\beta_1\)</span> follows. To obtain the equation for <span class="math notranslate nohighlight">\(\beta_0\)</span>, note that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathcal{X}^T \mathcal{X} \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \mathcal{X}^T \by 
+\end{split}\]</div>
+<p>implies <span class="math notranslate nohighlight">\(m \beta_0  + m \beta_1 \bar{x} = m \bar{y}\)</span>, and so <span class="math notranslate nohighlight">\(\beta_0 = \bar{y} - \beta_1 \bar{x}\)</span>. Q.E.D.</p>
+</div>
+<p>To illustrate the concepts, let’s take a simple toy dataset consisting of the three points</p>
+<div class="math notranslate nohighlight">
+\[
+(0, 0), (1, 1), (2, 3) \in \bbr^2.
+\]</div>
+<p>We may use the formulas above to obtain the MLEs for the two parameters <span class="math notranslate nohighlight">\(\beta_0,\beta_1 \in \bbr\)</span>. Plotting the regression line <span class="math notranslate nohighlight">\(y=\beta_0 + \beta_1 x\)</span> along with the data yields the left-hand plot in what follows, while the contours of the objective function <span class="math notranslate nohighlight">\(J(\btheta)\)</span> along with the MLE yield the right-hand plot:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -649,9 +808,10 @@ H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} I_{P_\theta}(x),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/cd8cb0f4a7e58c4eb1fbeebef95178e1592cd6d4219894b7921c5c92dc2fe2da.svg" src="../_images/cd8cb0f4a7e58c4eb1fbeebef95178e1592cd6d4219894b7921c5c92dc2fe2da.svg" /></figure>
+<img alt="../_images/4d7551dff3ec85f8f93a70385be6e614e0db536f1f3c2bc229a6d788edc3eb50.svg" src="../_images/4d7551dff3ec85f8f93a70385be6e614e0db536f1f3c2bc229a6d788edc3eb50.svg" /></figure>
 </div>
 </div>
+<p>You will compute the maximum likelihood estimates for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span> in the homework.</p>
 </section>
 <section id="mle-for-logistic-regression">
 <h2><span class="section-number">13.3. </span>MLE for logistic regression<a class="headerlink" href="#mle-for-logistic-regression" title="Permalink to this heading">#</a></h2>
@@ -692,7 +852,7 @@ H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} I_{P_\theta}(x),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/07e47da0e297d0910f286868f4b1c608d4c56d7bb72123a165d0ac65f0b2eec7.svg" src="../_images/07e47da0e297d0910f286868f4b1c608d4c56d7bb72123a165d0ac65f0b2eec7.svg" /></figure>
+<img alt="../_images/0cef46f8836bc6548db327235d2fa4ad1739d783ccadaf288afda9d731a53eac.svg" src="../_images/0cef46f8836bc6548db327235d2fa4ad1739d783ccadaf288afda9d731a53eac.svg" /></figure>
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -782,7 +942,7 @@ H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} I_{P_\theta}(x),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2d536beaed7b57e0faabbb5a072d1d56a81448131d7ad569c57a33e7975a4383.svg" src="../_images/2d536beaed7b57e0faabbb5a072d1d56a81448131d7ad569c57a33e7975a4383.svg" /></figure>
+<img alt="../_images/c17908589f41b3ba7f65149e4748c2c5c950b7a27a1e6c886a870d796e5bd9ec.svg" src="../_images/c17908589f41b3ba7f65149e4748c2c5c950b7a27a1e6c886a870d796e5bd9ec.svg" /></figure>
 </div>
 </div>
 </section>
@@ -825,7 +985,7 @@ H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} I_{P_\theta}(x),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/5b61cba55ad6962becb2bc710574f6ad614dd653d1ce6c2a5911286f645979e2.svg" src="../_images/5b61cba55ad6962becb2bc710574f6ad614dd653d1ce6c2a5911286f645979e2.svg" /></figure>
+<img alt="../_images/c451b66cc54dbff3c103816ee7aa28eb44e0713e8023ae72eb9818d9d36b280b.svg" src="../_images/c451b66cc54dbff3c103816ee7aa28eb44e0713e8023ae72eb9818d9d36b280b.svg" /></figure>
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -925,7 +1085,7 @@ H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} I_{P_\theta}(x),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ec4377a4267bbc41199677d279b8d30e812a17ff1855ee6e13ba14aa218e5e16.svg" src="../_images/ec4377a4267bbc41199677d279b8d30e812a17ff1855ee6e13ba14aa218e5e16.svg" /></figure>
+<img alt="../_images/ba1a6ec93cf18e61ae8f0e284b8765201bffc7b539dcb48c39e3104af772e855.svg" src="../_images/ba1a6ec93cf18e61ae8f0e284b8765201bffc7b539dcb48c39e3104af772e855.svg" /></figure>
 </div>
 </div>
 </section>

@@ -209,9 +209,7 @@ import torch
 import torch.nn.functional as F
 import torch.nn as nn
 from math import sqrt
-import sys
-sys.path.append('/Users/johnmyers/code/stats-book-materials/notebooks')
-from gd_utils import GD, SGD
+from math_stats_ml.gd import GD, SGD
 import matplotlib_inline.backend_inline
 import matplotlib.colors as clr
 plt.style.use('../aux-files/custom_style_light.mplstyle')
@@ -282,7 +280,217 @@ where $B$ is a mini-batch of data of size $k=8$. (This was discussed right after
 
 
 
+
+
+
 ## MLE for linear regression
+
+Linear regression models are trained on datasets through maximum likelihood estimation as _discriminative models_. This means that the _model_ and _data surprisal functions_ are obtained via the _conditional_ likelihood functions
+
+$$
+f(y \mid \bx; \ \beta_0,\bbeta,\sigma^2) \quad \text{and} \quad f(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0,\bbeta,\sigma^2),
+$$
+
+which were called the _model_ and _data probability densities functions_ in {prf:ref}`linear-reg-pf-def` and {prf:ref}`linear-reg-data-pf-thm`, respectively.
+
+Linear regression models have the special property that maximum likelihood estimates may be obtained in _closed form_. To derive them, we shall assume---as many books in statistics and machine learning do---that the variance parameter $\sigma^2$ is a _fixed_, _known_ number and does not need to be learned. You will address the case that $\sigma^2$ is unknown in the homework for this section.
+
+Therefore, the underlying graph of the linear regression model is of the form
+
+```{image} ../img/log-reg-00.svg
+:width: 35%
+:align: center
+```
+&nbsp;
+
+where $\beta_0 \in \bbr$ and $\bbeta \in \mathbb{R}^{n}$ are the only parameters. The link function at $Y$ is still given by
+
+$$
+Y \mid \bX=\bx ; \ \beta_0,\bbeta \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu = \beta_0 + \bx^\intercal \bbeta.
+$$
+
+Then, given a dataset
+
+$$
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr,
+$$
+
+we may retrieve the data log-likelihood function from {numref}`lin-reg-sec`:
+
+\begin{align*}
+\ell(\beta_0, \bbeta) &= \sum_{i=1}^m \log \left[ \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} \big( y^{(i)} - \mu^{(i)} \big)^2 \right) \right] \\
+&= - m\log{\sqrt{2\pi\sigma^2}} - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2,
+\end{align*}
+
+where $\mu^{(i)} = \beta_0 + \bx^{(i)} \bbeta $ for each $i=1,\ldots,m$.
+
+The maximizers of $\ell(\beta_0,\bbeta)$ will occur at those parameter values for which $\nabla \ell(\beta_0, \bbeta)=0$. Since $-m\log{\sqrt{2\pi\sigma^2}}$ is constant with respect to the parameters, it may be dropped, leaving the equivalent objective function
+
+$$
+(\beta_0,\bbeta) \mapsto - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
+$$
+
+But the reciprocal variance $1/\sigma^2$ (i.e., the _precision_) is fixed, and so it too may be dropped, leaving us with the equivalent objective function
+
+$$
+J(\beta_0,\bbeta) \def - \frac{1}{2}\sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
+$$ (lin-reg-mle-objective-eqn)
+
+Using this latter objective function, we obtain:
+
+
+```{prf:theorem} Maximum likelihood estimates for linear regression with known variance
+:label: mle-lin-reg-thm
+
+Let the notation be as above, and let
+
+$$
+\mathcal{X} = \begin{bmatrix}
+1 & x^{(1)}_1 & \cdots & x^{(1)}_n \\
+\vdots & \vdots & \ddots & \vdots \\
+1 & x^{(m)}_1 & \cdots & x^{(m)}_n
+\end{bmatrix}, \quad \by = \begin{bmatrix} y^{(1)} \\ \vdots \\ y^{(m)} \end{bmatrix}, \quad \btheta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_n \end{bmatrix}
+$$
+
+where $\bbeta^T = (\beta_1,\ldots,\beta_n)$. Provided that the $(n+1) \times (n+1)$ square matrix $\mathcal{X}^T \mathcal{X}$ is invertible, the maximum likelihood estimates for the parameters $\bbeta$ and $\beta_0$ are given by
+
+$$
+\btheta = \left(\mathcal{X}^T \mathcal{X}\right)^{-1}\mathcal{X}^T \by.
+$$
+```
+
+```{prf:proof}
+As we noted above, the MLEs may be obtained by maximizing the function $J(\btheta)$ given in {eq}`lin-reg-mle-objective-eqn`, which may be rewritten as
+
+$$
+J(\btheta) = -\frac{1}{2} \left( \by - \mathcal{X}\btheta\right)^T\left( \by - \mathcal{X}\btheta\right).
+$$
+
+But as you will prove in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-1-solution), taking the gradient gives
+
+$$
+\nabla J(\btheta) = - \left( \by - \mathcal{X}\btheta\right)^T \text{Jac}\left(\by - \mathcal{X}\btheta \right),
+$$
+
+where $\text{Jac}\left(\by - \mathcal{X}\btheta \right)$ is the Jacobian matrix of the function
+
+$$
+\bbr^{n+1} \to \bbr^m, \quad \btheta \mapsto \by - \mathcal{X}\btheta.
+$$
+
+But it is easy to show that $\text{Jac}\left(\by - \mathcal{X}\btheta \right) = - \mathcal{X}$, and so
+
+$$
+\nabla J(\btheta) =  \left( \by - \mathcal{X}\btheta\right)^T \mathcal{X}.
+$$
+
+Setting the gradient to zero and solving gives
+
+$$
+\mathcal{X}^T \mathcal{X} \btheta = \mathcal{X}^T \by,
+$$
+
+from which the desired equation follows. The only thing that is left to prove is that we have actually obtained a _maximizer_. This follows from concavity of the objective function $J(\btheta)$, which you will establish in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-2-solution). Q.E.D.
+```
+
+
+Note that the maximizer of the objective function
+
+$$
+J(\beta_0,\bbeta) = - \frac{1}{2} \sum_{i=1}^m \left( y^{(i)} - \mu^{(i)} \right)^2
+$$
+
+is the same as the minimizer of the objective function
+
+$$
+\text{RSS}(\beta_0, \bbeta) \def \sum_{i=1}^m \left( y^{(i)} - \mu^{(i)} \right)^2,
+$$
+
+called the _residual sum of squares_. The name comes about from the terminology introduced in {numref}`lin-reg-sec`, where we learned that the differences
+
+$$
+y^{(i)} - \mu^{(i)} = y^{(i)} - \beta_0 - \beta_1 x_1^{(i)} - \cdots - \beta_n x_n^{(i)}
+$$
+
+are called the _residuals_. Thus, the maximum likelihood parameter estimates are those that minimize the residual sum of squares, which explains why the MLEs are also often called the _ordinary least squares_ (_OLS_) estimates.
+
+
+
+It is worth writing out the MLEs in the case of simple linear regression:
+
+```{prf:corollary} Maximum likelihood estimates for simple linear regression with known variance
+:label: mle-simple-lin-reg-cor
+
+Letting the notation be as above, the MLEs for the parameters $\beta_0$ and $\beta_1$ in a simple linear regression model are given by
+
+\begin{align*}
+\beta_1 &= \frac{\sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)\left( y^{(i)} - \bar{y} \right)}{\sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)^2}, \\
+\beta_0 &= \bar{y} - \beta_1 \bar{x},
+\end{align*}
+
+where $\bar{x} = \frac{1}{m} \sum_{i=1}^m x^{(i)}$ and $\bar{y} = \frac{1}{m} \sum_{i=1}^m y^{(i)}$ are the empirical means.
+```
+
+```{prf:proof}
+
+First note that
+
+$$
+\mathcal{X}^T \mathcal{X} = \begin{bmatrix} m & m \bar{x} \\ m \bar{x} & \sum_{i=1}^m {x^{(i)}}^2 \end{bmatrix}.
+$$
+
+Assuming this matrix has nonzero determinant, we have
+
+$$
+\left(\mathcal{X}^T \mathcal{X} \right)^{-1} = \frac{1}{m \sum_{i=1}^m {x^{(i)}}^2 - m^2 \bar{x}^2} \begin{bmatrix} \sum_{i=1}^m {x^{(i)}}^2 & -m \bar{x} \\ -m \bar{x} & m \end{bmatrix}.
+$$
+
+But
+
+$$
+\mathcal{X}^T \by = \begin{bmatrix} m \bar{y} \\ \sum_{i=1}^m x^{(i)} y^{(i)} \end{bmatrix},
+$$
+
+and so from
+
+$$
+\begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \btheta =  \left(\mathcal{X}^T \mathcal{X}\right)^{-1}\mathcal{X}^T \by
+$$
+
+we conclude
+
+$$
+\beta_1 = \frac{\sum_{i=1}^m x^{(i)} y^{(i)} -m \bar{x}\bar{y} }{ \sum_{i=1}^m {x^{(i)}}^2 - m \bar{x}^2}.
+$$
+
+But as you may easily check, we have
+
+$$
+\sum_{i=1}^m x^{(i)} y^{(i)} -m \bar{x}\bar{y}  = \sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)\left( y^{(i)} - \bar{y} \right)
+$$
+
+and
+
+$$
+\sum_{i=1}^m {x^{(i)}}^2 - m \bar{x}^2 = \sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)^2,
+$$
+
+from which the desired equation for $\beta_1$ follows. To obtain the equation for $\beta_0$, note that
+
+$$
+\mathcal{X}^T \mathcal{X} \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \mathcal{X}^T \by 
+$$
+
+implies $m \beta_0  + m \beta_1 \bar{x} = m \bar{y}$, and so $\beta_0 = \bar{y} - \beta_1 \bar{x}$. Q.E.D.
+```
+
+To illustrate the concepts, let's take a simple toy dataset consisting of the three points
+
+$$
+(0, 0), (1, 1), (2, 3) \in \bbr^2.
+$$
+
+We may use the formulas above to obtain the MLEs for the two parameters $\beta_0,\beta_1 \in \bbr$. Plotting the regression line $y=\beta_0 + \beta_1 x$ along with the data yields the left-hand plot in what follows, while the contours of the objective function $J(\btheta)$ along with the MLE yield the right-hand plot:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -325,7 +533,7 @@ axes[1].set_ylabel('$\\beta_1$')
 plt.tight_layout()
 ```
 
-
+You will compute the maximum likelihood estimates for the parameters $\beta_0$ and $\beta_1$ in the homework.
 
 
 
