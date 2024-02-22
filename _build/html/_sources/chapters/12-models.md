@@ -427,27 +427,40 @@ Y \mid \bX=\bx; \ \beta_0,\bbeta,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big)
 $$
 ````
 
-Before we introduce important terminology associated with linear regression models and look at an example, we need to discuss two probability density functions that will play a crucial role in the [next chapter](learning). The first is just the conditional density function of $Y$ given $\bX$:
+Before we introduce important terminology associated with linear regression models and look at an example, we need to discuss two important functions that will play a crucial role in the [next chapter](learning). The first is just the conditional density function of $Y$ given $\bX$, thought of as a function of the parameters:
 
 ```{prf:definition}
 :label: linear-reg-pf-def
 
-The _model probability density function_ for a linear regression model is the conditional probability density function
+For fixed $\bx\in \bbr^n$ and $y\in \bbr$, the _model likelihood function_ for a linear regression model is the function
 
 $$
-f\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big).
-$$
+\calL(\beta_0, \bbeta, \sigma^2; \ y\mid \bx) \def f\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big)
+$$ (model-likelihood-eq)
 
-On its support consisting of all $y\in \bbr$ and $\bx \in \bbr^n$, it is given by the formula
+of the parameters $\beta_0,\bbeta, \sigma^2$. For fixed $\bx\in \bbr^n$ and $y\in \bbr$, it is given by the formula
 
 $$
-f\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[- \frac{1}{2\sigma^2} ( y - \mu)^2 \right],
+\calL(\beta_0, \bbeta, \sigma^2; \ y\mid \bx) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[- \frac{1}{2\sigma^2} ( y - \mu)^2 \right],
 $$
 
 where $\mu = \beta_0 + \bx^\intercal \bbeta$.
 ```
 
-The second important probability density function associated with a linear regression model is derived from an observed dataset
+```{margin}
+
+Since this likelihood function is derived from a _conditional_ probability distribution, it is more accurately called a _conditional_ likelihood function.
+```
+
+You might naturally wonder why we are bothering with the new terminology _model likelihood function_ if---as shown in {eq}`model-likelihood-eq`---the only difference between the likelihood function and the conditional density function is the order in which we write the inputs to the functions. But the swap in order is intended to emphasize that the likelihood function is thought of as a function of the parameters, with $\bx$ and $y$ held fixed. To emphasize this point, we may occasionally write
+
+$$
+\calL_\text{model}(\beta_0,\bbeta, \sigma^2)
+$$
+
+for the model likelihood function, leaving $\bx$ and $y$ out of the notation altogether. The subscript is used to distinguish the _model_ likelihood function from the _data_ likelihood function, which we define next.
+
+As the name indicates, this second likelihood function is associated not with just one $\bx$ and one $y$, but instead an entire observed dataset
 
 $$
 (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr.
@@ -467,9 +480,37 @@ which fits into a plated version of a linear regression model:
 ```
 &nbsp;
 
-The conditional probability density function of the $y$'s given the $\bx$'s is given a new name:
+Then:
 
-```{prf:theorem} Data probability density functions of linear regression models
+```{prf:definition}
+:label: linear-reg-data-pf-def
+
+Given an observed dataset
+
+$$
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr,
+$$
+
+the _data likelihood function_ for a linear regression model is the function
+
+$$
+\calL(\beta_0,\bbeta,\sigma^2; y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m) \def f\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta,\sigma^2 \big)
+$$
+
+of the parameters $\beta_0,\bbeta,\sigma^2$.
+```
+
+Again, superficially it appears that the only difference between the data likelihood function and the conditional density function is the order in which we write the inputs to the functions. But by writing the parameters first, we emphasize that the data likelihood is thought of as a function of the parameters, with the dataset held fixed. To further emphasize this, we shall sometimes write
+
+$$
+\calL_\text{data}(\beta_0,\bbeta, \sigma^2)
+$$
+
+for the data likelihood function when we need not explicitly mention the dataset.
+
+Due to independence, it turns out that the data likelihood function factors into a product of model likelihood functions:
+
+```{prf:theorem} Data likelihood functions of linear regression models
 :label: linear-reg-data-pf-thm
 
 Given an observed dataset
@@ -478,16 +519,10 @@ $$
 (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr,
 $$
 
-the _data probability density function_ for a linear regression model is the conditional probability density function
-
-$$
-f\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta,\sigma^2 \big).
-$$
-
-It is given by
+the data likelihood function for a linear regression model is given by
 
 \begin{align*}
-f\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta,\sigma^2 \big) &= \prod_{i=1}^m f\big(y_i \mid \bx_i ; \ \beta_0, \bbeta, \sigma^2\big) \\
+\calL_\text{data} (\beta_0,\bbeta,\sigma^2) &= \prod_{i=1}^m \calL(\beta_0,\bbeta,\sigma^2; \ y_i \mid \bx_i) \\
 &= \frac{1}{(2\pi \sigma^2)^{m/2}} \exp \left[ -\frac{1}{2\sigma^2} \sum_{i=1}^m (y_i - \mu_i)^2 \right],
 \end{align*}
 
@@ -496,13 +531,13 @@ where $\mu_i = \beta_0 + \bx_i^\intercal \bbeta$ for each $i=1,\ldots,m$.
 
 ```{prf:proof}
 
-We shall only prove the equation
+It will suffice to prove the equation
 
 $$
 f(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m ) = \prod_{i=1}^m f(y_i \mid \bx_i),
 $$
 
-where, for ease of notation, we've omitted all parameters. By independence of the random sample
+where, for ease of notation, we've omitted all parameters from the density functions. By independence of the random sample
 
 $$
 (\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_m,Y_m)
@@ -543,7 +578,7 @@ $$
 f(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m ) = \prod_{i=1}^m f(y_i \mid \bx_i)
 $$
 
-used nothing particular about linear regression models, and only relied upon independence of the random sample. This means that this same argument will apply to the data probability density functions of the models that we will study in subsequent sections. (See {prf:ref}`log-reg-data-pf-thm` and {prf:ref}`neural-net-data-pf-thm`.)
+used nothing particular about linear regression models, and only relied upon independence of the random sample. This means that this same argument will apply to the data likelihood functions of the models that we will study in subsequent sections. (See {prf:ref}`log-reg-data-pf-thm` and {prf:ref}`neural-net-data-pf-thm`.)
 
 Returning to our discussion of the linear regression model, the components of the vector $\bX$ are referred to as _predictors_, _regressors_, _explanatory variables_, or _independent variables_, while the random variable $Y$ is called the _response variable_ or the _dependent variable_. In the case that $n=1$, the model is called a _simple linear regression model_; otherwise, it is called a _multiple linear regression model_.
 

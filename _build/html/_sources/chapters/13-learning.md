@@ -49,7 +49,7 @@ $$
 \end{cases}
 $$ (bern-empirical-eq)
 
-where $\Sigma x \def x_1 + x_2 + \cdots + x_m$. The goal, of course, is to model the observed dataset with our simple PGM, but the parameter $\theta$ is unknown. An "optimal" value for the parameter will minimize the discrepancy (or "distance") between the two distributions $\hat{P}$ and $P_\theta$. We seek to "learn" this optimal value from the dataset.
+where $\Sigma x \def x_1 + x_2 + \cdots + x_m$. The goal, of course, is to model the observed dataset with our univariate PGM, but the parameter $\theta$ is unknown. An "optimal" value for the parameter will minimize the discrepancy (or "distance") between the two distributions $\hat{P}$ and $P_\theta$. We seek to "learn" this optimal value from the dataset.
 
 ```{margin}
 
@@ -80,72 +80,115 @@ $$
 H_{\hat{P}}(P_\theta) = E_{x \sim \hat{p}(x)} \left[ I_{P_\theta}(x) \right],
 $$ (cross-ent-stoch-eq)
 
-where $I_{P_\theta}(x) = -\log\left[ p(x;\theta) \right]$ might be called the _model surprisal function_. So, we have
-
-\begin{align*}
-E_{x \sim \hat{p}(x)} \left[ I_{P_\theta}(x) \right] &= -\sum_{x\in \bbr} \hat{p}(x) \log\left[ p(x;\theta) \right] \\
-&= - \hat{p}(1) \log\left[p(1;\theta) \right] - \hat{p}(0) \log\left[ p(0;\theta)\right]  \\
-&= -\frac{1}{m} \left[ \Sigma x \log(\theta) + (m-\Sigma x)\log(1-\theta) \right] \\
-&= -\frac{1}{m} \log\left[ \theta^{\Sigma x} (1-\theta)^{m - \Sigma x}\right].
-\end{align*}
-
-By independence of the observed dataset, we have
+where
 
 $$
-p(x_1,\ldots,x_m; \theta) = \prod_{i=1}^m p(x_i;\theta) = \prod_{i=1}^m \theta^{x_i} (1-\theta)^{1-x_i} = \theta^{\Sigma x} (1-\theta)^{m-\Sigma x}.
+I_{P_\theta}(x) = -\log\left[ p(x;\theta) \right]
 $$
 
-Using the terminology from {numref}`Chapter %s <prob-models>`, this latter joint probability mass function might be called the _data probability mass function_. It is then natural to call
+is the surprisal function (see {prf:ref}`info-content-def`). Because we want to think of the data as being fixed and the parameter as variable, it will be convenient to define the _model surprisal function_ to be
 
 $$
-I_{P_\theta}(x_1,\ldots,x_m) \def - \log\left[ p(x_1,\ldots,x_m;\theta) \right]
-$$ (data-sur-eq)
+\calI(\theta;x) \def -\log\left[ p(x;\theta) \right],
+$$
 
-the _data surprisal function_. So, putting everything together, we get that
+with the parameter $\theta$ written first, similar to our convention regarding likelihood functions in {numref}`Chapter %s <prob-models>`. In fact, if we define the _model likelihood function_ of our univariate Bernoulli model to be
 
 $$
-D(\hat{P} \parallel P_\theta) + H(\hat{P}) = H_{\hat{P}}(P_\theta) = E_{x \sim \hat{p}(x)} \left[ I_{P_\theta}(x) \right] \propto I_{P_\theta}(x_1,\ldots,x_m),
-$$ (list-objs-eq)
+\calL(\theta;x) \def p(x;\theta),
+$$
 
-where the constant of proportionality is the (positive) number $1/m$. Moreover, since the negative logarithm function is strictly decreasing, minimizing the data surprisal function {eq}`data-sur-eq` with respect to $\theta$ is equivalent to maximizing the data probability mass function $p(x_1,\ldots,x_m; \theta)$ with respect to $\theta$. In this context, this latter mass function is called the _data likelihood function_. If we combine all of our observations into a single theorem, we get:
+then the model surprisal function is nothing but the negative logarithm of the model likelihood function.
+
+Now, note that
+
+$$
+p(x_1,\ldots,x_m; \theta) = \prod_{i=1}^m p(x_i;\theta),
+$$ (bern-like-factor-eq)
+
+since the dataset is assumed drawn from an IID random sample. If we define the left-hand side to be the _data likelihood function_,
+
+$$
+\calL(\theta;x_1,\ldots,x_m) \def p(x_1,\ldots,x_m; \theta),
+$$
+
+then we may rewrite {eq}`bern-like-factor-eq` in terms of likelihood functions as
+
+$$
+\calL(\theta;x_1,\ldots,x_m) = \prod_{i=1}^m \calL(\theta; x_i).
+$$ (bern-like-factor-2-eq)
+
+(Notice that this is identical in concept to the factorizations for the PGMs studied in {numref}`Chapter %s <prob-models>`.) Finally, if we define the _data surprisal function_ to be
+
+$$
+\calI(\theta;x_1,\ldots,x_n) \def - \log\left[ p(x_1,\ldots,x_m; \theta) \right] = - \log\left[ \calL(\theta;x_1,\ldots,x_m)\right],
+$$
+
+then we may apply the negative logarithm to both sides of {eq}`bern-like-factor-2-eq` to get the fundamental equation
+
+$$
+\calI(\theta;x_1,\ldots,x_n) = \sum_{i=1}^m \calI(\theta;x_i)
+$$ (data-model-surprise-bern-eq)
+
+expressing the data surprisal function as a sum of model surprisal functions.
+
+Let's now bring back the cross entropy expressed above as {eq}`cross-ent-stoch-eq`. Using the model surprisal function, we may write:
+
+$$
+H_{\hat{P}}(P_\theta) = E_{x \sim \hat{p}(x)} \left[ \calI(\theta; x) \right] = \sum_{x\in \bbr} \hat{p}(x) \calI(\theta;x) = \frac{1}{m} \sum_{i=1}^m \calI(\theta;x) = \frac{1}{m} \calI(\theta;x_1,\ldots,x_m).
+$$
+
+So, putting everything together, we get that
+
+$$
+D(\hat{P} \parallel P_\theta) + H(\hat{P}) = H_{\hat{P}}(P_\theta) = E_{x \sim \hat{p}(x)} \left[ \calI(\theta; x) \right] \propto \calI(\theta; x_1,\ldots,x_m),
+$$
+
+where the constant of proportionality is the (positive) number $1/m$. Moreover, since the negative logarithm function is strictly decreasing, minimizing the data surprisal function with respect to $\theta$ is equivalent to maximizing the data likelihood function with respect to $\theta$. If we combine all of our observations into a single theorem, we get:
 
 ```{margin}
 
 As mentioned in the margin note above, in this theorem we are implicitly restricting our attention to those parameters $\theta$ for which the empirical distribution $\hat{P}$ is absolutely continuous with respect to the model distribution $P_\theta$.
 ```
 
-```{prf:theorem} Equivalent learning objectives for the simple Bernoulli model
+```{prf:theorem} Equivalent learning objectives for the univariate Bernoulli model
 :label: equiv-obj-bern-thm
 
-Let $ x_1,x_2,\ldots,x_m \in \{0,1\}$ be an observed dataset corresponding to a Bernoulli random variable $X\sim \Ber(\theta)$ with unknown $\theta$. Let $P_\theta$ be the model distribution of $X$ and let $\hat{P}$ be the empirical distribution of the dataset. The following optimization objectives are equivalent:
+Let
+
+$$
+x_1,x_2,\ldots,x_m \in \{0,1\}
+$$
+
+be an observed dataset corresponding to a Bernoulli random variable $X\sim \Ber(\theta)$ with unknown $\theta$. Let $P_\theta$ be the model distribution of $X$ and let $\hat{P}$ be the empirical distribution of the dataset. The following optimization objectives are equivalent:
 
 1. Minimize the KL divergence $D(\hat{P} \parallel P_\theta)$ with respect to $\theta$.
 2. Minimize the cross entropy $H_{\hat{P}}(P_\theta)$ with respect to $\theta$.
-3. Minimize the data surprisal function $I_{P_\theta}(x_1,\ldots,x_m)$ with respect to $\theta$.
-4. Maximize the data likelihood function $p(x_1,\ldots,x_m;\theta)$ with respect to $\theta$.
+3. Minimize the data surprisal function $\calI(\theta; x_1,\ldots,x_m)$ with respect to $\theta$.
+4. Maximize the data likelihood function $\calL(\theta; x_1,\ldots,x_m)$ with respect to $\theta$.
 ```
 
 Though these optimization objectives are all equivalent to each other, they have different interpretations, conceptualizations, and advantages:
 
 > 1. Minimizing the KL divergence between the empirical and model distributions has an immediate and concrete interpretation as minimizing the "distance" between these two distributions.
-> 2. As a function of $\theta$, the cross entropy $H_{\hat{P}}(P_\theta)$ may be viewed as a stochastic objective function, since it is exactly the mean of the model surprisal function; see {eq}`cross-ent-stoch-eq` above. This opens the door for applications of the stochastic gradient descent algorithm studied in {numref}`sgd-sec`.
+> 2. As a function of $\theta$, the cross entropy $J(\theta) = H_{\hat{P}}(P_\theta)$ may be viewed as a stochastic objective function, since it is exactly the mean of the model surprisal function. This opens the door for applications of the stochastic gradient descent algorithm studied in {numref}`sgd-sec`.
 > 3. The third optimization objective seeks the model probability distribution according to which the data is _least surprising_.
 > 4. The fourth optimization objective seeks the model probability distribution according to which the data is _most likely_.
 
 Due to the equivalence with the fourth optimization objective, all these optimization objectives are referred to as _likelihood-based learning objectives_. The optimization process is then called _maximum likelihood estimation_ (*MLE*), and the value
 
 \begin{align*}
-\theta^\star_\text{MLE} &\def \argmax_{\theta \in [0,1]} p(x_1,\ldots,x_m;\theta) \\
-&= \argmin_{\theta \in [0,1]} I_{P_\theta}(x_1,\ldots,x_m) \\
+\theta^\star_\text{MLE} &\def \argmax_{\theta \in [0,1]} \calL(\theta; x_1,\ldots,x_m) \\
+&= \argmin_{\theta \in [0,1]} \calI(\theta; x_1,\ldots,x_m) \\
 &= \argmin_{\theta \in [0,1]} H_{\hat{P}}(P_\theta) \\
 &= \argmin_{\theta \in [0,1]} D(\hat{P} \parallel P_\theta)
 \end{align*}
 
-is called the _maximum likelihood estimate_ (also _MLE_). But in actual real-world practice, nobody _ever_ maximizes the likelihood function directly due to numerical instability (and other reasons), and instead one of the other three learning objectives is used. Due to this, we prefer the terminology _surprisal-based learning objectives_.
+is called the _maximum likelihood estimate_ (also _MLE_). But in actual real-world practice, nobody _ever_ maximizes the likelihood function directly due to numerical instability (and other reasons), and instead one of the other three learning objectives is used.
 
-It will turn out that an identical version of {prf:ref}`equiv-obj-bern-thm` holds for all probabilistic graphical models with discrete model distributions, not just our simple Bernoulli model. But for the Bernoulli model, the MLE may be computed in closed form:
+It will turn out that a version of {prf:ref}`equiv-obj-bern-thm` holds for all probabilistic graphical models with discrete model distributions, not just our univariate Bernoulli model. But for the Bernoulli model, the MLE may be computed in closed form:
 
-```{prf:theorem} MLE for the simple Bernoulli model
+```{prf:theorem} MLE for the univariate Bernoulli model
 :label: bern-mle-thm
 
 Let $ x_1,x_2,\ldots,x_m \in \{0,1\}$ be an observed dataset corresponding to a Bernoulli random variable $X\sim \Ber(\theta)$ with unknown $\theta$. Then the (unique) maximum likelihood estimate $\theta^\star_\text{MLE}$ is the ratio $ \Sigma x/m$.
@@ -155,7 +198,7 @@ Let $ x_1,x_2,\ldots,x_m \in \{0,1\}$ be an observed dataset corresponding to a 
 We first address the special cases that $\Sigma x =0$ or $m$. In the first case, the data likelihood function is given by
 
 $$
-p(x_1,\ldots,x_m; \theta) = \theta^{\Sigma x} (1-\theta)^{m-\Sigma x} = (1-\theta)^m.
+\calL(\theta; x_1,\ldots,x_m ) = \theta^{\Sigma x} (1-\theta)^{m-\Sigma x} = (1-\theta)^m.
 $$
 
 But the latter expression is maximized at $\theta^\star=0$, and so $\theta^\star_\text{MLE} = \Sigma x/m$, as claimed. A similar argument shows that if $\Sigma x = m$, then the likelihood function is maximized at $\theta^\star = 1$, and so $\theta^\star_\text{MLE} = \Sigma x / m$ again.
@@ -163,28 +206,28 @@ But the latter expression is maximized at $\theta^\star=0$, and so $\theta^\star
 So, we may assume that $0 < \Sigma x < m$. In this case, the maximizer of the likelihood function must occur in the open interval $(0,1)$. Thus, by {prf:ref}`equiv-obj-bern-thm`, the parameter $\theta^\star_\text{MLE}$ is equivalently the global minimizer of the data surprisal function
 
 $$
-I_{P_\theta}(x_1,\ldots,x_m) = -\Sigma x \log{\theta} - (m-\Sigma x) \log{(1-\theta)}.
+\calI(\theta;x_1,\ldots,x_m ) = -\Sigma x \log{\theta} - (m-\Sigma x) \log{(1-\theta)}.
 $$
 
 But minimizers of this function can only occur at points $\theta^\star \in (0,1)$ where
 
 $$
-\frac{\text{d}}{\text{d} \theta}\Bigg|_{\theta = \theta^\star} I_{P_\theta}(x_1,\ldots,x_m) = 0.
+\frac{\partial}{\partial \theta}\Bigg|_{\theta = \theta^\star} \calI(\theta; x_1,\ldots,x_m) = 0.
 $$ (sur-station-eq)
 
 But 
 
 $$
-\frac{\text{d}}{\text{d} \theta} I_{P_\theta}(x_1,\ldots,x_m) = -\frac{\Sigma x}{\theta} + \frac{m-\Sigma x}{1-\theta},
+\frac{\partial}{\partial \theta} \calI (\theta; x_1,\ldots,x_m) = -\frac{\Sigma x}{\theta} + \frac{m-\Sigma x}{1-\theta},
 $$
 
 and a little algebra yields the solution $\theta^\star = \Sigma x/m$ to the stationarity equation {eq}`sur-station-eq`. To confirm that $\theta^\star = \Sigma x/m$ is a global minimizer over $(0,1)$, note that the second derivatives of both $-\log{\theta}$ and $-\log{(1-\theta)}$ are always positive, and hence the data surprisal function is strictly convex. Thus, $\theta^\star_\text{MLE} = \Sigma x/m$ must indeed be the (unique) MLE. Q.E.D.
 ```
 
-Though the $\theta^\star_\text{MLE}$ is available in closed form for our simple Bernoulli model, it is still amusing to search for $\theta^\star$ by running stochastic gradient descent on the stochastic objective function given by cross entropy:
+Though the $\theta^\star_\text{MLE}$ is available in closed form for our univariate Bernoulli model, it is still amusing to search for $\theta^\star$ by running stochastic gradient descent on the stochastic objective function given by cross entropy:
 
 $$
-H_{\hat{P}}(P_\theta) = E_{x\sim \hat{p}(x)} \left[ I_{P_\theta}(x) \right].
+J(\theta) \def H_{\hat{P}}(P_\theta) = E_{x\sim \hat{p}(x)} \left[ \calI(\theta;x) \right].
 $$
 
 To create the following figure, we generated a sequence of $128$ observations
@@ -209,7 +252,12 @@ import torch
 import torch.nn.functional as F
 import torch.nn as nn
 from math import sqrt
-from math_stats_ml.gd import GD, SGD
+
+import sys
+sys.path.append('/Users/johnmyers/code/math_stats_ml/src/math_stats_ml')
+from gd import GD, SGD, plot_sgd
+#from math_stats_ml.gd import GD, SGD, plot_sgd, plot_gd
+
 import matplotlib_inline.backend_inline
 import matplotlib.colors as clr
 plt.style.use('../aux-files/custom_style_light.mplstyle')
@@ -224,7 +272,7 @@ theta = 0.65
 m = 128
 X = torch.bernoulli(torch.tensor([theta] * m))
 
-def g(X, parameters):
+def g(parameters, X):
     theta = parameters['theta']
     return -X * torch.log(theta) - (1 - X) * torch.log(1 - theta)
 
@@ -257,7 +305,7 @@ axes[1].plot(range(len(sgd_output.per_step_objectives)), sgd_output.per_step_obj
 axes[1].scatter(epoch_step_nums, objectives, s=50, color=magenta, zorder=3)
 axes[1].set_xlabel('gradient steps')
 
-plt.suptitle(f'mini-batch gradient descent\n$k={k}$, $\\alpha = {alpha}$, $\\beta=0$, $N = {N}$')
+plt.suptitle(f'mini-batch gradient descent\n$k=${k}, $\\alpha =${alpha}, $\\beta=$0, $N = ${N}')
 plt.tight_layout()
 ```
 
@@ -281,22 +329,298 @@ where $B$ is a mini-batch of data of size $k=8$. (This was discussed right after
 
 
 
+## General MLE
+
+In broad concept, maximum likelihood estimation works for all the probabilistic graphical models that we studied in {numref}`Chapter %s <prob-models>`, though there are some variations between the different models.
+
+```{margin}
+
+One should also further distinguish between the cases that the PGM contains hidden (or latent) variables, or whether all variables are visible. We shall only focus on the latter case (so-called _fully-observed models_) since the training process for models with hidden variables requires a different set of algorithms. (For example, the [expectation maximation algorithm](https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm).)
+```
+
+First, we must distinguish between training a model as a _generative model_ versus a _discriminative model_. Along with every PGM comes the joint distribution over _all_ random variables, and for a generative model, the learning process trains the model with the goal to learn the parameters of the _entire_ joint distribution, while for a discriminative model, the learning process aims at learning the parameters of only a conditional distribution. Of the types of models explicitly studied in {numref}`Chapter %s <prob-models>`---linear regression models, logistic regression models, and neural networks---all three are trained as discriminative models, aiming to learn the parameters of the conditional distributions of the response variable $Y$ given the predictor vector $\bX$. On the other hand, both the univariate Bernoulli model in the previous section and the Naive Bayes model---studied in the [programming assignment](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_12.ipynb) for {numref}`Chapter %s <prob-models>`---are trained as generative models.
+
+We begin our discussion with the case of generative models, since it is essentially just a recapitulation of our discussion of the univariate Bernoulli model in the previous section. If such a model consists of $n$ random variables, say $X_1,X_2,\ldots,X_n$, then we will write them as an $n$-dimensional random vector
+
+$$
+\bX = (X_1,X_2,\ldots,X_n).
+$$
+
+For simplicity, we will assume that $\bX$ is discrete, so that if $\btheta$ is the parameter vector for the model, we have a joint mass function $p(\bx;\btheta)$. Then the same definitions given in the previous section for the univariate Bernoulli model apply here:
+
+```{prf:definition}
+:label: gen-model-functions-def
+
+Consider a PGM trained as a generative model containing the random variables $\bX = (X_1,X_2,\ldots,X_n)$, and let $\btheta$ be the parameter vector.
+
+1. For fixed $\bx\in \bbr^n$, the _model likelihood function_ is given by
+
+    $$
+    \calL(\btheta;\bx) \def p(\bx; \btheta),
+    $$
+    
+    thought of as a function of $\btheta$. The _model surprisal function_ is given by
+
+    $$
+    \calI(\btheta;\bx) \def -\log \left[ \calL(\btheta;\bx) \right] = -\log \left[p(\bx; \btheta) \right],
+    $$
+
+    also thought of as a function of $\btheta$.
+
+2. For a fixed, observed dataset $\bx_1,\bx_2,\ldots,\bx_m\in \bbr^n$, the _data likelihood function_ is given by
+
+    $$
+    \calL(\btheta;\bx_1,\ldots,\bx_m) \def p(\bx_1,\ldots,\bx_m; \btheta),
+    $$
+
+    thought of as a function of $\btheta$. The _data surprisal function_ is given by
+
+    $$
+    \calI(\btheta;\bx_1,\ldots,\bx_m) \def -\log \left[ \calL(\btheta;\bx_1,\ldots,\bx_m) \right] = -\log \left[p(\bx_1,\ldots,\bx_m; \btheta) \right],
+    $$
+
+    also thought of as a function of $\btheta$.
+```
+
+Sometimes, if mentioning the specific observation $\bx$ or the observed dataset $\bx_1,\bx_2,\ldots,\bx_m$ is not important, we will write the functions in the definition as
+
+$$
+\calL_\text{model}(\btheta), \quad \calI_\text{model}(\btheta), \quad \calL_\text{data}(\btheta), \quad \calI_\text{data}(\btheta).
+$$
+
+Since observed datasets are assumed to be observations of IID random samples, we have:
+
+```{prf:theorem} Data likelihood/surprisal $=$ product/sum of model likelihood/surprisal
+:label: likelihood-sur-decompose-thm
+
+Consider a PGM trained as a generative model containing the random variables $\bX = (X_1,X_2,\ldots,X_n)$, and let $\btheta$ be the parameter vector. If
+
+$$
+\bx_1,\bx_2,\ldots,\bx_m\in \bbr^n
+$$
+
+is an observed dataset, then we have
+
+$$
+\calL_\text{data}(\btheta) = \prod_{i=1}^m \calL(\btheta; \bx_i) \quad \text{and} \quad \calI_\text{data}(\btheta) = \sum_{i=1}^m \calI(\btheta; \bx_i).
+$$
+```
+
+Now, we state a version of {prf:ref}`equiv-obj-bern-thm` that holds for generative models:
+
+
+```{prf:theorem} Equivalent learning objectives for generative PGMs
+:label: equiv-obj-gen-thm
+
+Consider a PGM trained as a generative model containing the random variables $\bX = (X_1,X_2,\ldots,X_n)$, and let $\btheta$ be the parameter vector. Let
+
+$$
+\bx_1,\bx_2,\ldots,\bx_m \in \bbr^n
+$$
+
+be an observed dataset, let $P_\btheta$ be the model joint probability distribution, and let $\hat{P}$ be the empirical distribution of the dataset. The following optimization objectives are equivalent:
+
+1. Minimize the KL divergence $D(\hat{P} \parallel P_\btheta)$ with respect to $\btheta$.
+2. Minimize the cross entropy $H_{\hat{P}}(P_\btheta)$ with respect to $\btheta$.
+3. Minimize the data surprisal function $\calI(\btheta; \bx_1,\ldots,\bx_m)$ with respect to $\btheta$.
+4. Maximize the data likelihood function $\calL(\btheta; \bx_1,\ldots,\bx_m)$ with respect to $\btheta$.
+```
+
+The proof of the equivalence of these training objectives is the same as the proof in the special case of the univariate Bernoulli model in the previous section. The optimization process which seeks a solution to these (equivalent) optimization problems is called _maximum likelihood estimatation_ (_MLE_), and any solution is called a _maximum likelihood estimate_ (also _MLE_) and is denoted $\btheta_\text{MLE}^\star$.
+
+We now turn toward discriminative models, which include all those models explicitly studied in {numref}`Chapter %s <prob-models>`. In this case, we must further distinguish between the models with discrete response variable $Y$ versus a continuous one. Linear regression models are examples of the latter type, while we also briefly encountered an example of a neural network model with continuous $Y$ in the worksheet to {numref}`Chapter %s <prob-models>`. For both of these models, the response variable $Y$ was actually _normally_ distributed (conditionally), so this will be the only case of continuous $Y$ that we consider in this book.
+
+```{prf:definition}
+:label: disc-model-functions-def
+
+Consider a PGM trained as a discriminative model with predictor vector $\bX$, response variable $Y$, and parameter vector $\btheta$.
+
+1. For fixed $\bx\in \bbr^n$, the _model likelihood function_ is given either by
+
+    $$
+    \calL(\btheta; \ y\mid \bx) \def p(y\mid \bx;\  \btheta) \quad \text{or} \quad \calL(\btheta; \ y\mid \bx) \def f(y\mid \bx;\  \btheta),
+    $$
+
+    depending on whether $Y$ is (conditionally) discrete or continuous. The model likelihood function is thought of as a function of $\btheta$. The _model surprisal function_ is given by
+
+    $$
+    \calI(\btheta; \ y\mid \bx) \def -\log \left[ \calL(y\mid \btheta; \ \bx) \right],
+    $$
+
+    also thought of as a function of $\btheta$.
+
+2. For a fixed, observed dataset
+
+    $$
+    (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m)\in \bbr^n \times \bbr,
+    $$
+    
+    the _data likelihood function_ is given either by
+
+    $$
+    \calL(\btheta; \ y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m) \def p(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \btheta)
+    $$
+
+    or
+
+    $$
+    \calL(\btheta; \ y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m) \def f(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \btheta)
+    $$
+    
+    depending on whether $Y$ is (conditionally) discrete or continuous. The data likelihood function is thought of as a function of $\btheta$. The _data surprisal function_ is given by
+
+    $$
+    \calI(\btheta;\ y\mid \bx_1,\ldots,\bx_m) \def -\log \left[ \calL(\btheta; \ y\mid \bx_1,\ldots,\bx_m) \right],
+    $$
+
+    also thought of as a function of $\btheta$.
+```
+
+As with generative models, if mentioning the specific observation or the observed dataset is not important, we will write the functions in the definition as
+
+$$
+\calL_\text{model}(\btheta), \quad \calI_\text{model}(\btheta), \quad \calL_\text{data}(\btheta), \quad \calI_\text{data}(\btheta).
+$$
+
+From independence, we also get the analog of {prf:ref}`likelihood-sur-decompose-thm`:
+
+```{prf:theorem} Data likelihood/surprisal $=$ product/sum of model likelihood/surprisal
+:label: likelihood-sur-decompose-disc-thm
+
+Consider a PGM trained as a discriminative model with predictor vector $\bX$, response variable $Y$, and parameter vector $\btheta$. If
+
+$$
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m)\in \bbr^n \times \bbr
+$$
+
+is an observed dataset, then we have
+
+$$
+\calL_\text{data}(\btheta) = \prod_{i=1}^m \calL(\btheta; \ y_i \mid \bx_i) \quad \text{and} \quad \calI_\text{data}(\btheta) = \sum_{i=1}^m \calI(\btheta; \ y_i \mid \bx_i).
+$$
+```
+
+Just as for generative models, for discriminative models we have the stochastic objective function
+
+$$
+J(\btheta) \def E_{(\bx, y) \sim \hat{p}(\bx, y)} \left[ \calI(\btheta; \ y \mid \bx) \right] = \frac{1}{m} \sum_{i=1}^m \calI(\btheta; \ y_i \mid \bx_i),
+$$
+
+```{margin}
+
+For reasons of space and time, we did not study _conditional_ information-theoretic measures in {numref}`Chapter %s <information-theory>`. For a discussion of these quantities, see {cite}`CoverThomas2006`.
+```
+
+where $\hat{p}(\bx,y)$ is the empirical joint mass function of an observed dataset. For generative models, this function was exactly the cross entropy from the empirical distribution to the model distribution---but for discriminative models, it has a different interpretation. In the case that $Y$ is discrete, it is actually a type of _conditional_ cross entropy, and minimizing this objective is the same as minimizing the _conditional_ KL divergence. In the case that $Y$ is conditionally normal, the objective $J(\btheta)$ "is" the _mean squared error_ (or _MSE_), which we first encountered in the [programming assignment](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_12.ipynb) for the previous chapter. We say that it "is" the MSE, with quotation marks, because it's not _quite_ equal to the MSE on the nose---this is explained precisely in the following result:
+
+```{prf:theorem} Mean squared error as a stochastic objective function
+:label: MSE-min-thm
+
+Consider a PGM trained as a discriminative model with predictor vector $\bX$, response variable $Y$, parameter vector $\btheta$, and let
+
+$$
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^n \times \bbr
+$$
+
+be an observed dataset with empirical joint mass function $\hat{p}(\bx,y)$. Suppose also that the conditional distribution of $Y$ given $\bX$ is normal, with _fixed_ variance $\sigma^2$, and that the mean $\mu = \mu(\bx,\btheta)$ of the distribution is the link function. Then the minimizers of the stochastic objective function
+
+$$
+E_{(\bx, y) \sim \hat{p}(\bx, y)} \left[ \calI(\btheta; \ y \mid \bx) \right] = \frac{1}{m} \sum_{i=1}^m \calI(\btheta; \ y_i \mid \bx_i)
+$$
+
+are the same as the minimizers of the mean squared error
+
+$$
+MSE(\btheta) \def \frac{1}{m} \sum_{i=1}^m (y_i - \mu_i)^2,
+$$
+
+where $\mu_i = \mu(\bx_i,\btheta)$.
+```
+
+```{prf:proof}
+
+The proof begins with a simple computation:
+
+\begin{align*}
+\calI(\btheta; \ y_i \mid \bx_i) &= - \log \left\{ \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[- \frac{1}{2\sigma^2} (y_i - \mu_i)^2 \right] \right\} \\
+&= \frac{1}{2} \log{\left(2\pi \sigma^2\right)} + \frac{1}{2\sigma^2} (y_i - \mu_i)^2.
+\end{align*}
+
+Then
+
+$$
+\frac{1}{m} \sum_{i=1}^m \calI(\btheta; \ y_i \mid \bx_i) = \frac{1}{2}\log\left(2\pi \sigma^2\right) + \frac{1}{2m\sigma^2} \sum_{i=1}^m (y_i - \mu_i)^2.
+$$
+
+Assuming that the variance $\sigma^2$ is _fixed_, we immediately see that minimizing the left-hand side with respect to $\btheta$ is the same as minimizing the MSE. Q.E.D.
+```
+
+Since multiplying an objective function by a positive constant does not change its extremizers, we may modify the mean squared error function in several ways to best suit the context. For example, sometimes it is convenient to instead consider the _residual sum of squares_ function
+
+$$
+RSS(\btheta) \def  \sum_{i=1}^m (y_i - \mu_i)^2,
+$$
+
+while in other situations we might even divide this latter quantity by $2$ and consider the equivalent objective
+
+$$
+RSS(\btheta) /2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2.
+$$
+
+See, for example, {prf:ref}`mle-lin-reg-thm` in the next section.
+
+Our discussion on the identity of the stochastic objective function $J(\btheta)$ is summarized in the following chart:
+
+```{image} ../img/flow-training.svg
+:width: 100%
+:align: center
+```
+&nbsp;
+
+Again, care must be taken in interpreting $J(\btheta)$ in the case of a discriminative model with (conditionally) normal $Y$, since it is technically not equal to the MSE exactly, and we must also assume that the variance $\sigma^2$ is _fixed_, as discussed in {prf:ref}`MSE-min-thm`. In any case, we may now state the following theorem, which is a version of {prf:ref}`equiv-obj-gen-thm` for discriminative models:
+
+```{prf:theorem} Equivalent learning objectives for discriminative PGMs
+:label: equiv-obj-disc-thm
+
+Consider a PGM trained as a discriminative model with predictor vector $\bX$, response variable $Y$, and parameter vector $\btheta$. Let
+
+$$
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^n \times \bbr
+$$
+
+be an observed dataset, with empirical joint mass function $\hat{p}(\bx,y)$. The following optimization objectives are equivalent:
+
+1. Minimize the stochastic objective function
+
+    $$
+    J(\btheta) \def E_{(\bx, y) \sim \hat{p}(\bx, y)} \left[ \calI(\btheta; \ y \mid \bx) \right] = \frac{1}{m} \sum_{i=1}^m \calI(\btheta; \ y_i \mid \bx_i)
+    $$
+
+    with respect to $\btheta$.
+2. Minimize the data surprisal function $\calI(\btheta; \ y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m)$ with respect to $\btheta$.
+3. Maximize the data likelihood function $\calL(\btheta; \ y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m)$ with respect to $\btheta$.
+```
+
+Just as for generative models, the optimization process which seeks a solution to these (equivalent) optimization problems is called _maximum likelihood estimation_ (_MLE_), and any solution is called a _maximum likelihood estimate_ (also _MLE_) and is denoted $\btheta_\text{MLE}^\star$.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## MLE for linear regression
 
-Linear regression models are trained on datasets through maximum likelihood estimation as _discriminative models_. This means that the _model_ and _data surprisal functions_ are obtained via the _conditional_ likelihood functions
+Having studied maximum likelihood estimation in general, we now turn toward specific examples, beginning with linear regression models. These are trained as discriminative models with a response variable $Y$ which is (conditionally) normal. If we assume that the variance parameter $\sigma^2$ is _fixed_, then the underlying graph of the model is of the form
 
-$$
-f(y \mid \bx; \ \beta_0,\bbeta,\sigma^2) \quad \text{and} \quad f(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0,\bbeta,\sigma^2),
-$$
-
-which were called the _model_ and _data probability densities functions_ in {prf:ref}`linear-reg-pf-def` and {prf:ref}`linear-reg-data-pf-thm`, respectively.
-
-Linear regression models have the special property that maximum likelihood estimates may be obtained in _closed form_. To derive them, we shall assume---as many books in statistics and machine learning do---that the variance parameter $\sigma^2$ is a _fixed_, _known_ number and does not need to be learned. You will address the case that $\sigma^2$ is unknown in the homework for this section.
-
-Therefore, the underlying graph of the linear regression model is of the form
-
+&nbsp;
 ```{image} ../img/log-reg-00.svg
 :width: 35%
 :align: center
@@ -309,126 +633,85 @@ $$
 Y \mid \bX=\bx ; \ \beta_0,\bbeta \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu = \beta_0 + \bx^\intercal \bbeta.
 $$
 
-Then, given a dataset
+For these models, it turns out MLEs are obtainable in closed form:
 
-$$
-(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \bbr,
-$$
-
-we may retrieve the data log-likelihood function from {numref}`lin-reg-sec`:
-
-\begin{align*}
-\ell(\beta_0, \bbeta) &= \sum_{i=1}^m \log \left[ \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left(- \frac{1}{2\sigma^2} \big( y^{(i)} - \mu^{(i)} \big)^2 \right) \right] \\
-&= - m\log{\sqrt{2\pi\sigma^2}} - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2,
-\end{align*}
-
-where $\mu^{(i)} = \beta_0 + \bx^{(i)} \bbeta $ for each $i=1,\ldots,m$.
-
-The maximizers of $\ell(\beta_0,\bbeta)$ will occur at those parameter values for which $\nabla \ell(\beta_0, \bbeta)=0$. Since $-m\log{\sqrt{2\pi\sigma^2}}$ is constant with respect to the parameters, it may be dropped, leaving the equivalent objective function
-
-$$
-(\beta_0,\bbeta) \mapsto - \frac{1}{2\sigma^2} \sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
-$$
-
-But the reciprocal variance $1/\sigma^2$ (i.e., the _precision_) is fixed, and so it too may be dropped, leaving us with the equivalent objective function
-
-$$
-J(\beta_0,\bbeta) \def - \frac{1}{2}\sum_{i=1}^m \big( y^{(i)} - \mu^{(i)}\big)^2.
-$$ (lin-reg-mle-objective-eqn)
-
-Using this latter objective function, we obtain:
-
-
-```{prf:theorem} Maximum likelihood estimates for linear regression with known variance
+```{prf:theorem} MLEs for linear regression models with known variance
 :label: mle-lin-reg-thm
 
-Let the notation be as above, and let
+Consider a linear regression model with _fixed_ variance $\sigma^2$, and let
 
 $$
-\mathcal{X} = \begin{bmatrix}
-1 & x^{(1)}_1 & \cdots & x^{(1)}_n \\
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^n \times \bbr
+$$
+
+be an observed dataset. Supposing $\bx_i^\intercal= (x_{i1},x_{i2},\ldots,x_{in})$ for each $i=1,\ldots,m$, let
+
+$$
+\mathbfcal{X} = \begin{bmatrix}
+1 & x_{11} & \cdots & x_{1n} \\
 \vdots & \vdots & \ddots & \vdots \\
-1 & x^{(m)}_1 & \cdots & x^{(m)}_n
-\end{bmatrix}, \quad \by = \begin{bmatrix} y^{(1)} \\ \vdots \\ y^{(m)} \end{bmatrix}, \quad \btheta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_n \end{bmatrix}
+1 & x_{m1} & \cdots & x_{mn}
+\end{bmatrix}, \quad \by = \begin{bmatrix} y_1 \\ \vdots \\ y_m \end{bmatrix}, \quad \btheta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_n \end{bmatrix}
 $$
 
-where $\bbeta^T = (\beta_1,\ldots,\beta_n)$. Provided that the $(n+1) \times (n+1)$ square matrix $\mathcal{X}^T \mathcal{X}$ is invertible, the maximum likelihood estimates for the parameters $\bbeta$ and $\beta_0$ are given by
+where $\bbeta^\intercal = (\beta_1,\ldots,\beta_n)$. Provided that the $(n+1) \times (n+1)$ square matrix $\mathbfcal{X}^T \mathbfcal{X}$ is invertible, maximum likelihood estimates for the parameters $\beta_0$ and $\bbeta$ are given by
 
 $$
-\btheta = \left(\mathcal{X}^T \mathcal{X}\right)^{-1}\mathcal{X}^T \by.
+\btheta_\text{MLE}^\star = \left(\mathbfcal{X}^T \mathbfcal{X}\right)^{-1}\mathbfcal{X}^T \by.
 $$
 ```
 
 ```{prf:proof}
-As we noted above, the MLEs may be obtained by maximizing the function $J(\btheta)$ given in {eq}`lin-reg-mle-objective-eqn`, which may be rewritten as
+As we noted above in the discussion after the proof of {prf:ref}`MSE-min-thm`, the MLE may be obtained as the minimizer of half the residual sum of squares:
 
 $$
-J(\btheta) = -\frac{1}{2} \left( \by - \mathcal{X}\btheta\right)^T\left( \by - \mathcal{X}\btheta\right).
+J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \frac{1}{2} \left( \by - \mathbfcal{X}\btheta\right)^\intercal \left( \by - \mathbfcal{X}\btheta\right),
 $$
 
-But as you will prove in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-1-solution), taking the gradient gives
+where $\mu_i = \beta_0 + \bx_i^\intercal \bbeta$ for each $i=1,\ldots,m$. But as we will show in the worksheet problem directly after this proof, taking the gradient gives
 
 $$
-\nabla J(\btheta) = - \left( \by - \mathcal{X}\btheta\right)^T \text{Jac}\left(\by - \mathcal{X}\btheta \right),
+\nabla J(\btheta) = \left( \by - \mathbfcal{X}\btheta\right)^\intercal \nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right),
 $$
 
-where $\text{Jac}\left(\by - \mathcal{X}\btheta \right)$ is the Jacobian matrix of the function
+where $\nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right)$ is the Jacobian matrix of the vector-valued function $\btheta \mapsto \by - \mathbfcal{X} \btheta$. But it is easy to show that $\nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right) = - \mathbfcal{X}$, and so
 
 $$
-\bbr^{n+1} \to \bbr^m, \quad \btheta \mapsto \by - \mathcal{X}\btheta.
-$$
+\nabla J(\btheta) =  -\left( \by - \mathbfcal{X}\btheta\right)^\intercal \mathbfcal{X}.
+$$ (grad-rss-eq)
 
-But it is easy to show that $\text{Jac}\left(\by - \mathcal{X}\btheta \right) = - \mathcal{X}$, and so
-
-$$
-\nabla J(\btheta) =  \left( \by - \mathcal{X}\btheta\right)^T \mathcal{X}.
-$$
-
-Setting the gradient to zero and solving gives
+Setting the gradient to zero and rearranging gives
 
 $$
-\mathcal{X}^T \mathcal{X} \btheta = \mathcal{X}^T \by,
+\mathbfcal{X}^\intercal \mathbfcal{X} \btheta = \mathbfcal{X}^\intercal \by,
 $$
 
-from which the desired equation follows. The only thing that is left to prove is that we have actually obtained a _maximizer_. This follows from concavity of the objective function $J(\btheta)$, which you will establish in the [suggested problems](https://github.com/jmyers7/stats-book-materials/blob/main/suggested-problems/11-2-suggested-problems.md#problem-2-solution). Q.E.D.
+from which the desired equation follows.
+
+The only thing that is left to prove is that we have actually obtained a global minimizer. But this follows from convexity of the objective function $J(\btheta)$, which we may demonstrate by showing the Hessian matrix $\nabla^2 J(\btheta)$ is positive semidefinite (see {prf:ref}`main-convex-multi-thm`). To do this, note that $\nabla^2 J(\btheta) = \mathbfcal{X}^\intercal \mathbfcal{X}$ from {eq}`grad-rss-eq`. But then, given any vector $\bz \in \bbr^{n+1}$, we have
+
+$$
+\bz^\intercal \nabla^2 J(\btheta) \bz = \bz^\intercal \mathbfcal{X}^\intercal \mathbfcal{X} \bz = (\mathbfcal{X}\bx)^\intercal \mathbfcal{X} \bz = |\mathbfcal{X}\bz|^2 \geq 0.
+$$
+
+Thus the Hessian matrix is indeed positive semidefinite. Q.E.D.
 ```
 
-
-Note that the maximizer of the objective function
-
-$$
-J(\beta_0,\bbeta) = - \frac{1}{2} \sum_{i=1}^m \left( y^{(i)} - \mu^{(i)} \right)^2
-$$
-
-is the same as the minimizer of the objective function
-
-$$
-\text{RSS}(\beta_0, \bbeta) \def \sum_{i=1}^m \left( y^{(i)} - \mu^{(i)} \right)^2,
-$$
-
-called the _residual sum of squares_. The name comes about from the terminology introduced in {numref}`lin-reg-sec`, where we learned that the differences
-
-$$
-y^{(i)} - \mu^{(i)} = y^{(i)} - \beta_0 - \beta_1 x_1^{(i)} - \cdots - \beta_n x_n^{(i)}
-$$
-
-are called the _residuals_. Thus, the maximum likelihood parameter estimates are those that minimize the residual sum of squares, which explains why the MLEs are also often called the _ordinary least squares_ (_OLS_) estimates.
-
-
+As we saw in the proof, the maximum likelihood parameter estimates are those that minimize the residual sum of squares $RSS(\btheta)$, which explains why the MLEs are also often called the _ordinary least squares_ (_OLS_) estimates.
 
 It is worth writing out the MLEs in the case of simple linear regression:
 
-```{prf:corollary} Maximum likelihood estimates for simple linear regression with known variance
+```{prf:corollary} MLEs for simple linear regression models with known variance
 :label: mle-simple-lin-reg-cor
 
-Letting the notation be as above, the MLEs for the parameters $\beta_0$ and $\beta_1$ in a simple linear regression model are given by
+Let the notation be as in {prf:ref}`mle-lin-reg-thm`, but assume that $\bX$ is $1$-dimensional, equal to a random variable $X$. Then MLEs for the parameters $\beta_0$ and $\beta_1$ are given by
 
 \begin{align*}
-\beta_1 &= \frac{\sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)\left( y^{(i)} - \bar{y} \right)}{\sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)^2}, \\
-\beta_0 &= \bar{y} - \beta_1 \bar{x},
+(\beta_1)_\text{MLE}^\star &= \frac{\sum_{i=1}^m \left(x_i - \bar{x} \right)\left( y_i - \bar{y} \right)}{\sum_{i=1}^m \left(x_i - \bar{x} \right)^2}, \\
+(\beta_0)_\text{MLE}^\star &= \bar{y} - \beta_1 \bar{x},
 \end{align*}
 
-where $\bar{x} = \frac{1}{m} \sum_{i=1}^m x^{(i)}$ and $\bar{y} = \frac{1}{m} \sum_{i=1}^m y^{(i)}$ are the empirical means.
+where $\bar{x} = \frac{1}{m} \sum_{i=1}^m x_i$ and $\bar{y} = \frac{1}{m} \sum_{i=1}^m y_i$ are the empirical means.
 ```
 
 ```{prf:proof}
@@ -436,61 +719,55 @@ where $\bar{x} = \frac{1}{m} \sum_{i=1}^m x^{(i)}$ and $\bar{y} = \frac{1}{m} \s
 First note that
 
 $$
-\mathcal{X}^T \mathcal{X} = \begin{bmatrix} m & m \bar{x} \\ m \bar{x} & \sum_{i=1}^m {x^{(i)}}^2 \end{bmatrix}.
+\mathbfcal{X}^\intercal \mathbfcal{X} = \begin{bmatrix} m & m \bar{x} \\ m \bar{x} & \sum_{i=1}^m x_i^2 \end{bmatrix}.
 $$
 
 Assuming this matrix has nonzero determinant, we have
 
 $$
-\left(\mathcal{X}^T \mathcal{X} \right)^{-1} = \frac{1}{m \sum_{i=1}^m {x^{(i)}}^2 - m^2 \bar{x}^2} \begin{bmatrix} \sum_{i=1}^m {x^{(i)}}^2 & -m \bar{x} \\ -m \bar{x} & m \end{bmatrix}.
+\left(\mathbfcal{X}^\intercal \mathbfcal{X} \right)^{-1} = \frac{1}{m \sum_{i=1}^m x_i^2 - m^2 \bar{x}^2} \begin{bmatrix} \sum_{i=1}^m x_i^2 & -m \bar{x} \\ -m \bar{x} & m \end{bmatrix}.
 $$
 
 But
 
 $$
-\mathcal{X}^T \by = \begin{bmatrix} m \bar{y} \\ \sum_{i=1}^m x^{(i)} y^{(i)} \end{bmatrix},
+\mathbfcal{X}^\intercal \by = \begin{bmatrix} m \bar{y} \\ \sum_{i=1}^m x_i y_i \end{bmatrix},
 $$
 
 and so from
 
 $$
-\begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \btheta =  \left(\mathcal{X}^T \mathcal{X}\right)^{-1}\mathcal{X}^T \by
+\begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \btheta =  \left(\mathbfcal{X}^\intercal \mathbfcal{X}\right)^{-1}\mathbfcal{X}^\intercal \by
 $$
 
 we conclude
 
 $$
-\beta_1 = \frac{\sum_{i=1}^m x^{(i)} y^{(i)} -m \bar{x}\bar{y} }{ \sum_{i=1}^m {x^{(i)}}^2 - m \bar{x}^2}.
+\beta_1 = \frac{\sum_{i=1}^m x_i y_i -m \bar{x}\bar{y} }{ \sum_{i=1}^m x_i^2 - m \bar{x}^2}.
 $$
 
 But as you may easily check, we have
 
 $$
-\sum_{i=1}^m x^{(i)} y^{(i)} -m \bar{x}\bar{y}  = \sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)\left( y^{(i)} - \bar{y} \right)
+\sum_{i=1}^m x_i y_i -m \bar{x}\bar{y}  = \sum_{i=1}^m \left(x_i - \bar{x} \right)\left( y_i - \bar{y} \right)
 $$
 
 and
 
 $$
-\sum_{i=1}^m {x^{(i)}}^2 - m \bar{x}^2 = \sum_{i=1}^m \left(x^{(i)} - \bar{x} \right)^2,
+\sum_{i=1}^m x_i^2 - m \bar{x}^2 = \sum_{i=1}^m \left(x_i - \bar{x} \right)^2,
 $$
 
-from which the desired equation for $\beta_1$ follows. To obtain the equation for $\beta_0$, note that
+from which the desired equation for $\beta_1$ follows. To obtain the equation for $\beta_0$, note that the equation
 
 $$
-\mathcal{X}^T \mathcal{X} \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \mathcal{X}^T \by 
+\mathbfcal{X}^\intercal \mathbfcal{X} \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \mathbfcal{X}^\intercal \by 
 $$
 
 implies $m \beta_0  + m \beta_1 \bar{x} = m \bar{y}$, and so $\beta_0 = \bar{y} - \beta_1 \bar{x}$. Q.E.D.
 ```
 
-To illustrate the concepts, let's take a simple toy dataset consisting of the three points
-
-$$
-(0, 0), (1, 1), (2, 3) \in \bbr^2.
-$$
-
-We may use the formulas above to obtain the MLEs for the two parameters $\beta_0,\beta_1 \in \bbr$. Plotting the regression line $y=\beta_0 + \beta_1 x$ along with the data yields the left-hand plot in what follows, while the contours of the objective function $J(\btheta)$ along with the MLE yield the right-hand plot:
+To illustrate the concepts, let's return yet again to the Ames housing dataset (see the description at the beginning of {numref}`lin-reg-sec`). While in principle we may compute the _exact_ MLEs for a linear regression model on this data, it is amusing to approximate them using stochastic gradient descent. To do this, however, we must "standardize" the area and price features for numerical stability, which means that we subtract the empirical means and divide by the standard deviations. When we do so, we get a scatter plot that looks like:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -498,46 +775,62 @@ We may use the formulas above to obtain the MLEs for the two parameters $\beta_0
 :   figure:
 :       align: center
 
-# toy data
-X = np.array([[1, 0], [1, 1], [1, 2]])
-y = np.array([0, 1, 3]).reshape(-1, 1)
+from sklearn.preprocessing import StandardScaler
 
-# MLEs for parameters
-beta0, beta1 = -1 / 6, 3 / 2
+# import data
+url = 'https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/data-3-1.csv'
+df = pd.read_csv(url, usecols=['area', 'price'])
 
-# define objective function
-def J(theta, X, y):
-    return -0.5 * np.linalg.norm(y - X @ theta, axis=0) ** 2
+ss = StandardScaler()
+data_std = ss.fit_transform(df.to_numpy())
 
-# define grid
-x_grid = np.linspace(-5, 6)
-y_grid = np.linspace(-4, 5)
-x_grid, y_grid = np.meshgrid(x_grid, y_grid)
-grid = np.column_stack((x_grid.reshape(-1, 1), y_grid.reshape(-1, 1))).T
-z = J(grid, X, y).reshape(x_grid.shape)
-
-# plot
-_, axes = plt.subplots(ncols=2, figsize=(9, 3))
-
-grid = np.linspace(0, 2)
-axes[0].scatter(X[:, 1], y, s=30)
-axes[0].plot(grid, beta0 + beta1 * grid, color=magenta)
-axes[0].set_xlabel('$x$')
-axes[0].set_ylabel('$y$')
-
-axes[1].contour(x_grid, y_grid, z, levels=20, colors=blue, linestyles='solid')
-axes[1].scatter([beta0], [beta1], s=50, color=magenta)
-axes[1].set_xlabel('$\\beta_0$')
-axes[1].set_ylabel('$\\beta_1$')
-
+sns.scatterplot(x=data_std[:, 0], y=data_std[:, 1], alpha=0.4)
+plt.gcf().set_size_inches(w=5, h=3)
+plt.xlabel('standardized area')
+plt.ylabel('standardized price')
 plt.tight_layout()
 ```
 
-You will compute the maximum likelihood estimates for the parameters $\beta_0$ and $\beta_1$ in the homework.
+Notice that both features are on similar scales. Then, we run the algorithm using the mean squared error function
 
+$$
+MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \btheta = (\beta_0, \beta),
+$$
 
+as the objective function:
 
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
 
+X = torch.tensor(data_std[:, 0], dtype=torch.float32)
+y = torch.tensor(data_std[:, 1], dtype=torch.float32)
+
+beta0 = torch.tensor([1.])
+beta = torch.tensor([1.])
+theta0 = {'beta0': beta0, 'beta': beta}
+
+def g(parameters, x, y):
+    beta0 = parameters['beta0']
+    beta = parameters['beta']
+    return (y - beta0 - beta * x) ** 2
+
+alpha = 0.1
+N = 5
+k = 512
+
+sgd_output = SGD(g=g, init_parameters=theta0, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
+
+plot_sgd(sgd_output,
+         ylabel='mean squared error (MSE)',
+         per_step_label='MSE per step',
+         per_epoch_label='mean MSE per epoch',
+         per_epoch_color=magenta,
+         legend=True,
+         per_step_alpha=0.4)
+```
 
 
 
@@ -635,10 +928,10 @@ for i, epoch in enumerate(epoch_list):
     parameters = {key: value[epoch] for key, value in running_parameters.items()}
     
     # plot the objective function
-    axes[i, 0].plot(range(len(gd_output.objectives)), gd_output.objectives, label='surprisal per step')
+    axes[i, 0].plot(gd_output.grad_steps, gd_output.per_step_objectives, label='surprisal per step')
     axes[i, 0].set_xlabel('gradient steps')
     axes[i, 0].set_ylabel('surprisal')
-    axes[i, 0].scatter(epoch_list[i], gd_output.objectives[epoch], color=magenta, s=100, zorder=3)
+    axes[i, 0].scatter(epoch_list[i], gd_output.per_step_objectives[epoch], color=magenta, s=100, zorder=3)
     axes[i, 0].legend()
 
     # apply the fitted model to the grid
@@ -728,7 +1021,7 @@ def phi(X, parameters):
     return torch.sigmoid(Z_3 @ parameters['weight_4'] + parameters['bias_4'])
 
 # define the model surprisal function
-def I(X, y, parameters):
+def I(parameters, X, y):
     probs = phi(X, parameters)
     return -y * torch.log(probs) - (1 - y) * torch.log(1 - probs)
 

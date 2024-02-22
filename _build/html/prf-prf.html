@@ -316,6 +316,7 @@ document.write(`
    <div class="modindex-jumpbox">
    <a href="#cap-KL-and-entropy-thm"><strong>KL-and-entropy-thm</strong></a> | 
    <a href="#cap-KL-def"><strong>KL-def</strong></a> | 
+   <a href="#cap-MSE-min-thm"><strong>MSE-min-thm</strong></a> | 
    <a href="#cap-affine-gaussian-thm"><strong>affine-gaussian-thm</strong></a> | 
    <a href="#cap-affine-trans-mutivar-norm-thm"><strong>affine-trans-mutivar-norm-thm</strong></a> | 
    <a href="#cap-batch-gd-def"><strong>batch-gd-def</strong></a> | 
@@ -364,6 +365,7 @@ document.write(`
    <a href="#cap-derivatives-mgf-thm"><strong>derivatives-mgf-thm</strong></a> | 
    <a href="#cap-directional-der-def"><strong>directional-der-def</strong></a> | 
    <a href="#cap-directional-der-grad-thm"><strong>directional-der-grad-thm</strong></a> | 
+   <a href="#cap-disc-model-functions-def"><strong>disc-model-functions-def</strong></a> | 
    <a href="#cap-discrete-construction-thm"><strong>discrete-construction-thm</strong></a> | 
    <a href="#cap-discrete-cont-two-dim-vec-def"><strong>discrete-cont-two-dim-vec-def</strong></a> | 
    <a href="#cap-discrete-continuous-rv-def"><strong>discrete-continuous-rv-def</strong></a> | 
@@ -377,6 +379,8 @@ document.write(`
    <a href="#cap-empirical-stats-def"><strong>empirical-stats-def</strong></a> | 
    <a href="#cap-entropy-def"><strong>entropy-def</strong></a> | 
    <a href="#cap-equiv-obj-bern-thm"><strong>equiv-obj-bern-thm</strong></a> | 
+   <a href="#cap-equiv-obj-disc-thm"><strong>equiv-obj-disc-thm</strong></a> | 
+   <a href="#cap-equiv-obj-gen-thm"><strong>equiv-obj-gen-thm</strong></a> | 
    <a href="#cap-exp-beta-thm"><strong>exp-beta-thm</strong></a> | 
    <a href="#cap-exp-var-bernoulli-thm"><strong>exp-var-bernoulli-thm</strong></a> | 
    <a href="#cap-exp-var-binomial-thm"><strong>exp-var-binomial-thm</strong></a> | 
@@ -399,6 +403,7 @@ document.write(`
    <a href="#cap-gaussian-def"><strong>gaussian-def</strong></a> | 
    <a href="#cap-gd-alg"><strong>gd-alg</strong></a> | 
    <a href="#cap-gd-obs"><strong>gd-obs</strong></a> | 
+   <a href="#cap-gen-model-functions-def"><strong>gen-model-functions-def</strong></a> | 
    <a href="#cap-gen-para-model-def"><strong>gen-para-model-def</strong></a> | 
    <a href="#cap-geometric-def"><strong>geometric-def</strong></a> | 
    <a href="#cap-gibbs-thm"><strong>gibbs-thm</strong></a> | 
@@ -420,7 +425,10 @@ document.write(`
    <a href="#cap-law-of-total-prob-event-thm"><strong>law-of-total-prob-event-thm</strong></a> | 
    <a href="#cap-law-of-total-prob-rvs-thm"><strong>law-of-total-prob-rvs-thm</strong></a> | 
    <a href="#cap-law-of-total-prob-two-event-thm"><strong>law-of-total-prob-two-event-thm</strong></a> | 
+   <a href="#cap-likelihood-sur-decompose-disc-thm"><strong>likelihood-sur-decompose-disc-thm</strong></a> | 
+   <a href="#cap-likelihood-sur-decompose-thm"><strong>likelihood-sur-decompose-thm</strong></a> | 
    <a href="#cap-linear-exp-thm"><strong>linear-exp-thm</strong></a> | 
+   <a href="#cap-linear-reg-data-pf-def"><strong>linear-reg-data-pf-def</strong></a> | 
    <a href="#cap-linear-reg-data-pf-thm"><strong>linear-reg-data-pf-thm</strong></a> | 
    <a href="#cap-linear-reg-def"><strong>linear-reg-def</strong></a> | 
    <a href="#cap-linear-reg-pf-def"><strong>linear-reg-pf-def</strong></a> | 
@@ -536,6 +544,14 @@ document.write(`
        <td>
        <a href="chapters/10-info-theory.html#KL-def"><code class="xref">KL-def</code></a> <em>(chapters/10-info-theory)</em></td><td>
        <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-MSE-min-thm"><td></td><td>
+       <strong>MSE-min-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-learning.html#MSE-min-thm"><code class="xref">MSE-min-thm</code></a> <em>(chapters/13-learning)</em></td><td>
+       <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-affine-gaussian-thm"><td></td><td>
        <strong>affine-gaussian-thm</strong></td><td></td></tr>
@@ -921,6 +937,14 @@ document.write(`
        <a href="chapters/11-optim.html#directional-der-grad-thm"><code class="xref">directional-der-grad-thm</code></a> <em>(chapters/11-optim)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-disc-model-functions-def"><td></td><td>
+       <strong>disc-model-functions-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-learning.html#disc-model-functions-def"><code class="xref">disc-model-functions-def</code></a> <em>(chapters/13-learning)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-discrete-construction-thm"><td></td><td>
        <strong>discrete-construction-thm</strong></td><td></td></tr>
      <tr>
@@ -1023,6 +1047,22 @@ document.write(`
        <td></td>
        <td>
        <a href="chapters/13-learning.html#equiv-obj-bern-thm"><code class="xref">equiv-obj-bern-thm</code></a> <em>(chapters/13-learning)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-equiv-obj-disc-thm"><td></td><td>
+       <strong>equiv-obj-disc-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-learning.html#equiv-obj-disc-thm"><code class="xref">equiv-obj-disc-thm</code></a> <em>(chapters/13-learning)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-equiv-obj-gen-thm"><td></td><td>
+       <strong>equiv-obj-gen-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-learning.html#equiv-obj-gen-thm"><code class="xref">equiv-obj-gen-thm</code></a> <em>(chapters/13-learning)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-exp-beta-thm"><td></td><td>
@@ -1201,6 +1241,14 @@ document.write(`
        <a href="chapters/11-optim.html#gd-obs"><code class="xref">gd-obs</code></a> <em>(chapters/11-optim)</em></td><td>
        <em>observation</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-gen-model-functions-def"><td></td><td>
+       <strong>gen-model-functions-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-learning.html#gen-model-functions-def"><code class="xref">gen-model-functions-def</code></a> <em>(chapters/13-learning)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-gen-para-model-def"><td></td><td>
        <strong>gen-para-model-def</strong></td><td></td></tr>
      <tr>
@@ -1369,6 +1417,22 @@ document.write(`
        <a href="chapters/03-rules-of-prob.html#law-of-total-prob-two-event-thm"><code class="xref">law-of-total-prob-two-event-thm</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-likelihood-sur-decompose-disc-thm"><td></td><td>
+       <strong>likelihood-sur-decompose-disc-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-learning.html#likelihood-sur-decompose-disc-thm"><code class="xref">likelihood-sur-decompose-disc-thm</code></a> <em>(chapters/13-learning)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-likelihood-sur-decompose-thm"><td></td><td>
+       <strong>likelihood-sur-decompose-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-learning.html#likelihood-sur-decompose-thm"><code class="xref">likelihood-sur-decompose-thm</code></a> <em>(chapters/13-learning)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-linear-exp-thm"><td></td><td>
        <strong>linear-exp-thm</strong></td><td></td></tr>
      <tr>
@@ -1376,6 +1440,14 @@ document.write(`
        <td>
        <a href="chapters/08-more-prob.html#linear-exp-thm"><code class="xref">linear-exp-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
        <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-linear-reg-data-pf-def"><td></td><td>
+       <strong>linear-reg-data-pf-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/12-models.html#linear-reg-data-pf-def"><code class="xref">linear-reg-data-pf-def</code></a> <em>(chapters/12-models)</em></td><td>
+       <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-linear-reg-data-pf-thm"><td></td><td>
        <strong>linear-reg-data-pf-thm</strong></td><td></td></tr>

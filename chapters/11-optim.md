@@ -57,7 +57,12 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib_inline.backend_inline
-from math_stats_ml.gd import GD, SGD, plot_gd, plot_sgd
+
+import sys
+sys.path.append('/Users/johnmyers/code/math_stats_ml/src/math_stats_ml')
+from gd import GD, SGD, plot_sgd, plot_gd
+#from math_stats_ml.gd import GD, SGD, plot_gd, plot_sgd
+
 plt.style.use('../aux-files/custom_style_light.mplstyle')
 matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
 blue = '#486AFB'
@@ -1454,7 +1459,7 @@ Now, two runs of the batch gradient descent algorithm produce the following plot
 :   figure:
 :       align: center
 
-def g(X, theta):
+def g(theta, X):
     x1 = X[:, 0]
     x2 = X[:, 1]
     theta1 = theta[0]
@@ -1462,7 +1467,7 @@ def g(X, theta):
     return 0.5 * ((x1 - theta1) ** 2 + (x2 - theta2) ** 2)
 
 def J(theta):
-    return g(X, theta).mean()
+    return g(theta, X).mean()
 
 gd_parameters = {'num_steps': [30, 100],
                  'lr': [1e-1, 3e-2]}
@@ -1773,6 +1778,7 @@ for i, axis in enumerate(axes.flatten()):
              plot_title=False,
              ax=axis,
              per_step_alpha=0.25,
+             s=30,
              ylabel='objective',
              per_epoch_color=magenta,
              per_step_label='objective per step',
