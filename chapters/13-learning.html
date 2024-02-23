@@ -599,7 +599,7 @@ x_1,x_2,\ldots,x_{128} \in \{0,1\}
 <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span>
 
 <span class="c1"># run SGD</span>
-<span class="n">sgd_output</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">g</span><span class="o">=</span><span class="n">I_model</span><span class="p">,</span> <span class="n">init_parameters</span><span class="o">=</span><span class="n">theta0</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+<span class="n">sgd_output</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="n">I_model</span><span class="p">,</span> <span class="n">init_parameters</span><span class="o">=</span><span class="n">theta0</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
 
 <span class="n">epoch_step_nums</span> <span class="o">=</span> <span class="n">sgd_output</span><span class="o">.</span><span class="n">epoch_step_nums</span>
 <span class="n">objectives</span> <span class="o">=</span> <span class="n">sgd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">[</span><span class="n">epoch_step_nums</span><span class="p">]</span>
@@ -628,13 +628,13 @@ x_1,x_2,\ldots,x_{128} \in \{0,1\}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/deb75b1d83fd8a18f47bea382aab71fabf5551bdf564f8c88c9e2a7b77d900c1.svg" src="../_images/deb75b1d83fd8a18f47bea382aab71fabf5551bdf564f8c88c9e2a7b77d900c1.svg" /></figure>
+<img alt="../_images/0d5ce5c440bfaaf47a839a9b8c8a84371983158600ae64c1e04fbf652dc0e6b9.svg" src="../_images/0d5ce5c440bfaaf47a839a9b8c8a84371983158600ae64c1e04fbf652dc0e6b9.svg" /></figure>
 </div>
 </div>
 <p>The blue curve in the left-hand plot is the graph of the <em>exact</em> cross entropy function <span class="math notranslate nohighlight">\(H_{\hat{P}}(P_\theta)\)</span>. The magenta points—which represent a selection of outputs of the algorithm—do not fall <em>precisely</em> on this graph since they are <em>approximations</em> to the cross entropy, obtained as realizations of the expression on the right-hand side of</p>
 <div class="math notranslate nohighlight">
 \[
-H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} I_{P_\theta}(x),
+H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} \mathcalI(\theta; x),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(B\)</span> is a mini-batch of data of size <span class="math notranslate nohighlight">\(k=8\)</span>. (This was discussed right after we introduced <a class="reference internal" href="11-optim.html#sgd-alg">Algorithm 11.4</a> in <a class="reference internal" href="11-optim.html#optim"><span class="std std-numref">Chapter 11</span></a>.) On the right-hand size of the figure, we have plotted the (approximate) cross entropy versus gradient steps, a type of plot familiar from <a class="reference internal" href="11-optim.html#optim"><span class="std std-numref">Chapter 11</span></a>. The magenta dots on the two sides of the figure correspond to each other; they represent the (approximate) cross entropies every 16 gradient steps (<span class="math notranslate nohighlight">\(=1\)</span> epoch). Notice that the algorithm appears to be converging to the true value <span class="math notranslate nohighlight">\(\theta^\star_\text{MLE} = 87/128 \approx 0.68\)</span> given by <a class="reference internal" href="#bern-mle-thm">Theorem 13.2</a>.</p>
 </section>
@@ -801,7 +801,7 @@ J(\btheta) \def E_{(\bx, y) \sim \hat{p}(\bx, y)} \left[ \calI(\btheta; \ y \mid
 \[
 (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^n \times \bbr
 \]</div>
-<p>be an observed dataset with empirical joint mass function <span class="math notranslate nohighlight">\(\hat{p}(\bx,y)\)</span>. Suppose also that the conditional distribution of <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(\bX\)</span> is normal, with <em>fixed</em> variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>, and that the mean <span class="math notranslate nohighlight">\(\mu = \mu(\bx,\btheta)\)</span> of the distribution is the link function. Then the minimizers of the stochastic objective function</p>
+<p>be an observed dataset with empirical joint mass function <span class="math notranslate nohighlight">\(\hat{p}(\bx,y)\)</span>. Suppose also that the conditional distribution of <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(\bX\)</span> is normal, with <em>fixed</em> variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>, and that the mean <span class="math notranslate nohighlight">\(\mu = \mu(\btheta,\bx)\)</span> of the distribution is given by the link function at <span class="math notranslate nohighlight">\(Y\)</span>. Then the minimizers of the stochastic objective function</p>
 <div class="math notranslate nohighlight">
 \[
 E_{(\bx, y) \sim \hat{p}(\bx, y)} \left[ \calI(\btheta; \ y \mid \bx) \right] = \frac{1}{m} \sum_{i=1}^m \calI(\btheta; \ y_i \mid \bx_i)
@@ -811,7 +811,7 @@ E_{(\bx, y) \sim \hat{p}(\bx, y)} \left[ \calI(\btheta; \ y \mid \bx) \right] = 
 \[
 MSE(\btheta) \def \frac{1}{m} \sum_{i=1}^m (y_i - \mu_i)^2,
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\mu_i = \mu(\bx_i,\btheta)\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(\mu_i = \mu(\btheta,\bx_i)\)</span>.</p>
 </section>
 </div><div class="proof admonition" id="proof">
 <p>Proof. The proof begins with a simple computation:</p>
@@ -827,21 +827,22 @@ MSE(\btheta) \def \frac{1}{m} \sum_{i=1}^m (y_i - \mu_i)^2,
 \]</div>
 <p>Assuming that the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> is <em>fixed</em>, we immediately see that minimizing the left-hand side with respect to <span class="math notranslate nohighlight">\(\btheta\)</span> is the same as minimizing the MSE. Q.E.D.</p>
 </div>
-<p>Since multiplying an objective function by a positive constant does not change its extremizers, we may modify the mean squared error function in several ways to best suit the context. For example, sometimes it is convenient to instead consider the <em>residual sum of squares</em> function</p>
+<p>In the case addressed by the theorem, we see that the target function of the stochastic objective function</p>
 <div class="math notranslate nohighlight">
 \[
-RSS(\btheta) \def  \sum_{i=1}^m (y_i - \mu_i)^2,
+J(\btheta) = E_{(\bx,y) \sim \hat{p}(\bx,y)}\left[ \calI(\btheta; \ y \mid \bx)\right]
 \]</div>
-<p>while in other situations we might even divide this latter quantity by <span class="math notranslate nohighlight">\(2\)</span> and consider the equivalent objective</p>
+<p>may be replaced with the <em>squared error</em> function <span class="math notranslate nohighlight">\(h(\btheta; \ y\mid \bx) = (y-\mu)^2\)</span>, and we will not alter the solutions to the optimization problem. Moreover, since multiplying a target function by a positive constant does not change the extremizers, we may modify the squared error function in several ways to best suit the context. For example, sometimes it is convenient to instead take <span class="math notranslate nohighlight">\(J(\btheta)\)</span> to be half the <em>residual sum of squares</em>:</p>
 <div class="math notranslate nohighlight">
 \[
-RSS(\btheta) /2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2.
+J(\btheta) = RSS(\btheta) /2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2.
 \]</div>
 <p>See, for example, <a class="reference internal" href="#mle-lin-reg-thm">Theorem 13.8</a> in the next section.</p>
 <p>Our discussion on the identity of the stochastic objective function <span class="math notranslate nohighlight">\(J(\btheta)\)</span> is summarized in the following chart:</p>
 <a class="reference internal image-reference" href="../_images/flow-training.svg"><img alt="../_images/flow-training.svg" class="align-center" src="../_images/flow-training.svg" width="100%" /></a>
 <p> </p>
-<p>Again, care must be taken in interpreting <span class="math notranslate nohighlight">\(J(\btheta)\)</span> in the case of a discriminative model with (conditionally) normal <span class="math notranslate nohighlight">\(Y\)</span>, since it is technically not equal to the MSE exactly, and we must also assume that the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> is <em>fixed</em>, as discussed in <a class="reference internal" href="#MSE-min-thm">Theorem 13.6</a>. In any case, we may now state the following theorem, which is a version of <a class="reference internal" href="#equiv-obj-gen-thm">Theorem 13.4</a> for discriminative models:</p>
+<p>Along the bottom of the figure, we’ve listed the target functions <span class="math notranslate nohighlight">\(h\)</span> of the stochastic objective functions <span class="math notranslate nohighlight">\(J\)</span>.</p>
+<p>We may now state the following theorem, which is a version of <a class="reference internal" href="#equiv-obj-gen-thm">Theorem 13.4</a> for discriminative models:</p>
 <div class="proof theorem admonition" id="equiv-obj-disc-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 13.7 </span> (Equivalent learning objectives for discriminative PGMs)</p>
 <section class="theorem-content" id="proof-content">
@@ -1017,7 +1018,7 @@ J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \fra
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/9d1d56c795edcae6f89d73d6d6549ed472b896ea78fe74abec1036d5af6f140f.svg" src="../_images/9d1d56c795edcae6f89d73d6d6549ed472b896ea78fe74abec1036d5af6f140f.svg" /></figure>
+<img alt="../_images/614eeed3180af648491435399e7470455110d14af1b4ee786f5c707fb1da3e34.svg" src="../_images/614eeed3180af648491435399e7470455110d14af1b4ee786f5c707fb1da3e34.svg" /></figure>
 </div>
 </div>
 <p>Notice that both features are on similar scales. Then, we run the algorithm using the mean squared error function</p>
@@ -1039,31 +1040,32 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
     <span class="n">beta</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">beta0</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">x</span>
 
-<span class="c1"># define target function g for MSE</span>
-<span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="c1"># define target function for MSE</span>
+<span class="k">def</span> <span class="nf">SE</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="n">mu</span> <span class="o">=</span> <span class="n">mu_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
 
 <span class="c1"># initialize parameters</span>
-<span class="n">beta0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.</span><span class="p">])</span>
-<span class="n">beta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.</span><span class="p">])</span>
+<span class="n">beta0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="o">-</span><span class="mf">10.</span><span class="p">])</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">3.</span><span class="p">])</span>
 <span class="n">theta0</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;beta0&#39;</span><span class="p">:</span> <span class="n">beta0</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">:</span> <span class="n">beta</span><span class="p">}</span>
 
 <span class="c1"># define SGD parameters</span>
 <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">k</span> <span class="o">=</span> <span class="mi">512</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">256</span>
 
 <span class="c1"># run SGD</span>
-<span class="n">sgd_output</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">g</span><span class="o">=</span><span class="n">g</span><span class="p">,</span> <span class="n">init_parameters</span><span class="o">=</span><span class="n">theta0</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">sgd_output</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="n">SE</span><span class="p">,</span> <span class="n">init_parameters</span><span class="o">=</span><span class="n">theta0</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="c1"># plot SGD output</span>
 <span class="n">plot_sgd</span><span class="p">(</span><span class="n">sgd_output</span><span class="p">,</span>
-         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;mean squared error (MSE)&#39;</span><span class="p">,</span>
+         <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;log MSE&#39;</span><span class="p">,</span>
          <span class="n">plot_title_string</span><span class="o">=</span><span class="s1">&#39;SGD for linear regression&#39;</span><span class="p">,</span>
          <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-         <span class="n">per_step_label</span><span class="o">=</span><span class="s1">&#39;MSE per step&#39;</span><span class="p">,</span>
-         <span class="n">per_epoch_label</span><span class="o">=</span><span class="s1">&#39;mean MSE per epoch&#39;</span><span class="p">,</span>
+         <span class="n">per_step_label</span><span class="o">=</span><span class="s1">&#39;log MSE per step&#39;</span><span class="p">,</span>
+         <span class="n">per_epoch_label</span><span class="o">=</span><span class="s1">&#39;log mean MSE per epoch&#39;</span><span class="p">,</span>
          <span class="n">per_epoch_color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span>
          <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
          <span class="n">per_step_alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
@@ -1073,7 +1075,49 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/5c06a4cedf1e3b8ecacfaad2fe8486e514c12de992fdb80d9b8d9c823cd37c31.svg" src="../_images/5c06a4cedf1e3b8ecacfaad2fe8486e514c12de992fdb80d9b8d9c823cd37c31.svg" /></figure>
+<img alt="../_images/d94ed7a90deba122113723b84c396bed77fc80508c0d36fe8d2fa9c774ed8a00.svg" src="../_images/d94ed7a90deba122113723b84c396bed77fc80508c0d36fe8d2fa9c774ed8a00.svg" /></figure>
+</div>
+</div>
+<p>Notice that we plotted the MSE on a logarithmic scale—we chose to do this because we purposefully chose initial guesses for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> that were quite far away from the MLEs, creating large values of the MSE in the initial few steps of the algorithm. This lengthens the learning process, giving us a nicer visualization as the regression line moves into place:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">epoch_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sgd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">):</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">parameter</span><span class="p">[</span><span class="n">epoch</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">sgd_output</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+    <span class="c1"># plot the objective function</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sgd_output</span><span class="o">.</span><span class="n">grad_steps</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">sgd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;log MSE per step&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">sgd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">[</span><span class="n">epoch</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="n">blue</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;current step&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sgd_output</span><span class="o">.</span><span class="n">epoch_step_nums</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">sgd_output</span><span class="o">.</span><span class="n">per_epoch_objectives</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;log mean MSE per epoch&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;gradient steps&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;log MSE&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data_std</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">data_std</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">mu_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">grid</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;stochastic gradient descent for linear regression</span><span class="se">\n</span><span class="s1">$</span><span class="se">\\</span><span class="s1">alpha=$</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s1">, $</span><span class="se">\\</span><span class="s1">beta=$0, $k=$</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">, $N=$</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/f8dc97602aaa18e9b12d3835dff2c79ce2a54329ef5ca8a19629072f367c2617.svg" src="../_images/f8dc97602aaa18e9b12d3835dff2c79ce2a54329ef5ca8a19629072f367c2617.svg" /></figure>
 </div>
 </div>
 </section>
@@ -1117,7 +1161,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/b7487c194197b9790c3c58c71fb09982d3ab104354714972c945043fd2153623.svg" src="../_images/b7487c194197b9790c3c58c71fb09982d3ab104354714972c945043fd2153623.svg" /></figure>
+<img alt="../_images/f4cfed9b40893d111b964919b5c06b89f65d681ea366ee28c0fca7c6893c63a4.svg" src="../_images/f4cfed9b40893d111b964919b5c06b89f65d681ea366ee28c0fca7c6893c63a4.svg" /></figure>
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1159,7 +1203,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2f369540afc5ad939c1f5cd93c1fa85e693736b096ff38e66681768628483144.svg" src="../_images/2f369540afc5ad939c1f5cd93c1fa85e693736b096ff38e66681768628483144.svg" /></figure>
+<img alt="../_images/f67756cb51f047d515a5a38dd06b94644684bd30cf64e80b2896fa525968d168.svg" src="../_images/f67756cb51f047d515a5a38dd06b94644684bd30cf64e80b2896fa525968d168.svg" /></figure>
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1198,7 +1242,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gd_output</span><span class="o">.</span><span class="n">grad_steps</span><span class="p">,</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;surprisal per step&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;gradient steps&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;surprisal&#39;</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">[</span><span class="n">epoch</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">[</span><span class="n">epoch</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">blue</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;current step&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
     <span class="c1"># apply the fitted model to the grid</span>
@@ -1219,7 +1263,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
     <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">legend_</span><span class="o">.</span><span class="n">texts</span><span class="p">,</span> <span class="n">new_labels</span><span class="p">):</span>
         <span class="n">t</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
     
-<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;gradient descent for logistic regression</span><span class="se">\n</span><span class="s1">$</span><span class="se">\\</span><span class="s1">alpha=</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s1">$, $</span><span class="se">\\</span><span class="s1">beta=0$, $N=</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;gradient descent for logistic regression</span><span class="se">\n</span><span class="s1">$</span><span class="se">\\</span><span class="s1">alpha=$</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s1">, $</span><span class="se">\\</span><span class="s1">beta=$0, $N=$</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1227,7 +1271,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/7b7314ae27cf934bbe49ce2799de3edb5ee594d61a30dd567447d6a68e6a5d42.svg" src="../_images/7b7314ae27cf934bbe49ce2799de3edb5ee594d61a30dd567447d6a68e6a5d42.svg" /></figure>
+<img alt="../_images/46ca69cd7903b41b18bfabff6c3ea821113b2b1b2b0fb3e16f1c50773d347a09.svg" src="../_images/46ca69cd7903b41b18bfabff6c3ea821113b2b1b2b0fb3e16f1c50773d347a09.svg" /></figure>
 </div>
 </div>
 </section>
@@ -1271,7 +1315,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ab0feca42a5ef3ea11a8c232babc8861dd3442f63f6124f1322ee7bd3cdfdeab.svg" src="../_images/ab0feca42a5ef3ea11a8c232babc8861dd3442f63f6124f1322ee7bd3cdfdeab.svg" /></figure>
+<img alt="../_images/52d17b9468a039666e3b00994fd2169364b292b704ba5227deeebfa12431756c.svg" src="../_images/52d17b9468a039666e3b00994fd2169364b292b704ba5227deeebfa12431756c.svg" /></figure>
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1326,7 +1370,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
 
 <span class="c1"># run SGD</span>
-<span class="n">sgd_output</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">g</span><span class="o">=</span><span class="n">I_model</span><span class="p">,</span> <span class="n">init_parameters</span><span class="o">=</span><span class="n">theta0</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">sgd_output</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="n">I_model</span><span class="p">,</span> <span class="n">init_parameters</span><span class="o">=</span><span class="n">theta0</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="c1"># plot SGD</span>
 <span class="n">plot_sgd</span><span class="p">(</span><span class="n">sgd_output</span><span class="p">,</span>
@@ -1344,7 +1388,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/bd43ec07d92820c8617cacdc37c13842dcfd692fab39ecd24d38c41c61980428.svg" src="../_images/bd43ec07d92820c8617cacdc37c13842dcfd692fab39ecd24d38c41c61980428.svg" /></figure>
+<img alt="../_images/5ac1b00abbd1cc607263b115c210eb37c9169437aa58073579a05a7fcf9e8470.svg" src="../_images/5ac1b00abbd1cc607263b115c210eb37c9169437aa58073579a05a7fcf9e8470.svg" /></figure>
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1376,10 +1420,10 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
     
     <span class="c1"># plot the objective function</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sgd_output</span><span class="o">.</span><span class="n">grad_steps</span><span class="p">,</span> <span class="n">sgd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;cross entropy per step&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sgd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">[</span><span class="n">epoch</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">blue</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;current step&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sgd_output</span><span class="o">.</span><span class="n">epoch_step_nums</span><span class="p">,</span> <span class="n">sgd_output</span><span class="o">.</span><span class="n">per_epoch_objectives</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mean cross entropy per epoch&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;gradient steps&#39;</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;cross entropy&#39;</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sgd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">[</span><span class="n">epoch</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
     <span class="c1"># apply the fitted model to the grid</span>
@@ -1400,7 +1444,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
     <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">legend_</span><span class="o">.</span><span class="n">texts</span><span class="p">,</span> <span class="n">new_labels</span><span class="p">):</span>
         <span class="n">t</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
     
-<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;stochastic gradient descent for neural network model</span><span class="se">\n</span><span class="s1">$</span><span class="se">\\</span><span class="s1">alpha=</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s1">$, $</span><span class="se">\\</span><span class="s1">beta=0$, $k=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">$, $N=</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;stochastic gradient descent for neural network model</span><span class="se">\n</span><span class="s1">$</span><span class="se">\\</span><span class="s1">alpha=$</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s1">, $</span><span class="se">\\</span><span class="s1">beta=$0, $k=$</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">, $N=$</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1408,7 +1452,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/acc5cc3ba918532be6ea2df76d8599214741f3f332cf770c9495f36e3e275c55.svg" src="../_images/acc5cc3ba918532be6ea2df76d8599214741f3f332cf770c9495f36e3e275c55.svg" /></figure>
+<img alt="../_images/2595eb7b4350948b16f875f1432970c1b9be9c85bf3b5efd2c3fb1ee010bfadf.svg" src="../_images/2595eb7b4350948b16f875f1432970c1b9be9c85bf3b5efd2c3fb1ee010bfadf.svg" /></figure>
 </div>
 </div>
 </section>
