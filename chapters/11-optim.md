@@ -57,12 +57,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib_inline.backend_inline
-
-import sys
-sys.path.append('/Users/johnmyers/code/math_stats_ml/src/math_stats_ml')
-from gd import GD, SGD, plot_sgd, plot_gd
-#from math_stats_ml.gd import GD, SGD, plot_gd, plot_sgd
-
+from math_stats_ml.gd import GD, SGD, plot_gd, plot_sgd
 plt.style.use('../aux-files/custom_style_light.mplstyle')
 matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
 blue = '#486AFB'
@@ -1392,7 +1387,7 @@ Many of the objective functions that we will see in {numref}`Chapter %s <learnin
 J(\btheta) = E_{\bx \sim p(\bx)}\big[ g(\bx;\btheta) \big] = \sum_{\mathbf{x}\in \mathbb{R}^n} g(\mathbf{x};\btheta)p(\mathbf{x}),
 ```
 
-where $p(\bx)$ is a probability mass function, $\btheta \in \mathbb{R}^k$ is a _parameter vector_, and $g:\mathbb{R}^{n+k} \to \mathbb{R}$ is a differentiable function. Very often, the mass function will be an empirical mass function of an observed multivariate dataset
+where $p(\bx)$ is a probability mass function, $\btheta \in \mathbb{R}^k$ is a _parameter vector_, and $g:\mathbb{R}^{n+k} \to \mathbb{R}$ is a differentiable function called the _target function_. Very often, the mass function will be an empirical mass function of an observed multivariate dataset
 
 $$
 \bx_1,\bx_2,\ldots,\bx_m \in \mathbb{R}^n,
@@ -1410,7 +1405,7 @@ $$
 \nabla_\btheta J(\btheta) = \frac{1}{m} \sum_{i=1}^m \nabla_\btheta g\big(\bx_i; \btheta \big)
 $$ (batch-eqn)
 
-where we write $\nabla_\btheta$ to emphasize that the gradient is computed with respect to the parameter vector $\btheta$. In this context, the gradient descent algorithm applied to the objective function {eq}`batch-eqn` is given a new name:
+where we write $\nabla_\btheta$ instead of just $\nabla$ to emphasize that the gradient of the target function $g$ is computed with respect to the parameter vector $\btheta$. In this context, the gradient descent algorithm applied to the objective function {eq}`batch-eqn` is given a new name:
 
 ```{prf:definition}
 :label: batch-gd-def
@@ -1418,7 +1413,7 @@ where we write $\nabla_\btheta$ to emphasize that the gradient is computed with 
 The _batch gradient descent algorithm_ is the gradient descent algorithm applied to a stochastic objective function of the form {eq}`batch-eqn`.
 ```
 
-Let's take a look at a simple example. Suppose that we define
+Let's take a look at a simple example. Suppose that we define the target function
 
 ```{math}
 :label: quadratic-eqn
@@ -1459,20 +1454,18 @@ Now, two runs of the batch gradient descent algorithm produce the following plot
 :   figure:
 :       align: center
 
-def g(theta, X):
-    x1 = X[:, 0]
-    x2 = X[:, 1]
-    theta1 = theta[0]
-    theta2 = theta[1]
-    return 0.5 * ((x1 - theta1) ** 2 + (x2 - theta2) ** 2)
+# define the target function
+def g(theta, x):
+    return 0.5 * torch.linalg.norm(x - theta, dim=1) ** 2
 
+# define the objective function
 def J(theta):
     return g(theta, X).mean()
 
 gd_parameters = {'num_steps': [30, 100],
                  'lr': [1e-1, 3e-2]}
-beta = 0
 theta0 = torch.tensor([1.5, 1.5])
+beta = 0
 
 fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(7, 3), sharey=True)
 
@@ -1778,7 +1771,7 @@ for i, axis in enumerate(axes.flatten()):
              plot_title=False,
              ax=axis,
              per_step_alpha=0.25,
-             s=30,
+             s=50,
              ylabel='objective',
              per_epoch_color=magenta,
              per_step_label='objective per step',

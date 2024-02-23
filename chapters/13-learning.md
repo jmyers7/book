@@ -252,12 +252,7 @@ import torch
 import torch.nn.functional as F
 import torch.nn as nn
 from math import sqrt
-
-import sys
-sys.path.append('/Users/johnmyers/code/math_stats_ml/src/math_stats_ml')
-from gd import GD, SGD, plot_sgd
-#from math_stats_ml.gd import GD, SGD, plot_sgd, plot_gd
-
+from math_stats_ml.gd import GD, SGD, plot_sgd, plot_gd
 import matplotlib_inline.backend_inline
 import matplotlib.colors as clr
 plt.style.use('../aux-files/custom_style_light.mplstyle')
@@ -267,35 +262,39 @@ warnings.filterwarnings('ignore', category=UserWarning)
 blue = '#486AFB'
 magenta = '#FD46FC'
 
+# generate data
 torch.manual_seed(42)
-theta = 0.65
 m = 128
-X = torch.bernoulli(torch.tensor([theta] * m))
+X = torch.bernoulli(torch.tensor([0.65] * m))
 
-def g(parameters, X):
-    theta = parameters['theta']
-    return -X * torch.log(theta) - (1 - X) * torch.log(1 - theta)
+# define model surprisal function
+def I_model(theta, x):
+    return -x * torch.log(theta) - (1 - x) * torch.log(1 - theta)
 
-def cross_entropy(theta):
-    Sigmax = sum(X)
-    return -(1 / m) * (Sigmax * np.log(theta) + (m - Sigmax) * np.log(1 - theta))
+def J(theta):
+    return (-X * np.log(theta) - (1 - X) * np.log(1 - theta)).mean()
 
-parameters = {'theta': torch.tensor([0.05])}
+# initialize parameters
+theta0 = torch.tensor([0.05])
+
+# define SGD parameters
 alpha = 0.01
 k = 8
 N = 10
 
-sgd_output = SGD(g=g, init_parameters=parameters, X=X, lr=alpha, batch_size=k, num_epochs=N)
+# run SGD
+sgd_output = SGD(g=I_model, init_parameters=theta0, X=X, lr=alpha, batch_size=k, num_epochs=N)
 
 epoch_step_nums = sgd_output.epoch_step_nums
 objectives = sgd_output.per_step_objectives[epoch_step_nums]
 running_parameters = sgd_output.parameters['theta']
 running_parameters = running_parameters[epoch_step_nums]
 grid = np.linspace(start=0.01, stop=0.99, num=200)
+y = np.apply_along_axis(J, axis=1, arr=grid.reshape(-1, 1))
 
 _, axes = plt.subplots(ncols=2, figsize=(10, 4), sharey=True)
 
-axes[0].plot(grid, cross_entropy(grid))
+axes[0].plot(grid, y)
 axes[0].step(running_parameters, objectives, where='post', color=magenta)
 axes[0].scatter(running_parameters, objectives, color=magenta, s=45, zorder=3)
 axes[0].set_xlabel('$\\theta$')
@@ -305,7 +304,7 @@ axes[1].plot(range(len(sgd_output.per_step_objectives)), sgd_output.per_step_obj
 axes[1].scatter(epoch_step_nums, objectives, s=50, color=magenta, zorder=3)
 axes[1].set_xlabel('gradient steps')
 
-plt.suptitle(f'mini-batch gradient descent\n$k=${k}, $\\alpha =${alpha}, $\\beta=$0, $N = ${N}')
+plt.suptitle(f'stochastic gradient descent for univariate Bernoulli model\n$k=${k}, $\\alpha =${alpha}, $\\beta=$0, $N = ${N}')
 plt.tight_layout()
 ```
 
@@ -788,7 +787,11 @@ sns.scatterplot(x=data_std[:, 0], y=data_std[:, 1], alpha=0.4)
 plt.gcf().set_size_inches(w=5, h=3)
 plt.xlabel('standardized area')
 plt.ylabel('standardized price')
+plt.title('data for linear regression')
 plt.tight_layout()
+
+X = torch.tensor(data_std[:, 0], dtype=torch.float32)
+y = torch.tensor(data_std[:, 1], dtype=torch.float32)
 ```
 
 Notice that both features are on similar scales. Then, we run the algorithm using the mean squared error function
@@ -805,26 +808,35 @@ as the objective function:
 :   figure:
 :       align: center
 
-X = torch.tensor(data_std[:, 0], dtype=torch.float32)
-y = torch.tensor(data_std[:, 1], dtype=torch.float32)
+# define link function at Y
+def mu_link(parameters, x):
+    beta0 = parameters['beta0']
+    beta = parameters['beta']
+    return beta0 + beta * x
 
+# define target function g for MSE
+def g(parameters, x, y):
+    mu = mu_link(parameters, x)
+    return (y - mu) ** 2
+
+# initialize parameters
 beta0 = torch.tensor([1.])
 beta = torch.tensor([1.])
 theta0 = {'beta0': beta0, 'beta': beta}
 
-def g(parameters, x, y):
-    beta0 = parameters['beta0']
-    beta = parameters['beta']
-    return (y - beta0 - beta * x) ** 2
-
+# define SGD parameters
 alpha = 0.1
 N = 5
 k = 512
 
+# run SGD
 sgd_output = SGD(g=g, init_parameters=theta0, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
 
+# plot SGD output
 plot_sgd(sgd_output,
          ylabel='mean squared error (MSE)',
+         plot_title_string='SGD for linear regression',
+         h=3,
          per_step_label='MSE per step',
          per_epoch_label='mean MSE per epoch',
          per_epoch_color=magenta,
@@ -869,7 +881,42 @@ for t, l in zip(g.legend_.texts, new_labels):
 plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
 plt.gcf().set_size_inches(w=5, h=3)
+plt.title('data for logistic regression')
 plt.tight_layout()
+```
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+# define link function at Y
+def phi_fn(parameters, x):
+    beta0 = parameters['beta0']
+    beta = parameters['beta']
+    return torch.sigmoid(beta0 + x @ beta)
+
+# define the data surprisal function
+def I_data(parameters):
+    phi = phi_fn(parameters, X)
+    return torch.sum(-y * torch.log(phi) - (1 - y) * torch.log(1 - phi))
+
+# initialize parameters
+torch.manual_seed(42)
+beta0 = torch.normal(mean=0, std=1e-1, size=(1,))
+beta = torch.normal(mean=0, std=1e-1, size=(2,))
+theta0 = {'beta0': beta0, 'beta': beta}
+
+# define GD parameters
+N = 50
+alpha = 1e-3
+
+# run GD
+gd_output = GD(J=I_data, init_parameters=theta0, lr=alpha, num_steps=N)
+
+# plot GD
+plot_gd(gd_output, plot_title_string='GD for logistic regression', ylabel='surprisal', h=3)
 ```
 
 
@@ -880,32 +927,10 @@ plt.tight_layout()
 :   figure:
 :       align: center
 
-# define the link function at Y
-def phi(X, parameters):
-    beta0 = parameters['beta0']
-    beta = parameters['beta']
-    return torch.sigmoid(beta0 + X @ beta)
-
-# define the data surprisal function
-def I(parameters):
-    probs = phi(X, parameters)
-    return torch.sum(-y * torch.log(probs) - (1 - y) * torch.log(1 - probs))
-
 # define the predictor
 def predictor(X, parameters):
-    probs = phi(X, parameters)
-    return (probs >= 0.5).to(torch.int)
-
-# initialize the weights and biases
-torch.manual_seed(42)
-beta0 = torch.normal(mean=0, std=1e-1, size=(1,))
-beta = torch.normal(mean=0, std=1e-1, size=(2,))
-theta0 = {'beta0': beta0, 'beta': beta}
-
-# run gradient descent
-N = 50
-alpha = 1e-3
-gd_output = GD(J=I, init_parameters=theta0, lr=alpha, num_steps=N)
+    phi = phi_fn(parameters, X)
+    return (phi >= 0.5).to(torch.int)
 
 # define grid for contour plot
 resolution = 1000
@@ -952,7 +977,7 @@ for i, epoch in enumerate(epoch_list):
     for t, l in zip(g.legend_.texts, new_labels):
         t.set_text(l)
     
-plt.suptitle(f'gradient descent\n$\\alpha={alpha}$, $\\beta=0$, $N={N}$')
+plt.suptitle(f'gradient descent for logistic regression\n$\\alpha={alpha}$, $\\beta=0$, $N={N}$')
 plt.tight_layout()
 ```
 
@@ -1001,6 +1026,7 @@ for t, l in zip(g.legend_.texts, new_labels):
 plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
 plt.gcf().set_size_inches(w=5, h=3)
+plt.title('data for neural network model')
 plt.tight_layout()
 ```
 
@@ -1012,23 +1038,27 @@ plt.tight_layout()
 :   figure:
 :       align: center
 
-# define the link function at Y
-def phi(X, parameters):
-    Z_0 = X
-    Z_1 = F.relu(Z_0 @ parameters['weight_1'] + parameters['bias_1'])
-    Z_2 = F.relu(Z_1 @ parameters['weight_2'] + parameters['bias_2'])
-    Z_3 = F.relu(Z_2 @ parameters['weight_3'] + parameters['bias_3'])
-    return torch.sigmoid(Z_3 @ parameters['weight_4'] + parameters['bias_4'])
+# define link function at Y
+def phi_fn(parameters, x):
+    W1 = parameters['weight_1']
+    W2 = parameters['weight_2']
+    W3 = parameters['weight_3']
+    W4 = parameters['weight_4']
+    b1 = parameters['bias_1']
+    b2 = parameters['bias_2']
+    b3 = parameters['bias_3']
+    b4 = parameters['bias_4']
+    z0 = x
+    z1 = F.relu(z0 @ W1 + b1)
+    z2 = F.relu(z1 @ W2 + b2)
+    z3 = F.relu(z2 @ W3 + b3)
+    phi = torch.sigmoid(z3 @ W4 + b4)
+    return phi
 
 # define the model surprisal function
-def I(parameters, X, y):
-    probs = phi(X, parameters)
-    return -y * torch.log(probs) - (1 - y) * torch.log(1 - probs)
-
-# define the predictor
-def predictor(X, parameters):
-    probs = phi(X, parameters)
-    return (probs >= 0.5).to(torch.int)
+def I_model(parameters, x, y):
+    phi = phi_fn(parameters, x)
+    return -y * torch.log(phi) - (1 - y) * torch.log(1 - phi)
 
 # define the network architecture
 k1 = 8 # width of first hidden layer
@@ -1036,7 +1066,7 @@ k2 = 8 # width of second hidden layer
 k3 = 4 # width of third hidden layer
 widths = [2, k1, k2, k3, 1]
 
-# initialize the weights and biases
+# initialize parameters
 torch.manual_seed(42)
 theta0 = {}
 for i in range(1, 5):
@@ -1047,11 +1077,38 @@ for i in range(1, 5):
     theta0 = theta0 | {'weight_' + str(i): weight.squeeze()}
     theta0 = theta0 | {'bias_' + str(i): bias}
 
-# run SGD
+# define SGD parameters
 N = 80
 k = 128
 alpha = 0.1
-sgd_output = SGD(g=I, init_parameters=theta0, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
+
+# run SGD
+sgd_output = SGD(g=I_model, init_parameters=theta0, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
+
+# plot SGD
+plot_sgd(sgd_output,
+         h=3,
+         w=6,
+         s=0,
+         plot_title_string='SGD for neural network model',
+         ylabel='(conditional) cross entropy',
+         legend=True,
+         per_step_label='cross entropy per step',
+         per_epoch_label='mean cross entropy per epoch')
+```
+
+
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+# define the predictor
+def predictor(X, parameters):
+    phi = phi_fn(parameters, X)
+    return (phi >= 0.5).to(torch.int)
 
 # get the grid for the contour plot
 resolution = 1000
@@ -1094,6 +1151,6 @@ for i, epoch in enumerate(epoch_list):
     for t, l in zip(g.legend_.texts, new_labels):
         t.set_text(l)
     
-plt.suptitle(f'mini-batch gradient descent\n$\\alpha={alpha}$, $\\beta=0$, $k={k}$, $N={N}$')
+plt.suptitle(f'stochastic gradient descent for neural network model\n$\\alpha={alpha}$, $\\beta=0$, $k={k}$, $N={N}$')
 plt.tight_layout()
 ```
