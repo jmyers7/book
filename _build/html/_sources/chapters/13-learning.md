@@ -283,7 +283,7 @@ k = 8
 N = 10
 
 # run SGD
-sgd_output = SGD(g=I_model, init_parameters=theta0, X=X, lr=alpha, batch_size=k, num_epochs=N)
+sgd_output = SGD(h=I_model, init_parameters=theta0, X=X, lr=alpha, batch_size=k, num_epochs=N)
 
 epoch_step_nums = sgd_output.epoch_step_nums
 objectives = sgd_output.per_step_objectives[epoch_step_nums]
@@ -311,7 +311,7 @@ plt.tight_layout()
 The blue curve in the left-hand plot is the graph of the _exact_ cross entropy function $H_{\hat{P}}(P_\theta)$. The magenta points---which represent a selection of outputs of the algorithm---do not fall _precisely_ on this graph since they are _approximations_ to the cross entropy, obtained as realizations of the expression on the right-hand side of
 
 $$
-H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} I_{P_\theta}(x),
+H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} \mathcalI(\theta; x),
 $$
 
 where $B$ is a mini-batch of data of size $k=8$. (This was discussed right after we introduced {prf:ref}`sgd-alg` in {numref}`Chapter %s <optim>`.) On the right-hand size of the figure, we have plotted the (approximate) cross entropy versus gradient steps, a type of plot familiar from {numref}`Chapter %s <optim>`. The magenta dots on the two sides of the figure correspond to each other; they represent the (approximate) cross entropies every 16 gradient steps ($=1$ epoch). Notice that the algorithm appears to be converging to the true value $\theta^\star_\text{MLE} = 87/128 \approx 0.68$ given by {prf:ref}`bern-mle-thm`.
@@ -521,7 +521,7 @@ $$
 (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^n \times \bbr
 $$
 
-be an observed dataset with empirical joint mass function $\hat{p}(\bx,y)$. Suppose also that the conditional distribution of $Y$ given $\bX$ is normal, with _fixed_ variance $\sigma^2$, and that the mean $\mu = \mu(\bx,\btheta)$ of the distribution is the link function. Then the minimizers of the stochastic objective function
+be an observed dataset with empirical joint mass function $\hat{p}(\bx,y)$. Suppose also that the conditional distribution of $Y$ given $\bX$ is normal, with _fixed_ variance $\sigma^2$, and that the mean $\mu = \mu(\btheta,\bx)$ of the distribution is given by the link function at $Y$. Then the minimizers of the stochastic objective function
 
 $$
 E_{(\bx, y) \sim \hat{p}(\bx, y)} \left[ \calI(\btheta; \ y \mid \bx) \right] = \frac{1}{m} \sum_{i=1}^m \calI(\btheta; \ y_i \mid \bx_i)
@@ -533,7 +533,7 @@ $$
 MSE(\btheta) \def \frac{1}{m} \sum_{i=1}^m (y_i - \mu_i)^2,
 $$
 
-where $\mu_i = \mu(\bx_i,\btheta)$.
+where $\mu_i = \mu(\btheta,\bx_i)$.
 ```
 
 ```{prf:proof}
@@ -554,16 +554,16 @@ $$
 Assuming that the variance $\sigma^2$ is _fixed_, we immediately see that minimizing the left-hand side with respect to $\btheta$ is the same as minimizing the MSE. Q.E.D.
 ```
 
-Since multiplying an objective function by a positive constant does not change its extremizers, we may modify the mean squared error function in several ways to best suit the context. For example, sometimes it is convenient to instead consider the _residual sum of squares_ function
+In the case addressed by the theorem, we see that the target function of the stochastic objective function
 
 $$
-RSS(\btheta) \def  \sum_{i=1}^m (y_i - \mu_i)^2,
+J(\btheta) = E_{(\bx,y) \sim \hat{p}(\bx,y)}\left[ \calI(\btheta; \ y \mid \bx)\right]
 $$
 
-while in other situations we might even divide this latter quantity by $2$ and consider the equivalent objective
+may be replaced with the _squared error_ function $h(\btheta; \ y\mid \bx) = (y-\mu)^2$, and we will not alter the solutions to the optimization problem. Moreover, since multiplying a target function by a positive constant does not change the extremizers, we may modify the squared error function in several ways to best suit the context. For example, sometimes it is convenient to instead take $J(\btheta)$ to be half the _residual sum of squares_:
 
 $$
-RSS(\btheta) /2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2.
+J(\btheta) = RSS(\btheta) /2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2.
 $$
 
 See, for example, {prf:ref}`mle-lin-reg-thm` in the next section.
@@ -576,7 +576,9 @@ Our discussion on the identity of the stochastic objective function $J(\btheta)$
 ```
 &nbsp;
 
-Again, care must be taken in interpreting $J(\btheta)$ in the case of a discriminative model with (conditionally) normal $Y$, since it is technically not equal to the MSE exactly, and we must also assume that the variance $\sigma^2$ is _fixed_, as discussed in {prf:ref}`MSE-min-thm`. In any case, we may now state the following theorem, which is a version of {prf:ref}`equiv-obj-gen-thm` for discriminative models:
+Along the bottom of the figure, we've listed the target functions $h$ of the stochastic objective functions $J$.
+
+We may now state the following theorem, which is a version of {prf:ref}`equiv-obj-gen-thm` for discriminative models:
 
 ```{prf:theorem} Equivalent learning objectives for discriminative PGMs
 :label: equiv-obj-disc-thm
@@ -814,36 +816,71 @@ def mu_link(parameters, x):
     beta = parameters['beta']
     return beta0 + beta * x
 
-# define target function g for MSE
-def g(parameters, x, y):
+# define target function for MSE
+def SE(parameters, x, y):
     mu = mu_link(parameters, x)
     return (y - mu) ** 2
 
 # initialize parameters
-beta0 = torch.tensor([1.])
-beta = torch.tensor([1.])
+beta0 = torch.tensor([-10.])
+beta = torch.tensor([3.])
 theta0 = {'beta0': beta0, 'beta': beta}
 
 # define SGD parameters
 alpha = 0.1
 N = 5
-k = 512
+k = 256
 
 # run SGD
-sgd_output = SGD(g=g, init_parameters=theta0, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
+sgd_output = SGD(h=SE, init_parameters=theta0, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
 
 # plot SGD output
 plot_sgd(sgd_output,
-         ylabel='mean squared error (MSE)',
+         log=True,
+         ylabel='log MSE',
          plot_title_string='SGD for linear regression',
          h=3,
-         per_step_label='MSE per step',
-         per_epoch_label='mean MSE per epoch',
+         per_step_label='log MSE per step',
+         per_epoch_label='log mean MSE per epoch',
          per_epoch_color=magenta,
          legend=True,
          per_step_alpha=0.4)
 ```
 
+Notice that we plotted the MSE on a logarithmic scale---we chose to do this because we purposefully chose initial guesses for the parameters $\beta_0$ and $\beta$ that were quite far away from the MLEs, creating large values of the MSE in the initial few steps of the algorithm. This lengthens the learning process, giving us a nicer visualization as the regression line moves into place:
+
+```{code-cell} ipython3
+:tags: [hide-input]
+:mystnb:
+:   figure:
+:       align: center
+
+grid = np.linspace(-2, 8, num=200)
+epoch_list = [0, 5, len(sgd_output.per_step_objectives) - 1]
+
+_, axes = plt.subplots(ncols=2, nrows=len(epoch_list), figsize=(10, 9))
+
+for i, epoch in enumerate(epoch_list):
+    parameters = {name: parameter[epoch] for name, parameter in sgd_output.parameters.items()}
+
+    # plot the objective function
+    axes[i, 0].plot(sgd_output.grad_steps, np.log(sgd_output.per_step_objectives), alpha=0.25, label='log MSE per step')
+    axes[i, 0].scatter(epoch_list[i], np.log(sgd_output.per_step_objectives[epoch]), color=blue, s=50, zorder=3, label='current step')
+    axes[i, 0].plot(sgd_output.epoch_step_nums, np.log(sgd_output.per_epoch_objectives), label='log mean MSE per epoch')
+    axes[i, 0].set_xlabel('gradient steps')
+    axes[i, 0].set_ylabel('log MSE')
+    axes[i, 0].legend()
+
+    sns.scatterplot(x=data_std[:, 0], y=data_std[:, 1], alpha=0.4, ax=axes[i, 1])
+    axes[i, 1].plot(grid, mu_link(parameters, grid), color=magenta)
+    axes[i, 1].set_xlabel('$x$')
+    axes[i, 1].set_ylabel('$y$')
+    axes[i, 1].set_ylim(-2.5, 7.5)
+    axes[i, 1].set_xlim(-2.5, 8)
+
+plt.suptitle(f'stochastic gradient descent for linear regression\n$\\alpha=${alpha}, $\\beta=$0, $k=${k}, $N=${N}')
+plt.tight_layout()
+```
 
 
 
@@ -956,7 +993,7 @@ for i, epoch in enumerate(epoch_list):
     axes[i, 0].plot(gd_output.grad_steps, gd_output.per_step_objectives, label='surprisal per step')
     axes[i, 0].set_xlabel('gradient steps')
     axes[i, 0].set_ylabel('surprisal')
-    axes[i, 0].scatter(epoch_list[i], gd_output.per_step_objectives[epoch], color=magenta, s=100, zorder=3)
+    axes[i, 0].scatter(epoch_list[i], gd_output.per_step_objectives[epoch], color=blue, s=50, zorder=3, label='current step')
     axes[i, 0].legend()
 
     # apply the fitted model to the grid
@@ -977,7 +1014,7 @@ for i, epoch in enumerate(epoch_list):
     for t, l in zip(g.legend_.texts, new_labels):
         t.set_text(l)
     
-plt.suptitle(f'gradient descent for logistic regression\n$\\alpha={alpha}$, $\\beta=0$, $N={N}$')
+plt.suptitle(f'gradient descent for logistic regression\n$\\alpha=${alpha}, $\\beta=$0, $N=${N}')
 plt.tight_layout()
 ```
 
@@ -1083,7 +1120,7 @@ k = 128
 alpha = 0.1
 
 # run SGD
-sgd_output = SGD(g=I_model, init_parameters=theta0, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
+sgd_output = SGD(h=I_model, init_parameters=theta0, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
 
 # plot SGD
 plot_sgd(sgd_output,
@@ -1127,10 +1164,10 @@ for i, epoch in enumerate(epoch_list):
     
     # plot the objective function
     axes[i, 0].plot(sgd_output.grad_steps, sgd_output.per_step_objectives, alpha=0.25, label='cross entropy per step')
+    axes[i, 0].scatter(epoch_list[i], sgd_output.per_step_objectives[epoch], color=blue, s=50, zorder=3, label='current step')
     axes[i, 0].plot(sgd_output.epoch_step_nums, sgd_output.per_epoch_objectives, label='mean cross entropy per epoch')
     axes[i, 0].set_xlabel('gradient steps')
     axes[i, 0].set_ylabel('cross entropy')
-    axes[i, 0].scatter(epoch_list[i], sgd_output.per_step_objectives[epoch], color=magenta, s=100, zorder=3)
     axes[i, 0].legend()
 
     # apply the fitted model to the grid
@@ -1151,6 +1188,6 @@ for i, epoch in enumerate(epoch_list):
     for t, l in zip(g.legend_.texts, new_labels):
         t.set_text(l)
     
-plt.suptitle(f'stochastic gradient descent for neural network model\n$\\alpha={alpha}$, $\\beta=0$, $k={k}$, $N={N}$')
+plt.suptitle(f'stochastic gradient descent for neural network model\n$\\alpha=${alpha}, $\\beta=$0, $k=${k}, $N=${N}')
 plt.tight_layout()
 ```
