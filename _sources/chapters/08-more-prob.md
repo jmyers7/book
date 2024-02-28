@@ -288,20 +288,38 @@ Let's do some examples:
 Do problems 5 and 6 on the worksheet.
 ```
 
-We now begin moving toward the generalization of The Density Transformation Theorem to higher dimensions. The statement of this generalization uses the notion of the _Jacobian matrix_ of a function
+We now begin moving toward the generalization of The Density Transformation Theorem to higher dimensions. The statement of this generalization uses the following object:
+
+```{prf:definition}
+:label: gradient-mat-def
+
+Given a vector-valued function
 
 $$
-s:\bbr^n\to \bbr^m, \quad s(\by) = (s_1(\by),\ldots,s_m(\by)),
+\bs:\bbr^n\to \bbr^m, \quad \bs(\by) = (s_1(\by),\ldots,s_m(\by)),
 $$
 
-on Euclidean spaces, which is the $m\times n$ matrix of partial derivatives
+its _gradient matrix_ at $\by$, denoted $\nabla \bs(\by)$, is the $n\times m$ matrix of first-order partial derivatives
 
 $$
-\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \def \left[ \frac{\partial s_i}{\partial y_j}(\by)\right] = \begin{bmatrix}
-\frac{\partial s_1}{\partial y_1}(\by) & \cdots & \frac{\partial s_1}{\partial y_n}(\by) \\
+\nabla \bs (\by) \def \left[ \frac{\partial s_j}{\partial y_i}(\by)\right] = \begin{bmatrix}
+\displaystyle\frac{\partial s_1}{\partial y_1}(\by) & \cdots & \displaystyle\frac{\partial s_m}{\partial y_1}(\by) \\
 \vdots & \ddots & \vdots \\
-\frac{\partial s_m}{\partial y_1}(\by) & \cdots & \frac{\partial s_m}{\partial y_n}(\by)
+\displaystyle\frac{\partial s_1}{\partial y_n}(\by) & \cdots & \displaystyle\frac{\partial s_m}{\partial y_n}(\by)
 \end{bmatrix},
+$$
+
+provided that the partial derivatives exist at $\by \in \bbr^m$.
+```
+
+Note that the gradient matrix is the transpose of the _Jacobian matrix_ of $\bs$ at $\by$, denoted $(\partial \bs / \partial \by)(\by)$:
+
+$$
+\nabla \bs (\by)^\intercal = \frac{\partial \bs}{\partial \by}(\by) \def \begin{bmatrix}
+\displaystyle\frac{\partial s_1}{\partial y_1}(\by) & \cdots & \displaystyle\frac{\partial s_1}{\partial y_n}(\by) \\
+\vdots & \ddots & \vdots \\
+\displaystyle\frac{\partial s_m}{\partial y_1}(\by) & \cdots & \displaystyle\frac{\partial s_m}{\partial y_n}(\by)
+\end{bmatrix}.
 $$
 
 ```{margin}
@@ -309,32 +327,32 @@ $$
 If all the first-order partial derivatives of $s$ exist and are continuous, then $s$ is said to be _continuously differentiable_. If $s$ is a funtion from $\bbr$ to $\bbr$, this coincides with the definition of _continuously differentiable_ given in the margin note above.
 ```
 
-provided that the partial derivatives exist at $\by \in \bbr^m$. The Jacobian matrix is the matrix representation (with respect to the standard bases) of the _derivative_ of $s$, provided that the latter is _differentiable_. We will not talk about _differentiability_ and _derivatives_ in higher dimensions; for that, see Chapter 2 in {cite}`Spivak1965`. All we will say is that existence of the partial derivatives in the Jacobian matrix is _necessary_ for differentiability, but not _sufficient_. If, however, the partial derivatives are all continuous, then $s$ is differentiable. (See Theorem 2-8 in {cite}`Spivak1965`.)
+The Jacobian matrix is the matrix representation (with respect to the standard bases) of the _derivative_ of $\bs$, provided that the latter is _differentiable_. We will not talk about _differentiability_ and _derivatives_ in higher dimensions; for that, see Chapter 2 in {cite}`Spivak1965`. All we will say is that existence of the partial derivatives in the Jacobian matrix is _necessary_ for differentiability, but not _sufficient_. If, however, the partial derivatives are all continuous, then $s$ is differentiable. (See Theorem 2-8 in {cite}`Spivak1965`.)
 
-The Jacobian matrix is used to define the affine _tangent space_ approximation of $s$ near a point of differentiability $\by^\star$ via the equation
+The gradient matrix is used to define the affine _tangent space_ approximation of $\bs$ near a point of differentiability $\by^\star$ via the equation
 
 $$
-s(\by) = s(\by^\star) + \frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by^\star) (\by - \by^\star), \quad \by \in \bbr^n.
+\bs(\by) = \bs(\by^\star) + \nabla \bs (\by^\star)^\intercal (\by - \by^\star), \quad \by \in \bbr^n.
 $$
 
-Notice the similarity to the affine _tangent line_ approximation studied in single-variable calculus---in fact, the expression on the right-hand side of this equation is actually the degree-$1$ Taylor polynomial approximation of $s(\by)$; the degree-$2$ term in this approximation will appear in {numref}`Chapter %s <optim>` when we study _Hessian matrices_.
+Notice the similarity to the affine _tangent line_ approximation studied in single-variable calculus.
 
-With Jacobian matrices in hand, we now state the generalization of {prf:ref}`univar-density-trans-thm`:
+With gradient matrices in hand, we now state the generalization of {prf:ref}`univar-density-trans-thm`:
 
 ```{prf:theorem} Multivariate Density Transformation Theorem
 :label: multivar-density-trans-thm
 
-Let $\bX$ be a continuous $m$-dimensional random vector and let $T$ be the support of the density $f_\bX(\bx)$. Let $r:T \to \bbr^m$ be a function and set $\bY = r(\bX)$. Suppose that the range $U$ of $r$ is open in $\bbr^m$, and that there exists a continuously differentiable function $s:U \to \bbr^m$ such that
+Let $\bX$ be a continuous $m$-dimensional random vector and let $T$ be the support of the density $f_\bX(\bx)$. Let $\br:T \to \bbr^m$ be a function and set $\bY = \br(\bX)$. Suppose that the range $U$ of $\br$ is open in $\bbr^m$, and that there exists a continuously differentiable function $\bs:U \to \bbr^m$ such that
 
 $$
-s(r(\bx)) = \bx
+\bs(\br(\bx)) = \bx
 $$
 
 for all $\bx\in T$. Then the random vector $\bY$ is continuous, and we have
 
 $$
 f_{\bY}(\by) = \begin{cases}
-f_{\bX}(s(\by)) \left| \det\displaystyle\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| & : \by \in U, \\
+f_{\bX}(\bs(\by)) \left| \det\left(\nabla\bs(\by)\right) \right| & : \by \in U, \\
 0 & : \by \notin U.
 \end{cases}
 $$
@@ -347,15 +365,15 @@ The following proof uses mathematics that are likely unfamiliar. Look through it
 Letting $V \subset \bbr^m$ be an open set, we compute:
 
 \begin{align*}
-P(\bY\in V) &= P(\bX\in s(V\cap U)) \\
-&= \int_{s(V\cap U)} f_\bX(\bx) \ \text{d}^m\bx \\
-&= \int_{V\cap U} f_\bX(s(\by))\left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| \ \text{d}^m \by,
+P(\bY\in V) &= P(\bX\in \bs(V\cap U)) \\
+&= \int_{\bs(V\cap U)} f_\bX(\bx) \ \text{d}^m\bx \\
+&= \int_{V\cap U} f_\bX(\bs(\by))\left| \det\left(\nabla \bs(\by)\right) \right| \ \text{d}^m \by,
 \end{align*}
 
 where the final equality follows from the Change-of-Variables Theorem for Multiple Integrals; see Theorem 3-13 in {cite}`Spivak1965`. If we then define $f_\bY(\by)$ via the formula given in the statement of the theorem, this shows
 
 $$
-P(\bY\in V) = \int_{V\cap U} f_\bX(s(\by))\left| \det\frac{\partial(s_1,\ldots,s_m)}{\partial(y_1,\ldots,y_m)}(\by) \right| \ \text{d}^m \by = \int_V f_\bY(\by) \ \text{d}^m \by.
+P(\bY\in V) = \int_{V\cap U} f_\bX(\bs(\by))\left| \det\left( \nabla \bs (\by)\right) \right| \ \text{d}^m \by = \int_V f_\bY(\by) \ \text{d}^m \by.
 $$
 
 Since a probability measure defined on the Borel algebra of $\bbr^m$ is uniquely determined by its values on open sets (via a generating class argument), this is enough to prove that $f_\bY(\by)$ is indeed a density of $\bY$. Q.E.D.

@@ -283,7 +283,7 @@ k = 8
 N = 10
 
 # run SGD
-sgd_output = SGD(h=I_model, init_parameters=theta0, X=X, lr=alpha, batch_size=k, num_epochs=N)
+sgd_output = SGD(L=I_model, init_parameters=theta0, X=X, lr=alpha, batch_size=k, num_epochs=N)
 
 epoch_step_nums = sgd_output.epoch_step_nums
 objectives = sgd_output.per_step_objectives[epoch_step_nums]
@@ -311,7 +311,7 @@ plt.tight_layout()
 The blue curve in the left-hand plot is the graph of the _exact_ cross entropy function $H_{\hat{P}}(P_\theta)$. The magenta points---which represent a selection of outputs of the algorithm---do not fall _precisely_ on this graph since they are _approximations_ to the cross entropy, obtained as realizations of the expression on the right-hand side of
 
 $$
-H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} \mathcalI(\theta; x),
+H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} \calI(\theta; x),
 $$
 
 where $B$ is a mini-batch of data of size $k=8$. (This was discussed right after we introduced {prf:ref}`sgd-alg` in {numref}`Chapter %s <optim>`.) On the right-hand size of the figure, we have plotted the (approximate) cross entropy versus gradient steps, a type of plot familiar from {numref}`Chapter %s <optim>`. The magenta dots on the two sides of the figure correspond to each other; they represent the (approximate) cross entropies every 16 gradient steps ($=1$ epoch). Notice that the algorithm appears to be converging to the true value $\theta^\star_\text{MLE} = 87/128 \approx 0.68$ given by {prf:ref}`bern-mle-thm`.
@@ -554,13 +554,13 @@ $$
 Assuming that the variance $\sigma^2$ is _fixed_, we immediately see that minimizing the left-hand side with respect to $\btheta$ is the same as minimizing the MSE. Q.E.D.
 ```
 
-In the case addressed by the theorem, we see that the target function of the stochastic objective function
+In the case addressed by the theorem, we see that the loss function of the stochastic objective function
 
 $$
 J(\btheta) = E_{(\bx,y) \sim \hat{p}(\bx,y)}\left[ \calI(\btheta; \ y \mid \bx)\right]
 $$
 
-may be replaced with the _squared error_ function $h(\btheta; \ y\mid \bx) = (y-\mu)^2$, and we will not alter the solutions to the optimization problem. Moreover, since multiplying a target function by a positive constant does not change the extremizers, we may modify the squared error function in several ways to best suit the context. For example, sometimes it is convenient to instead take $J(\btheta)$ to be half the _residual sum of squares_:
+may be replaced with the _squared error_ function $L(\btheta; \ y\mid \bx) = (y-\mu)^2$, and doing so does not alter the solutions to the optimization problem. Moreover, since multiplying a loss function by a positive constant does not change the extremizers, we may modify the squared error function in several ways to best suit the context. For example, sometimes it is convenient to instead take $J(\btheta)$ to be half the _residual sum of squares_:
 
 $$
 J(\btheta) = RSS(\btheta) /2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2.
@@ -576,7 +576,7 @@ Our discussion on the identity of the stochastic objective function $J(\btheta)$
 ```
 &nbsp;
 
-Along the bottom of the figure, we've listed the target functions $h$ of the stochastic objective functions $J$.
+Along the bottom of the figure, we've listed the loss functions $L$ of the stochastic objective functions $J$.
 
 We may now state the following theorem, which is a version of {prf:ref}`equiv-obj-gen-thm` for discriminative models:
 
@@ -617,6 +617,7 @@ Just as for generative models, the optimization process which seeks a solution t
 
 
 
+(mle-lin-reg-sec)=
 ## MLE for linear regression
 
 Having studied maximum likelihood estimation in general, we now turn toward specific examples, beginning with linear regression models. These are trained as discriminative models with a response variable $Y$ which is (conditionally) normal. If we assume that the variance parameter $\sigma^2$ is _fixed_, then the underlying graph of the model is of the form
@@ -631,10 +632,29 @@ Having studied maximum likelihood estimation in general, we now turn toward spec
 where $\beta_0 \in \bbr$ and $\bbeta \in \mathbb{R}^{n}$ are the only parameters. The link function at $Y$ is still given by
 
 $$
-Y \mid \bX=\bx ; \ \beta_0,\bbeta \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu = \beta_0 + \bx^\intercal \bbeta.
+Y \mid \bX  \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu = \beta_0 + \bx^\intercal \bbeta.
 $$
 
-For these models, it turns out MLEs are obtainable in closed form:
+For these models, it turns out MLEs are obtainable in closed form. To derive these expressions, it will be convenient to rewrite the link function $\mu = \beta_0 + \bx^\intercal \bbeta$ as
+
+$$
+\mu = \bx^\intercal \btheta,
+$$ (mod-link-eq)
+
+where we append an extra coordinate $x_0=1$ to the feature vector $\bx$ and write
+
+$$
+\bx^\intercal = (x_0,x_1,\ldots,x_n) = (1,x_1,\ldots,x_n).
+$$
+
+We may then combine the bias term $\beta_0$ and the weight vector $\bbeta$ into a single $(n+1)$-dimensional parameter vector
+
+$$
+\btheta^\intercal = (\beta_0,\bbeta) = (\beta_0,\beta_1,\ldots,\beta_n),
+$$
+
+so that the link function is indeed given by the simple expression {eq}`mod-link-eq`.
+
 
 ```{prf:theorem} MLEs for linear regression models with known variance
 :label: mle-lin-reg-thm
@@ -645,17 +665,23 @@ $$
 (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^n \times \bbr
 $$
 
-be an observed dataset. Supposing $\bx_i^\intercal= (x_{i1},x_{i2},\ldots,x_{in})$ for each $i=1,\ldots,m$, let
+be an observed dataset. Supposing
+
+$$
+\bx_i^\intercal= (x_{0i}, x_{i1},\ldots,x_{in}) = (1, x_{i1},\ldots,x_{in})
+$$
+
+for each $i=1,\ldots,m$, let
 
 $$
 \mathbfcal{X} = \begin{bmatrix}
-1 & x_{11} & \cdots & x_{1n} \\
-\vdots & \vdots & \ddots & \vdots \\
-1 & x_{m1} & \cdots & x_{mn}
+\leftarrow & \bx_1^\intercal & \rightarrow \\
+\vdots & \vdots & \vdots \\
+\leftarrow & \bx_m^\intercal & \rightarrow
 \end{bmatrix}, \quad \by = \begin{bmatrix} y_1 \\ \vdots \\ y_m \end{bmatrix}, \quad \btheta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_n \end{bmatrix}
 $$
 
-where $\bbeta^\intercal = (\beta_1,\ldots,\beta_n)$. Provided that the $(n+1) \times (n+1)$ square matrix $\mathbfcal{X}^T \mathbfcal{X}$ is invertible, maximum likelihood estimates for the parameters $\beta_0$ and $\bbeta$ are given by
+Provided that the $(n+1) \times (n+1)$ square matrix $\mathbfcal{X}^T \mathbfcal{X}$ is invertible, maximum likelihood estimates for the parameters $\beta_0$ and $\bbeta$ are given by
 
 $$
 \btheta_\text{MLE}^\star = \left(\mathbfcal{X}^T \mathbfcal{X}\right)^{-1}\mathbfcal{X}^T \by.
@@ -669,16 +695,16 @@ $$
 J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \frac{1}{2} \left( \by - \mathbfcal{X}\btheta\right)^\intercal \left( \by - \mathbfcal{X}\btheta\right),
 $$
 
-where $\mu_i = \beta_0 + \bx_i^\intercal \bbeta$ for each $i=1,\ldots,m$. But as we will show in the worksheet problem directly after this proof, taking the gradient gives
+where $\mu_i = \bx_i^\intercal \btheta$ for each $i=1,\ldots,m$. Taking the gradient gives
 
 $$
-\nabla J(\btheta) = \left( \by - \mathbfcal{X}\btheta\right)^\intercal \nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right),
+\nabla J(\btheta) = \nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right) \left( \by - \mathbfcal{X}\btheta\right),
 $$
 
-where $\nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right)$ is the Jacobian matrix of the vector-valued function $\btheta \mapsto \by - \mathbfcal{X} \btheta$. But it is easy to show that $\nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right) = - \mathbfcal{X}$, and so
+where $\nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right)$ is the gradient matrix of the vector-valued function $\btheta \mapsto \by - \mathbfcal{X} \btheta$. (Remember our definition of the gradient matrix in {prf:ref}`gradient-mat-def` is the _transpose_ of the usual Jacobian matrix!). But it is easy to show that $\nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right) = - \mathbfcal{X}^\intercal$, and so
 
 $$
-\nabla J(\btheta) =  -\left( \by - \mathbfcal{X}\btheta\right)^\intercal \mathbfcal{X}.
+\nabla J(\btheta) =  -\mathbfcal{X}^\intercal \left( \by - \mathbfcal{X}\btheta\right).
 $$ (grad-rss-eq)
 
 Setting the gradient to zero and rearranging gives
@@ -689,13 +715,19 @@ $$
 
 from which the desired equation follows.
 
-The only thing that is left to prove is that we have actually obtained a global minimizer. But this follows from convexity of the objective function $J(\btheta)$, which we may demonstrate by showing the Hessian matrix $\nabla^2 J(\btheta)$ is positive semidefinite (see {prf:ref}`main-convex-multi-thm`). To do this, note that $\nabla^2 J(\btheta) = \mathbfcal{X}^\intercal \mathbfcal{X}$ from {eq}`grad-rss-eq`. But then, given any vector $\bz \in \bbr^{n+1}$, we have
+The only thing that is left to prove is that we have actually obtained a global minimizer. But this follows from convexity of the objective function $J(\btheta)$, which we may demonstrate by showing the Hessian matrix $\nabla^2 J(\btheta)$ is positive semidefinite (see {prf:ref}`main-convex-multi-thm`). To do this, note that
 
 $$
-\bz^\intercal \nabla^2 J(\btheta) \bz = \bz^\intercal \mathbfcal{X}^\intercal \mathbfcal{X} \bz = (\mathbfcal{X}\bx)^\intercal \mathbfcal{X} \bz = |\mathbfcal{X}\bz|^2 \geq 0.
+\nabla^2 J(\btheta) = \nabla(\nabla J)(\btheta) =  \mathbfcal{X} \mathbfcal{X}^\intercal
 $$
 
-Thus the Hessian matrix is indeed positive semidefinite. Q.E.D.
+from {eq}`grad-rss-eq` and {prf:ref}`hess-jac-grad-thm`. But then, given any vector $\bz \in \bbr^{m}$, we have
+
+$$
+\bz^\intercal \nabla^2 J(\btheta) \bz = \bz^\intercal \mathbfcal{X} \mathbfcal{X}^\intercal \bz = (\mathbfcal{X}^\intercal\bz)^\intercal \mathbfcal{X}^\intercal \bz = |\mathbfcal{X}^\intercal\bz|^2 \geq 0.
+$$
+
+Thus, the Hessian matrix is indeed positive semidefinite. Q.E.D.
 ```
 
 As we saw in the proof, the maximum likelihood parameter estimates are those that minimize the residual sum of squares $RSS(\btheta)$, which explains why the MLEs are also often called the _ordinary least squares_ (_OLS_) estimates.
@@ -816,7 +848,7 @@ def mu_link(parameters, x):
     beta = parameters['beta']
     return beta0 + beta * x
 
-# define target function for MSE
+# define squared error loss function
 def SE(parameters, x, y):
     mu = mu_link(parameters, x)
     return (y - mu) ** 2
@@ -832,7 +864,7 @@ N = 5
 k = 256
 
 # run SGD
-sgd_output = SGD(h=SE, init_parameters=theta0, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
+sgd_output = SGD(L=SE, init_parameters=theta0, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
 
 # plot SGD output
 plot_sgd(sgd_output,
@@ -847,7 +879,7 @@ plot_sgd(sgd_output,
          per_step_alpha=0.4)
 ```
 
-Notice that we plotted the MSE on a logarithmic scale---we chose to do this because we purposefully chose initial guesses for the parameters $\beta_0$ and $\beta$ that were quite far away from the MLEs, creating large values of the MSE in the initial few steps of the algorithm. This lengthens the learning process, giving us a nicer visualization as the regression line moves into place:
+Notice that we plotted the logarithm of the MSE---we chose to do this because we purposefully chose initial guesses for the parameters $\beta_0$ and $\beta$ that were quite far away from the MLEs, creating large values of the MSE in the initial few steps of the algorithm. This lengthens the learning process, giving us a nicer visualization as the regression line moves into place:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -886,8 +918,121 @@ plt.tight_layout()
 
 
 
+
+
+(mle-log-reg-sec)=
 ## MLE for logistic regression
 
+Let's now turn toward the training process for logistic regression models via maximum likelihood estimation. In contrast to linear regression models, the MLEs are not obtainable in closed form in general, and thus we must apply the optimization algorithms studied in {numref}`Chapter %s <optim>`. However, not all good properties are lost, because it turns out that the objective functions in these optimization problems are convex. Our main goal in this section is to establish this fundamental fact.
+
+But first, we will extract the formula for the model likelihood function of a logistic regression model from {prf:ref}`log-reg-data-pf-thm` and apply the negative logarithm function to get:
+
+```{prf:theorem} Surprisal functions of logistic regression models
+:label: log-reg-surprisal-thm
+
+Consider a logistic regression model with predictor vector $\bX$, response variable $Y$, and link function at $Y$ given by
+
+$$
+Y \mid \bX \sim \Ber(\phi) \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx^\intercal \bbeta).
+$$
+
+Then the model surprisal function is given by
+
+$$
+\calI_\text{model}(\btheta) = -y \log{\phi} - (1-y) \log(1-\phi).
+$$
+```
+
+To establish convexity of the MLE problem for logistic regression models, we need to have formulas for the gradient vector and Hessian matrix of the data surprisal function. To obtain these formulas, it will be convenient to adopt the notation described at the beginning of the previous section regarding the addition of an extra coordinate $x_0=1$ to a feature vector $\bx\in \bbr^n$ to create
+
+$$
+\bx^\intercal = (x_0,x_1,\ldots,x_n) = (1,x_1,\ldots,x_n).
+$$ (new-x-eq)
+
+Then the link function in a logistic regression model may be written as $\phi = \sigma(\bx^\intercal \btheta)$, where
+
+$$
+\btheta^\intercal = (\beta_0,\bbeta) = (\beta_0,\beta_1,\ldots,\beta_n)
+$$ (new-theta-eq)
+
+We now compute the gradient and Hessian:
+
+```{prf:theorem} Gradient vectors and Hessian matrices for logistic regression models
+:label: log-reg-surprisal-grad-thm
+
+Consider a logistic regression model with predictor vector $\bX$, response variable $Y$, and link function at $Y$ given by
+
+$$
+Y \mid \bX \sim \Ber(\phi) \quad \text{where} \quad \phi = \sigma(\bx^\intercal \btheta),
+$$
+
+where $\bx$ and $\btheta$ are given by {eq}`new-x-eq` and {eq}`new-theta-eq` above. Then the gradient vector and Hessian matrix of the model surprisal function are given by
+
+$$
+\nabla \calI_\text{model}(\btheta) = (\phi -y)\bx \quad \text{and} \quad \nabla^2 \calI_\text{model}(\btheta) = \phi(1-\phi) \bx \bx^\intercal.
+$$
+
+```
+
+```{prf:proof}
+
+For the gradient vector, we compute
+
+\begin{align*}
+\nabla \calI &= \left(-\frac{y}{\phi}  + \frac{1-y}{1-\phi}\right) \nabla \phi \\
+&= \left(-\frac{y}{\phi}  + \frac{1-y}{1-\phi}\right) \phi(1-\phi) \bx \\
+&= (\phi - y) \bx
+\end{align*}
+
+where the equality $\nabla \phi = \phi(1-\phi)\bx$ follows from [this](https://github.com/jmyers7/stats-book-materials/blob/main/homework/12-homework.md#problem-8-the-derivative-of-the-sigmoid-function) homework problem and the chain rule. Then, for the Hessian matrix, we compute:
+
+\begin{align*}
+\nabla^2 \calI&= \nabla\left( \nabla \calI \right) \\
+&= \nabla (\phi \bx) \\
+&= \begin{bmatrix}
+\uparrow & \cdots & \uparrow \\
+x_0 \nabla(\phi) & \cdots & x_n \nabla(\phi) \\
+\downarrow & \cdots & \downarrow 
+\end{bmatrix} \\
+&= \phi(1-\phi)  \begin{bmatrix}
+\uparrow & \cdots & \uparrow \\
+x_0 \bx & \cdots & x_n \bx \\
+\downarrow & \cdots & \downarrow
+\end{bmatrix} \\
+&= \phi(1-\phi) \bx \bx^\intercal,
+\end{align*}
+
+where we used {prf:ref}`hess-jac-grad-thm` in the first equality. Q.E.D.
+```
+
+An immediate corollary is convexity of the optimization problem:
+
+```{prf:corollary} Logistic regression models $\Rightarrow$ convex optimization problems
+:label: log-reg-convex-cor
+
+Both the model and data surprisal functions of a logistic regression model are convex.
+```
+
+```{prf:proof}
+
+Letting $\bz\in \bbr^{n+1}$ be an arbitrary vector, we have
+
+$$
+\bz^\intercal \nabla^2 \calI_\text{model}(\btheta) \bz = \phi(1-\phi) \bz^\intercal \bx \bx^\intercal \bz = \phi(1-\phi) (\bx^\intercal \bz)^\intercal \bx^\intercal \bz = \phi(1-\phi) |\bx^\intercal \bz|^2 \geq 0,
+$$
+
+since $\phi \in (0,1)$. This shows the Hessian matrix of the model surprisal function is positive semidefinite, and thus by {prf:ref}`main-convex-multi-thm`, it is convex. For the data surprisal function, we note that
+
+$$
+\calI_\text{data}(\btheta) = \sum_{i=1}^m \calI_\text{model}(\btheta; \ y_i \mid \bx_i)
+$$
+
+by {prf:ref}`likelihood-sur-decompose-disc-thm`. Then convexity of $\calI_\text{data}$ follows from linearity of the "Hessian matrix operation," along with the observation that a sum of positive semidefinite matrices is positive semidefinite. Q.E.D.
+```
+
+Convexity of the optimization problem opens doors for other algorithms besides gradient descent, like the [Newton-Raphson algorithm](https://en.wikipedia.org/wiki/Newton%27s_method).
+
+Let's bring back the dataset used in the {numref}`Chapter %s <prob-models>` to introduce logistic regression models:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -922,6 +1067,8 @@ plt.title('data for logistic regression')
 plt.tight_layout()
 ```
 
+Let's train a logistic regression model on this dataset using the gradient descent algorithm to locate the (global) minimizer of the data surprisal function $\calI_\text{data}(\beta_0,\bbeta)$. Running the algorithm for 50 steps results in the following plot of the surprisal function:
+
 ```{code-cell} ipython3
 :tags: [hide-input]
 :mystnb:
@@ -929,15 +1076,19 @@ plt.tight_layout()
 :       align: center
 
 # define link function at Y
-def phi_fn(parameters, x):
+def phi_link(parameters, x):
     beta0 = parameters['beta0']
     beta = parameters['beta']
     return torch.sigmoid(beta0 + x @ beta)
 
+# define the model surprisal function
+def I_model(parameters):
+    phi = phi_link(parameters, X)
+    return -y * torch.log(phi) - (1 - y) * torch.log(1 - phi)
+
 # define the data surprisal function
 def I_data(parameters):
-    phi = phi_fn(parameters, X)
-    return torch.sum(-y * torch.log(phi) - (1 - y) * torch.log(1 - phi))
+    return torch.sum(I_model(parameters))
 
 # initialize parameters
 torch.manual_seed(42)
@@ -956,7 +1107,16 @@ gd_output = GD(J=I_data, init_parameters=theta0, lr=alpha, num_steps=N)
 plot_gd(gd_output, plot_title_string='GD for logistic regression', ylabel='surprisal', h=3)
 ```
 
+Notice that the curve in this plot is beginning to "plateau," indicating the algorithm is beginning to converge on the MLE. Since the feature space is $2$-dimensional, as we discussed in {numref}`log-reg-sec`, we may check the fit of the model by plotting the decision boundary of the predictor function
 
+$$
+h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
+0 & : \phi = \sigma(\beta_0 + \bx^\intercal \bbeta) < 0.5, \\
+1 & : \phi = \sigma(\beta_0 + \bx^\intercal \bbeta) \geq 0.5.
+\end{cases}
+$$
+
+It is interesting to watch this decision boundary move into the optimal position as the training process progresses:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -966,7 +1126,7 @@ plot_gd(gd_output, plot_title_string='GD for logistic regression', ylabel='surpr
 
 # define the predictor
 def predictor(X, parameters):
-    phi = phi_fn(parameters, X)
+    phi = phi_link(parameters, X)
     return (phi >= 0.5).to(torch.int)
 
 # define grid for contour plot
@@ -1033,6 +1193,22 @@ plt.tight_layout()
 
 ## MLE for neural networks
 
+In this section, we encounter our third optimization problem of maximum likelihood estimation. These problems have been presented in order of increasing difficulty, beginning with the easiest in {numref}`mle-lin-reg-sec` where we discovered that the MLEs for linear regression models are obtainable in closed form _and_ that the optimization problem is convex. For logistic regression models, discussed in {numref}`mle-log-reg-sec`, we lost the ability (in general) to write down closed form solutions for MLEs, but the optimization problem was still convex. Now, in the current section, we lose both of these desirable properties: In general, the optimization problems of maximum likelihood estimation for neural network models have neither closed form solutions nor are they convex.
+
+Thinking visually, and using intuition and language adapted from low dimensions, we imagine that the graph of a (strictly) convex objective function $J:\bbr^n \to \bbr$ is a hypersurface embedded in $\bbr^{n+1}$ with a single "lowest valley" (global minimum). The gradient descent algorithms follow the negative gradient "downhill" until they reach a neighborhood of this global minimizer. But for a nonconvex $J$, there might be both local minima and maxima (i.e., local "peaks" and "valleys"), as well as _saddle points_ where the gradient vanishes, but where the Hessian matrix has both negative and positive eigenvalues, resulting in both "upward" and "downward" directional curvatures. This means that it is possible for gradient descent to get "stuck" in a local minimum with relatively high objective value, or that it follows a "downhill" trajectory leading to a saddle point and again gets "stuck" (or at least significantly slowed down). However, intuition suggests at least that local minima are rare in high dimensions since it should require very special circumstances and structure for positivity of _all_ eigenvalues of a Hessian matrix. But saddle points remain a concern.
+
+Parameter initialization is also a significant concern for neural network models. With strictly convex objective functions, convergence of gradient descent to the global minimizer is guaranteed beginning from _all_ initial choices for the parameters, at least if the learning rate is chosen appropriately. But for a completely general nonconvex objective function, convergence guarantees do not exist.
+
+However, the objective functions encountered in training neural network models are _not_ ordinary nonconvex functions---they still retain enough structure that tools and best practices may be developed and utilized to help encourage gradient descent to converge on decent solutions. Our little introduction to neural networks and deep learning in this book is not the place to discuss these in detail---for that, we direct the reader toward specialized treatments given in Chapter 8 of {cite}`GBC2016`, Chapter 7 in {cite}`HardtRecht2022`, and also [here](https://d2l.ai/chapter_optimization/index.html).
+
+We begin by extracting the surprisal function of a neural network from {prf:ref}`neural-net-pf-def`:
+
+```{prf:theorem} Surprisal functions of neural network models
+
+
+```
+
+
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1076,32 +1252,33 @@ plt.tight_layout()
 :       align: center
 
 # define link function at Y
-def phi_fn(parameters, x):
-    W1 = parameters['weight_1']
-    W2 = parameters['weight_2']
-    W3 = parameters['weight_3']
-    W4 = parameters['weight_4']
-    b1 = parameters['bias_1']
-    b2 = parameters['bias_2']
-    b3 = parameters['bias_3']
-    b4 = parameters['bias_4']
-    z0 = x
-    z1 = F.relu(z0 @ W1 + b1)
-    z2 = F.relu(z1 @ W2 + b2)
-    z3 = F.relu(z2 @ W3 + b3)
-    phi = torch.sigmoid(z3 @ W4 + b4)
+def phi_link(parameters, x):
+
+    # initialize the z-value with x
+    z = x
+
+    # loop through hidden layers
+    for h in range(1, 4):
+        W = parameters['weight_' + str(h)]
+        b = parameters['bias_' + str(h)]
+        z = F.relu(z @ W + b)
+    
+    # compute link function at output layer
+    W = parameters['weight_4']
+    b = parameters['bias_4']
+    phi = torch.sigmoid(z @ W + b)
     return phi
 
 # define the model surprisal function
 def I_model(parameters, x, y):
-    phi = phi_fn(parameters, x)
+    phi = phi_link(parameters, x)
     return -y * torch.log(phi) - (1 - y) * torch.log(1 - phi)
 
 # define the network architecture
-k1 = 8 # width of first hidden layer
-k2 = 8 # width of second hidden layer
-k3 = 4 # width of third hidden layer
-widths = [2, k1, k2, k3, 1]
+p1 = 8 # width of first hidden layer
+p2 = 8 # width of second hidden layer
+p3 = 4 # width of third hidden layer
+widths = [2, p1, p2, p3, 1]
 
 # initialize parameters
 torch.manual_seed(42)
@@ -1120,7 +1297,7 @@ k = 128
 alpha = 0.1
 
 # run SGD
-sgd_output = SGD(h=I_model, init_parameters=theta0, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
+sgd_output = SGD(L=I_model, init_parameters=theta0, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
 
 # plot SGD
 plot_sgd(sgd_output,
@@ -1144,7 +1321,7 @@ plot_sgd(sgd_output,
 
 # define the predictor
 def predictor(X, parameters):
-    phi = phi_fn(parameters, X)
+    phi = phi_link(parameters, X)
     return (phi >= 0.5).to(torch.int)
 
 # get the grid for the contour plot

@@ -63,7 +63,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/13-learning';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -599,7 +599,7 @@ x_1,x_2,\ldots,x_{128} \in \{0,1\}
 <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span>
 
 <span class="c1"># run SGD</span>
-<span class="n">sgd_output</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="n">I_model</span><span class="p">,</span> <span class="n">init_parameters</span><span class="o">=</span><span class="n">theta0</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+<span class="n">sgd_output</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="n">I_model</span><span class="p">,</span> <span class="n">init_parameters</span><span class="o">=</span><span class="n">theta0</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
 
 <span class="n">epoch_step_nums</span> <span class="o">=</span> <span class="n">sgd_output</span><span class="o">.</span><span class="n">epoch_step_nums</span>
 <span class="n">objectives</span> <span class="o">=</span> <span class="n">sgd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">[</span><span class="n">epoch_step_nums</span><span class="p">]</span>
@@ -628,13 +628,13 @@ x_1,x_2,\ldots,x_{128} \in \{0,1\}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0d5ce5c440bfaaf47a839a9b8c8a84371983158600ae64c1e04fbf652dc0e6b9.svg" src="../_images/0d5ce5c440bfaaf47a839a9b8c8a84371983158600ae64c1e04fbf652dc0e6b9.svg" /></figure>
+<img alt="../_images/9f7d0624fa1efe78968fa04e7fd8be0db3440f0b11cfef8a2de212934611fe43.svg" src="../_images/9f7d0624fa1efe78968fa04e7fd8be0db3440f0b11cfef8a2de212934611fe43.svg" /></figure>
 </div>
 </div>
 <p>The blue curve in the left-hand plot is the graph of the <em>exact</em> cross entropy function <span class="math notranslate nohighlight">\(H_{\hat{P}}(P_\theta)\)</span>. The magenta points—which represent a selection of outputs of the algorithm—do not fall <em>precisely</em> on this graph since they are <em>approximations</em> to the cross entropy, obtained as realizations of the expression on the right-hand side of</p>
 <div class="math notranslate nohighlight">
 \[
-H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} \mathcalI(\theta; x),
+H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} \calI(\theta; x),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(B\)</span> is a mini-batch of data of size <span class="math notranslate nohighlight">\(k=8\)</span>. (This was discussed right after we introduced <a class="reference internal" href="11-optim.html#sgd-alg">Algorithm 11.4</a> in <a class="reference internal" href="11-optim.html#optim"><span class="std std-numref">Chapter 11</span></a>.) On the right-hand size of the figure, we have plotted the (approximate) cross entropy versus gradient steps, a type of plot familiar from <a class="reference internal" href="11-optim.html#optim"><span class="std std-numref">Chapter 11</span></a>. The magenta dots on the two sides of the figure correspond to each other; they represent the (approximate) cross entropies every 16 gradient steps (<span class="math notranslate nohighlight">\(=1\)</span> epoch). Notice that the algorithm appears to be converging to the true value <span class="math notranslate nohighlight">\(\theta^\star_\text{MLE} = 87/128 \approx 0.68\)</span> given by <a class="reference internal" href="#bern-mle-thm">Theorem 13.2</a>.</p>
 </section>
@@ -827,12 +827,12 @@ MSE(\btheta) \def \frac{1}{m} \sum_{i=1}^m (y_i - \mu_i)^2,
 \]</div>
 <p>Assuming that the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> is <em>fixed</em>, we immediately see that minimizing the left-hand side with respect to <span class="math notranslate nohighlight">\(\btheta\)</span> is the same as minimizing the MSE. Q.E.D.</p>
 </div>
-<p>In the case addressed by the theorem, we see that the target function of the stochastic objective function</p>
+<p>In the case addressed by the theorem, we see that the loss function of the stochastic objective function</p>
 <div class="math notranslate nohighlight">
 \[
 J(\btheta) = E_{(\bx,y) \sim \hat{p}(\bx,y)}\left[ \calI(\btheta; \ y \mid \bx)\right]
 \]</div>
-<p>may be replaced with the <em>squared error</em> function <span class="math notranslate nohighlight">\(h(\btheta; \ y\mid \bx) = (y-\mu)^2\)</span>, and we will not alter the solutions to the optimization problem. Moreover, since multiplying a target function by a positive constant does not change the extremizers, we may modify the squared error function in several ways to best suit the context. For example, sometimes it is convenient to instead take <span class="math notranslate nohighlight">\(J(\btheta)\)</span> to be half the <em>residual sum of squares</em>:</p>
+<p>may be replaced with the <em>squared error</em> function <span class="math notranslate nohighlight">\(L(\btheta; \ y\mid \bx) = (y-\mu)^2\)</span>, and doing so does not alter the solutions to the optimization problem. Moreover, since multiplying a loss function by a positive constant does not change the extremizers, we may modify the squared error function in several ways to best suit the context. For example, sometimes it is convenient to instead take <span class="math notranslate nohighlight">\(J(\btheta)\)</span> to be half the <em>residual sum of squares</em>:</p>
 <div class="math notranslate nohighlight">
 \[
 J(\btheta) = RSS(\btheta) /2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2.
@@ -841,7 +841,7 @@ J(\btheta) = RSS(\btheta) /2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2.
 <p>Our discussion on the identity of the stochastic objective function <span class="math notranslate nohighlight">\(J(\btheta)\)</span> is summarized in the following chart:</p>
 <a class="reference internal image-reference" href="../_images/flow-training.svg"><img alt="../_images/flow-training.svg" class="align-center" src="../_images/flow-training.svg" width="100%" /></a>
 <p> </p>
-<p>Along the bottom of the figure, we’ve listed the target functions <span class="math notranslate nohighlight">\(h\)</span> of the stochastic objective functions <span class="math notranslate nohighlight">\(J\)</span>.</p>
+<p>Along the bottom of the figure, we’ve listed the loss functions <span class="math notranslate nohighlight">\(L\)</span> of the stochastic objective functions <span class="math notranslate nohighlight">\(J\)</span>.</p>
 <p>We may now state the following theorem, which is a version of <a class="reference internal" href="#equiv-obj-gen-thm">Theorem 13.4</a> for discriminative models:</p>
 <div class="proof theorem admonition" id="equiv-obj-disc-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 13.7 </span> (Equivalent learning objectives for discriminative PGMs)</p>
@@ -867,7 +867,7 @@ J(\btheta) = RSS(\btheta) /2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2.
 </div><p>Just as for generative models, the optimization process which seeks a solution to these (equivalent) optimization problems is called <em>maximum likelihood estimation</em> (<em>MLE</em>), and any solution is called a <em>maximum likelihood estimate</em> (also <em>MLE</em>) and is denoted <span class="math notranslate nohighlight">\(\btheta_\text{MLE}^\star\)</span>.</p>
 </section>
 <section id="mle-for-linear-regression">
-<h2><span class="section-number">13.3. </span>MLE for linear regression<a class="headerlink" href="#mle-for-linear-regression" title="Permalink to this heading">#</a></h2>
+<span id="mle-lin-reg-sec"></span><h2><span class="section-number">13.3. </span>MLE for linear regression<a class="headerlink" href="#mle-for-linear-regression" title="Permalink to this heading">#</a></h2>
 <p>Having studied maximum likelihood estimation in general, we now turn toward specific examples, beginning with linear regression models. These are trained as discriminative models with a response variable <span class="math notranslate nohighlight">\(Y\)</span> which is (conditionally) normal. If we assume that the variance parameter <span class="math notranslate nohighlight">\(\sigma^2\)</span> is <em>fixed</em>, then the underlying graph of the model is of the form</p>
 <p> </p>
 <a class="reference internal image-reference" href="../_images/log-reg-00.svg"><img alt="../_images/log-reg-00.svg" class="align-center" src="../_images/log-reg-00.svg" width="35%" /></a>
@@ -875,9 +875,24 @@ J(\btheta) = RSS(\btheta) /2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2.
 <p>where <span class="math notranslate nohighlight">\(\beta_0 \in \bbr\)</span> and <span class="math notranslate nohighlight">\(\bbeta \in \mathbb{R}^{n}\)</span> are the only parameters. The link function at <span class="math notranslate nohighlight">\(Y\)</span> is still given by</p>
 <div class="math notranslate nohighlight">
 \[
-Y \mid \bX=\bx ; \ \beta_0,\bbeta \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu = \beta_0 + \bx^\intercal \bbeta.
+Y \mid \bX  \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu = \beta_0 + \bx^\intercal \bbeta.
 \]</div>
-<p>For these models, it turns out MLEs are obtainable in closed form:</p>
+<p>For these models, it turns out MLEs are obtainable in closed form. To derive these expressions, it will be convenient to rewrite the link function <span class="math notranslate nohighlight">\(\mu = \beta_0 + \bx^\intercal \bbeta\)</span> as</p>
+<div class="math notranslate nohighlight" id="equation-mod-link-eq">
+<span class="eqno">(13.8)<a class="headerlink" href="#equation-mod-link-eq" title="Permalink to this equation">#</a></span>\[
+\mu = \bx^\intercal \btheta,
+\]</div>
+<p>where we append an extra coordinate <span class="math notranslate nohighlight">\(x_0=1\)</span> to the feature vector <span class="math notranslate nohighlight">\(\bx\)</span> and write</p>
+<div class="math notranslate nohighlight">
+\[
+\bx^\intercal = (x_0,x_1,\ldots,x_n) = (1,x_1,\ldots,x_n).
+\]</div>
+<p>We may then combine the bias term <span class="math notranslate nohighlight">\(\beta_0\)</span> and the weight vector <span class="math notranslate nohighlight">\(\bbeta\)</span> into a single <span class="math notranslate nohighlight">\((n+1)\)</span>-dimensional parameter vector</p>
+<div class="math notranslate nohighlight">
+\[
+\btheta^\intercal = (\beta_0,\bbeta) = (\beta_0,\beta_1,\ldots,\beta_n),
+\]</div>
+<p>so that the link function is indeed given by the simple expression <a class="reference internal" href="#equation-mod-link-eq">(13.8)</a>.</p>
 <div class="proof theorem admonition" id="mle-lin-reg-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 13.8 </span> (MLEs for linear regression models with known variance)</p>
 <section class="theorem-content" id="proof-content">
@@ -886,16 +901,21 @@ Y \mid \bX=\bx ; \ \beta_0,\bbeta \sim \mathcal{N}(\mu, \sigma^2), \quad \text{w
 \[
 (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^n \times \bbr
 \]</div>
-<p>be an observed dataset. Supposing <span class="math notranslate nohighlight">\(\bx_i^\intercal= (x_{i1},x_{i2},\ldots,x_{in})\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>, let</p>
+<p>be an observed dataset. Supposing</p>
+<div class="math notranslate nohighlight">
+\[
+\bx_i^\intercal= (x_{0i}, x_{i1},\ldots,x_{in}) = (1, x_{i1},\ldots,x_{in})
+\]</div>
+<p>for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>, let</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \mathbfcal{X} = \begin{bmatrix}
-1 &amp; x_{11} &amp; \cdots &amp; x_{1n} \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-1 &amp; x_{m1} &amp; \cdots &amp; x_{mn}
+\leftarrow &amp; \bx_1^\intercal &amp; \rightarrow \\
+\vdots &amp; \vdots &amp; \vdots \\
+\leftarrow &amp; \bx_m^\intercal &amp; \rightarrow
 \end{bmatrix}, \quad \by = \begin{bmatrix} y_1 \\ \vdots \\ y_m \end{bmatrix}, \quad \btheta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_n \end{bmatrix}
 \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\bbeta^\intercal = (\beta_1,\ldots,\beta_n)\)</span>. Provided that the <span class="math notranslate nohighlight">\((n+1) \times (n+1)\)</span> square matrix <span class="math notranslate nohighlight">\(\mathbfcal{X}^T \mathbfcal{X}\)</span> is invertible, maximum likelihood estimates for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span> are given by</p>
+<p>Provided that the <span class="math notranslate nohighlight">\((n+1) \times (n+1)\)</span> square matrix <span class="math notranslate nohighlight">\(\mathbfcal{X}^T \mathbfcal{X}\)</span> is invertible, maximum likelihood estimates for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span> are given by</p>
 <div class="math notranslate nohighlight">
 \[
 \btheta_\text{MLE}^\star = \left(\mathbfcal{X}^T \mathbfcal{X}\right)^{-1}\mathbfcal{X}^T \by.
@@ -907,15 +927,15 @@ Y \mid \bX=\bx ; \ \beta_0,\bbeta \sim \mathcal{N}(\mu, \sigma^2), \quad \text{w
 \[
 J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \frac{1}{2} \left( \by - \mathbfcal{X}\btheta\right)^\intercal \left( \by - \mathbfcal{X}\btheta\right),
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\mu_i = \beta_0 + \bx_i^\intercal \bbeta\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>. But as we will show in the worksheet problem directly after this proof, taking the gradient gives</p>
+<p>where <span class="math notranslate nohighlight">\(\mu_i = \bx_i^\intercal \btheta\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>. Taking the gradient gives</p>
 <div class="math notranslate nohighlight">
 \[
-\nabla J(\btheta) = \left( \by - \mathbfcal{X}\btheta\right)^\intercal \nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right),
+\nabla J(\btheta) = \nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right) \left( \by - \mathbfcal{X}\btheta\right),
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right)\)</span> is the Jacobian matrix of the vector-valued function <span class="math notranslate nohighlight">\(\btheta \mapsto \by - \mathbfcal{X} \btheta\)</span>. But it is easy to show that <span class="math notranslate nohighlight">\(\nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right) = - \mathbfcal{X}\)</span>, and so</p>
+<p>where <span class="math notranslate nohighlight">\(\nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right)\)</span> is the gradient matrix of the vector-valued function <span class="math notranslate nohighlight">\(\btheta \mapsto \by - \mathbfcal{X} \btheta\)</span>. (Remember our definition of the gradient matrix in <a class="reference internal" href="08-more-prob.html#gradient-mat-def">Definition 8.2</a> is the <em>transpose</em> of the usual Jacobian matrix!). But it is easy to show that <span class="math notranslate nohighlight">\(\nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right) = - \mathbfcal{X}^\intercal\)</span>, and so</p>
 <div class="math notranslate nohighlight" id="equation-grad-rss-eq">
-<span class="eqno">(13.8)<a class="headerlink" href="#equation-grad-rss-eq" title="Permalink to this equation">#</a></span>\[
-\nabla J(\btheta) =  -\left( \by - \mathbfcal{X}\btheta\right)^\intercal \mathbfcal{X}.
+<span class="eqno">(13.9)<a class="headerlink" href="#equation-grad-rss-eq" title="Permalink to this equation">#</a></span>\[
+\nabla J(\btheta) =  -\mathbfcal{X}^\intercal \left( \by - \mathbfcal{X}\btheta\right).
 \]</div>
 <p>Setting the gradient to zero and rearranging gives</p>
 <div class="math notranslate nohighlight">
@@ -923,12 +943,17 @@ J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \fra
 \mathbfcal{X}^\intercal \mathbfcal{X} \btheta = \mathbfcal{X}^\intercal \by,
 \]</div>
 <p>from which the desired equation follows.</p>
-<p>The only thing that is left to prove is that we have actually obtained a global minimizer. But this follows from convexity of the objective function <span class="math notranslate nohighlight">\(J(\btheta)\)</span>, which we may demonstrate by showing the Hessian matrix <span class="math notranslate nohighlight">\(\nabla^2 J(\btheta)\)</span> is positive semidefinite (see <a class="reference internal" href="11-optim.html#main-convex-multi-thm">Theorem 11.7</a>). To do this, note that <span class="math notranslate nohighlight">\(\nabla^2 J(\btheta) = \mathbfcal{X}^\intercal \mathbfcal{X}\)</span> from <a class="reference internal" href="#equation-grad-rss-eq">(13.8)</a>. But then, given any vector <span class="math notranslate nohighlight">\(\bz \in \bbr^{n+1}\)</span>, we have</p>
+<p>The only thing that is left to prove is that we have actually obtained a global minimizer. But this follows from convexity of the objective function <span class="math notranslate nohighlight">\(J(\btheta)\)</span>, which we may demonstrate by showing the Hessian matrix <span class="math notranslate nohighlight">\(\nabla^2 J(\btheta)\)</span> is positive semidefinite (see <a class="reference internal" href="11-optim.html#main-convex-multi-thm">Theorem 11.8</a>). To do this, note that</p>
 <div class="math notranslate nohighlight">
 \[
-\bz^\intercal \nabla^2 J(\btheta) \bz = \bz^\intercal \mathbfcal{X}^\intercal \mathbfcal{X} \bz = (\mathbfcal{X}\bx)^\intercal \mathbfcal{X} \bz = |\mathbfcal{X}\bz|^2 \geq 0.
+\nabla^2 J(\btheta) = \nabla(\nabla J)(\btheta) =  \mathbfcal{X} \mathbfcal{X}^\intercal
 \]</div>
-<p>Thus the Hessian matrix is indeed positive semidefinite. Q.E.D.</p>
+<p>from <a class="reference internal" href="#equation-grad-rss-eq">(13.9)</a> and <a class="reference internal" href="11-optim.html#hess-jac-grad-thm">Theorem 11.1</a>. But then, given any vector <span class="math notranslate nohighlight">\(\bz \in \bbr^{m}\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\bz^\intercal \nabla^2 J(\btheta) \bz = \bz^\intercal \mathbfcal{X} \mathbfcal{X}^\intercal \bz = (\mathbfcal{X}^\intercal\bz)^\intercal \mathbfcal{X}^\intercal \bz = |\mathbfcal{X}^\intercal\bz|^2 \geq 0.
+\]</div>
+<p>Thus, the Hessian matrix is indeed positive semidefinite. Q.E.D.</p>
 </div>
 <p>As we saw in the proof, the maximum likelihood parameter estimates are those that minimize the residual sum of squares <span class="math notranslate nohighlight">\(RSS(\btheta)\)</span>, which explains why the MLEs are also often called the <em>ordinary least squares</em> (<em>OLS</em>) estimates.</p>
 <p>It is worth writing out the MLEs in the case of simple linear regression:</p>
@@ -1018,7 +1043,7 @@ J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \fra
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/614eeed3180af648491435399e7470455110d14af1b4ee786f5c707fb1da3e34.svg" src="../_images/614eeed3180af648491435399e7470455110d14af1b4ee786f5c707fb1da3e34.svg" /></figure>
+<img alt="../_images/dda6d45e4ab085cd9a04c1ac8b734d7c8a8e2884afd6a5cfb1e72960dbbebe00.svg" src="../_images/dda6d45e4ab085cd9a04c1ac8b734d7c8a8e2884afd6a5cfb1e72960dbbebe00.svg" /></figure>
 </div>
 </div>
 <p>Notice that both features are on similar scales. Then, we run the algorithm using the mean squared error function</p>
@@ -1040,7 +1065,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
     <span class="n">beta</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">beta0</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">x</span>
 
-<span class="c1"># define target function for MSE</span>
+<span class="c1"># define squared error loss function</span>
 <span class="k">def</span> <span class="nf">SE</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="n">mu</span> <span class="o">=</span> <span class="n">mu_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
@@ -1056,7 +1081,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 <span class="n">k</span> <span class="o">=</span> <span class="mi">256</span>
 
 <span class="c1"># run SGD</span>
-<span class="n">sgd_output</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="n">SE</span><span class="p">,</span> <span class="n">init_parameters</span><span class="o">=</span><span class="n">theta0</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">sgd_output</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="n">SE</span><span class="p">,</span> <span class="n">init_parameters</span><span class="o">=</span><span class="n">theta0</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="c1"># plot SGD output</span>
 <span class="n">plot_sgd</span><span class="p">(</span><span class="n">sgd_output</span><span class="p">,</span>
@@ -1075,10 +1100,10 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/d94ed7a90deba122113723b84c396bed77fc80508c0d36fe8d2fa9c774ed8a00.svg" src="../_images/d94ed7a90deba122113723b84c396bed77fc80508c0d36fe8d2fa9c774ed8a00.svg" /></figure>
+<img alt="../_images/e0a8d1dc03ff0d8b1fbb78370c35be52c053b7d965cf909561847da7596c73b1.svg" src="../_images/e0a8d1dc03ff0d8b1fbb78370c35be52c053b7d965cf909561847da7596c73b1.svg" /></figure>
 </div>
 </div>
-<p>Notice that we plotted the MSE on a logarithmic scale—we chose to do this because we purposefully chose initial guesses for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> that were quite far away from the MLEs, creating large values of the MSE in the initial few steps of the algorithm. This lengthens the learning process, giving us a nicer visualization as the regression line moves into place:</p>
+<p>Notice that we plotted the logarithm of the MSE—we chose to do this because we purposefully chose initial guesses for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> that were quite far away from the MLEs, creating large values of the MSE in the initial few steps of the algorithm. This lengthens the learning process, giving us a nicer visualization as the regression line moves into place:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1117,12 +1142,101 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/f8dc97602aaa18e9b12d3835dff2c79ce2a54329ef5ca8a19629072f367c2617.svg" src="../_images/f8dc97602aaa18e9b12d3835dff2c79ce2a54329ef5ca8a19629072f367c2617.svg" /></figure>
+<img alt="../_images/79fae6ca0eb0d21305eca5a40639112c38f3fa24fd10d84452796ff73ba15c43.svg" src="../_images/79fae6ca0eb0d21305eca5a40639112c38f3fa24fd10d84452796ff73ba15c43.svg" /></figure>
 </div>
 </div>
 </section>
 <section id="mle-for-logistic-regression">
-<h2><span class="section-number">13.4. </span>MLE for logistic regression<a class="headerlink" href="#mle-for-logistic-regression" title="Permalink to this heading">#</a></h2>
+<span id="mle-log-reg-sec"></span><h2><span class="section-number">13.4. </span>MLE for logistic regression<a class="headerlink" href="#mle-for-logistic-regression" title="Permalink to this heading">#</a></h2>
+<p>Let’s now turn toward the training process for logistic regression models via maximum likelihood estimation. In contrast to linear regression models, the MLEs are not obtainable in closed form in general, and thus we must apply the optimization algorithms studied in <a class="reference internal" href="11-optim.html#optim"><span class="std std-numref">Chapter 11</span></a>. However, not all good properties are lost, because it turns out that the objective functions in these optimization problems are convex. Our main goal in this section is to establish this fundamental fact.</p>
+<p>But first, we will extract the formula for the model likelihood function of a logistic regression model from <a class="reference internal" href="12-models.html#log-reg-data-pf-thm">Theorem 12.2</a> and apply the negative logarithm function to get:</p>
+<div class="proof theorem admonition" id="log-reg-surprisal-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 13.9 </span> (Surprisal functions of logistic regression models)</p>
+<section class="theorem-content" id="proof-content">
+<p>Consider a logistic regression model with predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>, response variable <span class="math notranslate nohighlight">\(Y\)</span>, and link function at <span class="math notranslate nohighlight">\(Y\)</span> given by</p>
+<div class="math notranslate nohighlight">
+\[
+Y \mid \bX \sim \Ber(\phi) \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx^\intercal \bbeta).
+\]</div>
+<p>Then the model surprisal function is given by</p>
+<div class="math notranslate nohighlight">
+\[
+\calI_\text{model}(\btheta) = -y \log{\phi} - (1-y) \log(1-\phi).
+\]</div>
+</section>
+</div><p>To establish convexity of the MLE problem for logistic regression models, we need to have formulas for the gradient vector and Hessian matrix of the data surprisal function. To obtain these formulas, it will be convenient to adopt the notation described at the beginning of the previous section regarding the addition of an extra coordinate <span class="math notranslate nohighlight">\(x_0=1\)</span> to a feature vector <span class="math notranslate nohighlight">\(\bx\in \bbr^n\)</span> to create</p>
+<div class="math notranslate nohighlight" id="equation-new-x-eq">
+<span class="eqno">(13.10)<a class="headerlink" href="#equation-new-x-eq" title="Permalink to this equation">#</a></span>\[
+\bx^\intercal = (x_0,x_1,\ldots,x_n) = (1,x_1,\ldots,x_n).
+\]</div>
+<p>Then the link function in a logistic regression model may be written as <span class="math notranslate nohighlight">\(\phi = \sigma(\bx^\intercal \btheta)\)</span>, where</p>
+<div class="math notranslate nohighlight" id="equation-new-theta-eq">
+<span class="eqno">(13.11)<a class="headerlink" href="#equation-new-theta-eq" title="Permalink to this equation">#</a></span>\[
+\btheta^\intercal = (\beta_0,\bbeta) = (\beta_0,\beta_1,\ldots,\beta_n)
+\]</div>
+<p>We now compute the gradient and Hessian:</p>
+<div class="proof theorem admonition" id="log-reg-surprisal-grad-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 13.10 </span> (Gradient vectors and Hessian matrices for logistic regression models)</p>
+<section class="theorem-content" id="proof-content">
+<p>Consider a logistic regression model with predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>, response variable <span class="math notranslate nohighlight">\(Y\)</span>, and link function at <span class="math notranslate nohighlight">\(Y\)</span> given by</p>
+<div class="math notranslate nohighlight">
+\[
+Y \mid \bX \sim \Ber(\phi) \quad \text{where} \quad \phi = \sigma(\bx^\intercal \btheta),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bx\)</span> and <span class="math notranslate nohighlight">\(\btheta\)</span> are given by <a class="reference internal" href="#equation-new-x-eq">(13.10)</a> and <a class="reference internal" href="#equation-new-theta-eq">(13.11)</a> above. Then the gradient vector and Hessian matrix of the model surprisal function are given by</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla \calI_\text{model}(\btheta) = (\phi -y)\bx \quad \text{and} \quad \nabla^2 \calI_\text{model}(\btheta) = \phi(1-\phi) \bx \bx^\intercal.
+\]</div>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. For the gradient vector, we compute</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\nabla \calI &amp;= \left(-\frac{y}{\phi}  + \frac{1-y}{1-\phi}\right) \nabla \phi \\
+&amp;= \left(-\frac{y}{\phi}  + \frac{1-y}{1-\phi}\right) \phi(1-\phi) \bx \\
+&amp;= (\phi - y) \bx
+\end{align*}\]</div>
+<p>where the equality <span class="math notranslate nohighlight">\(\nabla \phi = \phi(1-\phi)\bx\)</span> follows from <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/12-homework.md#problem-8-the-derivative-of-the-sigmoid-function">this</a> homework problem and the chain rule. Then, for the Hessian matrix, we compute:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\nabla^2 \calI&amp;= \nabla\left( \nabla \calI \right) \\
+&amp;= \nabla (\phi \bx) \\
+&amp;= \begin{bmatrix}
+\uparrow &amp; \cdots &amp; \uparrow \\
+x_0 \nabla(\phi) &amp; \cdots &amp; x_n \nabla(\phi) \\
+\downarrow &amp; \cdots &amp; \downarrow 
+\end{bmatrix} \\
+&amp;= \phi(1-\phi)  \begin{bmatrix}
+\uparrow &amp; \cdots &amp; \uparrow \\
+x_0 \bx &amp; \cdots &amp; x_n \bx \\
+\downarrow &amp; \cdots &amp; \downarrow
+\end{bmatrix} \\
+&amp;= \phi(1-\phi) \bx \bx^\intercal,
+\end{align*}\]</div>
+<p>where we used <a class="reference internal" href="11-optim.html#hess-jac-grad-thm">Theorem 11.1</a> in the first equality. Q.E.D.</p>
+</div>
+<p>An immediate corollary is convexity of the optimization problem:</p>
+<div class="proof corollary admonition" id="log-reg-convex-cor">
+<p class="admonition-title"><span class="caption-number">Corollary 13.2 </span> (Logistic regression models <span class="math notranslate nohighlight">\(\Rightarrow\)</span> convex optimization problems)</p>
+<section class="corollary-content" id="proof-content">
+<p>Both the model and data surprisal functions of a logistic regression model are convex.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. Letting <span class="math notranslate nohighlight">\(\bz\in \bbr^{n+1}\)</span> be an arbitrary vector, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\bz^\intercal \nabla^2 \calI_\text{model}(\btheta) \bz = \phi(1-\phi) \bz^\intercal \bx \bx^\intercal \bz = \phi(1-\phi) (\bx^\intercal \bz)^\intercal \bx^\intercal \bz = \phi(1-\phi) |\bx^\intercal \bz|^2 \geq 0,
+\]</div>
+<p>since <span class="math notranslate nohighlight">\(\phi \in (0,1)\)</span>. This shows the Hessian matrix of the model surprisal function is positive semidefinite, and thus by <a class="reference internal" href="11-optim.html#main-convex-multi-thm">Theorem 11.8</a>, it is convex. For the data surprisal function, we note that</p>
+<div class="math notranslate nohighlight">
+\[
+\calI_\text{data}(\btheta) = \sum_{i=1}^m \calI_\text{model}(\btheta; \ y_i \mid \bx_i)
+\]</div>
+<p>by <a class="reference internal" href="#likelihood-sur-decompose-disc-thm">Theorem 13.5</a>. Then convexity of <span class="math notranslate nohighlight">\(\calI_\text{data}\)</span> follows from linearity of the “Hessian matrix operation,” along with the observation that a sum of positive semidefinite matrices is positive semidefinite. Q.E.D.</p>
+</div>
+<p>Convexity of the optimization problem opens doors for other algorithms besides gradient descent, like the <a class="reference external" href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton-Raphson algorithm</a>.</p>
+<p>Let’s bring back the dataset used in the <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a> to introduce logistic regression models:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1161,9 +1275,10 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/f4cfed9b40893d111b964919b5c06b89f65d681ea366ee28c0fca7c6893c63a4.svg" src="../_images/f4cfed9b40893d111b964919b5c06b89f65d681ea366ee28c0fca7c6893c63a4.svg" /></figure>
+<img alt="../_images/2cb20c14f89b58753f062f94481d853e42f475e0361c7892082e6e300b8cbd6b.svg" src="../_images/2cb20c14f89b58753f062f94481d853e42f475e0361c7892082e6e300b8cbd6b.svg" /></figure>
 </div>
 </div>
+<p>Let’s train a logistic regression model on this dataset using the gradient descent algorithm to locate the (global) minimizer of the data surprisal function <span class="math notranslate nohighlight">\(\calI_\text{data}(\beta_0,\bbeta)\)</span>. Running the algorithm for 50 steps results in the following plot of the surprisal function:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1172,15 +1287,19 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define link function at Y</span>
-<span class="k">def</span> <span class="nf">phi_fn</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">phi_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
     <span class="n">beta0</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;beta0&#39;</span><span class="p">]</span>
     <span class="n">beta</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">beta0</span> <span class="o">+</span> <span class="n">x</span> <span class="o">@</span> <span class="n">beta</span><span class="p">)</span>
 
+<span class="c1"># define the model surprisal function</span>
+<span class="k">def</span> <span class="nf">I_model</span><span class="p">(</span><span class="n">parameters</span><span class="p">):</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">phi_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">y</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">phi</span><span class="p">)</span>
+
 <span class="c1"># define the data surprisal function</span>
 <span class="k">def</span> <span class="nf">I_data</span><span class="p">(</span><span class="n">parameters</span><span class="p">):</span>
-    <span class="n">phi</span> <span class="o">=</span> <span class="n">phi_fn</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="n">y</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">phi</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">I_model</span><span class="p">(</span><span class="n">parameters</span><span class="p">))</span>
 
 <span class="c1"># initialize parameters</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
@@ -1203,9 +1322,18 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/f67756cb51f047d515a5a38dd06b94644684bd30cf64e80b2896fa525968d168.svg" src="../_images/f67756cb51f047d515a5a38dd06b94644684bd30cf64e80b2896fa525968d168.svg" /></figure>
+<img alt="../_images/185931667a9a79f13b562d700fc4c21d026e4f717365a2455b163f614fbb93d3.svg" src="../_images/185931667a9a79f13b562d700fc4c21d026e4f717365a2455b163f614fbb93d3.svg" /></figure>
 </div>
 </div>
+<p>Notice that the curve in this plot is beginning to “plateau,” indicating the algorithm is beginning to converge on the MLE. Since the feature space is <span class="math notranslate nohighlight">\(2\)</span>-dimensional, as we discussed in <a class="reference internal" href="12-models.html#log-reg-sec"><span class="std std-numref">Section 12.4</span></a>, we may check the fit of the model by plotting the decision boundary of the predictor function</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
+0 &amp; : \phi = \sigma(\beta_0 + \bx^\intercal \bbeta) &lt; 0.5, \\
+1 &amp; : \phi = \sigma(\beta_0 + \bx^\intercal \bbeta) \geq 0.5.
+\end{cases}
+\end{split}\]</div>
+<p>It is interesting to watch this decision boundary move into the optimal position as the training process progresses:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1215,7 +1343,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the predictor</span>
 <span class="k">def</span> <span class="nf">predictor</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
-    <span class="n">phi</span> <span class="o">=</span> <span class="n">phi_fn</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">phi_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">phi</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
 
 <span class="c1"># define grid for contour plot</span>
@@ -1271,13 +1399,22 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/46ca69cd7903b41b18bfabff6c3ea821113b2b1b2b0fb3e16f1c50773d347a09.svg" src="../_images/46ca69cd7903b41b18bfabff6c3ea821113b2b1b2b0fb3e16f1c50773d347a09.svg" /></figure>
+<img alt="../_images/6ff2d50bc671d583f0bfe7434f9a481164df1370b3fc89455a8a603b10a251d2.svg" src="../_images/6ff2d50bc671d583f0bfe7434f9a481164df1370b3fc89455a8a603b10a251d2.svg" /></figure>
 </div>
 </div>
 </section>
 <section id="mle-for-neural-networks">
 <h2><span class="section-number">13.5. </span>MLE for neural networks<a class="headerlink" href="#mle-for-neural-networks" title="Permalink to this heading">#</a></h2>
-<div class="cell tag_hide-input docutils container">
+<p>In this section, we encounter our third optimization problem of maximum likelihood estimation. These problems have been presented in order of increasing difficulty, beginning with the easiest in <a class="reference internal" href="#mle-lin-reg-sec"><span class="std std-numref">Section 13.3</span></a> where we discovered that the MLEs for linear regression models are obtainable in closed form <em>and</em> that the optimization problem is convex. For logistic regression models, discussed in <a class="reference internal" href="#mle-log-reg-sec"><span class="std std-numref">Section 13.4</span></a>, we lost the ability (in general) to write down closed form solutions for MLEs, but the optimization problem was still convex. Now, in the current section, we lose both of these desirable properties: In general, the optimization problems of maximum likelihood estimation for neural network models have neither closed form solutions nor are they convex.</p>
+<p>Thinking visually, and using intuition and language adapted from low dimensions, we imagine that the graph of a (strictly) convex objective function <span class="math notranslate nohighlight">\(J:\bbr^n \to \bbr\)</span> is a hypersurface embedded in <span class="math notranslate nohighlight">\(\bbr^{n+1}\)</span> with a single “lowest valley” (global minimum). The gradient descent algorithms follow the negative gradient “downhill” until they reach a neighborhood of this global minimizer. But for a nonconvex <span class="math notranslate nohighlight">\(J\)</span>, there might be both local minima and maxima (i.e., local “peaks” and “valleys”), as well as <em>saddle points</em> where the gradient vanishes, but where the Hessian matrix has both negative and positive eigenvalues, resulting in both “upward” and “downward” directional curvatures. This means that it is possible for gradient descent to get “stuck” in a local minimum with relatively high objective value, or that it follows a “downhill” trajectory leading to a saddle point and again gets “stuck” (or at least significantly slowed down). However, intuition suggests at least that local minima are rare in high dimensions since it should require very special circumstances and structure for positivity of <em>all</em> eigenvalues of a Hessian matrix. But saddle points remain a concern.</p>
+<p>Parameter initialization is also a significant concern for neural network models. With strictly convex objective functions, convergence of gradient descent to the global minimizer is guaranteed beginning from <em>all</em> initial choices for the parameters, at least if the learning rate is chosen appropriately. But for a completely general nonconvex objective function, convergence guarantees do not exist.</p>
+<p>However, the objective functions encountered in training neural network models are <em>not</em> ordinary nonconvex functions—they still retain enough structure that tools and best practices may be developed and utilized to help encourage gradient descent to converge on decent solutions. Our little introduction to neural networks and deep learning in this book is not the place to discuss these in detail—for that, we direct the reader toward specialized treatments given in Chapter 8 of <span id="id3">[<a class="reference internal" href="bib.html#id10" title="I. Goodfellow, Y. Bengio, and A. Courville. Deep learning. MIT Press, 2016.">GBC16</a>]</span>, Chapter 7 in <span id="id4">[<a class="reference internal" href="bib.html#id11" title="M. Hardt and B. Recht. Patterns, predictions, and actions. Foundations of machine learning. Princeton University Press, 2022.">HR22</a>]</span>, and also <a class="reference external" href="https://d2l.ai/chapter_optimization/index.html">here</a>.</p>
+<p>We begin by extracting the surprisal function of a neural network from <a class="reference internal" href="12-models.html#neural-net-pf-def">Definition 12.9</a>:</p>
+<div class="proof theorem admonition" id="theorem-14">
+<p class="admonition-title"><span class="caption-number">Theorem 13.11 </span> (Surprisal functions of neural network models)</p>
+<section class="theorem-content" id="proof-content">
+</section>
+</div><div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
 <span class="collapsed">Show code cell source</span>
@@ -1315,7 +1452,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/52d17b9468a039666e3b00994fd2169364b292b704ba5227deeebfa12431756c.svg" src="../_images/52d17b9468a039666e3b00994fd2169364b292b704ba5227deeebfa12431756c.svg" /></figure>
+<img alt="../_images/44650f562ad2ec24e76de8bae93bd2c9627742cd2a2ce69cdb4c7e3b4b6e264a.svg" src="../_images/44650f562ad2ec24e76de8bae93bd2c9627742cd2a2ce69cdb4c7e3b4b6e264a.svg" /></figure>
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1326,32 +1463,33 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define link function at Y</span>
-<span class="k">def</span> <span class="nf">phi_fn</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-    <span class="n">W1</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;weight_1&#39;</span><span class="p">]</span>
-    <span class="n">W2</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;weight_2&#39;</span><span class="p">]</span>
-    <span class="n">W3</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;weight_3&#39;</span><span class="p">]</span>
-    <span class="n">W4</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;weight_4&#39;</span><span class="p">]</span>
-    <span class="n">b1</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;bias_1&#39;</span><span class="p">]</span>
-    <span class="n">b2</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;bias_2&#39;</span><span class="p">]</span>
-    <span class="n">b3</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;bias_3&#39;</span><span class="p">]</span>
-    <span class="n">b4</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;bias_4&#39;</span><span class="p">]</span>
-    <span class="n">z0</span> <span class="o">=</span> <span class="n">x</span>
-    <span class="n">z1</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">z0</span> <span class="o">@</span> <span class="n">W1</span> <span class="o">+</span> <span class="n">b1</span><span class="p">)</span>
-    <span class="n">z2</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">z1</span> <span class="o">@</span> <span class="n">W2</span> <span class="o">+</span> <span class="n">b2</span><span class="p">)</span>
-    <span class="n">z3</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">z2</span> <span class="o">@</span> <span class="n">W3</span> <span class="o">+</span> <span class="n">b3</span><span class="p">)</span>
-    <span class="n">phi</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">z3</span> <span class="o">@</span> <span class="n">W4</span> <span class="o">+</span> <span class="n">b4</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">phi_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+
+    <span class="c1"># initialize the z-value with x</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">x</span>
+
+    <span class="c1"># loop through hidden layers</span>
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;weight_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">)]</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;bias_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">)]</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">z</span> <span class="o">@</span> <span class="n">W</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+    
+    <span class="c1"># compute link function at output layer</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;weight_4&#39;</span><span class="p">]</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;bias_4&#39;</span><span class="p">]</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">z</span> <span class="o">@</span> <span class="n">W</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">phi</span>
 
 <span class="c1"># define the model surprisal function</span>
 <span class="k">def</span> <span class="nf">I_model</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="n">phi</span> <span class="o">=</span> <span class="n">phi_fn</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">phi_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
     <span class="k">return</span> <span class="o">-</span><span class="n">y</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">phi</span><span class="p">)</span>
 
 <span class="c1"># define the network architecture</span>
-<span class="n">k1</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># width of first hidden layer</span>
-<span class="n">k2</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># width of second hidden layer</span>
-<span class="n">k3</span> <span class="o">=</span> <span class="mi">4</span> <span class="c1"># width of third hidden layer</span>
-<span class="n">widths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">k3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># width of first hidden layer</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># width of second hidden layer</span>
+<span class="n">p3</span> <span class="o">=</span> <span class="mi">4</span> <span class="c1"># width of third hidden layer</span>
+<span class="n">widths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 
 <span class="c1"># initialize parameters</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
@@ -1370,7 +1508,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
 
 <span class="c1"># run SGD</span>
-<span class="n">sgd_output</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="n">I_model</span><span class="p">,</span> <span class="n">init_parameters</span><span class="o">=</span><span class="n">theta0</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">sgd_output</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="n">I_model</span><span class="p">,</span> <span class="n">init_parameters</span><span class="o">=</span><span class="n">theta0</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="c1"># plot SGD</span>
 <span class="n">plot_sgd</span><span class="p">(</span><span class="n">sgd_output</span><span class="p">,</span>
@@ -1388,7 +1526,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/5ac1b00abbd1cc607263b115c210eb37c9169437aa58073579a05a7fcf9e8470.svg" src="../_images/5ac1b00abbd1cc607263b115c210eb37c9169437aa58073579a05a7fcf9e8470.svg" /></figure>
+<img alt="../_images/a78d9e218175a2ef1c31b36023684c79ceccbab85b16d0011426427893d7df23.svg" src="../_images/a78d9e218175a2ef1c31b36023684c79ceccbab85b16d0011426427893d7df23.svg" /></figure>
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1400,7 +1538,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the predictor</span>
 <span class="k">def</span> <span class="nf">predictor</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
-    <span class="n">phi</span> <span class="o">=</span> <span class="n">phi_fn</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">phi_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">phi</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
 
 <span class="c1"># get the grid for the contour plot</span>
@@ -1452,7 +1590,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2595eb7b4350948b16f875f1432970c1b9be9c85bf3b5efd2c3fb1ee010bfadf.svg" src="../_images/2595eb7b4350948b16f875f1432970c1b9be9c85bf3b5efd2c3fb1ee010bfadf.svg" /></figure>
+<img alt="../_images/16704f1a7d3015c66c37d6d405113ef1532c36a245a47400c4cbcf6bc56015d6.svg" src="../_images/16704f1a7d3015c66c37d6d405113ef1532c36a245a47400c4cbcf6bc56015d6.svg" /></figure>
 </div>
 </div>
 </section>
