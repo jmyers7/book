@@ -554,6 +554,69 @@ $$
 
 Note that since $J$ is of class $C^2$, the Hessian matrix is symmetric.
 
+We have already met the symbol "$\nabla$" back in {prf:ref}`gradient-mat-def` where we defined the gradient matrix of a vector-valued function
+
+$$
+\bf: \bbr^n \to \bbr^m, \quad \bx \mapsto \bf(\bx).
+$$
+
+In fact, if we write
+
+$$
+\bf(\bx)^\intercal = (f_1(\bx),\ldots,f_m(\bx)),
+$$
+
+then the gradient matrix of $\bf$ is exactly the matrix whose columns are the gradient vectors of the component functions:
+
+$$
+\nabla \bf(\bx) = \begin{bmatrix}
+\uparrow & \cdots & \uparrow \\
+\nabla f_1(\bx) & \cdots & \nabla f_m(\bx) \\
+\downarrow & \cdots & \downarrow
+\end{bmatrix}.
+$$
+
+Of course, a function $J:\bbr^n \to \bbr$ may be considered a vector-valued function when we view the target space $\bbr$ as a $1$-dimensional vector space, and then clearly there is no inconsistency in the notation since the gradient vector of $J$ is the same as its gradient matrix (at $\btheta$). This dual usage of the symbol $\nabla$ then helps explain the notation $\nabla^2$ for the Hessian matrix; precisely, we have:
+
+```{prf:theorem} Hessian matrices are gradient matrices of gradient vectors
+:label: hess-jac-grad-thm
+
+Let $J : \bbr^n \to \bbr$ be a function of class $C^2$ and $\btheta\in \bbr^n$ a point. Then we have the equality of matrices
+
+$$
+\nabla^2 J(\btheta) = \nabla\left(\nabla J \right)(\btheta),
+$$
+
+where $\nabla J$ on the right-hand side stands for the vector-valued function
+
+$$
+\nabla J: \bbr^n \to \bbr^n, \quad \btheta \mapsto \nabla J(\btheta).
+$$
+```
+
+```{prf:proof}
+
+By definition, we have
+
+$$
+\nabla J(\btheta) = \begin{bmatrix}
+\displaystyle\frac{\partial J}{\partial \theta_1}(\btheta) \\
+\vdots \\
+\displaystyle \frac{\partial J}{\partial \theta_n}(\btheta)
+\end{bmatrix},
+$$
+
+and so
+
+$$
+\nabla\left(\nabla J \right)(\btheta) = \begin{bmatrix}
+\uparrow & \cdots & \uparrow \\
+\nabla \left( \displaystyle\frac{\partial J}{\partial \theta_1}\right)(\btheta) & \cdots & \nabla \left( \displaystyle\frac{\partial J}{\partial \theta_n}\right)(\btheta) \\
+\downarrow & \cdots & \downarrow
+\end{bmatrix} = \nabla^2 J(\btheta).
+$$
+```
+
 The following important theorem expresses the relations between the first and second directional derivatives and the gradient vector and Hessian matrix.
 
 ```{prf:theorem} Slopes, curvatures, and partial derivatives
@@ -1384,10 +1447,10 @@ Many of the objective functions that we will see in {numref}`Chapter %s <learnin
 ```{math}
 :label: stoch-obj-eqn
 
-J(\btheta) = E_{\bx \sim p(\bx)}\big[ h(\btheta, \bx) \big] = \sum_{\mathbf{x}\in \mathbb{R}^n} h(\btheta,\bx)p(\mathbf{x}),
+J(\btheta) = E_{\bx \sim p(\bx)}\big[ L(\btheta, \bx) \big] = \sum_{\mathbf{x}\in \mathbb{R}^n} L(\btheta,\bx)p(\mathbf{x}),
 ```
 
-where $p(\bx)$ is a probability mass function, $\btheta \in \mathbb{R}^k$ is a _parameter vector_, and $h:\mathbb{R}^{n+k} \to \mathbb{R}$ is a differentiable function called the _target function_. Very often, the mass function will be an empirical mass function of an observed multivariate dataset
+where $p(\bx)$ is a probability mass function, $\btheta \in \mathbb{R}^k$ is a _parameter vector_, and $L:\mathbb{R}^{n+k} \to \mathbb{R}$ is a differentiable function called the _loss function_. Very often, the mass function will be an empirical mass function of an observed multivariate dataset
 
 $$
 \bx_1,\bx_2,\ldots,\bx_m \in \mathbb{R}^n,
@@ -1396,16 +1459,16 @@ $$
 so that
 
 $$
-J(\btheta) = \frac{1}{m} \sum_{i=1}^m h \big(\btheta, \bx_i\big).
+J(\btheta) = \frac{1}{m} \sum_{i=1}^m L\big(\btheta, \bx_i\big).
 $$ (obj-approx-eq)
 
 By linearity of the gradient operation, we have
 
 $$
-\nabla_\btheta J(\btheta) = \frac{1}{m} \sum_{i=1}^m \nabla_\btheta h\big(\btheta, \bx_i\big)
+\nabla_\btheta J(\btheta) = \frac{1}{m} \sum_{i=1}^m \nabla_\btheta L\big(\btheta, \bx_i\big)
 $$ (batch-eqn)
 
-where we write $\nabla_\btheta$ instead of just $\nabla$ to emphasize that the gradient of the target function $h$ is computed with respect to the parameter vector $\btheta$. In this context, the gradient descent algorithm applied to the objective function {eq}`batch-eqn` is given a new name:
+where we write $\nabla_\btheta$ instead of just $\nabla$ to emphasize that the gradient of the loss function $L$ is computed with respect to the parameter vector $\btheta$. In this context, the gradient descent algorithm applied to the objective function {eq}`batch-eqn` is given a new name:
 
 ```{prf:definition}
 :label: batch-gd-def
@@ -1413,12 +1476,12 @@ where we write $\nabla_\btheta$ instead of just $\nabla$ to emphasize that the g
 The _batch gradient descent algorithm_ is the gradient descent algorithm applied to a stochastic objective function of the form {eq}`batch-eqn`.
 ```
 
-Let's take a look at a simple example. Suppose that we define the target function
+Let's take a look at a simple example. Suppose that we define the loss function
 
 ```{math}
 :label: quadratic-eqn
 
-h: \bbr^4 \to \bbr, \quad h(\btheta, \bx) = \frac{1}{2}|\bx - \btheta|^2,
+L: \bbr^4 \to \bbr, \quad L(\btheta, \bx) = \frac{1}{2}|\bx - \btheta|^2,
 ```
 
 where $\bx,\btheta\in \bbr^2$. We create a bivariate dataset by drawing a random sample of size $1{,}024$ from a $\mathcal{N}_2(\boldsymbol0,I)$ distribution. A scatter plot of the dataset looks like this:
@@ -1454,13 +1517,13 @@ Now, two runs of the batch gradient descent algorithm produce the following plot
 :   figure:
 :       align: center
 
-# define the target function
-def h(theta, x):
+# define the loss function
+def L(theta, x):
     return 0.5 * torch.linalg.norm(x - theta, dim=1) ** 2
 
 # define the objective function
 def J(theta):
-    return h(theta, X).mean()
+    return L(theta, X).mean()
 
 gd_parameters = {'num_steps': [30, 100],
                  'lr': [1e-1, 3e-2]}
@@ -1526,13 +1589,13 @@ B_1 \cup B_2 \cup \cdots \cup B_p = \{\bx_1,\bx_2,\ldots,\bx_m\}.
 We would then expect from {eq}`obj-approx-eq` and {eq}`batch-eqn` that
 
 $$
-J(\btheta) \approx \frac{1}{|B_j|} \sum_{\bx \in B_j} h\big(\btheta, \bx\big)
+J(\btheta) \approx \frac{1}{|B_j|} \sum_{\bx \in B_j} L\big(\btheta, \bx\big)
 $$
 
 and
 
 $$
-\nabla J(\btheta) \approx \frac{1}{|B_j|} \sum_{\bx \in B_j} \nabla_\btheta h\big(\btheta, \bx\big),
+\nabla J(\btheta) \approx \frac{1}{|B_j|} \sum_{\bx \in B_j} \nabla_\btheta L\big(\btheta, \bx\big),
 $$ (mini-batch-grad-eqn)
 
 for each $j=1,2,\ldots,p$, where $|B_j|$ is the cardinality (or size) of the $j$-th mini-batch. Very often, the mini-batch sizes are chosen to be equal to a common value $k$, except (possibly) for one to compensate for the fact that $m$ may not be evenly divisible by $k$. For example, if $m=100$ and $k=30$, then we would have four mini-batches, three of size $30$ and the fourth of size $10$.
@@ -1542,7 +1605,7 @@ The mini-batch version of the gradient descent algorithm loops over the mini-bat
 ```{prf:algorithm} Stochastic gradient descent with learning rate decay
 :label: sgd-alg
 
-**Input:** A dataset $\bx_1,\bx_2\ldots,\bx_m\in \mathbb{R}^n$, a differentiable target function $h:\bbr^{n+k} \to \bbr$, an initial guess $\btheta_0\in \mathbb{R}^k$ for a minimizer $\btheta^\star$ of the stochastic objective function {eq}`batch-eqn`, a learning rate $\alpha>0$, a decay rate $\beta \in [0, 1)$, and the number $N$ of epochs.
+**Input:** A dataset $\bx_1,\bx_2\ldots,\bx_m\in \mathbb{R}^n$, a differentiable loss function $L:\bbr^{n+k} \to \bbr$, an initial guess $\btheta_0\in \mathbb{R}^k$ for a minimizer $\btheta^\star$ of the stochastic objective function {eq}`batch-eqn`, a learning rate $\alpha>0$, a decay rate $\beta \in [0, 1)$, and the number $N$ of epochs.
 
 **Output:** An approximation to a minimizer $\btheta^\star$.
 
@@ -1553,7 +1616,7 @@ The mini-batch version of the gradient descent algorithm loops over the mini-bat
 &nbsp;&nbsp; For $t$ from $0$ to $N-1$, do: <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Randomly partition the dataset into mini-batches $B_1,B_2,\ldots,B_p$ <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For each mini-batch $B_j$, do: <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $\btheta := \btheta - \displaystyle \alpha(1-\beta)^{s+1} \frac{1}{|B_j|} \sum_{\bx \in B_j} \nabla_\btheta h\big(\btheta, \bx\big)$ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $\btheta := \btheta - \displaystyle \alpha(1-\beta)^{s+1} \frac{1}{|B_j|} \sum_{\bx \in B_j} \nabla_\btheta L\big(\btheta, \bx\big)$ <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $s := s+1$ <br>
 &nbsp;&nbsp; Return $\btheta$
 ```
@@ -1589,7 +1652,7 @@ $$
 However, rather than have the algorithm output the _exact_ objective values $J(\btheta)$, we will have it output the _approximate_ objective values obtained as realizations of the right-hand side of
 
 $$
-J(\btheta) \approx \frac{1}{|B|} \sum_{\bx \in B} h(\btheta, \bx),
+J(\btheta) \approx \frac{1}{|B|} \sum_{\bx \in B} L(\btheta, \bx),
 $$
 
 where $B$ is a mini-batch of data. In order to monitor convergence, we may plot these per-step (approximate) objective values versus gradient steps, as we have done in the previous two sections. But, depending on the mini-batch size, these plots may be quite noisy, so sometimes to get a better sense of the trend it is convenient to also track the _mean_ (approximate) objective values per epoch. We will see examples below.
@@ -1614,7 +1677,7 @@ fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
 for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
     sgd_output = SGD(**gd_parameters_slice,
-                    h=h,
+                    L=L,
                     X=X,
                     init_parameters=theta0,
                     batch_size=k,
@@ -1639,7 +1702,7 @@ fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
 for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
     sgd_output = SGD(**gd_parameters_slice,
-                    h=h,
+                    L=L,
                     X=X,
                     init_parameters=theta0,
                     batch_size=k,
@@ -1683,7 +1746,7 @@ fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
 for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
     sgd_output = SGD(**gd_parameters_slice,
-                    h=h,
+                    L=L,
                     X=X,
                     lr=alpha,
                     init_parameters=theta0,
@@ -1717,7 +1780,7 @@ fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
 for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
     sgd_output = SGD(**gd_parameters_slice,
-                    h=h,
+                    L=L,
                     X=X,
                     lr=alpha,
                     decay_rate=beta,
@@ -1760,7 +1823,7 @@ fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
 for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
     sgd_output = SGD(**gd_parameters_slice,
-                    h=h,
+                    L=L,
                     X=X,
                     lr=alpha,
                     init_parameters=theta0,

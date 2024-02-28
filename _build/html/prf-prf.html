@@ -409,6 +409,8 @@ document.write(`
    <a href="#cap-gibbs-thm"><strong>gibbs-thm</strong></a> | 
    <a href="#cap-grad-uphill-thm"><strong>grad-uphill-thm</strong></a> | 
    <a href="#cap-grad-vec-def"><strong>grad-vec-def</strong></a> | 
+   <a href="#cap-gradient-mat-def"><strong>gradient-mat-def</strong></a> | 
+   <a href="#cap-hess-jac-grad-thm"><strong>hess-jac-grad-thm</strong></a> | 
    <a href="#cap-hypergeometric-def"><strong>hypergeometric-def</strong></a> | 
    <a href="#cap-ind-components-cor"><strong>ind-components-cor</strong></a> | 
    <a href="#cap-ind-expect-thm"><strong>ind-expect-thm</strong></a> | 
@@ -434,9 +436,13 @@ document.write(`
    <a href="#cap-linear-reg-pf-def"><strong>linear-reg-pf-def</strong></a> | 
    <a href="#cap-linearity-correlation-thm"><strong>linearity-correlation-thm</strong></a> | 
    <a href="#cap-linearity-init-thm"><strong>linearity-init-thm</strong></a> | 
+   <a href="#cap-log-reg-convex-cor"><strong>log-reg-convex-cor</strong></a> | 
+   <a href="#cap-log-reg-data-pf-def"><strong>log-reg-data-pf-def</strong></a> | 
    <a href="#cap-log-reg-data-pf-thm"><strong>log-reg-data-pf-thm</strong></a> | 
    <a href="#cap-log-reg-def"><strong>log-reg-def</strong></a> | 
    <a href="#cap-log-reg-pf-def"><strong>log-reg-pf-def</strong></a> | 
+   <a href="#cap-log-reg-surprisal-grad-thm"><strong>log-reg-surprisal-grad-thm</strong></a> | 
+   <a href="#cap-log-reg-surprisal-thm"><strong>log-reg-surprisal-thm</strong></a> | 
    <a href="#cap-loss-example-def"><strong>loss-example-def</strong></a> | 
    <a href="#cap-loss-func-def"><strong>loss-func-def</strong></a> | 
    <a href="#cap-lotus-thm"><strong>lotus-thm</strong></a> | 
@@ -460,6 +466,7 @@ document.write(`
    <a href="#cap-multivar-density-trans-thm"><strong>multivar-density-trans-thm</strong></a> | 
    <a href="#cap-multivar-norm-def"><strong>multivar-norm-def</strong></a> | 
    <a href="#cap-mutual-info-def"><strong>mutual-info-def</strong></a> | 
+   <a href="#cap-neural-net-data-pf-def"><strong>neural-net-data-pf-def</strong></a> | 
    <a href="#cap-neural-net-data-pf-thm"><strong>neural-net-data-pf-thm</strong></a> | 
    <a href="#cap-neural-net-def"><strong>neural-net-def</strong></a> | 
    <a href="#cap-neural-net-pf-def"><strong>neural-net-pf-def</strong></a> | 
@@ -517,6 +524,7 @@ document.write(`
    <a href="#cap-support-def"><strong>support-def</strong></a> | 
    <a href="#cap-symm-info-thm"><strong>symm-info-thm</strong></a> | 
    <a href="#cap-taylor-thm"><strong>taylor-thm</strong></a> | 
+   <a href="#cap-theorem-14"><strong>theorem-14</strong></a> | 
    <a href="#cap-two-dim-vector-def"><strong>two-dim-vector-def</strong></a> | 
    <a href="#cap-uncorrelated-def"><strong>uncorrelated-def</strong></a> | 
    <a href="#cap-uniform-def"><strong>uniform-def</strong></a> | 
@@ -1289,6 +1297,22 @@ document.write(`
        <a href="chapters/11-optim.html#grad-vec-def"><code class="xref">grad-vec-def</code></a> <em>(chapters/11-optim)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-gradient-mat-def"><td></td><td>
+       <strong>gradient-mat-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/08-more-prob.html#gradient-mat-def"><code class="xref">gradient-mat-def</code></a> <em>(chapters/08-more-prob)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-hess-jac-grad-thm"><td></td><td>
+       <strong>hess-jac-grad-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/11-optim.html#hess-jac-grad-thm"><code class="xref">hess-jac-grad-thm</code></a> <em>(chapters/11-optim)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-hypergeometric-def"><td></td><td>
        <strong>hypergeometric-def</strong></td><td></td></tr>
      <tr>
@@ -1489,6 +1513,22 @@ document.write(`
        <a href="chapters/04-random-variables.html#linearity-init-thm"><code class="xref">linearity-init-thm</code></a> <em>(chapters/04-random-variables)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-log-reg-convex-cor"><td></td><td>
+       <strong>log-reg-convex-cor</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-learning.html#log-reg-convex-cor"><code class="xref">log-reg-convex-cor</code></a> <em>(chapters/13-learning)</em></td><td>
+       <em>corollary</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-log-reg-data-pf-def"><td></td><td>
+       <strong>log-reg-data-pf-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/12-models.html#log-reg-data-pf-def"><code class="xref">log-reg-data-pf-def</code></a> <em>(chapters/12-models)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-log-reg-data-pf-thm"><td></td><td>
        <strong>log-reg-data-pf-thm</strong></td><td></td></tr>
      <tr>
@@ -1512,6 +1552,22 @@ document.write(`
        <td>
        <a href="chapters/12-models.html#log-reg-pf-def"><code class="xref">log-reg-pf-def</code></a> <em>(chapters/12-models)</em></td><td>
        <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-log-reg-surprisal-grad-thm"><td></td><td>
+       <strong>log-reg-surprisal-grad-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-learning.html#log-reg-surprisal-grad-thm"><code class="xref">log-reg-surprisal-grad-thm</code></a> <em>(chapters/13-learning)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-log-reg-surprisal-thm"><td></td><td>
+       <strong>log-reg-surprisal-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-learning.html#log-reg-surprisal-thm"><code class="xref">log-reg-surprisal-thm</code></a> <em>(chapters/13-learning)</em></td><td>
+       <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-loss-example-def"><td></td><td>
        <strong>loss-example-def</strong></td><td></td></tr>
@@ -1695,6 +1751,14 @@ document.write(`
        <td></td>
        <td>
        <a href="chapters/10-info-theory.html#mutual-info-def"><code class="xref">mutual-info-def</code></a> <em>(chapters/10-info-theory)</em></td><td>
+       <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-neural-net-data-pf-def"><td></td><td>
+       <strong>neural-net-data-pf-def</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/12-models.html#neural-net-data-pf-def"><code class="xref">neural-net-data-pf-def</code></a> <em>(chapters/12-models)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-neural-net-data-pf-thm"><td></td><td>
@@ -2151,6 +2215,14 @@ document.write(`
        <td></td>
        <td>
        <a href="chapters/08-more-prob.html#taylor-thm"><code class="xref">taylor-thm</code></a> <em>(chapters/08-more-prob)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-theorem-14"><td></td><td>
+       <strong>theorem-14</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/13-learning.html#theorem-14"><code class="xref">theorem-14</code></a> <em>(chapters/13-learning)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-two-dim-vector-def"><td></td><td>

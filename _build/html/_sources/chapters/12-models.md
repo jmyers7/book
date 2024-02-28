@@ -206,7 +206,7 @@ These stochastic links might be parametrized. For example, suppose $\bY$ is $1$-
 The parameters consist of a real number $\beta_0 \in \bbr$, a vector $\bbeta \in \bbr^{n}$, and a positive number $\sigma^2 >0$. A complete description of the link function at $Y$ is given by
 
 $$
-Y \mid \bX; \ \beta_0, \bbeta,\sigma^2 \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu \def \beta_0 + \bx^\intercal \bbeta.
+Y \mid \bX \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu \def \beta_0 + \bx^\intercal \bbeta.
 $$
 
 In fact, this is exactly a _linear regression model_, which we will see again in {numref}`lin-reg-sec` below, as well as in {numref}`Chapters %s <learning>` and {numref}`%s <lin-reg>`.
@@ -423,7 +423,7 @@ where $\bX\in \bbr^n$. The model has the following parameters:
 The link function at $Y$ is given by
 
 $$
-Y \mid \bX=\bx; \ \beta_0,\bbeta,\sigma^2 \sim \mathcal{N}\big(\mu,\sigma^2\big), \quad \text{where} \quad \mu = \beta_0 + \bx^\intercal \bbeta.
+Y \mid \bX \sim \mathcal{N}\big(\mu,\sigma^2\big), \quad \text{where} \quad \mu = \beta_0 + \bx^\intercal \bbeta.
 $$
 ````
 
@@ -435,16 +435,11 @@ Before we introduce important terminology associated with linear regression mode
 For fixed $\bx\in \bbr^n$ and $y\in \bbr$, the _model likelihood function_ for a linear regression model is the function
 
 $$
-\calL(\beta_0, \bbeta, \sigma^2; \ y\mid \bx) \def f\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big)
+\calL(\beta_0, \bbeta, \sigma^2; \ y\mid \bx) \def f\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[- \frac{1}{2\sigma^2} ( y - \mu)^2 \right]
 $$ (model-likelihood-eq)
 
-of the parameters $\beta_0,\bbeta, \sigma^2$. For fixed $\bx\in \bbr^n$ and $y\in \bbr$, it is given by the formula
+of the parameters $\beta_0,\bbeta, \sigma^2$, where $\mu = \beta_0 + \bx^\intercal \bbeta$.
 
-$$
-\calL(\beta_0, \bbeta, \sigma^2; \ y\mid \bx) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[- \frac{1}{2\sigma^2} ( y - \mu)^2 \right],
-$$
-
-where $\mu = \beta_0 + \bx^\intercal \bbeta$.
 ```
 
 ```{margin}
@@ -621,7 +616,7 @@ $$
 in a linear regression model is called the _residual_ or _error term_; note then that
 
 $$
-Y = \beta_0 + \bX^\intercal \bbeta + R \quad \text{and} \quad R \mid \bX = \bx \sim \mathcal{N}(0, \sigma^2).
+Y = \beta_0 + \bX^\intercal \bbeta + R \quad \text{and} \quad R \mid \bX \sim \mathcal{N}(0, \sigma^2).
 $$ (random-lin-rel-eqn)
 
 This is the manifestation in terms of random vectors and variables of the approximate linear relationship {eq}`approx-linear-eqn` described at the beginning of this section.
@@ -666,7 +661,7 @@ $$
 also called a _residual_, is an observation of
 
 $$
-R_i \mid \bX_i = \bx_i \sim N(0,\sigma^2).
+R_i \mid \bX_i \sim N(0,\sigma^2).
 $$
 
 Notice that the variance $\sigma^2$ does _not_ depend on the choice of data point $(\bx_i,y_i)$. This fixed-variance assumption built into linear regression models is sometimes called _homoscedasticity_.
@@ -882,7 +877,7 @@ where $\bX\in \bbr^{n}$. The model has the following parameters:
 The link function at $Y$ is given by
 
 $$
-Y \mid \bX = \bx; \ \beta_0,\bbeta \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx^\intercal\bbeta),
+Y \mid \bX \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx^\intercal\bbeta),
 $$
 
 and where $\sigma$ is the sigmoid function.
@@ -890,27 +885,24 @@ and where $\sigma$ is the sigmoid function.
 
 Notice that the link function $\phi = \sigma(\beta_0 + \bx^\intercal\bbeta )$ in a logistic regression model is precisely the affine link function $\mu = \beta_0 + \bx^\intercal \bbeta$ of a linear regression model composed with the sigmoid function.
 
-We describe the two probability mass functions that we will use to train logistic regression models in the [next chapter](learning). The first is the conditional probability mass function:
+Following the pattern begun in the previous section, we now describe the two likelihood functions of logistic regression models that will be used in the [next chapter](learning) to train these models:
+
 
 ```{prf:definition}
 :label: log-reg-pf-def
 
-The _model probability mass function_ for a logistic regression model is the conditional probability mass function
+For fixed $\bx \in \bbr^n$ and $y\in \{0,1\}$, the _model likelihood function_ for a logistic regression model is the function
 
 $$
-p\big(y \mid \bx ; \ \beta_0, \bbeta\big).
+\calL(\beta_0, \bbeta; \ y\mid \bx) \def p\big(y \mid \bx ; \ \beta_0, \bbeta\big) = \phi^y (1-\phi)^{1-y}
 $$
 
-On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{n}$, it is given by the formula
-
-$$
-p\big(y \mid \bx ; \ \beta_0, \bbeta\big) = \phi^y (1-\phi)^{1-y}
-$$
-
-where $\phi = \sigma(\beta_0 + \bx^\intercal \bbeta )$.
+of the parameters $\beta_0,\bbeta$, where $\phi = \sigma(\beta_0 + \bx^\intercal \bbeta )$.
 ```
 
-The second important probability mass function is obtained from an observation of an IID random sample
+As for the linear regression models in the previous section, the difference between the likelihood function and the conditional mass function is that the former is thought of as a function of the parameters.
+
+The second likelihood function is obtained from an observation of an IID random sample
 
 $$
 (\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_m,Y_m)
@@ -924,40 +916,53 @@ corresponding to a plated version of a logistic regression model
 ```
 &nbsp;
 
-just as in the run-up to {prf:ref}`linear-reg-data-pf-thm` in the previous section.
+We then have:
 
-```{prf:theorem} Data probability mass functions of logistic regression models
-:label: log-reg-data-pf-thm
+```{prf:definition}
+:label: log-reg-data-pf-def
 
-Given a dataset
+Given an observed dataset
 
 $$
 (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \{0,1\},
 $$
 
-the _data probability mass function_ for a logistic regression model is the conditional probability mass function
+the _data likelihood function_ for a logistic regression model is the function
 
 $$
-p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta\big).
+\calL(\beta_0,\bbeta; \ y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m) \def p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta\big)
 $$
 
-It is given by
-
-\begin{align*}
-p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta\big) &= \prod_{i=1}^m p\big(y_i \mid \bx_i ; \ \beta_0, \bbeta\big) \\
-&= \prod_{i=1}^m \phi_i^{y_i} (1-\phi_i)^{1-y_i},
-\end{align*}
-
-where $\phi_i = \sigma (\beta_0 + \bx_i^\intercal \bbeta )$ for each $i=1,\ldots,m$.
+of the parameters $\beta_0,\bbeta$.
 ```
 
-To prove the theorem, we would only need to establish the equality
+When explicitly mentioning the observed dataset is not important, we may write
 
 $$
-p(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \beta_0, \bbeta) = \prod_{i=1}^m p(y_i \mid \bx_i ; \ \beta_0, \bbeta).
+\calL_\text{model}(\beta_0,\bbeta) \quad \text{and} \quad \calL_\text{data}(\beta_0,\bbeta)
 $$
 
-But the same proof will work here as the one given for {prf:ref}`linear-reg-data-pf-thm`.
+for the model and data likelihood functions of a logistic regression model.
+
+Using independence of the observed dataset, one easily proves the following result using the same argument as the one given in {prf:ref}`linear-reg-data-pf-thm`:
+
+```{prf:theorem} Data likelihood functions of logistic regression models
+:label: log-reg-data-pf-thm
+
+Given an observed dataset
+
+$$
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \{0,1\},
+$$
+
+the data likelihood function for a logistic regression model is given by
+
+$$
+\calL_\text{data} (\beta_0,\bbeta) = \prod_{i=1}^m \calL(\beta_0,\bbeta; \ y_i \mid \bx_i) = \prod_{i=1}^m \phi_i^{y_i} (1-\phi_i)^{1-y_i},
+$$
+
+where $\phi_i = \sigma(\beta_0 + \bx_i^\intercal \bbeta)$ for each $i=1,\ldots,m$.
+```
 
 Let's return to our toy dataset introduced at the beginning of the section. In the [next chapter](learning) we will see how to learn optimal values of the parameters $\beta_0$ and $\bbeta$ from the data. With these parameters in hand, one way to check how well a logistic regression model captures the data is to draw a contour plot of the function $\phi = \sigma( \beta_0 + \bx^\intercal \bbeta )$. This contour plot appears on the left in the following:
 
@@ -1009,20 +1014,20 @@ for axis in axes[:-1]:
     axis.set_ylabel('$x_2$')
 
 axes[0].set_title('contour plot of $\\phi = \\sigma(\\beta_0 + \\boldsymbol{\\beta}^\\intercal \\mathbf{x})$')
-axes[1].set_title('contour plot of predictor function $f(\mathbf{x})$')
+axes[1].set_title('contour plot of predictor function $h(\mathbf{x})$')
 plt.tight_layout()
 ```
 
 To interpret this plot, remember that $\phi = \sigma( \beta_0 + \bx^\intercal \bbeta )$ is the probability parameter for the class indicator variable $Y \sim \Ber(\phi)$, so we should interpret $\phi$ as the probability that the point $\bx$ is in class $1$ (corresponding to $y=1$). In the right-hand plot, we have "thresholded" the probability $\phi$ at $0.5$, creating a _predictor function_
 
 $$
-f:\bbr^{2} \to \{0,1\}, \quad f(\bx) = \begin{cases}
+h:\bbr^{2} \to \{0,1\}, \quad h(\bx) = \begin{cases}
 0 & : \sigma(\beta_0 + \bx^\intercal \bbeta ) < 0.5, \\
 1 & : \sigma(\beta_0 + \bx^\intercal \bbeta ) \geq 0.5. \\
 \end{cases}
 $$
 
-The _decision boundary_ is exactly the curve in $\bbr^2$ consisting of those $\bx$ for which the predictor $f$ is "flipping a coin," i.e., it consists of those points $\bx$ such that
+The _decision boundary_ is exactly the curve in $\bbr^2$ consisting of those $\bx$ for which the predictor $h$ is "flipping a coin," i.e., it consists of those points $\bx$ such that
 
 $$
 \sigma(\beta_0 + \bx^\intercal \bbeta ) = 0.5,
@@ -1109,13 +1114,13 @@ A _(fully-connected, feedforward) neural network with one hidden layer_ is a pro
 ```
 &nbsp;
 
-where $\bX\in \bbr^n$ and $\bz \in \bbr^k$. The model has the following parameters:
+where $\bX\in \bbr^n$ and $\bz \in \bbr^p$. The model has the following parameters:
 
-* A parameter matrix $\bW_1 \in \mathbb{R}^{n\times k}$.
+* A parameter matrix $\bW_1 \in \mathbb{R}^{n\times p}$.
 
-* A parameter vector $\bb_1 \in \mathbb{R}^{k}$.
+* A parameter vector $\bb_1 \in \mathbb{R}^{p}$.
 
-* A parameter vector $\bw_2 \in \mathbb{R}^{k}$.
+* A parameter vector $\bw_2 \in \mathbb{R}^{p}$.
 
 * A real parameter $b_2 \in \mathbb{R}$.
 
@@ -1128,8 +1133,8 @@ $$
 while the link function at $Y$ is given by
 
 $$
-Y \mid \bX = \bx ;\ \mathbf{z}, \bw_2, b_2 \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\bz^\intercal \bw_2 + b_2).
-$$
+Y \mid \bX  \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\bz^\intercal \bw_2 + b_2).
+$$ (link-nn-eq)
 
 Here, $\rho$ is the ReLU function and $\sigma$ is the sigmoid function.
 ````
@@ -1142,27 +1147,42 @@ $$
 
 The name "neural network" comes from a loose analogy with networks of biological neurons in the human brain. For this reason, sometimes neural network models are called _artificial neural networks_ (*ANN*s). The parameters $\bW_1$ and $\bw_2$ are called _weights_, while the parameters $\bb_1$ and $b_2$ are called _biases_. The ReLU function $\rho$ and the sigmoid function $\sigma$ are often called the _activation functions_ of the network.
 
-Following the pattern begun with linear and logistic regression models, we want to begin by describing the probability mass functions that we will use in the [next chapter](learning) to train neural network models. The first is the conditional probability mass function:
+Note that the form of the link function $\phi=\phi(\bz, \bw_2,b_2)$ described in {eq}`link-nn-eq` does not explicitly display the dependence of the conditional distribution $Y \mid \bX \sim \Ber(\phi)$ on observed values $\bX = \bx$. For that, one needs to compose the two link functions at $\bz$ and $Y$ to get
+
+$$
+\phi = \sigma(\bz^\intercal \bw_2 + b_2) = \sigma\left[ \rho(\bx^\intercal \bW_1 + \bb_1^\intercal) \bw_2 + b_2\right].
+$$ (big-link-eq)
+
+Expressed in this manner, with the hidden deterministic variable $\bz$ removed, we may think of a neural network model as a PGM with underlying graph
+
+```{image} ../img/nn-03.svg
+:width: 40%
+:align: center
+```
+&nbsp;
+
+and link function $Y$ given by {eq}`big-link-eq`.
+
+We now turn toward the likelihood functions:
 
 ```{prf:definition}
 :label: neural-net-pf-def
 
-The _model probability mass function_ for a neural network model is the conditional probability mass function
+For fixed $\bx\in \bbr^n$ and $y\in \{0,1\}$, the _model likelihood function_ for a neural network model is the function
 
 $$
-p\big(y \mid \bx ; \ \bW_1, \bb_1, \bw_2, b_2 \big).
+\calL(\bW_1, \bb_1, \bw_2, b_2 ; \ y\mid \bx) \def p\big(y \mid \bx ; \ \bW_1, \bb_1, \bw_2, b_2 \big) = \phi^y (1-\phi)^{1-y}
 $$
 
-On its support consisting of all $y\in \{0,1\}$ and $\bx \in \bbr^{n}$, it is given by the formula
+of the parameters $\bW_1, \bb_1, \bw_2, b_2$, where
 
-$$
-p\big(y \mid \bx ; \ \bW_1, \bb_1, \bw_2, b_2 \big) = \phi^y (1-\phi)^{1-y}
-$$
-
-where $\phi = \sigma(\bz^\intercal \bw_2 + b_2)$ and $\bz^\intercal = \rho(\bx ^\intercal \bW_1 + \bb_1^\intercal)$.
+\begin{align*}
+\bz^\intercal &= \rho(\bx ^\intercal \bW_1 + \bb_1^\intercal), \\ 
+\phi &= \sigma(\bz^\intercal \bw_2 + b_2).
+\end{align*}
 ```
 
-As with linear and logistic regression models, the second probability mass function is obtained from an IID random sample
+As with linear and logistic regression models, the second likelihood function is obtained from an IID random sample
 
 $$
 (\bX_1,Y_1),(\bX_2,Y_2),\ldots,(\bX_m,Y_m)
@@ -1176,40 +1196,58 @@ corresponding to a plated version of a neural network model:
 ```
 &nbsp;
 
-This probability mass function is described in:
+We then have:
 
-```{prf:theorem} Data probability mass functions of neural network models
-:label: neural-net-data-pf-thm
+```{prf:definition}
+:label: neural-net-data-pf-def
 
-Given a dataset
+Given an observed dataset
 
 $$
 (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \{0,1\},
 $$
 
-the _data probability mass function_ for a neural network model is the conditional probability mass function
+the _data likelihood function_ for a neural network model is the function
 
 $$
-p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \bW_1, \bb_1, \bw_2, b_2\big).
+\calL(\bW_1, \bb_1, \bw_2, b_2 ; \ y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m) \def p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \bW_1, \bb_1, \bw_2, b_2\big)
 $$
 
-It is given by
-
-\begin{align*}
-p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \bW_1, \bb_1, \bw_2, b_2\big) &= \prod_{i=1}^m p\big(y_i \mid \bx_i ; \ \bW_1, \bb_1, \bw_2, b_2\big) \\
-&= \prod_{i=1}^m \phi_i^{y_i} (1-\phi_i)^{1-y_i}
-\end{align*}
-
-where $\phi_i = \sigma(\bz_i^\intercal \bw_2 + b_2)$ and $\bz_i = \rho(\bx_i^\intercal \bW_1 + \bb_1)$ for each $i=1,\ldots,m$.
+of the parameters $\bW_1, \bb_1, \bw_2, b_2$.
 ```
 
-The proof of the equality
+We will write
 
 $$
-p\big(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \bW_1, \bb_1, \bw_2, b_2\big) = \prod_{i=1}^m p\big(y_i \mid \bx_i ; \ \bW_1, \bb_1, \bw_2, b_2\big)
+\calL_\text{model}(\bW_1, \bb_1, \bw_2, b_2) \quad \text{and} \quad \calL_\text{data}(\bW_1, \bb_1, \bw_2, b_2)
 $$
 
-in the theorem is the same as the proof of the same equality in {prf:ref}`linear-reg-data-pf-thm`.
+when explicitly mentioning the observed dataset is not important. We then prove using the same argument given for {prf:ref}`linear-reg-data-pf-thm`:
+
+```{prf:theorem} Data likelihood functions of neural network models
+:label: neural-net-data-pf-thm
+
+Given an observed dataset
+
+$$
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^{n} \times \{0,1\},
+$$
+
+the data likelihood function for a neural network model is given by
+
+$$
+\calL_\text{data}(\bW_1, \bb_1, \bw_2, b_2) = \prod_{i=1}^m \calL(\bW_1, \bb_1, \bw_2, b_2; \ y_i \mid \bx_i) = \prod_{i=1}^m \phi_i^{y_i} (1-\phi_i)^{1-y_i}
+$$
+
+where
+
+\begin{align*}
+\bz_i^\intercal &= \rho(\bx_i ^\intercal \bW_1 + \bb_1^\intercal), \\ 
+\phi_i &= \sigma(\bz_i^\intercal \bw_2 + b_2),
+\end{align*}
+
+for each $i=1,\ldots,m$.
+```
 
 Very often, one sees the underlying graph of a neural network displayed in terms of the components of the vectors (with the parameters omitted). For example, in the case that $\bX$ is $3$-dimensional and $\bz$ is $4$-dimensional, we might see the graph of the neural network drawn as
 
@@ -1266,7 +1304,7 @@ $$
 while the link function at $Y$ is the same as it was before:
 
 $$
-Y \mid \bX = \bx; \ \bz_2, \bw_3, b_3 \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \bz_2^\intercal \bw_3 + b_3\big).
+Y \mid \bX \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \bz_2^\intercal \bw_3 + b_3\big).
 $$
 
 The _depth_ $d$ of a neural network is defined to be one less than the total number of layers, or equivalently, the number of (trainable) parameter groups
@@ -1336,37 +1374,37 @@ appears on the left-hand side of the following figure, while the "thresholded" v
 import torch.nn as nn
 
 # define the neural network model architecture
-torch.manual_seed(42)
-k1 = 8 # width of first hidden layer
-k2 = 8 # width of second hidden layer
-k3 = 4 # width of third hidden layer
+torch.manual_seed(84)
+p1 = 8 # width of first hidden layer
+p2 = 8 # width of second hidden layer
+p3 = 4 # width of third hidden layer
 
 class NeuralNetwork(nn.Module):
     def __init__(self, input_dimension):
         super().__init__()
 
         # three hidden layers...
-        self.hidden1_linear = nn.Linear(in_features=input_dimension, out_features=k1)
-        self.hidden1_act = nn.ReLU()
-        self.hidden2_linear = nn.Linear(in_features=k1, out_features=k2)
-        self.hidden2_act = nn.ReLU()
-        self.hidden3_linear = nn.Linear(in_features=k2, out_features=k3)
-        self.hidden3_act = nn.ReLU()
+        self.z1_lin = nn.Linear(in_features=input_dimension, out_features=p1)
+        self.z1_act = nn.ReLU()
+        self.z2_lin = nn.Linear(in_features=p1, out_features=p2)
+        self.z2_act = nn.ReLU()
+        self.z3_lin = nn.Linear(in_features=p2, out_features=p3)
+        self.z3_act = nn.ReLU()
         
         # ...and one output layer
-        self.output_linear = nn.Linear(in_features=k3, out_features=1)
-        self.output_act = nn.Sigmoid()
+        self.y_linear = nn.Linear(in_features=p3, out_features=1)
+        self.y_act = nn.Sigmoid()
 
     def forward(self, X):
-        X = self.hidden1_act(self.hidden1_linear(X))
-        hidden_output_1 = X
-        X = self.hidden2_act(self.hidden2_linear(X))
-        hidden_output_2 = X
-        X = self.hidden3_act(self.hidden3_linear(X))
-        hidden_output_3 = X
-        X = self.output_act(self.output_linear(X))
+        X = self.z1_act(self.z1_lin(X))
+        z1 = X
+        X = self.z2_act(self.z2_lin(X))
+        z2 = X
+        X = self.z3_act(self.z3_lin(X))
+        z3 = X
+        X = self.y_act(self.y_linear(X))
 
-        return X, hidden_output_1, hidden_output_2, hidden_output_3
+        return X, z1, z2, z3
     
 model = NeuralNetwork(input_dimension=2)
 
@@ -1377,11 +1415,11 @@ optimizer = torch.optim.SGD(params=model.parameters(), lr=5e-1)
 # train the model
 num_epochs = 4000
 for _ in range(num_epochs):
-    optimizer.zero_grad()
     y_hat = model(X)[0]
     loss = loss_fn(y_hat.squeeze(), y)
     loss.backward()
     optimizer.step()
+    optimizer.zero_grad()
 
 _, axes = plt.subplots(ncols=3, figsize=(10, 4), width_ratios=[10, 10, 1])
 
@@ -1411,7 +1449,7 @@ for axis in axes[:-1]:
     axis.set_ylabel('$x_2$')
 
 axes[0].set_title('contour plot of $\\phi = \\sigma(\\mathbf{z}_3^\\intercal \\boldsymbol{w}_4 + b_4)$')
-axes[1].set_title('contour plot of predictor function $f(\mathbf{x})$')
+axes[1].set_title('contour plot of predictor function $h(\mathbf{x})$')
 plt.tight_layout()
 ```
 
@@ -1616,7 +1654,7 @@ $$
 \phi = \sigma(\bz_3^\intercal \bw_4 + b_4)
 $$
 
-is to combine these activations to produce an output probability $\phi$. Interestingly, the second and fourth neurons appear to be inactive, at least in the region of parameter space containing the dataset. One might "prune" inactive neurons from the network _after_ training, but care must be exercised in "pruning" _before_ training. Indeed, even if a neuron is ultimately inactive in the trained network, it may play a nontrivial role _during_ training, and the effect of its removal is, in general, difficult to estimate.
+is to combine these activations to produce an output probability $\phi$.
 
 ```{admonition} Problem Prompt
 
