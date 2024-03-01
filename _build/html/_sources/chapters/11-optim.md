@@ -1468,12 +1468,12 @@ $$
 \nabla_\btheta J(\btheta) = \frac{1}{m} \sum_{i=1}^m \nabla_\btheta L\big(\btheta, \bx_i\big)
 $$ (batch-eqn)
 
-where we write $\nabla_\btheta$ instead of just $\nabla$ to emphasize that the gradient of the loss function $L$ is computed with respect to the parameter vector $\btheta$. In this context, the gradient descent algorithm applied to the objective function {eq}`batch-eqn` is given a new name:
+where we write $\nabla_\btheta$ instead of just $\nabla$ to emphasize that the gradient of the loss function $L$ is computed with respect to the parameter vector $\btheta$. In this context, the gradient descent algorithm applied to the objective function {eq}`obj-approx-eq` is given a new name:
 
 ```{prf:definition}
 :label: batch-gd-def
 
-The _batch gradient descent algorithm_ is the gradient descent algorithm applied to a stochastic objective function of the form {eq}`batch-eqn`.
+The _batch gradient descent algorithm_ is the gradient descent algorithm applied to a stochastic objective function of the form {eq}`obj-approx-eq`.
 ```
 
 Let's take a look at a simple example. Suppose that we define the loss function
