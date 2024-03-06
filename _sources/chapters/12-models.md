@@ -623,7 +623,7 @@ This is the manifestation in terms of random vectors and variables of the approx
 
 ```{admonition} Problem Prompt
 
-Do problem 3 on the worksheet.
+Do problems 3 and 4 on the worksheet.
 ```
 
 Suppose we are given an observed dataset
