@@ -121,7 +121,7 @@ The _input_ and _output_ layers consist of random variables $X_1,X_2,X_3,Y$, whi
 
 
 
-
+(learning-optim)=
 ## Learning and optimization
 
 The kinds of probabilistic models of primary interest in this book occur in parametrized families. The type of data under consideration and the types of questions that the analyst hopes to answer often dictates or suggests which of these families a model should be chosen from. But then, this leaves the analyst with the formidable challenge of choosing optimal parameters for their model:

@@ -1114,7 +1114,7 @@ A _(fully-connected, feedforward) neural network with one hidden layer_ is a pro
 ```
 &nbsp;
 
-where $\bX\in \bbr^n$ and $\bz \in \bbr^p$. The model has the following parameters:
+where $\bX\in \bbr^n$ and $\ba \in \bbr^p$. The model has the following parameters:
 
 * A parameter matrix $\bW_1 \in \mathbb{R}^{n\times p}$.
 
@@ -1124,16 +1124,16 @@ where $\bX\in \bbr^n$ and $\bz \in \bbr^p$. The model has the following paramete
 
 * A real parameter $b_2 \in \mathbb{R}$.
 
-The link function at $\mathbf{z}$ is given by
+The link function at $\mathbf{a}$ is given by
 
 $$
-\mathbf{z}^\intercal = \rho(\bx^\intercal \bW_1 + \bb_1^\intercal),
+\ba^\intercal = \rho(\bx^\intercal \bW_1 + \bb_1^\intercal),
 $$
 
 while the link function at $Y$ is given by
 
 $$
-Y \mid \bX  \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\bz^\intercal \bw_2 + b_2).
+Y \mid \bX  \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\ba^\intercal \bw_2 + b_2).
 $$ (link-nn-eq)
 
 Here, $\rho$ is the ReLU function and $\sigma$ is the sigmoid function.
@@ -1142,18 +1142,18 @@ Here, $\rho$ is the ReLU function and $\sigma$ is the sigmoid function.
 As the proliferation of transposes indicates, the formulas for the link functions given here express a preference for row vectors rather than column vectors. This is, in part, because some of us are psychologically conditioned (including the author) to think of a feature vector of a single example as a _row_ vector rather than a column vector, much as we see in data frames in Python. But by applying the transpose operation to each side of the equations defining the link functions, we obtain formulas that are more in line with what the reader might see in other references:
 
 $$
-\mathbf{z} = \rho( \bW_1^\intercal \bx + \bb_1) \quad \text{and} \quad \phi = \sigma(\bw_2^\intercal \bz  + b_2)
+\ba = \rho( \bW_1^\intercal \bx + \bb_1) \quad \text{and} \quad \phi = \sigma(\bw_2^\intercal \ba  + b_2)
 $$
 
 The name "neural network" comes from a loose analogy with networks of biological neurons in the human brain. For this reason, sometimes neural network models are called _artificial neural networks_ (*ANN*s). The parameters $\bW_1$ and $\bw_2$ are called _weights_, while the parameters $\bb_1$ and $b_2$ are called _biases_. The ReLU function $\rho$ and the sigmoid function $\sigma$ are often called the _activation functions_ of the network.
 
-Note that the form of the link function $\phi=\phi(\bz, \bw_2,b_2)$ described in {eq}`link-nn-eq` does not explicitly display the dependence of the conditional distribution $Y \mid \bX \sim \Ber(\phi)$ on observed values $\bX = \bx$. For that, one needs to compose the two link functions at $\bz$ and $Y$ to get
+Note that the form of the link function $\phi=\phi(\ba, \bw_2,b_2)$ described in {eq}`link-nn-eq` does not explicitly display the dependence of the conditional distribution $Y \mid \bX \sim \Ber(\phi)$ on observed values $\bX = \bx$. For that, one needs to compose the two link functions at $\ba$ and $Y$ to get
 
 $$
-\phi = \sigma(\bz^\intercal \bw_2 + b_2) = \sigma\left[ \rho(\bx^\intercal \bW_1 + \bb_1^\intercal) \bw_2 + b_2\right].
+\phi = \sigma(\ba^\intercal \bw_2 + b_2) = \sigma\left[ \rho(\bx^\intercal \bW_1 + \bb_1^\intercal) \bw_2 + b_2\right].
 $$ (big-link-eq)
 
-Expressed in this manner, with the hidden deterministic variable $\bz$ removed, we may think of a neural network model as a PGM with underlying graph
+Expressed in this manner, with the hidden deterministic vector $\ba$ removed, we may think of a neural network model as a PGM with underlying graph
 
 ```{image} ../img/nn-03.svg
 :width: 40%
@@ -1177,8 +1177,8 @@ $$
 of the parameters $\bW_1, \bb_1, \bw_2, b_2$, where
 
 \begin{align*}
-\bz^\intercal &= \rho(\bx ^\intercal \bW_1 + \bb_1^\intercal), \\ 
-\phi &= \sigma(\bz^\intercal \bw_2 + b_2).
+\ba^\intercal &= \rho(\bx^\intercal \bW_1 + \bb_1^\intercal), \\ 
+\phi &= \sigma(\ba^\intercal \bw_2 + b_2).
 \end{align*}
 ```
 
@@ -1242,14 +1242,14 @@ $$
 where
 
 \begin{align*}
-\bz_i^\intercal &= \rho(\bx_i ^\intercal \bW_1 + \bb_1^\intercal), \\ 
-\phi_i &= \sigma(\bz_i^\intercal \bw_2 + b_2),
+\ba_i^\intercal &= \rho(\bx_i ^\intercal \bW_1 + \bb_1^\intercal), \\ 
+\phi_i &= \sigma(\ba_i^\intercal \bw_2 + b_2),
 \end{align*}
 
 for each $i=1,\ldots,m$.
 ```
 
-Very often, one sees the underlying graph of a neural network displayed in terms of the components of the vectors (with the parameters omitted). For example, in the case that $\bX$ is $3$-dimensional and $\bz$ is $4$-dimensional, we might see the graph of the neural network drawn as
+Very often, one sees the underlying graph of a neural network displayed in terms of the components of the vectors (with the parameters omitted). For example, in the case that $\bX$ is $3$-dimensional and $\ba$ is $4$-dimensional, we might see the graph of the neural network drawn as
 
 ```{image} ../img/nn-neuron.svg
 :width: 50%
@@ -1257,10 +1257,10 @@ Very often, one sees the underlying graph of a neural network displayed in terms
 ```
 &nbsp;
 
-In this format, the nodes are often called _(artificial) neurons_ or _units_. The visible neurons $X_1,X_2,X_3$ are said to comprise the _input layer_ of the network, the hidden neurons $z_1,z_2,z_3,z_4$ make up a _hidden layer_, and the single visible neuron $Y$ makes up the _output layer_. The network is called _fully-connected_ because there is a link function at a given neuron _from_ every neuron in the previous layer and _to_ every neuron in the subsequent layer; it is called a _feedfoward_ network because the link functions only go in one direction, with no feedback loops. The link function at $z_j$ is of the form
+In this format, the nodes are often called _(artificial) neurons_ or _units_. The visible neurons $X_1,X_2,X_3$ are said to comprise the _input layer_ of the network, the hidden neurons $a_1,a_2,a_3,a_4$ make up a _hidden layer_, and the single visible neuron $Y$ makes up the _output layer_. The network is called _fully-connected_ because there is a link function at a given neuron _from_ every neuron in the previous layer and _to_ every neuron in the subsequent layer; it is called a _feedfoward_ network because the link functions only go in one direction, with no feedback loops. The link function at $a_j$ is of the form
 
 $$
-z_j = \rho(\bx^\intercal \bw_{1j} + b_{1j}),
+a_j = \rho(\bx^\intercal \bw_{1j} + b_{1j}),
 $$
 
 where
@@ -1283,8 +1283,8 @@ From our networks with just one hidden layer, it is easy to imagine how we might
 where
 
 $$
-\bz_1^\intercal = \begin{bmatrix} z_{11} & z_{12} & z_{13} & z_{14} \end{bmatrix} \quad \text{and} \quad
-\bz_2^\intercal = \begin{bmatrix} z_{21} & z_{22} \end{bmatrix}.
+\ba_1^\intercal = \begin{bmatrix} a_{11} & a_{12} & a_{13} & a_{14} \end{bmatrix} \quad \text{and} \quad
+\ba_2^\intercal = \begin{bmatrix} a_{21} & a_{22} \end{bmatrix}.
 $$
 
 If we collapse the neurons into vectors and bring in the parameters, this network would be drawn as
@@ -1295,19 +1295,19 @@ If we collapse the neurons into vectors and bring in the parameters, this networ
 ```
 &nbsp;
 
-The link functions at $\bz_1$ and $\bz_2$ are given by
+The link functions at $\ba_1$ and $\ba_2$ are given by
 
 $$
-\bz_1^\intercal = \rho\big(\bx^\intercal \bW_1 + \bb_1^\intercal \big) \quad \text{and} \quad \bz_2^\intercal = \rho(\bz_1^\intercal \bW_2 + \bb_2^\intercal),
+\ba_1^\intercal = \rho\big(\bx^\intercal \bW_1 + \bb_1^\intercal \big) \quad \text{and} \quad \ba_2^\intercal = \rho(\ba_1^\intercal \bW_2 + \bb_2^\intercal),
 $$
 
 while the link function at $Y$ is the same as it was before:
 
 $$
-Y \mid \bX \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \bz_2^\intercal \bw_3 + b_3\big).
+Y \mid \bX \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \ba_2^\intercal \bw_3 + b_3\big).
 $$
 
-The _depth_ $d$ of a neural network is defined to be one less than the total number of layers, or equivalently, the number of (trainable) parameter groups
+Going beyond two hidden layers, we define the _depth_ $d$ of a neural network to be one less than the total number of layers, or equivalently, the number of (trainable) parameter groups
 
 $$
 (\bW_1,\bb_1),(\bW_2,\bb_2),\ldots,(\bw_d,b_d).
@@ -1360,7 +1360,7 @@ plt.tight_layout()
 Trained on the original dataset (without the "blobs"), we saw that a logistic regression model produces a _linear_ decision boundary and thus misclassifies a nontrivial number of data points. In comparison, not only will a neural network produce a nonlinear decision boundary dividing the data in the original dataset, it will also correctly classify the data in the four new "blobs." Indeed, using the techniques in the [next chapter](learning), we trained a neural network on the new dataset with _three_ hidden layers of widths $8$, $8$, and $4$. Then, a contour plot of the function
 
 $$
-\phi = \sigma\big(\bz_3^\intercal\bw_4 + b_4\big)
+\phi = \sigma\big(\ba_3^\intercal\bw_4 + b_4\big)
 $$
 
 appears on the left-hand side of the following figure, while the "thresholded" version (at $0.5$) appears on the right-hand side displaying the (nonlinear!) decision boundaries:
@@ -1384,27 +1384,24 @@ class NeuralNetwork(nn.Module):
         super().__init__()
 
         # three hidden layers...
-        self.z1_lin = nn.Linear(in_features=input_dimension, out_features=p1)
-        self.z1_act = nn.ReLU()
-        self.z2_lin = nn.Linear(in_features=p1, out_features=p2)
-        self.z2_act = nn.ReLU()
-        self.z3_lin = nn.Linear(in_features=p2, out_features=p3)
-        self.z3_act = nn.ReLU()
+        self.z1 = nn.Linear(in_features=input_dimension, out_features=p1)
+        self.a1 = nn.ReLU()
+        self.z2 = nn.Linear(in_features=p1, out_features=p2)
+        self.a2 = nn.ReLU()
+        self.z3 = nn.Linear(in_features=p2, out_features=p3)
+        self.a3 = nn.ReLU()
         
         # ...and one output layer
-        self.y_linear = nn.Linear(in_features=p3, out_features=1)
-        self.y_act = nn.Sigmoid()
+        self.z4 = nn.Linear(in_features=p3, out_features=1)
+        self.phi = nn.Sigmoid()
 
     def forward(self, X):
-        X = self.z1_act(self.z1_lin(X))
-        z1 = X
-        X = self.z2_act(self.z2_lin(X))
-        z2 = X
-        X = self.z3_act(self.z3_lin(X))
-        z3 = X
-        X = self.y_act(self.y_linear(X))
+        a1 = self.a1(self.z1(X))
+        a2 = self.a2(self.z2(a1))
+        a3 = self.a3(self.z3(a2))
+        phi = self.phi(self.z4(a3))
 
-        return X, z1, z2, z3
+        return phi, a1, a2, a3
     
 model = NeuralNetwork(input_dimension=2)
 
@@ -1448,7 +1445,7 @@ for axis in axes[:-1]:
     axis.set_xlabel('$x_1$')
     axis.set_ylabel('$x_2$')
 
-axes[0].set_title('contour plot of $\\phi = \\sigma(\\mathbf{z}_3^\\intercal \\boldsymbol{w}_4 + b_4)$')
+axes[0].set_title('contour plot of $\\phi = \\sigma(\\mathbf{a}_3^\\intercal \\boldsymbol{w}_4 + b_4)$')
 axes[1].set_title('contour plot of predictor function $h(\mathbf{x})$')
 plt.tight_layout()
 ```
@@ -1471,25 +1468,25 @@ For another example, consider our familiar Ames housing dataset. The numerical f
 Now, suppose that $\bx$ is an input feature vector to a neural network. On its way through the network, it begins by landing in the first hidden layer, transforming into the vector
 
 $$
-\bz_1^\intercal = \rho(\bx^\intercal \bW_1 + \bb_1^\intercal).
+\ba_1^\intercal = \rho(\bx^\intercal \bW_1 + \bb_1^\intercal).
 $$
 
-We think of $\bz_1$ as _another_ representation of the data, but the meaning of its components---the "activations of the neurons"---are difficult to interpret because the weight matrix $\bW_1$ and bias vector $\bb_1$ are learned through the (usually very opaque) training process (see {numref}`Chapter %s <learning>`). Then, _this_ new feature vector $\bz_1$ is passed into the second layer, creating _yet another_ new representation
+We think of $\ba_1$ as _another_ representation of the data, but the meaning of its components---the "activations of the neurons"---are difficult to interpret because the weight matrix $\bW_1$ and bias vector $\bb_1$ are learned through the (usually very opaque) training process (see {numref}`Chapter %s <learning>`). Then, _this_ new feature vector $\ba_1$ is passed into the second layer, creating _yet another_ new representation
 
 $$
-\bz_2^\intercal = \rho(\bz_1^\intercal \bW_2 + \bb_2^\intercal)
+\ba_2^\intercal = \rho(\ba_1^\intercal \bW_2 + \bb_2^\intercal)
 $$
 
-of the data. For a network of depth $d$, this process of iteratively creating new representations of the data based on the previous ones continues all the way to the vector $\bz_{d-1}$ in the last hidden layer, which is then used to create the probability
+of the data. For a network of depth $d$, this process of iteratively creating new representations of the data based on the previous ones continues all the way to the vector $\ba_{d-1}$ in the last hidden layer, which is then used to create the probability
 
 $$
-\phi = \sigma( \bz_{d-1}^\intercal \bw_d + b_d)
+\phi = \sigma( \ba_{d-1}^\intercal \bw_d + b_d)
 $$
 
 that parametrizes the distribution of the random variable $Y\sim \Ber(\phi)$ in the output layer. So, the end result of the "forward pass" through the network is a sequence of representations
 
 $$
-\bx,\bz_1,\bz_2,\ldots,\bz_{d-1}
+\bx,\ba_1,\ba_2,\ldots,\ba_{d-1}
 $$ (forward-pass-eq)
 
 of the data, beginning with the (often human constructed) feature vector $\bx$. As we mentioned above, one can often think of this sequence of representations as a progression from the broad and general, to the specific and refined. For example, the following contour plots show the activations of the eight neurons in the first hidden layer of our network trained to classify the data in our toy example:
@@ -1530,13 +1527,13 @@ cbar.set_ticklabels([round(3 / 5 * k, 1) for k in range(5)] + ['>5.0'])
 Specifically, these plots show the contours of the functions
 
 $$
-z_{1j} = \rho( \bx^\intercal \bw_{1j} + \bb_{1j}^\intercal ),
+a_{1j} = \rho( \bx^\intercal \bw_{1j} + \bb_{1j}^\intercal ),
 $$
 
 for each $j=1,\ldots,8$, where
 
 $$
-\bz_1^\intercal = \begin{bmatrix} z_{11} & \cdots & z_{18} \end{bmatrix}, \quad
+\ba_1^\intercal = \begin{bmatrix} a_{11} & \cdots & a_{18} \end{bmatrix}, \quad
 \bW_1 = \begin{bmatrix} \uparrow & \cdots & \uparrow \\
 \bw_{11} & \cdots & \bw_{18} \\
 \downarrow & \cdots & \downarrow
@@ -1544,7 +1541,7 @@ $$
 \bb_1^\intercal = \begin{bmatrix} b_{11} & \cdots & b_{18} \end{bmatrix}.
 $$
 
-We see from the plots that the neurons are active on half planes of parameter space---their activations are not highlighting specific, refined structures in the data, but rather broad structures. The components in the representation $\bz_1$ indicate what combination of these half planes the given data point lies in; a larger number for a component indicates that the point is further away from the boundary of the half planes. This new representation $\bz_1$ is then passed into the second hidden layer, revealing these activations:
+We see from the plots that the neurons are active on half planes of parameter space---their activations are not highlighting specific, refined structures in the data, but rather broad structures. The components in the representation $\ba_1$ indicate what combination of these half planes the given data point lies in; a larger number for a component indicates that the point is further away from the boundary of the half planes. This new representation $\ba_1$ is then passed into the second hidden layer, revealing these activations:
 
 ```{code-cell} ipython3
 :tags: [hide-input, full-width]
@@ -1582,13 +1579,13 @@ cbar.set_ticklabels([round(3 / 5 * k, 1) for k in range(5)] + ['>5.0'])
 These are contour plots of the functions
 
 $$
-\bz_{2j} = \rho(\bz_1^\intercal \bw_{2j} + \bb_{2j})
+\ba_{2j} = \rho(\ba_1^\intercal \bw_{2j} + \bb_{2j})
 $$
 
 for each $j=1,\ldots,8$, where
 
 $$
-\bz_2^\intercal = \begin{bmatrix} z_{21} & \cdots & z_{28} \end{bmatrix}, \quad
+\ba_2^\intercal = \begin{bmatrix} a_{21} & \cdots & a_{28} \end{bmatrix}, \quad
 \bW_2 = \begin{bmatrix} \uparrow & \cdots & \uparrow \\
 \bw_{21} & \cdots & \bw_{28} \\
 \downarrow & \cdots & \downarrow
@@ -1596,7 +1593,7 @@ $$
 \bb_2^\intercal = \begin{bmatrix} b_{21} & \cdots & b_{28} \end{bmatrix}.
 $$
 
-In comparison to the broad activations of the neurons in the first layer, these activations are starting to take on a more refined structure, with some of the activation boundaries beginning to conform to the shape of the data. This second representation $\bz_2$ is passed into the third and final hidden layer, revealing the following activations:
+In comparison to the broad activations of the neurons in the first layer, these activations are starting to take on a more refined structure, with some activation boundaries beginning to conform to the shape of the data. This second representation $\ba_2$ is passed into the third and final hidden layer, revealing the following activations:
 
 ```{code-cell} ipython3
 :tags: [hide-input, full-width]
@@ -1634,13 +1631,13 @@ cbar.set_ticklabels([round(3 / 5 * k, 1) for k in range(5)] + ['>5.0'])
 These are contour plots of the functions
 
 $$
-z_{3j} = \rho(\bz_2^\intercal \bw_{3j} + \bb_{3j})
+a_{3j} = \rho(\ba_2^\intercal \bw_{3j} + \bb_{3j})
 $$
 
 for each $j=1,\ldots,4$, where
 
 $$
-\bz_3^\intercal = \begin{bmatrix} z_{31} & \cdots & z_{34} \end{bmatrix}, \quad
+\ba_3^\intercal = \begin{bmatrix} a_{31} & \cdots & a_{34} \end{bmatrix}, \quad
 \bW_3 = \begin{bmatrix} \uparrow & \cdots & \uparrow \\
 \bw_{31} & \cdots & \bw_{34} \\
 \downarrow & \cdots & \downarrow
@@ -1651,7 +1648,7 @@ $$
 The shapes of these activations are even more refined than those in the previous hidden layer, taking on more of the shape of the data. The job of the final link function
 
 $$
-\phi = \sigma(\bz_3^\intercal \bw_4 + b_4)
+\phi = \sigma(\ba_3^\intercal \bw_4 + b_4)
 $$
 
 is to combine these activations to produce an output probability $\phi$.

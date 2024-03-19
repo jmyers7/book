@@ -15,12 +15,36 @@ kernelspec:
 (learning)=
 # Learning
 
+With {numref}`Chapter %s <information-theory>` on information theory, {numref}`Chapter %s <optim>` on optimization, and {numref}`Chapter %s <prob-models>` on probabilistic graphical models all under our belt, we have covered all the prerequisites needed to finally implement the criterion from {numref}`learning-optim` for choosing optimal parameters for our probabilistic graphical models:
+
+> **The Distance Criterion for Parameter Choice.** Given two models within the same family of probabilistic graphical models, choose the model whose _distance_ from the empirical distribution of the data is smaller.
+
+In more detail, we suppose that we are given a fixed dataset. We then choose a family of probabilistic graphical models that we believe might model the dataset well---possibly one of the families described in {numref}`Chapter %s <prob-models>`, or maybe one of those described in the [programming assignments](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments) for {numref}`Chapter %s <prob-models>` or the current chapter. But no matter which family of PGMs that we happen to choose, there will be a proposed model probability distribution $P_{\btheta}$ that depends on a parameter vector $\btheta$; for example, in the case of a [logistic regression model](log-reg-sec), the (total) parameter vector is given by
+
+$$
+\btheta = (\beta_0,\bbeta),\quad \beta_0\in \bbr, \ \bbeta \in \bbr^n.
+$$
+
+According to the Distance Criterion for Parameter Choice stated above, we are to choose the parameter vector $\btheta$ that minimizes the distance from the model distribution to the empirical distribution of the data. Once more, the following cartoon visually depicts this goal, where $p(\bx,y;\btheta)$ is the mass function of the proposed model distribution and $\hat{p}(\bx,y)$ is the mass function of the empirical distribution:
+
+```{image} ../img/prob-distance.svg
+:width: 75%
+:align: center
+```
+&nbsp;
+
+As we now know from our study of {numref}`Chapter %s <information-theory>`, a natural candidate for the "distance" between two distributions is the KL divergence. So, our implementation of the Distance Criterion requires us to minimize KL divergences thought of as functions of model parameters $\btheta$; for this, the iterative, gradient-based algorithms from {numref}`Chapter %s <optim>` will prove highly useful.
+
+However, as we will see beginning in the [first section](likelihood-learning-sec) of this chapter, this optimization objective may be equivalently reformulated as one of several other optimization objectives. In particular, minimizing the KL divergence from the model distribution to the empirical distribution will turn out to yield the same parameter vector $\btheta$ as minimizing the cross entropy from the former to the latter. The advantage that the cross entropy formulation carries is that it is a _stochastic_ objective, which opens the door for the powerful stochastic gradient descent algorithm studied in {numref}`sgd-sec`. But the loss function associated with this stochastic objective is nothing but the _surprisal function_ (in the sense of {prf:ref}`info-content-def`) thought of as a function of the parameter vector $\btheta$, and so our optimization objective may reformulated (again) as seeking the parameter vector $\btheta$ that minimizes the average surprisal. In turn, the surprisal function is simply the negative logarithm of the probability mass function as a function of $\btheta$, which is nothing but the _model likelihood function_ familiar to us from {numref}`Chapter %s <prob-models>`. So, our optimization objective may be reformulated (one more time) as seeking the parameter vector $\btheta$ that maximizes the average model likelihood. Due to the equivalencies with this last reformulation, all these optimization objectives fall under the heading of _likelihood-based learning objectives_, and the specific realization of the Distance Criterion for Parameter Choice in terms of these objectives is called _maximum likelihood estimation_ or _MLE_.
+
+All of this will be introduced and described concretely in the case of a very simple univariate PGM in the [first section](likelihood-learning-sec) below. Then, in {numref}`gen-mle-sec`, we describe MLE for general PGMs, taking care to distinguish between models trained as _generative_ versus _discriminative models_, with the latter type further separated into those with continuous versus discrete response variables. The remaining three sections in the chapter address the specific cases of MLE for the three types of PGMs studied in {numref}`Chapter %s <prob-models>`: Linear regression models in {numref}`mle-lin-reg-sec`, logistic regression models in {numref}`mle-log-reg-sec`, and neural network models in {numref}`mle-nn-sec`.
+
 
 
 (likelihood-learning-sec)=
 ## A first look at likelihood-based learning objectives
 
-To help motivate the learning objectives obtained in this section, let's begin with a simple example. Suppose that we have an observed dataset
+To help motivate the general likelihood-based learning objectives studied in this chapter, let's begin with a simple example. Suppose that we have an observed dataset
 
 $$
 x_1,x_2,\ldots,x_m \in \{0,1\}
@@ -118,7 +142,7 @@ $$
 \calL(\theta;x_1,\ldots,x_m) = \prod_{i=1}^m \calL(\theta; x_i).
 $$ (bern-like-factor-2-eq)
 
-(Notice that this is identical in concept to the factorizations for the PGMs studied in {numref}`Chapter %s <prob-models>`.) Finally, if we define the _data surprisal function_ to be
+(Notice that this is _identical_ to the factorizations of likelihood functions studied in {numref}`Chapter %s <prob-models>`.) Finally, if we define the _data surprisal function_ to be
 
 $$
 \calI(\theta;x_1,\ldots,x_n) \def - \log\left[ p(x_1,\ldots,x_m; \theta) \right] = - \log\left[ \calL(\theta;x_1,\ldots,x_m)\right],
@@ -144,7 +168,7 @@ $$
 D(\hat{P} \parallel P_\theta) + H(\hat{P}) = H_{\hat{P}}(P_\theta) = E_{x \sim \hat{p}(x)} \left[ \calI(\theta; x) \right] \propto \calI(\theta; x_1,\ldots,x_m),
 $$
 
-where the constant of proportionality is the (positive) number $1/m$. Moreover, since the negative logarithm function is strictly decreasing, minimizing the data surprisal function with respect to $\theta$ is equivalent to maximizing the data likelihood function with respect to $\theta$. If we combine all of our observations into a single theorem, we get:
+where the constant of proportionality is the (positive) number $1/m$. Moreover, since the negative logarithm function is strictly decreasing, minimizing the data surprisal function with respect to $\theta$ is equivalent to maximizing the data likelihood function with respect to $\theta$ (see the [homework](https://github.com/jmyers7/stats-book-materials/blob/main/homework/13-homework.md#problem-1-negative-logarithms-and-optimization)). So, if we combine all of our observations into a single theorem, we get:
 
 ```{margin}
 
@@ -154,13 +178,7 @@ As mentioned in the margin note above, in this theorem we are implicitly restric
 ```{prf:theorem} Equivalent learning objectives for the univariate Bernoulli model
 :label: equiv-obj-bern-thm
 
-Let
-
-$$
-x_1,x_2,\ldots,x_m \in \{0,1\}
-$$
-
-be an observed dataset corresponding to a Bernoulli random variable $X\sim \Ber(\theta)$ with unknown $\theta$. Let $P_\theta$ be the model distribution of $X$ and let $\hat{P}$ be the empirical distribution of the dataset. The following optimization objectives are equivalent:
+Let $x_1,x_2,\ldots,x_m \in \{0,1\}$ be an observed dataset corresponding to a Bernoulli random variable $X\sim \Ber(\theta)$ with unknown $\theta$. Let $P_\theta$ be the model distribution of $X$ and let $\hat{P}$ be the empirical distribution of the dataset. The following optimization objectives are equivalent:
 
 1. Minimize the KL divergence $D(\hat{P} \parallel P_\theta)$ with respect to $\theta$.
 2. Minimize the cross entropy $H_{\hat{P}}(P_\theta)$ with respect to $\theta$.
@@ -327,17 +345,15 @@ where $B$ is a mini-batch of data of size $k=8$. (This was discussed right after
 
 
 
-
+(gen-mle-sec)=
 ## General MLE
-
-In broad concept, maximum likelihood estimation works for all the probabilistic graphical models that we studied in {numref}`Chapter %s <prob-models>`, though there are some variations between the different models.
 
 ```{margin}
 
 One should also further distinguish between the cases that the PGM contains hidden (or latent) variables, or whether all variables are visible. We shall only focus on the latter case (so-called _fully-observed models_) since the training process for models with hidden variables requires a different set of algorithms. (For example, the [expectation maximation algorithm](https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm).)
 ```
 
-First, we must distinguish between training a model as a _generative model_ versus a _discriminative model_. Along with every PGM comes the joint distribution over _all_ random variables, and for a generative model, the learning process trains the model with the goal to learn the parameters of the _entire_ joint distribution, while for a discriminative model, the learning process aims at learning the parameters of only a conditional distribution. Of the types of models explicitly studied in {numref}`Chapter %s <prob-models>`---linear regression models, logistic regression models, and neural networks---all three are trained as discriminative models, aiming to learn the parameters of the conditional distributions of the response variable $Y$ given the predictor vector $\bX$. On the other hand, both the univariate Bernoulli model in the previous section and the Naive Bayes model---studied in the [programming assignment](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_12.ipynb) for {numref}`Chapter %s <prob-models>`---are trained as generative models.
+Maximum likelihood estimation works for all the probabilistic graphical models that we studied in {numref}`Chapter %s <prob-models>`, though there are some variations between the different models. First, we must distinguish between training a model as a _generative model_ versus a _discriminative model_. Along with every PGM comes the joint distribution over _all_ random variables, and for a generative model, the learning process trains the model with the goal to learn the parameters of the _entire_ joint distribution, while for a discriminative model, the learning process aims at learning the parameters of only a conditional distribution. Of the types of models explicitly studied in {numref}`Chapter %s <prob-models>`---linear regression models, logistic regression models, and neural networks---all three are trained as discriminative models, aiming to learn the parameters of the conditional distributions of the response variable $Y$ given the predictor vector $\bX$. On the other hand, both the univariate Bernoulli model in the previous section and the Naive Bayes model---studied in the [programming assignment](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_12.ipynb) for {numref}`Chapter %s <prob-models>`---are trained as generative models.
 
 We begin our discussion with the case of generative models, since it is essentially just a recapitulation of our discussion of the univariate Bernoulli model in the previous section. If such a model consists of $n$ random variables, say $X_1,X_2,\ldots,X_n$, then we will write them as an $n$-dimensional random vector
 
@@ -1190,7 +1206,7 @@ plt.tight_layout()
 
 
 
-
+(mle-nn-sec)=
 ## MLE for neural networks
 
 In this section, we encounter our third optimization problem of maximum likelihood estimation. These problems have been presented in order of increasing difficulty, beginning with the easiest in {numref}`mle-lin-reg-sec` where we discovered that the MLEs for linear regression models are obtainable in closed form _and_ that the optimization problem is convex. For logistic regression models, discussed in {numref}`mle-log-reg-sec`, we lost the ability (in general) to write down closed form solutions for MLEs, but the optimization problem was still convex. Now, in the current section, we lose both of these desirable properties: In general, the optimization problems of maximum likelihood estimation for neural network models have neither closed form solutions nor are they convex.

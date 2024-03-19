@@ -373,9 +373,24 @@ document.write(`
   <p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
 <section class="tex2jax_ignore mathjax_ignore" id="learning">
 <span id="id1"></span><h1><span class="section-number">13. </span>Learning<a class="headerlink" href="#learning" title="Permalink to this heading">#</a></h1>
+<p>With <a class="reference internal" href="10-info-theory.html#information-theory"><span class="std std-numref">Chapter 10</span></a> on information theory, <a class="reference internal" href="11-optim.html#optim"><span class="std std-numref">Chapter 11</span></a> on optimization, and <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a> on probabilistic graphical models all under our belt, we have covered all the prerequisites needed to finally implement the criterion from <a class="reference internal" href="09-halfway.html#learning-optim"><span class="std std-numref">Section 9.2</span></a> for choosing optimal parameters for our probabilistic graphical models:</p>
+<blockquote>
+<div><p><strong>The Distance Criterion for Parameter Choice.</strong> Given two models within the same family of probabilistic graphical models, choose the model whose <em>distance</em> from the empirical distribution of the data is smaller.</p>
+</div></blockquote>
+<p>In more detail, we suppose that we are given a fixed dataset. We then choose a family of probabilistic graphical models that we believe might model the dataset well—possibly one of the families described in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>, or maybe one of those described in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">programming assignments</a> for <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a> or the current chapter. But no matter which family of PGMs that we happen to choose, there will be a proposed model probability distribution <span class="math notranslate nohighlight">\(P_{\btheta}\)</span> that depends on a parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span>; for example, in the case of a <a class="reference internal" href="12-models.html#log-reg-sec"><span class="std std-ref">logistic regression model</span></a>, the (total) parameter vector is given by</p>
+<div class="math notranslate nohighlight">
+\[
+\btheta = (\beta_0,\bbeta),\quad \beta_0\in \bbr, \ \bbeta \in \bbr^n.
+\]</div>
+<p>According to the Distance Criterion for Parameter Choice stated above, we are to choose the parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span> that minimizes the distance from the model distribution to the empirical distribution of the data. Once more, the following cartoon visually depicts this goal, where <span class="math notranslate nohighlight">\(p(\bx,y;\btheta)\)</span> is the mass function of the proposed model distribution and <span class="math notranslate nohighlight">\(\hat{p}(\bx,y)\)</span> is the mass function of the empirical distribution:</p>
+<a class="reference internal image-reference" href="../_images/prob-distance.svg"><img alt="../_images/prob-distance.svg" class="align-center" src="../_images/prob-distance.svg" width="75%" /></a>
+<p> </p>
+<p>As we now know from our study of <a class="reference internal" href="10-info-theory.html#information-theory"><span class="std std-numref">Chapter 10</span></a>, a natural candidate for the “distance” between two distributions is the KL divergence. So, our implementation of the Distance Criterion requires us to minimize KL divergences thought of as functions of model parameters <span class="math notranslate nohighlight">\(\btheta\)</span>; for this, the iterative, gradient-based algorithms from <a class="reference internal" href="11-optim.html#optim"><span class="std std-numref">Chapter 11</span></a> will prove highly useful.</p>
+<p>However, as we will see beginning in the <a class="reference internal" href="#likelihood-learning-sec"><span class="std std-ref">first section</span></a> of this chapter, this optimization objective may be equivalently reformulated as one of several other optimization objectives. In particular, minimizing the KL divergence from the model distribution to the empirical distribution will turn out to yield the same parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span> as minimizing the cross entropy from the former to the latter. The advantage that the cross entropy formulation carries is that it is a <em>stochastic</em> objective, which opens the door for the powerful stochastic gradient descent algorithm studied in <a class="reference internal" href="11-optim.html#sgd-sec"><span class="std std-numref">Section 11.4</span></a>. But the loss function associated with this stochastic objective is nothing but the <em>surprisal function</em> (in the sense of <a class="reference internal" href="10-info-theory.html#info-content-def">Definition 10.1</a>) thought of as a function of the parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span>, and so our optimization objective may reformulated (again) as seeking the parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span> that minimizes the average surprisal. In turn, the surprisal function is simply the negative logarithm of the probability mass function as a function of <span class="math notranslate nohighlight">\(\btheta\)</span>, which is nothing but the <em>model likelihood function</em> familiar to us from <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>. So, our optimization objective may be reformulated (one more time) as seeking the parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span> that maximizes the average model likelihood. Due to the equivalencies with this last reformulation, all these optimization objectives fall under the heading of <em>likelihood-based learning objectives</em>, and the specific realization of the Distance Criterion for Parameter Choice in terms of these objectives is called <em>maximum likelihood estimation</em> or <em>MLE</em>.</p>
+<p>All of this will be introduced and described concretely in the case of a very simple univariate PGM in the <a class="reference internal" href="#likelihood-learning-sec"><span class="std std-ref">first section</span></a> below. Then, in <a class="reference internal" href="#gen-mle-sec"><span class="std std-numref">Section 13.2</span></a>, we describe MLE for general PGMs, taking care to distinguish between models trained as <em>generative</em> versus <em>discriminative models</em>, with the latter type further separated into those with continuous versus discrete response variables. The remaining three sections in the chapter address the specific cases of MLE for the three types of PGMs studied in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>: Linear regression models in <a class="reference internal" href="#mle-lin-reg-sec"><span class="std std-numref">Section 13.3</span></a>, logistic regression models in <a class="reference internal" href="#mle-log-reg-sec"><span class="std std-numref">Section 13.4</span></a>, and neural network models in <a class="reference internal" href="#mle-nn-sec"><span class="std std-numref">Section 13.5</span></a>.</p>
 <section id="a-first-look-at-likelihood-based-learning-objectives">
 <span id="likelihood-learning-sec"></span><h2><span class="section-number">13.1. </span>A first look at likelihood-based learning objectives<a class="headerlink" href="#a-first-look-at-likelihood-based-learning-objectives" title="Permalink to this heading">#</a></h2>
-<p>To help motivate the learning objectives obtained in this section, let’s begin with a simple example. Suppose that we have an observed dataset</p>
+<p>To help motivate the general likelihood-based learning objectives studied in this chapter, let’s begin with a simple example. Suppose that we have an observed dataset</p>
 <div class="math notranslate nohighlight">
 \[
 x_1,x_2,\ldots,x_m \in \{0,1\}
@@ -452,7 +467,7 @@ p(x_1,\ldots,x_m; \theta) = \prod_{i=1}^m p(x_i;\theta),
 <span class="eqno">(13.5)<a class="headerlink" href="#equation-bern-like-factor-2-eq" title="Permalink to this equation">#</a></span>\[
 \calL(\theta;x_1,\ldots,x_m) = \prod_{i=1}^m \calL(\theta; x_i).
 \]</div>
-<p>(Notice that this is identical in concept to the factorizations for the PGMs studied in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>.) Finally, if we define the <em>data surprisal function</em> to be</p>
+<p>(Notice that this is <em>identical</em> to the factorizations of likelihood functions studied in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>.) Finally, if we define the <em>data surprisal function</em> to be</p>
 <div class="math notranslate nohighlight">
 \[
 \calI(\theta;x_1,\ldots,x_n) \def - \log\left[ p(x_1,\ldots,x_m; \theta) \right] = - \log\left[ \calL(\theta;x_1,\ldots,x_m)\right],
@@ -473,7 +488,7 @@ H_{\hat{P}}(P_\theta) = E_{x \sim \hat{p}(x)} \left[ \calI(\theta; x) \right] = 
 \[
 D(\hat{P} \parallel P_\theta) + H(\hat{P}) = H_{\hat{P}}(P_\theta) = E_{x \sim \hat{p}(x)} \left[ \calI(\theta; x) \right] \propto \calI(\theta; x_1,\ldots,x_m),
 \]</div>
-<p>where the constant of proportionality is the (positive) number <span class="math notranslate nohighlight">\(1/m\)</span>. Moreover, since the negative logarithm function is strictly decreasing, minimizing the data surprisal function with respect to <span class="math notranslate nohighlight">\(\theta\)</span> is equivalent to maximizing the data likelihood function with respect to <span class="math notranslate nohighlight">\(\theta\)</span>. If we combine all of our observations into a single theorem, we get:</p>
+<p>where the constant of proportionality is the (positive) number <span class="math notranslate nohighlight">\(1/m\)</span>. Moreover, since the negative logarithm function is strictly decreasing, minimizing the data surprisal function with respect to <span class="math notranslate nohighlight">\(\theta\)</span> is equivalent to maximizing the data likelihood function with respect to <span class="math notranslate nohighlight">\(\theta\)</span> (see the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/13-homework.md#problem-1-negative-logarithms-and-optimization">homework</a>). So, if we combine all of our observations into a single theorem, we get:</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>As mentioned in the margin note above, in this theorem we are implicitly restricting our attention to those parameters <span class="math notranslate nohighlight">\(\theta\)</span> for which the empirical distribution <span class="math notranslate nohighlight">\(\hat{P}\)</span> is absolutely continuous with respect to the model distribution <span class="math notranslate nohighlight">\(P_\theta\)</span>.</p>
@@ -481,12 +496,7 @@ D(\hat{P} \parallel P_\theta) + H(\hat{P}) = H_{\hat{P}}(P_\theta) = E_{x \sim \
 <div class="proof theorem admonition" id="equiv-obj-bern-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 13.1 </span> (Equivalent learning objectives for the univariate Bernoulli model)</p>
 <section class="theorem-content" id="proof-content">
-<p>Let</p>
-<div class="math notranslate nohighlight">
-\[
-x_1,x_2,\ldots,x_m \in \{0,1\}
-\]</div>
-<p>be an observed dataset corresponding to a Bernoulli random variable <span class="math notranslate nohighlight">\(X\sim \Ber(\theta)\)</span> with unknown <span class="math notranslate nohighlight">\(\theta\)</span>. Let <span class="math notranslate nohighlight">\(P_\theta\)</span> be the model distribution of <span class="math notranslate nohighlight">\(X\)</span> and let <span class="math notranslate nohighlight">\(\hat{P}\)</span> be the empirical distribution of the dataset. The following optimization objectives are equivalent:</p>
+<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m \in \{0,1\}\)</span> be an observed dataset corresponding to a Bernoulli random variable <span class="math notranslate nohighlight">\(X\sim \Ber(\theta)\)</span> with unknown <span class="math notranslate nohighlight">\(\theta\)</span>. Let <span class="math notranslate nohighlight">\(P_\theta\)</span> be the model distribution of <span class="math notranslate nohighlight">\(X\)</span> and let <span class="math notranslate nohighlight">\(\hat{P}\)</span> be the empirical distribution of the dataset. The following optimization objectives are equivalent:</p>
 <ol class="arabic simple">
 <li><p>Minimize the KL divergence <span class="math notranslate nohighlight">\(D(\hat{P} \parallel P_\theta)\)</span> with respect to <span class="math notranslate nohighlight">\(\theta\)</span>.</p></li>
 <li><p>Minimize the cross entropy <span class="math notranslate nohighlight">\(H_{\hat{P}}(P_\theta)\)</span> with respect to <span class="math notranslate nohighlight">\(\theta\)</span>.</p></li>
@@ -628,7 +638,7 @@ x_1,x_2,\ldots,x_{128} \in \{0,1\}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/9f7d0624fa1efe78968fa04e7fd8be0db3440f0b11cfef8a2de212934611fe43.svg" src="../_images/9f7d0624fa1efe78968fa04e7fd8be0db3440f0b11cfef8a2de212934611fe43.svg" /></figure>
+<img alt="../_images/a60b38198a968e410210a7122fbf06507cc349d201c6f6ce70ccec754d9ea8b2.svg" src="../_images/a60b38198a968e410210a7122fbf06507cc349d201c6f6ce70ccec754d9ea8b2.svg" /></figure>
 </div>
 </div>
 <p>The blue curve in the left-hand plot is the graph of the <em>exact</em> cross entropy function <span class="math notranslate nohighlight">\(H_{\hat{P}}(P_\theta)\)</span>. The magenta points—which represent a selection of outputs of the algorithm—do not fall <em>precisely</em> on this graph since they are <em>approximations</em> to the cross entropy, obtained as realizations of the expression on the right-hand side of</p>
@@ -639,13 +649,12 @@ H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} \calI(\theta; x),
 <p>where <span class="math notranslate nohighlight">\(B\)</span> is a mini-batch of data of size <span class="math notranslate nohighlight">\(k=8\)</span>. (This was discussed right after we introduced <a class="reference internal" href="11-optim.html#sgd-alg">Algorithm 11.4</a> in <a class="reference internal" href="11-optim.html#optim"><span class="std std-numref">Chapter 11</span></a>.) On the right-hand size of the figure, we have plotted the (approximate) cross entropy versus gradient steps, a type of plot familiar from <a class="reference internal" href="11-optim.html#optim"><span class="std std-numref">Chapter 11</span></a>. The magenta dots on the two sides of the figure correspond to each other; they represent the (approximate) cross entropies every 16 gradient steps (<span class="math notranslate nohighlight">\(=1\)</span> epoch). Notice that the algorithm appears to be converging to the true value <span class="math notranslate nohighlight">\(\theta^\star_\text{MLE} = 87/128 \approx 0.68\)</span> given by <a class="reference internal" href="#bern-mle-thm">Theorem 13.2</a>.</p>
 </section>
 <section id="general-mle">
-<h2><span class="section-number">13.2. </span>General MLE<a class="headerlink" href="#general-mle" title="Permalink to this heading">#</a></h2>
-<p>In broad concept, maximum likelihood estimation works for all the probabilistic graphical models that we studied in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>, though there are some variations between the different models.</p>
+<span id="gen-mle-sec"></span><h2><span class="section-number">13.2. </span>General MLE<a class="headerlink" href="#general-mle" title="Permalink to this heading">#</a></h2>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>One should also further distinguish between the cases that the PGM contains hidden (or latent) variables, or whether all variables are visible. We shall only focus on the latter case (so-called <em>fully-observed models</em>) since the training process for models with hidden variables requires a different set of algorithms. (For example, the <a class="reference external" href="https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm">expectation maximation algorithm</a>.)</p>
 </aside>
-<p>First, we must distinguish between training a model as a <em>generative model</em> versus a <em>discriminative model</em>. Along with every PGM comes the joint distribution over <em>all</em> random variables, and for a generative model, the learning process trains the model with the goal to learn the parameters of the <em>entire</em> joint distribution, while for a discriminative model, the learning process aims at learning the parameters of only a conditional distribution. Of the types of models explicitly studied in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>—linear regression models, logistic regression models, and neural networks—all three are trained as discriminative models, aiming to learn the parameters of the conditional distributions of the response variable <span class="math notranslate nohighlight">\(Y\)</span> given the predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>. On the other hand, both the univariate Bernoulli model in the previous section and the Naive Bayes model—studied in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_12.ipynb">programming assignment</a> for <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>—are trained as generative models.</p>
+<p>Maximum likelihood estimation works for all the probabilistic graphical models that we studied in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>, though there are some variations between the different models. First, we must distinguish between training a model as a <em>generative model</em> versus a <em>discriminative model</em>. Along with every PGM comes the joint distribution over <em>all</em> random variables, and for a generative model, the learning process trains the model with the goal to learn the parameters of the <em>entire</em> joint distribution, while for a discriminative model, the learning process aims at learning the parameters of only a conditional distribution. Of the types of models explicitly studied in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>—linear regression models, logistic regression models, and neural networks—all three are trained as discriminative models, aiming to learn the parameters of the conditional distributions of the response variable <span class="math notranslate nohighlight">\(Y\)</span> given the predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>. On the other hand, both the univariate Bernoulli model in the previous section and the Naive Bayes model—studied in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_12.ipynb">programming assignment</a> for <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>—are trained as generative models.</p>
 <p>We begin our discussion with the case of generative models, since it is essentially just a recapitulation of our discussion of the univariate Bernoulli model in the previous section. If such a model consists of <span class="math notranslate nohighlight">\(n\)</span> random variables, say <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n\)</span>, then we will write them as an <span class="math notranslate nohighlight">\(n\)</span>-dimensional random vector</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1043,7 +1052,7 @@ J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \fra
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/dda6d45e4ab085cd9a04c1ac8b734d7c8a8e2884afd6a5cfb1e72960dbbebe00.svg" src="../_images/dda6d45e4ab085cd9a04c1ac8b734d7c8a8e2884afd6a5cfb1e72960dbbebe00.svg" /></figure>
+<img alt="../_images/3beabf940651fe99b1dcd0bf3f5ce5e2dac2c69496a52d0d60514843b8d018a8.svg" src="../_images/3beabf940651fe99b1dcd0bf3f5ce5e2dac2c69496a52d0d60514843b8d018a8.svg" /></figure>
 </div>
 </div>
 <p>Notice that both features are on similar scales. Then, we run the algorithm using the mean squared error function</p>
@@ -1100,7 +1109,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e0a8d1dc03ff0d8b1fbb78370c35be52c053b7d965cf909561847da7596c73b1.svg" src="../_images/e0a8d1dc03ff0d8b1fbb78370c35be52c053b7d965cf909561847da7596c73b1.svg" /></figure>
+<img alt="../_images/23949070d563adae440dc351157e4497945f5a9164ba3a142f130db031c201d8.svg" src="../_images/23949070d563adae440dc351157e4497945f5a9164ba3a142f130db031c201d8.svg" /></figure>
 </div>
 </div>
 <p>Notice that we plotted the logarithm of the MSE—we chose to do this because we purposefully chose initial guesses for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> that were quite far away from the MLEs, creating large values of the MSE in the initial few steps of the algorithm. This lengthens the learning process, giving us a nicer visualization as the regression line moves into place:</p>
@@ -1142,7 +1151,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/79fae6ca0eb0d21305eca5a40639112c38f3fa24fd10d84452796ff73ba15c43.svg" src="../_images/79fae6ca0eb0d21305eca5a40639112c38f3fa24fd10d84452796ff73ba15c43.svg" /></figure>
+<img alt="../_images/fadf1f7348e3c052e6ec7bdc976eaf774381f17769d7649caa96540f85e1797f.svg" src="../_images/fadf1f7348e3c052e6ec7bdc976eaf774381f17769d7649caa96540f85e1797f.svg" /></figure>
 </div>
 </div>
 </section>
@@ -1275,7 +1284,7 @@ x_0 \bx &amp; \cdots &amp; x_n \bx \\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2cb20c14f89b58753f062f94481d853e42f475e0361c7892082e6e300b8cbd6b.svg" src="../_images/2cb20c14f89b58753f062f94481d853e42f475e0361c7892082e6e300b8cbd6b.svg" /></figure>
+<img alt="../_images/e87ec5e3a342cd078d3ecad5b68cb27315b8d762c33439bd40e7ff3158aae19c.svg" src="../_images/e87ec5e3a342cd078d3ecad5b68cb27315b8d762c33439bd40e7ff3158aae19c.svg" /></figure>
 </div>
 </div>
 <p>Let’s train a logistic regression model on this dataset using the gradient descent algorithm to locate the (global) minimizer of the data surprisal function <span class="math notranslate nohighlight">\(\calI_\text{data}(\beta_0,\bbeta)\)</span>. Running the algorithm for 50 steps results in the following plot of the surprisal function:</p>
@@ -1322,7 +1331,7 @@ x_0 \bx &amp; \cdots &amp; x_n \bx \\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/185931667a9a79f13b562d700fc4c21d026e4f717365a2455b163f614fbb93d3.svg" src="../_images/185931667a9a79f13b562d700fc4c21d026e4f717365a2455b163f614fbb93d3.svg" /></figure>
+<img alt="../_images/8b0b78311bd04e4a42511ecc8ed82db5b63675953875043222dc9ed21fe09218.svg" src="../_images/8b0b78311bd04e4a42511ecc8ed82db5b63675953875043222dc9ed21fe09218.svg" /></figure>
 </div>
 </div>
 <p>Notice that the curve in this plot is beginning to “plateau,” indicating the algorithm is beginning to converge on the MLE. Since the feature space is <span class="math notranslate nohighlight">\(2\)</span>-dimensional, as we discussed in <a class="reference internal" href="12-models.html#log-reg-sec"><span class="std std-numref">Section 12.4</span></a>, we may check the fit of the model by plotting the decision boundary of the predictor function</p>
@@ -1399,12 +1408,12 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/6ff2d50bc671d583f0bfe7434f9a481164df1370b3fc89455a8a603b10a251d2.svg" src="../_images/6ff2d50bc671d583f0bfe7434f9a481164df1370b3fc89455a8a603b10a251d2.svg" /></figure>
+<img alt="../_images/d5643d184c33c81791b3eb5b72a659450fc72ad6b57b676a0687f23008e439dd.svg" src="../_images/d5643d184c33c81791b3eb5b72a659450fc72ad6b57b676a0687f23008e439dd.svg" /></figure>
 </div>
 </div>
 </section>
 <section id="mle-for-neural-networks">
-<h2><span class="section-number">13.5. </span>MLE for neural networks<a class="headerlink" href="#mle-for-neural-networks" title="Permalink to this heading">#</a></h2>
+<span id="mle-nn-sec"></span><h2><span class="section-number">13.5. </span>MLE for neural networks<a class="headerlink" href="#mle-for-neural-networks" title="Permalink to this heading">#</a></h2>
 <p>In this section, we encounter our third optimization problem of maximum likelihood estimation. These problems have been presented in order of increasing difficulty, beginning with the easiest in <a class="reference internal" href="#mle-lin-reg-sec"><span class="std std-numref">Section 13.3</span></a> where we discovered that the MLEs for linear regression models are obtainable in closed form <em>and</em> that the optimization problem is convex. For logistic regression models, discussed in <a class="reference internal" href="#mle-log-reg-sec"><span class="std std-numref">Section 13.4</span></a>, we lost the ability (in general) to write down closed form solutions for MLEs, but the optimization problem was still convex. Now, in the current section, we lose both of these desirable properties: In general, the optimization problems of maximum likelihood estimation for neural network models have neither closed form solutions nor are they convex.</p>
 <p>Thinking visually, and using intuition and language adapted from low dimensions, we imagine that the graph of a (strictly) convex objective function <span class="math notranslate nohighlight">\(J:\bbr^n \to \bbr\)</span> is a hypersurface embedded in <span class="math notranslate nohighlight">\(\bbr^{n+1}\)</span> with a single “lowest valley” (global minimum). The gradient descent algorithms follow the negative gradient “downhill” until they reach a neighborhood of this global minimizer. But for a nonconvex <span class="math notranslate nohighlight">\(J\)</span>, there might be both local minima and maxima (i.e., local “peaks” and “valleys”), as well as <em>saddle points</em> where the gradient vanishes, but where the Hessian matrix has both negative and positive eigenvalues, resulting in both “upward” and “downward” directional curvatures. This means that it is possible for gradient descent to get “stuck” in a local minimum with relatively high objective value, or that it follows a “downhill” trajectory leading to a saddle point and again gets “stuck” (or at least significantly slowed down). However, intuition suggests at least that local minima are rare in high dimensions since it should require very special circumstances and structure for positivity of <em>all</em> eigenvalues of a Hessian matrix. But saddle points remain a concern.</p>
 <p>Parameter initialization is also a significant concern for neural network models. With strictly convex objective functions, convergence of gradient descent to the global minimizer is guaranteed beginning from <em>all</em> initial choices for the parameters, at least if the learning rate is chosen appropriately. But for a completely general nonconvex objective function, convergence guarantees do not exist.</p>
@@ -1452,7 +1461,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/44650f562ad2ec24e76de8bae93bd2c9627742cd2a2ce69cdb4c7e3b4b6e264a.svg" src="../_images/44650f562ad2ec24e76de8bae93bd2c9627742cd2a2ce69cdb4c7e3b4b6e264a.svg" /></figure>
+<img alt="../_images/8f2534023ee5600bb1f08bf08187f03b4b467fc8e796a8bd75d71455cf74294f.svg" src="../_images/8f2534023ee5600bb1f08bf08187f03b4b467fc8e796a8bd75d71455cf74294f.svg" /></figure>
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1526,7 +1535,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a78d9e218175a2ef1c31b36023684c79ceccbab85b16d0011426427893d7df23.svg" src="../_images/a78d9e218175a2ef1c31b36023684c79ceccbab85b16d0011426427893d7df23.svg" /></figure>
+<img alt="../_images/ef0f748617c53de8a9578b491cb447a45e834c72d4506ba6bc4bc1ab74044562.svg" src="../_images/ef0f748617c53de8a9578b491cb447a45e834c72d4506ba6bc4bc1ab74044562.svg" /></figure>
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -1590,7 +1599,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/16704f1a7d3015c66c37d6d405113ef1532c36a245a47400c4cbcf6bc56015d6.svg" src="../_images/16704f1a7d3015c66c37d6d405113ef1532c36a245a47400c4cbcf6bc56015d6.svg" /></figure>
+<img alt="../_images/858cc2183f67a24397a4c136d6211f0e83dba2db500de6587be4bbaaea6d05f1.svg" src="../_images/858cc2183f67a24397a4c136d6211f0e83dba2db500de6587be4bbaaea6d05f1.svg" /></figure>
 </div>
 </div>
 </section>
