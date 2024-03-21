@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>7. Random vectors &#8212; Mathematical Statistics with a View Toward Machine Learning</title>
   
@@ -19,50 +18,46 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/07-random-vectors';</script>
@@ -79,10 +74,9 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -123,11 +117,14 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -161,7 +158,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -373,13 +381,13 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="random-vectors">
-<span id="id1"></span><h1><span class="section-number">7. </span>Random vectors<a class="headerlink" href="#random-vectors" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">7. </span>Random vectors<a class="headerlink" href="#random-vectors" title="Link to this heading">#</a></h1>
 <p>Essentially, an <span class="math notranslate nohighlight">\(n\)</span>-dimensional <em>random vector</em> is an <span class="math notranslate nohighlight">\(n\)</span>-tuple of random variables. These are the objects of study in the present chapter. We will discuss higher-dimensional generalizations of many of the gadgets that we studied in the context of random variables back in <a class="reference internal" href="04-random-variables.html#random-variables"><span class="std std-numref">Chapter 4</span></a>, including probability measures induced by random vectors, known as <em>joint distributions</em>. These latter distributions will be used to generalize to random variables the notions of <em>conditional probability</em> and <em>independence</em> that we first studied back in <a class="reference internal" href="03-rules-of-prob.html#rules-prob"><span class="std std-numref">Chapter 3</span></a>, which are some of the most important concepts in all probability theory. A careful study of this chapter is absolutely <em>critical</em> for the rest of the book!</p>
 <section id="motivation">
-<span id="id2"></span><h2><span class="section-number">7.1. </span>Motivation<a class="headerlink" href="#motivation" title="Permalink to this heading">#</a></h2>
+<span id="id2"></span><h2><span class="section-number">7.1. </span>Motivation<a class="headerlink" href="#motivation" title="Link to this heading">#</a></h2>
 <p>To introduce <em>random vectors</em>, let’s return to the housing dataset that we studied a <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_04.ipynb">previous programming assignment</a>, which contains data on <span class="math notranslate nohighlight">\(2{,}930\)</span> houses in Ames, Iowa. We are interested in two particular features in the dataset, <em>area</em> and <em>selling price</em>:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -499,7 +507,7 @@ x_1,x_2,\ldots,x_m \quad \text{and} \quad y_1,y_2,\ldots,y_m.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/394eb56f8776a910328bca8cf8f33824eefe12d1d31b13766c683758296b3711.svg" src="../_images/394eb56f8776a910328bca8cf8f33824eefe12d1d31b13766c683758296b3711.svg" /></figure>
+<img alt="../_images/e150da3a03c71901f807f38901587e938edb8abcf140d312fde1b80c098c2958.svg" src="../_images/e150da3a03c71901f807f38901587e938edb8abcf140d312fde1b80c098c2958.svg" /></figure>
 </div>
 </div>
 <p>Whatever information we might glean from these histograms, the information is about the two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> <em>in isolation</em> from each other. But because we expect that the size of a house and its selling price might be (strongly) related, it might be more informative to study <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> <em>in tandem</em> with each other. One way to do this is via the scatter plots that we produced in a <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_04.ipynb">previous programming assignment</a>:</p>
@@ -519,7 +527,7 @@ x_1,x_2,\ldots,x_m \quad \text{and} \quad y_1,y_2,\ldots,y_m.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/93f12028a4eefa0b31d7dc019d0b5dd49db9dcdd9da6e477a7474470a99b2674.svg" src="../_images/93f12028a4eefa0b31d7dc019d0b5dd49db9dcdd9da6e477a7474470a99b2674.svg" /></figure>
+<img alt="../_images/7d9dee403bd72087eca29da6f82e184e604e1a42cc2191be46365d868cfe65f3.svg" src="../_images/7d9dee403bd72087eca29da6f82e184e604e1a42cc2191be46365d868cfe65f3.svg" /></figure>
 </div>
 </div>
 <p>This plot confirms exactly what we expected! Since the pattern of points generally follows a positively-sloped line, we may conclude that as the size <span class="math notranslate nohighlight">\(X\)</span> of a house increases, so too does its selling price <span class="math notranslate nohighlight">\(Y\)</span>.</p>
@@ -529,7 +537,7 @@ x_1,x_2,\ldots,x_m \quad \text{and} \quad y_1,y_2,\ldots,y_m.
 </div></blockquote>
 </section>
 <section id="dimensional-random-vectors">
-<h2><span class="section-number">7.2. </span><span class="math notranslate nohighlight">\(2\)</span>-dimensional random vectors<a class="headerlink" href="#dimensional-random-vectors" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.2. </span><span class="math notranslate nohighlight">\(2\)</span>-dimensional random vectors<a class="headerlink" href="#dimensional-random-vectors" title="Link to this heading">#</a></h2>
 <p>So, what do you get when you want to combine two random variables into a single object? Here’s the answer:</p>
 <div class="proof definition admonition" id="two-dim-vector-def">
 <p class="admonition-title"><span class="caption-number">Definition 7.1 </span></p>
@@ -556,14 +564,14 @@ X_1:S\to \mathbb{R} \quad \text{and} \quad X_2: S \to \mathbb{R}
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\((X,Y):S \to \mathbb{R}^2\)</span> be a <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vector on a probability space <span class="math notranslate nohighlight">\(S\)</span> with probability measure <span class="math notranslate nohighlight">\(P\)</span>. We define the <em>probability measure</em> of <span class="math notranslate nohighlight">\((X,Y)\)</span>, denoted <span class="math notranslate nohighlight">\(P_{XY}\)</span>, via the formula</p>
 <div class="math notranslate nohighlight" id="equation-hard-eqn">
-<span class="eqno">(7.1)<a class="headerlink" href="#equation-hard-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-hard-eqn" title="Link to this equation">#</a></span>\[
 P_{XY}(C) = P \left( \{s\in S : (X(s),Y(s))\in C\} \right),
 \]</div>
 <p>for all events <span class="math notranslate nohighlight">\(C\subset \mathbb{R}^2\)</span>. The probability measure <span class="math notranslate nohighlight">\(P_{XY}\)</span> is also called the <em>joint distribution</em> or the <em>bivariate distribution</em> of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
 </section>
 </div><p>For a given event <span class="math notranslate nohighlight">\(C\subset \mathbb{R}^2\)</span>, notice that the set</p>
 <div class="math notranslate nohighlight" id="equation-inv-img-eqn">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-inv-img-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-inv-img-eqn" title="Link to this equation">#</a></span>\[
 \{s\in S : (X(s),Y(s))\in C\} \subset S
 \]</div>
 <p>inside the probability measure on the right-hand side of <a class="reference internal" href="#equation-hard-eqn">(7.1)</a> consists exactly of those sample points <span class="math notranslate nohighlight">\(s\in S\)</span> that land in <span class="math notranslate nohighlight">\(C\)</span> under the action of the random vector <span class="math notranslate nohighlight">\((X,Y)\)</span>; I would visualize this as:</p>
@@ -572,7 +580,7 @@ P_{XY}(C) = P \left( \{s\in S : (X(s),Y(s))\in C\} \right),
 <p>Then, the probability <span class="math notranslate nohighlight">\(P_{XY}(C)\)</span> is (by definition!) equal to the probability of the set <a class="reference internal" href="#equation-inv-img-eqn">(7.2)</a> as measured by the original measure <span class="math notranslate nohighlight">\(P\)</span>.</p>
 <p>There is alternate notation for <span class="math notranslate nohighlight">\(P_{XY}(C)\)</span> that you’ll see, similar to the alternate notation introduced back in <a class="reference internal" href="04-random-variables.html#prob-measure-rv"><span class="std std-numref">Section 4.2</span></a> for <span class="math notranslate nohighlight">\(P_X\)</span>. Indeed, instead of writing <span class="math notranslate nohighlight">\(P_{XY}(C)\)</span>, we will often write</p>
 <div class="math notranslate nohighlight" id="equation-wrong2-eqn">
-<span class="eqno">(7.3)<a class="headerlink" href="#equation-wrong2-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.3)<a class="headerlink" href="#equation-wrong2-eqn" title="Link to this equation">#</a></span>\[
 P((X,Y)\in C).
 \]</div>
 <p>If <span class="math notranslate nohighlight">\(C\)</span> happens to be a product event</p>
@@ -582,7 +590,7 @@ C = A \times B = \{(x,y)\in \mathbb{R}^2 : x\in A, y \in B\}
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(A,B\subset \mathbb{R}\)</span>, then we will write</p>
 <div class="math notranslate nohighlight" id="equation-wrong-eqn">
-<span class="eqno">(7.4)<a class="headerlink" href="#equation-wrong-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.4)<a class="headerlink" href="#equation-wrong-eqn" title="Link to this equation">#</a></span>\[
 P(X\in A, \ Y\in B)
 \]</div>
 <p>in place of <span class="math notranslate nohighlight">\(P_{XY}(C)\)</span>. Notice that the expressions in <a class="reference internal" href="#equation-wrong2-eqn">(7.3)</a> and <a class="reference internal" href="#equation-wrong-eqn">(7.4)</a> are technically abuses of notation.</p>
@@ -634,7 +642,7 @@ P(X\in A, \ Y\in B)
 </div>
 </section>
 <section id="bivariate-distribution-functions">
-<h2><span class="section-number">7.3. </span>Bivariate distribution functions<a class="headerlink" href="#bivariate-distribution-functions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.3. </span>Bivariate distribution functions<a class="headerlink" href="#bivariate-distribution-functions" title="Link to this heading">#</a></h2>
 <p>We now generalize the cumulative distribution functions from <a class="reference internal" href="04-random-variables.html#dist-func-rv"><span class="std std-numref">Section 4.4</span></a> to <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vectors.</p>
 <div class="proof definition admonition" id="cdf-vector-def">
 <p class="admonition-title"><span class="caption-number">Definition 7.4 </span></p>
@@ -666,7 +674,7 @@ F(x,y) = P(X\leq x, Y\leq y).
 </div>
 </section>
 <section id="marginal-distributions">
-<h2><span class="section-number">7.4. </span>Marginal distributions<a class="headerlink" href="#marginal-distributions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.4. </span>Marginal distributions<a class="headerlink" href="#marginal-distributions" title="Link to this heading">#</a></h2>
 <p>I would visualize a <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vector <span class="math notranslate nohighlight">\((X,Y)\)</span> along with its component random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> as follows:</p>
 <a class="reference internal image-reference" href="../_images/proj.svg"><img alt="../_images/proj.svg" class="align-center" src="../_images/proj.svg" width="80%" /></a>
 <p> </p>
@@ -749,7 +757,7 @@ P_X(A) = P_{XY}(A\times \mathbb{R}) \quad \text{and} \quad P_Y(B) = P_{XY}(\math
 </li>
 <li><p>If <span class="math notranslate nohighlight">\((X,Y)\)</span> is continuous with probability density function <span class="math notranslate nohighlight">\(f(x,y)\)</span>, then both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are continuous with probability density functions given by</p>
 <div class="math notranslate nohighlight" id="equation-marg-cont-eqn">
-<span class="eqno">(7.5)<a class="headerlink" href="#equation-marg-cont-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.5)<a class="headerlink" href="#equation-marg-cont-eqn" title="Link to this equation">#</a></span>\[
     f_X(x) = \int_{-\infty}^\infty f(x,y) \ \text{d}y \quad \text{and} \quad f_Y(y) = \int_{-\infty}^\infty f(x,y) \ \text{d} x.
     \]</div>
 </li>
@@ -778,7 +786,7 @@ f_Y(5) = \int_{-\infty}^\infty f(x,5) \ \text{d}x.
 </div>
 </section>
 <section id="bivariate-empirical-distributions">
-<h2><span class="section-number">7.5. </span>Bivariate empirical distributions<a class="headerlink" href="#bivariate-empirical-distributions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.5. </span>Bivariate empirical distributions<a class="headerlink" href="#bivariate-empirical-distributions" title="Link to this heading">#</a></h2>
 <p>Almost everything that we learned in the <a class="reference internal" href="06-theory-to-practice.html#theory-to-practice"><span class="std std-ref">previous chapter</span></a> on data and empirical distributions may be applied in the bivariate setting. Essentially, you just need to change all random variables to random vectors, and put either a “joint” or “bivariate” in front of everything. :)</p>
 <p>To illustrate, let’s return to the Ames housing data explored in the <a class="reference internal" href="#motivation"><span class="std std-ref">first section</span></a>. There, we had <em>two</em> observed random samples</p>
 <div class="math notranslate nohighlight">
@@ -840,7 +848,7 @@ p(x,y) = \frac{\text{frequency of $(x,y)$ in the dataset}}{m}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e6ede10ba9f547123ccf9eb43cfa6857f910202cba2f579d12d2030629cf78e1.svg" src="../_images/e6ede10ba9f547123ccf9eb43cfa6857f910202cba2f579d12d2030629cf78e1.svg" /></figure>
+<img alt="../_images/7f8e997c42b8d4541603c0f2751e140c6daaa0184931be91b81c5934ed50fb63.svg" src="../_images/7f8e997c42b8d4541603c0f2751e140c6daaa0184931be91b81c5934ed50fb63.svg" /></figure>
 </div>
 </div>
 <p>Along the top of the figure we see a histogram (with KDE) of the empirical distribution of the <span class="math notranslate nohighlight">\(x_i\)</span>’s, and along the side we see a histogram (with KDE) of the empirical distribution of the <span class="math notranslate nohighlight">\(y_i\)</span>’s.</p>
@@ -874,7 +882,7 @@ p(x,y) = \frac{\text{frequency of $(x,y)$ in the dataset}}{m}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ad61108d3bdfde035c7c3e6f5c1428db1e46dbd19fe9c00faececd064bc6fcb4.svg" src="../_images/ad61108d3bdfde035c7c3e6f5c1428db1e46dbd19fe9c00faececd064bc6fcb4.svg" /></figure>
+<img alt="../_images/3c6e413ab0b7b8fe80a05a5a36ab1487f2f4fef373c9aa2cf9892195258640c0.svg" src="../_images/3c6e413ab0b7b8fe80a05a5a36ab1487f2f4fef373c9aa2cf9892195258640c0.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -909,14 +917,14 @@ p_Y(150) = \sum_{x\in \mathbb{R}} p_{XY}(x,150),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/dfb0508d78e904b1ee713b6be49d8bffa69b4e7d40d66a5c7b8d0e2723bcf82b.svg" src="../_images/dfb0508d78e904b1ee713b6be49d8bffa69b4e7d40d66a5c7b8d0e2723bcf82b.svg" /></figure>
+<img alt="../_images/125f96f76cefcb078947757e2d63ce4a25de04655ed452d1c8df0c59e5ba0f1e.svg" src="../_images/125f96f76cefcb078947757e2d63ce4a25de04655ed452d1c8df0c59e5ba0f1e.svg" /></figure>
 </div>
 </div>
 <p>Even though the density surface for a bivariate empirical distribution is <em>not</em> a continuous surface, if it <em>were</em>, you can imagine that the curves in the KDE on the left are its contours. In other words, these are the curves over which the density surface has constant height. It appears that the density surface has either a global minimum or global maximum near <span class="math notranslate nohighlight">\((1000,125)\)</span>, but we can’t tell which from the KDE alone because the contours are not labeled.</p>
 <p>On the right-hand side of the figure above, we have a bivariate version of a histogram. While a histogram for a univariate dataset is obtained by subdividing the line <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> into bins, for a bivariate dataset the plane <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> is subdivided into rectangular bins. Then, over each of these rectangular bins we would place a <span class="math notranslate nohighlight">\(3\)</span>-dimensional “bar” whose height is equal (or proportional) to the number of data points that fall in the bin; thus, a histogram for bivariate data should really live in three dimensions. However, the histogram above shows only the bins in the plane <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, and it displays the heights of the “bars” by color, with darker shades of blue indicating a larger number of data points are contained in the bin. It is evident from this diagram that the global extreme point identified in the KDE is, in fact, a global maximum.</p>
 </section>
 <section id="conditional-distributions">
-<h2><span class="section-number">7.6. </span>Conditional distributions<a class="headerlink" href="#conditional-distributions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.6. </span>Conditional distributions<a class="headerlink" href="#conditional-distributions" title="Link to this heading">#</a></h2>
 <p>Given two events <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> in a probability space, we learned <a class="reference internal" href="03-rules-of-prob.html#cond-prob"><span class="std std-ref">previously</span></a> that the <em>conditional probability of <span class="math notranslate nohighlight">\(A\)</span> given <span class="math notranslate nohighlight">\(B\)</span></em> is defined via the formula</p>
 <div class="math notranslate nohighlight">
 \[
@@ -950,7 +958,7 @@ P(A|B) = \frac{P(A\cap B)}{P(B)},
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a2337a2bc4aa09358c02db18656eb895c05b2ed52287fcde3ef79543a6b67ad1.svg" src="../_images/a2337a2bc4aa09358c02db18656eb895c05b2ed52287fcde3ef79543a6b67ad1.svg" /></figure>
+<img alt="../_images/ec0251ae68b025767ca8399a30a505cc75e4bdc3b743511c77810228242ffcaa.svg" src="../_images/ec0251ae68b025767ca8399a30a505cc75e4bdc3b743511c77810228242ffcaa.svg" /></figure>
 </div>
 </div>
 <p>Then, after cutting down the range of <span class="math notranslate nohighlight">\(y\)</span>’s to lie in <span class="math notranslate nohighlight">\(B=\{150\}\)</span>, we wonder what the distribution over the sizes <span class="math notranslate nohighlight">\(x\)</span> looks like. Answer:</p>
@@ -976,7 +984,7 @@ P(A|B) = \frac{P(A\cap B)}{P(B)},
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/5f51291b34a46ca250cf71f09f27156956d7e7f189c9d689e190062de827a0d4.svg" src="../_images/5f51291b34a46ca250cf71f09f27156956d7e7f189c9d689e190062de827a0d4.svg" /></figure>
+<img alt="../_images/b7bb94ae1a4f5740fc851e248f63bad11eac826ccdefa3e3b1dbf55d8e284ab4.svg" src="../_images/b7bb94ae1a4f5740fc851e248f63bad11eac826ccdefa3e3b1dbf55d8e284ab4.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -1023,7 +1031,7 @@ P(A|B) = \frac{P(A\cap B)}{P(B)},
 <ul>
 <li><p>In the case that <span class="math notranslate nohighlight">\((X,Y)\)</span> is discrete, for fixed <span class="math notranslate nohighlight">\(y\)</span> with <span class="math notranslate nohighlight">\(p_Y(y)\neq 0\)</span>, the function <span class="math notranslate nohighlight">\(p_{X|Y}(x|y)\)</span> is a probability mass function in the variable <span class="math notranslate nohighlight">\(x\)</span>. In particular, we have</p>
 <div class="math notranslate nohighlight" id="equation-cond-dist-eqn">
-<span class="eqno">(7.6)<a class="headerlink" href="#equation-cond-dist-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.6)<a class="headerlink" href="#equation-cond-dist-eqn" title="Link to this equation">#</a></span>\[
     P(X\in A|Y=y) = \sum_{x\in A} p_{X|Y}(x|y),
     \]</div>
 <p>for all events <span class="math notranslate nohighlight">\(A\subset \mathbb{R}\)</span>.</p>
@@ -1077,7 +1085,7 @@ P(X\in A | y \leq Y \leq y+\epsilon) &amp;= \frac{\int_y^{y+\epsilon} \int_A f_{
 </div>
 </section>
 <section id="the-law-of-total-probability-and-bayes-theorem-for-random-variables">
-<h2><span class="section-number">7.7. </span>The Law of Total Probability and Bayes’ Theorem for random variables<a class="headerlink" href="#the-law-of-total-probability-and-bayes-theorem-for-random-variables" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.7. </span>The Law of Total Probability and Bayes’ Theorem for random variables<a class="headerlink" href="#the-law-of-total-probability-and-bayes-theorem-for-random-variables" title="Link to this heading">#</a></h2>
 <p>Back in <a class="reference internal" href="03-rules-of-prob.html#total-prob-bayes"><span class="std std-numref">Section 3.7</span></a>, we studied the Law of Total Probability and Bayes’ Theorem for arbitrary probability measures. In this section, we adapt these results to the probability measures induced by random variables.</p>
 <div class="proof theorem admonition" id="law-of-total-prob-rvs-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 7.5 </span> (The Law of Total Probability (for random variables))</p>
@@ -1086,14 +1094,14 @@ P(X\in A | y \leq Y \leq y+\epsilon) &amp;= \frac{\int_y^{y+\epsilon} \int_A f_{
 <ul>
 <li><p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly discrete, then</p>
 <div class="math notranslate nohighlight" id="equation-disc-law-eqn">
-<span class="eqno">(7.7)<a class="headerlink" href="#equation-disc-law-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.7)<a class="headerlink" href="#equation-disc-law-eqn" title="Link to this equation">#</a></span>\[
     p_X(x) = \sum_{y\in \mathbb{R}} p_{X|Y}(x|y) p_Y(y)
     \]</div>
 <p>for each <span class="math notranslate nohighlight">\(x\in \mathbb{R}\)</span>.</p>
 </li>
 <li><p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly continuous, then</p>
 <div class="math notranslate nohighlight" id="equation-cont-law-eqn">
-<span class="eqno">(7.8)<a class="headerlink" href="#equation-cont-law-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.8)<a class="headerlink" href="#equation-cont-law-eqn" title="Link to this equation">#</a></span>\[
     f_X(x) = \int_{\mathbb{R}} f_{X|Y}(x|y) f_Y(y) \ \text{d}y.
     \]</div>
 <p>for each <span class="math notranslate nohighlight">\(x\in \mathbb{R}\)</span>.</p>
@@ -1113,13 +1121,13 @@ P(X\in A | y \leq Y \leq y+\epsilon) &amp;= \frac{\int_y^{y+\epsilon} \int_A f_{
 <ul>
 <li><p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly discrete, then</p>
 <div class="math notranslate nohighlight" id="equation-bayes-disc-eqn">
-<span class="eqno">(7.9)<a class="headerlink" href="#equation-bayes-disc-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.9)<a class="headerlink" href="#equation-bayes-disc-eqn" title="Link to this equation">#</a></span>\[
     p_{X|Y}(x|y) = \frac{p_{Y|X}(y|x) p_X(x)}{p_Y(y)}.
     \]</div>
 </li>
 <li><p>If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are jointly continuous, then</p>
 <div class="math notranslate nohighlight" id="equation-bayes-cont-eqn">
-<span class="eqno">(7.10)<a class="headerlink" href="#equation-bayes-cont-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.10)<a class="headerlink" href="#equation-bayes-cont-eqn" title="Link to this equation">#</a></span>\[
     f_{X|Y}(x|y) = \frac{f_{Y|X}(y|x) f_X(x)}{f_Y(y)}.
     \]</div>
 </li>
@@ -1142,7 +1150,7 @@ f_{X|Y}(x|y)  = \frac{f_{Y|X}(y|x) f_X(x)}{\int_{\mathbb{R}} f_{Y|X}(y|x^\star) 
 </div>
 </section>
 <section id="random-vectors-in-arbitrary-dimensions">
-<h2><span class="section-number">7.8. </span>Random vectors in arbitrary dimensions<a class="headerlink" href="#random-vectors-in-arbitrary-dimensions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.8. </span>Random vectors in arbitrary dimensions<a class="headerlink" href="#random-vectors-in-arbitrary-dimensions" title="Link to this heading">#</a></h2>
 <p>Up till now in this chapter, we have studied pairs of random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, or what is the same thing, <span class="math notranslate nohighlight">\(2\)</span>-dimensional random vectors <span class="math notranslate nohighlight">\((X,Y)\)</span>. But there’s an obvious generalization of these considerations to higher dimensions:</p>
 <div class="proof definition admonition" id="multi-dim-def">
 <p class="admonition-title"><span class="caption-number">Definition 7.9 </span></p>
@@ -1165,7 +1173,7 @@ f_{X|Y}(x|y)  = \frac{f_{Y|X}(y|x) f_X(x)}{\int_{\mathbb{R}} f_{Y|X}(y|x^\star) 
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\((X_1,X_2,\ldots,X_n):S \to \mathbb{R}^n\)</span> be an <span class="math notranslate nohighlight">\(n\)</span>-dimensional random vector on a probability space <span class="math notranslate nohighlight">\(S\)</span> with probability measure <span class="math notranslate nohighlight">\(P\)</span>. We define the <em>probability measure</em> of the random vector, denoted <span class="math notranslate nohighlight">\(P_{X_1X_2\cdots X_n}\)</span>, via the formula</p>
 <div class="math notranslate nohighlight" id="equation-hard2-eqn">
-<span class="eqno">(7.11)<a class="headerlink" href="#equation-hard2-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.11)<a class="headerlink" href="#equation-hard2-eqn" title="Link to this equation">#</a></span>\[
 P_{X_1X_2\cdots X_n}(C) = P \left( \{s\in S : (X_1(s),X_2(s),\ldots,X_n(s))\in C\} \right),
 \]</div>
 <p>for all events <span class="math notranslate nohighlight">\(C\subset \mathbb{R}^n\)</span>. The probability measure <span class="math notranslate nohighlight">\(P_{X_1X_2\cdots X_n}\)</span> is also called the <em>joint distribution</em> of the component random variables <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n\)</span>.</p>
@@ -1177,7 +1185,7 @@ C = A_1 \times A_2 \times \cdots \times A_n = \{ (x_1,x_2,\ldots,x_n)\in \mathbb
 \]</div>
 <p>for some events <span class="math notranslate nohighlight">\(A_1,A_2,\ldots,A_n\subset \mathbb{R}\)</span>, then we shall <em>always</em> write</p>
 <div class="math notranslate nohighlight" id="equation-clock-eqn">
-<span class="eqno">(7.12)<a class="headerlink" href="#equation-clock-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.12)<a class="headerlink" href="#equation-clock-eqn" title="Link to this equation">#</a></span>\[
 P(X_1\in A_1, X_2\in A_2,\ldots, X_n \in A_n)
 \]</div>
 <p>in place of <span class="math notranslate nohighlight">\(P_{X_1X_2\cdots X_n}(C)\)</span>. Again, this expression <a class="reference internal" href="#equation-clock-eqn">(7.12)</a> is technically an abuse of notation.</p>
@@ -1192,15 +1200,15 @@ P(X_1\in A_1, X_2\in A_2,\ldots, X_n \in A_n)
 </div>
 </section>
 <section id="independence">
-<span id="id5"></span><h2><span class="section-number">7.9. </span>Independence<a class="headerlink" href="#independence" title="Permalink to this heading">#</a></h2>
+<span id="id5"></span><h2><span class="section-number">7.9. </span>Independence<a class="headerlink" href="#independence" title="Link to this heading">#</a></h2>
 <p>Because of its central role in the definitions of random samples and datasets (see <a class="reference internal" href="06-theory-to-practice.html#random-sample-defn">Definition 6.1</a> and <a class="reference internal" href="#random-sample-vec-defn">Definition 7.6</a>), <em>independence</em> is one of the most important concepts in all probability and statistics. We already studied a form of <em>independence</em> back in <a class="reference internal" href="03-rules-of-prob.html#independence-first"><span class="std std-numref">Section 3.5</span></a>, where we saw that two events <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> in a probability space are <em>independent</em> if</p>
 <div class="math notranslate nohighlight" id="equation-ind-fan-eqn">
-<span class="eqno">(7.13)<a class="headerlink" href="#equation-ind-fan-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.13)<a class="headerlink" href="#equation-ind-fan-eqn" title="Link to this equation">#</a></span>\[
 P(A\cap B) = P(A) P(B).
 \]</div>
 <p>As long as <span class="math notranslate nohighlight">\(P(B)\neq 0\)</span> (if not, then both sides of this last equation are <span class="math notranslate nohighlight">\(0\)</span>), independence is the same as</p>
 <div class="math notranslate nohighlight" id="equation-cond-ind-eqn">
-<span class="eqno">(7.14)<a class="headerlink" href="#equation-cond-ind-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.14)<a class="headerlink" href="#equation-cond-ind-eqn" title="Link to this equation">#</a></span>\[
 P(A|B) = P(A).
 \]</div>
 <p>This latter equation is telling us that <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are independent provided that the conditional probability of <span class="math notranslate nohighlight">\(A\)</span>, given <span class="math notranslate nohighlight">\(B\)</span>, is just the plain probability of <span class="math notranslate nohighlight">\(A\)</span>. In other words, if <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are independent, then whether <span class="math notranslate nohighlight">\(B\)</span> has occurred has no impact on the probability of <span class="math notranslate nohighlight">\(A\)</span> occurring.</p>
@@ -1230,7 +1238,7 @@ P(\mathbf{X}_1\in C_1, \mathbf{X}_2\in C_2,\ldots,\mathbf{X}_m \in C_m) = P(\mat
 </li>
 <li><p>Suppose that the random variables are jointly continuous. Then they are independent if and only if</p>
 <div class="math notranslate nohighlight" id="equation-cont-factor-eqn">
-<span class="eqno">(7.15)<a class="headerlink" href="#equation-cont-factor-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.15)<a class="headerlink" href="#equation-cont-factor-eqn" title="Link to this equation">#</a></span>\[
   f_{X_1X_2\cdots X_m}(x_1,x_2,\ldots,x_m) = f_{X_1}(x_1)f_{X_2}(x_2) \cdots f_{X_m}(x_m)
   \]</div>
 <p>for all <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m \in \mathbb{R}\)</span>.</p>
@@ -1252,12 +1260,12 @@ P(X\in A, Y\in B) = \iint_{A\times B} f(x,y) \ \text{d}x \text{d}y = \iint_{A\ti
 <p>which proves <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent.</p>
 <p>Conversely, if <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are indepenendent, then we have</p>
 <div class="math notranslate nohighlight" id="equation-alm-eqn">
-<span class="eqno">(7.16)<a class="headerlink" href="#equation-alm-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.16)<a class="headerlink" href="#equation-alm-eqn" title="Link to this equation">#</a></span>\[
 P(X\in A, Y\in B) = P(X\in A) P(Y\in B) = \iint_{A\times B} f_X(x) f_Y(y) \ \text{d} x \text{d}y.
 \]</div>
 <p>From this we would be tempted to conclude that the joint density factors into the marginals, but there’s actually a mathematical subtlety hiding. Indeed, to prove that the product <span class="math notranslate nohighlight">\(f_X(x)f_Y(y)\)</span> serves as the joint density, we would need to show that</p>
 <div class="math notranslate nohighlight" id="equation-there-eqn">
-<span class="eqno">(7.17)<a class="headerlink" href="#equation-there-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.17)<a class="headerlink" href="#equation-there-eqn" title="Link to this equation">#</a></span>\[
 P\big( (X,Y)\in C) = \iint_C f_X(x)f_Y(y) \ \text{d}x\text{d}y
 \]</div>
 <p>for <em>all</em> events <span class="math notranslate nohighlight">\(C\subset \bbr^2\)</span>; but <a class="reference internal" href="#equation-alm-eqn">(7.16)</a> only establishes this equality for product events of the form <span class="math notranslate nohighlight">\(C = A \times B\)</span>. Therefore, in order to obtain the desired factorization, one needs to show additionally that <a class="reference internal" href="#equation-alm-eqn">(7.16)</a> implies <a class="reference internal" href="#equation-there-eqn">(7.17)</a> holds for <em>all</em> events <span class="math notranslate nohighlight">\(C\)</span>. This <em>is</em> true, but the techniques required are beyond the scope of this book.</p>
@@ -1268,7 +1276,7 @@ P\big( (X,Y)\in C) = \iint_C f_X(x)f_Y(y) \ \text{d}x\text{d}y
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(\mathbf{X}_1,\mathbf{X}_2,\ldots,\mathbf{X}_m\)</span> be independent random vectors and let <span class="math notranslate nohighlight">\(g_1,\ldots,g_m\)</span> be vector-valued functions for which the transformed random vectors</p>
 <div class="math notranslate nohighlight" id="equation-trans-vec-eqn">
-<span class="eqno">(7.18)<a class="headerlink" href="#equation-trans-vec-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.18)<a class="headerlink" href="#equation-trans-vec-eqn" title="Link to this equation">#</a></span>\[
 g_1(\mathbf{X}_1),g_2(\mathbf{X}_2),\ldots,g_m(\mathbf{X}_m)
 \]</div>
 <p>are all defined. Then the random vectors <a class="reference internal" href="#equation-trans-vec-eqn">(7.18)</a> are independent.</p>
@@ -1286,7 +1294,7 @@ P\big( g_1(\mathbf{X}_1)\in C_1,\ldots, g_m(\mathbf{X}_m)\in C_m \big) &amp;= P\
 <section class="corollary-content" id="proof-content">
 <p>Suppose <span class="math notranslate nohighlight">\(\bX_1,\bX_2,\ldots,\bX_m\)</span> are independent random vectors. Then all sequences</p>
 <div class="math notranslate nohighlight" id="equation-seq-comp-eqn">
-<span class="eqno">(7.19)<a class="headerlink" href="#equation-seq-comp-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.19)<a class="headerlink" href="#equation-seq-comp-eqn" title="Link to this equation">#</a></span>\[
 X_{1,j_1},X_{2,j_2},\ldots,X_{m,j_m}
 \]</div>
 <p>of component random variables are independent, where <span class="math notranslate nohighlight">\(X_{ij}\)</span> is the <span class="math notranslate nohighlight">\(j\)</span>-th component random variable of <span class="math notranslate nohighlight">\(\bX_i\)</span>.</p>
@@ -1331,7 +1339,7 @@ g_1(\mathbf{X}_1),g_2(\mathbf{X}_2),\ldots,g_m(\mathbf{X}_m)
 </div>
 </section>
 <section id="case-study-an-untrustworthy-friend">
-<span id="untrustworthy"></span><h2><span class="section-number">7.10. </span>Case study: an untrustworthy friend<a class="headerlink" href="#case-study-an-untrustworthy-friend" title="Permalink to this heading">#</a></h2>
+<span id="untrustworthy"></span><h2><span class="section-number">7.10. </span>Case study: an untrustworthy friend<a class="headerlink" href="#case-study-an-untrustworthy-friend" title="Link to this heading">#</a></h2>
 <p>My goal in this section is to step through an extended example that illustrates how independence is often used in computations involving real data. The scenario is taken from Bayesian statistics, and is similar to problem 12 on the worksheet. The point is not for you to learn the techniques and philosophy of Bayesian statistics in depth—that would require an entire course of its own. Instead, view this section as an enjoyable excursion into more advanced techniques that you might choose to study later.</p>
 <p>The situation we find ourselves in is this:</p>
 <div class="admonition-the-canonical-bayesian-coin-flipping-scenario admonition">
@@ -1371,7 +1379,7 @@ g_1(\mathbf{X}_1),g_2(\mathbf{X}_2),\ldots,g_m(\mathbf{X}_m)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/44b04d8533516cd737a20a5d766837788c19f456789d90a41974099669387e8c.svg" src="../_images/44b04d8533516cd737a20a5d766837788c19f456789d90a41974099669387e8c.svg" /></figure>
+<img alt="../_images/6df516fcbb1dac09106c86754f0caece0350dcc01a2c751d7a58635db198f719.svg" src="../_images/6df516fcbb1dac09106c86754f0caece0350dcc01a2c751d7a58635db198f719.svg" /></figure>
 </div>
 </div>
 <aside class="margin sidebar">
@@ -1391,7 +1399,7 @@ X_1,X_2,\ldots,X_{10}
 \]</div>
 <p>with <span class="math notranslate nohighlight">\(X_i \sim \mathcal{B}er(\theta)\)</span> for each <span class="math notranslate nohighlight">\(i\)</span> and a value <span class="math notranslate nohighlight">\(x_i=1\)</span> indicating that a head was obtained on the <span class="math notranslate nohighlight">\(i\)</span>-th flip. It is also natural to assume that the flips are independent of each other (conditioned on <span class="math notranslate nohighlight">\(\theta\)</span>). Therefore, the joint mass function of the random sample (conditioned on <span class="math notranslate nohighlight">\(\theta\)</span>) factors as</p>
 <div class="math notranslate nohighlight" id="equation-factor-likelihood-eqn">
-<span class="eqno">(7.20)<a class="headerlink" href="#equation-factor-likelihood-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(7.20)<a class="headerlink" href="#equation-factor-likelihood-eqn" title="Link to this equation">#</a></span>\[
 p(x_1,x_2,\ldots,x_{10}| \theta) = \prod_{i=1}^{10} p(x_i|\theta) = \prod_{i=1}^{10}\theta^{x_i}(1-\theta)^{1-x_i} = \theta^x (1-\theta)^{10-x},
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(x = x_1+x_2+\cdots +x_{10}\)</span> is the total number of heads in the dataset.</p>
@@ -1431,7 +1439,7 @@ f(\theta| x_1,\ldots,x_{10}) &amp;= \frac{p(x_1,\ldots,x_{10}|\theta)f(\theta)}{
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/839e4094086c304d327b70d3090cf9db4dc12af2b67de05680c31a5ab53e4ffc.svg" src="../_images/839e4094086c304d327b70d3090cf9db4dc12af2b67de05680c31a5ab53e4ffc.svg" /></figure>
+<img alt="../_images/8a999dac53d4107e0f587932e9dc4c84f588f900c15b08cd881c40776f4ab5a3.svg" src="../_images/8a999dac53d4107e0f587932e9dc4c84f588f900c15b08cd881c40776f4ab5a3.svg" /></figure>
 </div>
 </div>
 <p>Here’s what you should notice: For larger values of <span class="math notranslate nohighlight">\(x\)</span>, the distributions are shifted toward higher values of <span class="math notranslate nohighlight">\(\theta\)</span>, which reflects the fact that many heads suggests <span class="math notranslate nohighlight">\(\theta\)</span> is close to <span class="math notranslate nohighlight">\(1\)</span>. In the other direction, smaller values of <span class="math notranslate nohighlight">\(x\)</span> shift the distributions toward <span class="math notranslate nohighlight">\(0\)</span>.</p>
@@ -1503,6 +1511,7 @@ f(\theta| x_1,\ldots,x_{10}) &amp;= \frac{p(x_1,\ldots,x_{10}|\theta)f(\theta)}{
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
@@ -1543,7 +1552,7 @@ By John Myers
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1567,8 +1576,8 @@ By John Myers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

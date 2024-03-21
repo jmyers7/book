@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>5. Examples of random variables &#8212; Mathematical Statistics with a View Toward Machine Learning</title>
   
@@ -19,50 +18,46 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/05-examples-of-rvs';</script>
@@ -79,10 +74,9 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -123,11 +117,14 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -161,7 +158,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -372,10 +380,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="examples-of-random-variables">
-<span id="examples"></span><h1><span class="section-number">5. </span>Examples of random variables<a class="headerlink" href="#examples-of-random-variables" title="Permalink to this heading">#</a></h1>
+<span id="examples"></span><h1><span class="section-number">5. </span>Examples of random variables<a class="headerlink" href="#examples-of-random-variables" title="Link to this heading">#</a></h1>
 <p>I want to begin by returning to a discussion we had in the chapter on <a class="reference internal" href="02-prob-spaces.html#big-pic-1"><span class="std std-ref">probability spaces</span></a>.</p>
 <p>One of the goals of applied mathematics is to use mathematical models to represent real-world scenarios. Of course, no real-world scenario comes packaged together with a preferred mathematical model. Nature or the Universe doesn’t somehow tell you which model to use—rather, it is up to <em>you</em> to choose what you believe is the most appropriate model.</p>
 <p>Making a good choice requires lots of experience and theoretical knowledge, but it also requires you to have a wide knowledge of the various models that are out there. So, as you go along in your studies, you’ll want to build up a library of models that you know a lot about, so that when you’re confronted with a new scenario out in the real world, the chances are high that you know the perfect model. Think of it as “filling your toolkit.”</p>
@@ -405,19 +413,19 @@ document.write(`
 </ol>
 </div>
 <section id="bernoulli-distributions">
-<h2><span class="section-number">5.1. </span>Bernoulli distributions<a class="headerlink" href="#bernoulli-distributions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.1. </span>Bernoulli distributions<a class="headerlink" href="#bernoulli-distributions" title="Link to this heading">#</a></h2>
 <p>Our first family of distributions are certainly the simplest. But don’t let their simplicity fool you—we will see soon enough that they are <em>very</em> important, since they sometimes occur as the “building blocks” of more complicated and complex distributions!</p>
 <div class="proof definition admonition" id="bernoulli-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.1 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(\theta\)</span> be a real number with <span class="math notranslate nohighlight">\(0\leq \theta \leq 1\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>Bernoulli distribution</em> with parameter <span class="math notranslate nohighlight">\(\theta\)</span>, denoted</p>
 <div class="math notranslate nohighlight" id="equation-dist-eqn">
-<span class="eqno">(5.1)<a class="headerlink" href="#equation-dist-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(5.1)<a class="headerlink" href="#equation-dist-eqn" title="Link to this equation">#</a></span>\[
 X \sim \mathcal{B}er(\theta),
 \]</div>
 <p>if its probability mass function is given by</p>
 <div class="math notranslate nohighlight" id="equation-bern-eqn">
-<span class="eqno">(5.2)<a class="headerlink" href="#equation-bern-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(5.2)<a class="headerlink" href="#equation-bern-eqn" title="Link to this equation">#</a></span>\[
 p(x;\theta) = \theta^x(1-\theta)^{1-x}.
 \]</div>
 <p>with support <span class="math notranslate nohighlight">\(\{0,1\}\)</span>.</p>
@@ -426,7 +434,7 @@ p(x;\theta) = \theta^x(1-\theta)^{1-x}.
 <p>The outputs of a Bernoulli random variable consist of just two values, <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. For that reason, Bernoulli random variables might also be called <em>binary</em> random variables.</p>
 <p>Since <span class="math notranslate nohighlight">\(x\)</span> can be only <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>, this means that the formula <a class="reference internal" href="#equation-bern-eqn">(5.2)</a> for the probability mass function could equally be re-written as</p>
 <div class="math notranslate nohighlight" id="equation-bern2-eqn">
-<span class="eqno">(5.3)<a class="headerlink" href="#equation-bern2-eqn" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(5.3)<a class="headerlink" href="#equation-bern2-eqn" title="Link to this equation">#</a></span>\[\begin{split}
 p(x;\theta) = \begin{cases} \theta &amp; : x=1, \\ 1-\theta &amp; : x=0.\end{cases}
 \end{split}\]</div>
 <p>Therefore, a random variable <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(\theta)\)</span> outputs the value <span class="math notranslate nohighlight">\(1\)</span> with probability <span class="math notranslate nohighlight">\(\theta\)</span>, and the value <span class="math notranslate nohighlight">\(0\)</span> with probability <span class="math notranslate nohighlight">\(1-\theta\)</span>. Using this fact, I bet you would have no problem drawing probability histograms for various settings for <span class="math notranslate nohighlight">\(\theta\)</span>. Here’s what you would get:</p>
@@ -468,14 +476,14 @@ p(x;\theta) = \begin{cases} \theta &amp; : x=1, \\ 1-\theta &amp; : x=0.\end{cas
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/f2a8e679719aaffe73a8295826f67559354786d7ee831a4948cb33afcb70f33c.png"><img alt="../_images/f2a8e679719aaffe73a8295826f67559354786d7ee831a4948cb33afcb70f33c.png" src="../_images/f2a8e679719aaffe73a8295826f67559354786d7ee831a4948cb33afcb70f33c.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/4f0c70e10e461e45a6e116c322b29d776c329d8f8dfbd1053a9b02025c2766a8.png"><img alt="../_images/4f0c70e10e461e45a6e116c322b29d776c329d8f8dfbd1053a9b02025c2766a8.png" src="../_images/4f0c70e10e461e45a6e116c322b29d776c329d8f8dfbd1053a9b02025c2766a8.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
 <p>Notice that different values of the parameter <span class="math notranslate nohighlight">\(\theta\)</span> fundamentally alter the <em>shape</em> of the distribution. For this reason, the parameter <span class="math notranslate nohighlight">\(\theta\)</span> is often called the <em>shape parameter</em> for Bernoulli distributions.</p>
 <p>In what sort of real-world scenario would Bernoulli random variables naturally occur? Here’s one:</p>
 <div class="admonition-an-archetypical-bernoulli-scenario admonition">
-<p class="admonition-title">An archetypical Bernoulli scenario  </p>
+<p class="admonition-title">An archetypical Bernoulli scenario</p>
 <p><strong>Q</strong>: Suppose that a coin is flipped once and <span class="math notranslate nohighlight">\(X\)</span> is the number of heads obtained. Suppose further that we allow for the possibility that the coin is <em>loaded</em>, so that it lands heads with probability <span class="math notranslate nohighlight">\(\theta\)</span> (which may not be <span class="math notranslate nohighlight">\(0.5\)</span>!). What is the distribution of the random variable <span class="math notranslate nohighlight">\(X\)</span>?</p>
 <p><strong>A</strong>: <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(\theta)\)</span>.</p>
 </div>
@@ -503,7 +511,7 @@ V(X) = E(X^2) - E(X)^2 = 0^2 \cdot (1-\theta) + 1^2 \cdot \theta - \theta^2 = \t
 <p>Notice, in particular, that the mean of a variable <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(\theta)\)</span> is the parameter <span class="math notranslate nohighlight">\(\theta\)</span>. So, it is accurate to say that Bernoulli random variables are parametrized by their means. We will see that this is <em>also</em> true for a few other families of random variables besides the Bernoulli random variables.</p>
 </section>
 <section id="binomial-distributions">
-<h2><span class="section-number">5.2. </span>Binomial distributions<a class="headerlink" href="#binomial-distributions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.2. </span>Binomial distributions<a class="headerlink" href="#binomial-distributions" title="Link to this heading">#</a></h2>
 <p>Next come distributions whose probability mass functions look a lot like the probability functions of Bernoulli random variables.</p>
 <div class="proof definition admonition" id="binomial-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.2 </span></p>
@@ -552,7 +560,7 @@ p(x;n,\theta) = \binom{n}{x}\theta^x (1-\theta)^{n-x}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/e5b26ab86ee30909cc2367d0e42ddacd5cb878255ef334cd4ce3fe8ec01bae11.png"><img alt="../_images/e5b26ab86ee30909cc2367d0e42ddacd5cb878255ef334cd4ce3fe8ec01bae11.png" src="../_images/e5b26ab86ee30909cc2367d0e42ddacd5cb878255ef334cd4ce3fe8ec01bae11.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/ce51db95bf31334af85245d7c28d6faf53a10402a75b09c00563fd7a1f4aacaf.png"><img alt="../_images/ce51db95bf31334af85245d7c28d6faf53a10402a75b09c00563fd7a1f4aacaf.png" src="../_images/ce51db95bf31334af85245d7c28d6faf53a10402a75b09c00563fd7a1f4aacaf.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
@@ -564,7 +572,7 @@ p(x;n,\theta) = \binom{n}{x}\theta^x (1-\theta)^{n-x}
 </div>
 <p>The sample space <span class="math notranslate nohighlight">\(S\)</span> on which <span class="math notranslate nohighlight">\(X\)</span> is defined consists of all <span class="math notranslate nohighlight">\(n\)</span>-tuples of the form</p>
 <div class="math notranslate nohighlight" id="equation-tuple-eqn">
-<span class="eqno">(5.4)<a class="headerlink" href="#equation-tuple-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(5.4)<a class="headerlink" href="#equation-tuple-eqn" title="Link to this equation">#</a></span>\[
 (H, T, H, H, T, \ldots, H, T),
 \]</div>
 <p>which represent the result after flipping the coin <span class="math notranslate nohighlight">\(n\)</span> times. If there are <span class="math notranslate nohighlight">\(x\)</span> heads in this <span class="math notranslate nohighlight">\(n\)</span>-tuple, then the probability of obtaining this particular sequence is</p>
@@ -585,7 +593,7 @@ P(X=x) = m \theta^x(1-\theta)^{n-x},
 <section class="theorem-content" id="proof-content">
 <p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{B}in(n,\theta)\)</span>, then</p>
 <div class="math notranslate nohighlight" id="equation-bin-exp-eqn">
-<span class="eqno">(5.5)<a class="headerlink" href="#equation-bin-exp-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(5.5)<a class="headerlink" href="#equation-bin-exp-eqn" title="Link to this equation">#</a></span>\[
 E(X) = n\theta \quad \text{and} \quad V(X) = n\theta (1-\theta). 
 \]</div>
 </section>
@@ -616,7 +624,7 @@ P(X=x) &amp;= P(Y_1 + \cdots + Y_n = x) \\
 \end{align*}\]</div>
 <p>where the sum runs over all numbers <span class="math notranslate nohighlight">\(y_1,\ldots,y_n\)</span> such that <span class="math notranslate nohighlight">\(0\leq y_1,\ldots,y_n\leq 1\)</span> and <span class="math notranslate nohighlight">\(y_1+\cdots + y_n = x\)</span>. The commas in the joint probability</p>
 <div class="math notranslate nohighlight" id="equation-joint-eqn">
-<span class="eqno">(5.6)<a class="headerlink" href="#equation-joint-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(5.6)<a class="headerlink" href="#equation-joint-eqn" title="Link to this equation">#</a></span>\[
 P(Y_1=y_1, Y_2=y_2, \ldots , Y_n = y_n)
 \]</div>
 <p>represent the word “and,” so that this is the probability that</p>
@@ -647,7 +655,7 @@ P(X=x) = \binom{n}{y} \theta^x (1-\theta)^{n-x},
 </div>
 </section>
 <section id="geometric-distributions">
-<h2><span class="section-number">5.3. </span>Geometric distributions<a class="headerlink" href="#geometric-distributions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.3. </span>Geometric distributions<a class="headerlink" href="#geometric-distributions" title="Link to this heading">#</a></h2>
 <p>The supports of Bernoulli and binomial random variables are finite. Now, we turn our attention toward a class of random variables with countably infinite supports:</p>
 <div class="proof definition admonition" id="geometric-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.3 </span></p>
@@ -694,7 +702,7 @@ p(x;\theta) = \theta (1-\theta)^{x-1}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/8a99a0873273353b2c43f635dc20807d1b46f058305de44dc4d53416b3b8bbba.png"><img alt="../_images/8a99a0873273353b2c43f635dc20807d1b46f058305de44dc4d53416b3b8bbba.png" src="../_images/8a99a0873273353b2c43f635dc20807d1b46f058305de44dc4d53416b3b8bbba.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/9ac86ff18f2df55a76298535c2265b1b2c1faf3f1f6f416b65db17dc34b8863a.png"><img alt="../_images/9ac86ff18f2df55a76298535c2265b1b2c1faf3f1f6f416b65db17dc34b8863a.png" src="../_images/9ac86ff18f2df55a76298535c2265b1b2c1faf3f1f6f416b65db17dc34b8863a.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
@@ -738,14 +746,14 @@ E(X) = \frac{1}{\theta} \quad \text{and} \quad V(X) = \frac{1-\theta}{\theta^2}.
 </div>
 </section>
 <section id="hypergeometric-distributions">
-<h2><span class="section-number">5.4. </span>Hypergeometric distributions<a class="headerlink" href="#hypergeometric-distributions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.4. </span>Hypergeometric distributions<a class="headerlink" href="#hypergeometric-distributions" title="Link to this heading">#</a></h2>
 <p>The distributions in this section definitely have the most complicated expressions so far for their probability functions (they require <em>three</em> parameters!), but as we will see in our archetypical scenario, these distributions arise quite naturally.</p>
 <div class="proof definition admonition" id="hypergeometric-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.4 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(M\geq 0\)</span> be an integer, and let <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(N\)</span> be integers with <span class="math notranslate nohighlight">\(0\leq n,N\leq M\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>hypergeometric distribution</em> with parameters <span class="math notranslate nohighlight">\(M\)</span>, <span class="math notranslate nohighlight">\(n\)</span>, and <span class="math notranslate nohighlight">\(N\)</span>, denoted</p>
-<div class="amsmath math notranslate nohighlight" id="equation-54d2774c-52c0-4ab3-a428-d9899c1303db">
-<span class="eqno">(5.7)<a class="headerlink" href="#equation-54d2774c-52c0-4ab3-a428-d9899c1303db" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
+<div class="amsmath math notranslate nohighlight" id="equation-b225ce96-1c33-409c-96fe-f575fa6b3907">
+<span class="eqno">(5.7)<a class="headerlink" href="#equation-b225ce96-1c33-409c-96fe-f575fa6b3907" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
 Y \sim \mathcal{HG}eo(M,n,N),
 \end{equation}\]</div>
 <p>if its probability mass function is given by</p>
@@ -755,7 +763,7 @@ p(x; M,n,N) = \frac{\binom{n}{x}\binom{M-n}{N-x}}{\binom{M}{N}}.
 \]</div>
 <p>with support all <span class="math notranslate nohighlight">\(x\)</span> such that</p>
 <div class="math notranslate nohighlight" id="equation-range-eqn">
-<span class="eqno">(5.8)<a class="headerlink" href="#equation-range-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(5.8)<a class="headerlink" href="#equation-range-eqn" title="Link to this equation">#</a></span>\[
 0 \leq x \leq n \quad \text{and} \quad 0 \leq N-x \leq M-n.
 \]</div>
 </section>
@@ -791,7 +799,7 @@ p(x; M,n,N) = \frac{\binom{n}{x}\binom{M-n}{N-x}}{\binom{M}{N}}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/4601ef50c8a9f2da760f9c649542fe059b63def794a2cbb3165a718acea78961.png"><img alt="../_images/4601ef50c8a9f2da760f9c649542fe059b63def794a2cbb3165a718acea78961.png" src="../_images/4601ef50c8a9f2da760f9c649542fe059b63def794a2cbb3165a718acea78961.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/1bed47494f457779351041a6bc914431337dffea244914ad7c13abafb9650395.png"><img alt="../_images/1bed47494f457779351041a6bc914431337dffea244914ad7c13abafb9650395.png" src="../_images/1bed47494f457779351041a6bc914431337dffea244914ad7c13abafb9650395.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
@@ -846,7 +854,7 @@ P(\text{single selection of $N$ balls}) = \frac{1}{\binom{M}{N}},
 \]</div>
 <p>because there are exactly <span class="math notranslate nohighlight">\(\binom{M}{N}\)</span> ways to choose <span class="math notranslate nohighlight">\(N\)</span> balls from a total of <span class="math notranslate nohighlight">\(M\)</span>. It then follows that</p>
 <div class="math notranslate nohighlight" id="equation-almost-eqn">
-<span class="eqno">(5.9)<a class="headerlink" href="#equation-almost-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(5.9)<a class="headerlink" href="#equation-almost-eqn" title="Link to this equation">#</a></span>\[
 P(X=x) = \frac{k}{\binom{M}{N}},
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(k\)</span> is the number of ways to choose <span class="math notranslate nohighlight">\(N\)</span> balls from the urn, with <span class="math notranslate nohighlight">\(x\)</span> of them red, and the remaining <span class="math notranslate nohighlight">\(N-x\)</span> black. So, our goal is to compute <span class="math notranslate nohighlight">\(k\)</span>.</p>
@@ -889,7 +897,7 @@ E(X) = \frac{Nn}{M} \quad \text{and} \quad V(X) = \left(\frac{M-N}{M-1}\right) \
 </div>
 </section>
 <section id="poisson-distributions">
-<h2><span class="section-number">5.5. </span>Poisson distributions<a class="headerlink" href="#poisson-distributions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.5. </span>Poisson distributions<a class="headerlink" href="#poisson-distributions" title="Link to this heading">#</a></h2>
 <p>We’ve reached the last of our discrete distributions, before we move onto continuous ones.</p>
 <div class="proof definition admonition" id="poisson-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.5 </span></p>
@@ -935,7 +943,7 @@ p(x;\mu) = \frac{\mu^x}{x!}e^{-\mu}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/f91935b0a728737f6d5e5400bfe2fc7f483d637f52db9c307296f5e602e297f3.png"><img alt="../_images/f91935b0a728737f6d5e5400bfe2fc7f483d637f52db9c307296f5e602e297f3.png" src="../_images/f91935b0a728737f6d5e5400bfe2fc7f483d637f52db9c307296f5e602e297f3.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/877e3454ea75f2a8f7039dc51cc32fe82c0e862faaf7c306ccb00fd52cbd9659.png"><img alt="../_images/877e3454ea75f2a8f7039dc51cc32fe82c0e862faaf7c306ccb00fd52cbd9659.png" src="../_images/877e3454ea75f2a8f7039dc51cc32fe82c0e862faaf7c306ccb00fd52cbd9659.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
@@ -978,7 +986,7 @@ p(x;\mu) = \frac{\mu^x}{x!}e^{-\mu}
 <p>emails arrive in the <span class="math notranslate nohighlight">\(k\)</span>-th subinterval. But we know that <span class="math notranslate nohighlight">\(E(Y_k) = \theta_k\)</span> because <span class="math notranslate nohighlight">\(Y_k\)</span> is Bernoulli, and this implies that <span class="math notranslate nohighlight">\(\theta_k = \lambda t/n\)</span>. Thus <span class="math notranslate nohighlight">\(Y_k \sim \mathcal{B}er(\lambda t/n)\)</span>, for each <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>.</p>
 <p>We now bring this all back to <span class="math notranslate nohighlight">\(X\)</span>. As long as <span class="math notranslate nohighlight">\(n\)</span> is large enough (so that <span class="math notranslate nohighlight">\(\Delta t\)</span> is small), we should have</p>
 <div class="math notranslate nohighlight" id="equation-approx-eqn">
-<span class="eqno">(5.10)<a class="headerlink" href="#equation-approx-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(5.10)<a class="headerlink" href="#equation-approx-eqn" title="Link to this equation">#</a></span>\[
 X \approx Y_1 + Y_2 + \cdots + Y_n.
 \]</div>
 <p>It is natural to assume that the Bernoulli random variables on the right-hand side are independent, which means—as we saw <a class="reference internal" href="#bern-bin-thm">above</a>—that <span class="math notranslate nohighlight">\(X\)</span> is distributed <em>approximately</em> as <span class="math notranslate nohighlight">\(\mathcal{B}in(n,\lambda t/n)\)</span>. Moreover, it is natural to believe that the approximation <a class="reference internal" href="#equation-approx-eqn">(5.10)</a> gets better and better the larger <span class="math notranslate nohighlight">\(n\)</span> is, and that it becomes an <em>equality</em> in the limit as <span class="math notranslate nohighlight">\(n\to \infty\)</span>.</p>
@@ -1058,7 +1066,7 @@ V(X) = E(X^2) - \mu^2 = \mu,
 </div>
 </section>
 <section id="normal-distributions">
-<span id="norm-univariate-sec"></span><h2><span class="section-number">5.6. </span>Normal distributions<a class="headerlink" href="#normal-distributions" title="Permalink to this heading">#</a></h2>
+<span id="norm-univariate-sec"></span><h2><span class="section-number">5.6. </span>Normal distributions<a class="headerlink" href="#normal-distributions" title="Link to this heading">#</a></h2>
 <p>The distributions studied in this section are often said to be the most important in probability and statistics. This is primarily due to their ubiquity, occurring in all sorts of varied applications and scenarios. Indeed, these distributions will be with us constantly throughout the rest of the course. These are also the first distributions that we study in this chapter that are continuous, rather than discrete.</p>
 <div class="proof definition admonition" id="gaussian-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.6 </span></p>
@@ -1106,7 +1114,7 @@ f(x;\mu,\sigma) = \frac{1}{\sigma \sqrt{2\pi}} \exp \left[ - \frac{1}{2} \left( 
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/d4928f0c736e03cbcd97e93b92c2d2dc00592470fb1a9044a887d45163f32928.png"><img alt="../_images/d4928f0c736e03cbcd97e93b92c2d2dc00592470fb1a9044a887d45163f32928.png" src="../_images/d4928f0c736e03cbcd97e93b92c2d2dc00592470fb1a9044a887d45163f32928.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/2e8777aec5c1031fa524751f494b26620b59a01e89a7df5391835fafe8917b8a.png"><img alt="../_images/2e8777aec5c1031fa524751f494b26620b59a01e89a7df5391835fafe8917b8a.png" src="../_images/2e8777aec5c1031fa524751f494b26620b59a01e89a7df5391835fafe8917b8a.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
@@ -1174,7 +1182,7 @@ P(u \leq Y \leq v) &amp;= P\left((u-b)/a \leq X \leq (v-b)/a\right) \\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/b71ec2efc3111c11fde3f471acf3e502662236b8d38c2201178be0a16b9c7b13.png"><img alt="../_images/b71ec2efc3111c11fde3f471acf3e502662236b8d38c2201178be0a16b9c7b13.png" src="../_images/b71ec2efc3111c11fde3f471acf3e502662236b8d38c2201178be0a16b9c7b13.png" style="width: 70%;" /></a>
+<a class="reference internal image-reference" href="../_images/b42cfe5e3c3cb7131abfbda6b5e72aa68cb85aff3501086b8be730fcb3fe868e.png"><img alt="../_images/b42cfe5e3c3cb7131abfbda6b5e72aa68cb85aff3501086b8be730fcb3fe868e.png" src="../_images/b42cfe5e3c3cb7131abfbda6b5e72aa68cb85aff3501086b8be730fcb3fe868e.png" style="width: 70%;" /></a>
 </figure>
 </div>
 </div>
@@ -1196,7 +1204,7 @@ E(X) = \mu \quad \text{and} \quad V(X) = \sigma^2.
 </div>
 </section>
 <section id="exponential-distributions">
-<h2><span class="section-number">5.7. </span>Exponential distributions<a class="headerlink" href="#exponential-distributions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.7. </span>Exponential distributions<a class="headerlink" href="#exponential-distributions" title="Link to this heading">#</a></h2>
 <p>The next family of distributions is strongly related to the discrete Poisson variables that we saw above, as well as to the <em>gamma distributions</em> in the next section.</p>
 <div class="proof definition admonition" id="exponential-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.8 </span></p>
@@ -1242,7 +1250,7 @@ f(x;\lambda) = \lambda e^{-\lambda x}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ee8f54dc59d7a054347f491dac602185496e5486fc9d1a5d86dc007fb54cb904.png"><img alt="../_images/ee8f54dc59d7a054347f491dac602185496e5486fc9d1a5d86dc007fb54cb904.png" src="../_images/ee8f54dc59d7a054347f491dac602185496e5486fc9d1a5d86dc007fb54cb904.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/7fc18598b192239296ee0f30ee2cc6ad4955057eba64cb1122238ca408f1a52f.png"><img alt="../_images/7fc18598b192239296ee0f30ee2cc6ad4955057eba64cb1122238ca408f1a52f.png" src="../_images/7fc18598b192239296ee0f30ee2cc6ad4955057eba64cb1122238ca408f1a52f.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
@@ -1261,7 +1269,7 @@ I_k = T_k - T_{k-1}
 </div>
 <p>We shall first show that <span class="math notranslate nohighlight">\(I_1 \sim \mathcal{E}xp(\lambda)\)</span> by proving that it has the CDF of an <span class="math notranslate nohighlight">\(\mathcal{E}xp(\lambda)\)</span> distribution:</p>
 <div class="math notranslate nohighlight" id="equation-cdf-exp-eqn">
-<span class="eqno">(5.11)<a class="headerlink" href="#equation-cdf-exp-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(5.11)<a class="headerlink" href="#equation-cdf-exp-eqn" title="Link to this equation">#</a></span>\[
 F(t) = \int_0^t \lambda e^{-\lambda x} \ \text{d}x = 1 - e^{-\lambda t}.
 \]</div>
 <p>To do this, notice that</p>
@@ -1319,11 +1327,11 @@ E(X) = \frac{1}{\lambda} \quad \text{and} \quad V(X) = \frac{1}{\lambda^2}.
 </div>
 </section>
 <section id="gamma-distributions">
-<h2><span class="section-number">5.8. </span>Gamma distributions<a class="headerlink" href="#gamma-distributions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.8. </span>Gamma distributions<a class="headerlink" href="#gamma-distributions" title="Link to this heading">#</a></h2>
 <p>Normal distributions are symmetric about their means and therefore cannot model datasets that are <em>skew</em> (i.e., non-symmetric). It is therefore of interest to have in one’s toolkit a family of skew distributions; such a family is described in this section.</p>
 <p>These distributions derive their name from the <a class="reference external" href="https://en.wikipedia.org/wiki/Gamma_function">gamma functions</a></p>
 <div class="math notranslate nohighlight" id="equation-gam-func-eqn">
-<span class="eqno">(5.12)<a class="headerlink" href="#equation-gam-func-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(5.12)<a class="headerlink" href="#equation-gam-func-eqn" title="Link to this equation">#</a></span>\[
 \Gamma(\alpha) \stackrel{\text{def}}{=} \int_0^\infty x^{\alpha-1} e^{-x} \ \text{d} x \quad (\alpha&gt;0)
 \]</div>
 <p>that appear in their PDFs.</p>
@@ -1337,14 +1345,14 @@ X \sim \mathcal{G}am(\alpha,\beta),
 \]</div>
 <p>if its probability density function is given by</p>
 <div class="math notranslate nohighlight" id="equation-gamma-pdf-eqn">
-<span class="eqno">(5.13)<a class="headerlink" href="#equation-gamma-pdf-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(5.13)<a class="headerlink" href="#equation-gamma-pdf-eqn" title="Link to this equation">#</a></span>\[
 f(x;\alpha,\beta) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}.
 \]</div>
 <p>with support <span class="math notranslate nohighlight">\((0,\infty)\)</span>.</p>
 </section>
 </div><p>How should one understand the formula <a class="reference internal" href="#equation-gamma-pdf-eqn">(5.13)</a> for the PDFs of gamma distributions, given that it involves the somewhat intimidating gamma function <a class="reference internal" href="#equation-gam-func-eqn">(5.12)</a>? Here’s my advice: Don’t worry about the leading factor <span class="math notranslate nohighlight">\(\beta^\alpha/\Gamma(\alpha)\)</span> in <a class="reference internal" href="#equation-gamma-pdf-eqn">(5.13)</a>, and only pay attention to the “important” factor <span class="math notranslate nohighlight">\(x^{\alpha-1}e^{-\beta x}\)</span>. This advice is justified based on the observation that the factor <span class="math notranslate nohighlight">\(\beta^\alpha/\Gamma(\alpha)\)</span> does <em>not</em> involve the variable <span class="math notranslate nohighlight">\(x\)</span>, and is therefore a constant. In fact, it is quite common to see the PDF of a gamma distribution represented as</p>
 <div class="math notranslate nohighlight" id="equation-prop-gam-eqn">
-<span class="eqno">(5.14)<a class="headerlink" href="#equation-prop-gam-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(5.14)<a class="headerlink" href="#equation-prop-gam-eqn" title="Link to this equation">#</a></span>\[
 f(x;\alpha,\beta) \propto x^{\alpha-1} e^{-\beta x},
 \]</div>
 <p>where the symbol “<span class="math notranslate nohighlight">\(\propto\)</span>” means “proportional to.” By writing <a class="reference internal" href="#equation-prop-gam-eqn">(5.14)</a>, we are signaling that the only important part of the PDF is the factor <span class="math notranslate nohighlight">\(x^{\alpha-1} e^{-\beta x}\)</span>.</p>
@@ -1384,7 +1392,7 @@ f(x;\alpha,\beta) \propto x^{\alpha-1} e^{-\beta x},
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/5cc20b112d13394b86ace4c311414b532719871c6001b7ea6a7a0ed821ed62e8.png"><img alt="../_images/5cc20b112d13394b86ace4c311414b532719871c6001b7ea6a7a0ed821ed62e8.png" src="../_images/5cc20b112d13394b86ace4c311414b532719871c6001b7ea6a7a0ed821ed62e8.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/89d17668f473daa1990ca0f91c223c9d1e57b63a6e9af6b835c004fb748a85df.png"><img alt="../_images/89d17668f473daa1990ca0f91c223c9d1e57b63a6e9af6b835c004fb748a85df.png" src="../_images/89d17668f473daa1990ca0f91c223c9d1e57b63a6e9af6b835c004fb748a85df.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
@@ -1435,7 +1443,7 @@ T_k = T_1 + (T_2 - T_1) + \cdots + (T_k - T_{k-1}) = I_1 + I_2 + \cdots + I_k,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/f71daa9064782428656f61683712954ae70e4fde53f8901307e854ad279706e6.png"><img alt="../_images/f71daa9064782428656f61683712954ae70e4fde53f8901307e854ad279706e6.png" src="../_images/f71daa9064782428656f61683712954ae70e4fde53f8901307e854ad279706e6.png" style="width: 70%;" /></a>
+<a class="reference internal image-reference" href="../_images/c328b97f385538788aa8bb371d92c3a7d13d18b1b33b9c851a28b311fef921ae.png"><img alt="../_images/c328b97f385538788aa8bb371d92c3a7d13d18b1b33b9c851a28b311fef921ae.png" src="../_images/c328b97f385538788aa8bb371d92c3a7d13d18b1b33b9c851a28b311fef921ae.png" style="width: 70%;" /></a>
 </figure>
 </div>
 </div>
@@ -1488,7 +1496,7 @@ V(X) = E(X^2) - E(X)^2 = \frac{(\alpha+1)\alpha}{\beta^2} - \frac{\alpha^2}{\bet
 </div>
 </section>
 <section id="beta-distributions">
-<h2><span class="section-number">5.9. </span>Beta distributions<a class="headerlink" href="#beta-distributions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.9. </span>Beta distributions<a class="headerlink" href="#beta-distributions" title="Link to this heading">#</a></h2>
 <p>All the continuous random variables studied so far have unbounded supports. However, the next type of random variables have their supports inside the open interval <span class="math notranslate nohighlight">\((0,1)\)</span> which makes them particularly useful for modeling proportions and probabilities. They are parametrized by <span class="math notranslate nohighlight">\(\alpha\)</span>’s and <span class="math notranslate nohighlight">\(\beta\)</span>’s just like the gamma variables, and they also have gamma functions in their PDF’s.</p>
 <div class="proof definition admonition" id="beta-def">
 <p class="admonition-title"><span class="caption-number">Definition 5.10 </span></p>
@@ -1545,7 +1553,7 @@ f(x;\alpha,\beta) \propto x^{\alpha-1} (1-x)^{\beta-1},
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ee3f1862ba4a6c5a3b5a6fec89510cf0052978b6830f2ffc55e29adf7e7a8175.png"><img alt="../_images/ee3f1862ba4a6c5a3b5a6fec89510cf0052978b6830f2ffc55e29adf7e7a8175.png" src="../_images/ee3f1862ba4a6c5a3b5a6fec89510cf0052978b6830f2ffc55e29adf7e7a8175.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="../_images/2de9e89f5017af81d87bf135b4eb3e214e064753fa17d4d634c3740ce30d34a8.png"><img alt="../_images/2de9e89f5017af81d87bf135b4eb3e214e064753fa17d4d634c3740ce30d34a8.png" src="../_images/2de9e89f5017af81d87bf135b4eb3e214e064753fa17d4d634c3740ce30d34a8.png" style="width: 100%;" /></a>
 </figure>
 </div>
 </div>
@@ -1624,6 +1632,7 @@ E(X) = \frac{\alpha}{\alpha+\beta} \quad \text{and} \quad V(X) = \frac{\alpha\be
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
@@ -1663,7 +1672,7 @@ By John Myers
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1687,8 +1696,8 @@ By John Myers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

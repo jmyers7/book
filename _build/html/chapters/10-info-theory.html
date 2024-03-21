@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>10. Information theory &#8212; Mathematical Statistics with a View Toward Machine Learning</title>
   
@@ -19,50 +18,46 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/10-info-theory';</script>
@@ -79,10 +74,9 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -123,11 +117,14 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -161,7 +158,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -366,15 +374,15 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="information-theory">
-<span id="id1"></span><h1><span class="section-number">10. </span>Information theory<a class="headerlink" href="#information-theory" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">10. </span>Information theory<a class="headerlink" href="#information-theory" title="Link to this heading">#</a></h1>
 <p>The current chapter describes tools and techniques drawn from the <em>theory of information</em>, which is a charming amalgamation of practical engineering and theoretical mathematics. This theory provides us with a method for measuring a particular form of <em>information</em>, but it also gives us techniques for quantifying related degrees of <em>surprise</em>, <em>uncertainty</em>, and <em>entropy</em>. In the upcoming chapters, our primary use for these measures will be to train and choose probabilistic models, but the theory reaches way beyond into physics, coding theory, computer science, neuroscience, biology, economics, the theory of complex systems, and many other fields.</p>
 <p>Though it has its roots in engineering, our primary view on information theory is a mathematical one. For reasons of space and time, we cannot include or describe any of the many fascinating applications to coding theory and the like—for that, we will point the interested reader to one of the standard textbooks on information theory, like <span id="id2">[<a class="reference internal" href="bib.html#id17" title="T. M. Cover and J. A. Thomas. Elements of information theory. John Wiley &amp; Sons, Inc., second edition, 2006.">CT06</a>]</span>, <span id="id3">[<a class="reference internal" href="bib.html#id25" title="D. J. C. MacKay. Information theory, inference and learning algorithms. Cambridge University Press, 2003.">Mac03</a>]</span>, and <span id="id4">[<a class="reference internal" href="bib.html#id26" title="R. B. Ash. Information theory. Courier Corporation, 2012.">Ash12</a>]</span>. Also, one can do little better than reading Claude Shannon’s foundational paper <span id="id5">[<a class="reference internal" href="bib.html#id23" title="C. E. Shannon. A mathematical theory of communication. The Bell System Technical Journal, 27(3):379–423, 1948.">Sha48</a>]</span> in which information theory as a mathematical discipline was first described—though it is over three-quarters of a century old, it still reads amazingly well. The survey article <span id="id6">[<a class="reference internal" href="bib.html#id24" title="O. Rioul. This is it: a primer on shannon’s entropy and information. In Information Theory: Poincaré Seminar 2018, 49–86. Springer, 2021.">Rio21</a>]</span> is also an enlightening read.</p>
 <p>In the first section of this chapter, we define and study the first two of the four central quantities in information theory called <em>Shannon information</em> and <em>Shannon entropy</em>—after that, in the second section, we define the third quantity called <em>Kullback Leibler (KL) divergence</em>. It is mostly this latter quantity that will be of primary use in the following chapters, since it provides a generalized notion of “distance” between probability distributions. Finally, we end the chapter with the third section where we define and discuss the <em>mutual information</em> shared between two random variables, which may be conceptualized as a generalized correlation measure that vanishes exactly when the variables are independent. This discussion is framed in the context of “flows” of “information” or “influence,” foreshadowing the probabilistic models that we will study in depth in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>.</p>
 <section id="shannon-information-and-entropy">
-<h2><span class="section-number">10.1. </span>Shannon information and entropy<a class="headerlink" href="#shannon-information-and-entropy" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">10.1. </span>Shannon information and entropy<a class="headerlink" href="#shannon-information-and-entropy" title="Link to this heading">#</a></h2>
 <p>The whole story begins with a very simple definition:</p>
 <div class="proof definition admonition" id="info-content-def">
 <p class="admonition-title"><span class="caption-number">Definition 10.1 </span></p>
@@ -417,7 +425,7 @@ I_P(s) \def - \log(p(s)).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c98c144159cd4ba4b291ed7e87057420c7923edbe1848f8767c9494041b1d812.svg" src="../_images/c98c144159cd4ba4b291ed7e87057420c7923edbe1848f8767c9494041b1d812.svg" /></figure>
+<img alt="../_images/282da9078b1066bd1edbe59deada21b294af1f69689316d4140d7ebd39373b2a.svg" src="../_images/282da9078b1066bd1edbe59deada21b294af1f69689316d4140d7ebd39373b2a.svg" /></figure>
 </div>
 </div>
 <p>If some outcome is highly likely to occur (large <span class="math notranslate nohighlight">\(p(s)\)</span>), then it is not surprising (small <span class="math notranslate nohighlight">\(I(s)\)</span>). In the other direction, if an outcome <span class="math notranslate nohighlight">\(s\)</span> is highly unlikely to occur (small <span class="math notranslate nohighlight">\(p(s)\)</span>), then it is very surprising (large <span class="math notranslate nohighlight">\(I(s)\)</span>).</p>
@@ -473,7 +481,7 @@ H(P) \def \sum_{s\in S} p(s)I_P(s).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/47332c2aeb1eeb14b3049c22eee9c5258b37c308b1775d92b0507eac43a0e3e3.svg" src="../_images/47332c2aeb1eeb14b3049c22eee9c5258b37c308b1775d92b0507eac43a0e3e3.svg" /></figure>
+<img alt="../_images/938d986051abdf7d0ab54c0ed15457889340abe01f9a8d72ed607b2aa124ca4d.svg" src="../_images/938d986051abdf7d0ab54c0ed15457889340abe01f9a8d72ed607b2aa124ca4d.svg" /></figure>
 </div>
 </div>
 <p>The fact that these two types of distributions yield the extreme values of entropy helps explain the alternate name <em>uncertainty</em>. Indeed, imagine drawing a random sample from one of these two distributions—which one has the most uncertain outcome? Which one is most certain?</p>
@@ -525,7 +533,7 @@ H_P(Q) \def E_{s\sim p(s)}\left[ I_Q(s) \right] =  - \sum_{s\in S} p(s)\log(q(s)
 </div>
 </section>
 <section id="kullback-leibler-divergence">
-<span id="kl-div-sec"></span><h2><span class="section-number">10.2. </span>Kullback Leibler divergence<a class="headerlink" href="#kullback-leibler-divergence" title="Permalink to this heading">#</a></h2>
+<span id="kl-div-sec"></span><h2><span class="section-number">10.2. </span>Kullback Leibler divergence<a class="headerlink" href="#kullback-leibler-divergence" title="Link to this heading">#</a></h2>
 <p>Our aim in this section is to devise some sort of method for comparing the “distance” between two probability measures. The technique that we discover will have tight connections with the entropies studied in the previous section, but the first part of this section is largely independent of the previous. The link with entropy will come later.</p>
 <p>The types of measures <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> that we shall work with are ones defined on a finite probability space <span class="math notranslate nohighlight">\(S\)</span>, so that they have mass functions <span class="math notranslate nohighlight">\(p(s)\)</span> and <span class="math notranslate nohighlight">\(q(s)\)</span>. (But see the comment immediately below <a class="reference internal" href="#KL-def">Definition 10.4</a>.) The basic measure that we use to compare them is the mean logarithmic relative magnitude.</p>
 <aside class="margin sidebar">
@@ -583,18 +591,18 @@ p(s) = \binom{10}{s} (0.4)^s(0.6)^{10-s} \quad \text{and} \quad q(s) = \binom{10
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0235312f41d7263b49b10c2bffa9b00845718b635131dcc892c959db5aaafe60.svg" src="../_images/0235312f41d7263b49b10c2bffa9b00845718b635131dcc892c959db5aaafe60.svg" /></figure>
+<img alt="../_images/16ba97060c948e83eddead87974211b12e75e14373d49b6506ebb7a86191853f.svg" src="../_images/16ba97060c948e83eddead87974211b12e75e14373d49b6506ebb7a86191853f.svg" /></figure>
 </div>
 </div>
 <p>The second row in the figure drives home the point: The absolute relative magnitudes are on such widely different scales that the plot is nearly useless and numerical computations in a machine will likely be unstable.</p>
 <p>We obtain a single-number summary of the logarithmic relative magnitudes by averaging with weights drawn from the mass function <span class="math notranslate nohighlight">\(p(s)\)</span>; this yields the number</p>
 <div class="math notranslate nohighlight" id="equation-first-kl-eq">
-<span class="eqno">(10.1)<a class="headerlink" href="#equation-first-kl-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(10.1)<a class="headerlink" href="#equation-first-kl-eq" title="Link to this equation">#</a></span>\[
 \sum_{s\in S} p(s) \log_{10}\left( \frac{p(s)}{q(s)} \right).
 \]</div>
 <p>Observe that we could have drawn the averaging weights instead from the mass function <span class="math notranslate nohighlight">\(q(s)\)</span> to obtain the single-number summary</p>
 <div class="math notranslate nohighlight" id="equation-second-kl-eq">
-<span class="eqno">(10.2)<a class="headerlink" href="#equation-second-kl-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(10.2)<a class="headerlink" href="#equation-second-kl-eq" title="Link to this equation">#</a></span>\[
 \sum_{s\in S} q(s) \log_{10}\left( \frac{p(s)}{q(s)} \right).
 \]</div>
 <p>But notice that</p>
@@ -662,7 +670,7 @@ D(P\parallel Q) = H_P(Q) - H(P).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/94a3c3878b4af179fa098586d55ff8bf058f0e841295fc9095a5167fd572a745.svg" src="../_images/94a3c3878b4af179fa098586d55ff8bf058f0e841295fc9095a5167fd572a745.svg" /></figure>
+<img alt="../_images/53b1f5e884992db577782dec1c8defd92abe006c17e96ed5343f956452e57005.svg" src="../_images/53b1f5e884992db577782dec1c8defd92abe006c17e96ed5343f956452e57005.svg" /></figure>
 </div>
 </div>
 <p>Note that all <span class="math notranslate nohighlight">\(x\)</span>-values between the endpoints <span class="math notranslate nohighlight">\(x=a\)</span> and <span class="math notranslate nohighlight">\(x=b\)</span> are of the form</p>
@@ -682,7 +690,7 @@ y = (1-t)h(a) + th(b).
 \]</div>
 <p>Thus, concavity of the function means that the inequality</p>
 <div class="math notranslate nohighlight" id="equation-convex-secant-eq">
-<span class="eqno">(10.3)<a class="headerlink" href="#equation-convex-secant-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(10.3)<a class="headerlink" href="#equation-convex-secant-eq" title="Link to this equation">#</a></span>\[
 (1-t)h(a) + th(b) \leq h\big((1-t) a + tb\big)
 \]</div>
 <p>holds for all <span class="math notranslate nohighlight">\(t\in [0,1]\)</span>. Note that since <span class="math notranslate nohighlight">\(h\)</span> is <em>strictly concave</em> (i.e., not linear), equality holds in <a class="reference internal" href="#equation-convex-secant-eq">(10.3)</a> if and only if <span class="math notranslate nohighlight">\(a=b\)</span>.</p>
@@ -723,7 +731,7 @@ S' = \left\{ \frac{q(s_1)}{p(s_1)}, \frac{q(s_2)}{p(s_2)}, \ldots, \frac{q(s_n)}
 <p>noting that none of the numbers in this set is <span class="math notranslate nohighlight">\(0\)</span> since <span class="math notranslate nohighlight">\(S_p \subset S_q\)</span>. We may view <span class="math notranslate nohighlight">\(S'\)</span> as a new sample space with <span class="math notranslate nohighlight">\(s'_k = q(s_k)/p(s_k)\)</span> for each <span class="math notranslate nohighlight">\(k=1,\ldots,n\)</span>, equipped with a probability mass function <span class="math notranslate nohighlight">\(p(s')\)</span> given by <span class="math notranslate nohighlight">\(p(s'_k) = p(s_k)\)</span> for all <span class="math notranslate nohighlight">\(k\)</span>.</p>
 <p>Since <span class="math notranslate nohighlight">\(h(x) = \log{x}\)</span> is strictly concave, from Jensen’s inequality (<a class="reference internal" href="#jensen-thm">Theorem 10.2</a>) we have</p>
 <div class="math notranslate nohighlight" id="equation-gibbs-target-eq">
-<span class="eqno">(10.4)<a class="headerlink" href="#equation-gibbs-target-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(10.4)<a class="headerlink" href="#equation-gibbs-target-eq" title="Link to this equation">#</a></span>\[
 E_{s' \sim p(s')}\big( h(s') \big) \leq h \big( E_{s' \sim p(s')}(s') \big),
 \]</div>
 <p>with equality if and only if <span class="math notranslate nohighlight">\(S'\)</span> has cardinality <span class="math notranslate nohighlight">\(1\)</span>. However, the left-hand side is</p>
@@ -733,7 +741,7 @@ E_{s' \sim p(s')}\big( h(s') \big) = \sum_{k=1}^n p(s'_k)\log{s'_k} = - \sum_{k=
 \]</div>
 <p>while the right-hand side of <a class="reference internal" href="#equation-gibbs-target-eq">(10.4)</a> is</p>
 <div class="math notranslate nohighlight" id="equation-gibbs-target-2-eq">
-<span class="eqno">(10.5)<a class="headerlink" href="#equation-gibbs-target-2-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(10.5)<a class="headerlink" href="#equation-gibbs-target-2-eq" title="Link to this equation">#</a></span>\[
 h \big( E_{s' \sim p(s')}(s') \big) = \log \left( \sum_{k=1}^n p(s_k')s_k' \right) = \log \left( \sum_{k=1}^n q(s_k)\right) \leq 0. 
 \]</div>
 <p>Thus, <span class="math notranslate nohighlight">\(D(P \parallel Q) \geq 0\)</span>.</p>
@@ -777,7 +785,7 @@ H(P) = - \sum_{s\in S} p(s) \log(p(s))
 </div>
 </section>
 <section id="flow-of-information">
-<span id="cond-entropy-mutual-info-sec"></span><h2><span class="section-number">10.3. </span>Flow of information<a class="headerlink" href="#flow-of-information" title="Permalink to this heading">#</a></h2>
+<span id="cond-entropy-mutual-info-sec"></span><h2><span class="section-number">10.3. </span>Flow of information<a class="headerlink" href="#flow-of-information" title="Link to this heading">#</a></h2>
 <p>In this section, we use the information-theoretic measures developed in the previous sections to quantify the amount of “information” shared between two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, or the amount of “influence” that they exert on each other. (As in the rest of this chapter, we shall restrict ourselves to random variables with finite ranges.) But to say that the random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> share information must mean that there is some sort of “communication channel” between them—how might we model such a channel?</p>
 <p>As we mentioned at the beginning of <a class="reference internal" href="08-more-prob.html#covar-correl-sec"><span class="std std-numref">Section 8.5</span></a>, perhaps the cleanest way to transmit information from <span class="math notranslate nohighlight">\(X\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> is via a <em>deterministic link</em> between observed values. This would take the form of a function</p>
 <div class="math notranslate nohighlight">
@@ -787,7 +795,7 @@ g: \bbr \to \bbr, \quad x \mapsto g(x),
 <p>such that <span class="math notranslate nohighlight">\(Y=g(X)\)</span>. Then, an observation <span class="math notranslate nohighlight">\(x\)</span> (of <span class="math notranslate nohighlight">\(X\)</span>) <em>uniquely</em> determines an observation <span class="math notranslate nohighlight">\(y = g(x)\)</span> (of <span class="math notranslate nohighlight">\(Y\)</span>). While these types of deterministic functional dependencies have their place in the theory (see <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>, for instance), they are not the sort of communication channels of primary interest in information theory. Indeed, Shannon’s main goal in the foundational paper <span id="id11">[<a class="reference internal" href="bib.html#id23" title="C. E. Shannon. A mathematical theory of communication. The Bell System Technical Journal, 27(3):379–423, 1948.">Sha48</a>]</span> was to quantify the transfer of information through imperfect “noisy” channels that introduce errors.</p>
 <p>So, even though it is too much to ask that an observation <span class="math notranslate nohighlight">\(x\)</span> <em>uniquely</em> determines an observation <span class="math notranslate nohighlight">\(y\)</span>, we still want to keep the general idea that <span class="math notranslate nohighlight">\(x\)</span> is the information carrier that is transmitted through the channel toward <span class="math notranslate nohighlight">\(Y\)</span>. But when <span class="math notranslate nohighlight">\(x\)</span> arrives at <span class="math notranslate nohighlight">\(Y\)</span>, it carries uncertainty with it, introduced by the “noise” in the channel. Uncertainty is modeled mathematically using probabilities, so what we are after is a notion of <em>communcation channel</em> that sends <span class="math notranslate nohighlight">\(x\)</span> to a probability distribution on the <span class="math notranslate nohighlight">\(y\)</span>’s. But this is <em>exactly</em> what conditional distributions are meant to model, and so we are led to replace the deterministic link <span class="math notranslate nohighlight">\(x \mapsto g(x)\)</span> from above with the mapping</p>
 <div class="math notranslate nohighlight" id="equation-markov-kern-eq">
-<span class="eqno">(10.6)<a class="headerlink" href="#equation-markov-kern-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(10.6)<a class="headerlink" href="#equation-markov-kern-eq" title="Link to this equation">#</a></span>\[
 x \mapsto p(y | x)
 \]</div>
 <p>that sends <span class="math notranslate nohighlight">\(x\)</span> to the associated conditional distribution on the <span class="math notranslate nohighlight">\(y\)</span>’s. In contrast to the deterministic link, this might be called a <em>stochastic link</em>. It is a strange mapping, as its domain is a Euclidean space, but its codomain is a <em>set of probability measures</em>! It is an example of something called a general <a class="reference external" href="https://en.wikipedia.org/wiki/Markov_kernel">Markov kernel</a>. The contrast between the two types of links is depicted in:</p>
@@ -805,7 +813,7 @@ x \mapsto p(y | x)
 \]</div>
 <p>since <span class="math notranslate nohighlight">\(p(y|x)\)</span> is a probability mass function in the variable <span class="math notranslate nohighlight">\(y\)</span> with <span class="math notranslate nohighlight">\(x\)</span> held fixed. If we also represent the mass functions <span class="math notranslate nohighlight">\(p(x)\)</span> and <span class="math notranslate nohighlight">\(p(y)\)</span> as vectors</p>
 <div class="math notranslate nohighlight" id="equation-prob-vectors-eq">
-<span class="eqno">(10.7)<a class="headerlink" href="#equation-prob-vectors-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(10.7)<a class="headerlink" href="#equation-prob-vectors-eq" title="Link to this equation">#</a></span>\[
 \bpi(X)^\intercal = \begin{bmatrix} p(x_1) &amp; \cdots &amp; p(x_m) \end{bmatrix} \quad \text{and} \quad \bpi(Y)^\intercal = \begin{bmatrix} p(y_1) &amp; \cdots &amp; p(y_n) \end{bmatrix}
 \]</div>
 <p>then by the Law of Total Probability we have</p>
@@ -843,12 +851,12 @@ x \mapsto p(y | x)
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables with finite ranges</p>
 <div class="math notranslate nohighlight" id="equation-ranges-eq">
-<span class="eqno">(10.8)<a class="headerlink" href="#equation-ranges-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(10.8)<a class="headerlink" href="#equation-ranges-eq" title="Link to this equation">#</a></span>\[
 \{x_1,\ldots,x_m\} \quad \text{and} \quad \{y_1,\ldots,y_n\}.
 \]</div>
 <p>Then the matrix</p>
 <div class="math notranslate nohighlight" id="equation-trans-matrix-var-eq">
-<span class="eqno">(10.9)<a class="headerlink" href="#equation-trans-matrix-var-eq" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(10.9)<a class="headerlink" href="#equation-trans-matrix-var-eq" title="Link to this equation">#</a></span>\[\begin{split}
 \bK = [p(y_j|x_i)] = \begin{bmatrix}
 p(y_1|x_1) &amp; \cdots &amp; p(y_n|x_1) \\
 \vdots &amp; \ddots &amp; \vdots \\
@@ -958,7 +966,7 @@ p_{P_X \otimes P_Y}(x,y) \def p(x)p(y).
 </div>
 <p>Note that the mutual information <span class="math notranslate nohighlight">\(I(X,Y)\)</span> is always nonnegative, i.e.,</p>
 <div class="math notranslate nohighlight" id="equation-mutual-ineq-eq">
-<span class="eqno">(10.10)<a class="headerlink" href="#equation-mutual-ineq-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(10.10)<a class="headerlink" href="#equation-mutual-ineq-eq" title="Link to this equation">#</a></span>\[
 I(X,Y) \geq 0.
 \]</div>
 <p>This is because mutual information is a KL divergence, and Gibbs’ inequality therefore applies (see <a class="reference internal" href="#gibbs-thm">Theorem 10.3</a>). As a sanity check, let’s make sure that equality holds in <a class="reference internal" href="#equation-mutual-ineq-eq">(10.10)</a> when (and only when) the communication channel carries no “information”:</p>
@@ -1080,7 +1088,7 @@ Z = \left\{\begin{array}{cl}
 <section class="theorem-content" id="proof-content">
 <p>Suppose <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span>, and <span class="math notranslate nohighlight">\(Z\)</span> are three random variables with finite ranges, and suppose that <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> are conditionally independent given <span class="math notranslate nohighlight">\(Y\)</span>. Then</p>
 <div class="math notranslate nohighlight" id="equation-data-processing-eq">
-<span class="eqno">(10.11)<a class="headerlink" href="#equation-data-processing-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(10.11)<a class="headerlink" href="#equation-data-processing-eq" title="Link to this equation">#</a></span>\[
 I(X,Z) \leq I(X,Y),
 \]</div>
 <p>with equality if and only if <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent given <span class="math notranslate nohighlight">\(Z\)</span>.</p>
@@ -1154,6 +1162,7 @@ I(X,Z) \leq I(X,Y),
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
@@ -1187,7 +1196,7 @@ By John Myers
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1211,8 +1220,8 @@ By John Myers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

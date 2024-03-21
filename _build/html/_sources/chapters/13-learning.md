@@ -270,12 +270,12 @@ import torch
 import torch.nn.functional as F
 import torch.nn as nn
 from math import sqrt
-from math_stats_ml.gd import GD, SGD, plot_sgd, plot_gd
+from math_stats_ml.gd import SGD, plot_gd
+import warnings
 import matplotlib_inline.backend_inline
 import matplotlib.colors as clr
 plt.style.use('../aux-files/custom_style_light.mplstyle')
 matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
-import warnings
 warnings.filterwarnings('ignore', category=UserWarning)
 blue = '#486AFB'
 magenta = '#FD46FC'
@@ -286,14 +286,14 @@ m = 128
 X = torch.bernoulli(torch.tensor([0.65] * m))
 
 # define model surprisal function
-def I_model(theta, x):
-    return -x * torch.log(theta) - (1 - x) * torch.log(1 - theta)
+def I_model(theta, X):
+    return -X * torch.log(theta) - (1 - X) * torch.log(1 - theta)
 
 def J(theta):
     return (-X * np.log(theta) - (1 - X) * np.log(1 - theta)).mean()
 
 # initialize parameters
-theta0 = torch.tensor([0.05])
+parameters = torch.tensor([0.05])
 
 # define SGD parameters
 alpha = 0.01
@@ -301,11 +301,11 @@ k = 8
 N = 10
 
 # run SGD
-sgd_output = SGD(L=I_model, init_parameters=theta0, X=X, lr=alpha, batch_size=k, num_epochs=N)
+gd_output = SGD(L=I_model, init_parameters=parameters, X=X, lr=alpha, batch_size=k, num_epochs=N)
 
-epoch_step_nums = sgd_output.epoch_step_nums
-objectives = sgd_output.per_step_objectives[epoch_step_nums]
-running_parameters = sgd_output.parameters['theta']
+epoch_step_nums = gd_output.epoch_step_nums
+objectives = gd_output.per_step_objectives[epoch_step_nums]
+running_parameters = gd_output.parameters['theta']
 running_parameters = running_parameters[epoch_step_nums]
 grid = np.linspace(start=0.01, stop=0.99, num=200)
 y = np.apply_along_axis(J, axis=1, arr=grid.reshape(-1, 1))
@@ -318,7 +318,7 @@ axes[0].scatter(running_parameters, objectives, color=magenta, s=45, zorder=3)
 axes[0].set_xlabel('$\\theta$')
 axes[0].set_ylabel('cross entropy')
 
-axes[1].plot(range(len(sgd_output.per_step_objectives)), sgd_output.per_step_objectives, color=magenta, alpha=0.45)
+axes[1].plot(range(len(gd_output.per_step_objectives)), gd_output.per_step_objectives, color=magenta, alpha=0.45)
 axes[1].scatter(epoch_step_nums, objectives, s=50, color=magenta, zorder=3)
 axes[1].set_xlabel('gradient steps')
 
@@ -353,7 +353,7 @@ where $B$ is a mini-batch of data of size $k=8$. (This was discussed right after
 One should also further distinguish between the cases that the PGM contains hidden (or latent) variables, or whether all variables are visible. We shall only focus on the latter case (so-called _fully-observed models_) since the training process for models with hidden variables requires a different set of algorithms. (For example, the [expectation maximation algorithm](https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm).)
 ```
 
-Maximum likelihood estimation works for all the probabilistic graphical models that we studied in {numref}`Chapter %s <prob-models>`, though there are some variations between the different models. First, we must distinguish between training a model as a _generative model_ versus a _discriminative model_. Along with every PGM comes the joint distribution over _all_ random variables, and for a generative model, the learning process trains the model with the goal to learn the parameters of the _entire_ joint distribution, while for a discriminative model, the learning process aims at learning the parameters of only a conditional distribution. Of the types of models explicitly studied in {numref}`Chapter %s <prob-models>`---linear regression models, logistic regression models, and neural networks---all three are trained as discriminative models, aiming to learn the parameters of the conditional distributions of the response variable $Y$ given the predictor vector $\bX$. On the other hand, both the univariate Bernoulli model in the previous section and the Naive Bayes model---studied in the [programming assignment](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_12.ipynb) for {numref}`Chapter %s <prob-models>`---are trained as generative models.
+Maximum likelihood estimation works for all the probabilistic graphical models that we studied in {numref}`Chapter %s <prob-models>`, though there are some variations between the different models. First, we must distinguish between training a model as a _generative model_ versus a _discriminative model_. Along with every PGM comes the joint distribution over _all_ random variables, and for a generative model, the learning process trains the model with the goal to learn the parameters of the _entire_ joint distribution, while for a discriminative model, the learning process aims at learning the parameters of only a conditional distribution. Of the types of models explicitly studied in {numref}`Chapter %s <prob-models>`---linear regression models, logistic regression models, and neural networks---all three are trained as discriminative models, aiming to learn the parameters of the conditional distributions of the response variable $Y$ given the predictor vector $\bX$. On the other hand, both the univariate Bernoulli model in the previous section and the Naive Bayes model---studied in the [programming assignment](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_12.ipynb) for {numref}`Chapter %s <prob-models>`, as well as the [worksheet]() for the current chapter---are trained as generative models.
 
 We begin our discussion with the case of generative models, since it is essentially just a recapitulation of our discussion of the univariate Bernoulli model in the previous section. If such a model consists of $n$ random variables, say $X_1,X_2,\ldots,X_n$, then we will write them as an $n$-dimensional random vector
 
@@ -402,6 +402,11 @@ Sometimes, if mentioning the specific observation $\bx$ or the observed dataset 
 $$
 \calL_\text{model}(\btheta), \quad \calI_\text{model}(\btheta), \quad \calL_\text{data}(\btheta), \quad \calI_\text{data}(\btheta).
 $$
+
+```{admonition} Problem Prompt
+
+Do problem 1 on the worksheet.
+```
 
 Since observed datasets are assumed to be observations of IID random samples, we have:
 
@@ -859,20 +864,20 @@ as the objective function:
 :       align: center
 
 # define link function at Y
-def mu_link(parameters, x):
+def mu_link(parameters, X):
     beta0 = parameters['beta0']
     beta = parameters['beta']
-    return beta0 + beta * x
+    return beta0 + beta * X
 
-# define squared error loss function
-def SE(parameters, x, y):
-    mu = mu_link(parameters, x)
+# define the squared error loss function
+def SE(parameters, X, y):
+    mu = mu_link(parameters, X)
     return (y - mu) ** 2
 
 # initialize parameters
 beta0 = torch.tensor([-10.])
 beta = torch.tensor([3.])
-theta0 = {'beta0': beta0, 'beta': beta}
+parameters = {'beta0': beta0, 'beta': beta}
 
 # define SGD parameters
 alpha = 0.1
@@ -880,10 +885,10 @@ N = 5
 k = 256
 
 # run SGD
-sgd_output = SGD(L=SE, init_parameters=theta0, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
+gd_output = SGD(L=SE, init_parameters=parameters, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
 
 # plot SGD output
-plot_sgd(sgd_output,
+plot_gd(gd_output,
          log=True,
          ylabel='log MSE',
          plot_title_string='SGD for linear regression',
@@ -904,17 +909,17 @@ Notice that we plotted the logarithm of the MSE---we chose to do this because we
 :       align: center
 
 grid = np.linspace(-2, 8, num=200)
-epoch_list = [0, 5, len(sgd_output.per_step_objectives) - 1]
+epoch_list = [0, 5, len(gd_output.per_step_objectives) - 1]
 
 _, axes = plt.subplots(ncols=2, nrows=len(epoch_list), figsize=(10, 9))
 
 for i, epoch in enumerate(epoch_list):
-    parameters = {name: parameter[epoch] for name, parameter in sgd_output.parameters.items()}
+    parameters = {name: parameter[epoch] for name, parameter in gd_output.parameters.items()}
 
     # plot the objective function
-    axes[i, 0].plot(sgd_output.grad_steps, np.log(sgd_output.per_step_objectives), alpha=0.25, label='log MSE per step')
-    axes[i, 0].scatter(epoch_list[i], np.log(sgd_output.per_step_objectives[epoch]), color=blue, s=50, zorder=3, label='current step')
-    axes[i, 0].plot(sgd_output.epoch_step_nums, np.log(sgd_output.per_epoch_objectives), label='log mean MSE per epoch')
+    axes[i, 0].plot(gd_output.grad_steps, np.log(gd_output.per_step_objectives), alpha=0.25, label='log MSE per step')
+    axes[i, 0].scatter(epoch_list[i], np.log(gd_output.per_step_objectives[epoch]), color=blue, s=50, zorder=3, label='current step')
+    axes[i, 0].plot(gd_output.epoch_step_nums, np.log(gd_output.per_epoch_objectives), label='log mean MSE per epoch')
     axes[i, 0].set_xlabel('gradient steps')
     axes[i, 0].set_ylabel('log MSE')
     axes[i, 0].legend()
@@ -1092,35 +1097,39 @@ Let's train a logistic regression model on this dataset using the gradient desce
 :       align: center
 
 # define link function at Y
-def phi_link(parameters, x):
+def phi_link(parameters, X):
     beta0 = parameters['beta0']
     beta = parameters['beta']
-    return torch.sigmoid(beta0 + x @ beta)
+    return torch.sigmoid(beta0 + X @ beta)
 
 # define the model surprisal function
-def I_model(parameters):
+def I_model(parameters, X, y):
     phi = phi_link(parameters, X)
     return -y * torch.log(phi) - (1 - y) * torch.log(1 - phi)
-
-# define the data surprisal function
-def I_data(parameters):
-    return torch.sum(I_model(parameters))
 
 # initialize parameters
 torch.manual_seed(42)
 beta0 = torch.normal(mean=0, std=1e-1, size=(1,))
 beta = torch.normal(mean=0, std=1e-1, size=(2,))
-theta0 = {'beta0': beta0, 'beta': beta}
+parameters = {'beta0': beta0, 'beta': beta}
 
-# define GD parameters
-N = 50
-alpha = 1e-3
+# define SGD parameters
+N = 30
+k = 128
+alpha = 1e-1
 
-# run GD
-gd_output = GD(J=I_data, init_parameters=theta0, lr=alpha, num_steps=N)
+# run SGD
+gd_output = SGD(L=I_model, X=X, y=y, init_parameters=parameters, lr=alpha, num_epochs=N, batch_size=k)
 
-# plot GD
-plot_gd(gd_output, plot_title_string='GD for logistic regression', ylabel='surprisal', h=3)
+# plot SGD
+plot_gd(gd_output,
+         h=3,
+         w=6,
+         plot_title_string='SGD for logistic regression model',
+         ylabel='cross entropy',
+         legend=True,
+         per_step_label='cross entropy per step',
+         per_epoch_label='mean cross entropy per epoch')
 ```
 
 Notice that the curve in this plot is beginning to "plateau," indicating the algorithm is beginning to converge on the MLE. Since the feature space is $2$-dimensional, as we discussed in {numref}`log-reg-sec`, we may check the fit of the model by plotting the decision boundary of the predictor function
@@ -1157,7 +1166,7 @@ desat_blue = '#7F93FF'
 desat_magenta = '#FF7CFE'
 binary_cmap = clr.LinearSegmentedColormap.from_list(name='binary', colors=[desat_blue, desat_magenta], N=2)
 
-epoch_list = [0, 3, N]
+epoch_list = [0, 30, len(gd_output.per_step_objectives) - 1]
 running_parameters = gd_output.parameters
 
 _, axes = plt.subplots(ncols=2, nrows=len(epoch_list), figsize=(10, 9))
@@ -1166,10 +1175,11 @@ for i, epoch in enumerate(epoch_list):
     parameters = {key: value[epoch] for key, value in running_parameters.items()}
     
     # plot the objective function
-    axes[i, 0].plot(gd_output.grad_steps, gd_output.per_step_objectives, label='surprisal per step')
-    axes[i, 0].set_xlabel('gradient steps')
-    axes[i, 0].set_ylabel('surprisal')
+    axes[i, 0].plot(gd_output.grad_steps, gd_output.per_step_objectives, alpha=0.25, label='cross entropy per step')
     axes[i, 0].scatter(epoch_list[i], gd_output.per_step_objectives[epoch], color=blue, s=50, zorder=3, label='current step')
+    axes[i, 0].plot(gd_output.epoch_step_nums, gd_output.per_epoch_objectives, label='mean cross entropy per epoch')
+    axes[i, 0].set_xlabel('gradient steps')
+    axes[i, 0].set_ylabel('cross entropy')
     axes[i, 0].legend()
 
     # apply the fitted model to the grid
@@ -1190,7 +1200,7 @@ for i, epoch in enumerate(epoch_list):
     for t, l in zip(g.legend_.texts, new_labels):
         t.set_text(l)
     
-plt.suptitle(f'gradient descent for logistic regression\n$\\alpha=${alpha}, $\\beta=$0, $N=${N}')
+plt.suptitle(f'stochastic gradient descent for logistic regression\n$\\alpha=${alpha}, $\\beta=$0, $N=${N}')
 plt.tight_layout()
 ```
 
@@ -1268,10 +1278,10 @@ plt.tight_layout()
 :       align: center
 
 # define link function at Y
-def phi_link(parameters, x):
+def phi_link(parameters, X):
 
     # initialize the z-value with x
-    z = x
+    z = X
 
     # loop through hidden layers
     for h in range(1, 4):
@@ -1286,8 +1296,8 @@ def phi_link(parameters, x):
     return phi
 
 # define the model surprisal function
-def I_model(parameters, x, y):
-    phi = phi_link(parameters, x)
+def I_model(parameters, X, y):
+    phi = phi_link(parameters, X)
     return -y * torch.log(phi) - (1 - y) * torch.log(1 - phi)
 
 # define the network architecture
@@ -1298,14 +1308,14 @@ widths = [2, p1, p2, p3, 1]
 
 # initialize parameters
 torch.manual_seed(42)
-theta0 = {}
+parameters = {}
 for i in range(1, 5):
     weight = torch.empty(widths[i-1], widths[i])
     bias = torch.empty(widths[i])
     nn.init.uniform_(weight, a=-1/sqrt(widths[i-1]), b=1/sqrt(widths[i-1]))
     nn.init.uniform_(bias, a=-1/sqrt(widths[i-1]), b=1/sqrt(widths[i-1]))
-    theta0 = theta0 | {'weight_' + str(i): weight.squeeze()}
-    theta0 = theta0 | {'bias_' + str(i): bias}
+    parameters = parameters | {'weight_' + str(i): weight.squeeze()}
+    parameters = parameters | {'bias_' + str(i): bias}
 
 # define SGD parameters
 N = 80
@@ -1313,15 +1323,14 @@ k = 128
 alpha = 0.1
 
 # run SGD
-sgd_output = SGD(L=I_model, init_parameters=theta0, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
+gd_output = SGD(L=I_model, init_parameters=parameters, X=X, y=y, lr=alpha, batch_size=k, num_epochs=N, random_state=42)
 
 # plot SGD
-plot_sgd(sgd_output,
+plot_gd(gd_output,
          h=3,
          w=6,
-         s=0,
          plot_title_string='SGD for neural network model',
-         ylabel='(conditional) cross entropy',
+         ylabel='cross entropy',
          legend=True,
          per_step_label='cross entropy per step',
          per_epoch_label='mean cross entropy per epoch')
@@ -1347,8 +1356,8 @@ x2_grid = torch.linspace(-1.5, 1.5, resolution)
 x1_grid, x2_grid = torch.meshgrid(x1_grid, x2_grid)
 grid = torch.column_stack((x1_grid.reshape((resolution ** 2, -1)), x2_grid.reshape((resolution ** 2, -1))))
 
-epoch_list = [0, 750, len(sgd_output.per_step_objectives) - 1]
-running_parameters = sgd_output.parameters
+epoch_list = [0, 750, len(gd_output.per_step_objectives) - 1]
+running_parameters = gd_output.parameters
 
 _, axes = plt.subplots(ncols=2, nrows=len(epoch_list), figsize=(10, 9))
 
@@ -1356,9 +1365,9 @@ for i, epoch in enumerate(epoch_list):
     parameters = {key: value[epoch] for key, value in running_parameters.items()}
     
     # plot the objective function
-    axes[i, 0].plot(sgd_output.grad_steps, sgd_output.per_step_objectives, alpha=0.25, label='cross entropy per step')
-    axes[i, 0].scatter(epoch_list[i], sgd_output.per_step_objectives[epoch], color=blue, s=50, zorder=3, label='current step')
-    axes[i, 0].plot(sgd_output.epoch_step_nums, sgd_output.per_epoch_objectives, label='mean cross entropy per epoch')
+    axes[i, 0].plot(gd_output.grad_steps, gd_output.per_step_objectives, alpha=0.25, label='cross entropy per step')
+    axes[i, 0].scatter(epoch_list[i], gd_output.per_step_objectives[epoch], color=blue, s=50, zorder=3, label='current step')
+    axes[i, 0].plot(gd_output.epoch_step_nums, gd_output.per_epoch_objectives, label='mean cross entropy per epoch')
     axes[i, 0].set_xlabel('gradient steps')
     axes[i, 0].set_ylabel('cross entropy')
     axes[i, 0].legend()

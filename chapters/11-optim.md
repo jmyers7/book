@@ -57,7 +57,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib_inline.backend_inline
-from math_stats_ml.gd import GD, SGD, plot_gd, plot_sgd
+from math_stats_ml.gd import GD, SGD, plot_gd
 plt.style.use('../aux-files/custom_style_light.mplstyle')
 matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
 blue = '#486AFB'
@@ -366,7 +366,7 @@ we would plot the following:
 :       align: center
 
 gd_output = GD(J=J, init_parameters=torch.tensor([-0.5]), lr=1e-2, num_steps=15, decay_rate=0.1)
-plot_gd(gd_output, h=3, plot_title=False, parameter_title=False, ylabel='objective')
+plot_gd(gd_output, h=3, plot_title=False, parameter_title=False, ylabel='objective', per_step_alpha=1)
 plt.tight_layout()
 ```
 
@@ -425,11 +425,11 @@ for i, (function, axis) in enumerate(zip(functions, axes)):
     axis.plot(grid, function(grid))
     axis.scatter(0, 4, s=50, color=magenta, zorder=3)
     if i == 0:
-        axis.text(0, 3, "$J '(0) = 0$, $J''(0)>0$", ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
-        axis.set_title('convex $\Rightarrow$ minimizer')
+        axis.text(0, 3, "$J '(0) = 0$, $J ''(0)>0$", ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
+        axis.set_title("convex $\\Rightarrow$ minimizer")
     else:
         axis.text(0, 5, "$J '(0) = 0$, $J ''(0)<0$", ha='center', va='center', bbox=dict(facecolor='white', edgecolor=None))
-        axis.set_title('concave $\Rightarrow$ maximizer')
+        axis.set_title("concave $\\Rightarrow$ maximizer")
 
 plt.tight_layout()
 ```
@@ -1094,7 +1094,7 @@ for i, axis in enumerate(axes.flatten()):
                    num_steps=N,
                    decay_rate=beta,
                    **gd_parameters_slice)
-    plot_gd(gd_output=gd_output, ylabel='objective', ax=axis, plot_title=False)
+    plot_gd(gd_output=gd_output, ylabel='objective', ax=axis, plot_title=False, per_step_alpha=1)
 fig.suptitle('first runs of gradient descent')
 plt.tight_layout()
 ```
@@ -1420,7 +1420,7 @@ for i, axis in enumerate(axes.flatten()):
                    num_steps=N,
                    decay_rate=beta,
                    **gd_parameters_slice)
-    plot_gd(gd_output=gd_output, ylabel='objective', ax=axis, plot_title=False)
+    plot_gd(gd_output=gd_output, ylabel='objective', ax=axis, plot_title=False, per_step_alpha=1)
 fig.suptitle('third runs of gradient descent with learning rate decay')
 plt.tight_layout()
 ```
@@ -1535,7 +1535,7 @@ fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(7, 3), sharey=True)
 for i, axis in enumerate(axes):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
     gd_output = GD(**gd_parameters_slice, J=J, decay_rate=beta, init_parameters=theta0)
-    plot_gd(gd_output=gd_output, ylabel='objective', ax=axis, plot_title=False)
+    plot_gd(gd_output=gd_output, ylabel='objective', ax=axis, plot_title=False, per_step_alpha=1)
 fig.suptitle('batch gradient descent')
 plt.tight_layout()
 ```
@@ -1676,7 +1676,7 @@ fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
 
 for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
-    sgd_output = SGD(**gd_parameters_slice,
+    gd_output = SGD(**gd_parameters_slice,
                     L=L,
                     X=X,
                     init_parameters=theta0,
@@ -1684,7 +1684,7 @@ for i, axis in enumerate(axes.flatten()):
                     decay_rate=beta,
                     num_epochs=N,
                     random_state=42)
-    plot_sgd(sgd_output, plot_title=False, ax=axis, show_epoch=False, per_step_alpha=1, legend=False, ylabel='objective')
+    plot_gd(gd_output, plot_title=False, ax=axis, show_epoch=False, per_step_alpha=1, legend=False, ylabel='objective')
 fig.suptitle(f'stochastic gradient descent with $k=1$')
 plt.tight_layout()
 ```
@@ -1701,7 +1701,7 @@ fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
 
 for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
-    sgd_output = SGD(**gd_parameters_slice,
+    gd_output = SGD(**gd_parameters_slice,
                     L=L,
                     X=X,
                     init_parameters=theta0,
@@ -1712,7 +1712,7 @@ for i, axis in enumerate(axes.flatten()):
     
     alpha = gd_parameters_slice['lr']
     max_steps = gd_parameters_slice['max_steps']
-    thetas = sgd_output.parameters['theta']
+    thetas = gd_output.parameters['theta']
     
     axis.contour(x, y, z, levels=np.arange(0, 10, 0.5), colors=blue, alpha=0.5)
     axis.plot(thetas[:, 0], thetas[:, 1], color=magenta)
@@ -1745,7 +1745,7 @@ fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
 
 for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
-    sgd_output = SGD(**gd_parameters_slice,
+    gd_output = SGD(**gd_parameters_slice,
                     L=L,
                     X=X,
                     lr=alpha,
@@ -1756,9 +1756,9 @@ for i, axis in enumerate(axes.flatten()):
     k = gd_parameters_slice['batch_size']
     N = gd_parameters_slice['num_epochs']
     
-    plot_sgd(sgd_output, plot_title=False, ax=axis, show_epoch=False, per_step_alpha=1, legend=False, ylabel='objective', per_step_label='objective per step')
-    #axis.plot(range(len(sgd_output.per_step_objectives)), sgd_output.per_step_objectives)
-    axis.scatter(sgd_output.epoch_step_nums, sgd_output.per_step_objectives[sgd_output.epoch_step_nums], color=magenta, s=50, zorder=2, label='epoch')
+    plot_gd(gd_output, plot_title=False, ax=axis, show_epoch=False, per_step_alpha=1, legend=False, ylabel='objective', per_step_label='objective per step')
+    #axis.plot(range(len(gd_output.per_step_objectives)), gd_output.per_step_objectives)
+    axis.scatter(gd_output.epoch_step_nums, gd_output.per_step_objectives[gd_output.epoch_step_nums], color=magenta, s=50, zorder=2, label='epoch')
     axis.set_xlabel('gradient steps')
     axis.set_ylabel('objective')
     axis.set_title(f'$k={k}$, $\\alpha={alpha}$, $\\beta={beta}$, $N={N}$')
@@ -1779,7 +1779,7 @@ fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
 
 for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
-    sgd_output = SGD(**gd_parameters_slice,
+    gd_output = SGD(**gd_parameters_slice,
                     L=L,
                     X=X,
                     lr=alpha,
@@ -1790,7 +1790,7 @@ for i, axis in enumerate(axes.flatten()):
     k = gd_parameters_slice['batch_size']
     max_steps = gd_parameters_slice['max_steps']
     N = gd_parameters_slice['num_epochs']
-    thetas = sgd_output.parameters['theta']
+    thetas = gd_output.parameters['theta']
     
     axis.contour(x, y, z, levels=np.arange(0, 10, 0.5), colors=blue, alpha=0.5)
     axis.plot(thetas[:, 0], thetas[:, 1], color=magenta)
@@ -1822,7 +1822,7 @@ fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(9, 6), sharey=True)
 
 for i, axis in enumerate(axes.flatten()):
     gd_parameters_slice = {key: value[i] for key, value in gd_parameters.items()}
-    sgd_output = SGD(**gd_parameters_slice,
+    gd_output = SGD(**gd_parameters_slice,
                     L=L,
                     X=X,
                     lr=alpha,
@@ -1830,11 +1830,11 @@ for i, axis in enumerate(axes.flatten()):
                     num_epochs=N,
                     decay_rate=beta,
                     random_state=42)
-    plot_sgd(sgd_output,
+    plot_gd(gd_output,
              plot_title=False,
              ax=axis,
              per_step_alpha=0.25,
-             s=50,
+             legend=True,
              ylabel='objective',
              per_epoch_color=magenta,
              per_step_label='objective per step',
