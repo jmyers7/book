@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>8. More probability theory &#8212; Mathematical Statistics with a View Toward Machine Learning</title>
   
@@ -19,50 +18,46 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/08-more-prob';</script>
@@ -79,10 +74,9 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -123,11 +117,14 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -161,7 +158,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -369,16 +377,16 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="more-probability-theory">
-<h1><span class="section-number">8. </span>More probability theory<a class="headerlink" href="#more-probability-theory" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">8. </span>More probability theory<a class="headerlink" href="#more-probability-theory" title="Link to this heading">#</a></h1>
 <p>Introduction to be written later… Beware that this is a first draft of the chapter. To do:</p>
 <ol class="arabic simple">
 <li><p>Rewrite section on moment generating functions.</p></li>
 </ol>
 <section id="expectations-and-joint-distributions">
-<h2><span class="section-number">8.1. </span>Expectations and joint distributions<a class="headerlink" href="#expectations-and-joint-distributions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">8.1. </span>Expectations and joint distributions<a class="headerlink" href="#expectations-and-joint-distributions" title="Link to this heading">#</a></h2>
 <p>To motivate the considerations in this section, suppose that we have two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> defined on a probability space <span class="math notranslate nohighlight">\(S\)</span> and a real-valued function <span class="math notranslate nohighlight">\(g:\bbr^2 \to \bbr\)</span>. We may then “transform” the random variables to obtain the random variable</p>
 <div class="math notranslate nohighlight">
 \[
@@ -424,12 +432,12 @@ E(g(X,Y)) = \int_{\bbr} z f_{g(X,Y)}(z) \ \text{d}z.
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be two random variables and let <span class="math notranslate nohighlight">\(c\in \mathbb{R}\)</span> be a constant. Then:</p>
 <div class="math notranslate nohighlight" id="equation-target-eqn">
-<span class="eqno">(8.1)<a class="headerlink" href="#equation-target-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.1)<a class="headerlink" href="#equation-target-eqn" title="Link to this equation">#</a></span>\[
 E(X+Y) = E(X) + E(Y),
 \]</div>
 <p>and</p>
 <div class="math notranslate nohighlight" id="equation-scalar-eqn">
-<span class="eqno">(8.2)<a class="headerlink" href="#equation-scalar-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.2)<a class="headerlink" href="#equation-scalar-eqn" title="Link to this equation">#</a></span>\[
 E(cX) = c E(X).
 \]</div>
 </section>
@@ -450,7 +458,7 @@ E(X+Y) &amp;= \iint_{\mathbb{R}^2} (x+y) f(x,y) \ \text{d}x \text{d}y \\
 </div>
 </section>
 <section id="expectations-and-conditional-distributions">
-<span id="cond-expect"></span><h2><span class="section-number">8.2. </span>Expectations and conditional distributions<a class="headerlink" href="#expectations-and-conditional-distributions" title="Permalink to this heading">#</a></h2>
+<span id="cond-expect"></span><h2><span class="section-number">8.2. </span>Expectations and conditional distributions<a class="headerlink" href="#expectations-and-conditional-distributions" title="Link to this heading">#</a></h2>
 <p>In the previous section, we learned how to use joint distributions in computations of expectations. In this section, we define <em>new</em> types of expectations using conditional distributions.</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
@@ -503,12 +511,12 @@ E(Y \mid X) : S \xrightarrow{X} \bbr \xrightarrow{h} \bbr
 </div>
 <p>Now, since <span class="math notranslate nohighlight">\(Z = E(Y\mid X)\)</span> is a random variable, it has an expected value. Provided that it is continuous (for example) with density function <span class="math notranslate nohighlight">\(f_{E(Y\mid X)}(z)\)</span>, we would compute its expectation (by definition!) as the integral</p>
 <div class="math notranslate nohighlight" id="equation-ah-eqn">
-<span class="eqno">(8.3)<a class="headerlink" href="#equation-ah-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.3)<a class="headerlink" href="#equation-ah-eqn" title="Link to this equation">#</a></span>\[
 E\big[ E(Y \mid X) \big] = \int_\bbr z f_{E(Y\mid X)}(z) \ \text{d} z.
 \]</div>
 <p>However, this formula is of little practical value, since we would need to compute the density <span class="math notranslate nohighlight">\(f_{E(Y\mid X)}(z)\)</span> which can be quite difficult. So, we wonder: Is there an alternate way to compute this expectation? In fact there is! The key is to <em>not</em> compute the expectation according to the definition <a class="reference internal" href="#equation-ah-eqn">(8.3)</a>, but rather to use the LotUS:</p>
 <div class="math notranslate nohighlight" id="equation-cond-lotus-eq">
-<span class="eqno">(8.4)<a class="headerlink" href="#equation-cond-lotus-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.4)<a class="headerlink" href="#equation-cond-lotus-eq" title="Link to this equation">#</a></span>\[
 E\big[ E(Y \mid X) \big] = \int_\bbr E(Y \mid X=x) f(x) \ \text{d}x.
 \]</div>
 <p>However, if you push through the computations beginning with <a class="reference internal" href="#equation-cond-lotus-eq">(8.4)</a>, you will find that the “iterated” expectation reduces to the expectation of <span class="math notranslate nohighlight">\(Y\)</span>. This is the content of:</p>
@@ -544,7 +552,7 @@ E\big[ E(Y \mid X) \big] &amp;= \int_{\bbr} E(Y \mid X=x) f(x) \ \text{d}x \\
 </div>
 </section>
 <section id="density-transformations">
-<span id="fun-rvs"></span><h2><span class="section-number">8.3. </span>Density transformations<a class="headerlink" href="#density-transformations" title="Permalink to this heading">#</a></h2>
+<span id="fun-rvs"></span><h2><span class="section-number">8.3. </span>Density transformations<a class="headerlink" href="#density-transformations" title="Link to this heading">#</a></h2>
 <p>It is very often the case that one needs to compute the density of a transformed continuous random variable. Actually, we saw such a situation already in <a class="reference internal" href="05-examples-of-rvs.html#affine-gaussian-thm">Theorem 5.7</a> where we computed the distribution of an affine transformation of a normal random variable. We proved that theorem by explicitly computing the density of the transformed random variable. The main result in this section gives us a direct formula:</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
@@ -555,7 +563,7 @@ E\big[ E(Y \mid X) \big] &amp;= \int_{\bbr} E(Y \mid X=x) f(x) \ \text{d}x \\
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a continuous random variable and let <span class="math notranslate nohighlight">\(T\)</span> be the support of the density <span class="math notranslate nohighlight">\(f_X(x)\)</span>. Let <span class="math notranslate nohighlight">\(r:T\to \bbr\)</span> be a function and set <span class="math notranslate nohighlight">\(Y=r(X)\)</span>. Suppose that the range <span class="math notranslate nohighlight">\(U\)</span> of <span class="math notranslate nohighlight">\(r\)</span> is open in <span class="math notranslate nohighlight">\(\bbr\)</span>, and that there exists a continuously differentiable function <span class="math notranslate nohighlight">\(s:U \to \bbr\)</span> such that</p>
 <div class="math notranslate nohighlight" id="equation-inv-s-eq">
-<span class="eqno">(8.5)<a class="headerlink" href="#equation-inv-s-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.5)<a class="headerlink" href="#equation-inv-s-eq" title="Link to this equation">#</a></span>\[
 s(r(x)) = x
 \]</div>
 <p>for all <span class="math notranslate nohighlight">\(x\in T\)</span>. Then the random variable <span class="math notranslate nohighlight">\(Y\)</span> is continuous, and we have</p>
@@ -666,7 +674,7 @@ P(\bY\in V) = \int_{V\cap U} f_\bX(\bs(\by))\left| \det\left( \nabla \bs (\by)\r
 </div>
 </section>
 <section id="moment-generating-functions">
-<span id="mgf"></span><h2><span class="section-number">8.4. </span>Moment generating functions<a class="headerlink" href="#moment-generating-functions" title="Permalink to this heading">#</a></h2>
+<span id="mgf"></span><h2><span class="section-number">8.4. </span>Moment generating functions<a class="headerlink" href="#moment-generating-functions" title="Link to this heading">#</a></h2>
 <p>We begin with:</p>
 <div class="proof definition admonition" id="moments-def">
 <p class="admonition-title"><span class="caption-number">Definition 8.3 </span></p>
@@ -680,7 +688,7 @@ P(\bY\in V) = \int_{V\cap U} f_\bX(\bs(\by))\left| \det\left( \nabla \bs (\by)\r
 </div><p>Take care to notice that I am not claiming that <em>all</em> of these moments exist for <em>all</em> random variables. Notice also that the first moment of <span class="math notranslate nohighlight">\(X\)</span> is precisely its expectation, while its second central moment is its variance. The “higher moments” are more difficult to interpret. The situation with them is analogous to the “higher derivatives” of a function <span class="math notranslate nohighlight">\(y=f(x)\)</span>. I have good intuition for what the first two derivatives <span class="math notranslate nohighlight">\(f'(x)\)</span> and <span class="math notranslate nohighlight">\(f''(x)\)</span> measure, but I have much less intuition for what the thirty-first derivative <span class="math notranslate nohighlight">\(f^{(31)}(x)\)</span> measures!</p>
 <p>Actually, this analogy with derivatives can be carried further, so let’s leave the world of probability theory for a moment and return to calculus. Indeed, as you well know if a function <span class="math notranslate nohighlight">\(y=f(x)\)</span> has derivatives of all orders at <span class="math notranslate nohighlight">\(x=0\)</span>, then we can form its Taylor series centered at <span class="math notranslate nohighlight">\(x=0\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-taylor-eqn">
-<span class="eqno">(8.6)<a class="headerlink" href="#equation-taylor-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.6)<a class="headerlink" href="#equation-taylor-eqn" title="Link to this equation">#</a></span>\[
 f(0) + f'(0) x + \frac{f''(0)}{2!}x^2 + \cdots = \sum_{k=0}^\infty \frac{f^{(k)}(0)}{k!}x^k.
 \]</div>
 <p>You also learned that this series may, or may <em>not</em>, converge to the original function <span class="math notranslate nohighlight">\(y=f(x)\)</span> on an open interval about <span class="math notranslate nohighlight">\(x=0\)</span>. For example, the Taylor series of <span class="math notranslate nohighlight">\(y=e^x\)</span> actually converges to <span class="math notranslate nohighlight">\(y=e^x\)</span> <em>everywhere</em>:</p>
@@ -812,7 +820,7 @@ E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
 </div>
 </section>
 <section id="dependent-random-variables-covariance-and-correlation">
-<span id="covar-correl-sec"></span><h2><span class="section-number">8.5. </span>Dependent random variables, covariance, and correlation<a class="headerlink" href="#dependent-random-variables-covariance-and-correlation" title="Permalink to this heading">#</a></h2>
+<span id="covar-correl-sec"></span><h2><span class="section-number">8.5. </span>Dependent random variables, covariance, and correlation<a class="headerlink" href="#dependent-random-variables-covariance-and-correlation" title="Link to this heading">#</a></h2>
 <p>In this section, we begin our study of <em>dependent</em> random variables, which are just random variables that are not independent. This study will continue through <a class="reference internal" href="10-info-theory.html#cond-entropy-mutual-info-sec"><span class="std std-numref">Section 10.3</span></a> in the next chapter, and then culminate in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a> where we learn how to use “networks” of dependent random variables to model real-world data.</p>
 <p>While the definition of dependence of random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> is simply that they are <em>not independent</em>, it is helpful to conceptualize dependence as a flow of “information” or “influence” between them. If they are independent, then this flow vanishes and there is no transfer of “information”:</p>
 <a class="reference internal image-reference" href="../_images/dep-flow.svg"><img alt="../_images/dep-flow.svg" class="align-center" src="../_images/dep-flow.svg" width="75%" /></a>
@@ -826,7 +834,7 @@ E(X^k) = \psi^{(k)}_X(0) = \psi_Y^{(k)}(0) = E(Y^k)
 </div><div class="proof admonition" id="proof">
 <p>Proof. In order to prove this, we need to make the (mild) assumption that there is an event <span class="math notranslate nohighlight">\(B\subset \mathbb{R}\)</span> with</p>
 <div class="math notranslate nohighlight" id="equation-middle-eqn">
-<span class="eqno">(8.7)<a class="headerlink" href="#equation-middle-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.7)<a class="headerlink" href="#equation-middle-eqn" title="Link to this equation">#</a></span>\[
 0&lt;P(Y\in B)&lt;1.
 \]</div>
 <p>(This doesn’t <em>always</em> have to be true. For example, what happens if <span class="math notranslate nohighlight">\(g\)</span> is constant?) In this case, we set <span class="math notranslate nohighlight">\(A = g^{-1}(B)^c\)</span> and observe that</p>
@@ -903,7 +911,7 @@ g(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/46db5ccc883a956eb77bb6d4e6ba3182fe8272e2aba32ecda4e6552a88c9779f.svg" src="../_images/46db5ccc883a956eb77bb6d4e6ba3182fe8272e2aba32ecda4e6552a88c9779f.svg" /></figure>
+<img alt="../_images/50a1a7afcb19b78232c5a1b5427e9f9cdd5efd79bf8313aa8f81c2f4930142c0.svg" src="../_images/50a1a7afcb19b78232c5a1b5427e9f9cdd5efd79bf8313aa8f81c2f4930142c0.svg" /></figure>
 </div>
 </div>
 <p>The plot looks exactly like we would expect: A bunch of points lying on the graph of the function <span class="math notranslate nohighlight">\(y=g(x)\)</span>. However, very often with real-world data, an <em>exact</em> dependence <span class="math notranslate nohighlight">\(Y = g(X)\)</span> does not truly hold. Instead, the functional relationship is “noisy”, resulting in scatter plots that look like this:</p>
@@ -935,7 +943,7 @@ g(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ee3c95041fe97b33b11cd8b34279c0025f6be0e2867104f55bea96fd62fbdb31.svg" src="../_images/ee3c95041fe97b33b11cd8b34279c0025f6be0e2867104f55bea96fd62fbdb31.svg" /></figure>
+<img alt="../_images/aad131a91a06e0ddd917c8ecb0adb91e6a49305032539302d8b619ce7c8c2360.svg" src="../_images/aad131a91a06e0ddd917c8ecb0adb91e6a49305032539302d8b619ce7c8c2360.svg" /></figure>
 </div>
 </div>
 <p>The “noisy” functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function <span class="math notranslate nohighlight">\(y=g(x)\)</span> for reference. Instead of lying directly on the graph of <span class="math notranslate nohighlight">\(y=g(x)\)</span>, the data is clustered along the graph.</p>
@@ -969,7 +977,7 @@ g(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/556ea769b0c17b3156a604efcd2db276e568522aafd8f700d125052ace666fb9.svg" src="../_images/556ea769b0c17b3156a604efcd2db276e568522aafd8f700d125052ace666fb9.svg" /></figure>
+<img alt="../_images/3f34addb26ba1a90e33d02fe894959d314caa38a39c4072742c149128e12d0bf.svg" src="../_images/3f34addb26ba1a90e33d02fe894959d314caa38a39c4072742c149128e12d0bf.svg" /></figure>
 </div>
 </div>
 <p>Our goal in this section is to uncover ways to <em>quantify</em> or <em>measure</em> the strength of these types of “noisy” linear dependencies between random variables. We will discover that there are two such measures, called <em>covariance</em> and <em>correlation</em>. An alternate measure of more general dependence, called <em>mutual information</em>, will be studied in the next chapter in <a class="reference internal" href="10-info-theory.html#cond-entropy-mutual-info-sec"><span class="std std-numref">Section 10.3</span></a>.</p>
@@ -1031,7 +1039,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/5fc3bfd2fd4a5572891d462d366d080dcdd0f09affdaa061365050607dedf1a3.svg" src="../_images/5fc3bfd2fd4a5572891d462d366d080dcdd0f09affdaa061365050607dedf1a3.svg" /></figure>
+<img alt="../_images/1ba553685e248c5dde1da297b39148076611058991559e173a31d2901e2723d5.svg" src="../_images/1ba553685e248c5dde1da297b39148076611058991559e173a31d2901e2723d5.svg" /></figure>
 </div>
 </div>
 <p>You can see that the dataset has not changed its shape—it has only shifted so that its mean (represented by the magenta dot) is at the origin <span class="math notranslate nohighlight">\((0,0)\)</span>.</p>
@@ -1093,7 +1101,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 <li><p><em>Symmetry</em>. If <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are random variables, then <span class="math notranslate nohighlight">\(\sigma_{XY} = \sigma_{YX}\)</span>.</p></li>
 <li><p><em>Bilinearity</em>. Let <span class="math notranslate nohighlight">\(X_1,\ldots,X_m\)</span> and <span class="math notranslate nohighlight">\(Y_1,\ldots,Y_n\)</span> be sequences of random variables, and <span class="math notranslate nohighlight">\(a_1,\ldots,a_m\)</span> and <span class="math notranslate nohighlight">\(b_1,\ldots,b_n\)</span> sequences of real numbers. Then:</p>
 <div class="math notranslate nohighlight" id="equation-bilinear-eqn">
-<span class="eqno">(8.8)<a class="headerlink" href="#equation-bilinear-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.8)<a class="headerlink" href="#equation-bilinear-eqn" title="Link to this equation">#</a></span>\[
     \sigma\Big( \sum_{i=1}^m a_i X_i, \sum_{j=1}^n b_j Y_j\Big) = \sum_{i=1}^m \sum_{j=1}^n a_i b_j \sigma(X_i,Y_j).
     \]</div>
 </li>
@@ -1159,7 +1167,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/264f537a0187460b10a1672ae892ebd7565263532e606b612f26fbc74896ffbd.svg" src="../_images/264f537a0187460b10a1672ae892ebd7565263532e606b612f26fbc74896ffbd.svg" /></figure>
+<img alt="../_images/ce162207406b09c58190d76202e4c4abcb9709cd24549564f6433f2a9deabd61.svg" src="../_images/ce162207406b09c58190d76202e4c4abcb9709cd24549564f6433f2a9deabd61.svg" /></figure>
 </div>
 </div>
 <p>The only difference between the two datasets is the axis scales, but the linear relationship between the <span class="math notranslate nohighlight">\(x\)</span>’s and <span class="math notranslate nohighlight">\(y\)</span>’s remains the same. In fact, the scales on the axes differ by a factor of <span class="math notranslate nohighlight">\(10\)</span>, so by <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>, we have</p>
@@ -1320,12 +1328,12 @@ f(x,y) = \begin{cases}
 <p>where <span class="math notranslate nohighlight">\(\bar{\lambda}\)</span> denotes the complex conjugate of <span class="math notranslate nohighlight">\(\lambda\)</span>. Note that we used symmetry of <span class="math notranslate nohighlight">\(\bA\)</span> in the third equality. Since <span class="math notranslate nohighlight">\(\bv\)</span> is not zero, we may divide out the squared norm on the far ends of the sequence of equalities to obtain <span class="math notranslate nohighlight">\(\lambda = \bar{\lambda}\)</span>. But this shows <span class="math notranslate nohighlight">\(\lambda\)</span> is real.</p>
 <p>Now, since <span class="math notranslate nohighlight">\(\bA\)</span> is symmetric, by the <a class="reference external" href="https://en.wikipedia.org/wiki/Spectral_theorem">Spectral Theorem</a> (see also Theorem 5.8 in Chapter 7 of <span id="id9">[<a class="reference internal" href="bib.html#id12" title="M. Artin. Algebra. Prentice Hall, 1991.">Art91</a>]</span>) there exists an orthogonal matrix <span class="math notranslate nohighlight">\(\bQ\)</span> and a diagonal matrix <span class="math notranslate nohighlight">\(\bD\)</span> such that</p>
 <div class="math notranslate nohighlight" id="equation-diag-eq">
-<span class="eqno">(8.9)<a class="headerlink" href="#equation-diag-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.9)<a class="headerlink" href="#equation-diag-eq" title="Link to this equation">#</a></span>\[
 \bA = \bQ \bD \bQ^\intercal.
 \]</div>
 <p>The columns of <span class="math notranslate nohighlight">\(\bQ\)</span> are necessarily eigenvectors <span class="math notranslate nohighlight">\(\bv_1,\ldots,\bv_d\)</span> of <span class="math notranslate nohighlight">\(\bA\)</span> while the main diagonal entries of <span class="math notranslate nohighlight">\(\bD\)</span> are the eigenvalues <span class="math notranslate nohighlight">\(\lambda_1,\ldots,\lambda_d\)</span>, with <span class="math notranslate nohighlight">\(\bA \bv_i = \lambda_i \bv_i\)</span> for each <span class="math notranslate nohighlight">\(i\)</span>. If for each <span class="math notranslate nohighlight">\(i=1,\ldots,d\)</span> we write <span class="math notranslate nohighlight">\(\bE_i\)</span> for the diagonal matrix with a <span class="math notranslate nohighlight">\(1\)</span> in the <span class="math notranslate nohighlight">\((i,i)\)</span>-th position and zeros elsewhere, then <a class="reference internal" href="#equation-diag-eq">(8.9)</a> may be rewritten as</p>
 <div class="math notranslate nohighlight" id="equation-spectral-decomp-eq">
-<span class="eqno">(8.10)<a class="headerlink" href="#equation-spectral-decomp-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.10)<a class="headerlink" href="#equation-spectral-decomp-eq" title="Link to this equation">#</a></span>\[
 \bA = \lambda_1 \bP_1 + \cdots + \lambda_d \bP_d
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\bP_i = \bQ \bE_i \bQ^\intercal\)</span>. This is the so-called <em>spectral decomposition</em> of <span class="math notranslate nohighlight">\(\bA\)</span> into a linear combination of rank-<span class="math notranslate nohighlight">\(1\)</span> projection matrices. Note that <span class="math notranslate nohighlight">\(\bP_i\bP_j = \boldsymbol{0}\)</span> if <span class="math notranslate nohighlight">\(i\neq j\)</span>, <span class="math notranslate nohighlight">\(\bP_i^2 = \bP_i\)</span> for each <span class="math notranslate nohighlight">\(i\)</span>, and <span class="math notranslate nohighlight">\(\bP_iv_i = v_i\)</span> for each <span class="math notranslate nohighlight">\(i\)</span>.</p>
@@ -1358,7 +1366,7 @@ f(x,y) = \begin{cases}
 </div>
 </section>
 <section id="multivariate-normal-distributions">
-<span id="multivar-norm-sec"></span><h2><span class="section-number">8.6. </span>Multivariate normal distributions<a class="headerlink" href="#multivariate-normal-distributions" title="Permalink to this heading">#</a></h2>
+<span id="multivar-norm-sec"></span><h2><span class="section-number">8.6. </span>Multivariate normal distributions<a class="headerlink" href="#multivariate-normal-distributions" title="Link to this heading">#</a></h2>
 <p>The goal in this section is simple: Generalize the univariate normal distributions from <a class="reference internal" href="05-examples-of-rvs.html#norm-univariate-sec"><span class="std std-numref">Section 5.6</span></a> to higher dimensions. We needed to wait until the current chapter to do this because our generalization will require the machinery of covariance matrices that we developed at the end of the previous section. The ultimate effect will be that the familiar “bell curves” of univariate normal densities will turn into “bell (hyper)surfaces.” For example, in two dimensions, the density surface of a bivariate normal random vector might look something like this:</p>
 <a class="reference internal image-reference" href="../_images/multi-var-norm-01.png"><img alt="../_images/multi-var-norm-01.png" class="align-center" src="../_images/multi-var-norm-01.png" style="width: 80%;" /></a>
 <p> </p>
@@ -1394,7 +1402,7 @@ f(x,y) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/4ec2aac0ec5780f41608fbef92a3eb4b3c8cc760ea6f1b8595d6fe57999b4090.svg" src="../_images/4ec2aac0ec5780f41608fbef92a3eb4b3c8cc760ea6f1b8595d6fe57999b4090.svg" /></figure>
+<img alt="../_images/001800efe478a5e4c9dc74fe44028470a5da91bf8952c0c4ec9762ff2575defb.svg" src="../_images/001800efe478a5e4c9dc74fe44028470a5da91bf8952c0c4ec9762ff2575defb.svg" /></figure>
 </div>
 </div>
 <p>Notice that these contours are concentric ellipses centered at the point <span class="math notranslate nohighlight">\((1,1)\in \bbr^2\)</span> with principal axes parallel to the coordinate <span class="math notranslate nohighlight">\(x\)</span>- and <span class="math notranslate nohighlight">\(y\)</span>-axes. In higher dimensions, the isoprobability surfaces are so-called <em>ellipsoids</em>.</p>
@@ -1405,7 +1413,7 @@ f(x_1,\ldots,x_d) = \prod_{i=1}^d \frac{1}{\sqrt{2\pi \sigma_i^2}} \exp \left[ -
 \]</div>
 <p>or</p>
 <div class="math notranslate nohighlight" id="equation-init-multi-var-norm-eqn">
-<span class="eqno">(8.11)<a class="headerlink" href="#equation-init-multi-var-norm-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.11)<a class="headerlink" href="#equation-init-multi-var-norm-eqn" title="Link to this equation">#</a></span>\[
 f(x_1,\ldots,x_d) = \frac{1}{(2\pi)^{d/2} (\sigma_1^2\cdots \sigma_d^2)^{1/2}} \exp \left[- \frac{1}{2} \sum_{i=1}^d \frac{(x_i-\mu_i)^2}{\sigma_i^2} \right].
 \]</div>
 <p>As you may easily check by creating your own plots, this formula (in dimension <span class="math notranslate nohighlight">\(d=2\)</span>) produces “bell surfaces” like the one shown above whose contours are concentric ellipses centered at <span class="math notranslate nohighlight">\((\mu_1,\mu_2)\in \bbr^2\)</span> with their principal axes parallel with the coordinate axes. However, we shall also be interested in creating density surfaces whose isoprobability contours are rotated ellipses, like the following:</p>
@@ -1443,7 +1451,7 @@ f(x_1,\ldots,x_d) = \frac{1}{(2\pi)^{d/2} (\sigma_1^2\cdots \sigma_d^2)^{1/2}} \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/b1999b35da604d92b3c77ef05d1bf4069b56c520ad8e7fbfe7e23407318db5c2.svg" src="../_images/b1999b35da604d92b3c77ef05d1bf4069b56c520ad8e7fbfe7e23407318db5c2.svg" /></figure>
+<img alt="../_images/f4594adb65668b62d72391a7df7498dfc3d22245661d3a2d5ab1e76972de3171.svg" src="../_images/f4594adb65668b62d72391a7df7498dfc3d22245661d3a2d5ab1e76972de3171.svg" /></figure>
 </div>
 </div>
 <p>The key to uncovering the formula for the density in the general case begins by returning to the formula <a class="reference internal" href="#equation-init-multi-var-norm-eqn">(8.11)</a> and rewriting it using vector and matrix notation. Indeed, notice that if we set</p>
@@ -1467,7 +1475,7 @@ f(\bx) = \frac{1}{\det(2\pi\bSigma)^{1/2}} \exp \left[ -\frac{1}{2} (\bx - \bmu)
 \]</div>
 <p>if its probability density function is given by</p>
 <div class="math notranslate nohighlight" id="equation-multivar-norm-eqn">
-<span class="eqno">(8.12)<a class="headerlink" href="#equation-multivar-norm-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.12)<a class="headerlink" href="#equation-multivar-norm-eqn" title="Link to this equation">#</a></span>\[
 f(\bx;\bmu,\bSigma) = \frac{1}{\det(2\pi\bSigma)^{1/2}} \exp \left[ -\frac{1}{2} (\bx - \bmu)^\intercal \bSigma^{-1}(\bx - \bmu)\right]
 \]</div>
 <p>with support <span class="math notranslate nohighlight">\(\bbr^d\)</span>. The <em>standard (<span class="math notranslate nohighlight">\(d\)</span>-dimensional) multivariate normal distribution</em> corresponds to the case that <span class="math notranslate nohighlight">\(\bmu^\intercal = \boldsymbol{0}\)</span> and <span class="math notranslate nohighlight">\(\bSigma = \mathbf{I}\)</span>, where <span class="math notranslate nohighlight">\(\boldsymbol{0}\)</span> is the <span class="math notranslate nohighlight">\(d\)</span>-dimensional zero vector and <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> is the <span class="math notranslate nohighlight">\(d\times d\)</span> identity matrix.</p>
@@ -1475,7 +1483,7 @@ f(\bx;\bmu,\bSigma) = \frac{1}{\det(2\pi\bSigma)^{1/2}} \exp \left[ -\frac{1}{2}
 </div><p>Since <span class="math notranslate nohighlight">\(\bSigma\)</span> is positive definite and its determinant is the product of its eigenvalues, we must have <span class="math notranslate nohighlight">\(\det(2\pi\bSigma) = (2\pi)^d \det{\bSigma} &gt;0\)</span> by <a class="reference internal" href="#psd-char-thm">Theorem 8.19</a>. Thus, the square root <span class="math notranslate nohighlight">\(\det(2\pi\bSigma)^{1/2}\)</span> is real and positive, and the inverse <span class="math notranslate nohighlight">\(\bSigma^{-1}\)</span> exists.</p>
 <p>To help understand the shape of the density (hyper)surfaces created by <a class="reference internal" href="#equation-multivar-norm-eqn">(8.12)</a>, it helps to ignore the normalizing constant and write</p>
 <div class="math notranslate nohighlight" id="equation-prop-exp-density-eq">
-<span class="eqno">(8.13)<a class="headerlink" href="#equation-prop-exp-density-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.13)<a class="headerlink" href="#equation-prop-exp-density-eq" title="Link to this equation">#</a></span>\[
 f(\bx;\bmu,\bSigma) \propto \exp \left[ -\frac{1}{2} Q(\bx)\right],
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(Q(\bx)\)</span> is the (inhomogeneous) degree-<span class="math notranslate nohighlight">\(2\)</span> polynomial</p>
@@ -1491,22 +1499,22 @@ Q(\bx) = (\bx - \bmu)^\intercal \bSigma^{-1}(\bx - \bmu).
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(c\)</span> is a constant with <span class="math notranslate nohighlight">\(0 &lt; c \leq 1\)</span>. Or, equivalently, they are the sets of solutions to equations of the form</p>
 <div class="math notranslate nohighlight" id="equation-mahalanobis-sphere-eq">
-<span class="eqno">(8.14)<a class="headerlink" href="#equation-mahalanobis-sphere-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.14)<a class="headerlink" href="#equation-mahalanobis-sphere-eq" title="Link to this equation">#</a></span>\[
 Q(\bx) = c^2,
 \]</div>
 <p>where now <span class="math notranslate nohighlight">\(c\)</span> is any real constant. Suppose that we then define the scalar product</p>
 <div class="math notranslate nohighlight" id="equation-inner-prod-eqn">
-<span class="eqno">(8.15)<a class="headerlink" href="#equation-inner-prod-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.15)<a class="headerlink" href="#equation-inner-prod-eqn" title="Link to this equation">#</a></span>\[
 \left\langle \bx, \by \right\rangle_\bSigma = \bx^\intercal \bSigma^{-1}\by, \quad \bx,\by\in \bbr^d.
 \]</div>
 <p>Since <span class="math notranslate nohighlight">\(\bSigma^{-1}\)</span> is positive definite, this is in fact an <a class="reference external" href="https://en.wikipedia.org/wiki/Inner_product_space">inner product</a> on <span class="math notranslate nohighlight">\(\bbr^d\)</span>. The associated norm is given by</p>
 <div class="math notranslate nohighlight" id="equation-normed-eqn">
-<span class="eqno">(8.16)<a class="headerlink" href="#equation-normed-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.16)<a class="headerlink" href="#equation-normed-eqn" title="Link to this equation">#</a></span>\[
 ||\bx||^2_\bSigma = \bx^\intercal \bSigma^{-1} \bx,
 \]</div>
 <p>and hence the square root <span class="math notranslate nohighlight">\(\sqrt{Q(\bx)} = ||\bx - \bmu||_\bSigma\)</span> is the distance from <span class="math notranslate nohighlight">\(\bx\)</span> to <span class="math notranslate nohighlight">\(\bmu\)</span> in this normed space. This distance is called the <a class="reference external" href="https://en.wikipedia.org/wiki/Mahalanobis_distance"><em>Mahalanobis distance</em></a>, and it then follows that the isoprobability contours defined by <a class="reference internal" href="#equation-mahalanobis-sphere-eq">(8.14)</a> are exactly the “Mahalanobis spheres” of radius <span class="math notranslate nohighlight">\(c\)</span>. In the case that <span class="math notranslate nohighlight">\(d=2\)</span> and</p>
 <div class="math notranslate nohighlight" id="equation-multivar-norm-ex-eq">
-<span class="eqno">(8.17)<a class="headerlink" href="#equation-multivar-norm-ex-eq" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(8.17)<a class="headerlink" href="#equation-multivar-norm-ex-eq" title="Link to this equation">#</a></span>\[\begin{split}
 \bu = \begin{bmatrix} 1 \\ 1 \end{bmatrix}, \quad \bSigma = \begin{bmatrix}
 1 &amp; 1 \\ 1 &amp; 4
 \end{bmatrix},
@@ -1539,7 +1547,7 @@ Q(\bx) = c^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/64de5cf5b1ea13795e5d697cc3bdb50607c2e004978a7e0a1f0050050c07aca4.svg" src="../_images/64de5cf5b1ea13795e5d697cc3bdb50607c2e004978a7e0a1f0050050c07aca4.svg" /></figure>
+<img alt="../_images/f1920709c6712554aea0d9dad62063d2e068469fcdb001e678ef305a89740585.svg" src="../_images/f1920709c6712554aea0d9dad62063d2e068469fcdb001e678ef305a89740585.svg" /></figure>
 </div>
 </div>
 <p>Let’s collect our observations in the following theorem, along with a few additional facts:</p>
@@ -1550,7 +1558,7 @@ Q(\bx) = c^2,
 <ol class="arabic">
 <li><p>The isoprobability contours of the density function <span class="math notranslate nohighlight">\(f(\bx;\bmu,\bSigma)\)</span> are concentric ellipsoids centered at <span class="math notranslate nohighlight">\(\bmu\)</span> defined by equations</p>
 <div class="math notranslate nohighlight" id="equation-mahalanobis-sphere-02-eq">
-<span class="eqno">(8.18)<a class="headerlink" href="#equation-mahalanobis-sphere-02-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.18)<a class="headerlink" href="#equation-mahalanobis-sphere-02-eq" title="Link to this equation">#</a></span>\[
     Q(\bx) = c^2
     \]</div>
 <p>for fixed <span class="math notranslate nohighlight">\(c\in \bbr\)</span>.</p>
@@ -1605,7 +1613,7 @@ f_\bY(\by) &amp;= \frac{1}{\det(2\pi \bA\bSigma\bA^\intercal)^{1/2}} \exp \left[
 </div><div class="proof admonition" id="proof">
 <p>Proof. By <a class="reference internal" href="#standardize-multivar-cor">Corollary 8.1</a>, the random vector <span class="math notranslate nohighlight">\(\bZ = \bSigma^{-1/2}(\bX - \bmu)\)</span> is a <span class="math notranslate nohighlight">\(d\)</span>-dimensional standard normal vector. It is not difficult to show that the components of <span class="math notranslate nohighlight">\(\bZ\)</span> are all standard normal variables:</p>
 <div class="math notranslate nohighlight" id="equation-z-comp-norm-eq">
-<span class="eqno">(8.19)<a class="headerlink" href="#equation-z-comp-norm-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.19)<a class="headerlink" href="#equation-z-comp-norm-eq" title="Link to this equation">#</a></span>\[
 Z_1,\ldots,Z_d\sim \calN(0,1).
 \]</div>
 <p>But <span class="math notranslate nohighlight">\(\bX = \bSigma^{1/2} \bZ + \bmu\)</span>, and so</p>
@@ -1688,7 +1696,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/58be1475005171e8f1a7bce05cceba50223010765ad6502bbff7b6a12df9c0dc.svg" src="../_images/58be1475005171e8f1a7bce05cceba50223010765ad6502bbff7b6a12df9c0dc.svg" /></figure>
+<img alt="../_images/f8920f941ee71acb6daa33a97839d5cac184a638a39bc9ba9d7ca3bde9bc7c2c.svg" src="../_images/f8920f941ee71acb6daa33a97839d5cac184a638a39bc9ba9d7ca3bde9bc7c2c.svg" /></figure>
 </div>
 </div>
 <p>In the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">programming assignment</a> for this chapter, you will actually implement this procedure. For example, I used these methods to simulate <span class="math notranslate nohighlight">\(1{,}000\)</span> random draws from a bivariate normal distribution with positively correlated components and which is taller than it is wide. If I plot these simulated data over top of isoprobability contours, I get this:</p>
@@ -1725,7 +1733,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/6d9002d813da673db70aeb052ecdeea3abe2799bb59b06622bb3a8f7e89f7cba.svg" src="../_images/6d9002d813da673db70aeb052ecdeea3abe2799bb59b06622bb3a8f7e89f7cba.svg" /></figure>
+<img alt="../_images/eff345c94b7a51f85b5dbc12a3a78c7d9bb6c7870a78a8d46751a516edd2fc85.svg" src="../_images/eff345c94b7a51f85b5dbc12a3a78c7d9bb6c7870a78a8d46751a516edd2fc85.svg" /></figure>
 </div>
 </div>
 <p>Let’s finish off this long chapter with an example problem:</p>
@@ -1793,6 +1801,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
@@ -1829,7 +1838,7 @@ By John Myers
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1853,8 +1862,8 @@ By John Myers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

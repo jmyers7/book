@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>12. Probabilistic graphical models &#8212; Mathematical Statistics with a View Toward Machine Learning</title>
   
@@ -19,50 +18,46 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/12-models';</script>
@@ -79,10 +74,9 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -123,11 +117,14 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -161,7 +158,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -368,16 +376,16 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="probabilistic-graphical-models">
-<span id="prob-models"></span><h1><span class="section-number">12. </span>Probabilistic graphical models<a class="headerlink" href="#probabilistic-graphical-models" title="Permalink to this heading">#</a></h1>
+<span id="prob-models"></span><h1><span class="section-number">12. </span>Probabilistic graphical models<a class="headerlink" href="#probabilistic-graphical-models" title="Link to this heading">#</a></h1>
 <p>This is the third of the four-chapter sequence described in <a class="reference internal" href="09-halfway.html#halfway"><span class="std std-numref">Chapter 9</span></a> aimed at building and training <em>probabilistic graphical models</em> (<em>PGM</em>s) on datasets. This chapter is devoted toward the definition of general PGMs and building up a modest collection of examples.</p>
 <p>As the terminology indicates, each PGM is based on an underlying graph, consisting of directed edges (i.e., arrows) connecting a network of nodes. In our formulation, the nodes represent either random or deterministic vectors, and the edges represent flows of “information” or “influence.” Between two <em>random</em> vectors, such a directed flow is modeled as the <em>communication channel</em> (in the sense of <a class="reference internal" href="10-info-theory.html#comm-channel-def">Definition 10.6</a> and <a class="reference internal" href="10-info-theory.html#conditional-markov-kernel-thm">Theorem 10.4</a>) induced by the conditional probability distribution of the random vectors—but, as we know, this communication channel is reversible via Bayes’ theorem, and so the direction of the edge between the random vectors singles out one link over the other. This distinguished direction is often chosen because it represents a natural cause-and-effect relationship. This leads to a <em>causal</em> interpretation of the underlying graphs of PGMs, which we briefly describe in <a class="reference internal" href="#causal"><span class="std std-numref">Section 12.1</span></a>. Our description of such <em>causal structures</em> is extraordinarily brief, intended only for motivation. To learn more about the formal theory of causality, we direct the reader toward the introductions in Chapter 9 of <span id="id1">[<a class="reference internal" href="bib.html#id11" title="M. Hardt and B. Recht. Patterns, predictions, and actions. Foundations of machine learning. Princeton University Press, 2022.">HR22</a>]</span> and Chapter 36 of <span id="id2">[<a class="reference internal" href="bib.html#id9" title="K. P. Murphy. Probabilistic machine learning. Advanced topics. MIT Press, 2023.">Mur23</a>]</span>, and to <span id="id3">[<a class="reference internal" href="bib.html#id27" title="J. Pearl. Causality. Cambridge University Press, second edition, 2009.">Pea09</a>]</span> for a comprehensive treatment.</p>
 <p>The general definition of a PGM comes afterward in <a class="reference internal" href="#general-pgm-sec"><span class="std std-numref">Section 12.2</span></a>. Our definition slightly extends the one often found in the literature, as we allow deterministic variables in the graphical structure that do not carry probability distributions.</p>
 <p>The remaining three sections in the chapter study three special classes of PGMs, beginning with <em>linear regression models</em> in <a class="reference internal" href="#lin-reg-sec"><span class="std std-numref">Section 12.3</span></a>. These models are used in situations where we believe one feature in a dataset is (approximately) an affine function of some other subset of features. Then, in <a class="reference internal" href="#log-reg-sec"><span class="std std-numref">Section 12.4</span></a>, we turn toward <em>logistic regression models</em>, which are used in binary classification problems. Finally, in <a class="reference internal" href="#nn-sec"><span class="std std-numref">Section 12.5</span></a>, we get a brief glimpse into the fascinating world of <em>deep learning</em>, based on <em>neural network models</em>. We will study the most basic version of these models, so-called <em>fully-connected, feedforward neural networks</em> or <em>multilayer perceptrons</em>. Our treatment here is also extraordinarily brief—the interested reader is directed toward <span id="id4">[<a class="reference internal" href="bib.html#id10" title="I. Goodfellow, Y. Bengio, and A. Courville. Deep learning. MIT Press, 2016.">GBC16</a>]</span> for an authoritative treatment of deep learning and neural networks.</p>
 <section id="a-brief-look-at-causal-inference">
-<span id="causal"></span><h2><span class="section-number">12.1. </span>A brief look at causal inference<a class="headerlink" href="#a-brief-look-at-causal-inference" title="Permalink to this heading">#</a></h2>
+<span id="causal"></span><h2><span class="section-number">12.1. </span>A brief look at causal inference<a class="headerlink" href="#a-brief-look-at-causal-inference" title="Link to this heading">#</a></h2>
 <p>Suppose that we are given two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. As we explained in <a class="reference internal" href="10-info-theory.html#cond-entropy-mutual-info-sec"><span class="std std-numref">Section 10.3</span></a>, the two-way flow of “information” and “influence” between the random variables is conceptualized via the Markov kernels</p>
 <div class="math notranslate nohighlight">
 \[
@@ -429,7 +437,7 @@ x\mapsto p(y|x) \quad \text{and} \quad y \mapsto p(x|y)
 </div>
 </section>
 <section id="general-probabilistic-graphical-models">
-<span id="general-pgm-sec"></span><h2><span class="section-number">12.2. </span>General probabilistic graphical models<a class="headerlink" href="#general-probabilistic-graphical-models" title="Permalink to this heading">#</a></h2>
+<span id="general-pgm-sec"></span><h2><span class="section-number">12.2. </span>General probabilistic graphical models<a class="headerlink" href="#general-probabilistic-graphical-models" title="Link to this heading">#</a></h2>
 <p>By way of introduction, let’s begin with two deterministic vectors <span class="math notranslate nohighlight">\(\bx\in \bbr^n\)</span> and <span class="math notranslate nohighlight">\(\by \in \bbr^m\)</span>. As we discussed at the beginning of <a class="reference internal" href="10-info-theory.html#cond-entropy-mutual-info-sec"><span class="std std-numref">Section 10.3</span></a>, by saying that there is a <em>deterministic flow of information</em> from <span class="math notranslate nohighlight">\(\bx\)</span> to <span class="math notranslate nohighlight">\(\by\)</span>, we shall mean simply that there is a function</p>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
@@ -525,7 +533,7 @@ Y \mid \bX \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu \def \b
 </section>
 </div></section>
 <section id="linear-regression-models">
-<span id="lin-reg-sec"></span><h2><span class="section-number">12.3. </span>Linear regression models<a class="headerlink" href="#linear-regression-models" title="Permalink to this heading">#</a></h2>
+<span id="lin-reg-sec"></span><h2><span class="section-number">12.3. </span>Linear regression models<a class="headerlink" href="#linear-regression-models" title="Link to this heading">#</a></h2>
 <p>The type of PGM defined in this section is one of the simplest, but also one of the most important. Its goal is to model an observed dataset</p>
 <div class="math notranslate nohighlight">
 \[
@@ -533,7 +541,7 @@ Y \mid \bX \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu \def \b
 \]</div>
 <p>where we believe that</p>
 <div class="math notranslate nohighlight" id="equation-approx-linear-eqn">
-<span class="eqno">(12.1)<a class="headerlink" href="#equation-approx-linear-eqn" title="Permalink to this equation">#</a></span>\[y_i \approx \beta_0 + \bx_i^\intercal \bbeta\]</div>
+<span class="eqno">(12.1)<a class="headerlink" href="#equation-approx-linear-eqn" title="Link to this equation">#</a></span>\[y_i \approx \beta_0 + \bx_i^\intercal \bbeta\]</div>
 <p>for some parameters <span class="math notranslate nohighlight">\(\beta_0 \in \bbr\)</span> and <span class="math notranslate nohighlight">\(\bbeta \in \bbr^{n}\)</span>. For example, let’s consider the Ames housing dataset from the <a href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">third programming assignment</a> and <a class="reference internal" href="07-random-vectors.html#random-vectors"><span class="std std-numref">Chapter 7</span></a>; it consists of <span class="math notranslate nohighlight">\(m=2{,}930\)</span> bivariate observations</p>
 <div class="math notranslate nohighlight">
 \[
@@ -604,7 +612,7 @@ Y \mid \bX \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu \def \b
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a9302efb65c676ff43657134a60149b6f2a575695fe0d01c74497f6be7c3c80d.svg" src="../_images/a9302efb65c676ff43657134a60149b6f2a575695fe0d01c74497f6be7c3c80d.svg" /></figure>
+<img alt="../_images/67b6e7898d6410a7607d4cf820e9d7d95cc9bb94d17b2495905c5fb9037bbf36.svg" src="../_images/67b6e7898d6410a7607d4cf820e9d7d95cc9bb94d17b2495905c5fb9037bbf36.svg" /></figure>
 </div>
 </div>
 <p>The positively-sloped line is used to visualize the approximate linear relationship <a class="reference internal" href="#equation-approx-linear-eqn">(12.1)</a>. This is a so-called <em>least squares line</em> or <em>regression line</em>; we will learn how to compute them in <a class="reference internal" href="13-learning.html#learning"><span class="std std-numref">Chapter 13</span></a>.</p>
@@ -633,7 +641,7 @@ Y \mid \bX \sim \mathcal{N}\big(\mu,\sigma^2\big), \quad \text{where} \quad \mu 
 <section class="definition-content" id="proof-content">
 <p>For fixed <span class="math notranslate nohighlight">\(\bx\in \bbr^n\)</span> and <span class="math notranslate nohighlight">\(y\in \bbr\)</span>, the <em>model likelihood function</em> for a linear regression model is the function</p>
 <div class="math notranslate nohighlight" id="equation-model-likelihood-eq">
-<span class="eqno">(12.2)<a class="headerlink" href="#equation-model-likelihood-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(12.2)<a class="headerlink" href="#equation-model-likelihood-eq" title="Link to this equation">#</a></span>\[
 \calL(\beta_0, \bbeta, \sigma^2; \ y\mid \bx) \def f\big(y \mid \bx ; \ \beta_0, \bbeta, \sigma^2\big) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[- \frac{1}{2\sigma^2} ( y - \mu)^2 \right]
 \]</div>
 <p>of the parameters <span class="math notranslate nohighlight">\(\beta_0,\bbeta, \sigma^2\)</span>, where <span class="math notranslate nohighlight">\(\mu = \beta_0 + \bx^\intercal \bbeta\)</span>.</p>
@@ -749,7 +757,7 @@ E\big(Y \mid \bX = \bx \big) = \mu = \beta_0 + \bx^\intercal \bbeta,
 \]</div>
 <p>and so a linear regression model assumes (among other things) that the conditional mean of the response variable is linearly related to the regressors through the link function</p>
 <div class="math notranslate nohighlight" id="equation-lin-reg-line-eqn">
-<span class="eqno">(12.3)<a class="headerlink" href="#equation-lin-reg-line-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(12.3)<a class="headerlink" href="#equation-lin-reg-line-eqn" title="Link to this equation">#</a></span>\[
 \mu = \beta_0 + \bx^\intercal \bbeta.
 \]</div>
 <p>The parameter <span class="math notranslate nohighlight">\(\beta_0\)</span> is often called the <em>intercept</em> or <em>bias term</em>, while the other <span class="math notranslate nohighlight">\(\beta_j\)</span>’s (for <span class="math notranslate nohighlight">\(j&gt;0\)</span>) in the parameter vector</p>
@@ -774,7 +782,7 @@ R \def Y - \beta_0 - \bX^\intercal \bbeta
 \]</div>
 <p>in a linear regression model is called the <em>residual</em> or <em>error term</em>; note then that</p>
 <div class="math notranslate nohighlight" id="equation-random-lin-rel-eqn">
-<span class="eqno">(12.4)<a class="headerlink" href="#equation-random-lin-rel-eqn" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(12.4)<a class="headerlink" href="#equation-random-lin-rel-eqn" title="Link to this equation">#</a></span>\[
 Y = \beta_0 + \bX^\intercal \bbeta + R \quad \text{and} \quad R \mid \bX \sim \mathcal{N}(0, \sigma^2).
 \]</div>
 <p>This is the manifestation in terms of random vectors and variables of the approximate linear relationship <a class="reference internal" href="#equation-approx-linear-eqn">(12.1)</a> described at the beginning of this section.</p>
@@ -841,7 +849,7 @@ R_i \mid \bX_i \sim N(0,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/974cc35b9d07612e7fa195f79a7b1a0fa519ee8718f52fafc66f89b455bf0b1b.svg" src="../_images/974cc35b9d07612e7fa195f79a7b1a0fa519ee8718f52fafc66f89b455bf0b1b.svg" /></figure>
+<img alt="../_images/62bc51974aefd6f97114cf64496aec0613e7d4edc4f22e436f8c9f79b1300f32.svg" src="../_images/62bc51974aefd6f97114cf64496aec0613e7d4edc4f22e436f8c9f79b1300f32.svg" /></figure>
 </div>
 </div>
 <p>It is evident from this plot that the homoscedasticity assumption is violated since the distributions of the residuals appear to widen as the area variable increases.</p>
@@ -898,13 +906,13 @@ R_i \mid \bX_i \sim N(0,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/aa1bf37d9621f0c85d1180da36e1b2468f01242c8c8e00fb6ff8701ec20eddaf.svg" src="../_images/aa1bf37d9621f0c85d1180da36e1b2468f01242c8c8e00fb6ff8701ec20eddaf.svg" /></figure>
+<img alt="../_images/52e2e0452f8eafccc4f510b16ecac1902ae2233f72f2418e56763c95d900c16d.svg" src="../_images/52e2e0452f8eafccc4f510b16ecac1902ae2233f72f2418e56763c95d900c16d.svg" /></figure>
 </div>
 </div>
 <p>For smaller values of area, the distribution of the true prices is narrower compared to the simulated prices, while for larger values of area, the distribution of the true prices is wider.</p>
 </section>
 <section id="logistic-regression-models">
-<span id="log-reg-sec"></span><h2><span class="section-number">12.4. </span>Logistic regression models<a class="headerlink" href="#logistic-regression-models" title="Permalink to this heading">#</a></h2>
+<span id="log-reg-sec"></span><h2><span class="section-number">12.4. </span>Logistic regression models<a class="headerlink" href="#logistic-regression-models" title="Link to this heading">#</a></h2>
 <p>The types of models studied in this section are closely related to the linear regression models in the previous, but here the goal is to model a dataset of the form</p>
 <div class="math notranslate nohighlight">
 \[
@@ -957,7 +965,7 @@ R_i \mid \bX_i \sim N(0,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a7ec3bccb9068f6f2810a306502fd64054a0cc3470d8ff59fff3427e5bff1c5c.svg" src="../_images/a7ec3bccb9068f6f2810a306502fd64054a0cc3470d8ff59fff3427e5bff1c5c.svg" /></figure>
+<img alt="../_images/89f1b2ca81e12adb44206b7cccb7b2b69529482c3242f714e9adef01e8906d81.svg" src="../_images/89f1b2ca81e12adb44206b7cccb7b2b69529482c3242f714e9adef01e8906d81.svg" /></figure>
 </div>
 </div>
 <p>The points represent the <span class="math notranslate nohighlight">\(2\)</span>-dimensional predictors</p>
@@ -994,7 +1002,7 @@ R_i \mid \bX_i \sim N(0,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/897370a7f9949f0e8fe7d895e3abf802c344f77d4a8cda700c3a4a546b6e6652.svg" src="../_images/897370a7f9949f0e8fe7d895e3abf802c344f77d4a8cda700c3a4a546b6e6652.svg" /></figure>
+<img alt="../_images/d239457272ea5fa02087d0dc032eae3f633ede3d956e381cd4f5608e950bc98b.svg" src="../_images/d239457272ea5fa02087d0dc032eae3f633ede3d956e381cd4f5608e950bc98b.svg" /></figure>
 </div>
 </div>
 <p>Since the outputs of the sigmoid function land in the open interval <span class="math notranslate nohighlight">\((0,1)\)</span>, we may use it to convert <em>any</em> real number into a <em>probability</em>.</p>
@@ -1138,7 +1146,7 @@ Y \mid \bX \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\bet
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/074b8b2924902901fcebdfe7ba3858208bb9173edbc4c8bf4956004996396fb0.svg" src="../_images/074b8b2924902901fcebdfe7ba3858208bb9173edbc4c8bf4956004996396fb0.svg" /></figure>
+<img alt="../_images/61acb07f37a7cf4c9ddda207557fa3e9b7901d3ebb81abbfe8f8020846615bc3.svg" src="../_images/61acb07f37a7cf4c9ddda207557fa3e9b7901d3ebb81abbfe8f8020846615bc3.svg" /></figure>
 </div>
 </div>
 <p>To interpret this plot, remember that <span class="math notranslate nohighlight">\(\phi = \sigma( \beta_0 + \bx^\intercal \bbeta )\)</span> is the probability parameter for the class indicator variable <span class="math notranslate nohighlight">\(Y \sim \Ber(\phi)\)</span>, so we should interpret <span class="math notranslate nohighlight">\(\phi\)</span> as the probability that the point <span class="math notranslate nohighlight">\(\bx\)</span> is in class <span class="math notranslate nohighlight">\(1\)</span> (corresponding to <span class="math notranslate nohighlight">\(y=1\)</span>). In the right-hand plot, we have “thresholded” the probability <span class="math notranslate nohighlight">\(\phi\)</span> at <span class="math notranslate nohighlight">\(0.5\)</span>, creating a <em>predictor function</em></p>
@@ -1171,7 +1179,7 @@ h:\bbr^{2} \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </div>
 </section>
 <section id="neural-network-models">
-<span id="nn-sec"></span><h2><span class="section-number">12.5. </span>Neural network models<a class="headerlink" href="#neural-network-models" title="Permalink to this heading">#</a></h2>
+<span id="nn-sec"></span><h2><span class="section-number">12.5. </span>Neural network models<a class="headerlink" href="#neural-network-models" title="Link to this heading">#</a></h2>
 <p>The desire to obtain <em>nonlinear</em> decision boundaries is (in part) the motivation for the probabilistic graphical models studied in this section, called <em>neural networks</em>. While there are many (<em>many!</em>) different types of neural network architectures in current use, the particular type that we shall begin our study with are <em>fully-connected, feedforward neural networks with one hidden layer</em>.</p>
 <p>Essentially, these types of neural networks are logistic regression models with a hidden deterministic node <span class="math notranslate nohighlight">\(\bz\)</span> sandwiched between the predictor features <span class="math notranslate nohighlight">\(\bX\)</span> and the response variable <span class="math notranslate nohighlight">\(Y\)</span>. The link from <span class="math notranslate nohighlight">\(\bz\)</span> to <span class="math notranslate nohighlight">\(Y\)</span> goes through the same sigmoid function used in the definition of logistic regression models, but the link from <span class="math notranslate nohighlight">\(\bX\)</span> to <span class="math notranslate nohighlight">\(\bz\)</span> goes through a function called the <em>rectified linear unit</em> (<em>ReLU</em>), defined as</p>
 <div class="math notranslate nohighlight">
@@ -1198,7 +1206,7 @@ h:\bbr^{2} \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/9a90576ff32c2497065a7f4fc444d54a3341f68dbd222fac9d3a519fc9068b2c.svg" src="../_images/9a90576ff32c2497065a7f4fc444d54a3341f68dbd222fac9d3a519fc9068b2c.svg" /></figure>
+<img alt="../_images/759e2b85615c7870a040f262020dbb995154a89acc8674ee1b62bc9a51686ea0.svg" src="../_images/759e2b85615c7870a040f262020dbb995154a89acc8674ee1b62bc9a51686ea0.svg" /></figure>
 </div>
 </div>
 <p>We may apply the ReLU function to vectors <span class="math notranslate nohighlight">\(\bx\in \bbr^{n}\)</span> by “vectorization” (in Pythonic language), which just means that we apply it componentwise:</p>
@@ -1227,7 +1235,7 @@ h:\bbr^{2} \to \{0,1\}, \quad h(\bx) = \begin{cases}
 \]</div>
 <p>while the link function at <span class="math notranslate nohighlight">\(Y\)</span> is given by</p>
 <div class="math notranslate nohighlight" id="equation-link-nn-eq">
-<span class="eqno">(12.5)<a class="headerlink" href="#equation-link-nn-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(12.5)<a class="headerlink" href="#equation-link-nn-eq" title="Link to this equation">#</a></span>\[
 Y \mid \bX  \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\ba^\intercal \bw_2 + b_2).
 \]</div>
 <p>Here, <span class="math notranslate nohighlight">\(\rho\)</span> is the ReLU function and <span class="math notranslate nohighlight">\(\sigma\)</span> is the sigmoid function.</p>
@@ -1240,7 +1248,7 @@ Y \mid \bX  \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\ba
 <p>The name “neural network” comes from a loose analogy with networks of biological neurons in the human brain. For this reason, sometimes neural network models are called <em>artificial neural networks</em> (<em>ANN</em>s). The parameters <span class="math notranslate nohighlight">\(\bW_1\)</span> and <span class="math notranslate nohighlight">\(\bw_2\)</span> are called <em>weights</em>, while the parameters <span class="math notranslate nohighlight">\(\bb_1\)</span> and <span class="math notranslate nohighlight">\(b_2\)</span> are called <em>biases</em>. The ReLU function <span class="math notranslate nohighlight">\(\rho\)</span> and the sigmoid function <span class="math notranslate nohighlight">\(\sigma\)</span> are often called the <em>activation functions</em> of the network.</p>
 <p>Note that the form of the link function <span class="math notranslate nohighlight">\(\phi=\phi(\ba, \bw_2,b_2)\)</span> described in <a class="reference internal" href="#equation-link-nn-eq">(12.5)</a> does not explicitly display the dependence of the conditional distribution <span class="math notranslate nohighlight">\(Y \mid \bX \sim \Ber(\phi)\)</span> on observed values <span class="math notranslate nohighlight">\(\bX = \bx\)</span>. For that, one needs to compose the two link functions at <span class="math notranslate nohighlight">\(\ba\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> to get</p>
 <div class="math notranslate nohighlight" id="equation-big-link-eq">
-<span class="eqno">(12.6)<a class="headerlink" href="#equation-big-link-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(12.6)<a class="headerlink" href="#equation-big-link-eq" title="Link to this equation">#</a></span>\[
 \phi = \sigma(\ba^\intercal \bw_2 + b_2) = \sigma\left[ \rho(\bx^\intercal \bW_1 + \bb_1^\intercal) \bw_2 + b_2\right].
 \]</div>
 <p>Expressed in this manner, with the hidden deterministic vector <span class="math notranslate nohighlight">\(\ba\)</span> removed, we may think of a neural network model as a PGM with underlying graph</p>
@@ -1403,7 +1411,7 @@ Y \mid \bX \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \ba_2^\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/20dc3b54e0094e08eed6a5a0c5f62198dea377a4ff51cb99571a246fb8f6712a.svg" src="../_images/20dc3b54e0094e08eed6a5a0c5f62198dea377a4ff51cb99571a246fb8f6712a.svg" /></figure>
+<img alt="../_images/03b05c94da10905c250744f7ccce9b73d66bebfb733608a642d33bee3a67e410.svg" src="../_images/03b05c94da10905c250744f7ccce9b73d66bebfb733608a642d33bee3a67e410.svg" /></figure>
 </div>
 </div>
 <p>Trained on the original dataset (without the “blobs”), we saw that a logistic regression model produces a <em>linear</em> decision boundary and thus misclassifies a nontrivial number of data points. In comparison, not only will a neural network produce a nonlinear decision boundary dividing the data in the original dataset, it will also correctly classify the data in the four new “blobs.” Indeed, using the techniques in the <a class="reference internal" href="13-learning.html#learning"><span class="std std-ref">next chapter</span></a>, we trained a neural network on the new dataset with <em>three</em> hidden layers of widths <span class="math notranslate nohighlight">\(8\)</span>, <span class="math notranslate nohighlight">\(8\)</span>, and <span class="math notranslate nohighlight">\(4\)</span>. Then, a contour plot of the function</p>
@@ -1502,7 +1510,7 @@ Y \mid \bX \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \ba_2^\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/1cf79578b50411d51bcd69157513392c43b1be07fc58cdc1b7842bfa2c10fc9e.svg" src="../_images/1cf79578b50411d51bcd69157513392c43b1be07fc58cdc1b7842bfa2c10fc9e.svg" /></figure>
+<img alt="../_images/79f6f3adf6c384f86dcd17da0187ef9dea0f21acb3b1a306bb13658a946f8437.svg" src="../_images/79f6f3adf6c384f86dcd17da0187ef9dea0f21acb3b1a306bb13658a946f8437.svg" /></figure>
 </div>
 </div>
 <p>Notice that the band of white dividing the original dataset (representing values <span class="math notranslate nohighlight">\(\phi \approx 0.5\)</span>) in the left-hand plot is much narrower compared to the same plot for the logistic regression model. This indicates that the neural network is making much more confident predictions up to its decision boundary (displayed in the right-hand plot) compared to the logistic regression model.</p>
@@ -1529,7 +1537,7 @@ Y \mid \bX \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \ba_2^\
 \]</div>
 <p>that parametrizes the distribution of the random variable <span class="math notranslate nohighlight">\(Y\sim \Ber(\phi)\)</span> in the output layer. So, the end result of the “forward pass” through the network is a sequence of representations</p>
 <div class="math notranslate nohighlight" id="equation-forward-pass-eq">
-<span class="eqno">(12.7)<a class="headerlink" href="#equation-forward-pass-eq" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(12.7)<a class="headerlink" href="#equation-forward-pass-eq" title="Link to this equation">#</a></span>\[
 \bx,\ba_1,\ba_2,\ldots,\ba_{d-1}
 \]</div>
 <p>of the data, beginning with the (often human constructed) feature vector <span class="math notranslate nohighlight">\(\bx\)</span>. As we mentioned above, one can often think of this sequence of representations as a progression from the broad and general, to the specific and refined. For example, the following contour plots show the activations of the eight neurons in the first hidden layer of our network trained to classify the data in our toy example:</p>
@@ -1571,7 +1579,7 @@ Y \mid \bX \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \ba_2^\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/b1998ccbcf3e91f3423edb3cef77a785fa58f4b8735d99763fbe108e5102deb5.svg" src="../_images/b1998ccbcf3e91f3423edb3cef77a785fa58f4b8735d99763fbe108e5102deb5.svg" /></figure>
+<img alt="../_images/b4731e089e7588487ff34b2c925c2a0a46d777a1d1b191a596ae5648727fae79.svg" src="../_images/b4731e089e7588487ff34b2c925c2a0a46d777a1d1b191a596ae5648727fae79.svg" /></figure>
 </div>
 </div>
 <p>Specifically, these plots show the contours of the functions</p>
@@ -1628,7 +1636,7 @@ a_{1j} = \rho( \bx^\intercal \bw_{1j} + \bb_{1j}^\intercal ),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/9823c2fca0f4aba7b5bec130d8a3f6cb54c32dbbaed7119cac2b7bb1a782e93d.svg" src="../_images/9823c2fca0f4aba7b5bec130d8a3f6cb54c32dbbaed7119cac2b7bb1a782e93d.svg" /></figure>
+<img alt="../_images/3ea5b69df2955407c01c7ed69a326637f9b30743b4d7f9b32a72ef113f2ab4c3.svg" src="../_images/3ea5b69df2955407c01c7ed69a326637f9b30743b4d7f9b32a72ef113f2ab4c3.svg" /></figure>
 </div>
 </div>
 <p>These are contour plots of the functions</p>
@@ -1685,7 +1693,7 @@ a_{1j} = \rho( \bx^\intercal \bw_{1j} + \bb_{1j}^\intercal ),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/b2b66ff73a55510e5a25c249537e3269b40ae870f2dd538286a1b1d37d30df68.svg" src="../_images/b2b66ff73a55510e5a25c249537e3269b40ae870f2dd538286a1b1d37d30df68.svg" /></figure>
+<img alt="../_images/68582a2b97300e6e2972ae87ccae7f5ac074211061f1636fb8fef3d55ea49966.svg" src="../_images/68582a2b97300e6e2972ae87ccae7f5ac074211061f1636fb8fef3d55ea49966.svg" /></figure>
 </div>
 </div>
 <p>These are contour plots of the functions</p>
@@ -1773,6 +1781,7 @@ a_{3j} = \rho(\ba_2^\intercal \bw_{3j} + \bb_{3j})
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
@@ -1808,7 +1817,7 @@ By John Myers
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1832,8 +1841,8 @@ By John Myers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

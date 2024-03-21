@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>6. Connecting theory to practice: a first look at model building &#8212; Mathematical Statistics with a View Toward Machine Learning</title>
   
@@ -19,50 +18,46 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/06-theory-to-practice';</script>
@@ -79,10 +74,9 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -123,11 +117,14 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -161,7 +158,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -370,10 +378,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="connecting-theory-to-practice-a-first-look-at-model-building">
-<span id="theory-to-practice"></span><h1><span class="section-number">6. </span>Connecting theory to practice: a first look at model building<a class="headerlink" href="#connecting-theory-to-practice-a-first-look-at-model-building" title="Permalink to this heading">#</a></h1>
+<span id="theory-to-practice"></span><h1><span class="section-number">6. </span>Connecting theory to practice: a first look at model building<a class="headerlink" href="#connecting-theory-to-practice-a-first-look-at-model-building" title="Link to this heading">#</a></h1>
 <p>Though you investigated some real-world datasets and scenarios in the programming assignments, essentially everything that we have studied so far belongs to abstract probability theory. In this chapter, we take a first look at <em>modeling</em> while also continuing the discussion begun in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_04.ipynb">programming assignment for Chapter 4</a> on <em>empirical distributions</em> of datasets. The ultimate goal is to begin connecting our abstract theory to real-world practice.</p>
 <p>The modeling concept is bigger than just probability theory, statistics, and machine learning; indeed, the process of model building is central to essentially all quantitative sciences:</p>
 <a class="reference internal image-reference" href="../_images/model-build.svg"><img alt="../_images/model-build.svg" class="align-center" src="../_images/model-build.svg" width="80%" /></a>
@@ -383,7 +391,7 @@ document.write(`
 <p>While there are similarities between the models that you may have studied before and the new ones in this chapter, there are some differences as well along with novel use cases. For example, once these probabilistic models have been fully trained and all their parameters have been learned, they may be sampled from, <em>generating</em> new data in the process. This is the realm of <em>generative models</em> and <em>generative machine learning</em>. The probabilistic nature of the models means that the new data is random. Those who have no issues using anthropomorphized language to describe the models might refer to this randomness as <em>creativity</em>.</p>
 <p>But our aims in this chapter are much more limited. We will study univariate models made out of only a <em>single</em> random variable, though it may be “duplicated” many times to produce so-called <em>IID sequences</em> of random variables that serve as theoretical avatars of observed real-world datasets. We will briefly study a few tools and techniques that help us visualize the <em>shape</em> of a dataset; some of these visualization tools will then be used for <em>model checking</em> and to help judge <em>goodness-of-fit</em> for proposed probabilistic models. Later, in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>, we will embed the univariate models in this chapter into interconnected “webs” of random variables, creating ever more expressive and powerful probabilistic models. But we must learn to walk before we can run!</p>
 <section id="data-and-random-samples">
-<h2><span class="section-number">6.1. </span>Data and random samples<a class="headerlink" href="#data-and-random-samples" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">6.1. </span>Data and random samples<a class="headerlink" href="#data-and-random-samples" title="Link to this heading">#</a></h2>
 <p>The story begins with a careful study of the stuff that our models are supposed to model: data! Throughout this chapter, we will explore a real-world dataset consisting of listing prices (in USD) for Airbnbs in Austin, Texas, over an observation period of 12 months:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -499,12 +507,12 @@ P(X_1\in A) = P(X_2\in A) = \cdots = P(X_m\in A)
 </div>
 </section>
 <section id="probabilistic-models-and-empirical-distributions">
-<span id="prob-models-emp-sec"></span><h2><span class="section-number">6.2. </span>Probabilistic models and empirical distributions<a class="headerlink" href="#probabilistic-models-and-empirical-distributions" title="Permalink to this heading">#</a></h2>
+<span id="prob-models-emp-sec"></span><h2><span class="section-number">6.2. </span>Probabilistic models and empirical distributions<a class="headerlink" href="#probabilistic-models-and-empirical-distributions" title="Link to this heading">#</a></h2>
 <p>Suppose we conceptualize our Airbnb dataset <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> as an observation of a random sample <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span>. Since the random variables in the random sample are identically distributed, they all induce the <em>same</em> probability distribution on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. <em>But what is this distribution?</em></p>
 <p>Whatever it is, it is <em>not</em> completely and uniquely determined by the dataset. Its specific identity is chosen by the analyst. Many factors are considered in this choice, but the most important is to pick a distribution that closely <em>fits</em> the empirical distribution of the dataset. This is the modeling process in a nutshell.</p>
 <p>Let’s introduce some notation and terminology. Suppose that <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> is <em>any</em> random sample. If the common probability distribution among the <span class="math notranslate nohighlight">\(X_i\)</span>’s comes from one of the families studied in <a class="reference internal" href="05-examples-of-rvs.html#examples"><span class="std std-numref">Chapter 5</span></a>—for example, a normal distribution—we will write the usual</p>
 <div class="math notranslate nohighlight" id="equation-normal-model-eqn">
-<span class="eqno">(6.1)<a class="headerlink" href="#equation-normal-model-eqn" title="Permalink to this equation">#</a></span>\[X_1,X_2,\ldots,X_m \sim \mathcal{N}(\mu,\sigma^2). \]</div>
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-normal-model-eqn" title="Link to this equation">#</a></span>\[X_1,X_2,\ldots,X_m \sim \mathcal{N}(\mu,\sigma^2). \]</div>
 <p>We will also sometimes write</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
@@ -548,7 +556,7 @@ F(x) = \sum_{x^\star\leq x} p(x^\star) = \frac{\text{number of data points that 
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/62b78b2b8b1348c8952569b85afd24da18cd6bd56b513cc6c25667ee1bf07df4.svg"><img alt="../_images/62b78b2b8b1348c8952569b85afd24da18cd6bd56b513cc6c25667ee1bf07df4.svg" src="../_images/62b78b2b8b1348c8952569b85afd24da18cd6bd56b513cc6c25667ee1bf07df4.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/1fb0653c3f4f4e8863ad113e0b794abcaefdebc802b0aaf9e6da971f83e4941e.svg"><img alt="../_images/1fb0653c3f4f4e8863ad113e0b794abcaefdebc802b0aaf9e6da971f83e4941e.svg" src="../_images/1fb0653c3f4f4e8863ad113e0b794abcaefdebc802b0aaf9e6da971f83e4941e.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -588,7 +596,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/10f3fffa7b36566fa75143a8d349152bfac316b15af90b55f2ed7aad6e883767.svg"><img alt="../_images/10f3fffa7b36566fa75143a8d349152bfac316b15af90b55f2ed7aad6e883767.svg" src="../_images/10f3fffa7b36566fa75143a8d349152bfac316b15af90b55f2ed7aad6e883767.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/8452469761fd6372658b5f056e093c0c508ca6f8977fb566894f1bf1aa593729.svg"><img alt="../_images/8452469761fd6372658b5f056e093c0c508ca6f8977fb566894f1bf1aa593729.svg" src="../_images/8452469761fd6372658b5f056e093c0c508ca6f8977fb566894f1bf1aa593729.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -628,7 +636,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/80b8ec54d2d01f242e3e86f0cc28af798f30cfabacbb94ecbc6dafe42dd28aee.svg"><img alt="../_images/80b8ec54d2d01f242e3e86f0cc28af798f30cfabacbb94ecbc6dafe42dd28aee.svg" src="../_images/80b8ec54d2d01f242e3e86f0cc28af798f30cfabacbb94ecbc6dafe42dd28aee.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/14983c70aa8d96bfeaed3d8933866ec9ba17e4a00de78bec71cdb30cd0504c67.svg"><img alt="../_images/14983c70aa8d96bfeaed3d8933866ec9ba17e4a00de78bec71cdb30cd0504c67.svg" src="../_images/14983c70aa8d96bfeaed3d8933866ec9ba17e4a00de78bec71cdb30cd0504c67.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -640,7 +648,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 <p>If we elect to use the normal model on the log-transformed data, we need to remember that any information we learn about the data through the model needs to be “back-transformed” using the exponential function to translate to the original dataset.</p>
 </section>
 <section id="histograms">
-<h2><span class="section-number">6.3. </span>Histograms<a class="headerlink" href="#histograms" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">6.3. </span>Histograms<a class="headerlink" href="#histograms" title="Link to this heading">#</a></h2>
 <p>In the previous section, we used a plot of the ECDF of the Airbnb prices in order to <em>visualize</em> the empirical distribution. From this plot, we were able to get a sense of the <em>shape</em> of the dataset that informed our choice of probabilistic model.</p>
 <p>There are a few more ways that we might attempt to visualize the empirical distribution. Indeed, since the empirical distribution of the Airbnb prices is technically discrete, we might attempt to visualize it using the probability histograms that we saw in <a class="reference internal" href="02-prob-spaces.html#prob-histo"><span class="std std-numref">Section 2.7</span></a> and implemented in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">thrid programming assignment</a>. However, as we saw in the previous section, the data points in our sample are so numerous and packed so closely together that such a probability histogram would be essentially useless. We would have <span class="math notranslate nohighlight">\(10{,}666\)</span> bars in our histogram, one for each unique price in our dataset!</p>
 <p>But here’s an idea: Suppose we “bin together” nearby prices along the <span class="math notranslate nohighlight">\(x\)</span>-axis <em>before</em> we draw the histogram. In other words, imagine we chop up the <span class="math notranslate nohighlight">\(x\)</span>-axis into smaller subintervals called <em>bins</em>, and then group together nearby data points in these bins. Here’s an example using a toy dataset consisting of <span class="math notranslate nohighlight">\(m=14\)</span> points:</p>
@@ -673,7 +681,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/9b724a159450c481bc028fb6fca2044864bcb44fd78912dfaa4d07ff8e2c96a5.svg"><img alt="../_images/9b724a159450c481bc028fb6fca2044864bcb44fd78912dfaa4d07ff8e2c96a5.svg" src="../_images/9b724a159450c481bc028fb6fca2044864bcb44fd78912dfaa4d07ff8e2c96a5.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/63ec3809f54bd24099301e86baa133bbbff5bfec64920bc5db5856640f433ff4.svg"><img alt="../_images/63ec3809f54bd24099301e86baa133bbbff5bfec64920bc5db5856640f433ff4.svg" src="../_images/63ec3809f54bd24099301e86baa133bbbff5bfec64920bc5db5856640f433ff4.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -696,7 +704,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/c8ff53aeaf38bedb320a649aa307987482720591198a19d671db4d65661003da.svg"><img alt="../_images/c8ff53aeaf38bedb320a649aa307987482720591198a19d671db4d65661003da.svg" src="../_images/c8ff53aeaf38bedb320a649aa307987482720591198a19d671db4d65661003da.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/bc90622589c5288bfd62ef9752f3a4b0a985f46f09b3bae62d3ce159fd979742.svg"><img alt="../_images/bc90622589c5288bfd62ef9752f3a4b0a985f46f09b3bae62d3ce159fd979742.svg" src="../_images/bc90622589c5288bfd62ef9752f3a4b0a985f46f09b3bae62d3ce159fd979742.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -719,7 +727,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/f604c9d09c7d10910ee85f28ced8c11567bfc4fbe1530bfe7363fdacfeef16f5.svg"><img alt="../_images/f604c9d09c7d10910ee85f28ced8c11567bfc4fbe1530bfe7363fdacfeef16f5.svg" src="../_images/f604c9d09c7d10910ee85f28ced8c11567bfc4fbe1530bfe7363fdacfeef16f5.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/41464cc15ea9577d3df1457d89eadbc56ca549182f95eafee1e1e060cba03c29.svg"><img alt="../_images/41464cc15ea9577d3df1457d89eadbc56ca549182f95eafee1e1e060cba03c29.svg" src="../_images/41464cc15ea9577d3df1457d89eadbc56ca549182f95eafee1e1e060cba03c29.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -752,7 +760,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/bb05d82d7633270a986f03f5f6046e118b0f78bc5fb2909c66062a5c8443b656.svg"><img alt="../_images/bb05d82d7633270a986f03f5f6046e118b0f78bc5fb2909c66062a5c8443b656.svg" src="../_images/bb05d82d7633270a986f03f5f6046e118b0f78bc5fb2909c66062a5c8443b656.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/0b966e832b0c3aea566d8d4125d36711a3f73b3898cf80fcc095ac9ad7ef11f2.svg"><img alt="../_images/0b966e832b0c3aea566d8d4125d36711a3f73b3898cf80fcc095ac9ad7ef11f2.svg" src="../_images/0b966e832b0c3aea566d8d4125d36711a3f73b3898cf80fcc095ac9ad7ef11f2.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -760,7 +768,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 <p>How do you choose the number of bins in a histogram? First, you might let the computer decide for you, using the default setting. This default setting is often based off of rules of thumb that have been demonstrated to work well for some reason or another. Then, you can play with the number of bins manually, fine-tuning the number until you get a figure that you believe most accurately represents the shape of the data.</p>
 </section>
 <section id="kernel-density-estimation">
-<h2><span class="section-number">6.4. </span>Kernel density estimation<a class="headerlink" href="#kernel-density-estimation" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">6.4. </span>Kernel density estimation<a class="headerlink" href="#kernel-density-estimation" title="Link to this heading">#</a></h2>
 <p>Though the empirical distribution of the Airbnb dataset is discrete, its ECDF <em>appears</em> to be a continuous curve. If we pretend that it <em>is</em> continuous, then the dataset should have a density function. What would this density function look like?</p>
 <p>If you recall that the density function is the derivative of the distribution function, then you may use the shape of the latter along with your curve sketching skills from calculus to get a sense of the shape of the density curve. But computers are capable of estimating density functions directly from the data. In this section, we will briefly explore one such way, called <em>kernel density estimation</em> (<em>KDE</em>).</p>
 <p>Naturally, a kernel density estimation begins by choosing the <em>kernel</em>, which is a function that has a “bell shape,” not unlike the normal density curve. In fact, one can even <em>choose</em> the normal density curve as the kernel, and then one obtains <em>Gaussian KDE</em>. These will be the only types of kernels that we will consider.</p>
@@ -816,7 +824,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/e2b3e5fe4cdb95039be1bf5475b3a5a8cae332c0f90f580f59ac3cecdc967025.svg"><img alt="../_images/e2b3e5fe4cdb95039be1bf5475b3a5a8cae332c0f90f580f59ac3cecdc967025.svg" src="../_images/e2b3e5fe4cdb95039be1bf5475b3a5a8cae332c0f90f580f59ac3cecdc967025.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/0becda7658c34fb9dc7e4d61f2b102993d93ca92b87160c5b3aa9964acc10395.svg"><img alt="../_images/0becda7658c34fb9dc7e4d61f2b102993d93ca92b87160c5b3aa9964acc10395.svg" src="../_images/0becda7658c34fb9dc7e4d61f2b102993d93ca92b87160c5b3aa9964acc10395.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -852,7 +860,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/5848ad4f955234953c924afb02e8c6090f2abb00b2812eaad9d784ff41e01612.svg"><img alt="../_images/5848ad4f955234953c924afb02e8c6090f2abb00b2812eaad9d784ff41e01612.svg" src="../_images/5848ad4f955234953c924afb02e8c6090f2abb00b2812eaad9d784ff41e01612.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/eaab51e6f240b9649e397abafe6fe4b35607640e219434cedc9122b629f37940.svg"><img alt="../_images/eaab51e6f240b9649e397abafe6fe4b35607640e219434cedc9122b629f37940.svg" src="../_images/eaab51e6f240b9649e397abafe6fe4b35607640e219434cedc9122b629f37940.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -860,7 +868,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 <p>How do you choose the bandwidth in a KDE? Just like the “number of bins” parameter for histograms, you are best off first letting the computer decide the bandwidth for you, and then manually fine-tune it (if needed) until you get a KDE that you believe best represents the data.</p>
 </section>
 <section id="empirical-statistics">
-<span id="empirical-stats"></span><h2><span class="section-number">6.5. </span>Empirical statistics<a class="headerlink" href="#empirical-statistics" title="Permalink to this heading">#</a></h2>
+<span id="empirical-stats"></span><h2><span class="section-number">6.5. </span>Empirical statistics<a class="headerlink" href="#empirical-statistics" title="Link to this heading">#</a></h2>
 <p>Before we continue discussing more ways to <em>visualize</em> datasets, we need to discuss numerical summaries of datasets. This section is essentially a recapitulation of what you learned in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_04.ipynb">programming assignment for Chapter 4</a> with a few new things thrown in at the end.</p>
 <p>Let’s begin our discussion by returning to a general IID random sample</p>
 <div class="amsmath math notranslate nohighlight">
@@ -906,10 +914,10 @@ s^2 = \frac{1}{m-1} \sum_{i=1}^m (x_i - \bar{x})^2.
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> be a dataset, written in non-decreasing order:</p>
 <div class="math notranslate nohighlight" id="equation-listing-eqn">
-<span class="eqno">(6.2)<a class="headerlink" href="#equation-listing-eqn" title="Permalink to this equation">#</a></span>\[x_1 \leq x_2 \leq \cdots \leq x_m.\]</div>
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-listing-eqn" title="Link to this equation">#</a></span>\[x_1 \leq x_2 \leq \cdots \leq x_m.\]</div>
 <p>For each <span class="math notranslate nohighlight">\(i=1,2,\ldots,m\)</span>, the datapoint <span class="math notranslate nohighlight">\(x_i\)</span> is called the <em>empirical <span class="math notranslate nohighlight">\(q_i\)</span>-quantile</em> where</p>
 <div class="math notranslate nohighlight" id="equation-quantile-eqn">
-<span class="eqno">(6.3)<a class="headerlink" href="#equation-quantile-eqn" title="Permalink to this equation">#</a></span>\[q_i  = \frac{i-1}{m-1}.\]</div>
+<span class="eqno">(6.3)<a class="headerlink" href="#equation-quantile-eqn" title="Link to this equation">#</a></span>\[q_i  = \frac{i-1}{m-1}.\]</div>
 </section>
 </div><p>This definition appeared in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_04.ipynb">programming assignment for Chapter 4</a>, where I explained that the intuition for the formula <a class="reference internal" href="#equation-quantile-eqn">(6.3)</a> for <span class="math notranslate nohighlight">\(q_i\)</span> is that it is precisely the proportion of data points (excluding) <span class="math notranslate nohighlight">\(x_i\)</span> that fall to the <em>left</em> of <span class="math notranslate nohighlight">\(x_i\)</span> in the listing <a class="reference internal" href="#equation-listing-eqn">(6.2)</a>. I also explained in that assignment how one goes about computing the empirical <span class="math notranslate nohighlight">\(q\)</span>-quantile where <span class="math notranslate nohighlight">\(q\)</span> is a number (between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>, inclusive) that is <em>not</em> of the form <a class="reference internal" href="#equation-quantile-eqn">(6.3)</a>: The default method in the Pandas library is linear interpolation.</p>
 <p>The empirical 0.25-, 0.5-, and 0.75-quantiles are called the <em>first</em>, <em>second</em>, and <em>third quartiles</em>. For the Airbnb dataset, these are listed in the following printout on the lines labeled <span class="math notranslate nohighlight">\(25\%\)</span>, <span class="math notranslate nohighlight">\(50\%\)</span> and <span class="math notranslate nohighlight">\(75\%\)</span>:</p>
@@ -988,7 +996,7 @@ x_i &lt; (\text{empirical 0.25-quantile}) - 1.5\times (\text{empirical IQR}).
 </div><p>There’s a very convenient way to <em>visually</em> summarize all these empirical statistics (along with outliers) which we will discuss in the last section of this chapter.</p>
 </section>
 <section id="qq-plots">
-<h2><span class="section-number">6.6. </span>QQ-plots<a class="headerlink" href="#qq-plots" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">6.6. </span>QQ-plots<a class="headerlink" href="#qq-plots" title="Link to this heading">#</a></h2>
 <aside class="margin sidebar">
 <p class="sidebar-title"></p>
 <p>I should mention that there are other types of plots closely related to QQ-plots, called <em>probability plots</em> and <em>PP-plots</em>. In fact, there seems to be some disagreement as to whether what I am describing in this section actually <em>is</em> a QQ-plot. But this all seems to me to be uninteresting academic pedantry.</p>
@@ -1007,7 +1015,7 @@ y_i \leftrightarrow q_i = \frac{i-1}{m-1}
 \end{equation*}\]</div>
 <p>as we did in <a class="reference internal" href="#emp-quantile-defn">Definition 6.4</a>, we instead make the association</p>
 <div class="math notranslate nohighlight" id="equation-quant-eqn">
-<span class="eqno">(6.4)<a class="headerlink" href="#equation-quant-eqn" title="Permalink to this equation">#</a></span>\[y_i \leftrightarrow q_i =\frac{i-1/2}{m},\]</div>
+<span class="eqno">(6.4)<a class="headerlink" href="#equation-quant-eqn" title="Link to this equation">#</a></span>\[y_i \leftrightarrow q_i =\frac{i-1/2}{m},\]</div>
 <p>for <span class="math notranslate nohighlight">\(i=1,2,\ldots,m\)</span>. For a specific example, suppose that <span class="math notranslate nohighlight">\(m=5\)</span> and that all the data points are distinct. Then, if we plot our dataset along an axis along with the labels <a class="reference internal" href="#equation-quant-eqn">(6.4)</a>, we get the following picture:</p>
 <a class="reference internal image-reference" href="../_images/quant.svg"><img alt="../_images/quant.svg" class="align-center" src="../_images/quant.svg" width="80%" /></a>
 <p> </p>
@@ -1042,7 +1050,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/b3f7f2c9ed9473ad3bcf5b59882e2703cedd94133b7cc57979cf9fc707aa7466.svg"><img alt="../_images/b3f7f2c9ed9473ad3bcf5b59882e2703cedd94133b7cc57979cf9fc707aa7466.svg" src="../_images/b3f7f2c9ed9473ad3bcf5b59882e2703cedd94133b7cc57979cf9fc707aa7466.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/7c24e8d9ed0468e6d0f3a81d2e47ff031bc92709ac856f325c90a6ee1b2d3786.svg"><img alt="../_images/7c24e8d9ed0468e6d0f3a81d2e47ff031bc92709ac856f325c90a6ee1b2d3786.svg" src="../_images/7c24e8d9ed0468e6d0f3a81d2e47ff031bc92709ac856f325c90a6ee1b2d3786.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1072,7 +1080,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/18ef303664bef624a64e1982462e4130b13987f24702ad323d328ac23f769e74.svg"><img alt="../_images/18ef303664bef624a64e1982462e4130b13987f24702ad323d328ac23f769e74.svg" src="../_images/18ef303664bef624a64e1982462e4130b13987f24702ad323d328ac23f769e74.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/bba727915d49bc2655d9a8a96a248fbdc1e849eee367f4560b9acb0b134dbae8.svg"><img alt="../_images/bba727915d49bc2655d9a8a96a248fbdc1e849eee367f4560b9acb0b134dbae8.svg" src="../_images/bba727915d49bc2655d9a8a96a248fbdc1e849eee367f4560b9acb0b134dbae8.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1084,7 +1092,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 <p>This observation rests upon the fact that affine transformations of normal variables are still normal (which we saw back in <a class="reference internal" href="05-examples-of-rvs.html#examples"><span class="std std-numref">Chapter 5</span></a>).</p>
 <p>To explain, suppose that the points in the QQ-plot fell <em>exactly</em> on a straight line, so that</p>
 <div class="math notranslate nohighlight" id="equation-norm-eqn">
-<span class="eqno">(6.5)<a class="headerlink" href="#equation-norm-eqn" title="Permalink to this equation">#</a></span>\[y_i = ax_i + b, \quad i=1,2,\ldots,m,\]</div>
+<span class="eqno">(6.5)<a class="headerlink" href="#equation-norm-eqn" title="Link to this equation">#</a></span>\[y_i = ax_i + b, \quad i=1,2,\ldots,m,\]</div>
 <p>for some <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> with <span class="math notranslate nohighlight">\(a &gt;0\)</span>. Then, let</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
@@ -1097,7 +1105,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 \]</div>
 <p>Now, if <a class="reference internal" href="#equation-norm-eqn">(6.5)</a> were true, then</p>
 <div class="math notranslate nohighlight" id="equation-trans-eqn">
-<span class="eqno">(6.6)<a class="headerlink" href="#equation-trans-eqn" title="Permalink to this equation">#</a></span>\[\frac{i-1/2}{m} = \Phi\left( \frac{y_i-b}{a} \right) = \int_{-\infty}^{(y_i-b)/a} \phi(t) \ \text{d} t = \int_{-\infty}^{y_i} \frac{1}{a} \phi \left( \frac{s-b}{a}\right) \ \text{d} s,\]</div>
+<span class="eqno">(6.6)<a class="headerlink" href="#equation-trans-eqn" title="Link to this equation">#</a></span>\[\frac{i-1/2}{m} = \Phi\left( \frac{y_i-b}{a} \right) = \int_{-\infty}^{(y_i-b)/a} \phi(t) \ \text{d} t = \int_{-\infty}^{y_i} \frac{1}{a} \phi \left( \frac{s-b}{a}\right) \ \text{d} s,\]</div>
 <p>where I made the substitution <span class="math notranslate nohighlight">\(t = (s-b)/a\)</span> in going from the first integral to the second. But notice that the transformed function</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
@@ -1122,7 +1130,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/146541461b8c587116c59cee3fcd46fbbdf49fe34f97ed831aff1523165508a7.svg"><img alt="../_images/146541461b8c587116c59cee3fcd46fbbdf49fe34f97ed831aff1523165508a7.svg" src="../_images/146541461b8c587116c59cee3fcd46fbbdf49fe34f97ed831aff1523165508a7.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/c7103cc708bf75ca4ea75d65a7ad5d042ba7310d148c36d7a2f713981ec78698.svg"><img alt="../_images/c7103cc708bf75ca4ea75d65a7ad5d042ba7310d148c36d7a2f713981ec78698.svg" src="../_images/c7103cc708bf75ca4ea75d65a7ad5d042ba7310d148c36d7a2f713981ec78698.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1174,7 +1182,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/1e22d9fc601391e673021e0f4851da64477fcae35ef3be0cb743ff6c3cb23cf1.svg"><img alt="../_images/1e22d9fc601391e673021e0f4851da64477fcae35ef3be0cb743ff6c3cb23cf1.svg" src="../_images/1e22d9fc601391e673021e0f4851da64477fcae35ef3be0cb743ff6c3cb23cf1.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/255a1374dd5bda63277ab95ba794db1282523a4f264bab729081b7bac4564f3a.svg"><img alt="../_images/255a1374dd5bda63277ab95ba794db1282523a4f264bab729081b7bac4564f3a.svg" src="../_images/255a1374dd5bda63277ab95ba794db1282523a4f264bab729081b7bac4564f3a.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1199,14 +1207,14 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/431447d470f0df476be499b78c7a1463801c6bef753a61dc2d2ef8e1567e1fd2.svg"><img alt="../_images/431447d470f0df476be499b78c7a1463801c6bef753a61dc2d2ef8e1567e1fd2.svg" src="../_images/431447d470f0df476be499b78c7a1463801c6bef753a61dc2d2ef8e1567e1fd2.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/448325d403a510eaadd00d00fcfe52d3c2e25fcbba2e06d0d7ba39bf4bab8859.svg"><img alt="../_images/448325d403a510eaadd00d00fcfe52d3c2e25fcbba2e06d0d7ba39bf4bab8859.svg" src="../_images/448325d403a510eaadd00d00fcfe52d3c2e25fcbba2e06d0d7ba39bf4bab8859.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
 <p>Imagine sweeping from left to right across the horizontal axis approaching the peak near <span class="math notranslate nohighlight">\(\$500\)</span>, all the while accumulating probability (as area under the curve) from both the empirical and model distributions. Since the points along the QQ-plot fall mostly along a straight line till this peak, the empirical quantiles <span class="math notranslate nohighlight">\(y_i\)</span> and model quantiles <span class="math notranslate nohighlight">\(x_i\)</span> are in nearly the same positions along the horizontal axis (i.e, <span class="math notranslate nohighlight">\(y_i \approx x_i\)</span>). But as we begin entering the region near the peak, we begin to accumulate <em>more</em> probability from the empirical distribution compared to the model distribution because the empirical density (and hence the area under the curve) begins to enter its local peak. This means that the empirical quantiles will begin to bunch more closely together compared to the model quantiles since you must step <em>further</em> along the horizontal axis to accumulate the same amount of probability from the model distribution as you would from the empirical distribution over a shorter step. Thus, the model quantiles will be larger than the empirical quantiles.</p>
 </section>
 <section id="box-plots-and-violin-plots">
-<h2><span class="section-number">6.7. </span>Box plots and violin plots<a class="headerlink" href="#box-plots-and-violin-plots" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">6.7. </span>Box plots and violin plots<a class="headerlink" href="#box-plots-and-violin-plots" title="Link to this heading">#</a></h2>
 <p>We finish the chapter with a discussion of two more methods to visualize datasets and empirical distributions. To begin, let’s consider our Airbnb data and all the empirical statistics that we described and computed <a class="reference internal" href="#empirical-stats"><span class="std std-numref">Section 6.5</span></a>. We may combine all this information in something called a <em>box plot</em> (or <em>box and whisker plot</em>):</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1225,7 +1233,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/3957b0aef52615af5ea998f69ffed3b69cea26602e41bccaefecffee5e59c0b0.svg"><img alt="../_images/3957b0aef52615af5ea998f69ffed3b69cea26602e41bccaefecffee5e59c0b0.svg" src="../_images/3957b0aef52615af5ea998f69ffed3b69cea26602e41bccaefecffee5e59c0b0.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/06da62d8e67e4ad6b17101b2b792be82889fccbefb0201e4050165ae9977f111.svg"><img alt="../_images/06da62d8e67e4ad6b17101b2b792be82889fccbefb0201e4050165ae9977f111.svg" src="../_images/06da62d8e67e4ad6b17101b2b792be82889fccbefb0201e4050165ae9977f111.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1261,7 +1269,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/e9dee5200c86a0cc75c15404c425709eaeb4ee6b6d26de5463f43d975ca6b364.svg"><img alt="../_images/e9dee5200c86a0cc75c15404c425709eaeb4ee6b6d26de5463f43d975ca6b364.svg" src="../_images/e9dee5200c86a0cc75c15404c425709eaeb4ee6b6d26de5463f43d975ca6b364.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/7d7a2aac9c4a5e58d1512d0d8e13bebe6c8da5242987ea7dc396eb189a4eea70.svg"><img alt="../_images/7d7a2aac9c4a5e58d1512d0d8e13bebe6c8da5242987ea7dc396eb189a4eea70.svg" src="../_images/7d7a2aac9c4a5e58d1512d0d8e13bebe6c8da5242987ea7dc396eb189a4eea70.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1284,7 +1292,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/839deee136eb90d99da2e9424bf977ca29b9e312f8fe0f8089d9af42db9121fc.svg"><img alt="../_images/839deee136eb90d99da2e9424bf977ca29b9e312f8fe0f8089d9af42db9121fc.svg" src="../_images/839deee136eb90d99da2e9424bf977ca29b9e312f8fe0f8089d9af42db9121fc.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/33b8cfaa21e0ceec5c85e65755a0a7035ec422e7e718bc8ec6604d1976051878.svg"><img alt="../_images/33b8cfaa21e0ceec5c85e65755a0a7035ec422e7e718bc8ec6604d1976051878.svg" src="../_images/33b8cfaa21e0ceec5c85e65755a0a7035ec422e7e718bc8ec6604d1976051878.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1349,6 +1357,7 @@ Name: log price, dtype: float64
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
@@ -1386,7 +1395,7 @@ By John Myers
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1410,8 +1419,8 @@ By John Myers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>

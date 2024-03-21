@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>2. Probability spaces &#8212; Mathematical Statistics with a View Toward Machine Learning</title>
   
@@ -19,50 +18,46 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/02-prob-spaces';</script>
@@ -79,10 +74,9 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -123,11 +117,14 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -161,7 +158,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -375,12 +383,12 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="probability-spaces">
-<span id="prob-spaces"></span><h1><span class="section-number">2. </span>Probability spaces<a class="headerlink" href="#probability-spaces" title="Permalink to this heading">#</a></h1>
+<span id="prob-spaces"></span><h1><span class="section-number">2. </span>Probability spaces<a class="headerlink" href="#probability-spaces" title="Link to this heading">#</a></h1>
 <section id="what-is-probability">
-<h2><span class="section-number">2.1. </span>What is probability?<a class="headerlink" href="#what-is-probability" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.1. </span>What is probability?<a class="headerlink" href="#what-is-probability" title="Link to this heading">#</a></h2>
 <p>We often make probabilistic statements in our everyday conversation, such as, “I think there’s a one-in-four chance that it will rain tomorrow,” or, “I have a 75% chance of failing the final exam in my class.” Such statements attempt to quantify our degree of belief in an event occurring, and as such they are <em>subjective</em> assessments. Indeed, <em>my</em> assessment of the chance of rain might very well be different from the person sitting next to me—and if that other person happens to be a meteorologist, then <em>their</em> assessment of the probability is likely more accurate than mine. So, a single event—whether it rains tomorrow or not—evidently has multiple probabilities assigned to it, and these probabilities vary depending on whom you ask.</p>
 <p>These subjective probabilities may also change over time as new information arrives. If, for example, I initially believe that I have a 75% chance of failing my final exam, but then I surprise myself with a grade of 95% on the midterm, then I will likely decrease my assessment of the probability that I fail the final exam from 75% to a figure much smaller.</p>
 <div class="proof definition admonition" id="prob-initial-def">
@@ -457,7 +465,7 @@ document.write(`
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e37a127fb3fee3971dc17eea4ce9b7ec9e61826092095b6e400bdbcb0cf04ca2.svg" src="../_images/e37a127fb3fee3971dc17eea4ce9b7ec9e61826092095b6e400bdbcb0cf04ca2.svg" /></figure>
+<img alt="../_images/9179155553af567a530e8774643dd8106421c942d8611271d36cb558cd596e23.svg" src="../_images/9179155553af567a530e8774643dd8106421c942d8611271d36cb558cd596e23.svg" /></figure>
 </div>
 </div>
 <p>Along the horizontal axis you see the values of <span class="math notranslate nohighlight">\(n\)</span>, where <span class="math notranslate nohighlight">\(n\)</span> is the total number of rolls. Along the other axis, you see the values of the relative frequency of <span class="math notranslate nohighlight">\(4\)</span>s. For example, when the computer rolled the die <span class="math notranslate nohighlight">\(n=20\)</span> times, it appears that the relative frequency is almost exactly <span class="math notranslate nohighlight">\(0.2 = 20\%\)</span>. This means that we saw four <span class="math notranslate nohighlight">\(4\)</span>s out of <span class="math notranslate nohighlight">\(20\)</span> total rolls. But do you notice that as the number of rolls <span class="math notranslate nohighlight">\(n\)</span> increases, the relative frequency of <span class="math notranslate nohighlight">\(4\)</span>s appears to stabilize along the red dashed line? Let’s have the computer go even further, rolling the die up to <span class="math notranslate nohighlight">\(n=1000\)</span> times:</p>
@@ -491,7 +499,7 @@ document.write(`
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e9dc6b439906239c81fc1bbfc3bd23d5a8b09fcd415944e3a65e2250850784ac.svg" src="../_images/e9dc6b439906239c81fc1bbfc3bd23d5a8b09fcd415944e3a65e2250850784ac.svg" /></figure>
+<img alt="../_images/aa24dc1530859f438872f769b19164ef178a76cc9d9f13130f03691914ad0ed2.svg" src="../_images/aa24dc1530859f438872f769b19164ef178a76cc9d9f13130f03691914ad0ed2.svg" /></figure>
 </div>
 </div>
 <p>Now we can <em>really</em> see that the relative frequency of <span class="math notranslate nohighlight">\(4\)</span>s is approaching the red dashed line. But this line just happens to be at a value of <span class="math notranslate nohighlight">\(1/6 = 0.1\bar{6}\)</span>!</p>
@@ -505,7 +513,7 @@ document.write(`
 <p>Despite its shortcomings, in this course, we will primarily work under the frequentist interpretation, if only because that’s the one that adapts itself most directly to computer simulation (as you saw above). But the subjective interpretation will reappear later when we catch a glimpse of Bayesian statistics. Going beyond this course, my advice is to learn a little about each of the various interpretations of probability, but don’t become so ideologically rigid that you <em>universally</em> advocate for one over another.</p>
 </section>
 <section id="a-first-look-at-the-axiomatic-framework">
-<h2><span class="section-number">2.2. </span>A first look at the axiomatic framework<a class="headerlink" href="#a-first-look-at-the-axiomatic-framework" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.2. </span>A first look at the axiomatic framework<a class="headerlink" href="#a-first-look-at-the-axiomatic-framework" title="Link to this heading">#</a></h2>
 <p>So, as you can see, interpreting exactly what probability <em>means</em> can be a messy affair, with some interpretations working well in some scenarios, while failing miserably in others. However, it is possible to develop an abstract mathematical theory of probability that does <em>not</em> require any sort of real-world interpretation. This theory is based on a framework of three simple <em>axioms</em> which codify the properties of probability that we should <em>all</em> agree on, regardless of whatever real-world interpretation of probability we may favor. This theory provides a type of ‘calculus’ of probability, by which I mean that it provides a system for calculating precise probabilities. It doesn’t solve the problem of <em>interpretation</em>, however.</p>
 <p>To begin, let’s first agree that all probabilities should be represented by numbers between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>:</p>
 <div class="proof axiom admonition" id="prob1-axiom">
@@ -556,7 +564,7 @@ P(\text{odd}) = \frac{1}{2}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/9a7f875ef8815d18869340c2e1a7302f374b753c4e1f06603ddde1388e4b3762.svg" src="../_images/9a7f875ef8815d18869340c2e1a7302f374b753c4e1f06603ddde1388e4b3762.svg" /></figure>
+<img alt="../_images/55d2ff5000f4d220e1b3eb0d71a16c826e85a6623a7cfecebbf6ccd558f4ee8b.svg" src="../_images/55d2ff5000f4d220e1b3eb0d71a16c826e85a6623a7cfecebbf6ccd558f4ee8b.svg" /></figure>
 </div>
 </div>
 <p>Sure enough, it appears that the relative frequency of rolling an odd is approaching the value <span class="math notranslate nohighlight">\(1/2 = 0.5\)</span>.</p>
@@ -608,7 +616,7 @@ P(\text{$4$ or odd}) =\ ?
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2730da2bdc1a4de2d7d08319b5d0fb819f47d494f0e70f281dbdb2c1c6b3712d.svg" src="../_images/2730da2bdc1a4de2d7d08319b5d0fb819f47d494f0e70f281dbdb2c1c6b3712d.svg" /></figure>
+<img alt="../_images/e0d75bd4a033d6a882013f1f8b559d82e320765d0581cdffb10a41212811699b.svg" src="../_images/e0d75bd4a033d6a882013f1f8b559d82e320765d0581cdffb10a41212811699b.svg" /></figure>
 </div>
 </div>
 <p>You can see that the relative frequency of 4s approaches <span class="math notranslate nohighlight">\(1/6=0.1\bar{6}\)</span>, as we already knew, and also that the relative frequency of odds approaches <span class="math notranslate nohighlight">\(1/2=0.5\)</span>. But notice that the relative frequency of the event “4 <em>or</em> odd” appears to approach a number between 0.6 and 0.7, perhaps a bit closer to 0.7 than 0.6.</p>
@@ -648,7 +656,7 @@ P(\text{$4$ or odd}) = P(4) + P(\text{odd}).
 <p>And there we have it! As I will begin to show you in this chapter and throughout the rest of this course, these three axioms of probability may be used to develop a very sophisticated and powerful mathematical theory for computing probabilities. But as I mentioned at the beginning of this section, this <em>axiomatic framework</em> does not solve the problem of <em>interpreting</em> probabilities, of course. When one applies the theory to real-world scenarios, the difficult question of exactly what probability <em>means</em> still remains to be argued over.</p>
 </section>
 <section id="a-crash-course-in-set-theory">
-<span id="set-theory"></span><h2><span class="section-number">2.3. </span>A crash course in set theory<a class="headerlink" href="#a-crash-course-in-set-theory" title="Permalink to this heading">#</a></h2>
+<span id="set-theory"></span><h2><span class="section-number">2.3. </span>A crash course in set theory<a class="headerlink" href="#a-crash-course-in-set-theory" title="Link to this heading">#</a></h2>
 <p>The first task that we set out for ourselves is to recast the three (informally stated) axioms of probability into the language of set theory. Thus, it will be useful to conduct a quick review of the highlights of the theory, for those who might have had no prior exposure or for those who simply need a refresher.</p>
 <p>First:</p>
 <div class="proof definition admonition" id="set-defn">
@@ -808,7 +816,7 @@ A = \{a, b,c\},
 </div>
 </section>
 <section id="id1">
-<h2><span class="section-number">2.4. </span>Probability spaces<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.4. </span>Probability spaces<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>With the notation and terminology of set theory in hand, we are now ready to assemble and package our three axioms of probability into a new mathematical object called a <em>probability space</em>.</p>
 <p>But before we launch into the abstract definition, it will be worth reviewing what we’re trying to accomplish. Basically, everything in this chapter revolves around the following question:</p>
 <blockquote>
@@ -947,14 +955,14 @@ P: \{\text{all events}\} \to [0,1].
 <p>Finally, let me note that it is possible for the <em>same</em> set <span class="math notranslate nohighlight">\(S\)</span> to serve as the sample spaces for two <em>different</em> probability spaces if the probability measures are different. We will see this occur below when we talk about <em>continuous probability measures</em>.</p>
 </section>
 <section id="the-big-picture-how-do-we-use-probability-spaces-and-distributions">
-<span id="big-pic-1"></span><h2><span class="section-number">2.5. </span>The big picture: How do we use probability spaces and distributions?<a class="headerlink" href="#the-big-picture-how-do-we-use-probability-spaces-and-distributions" title="Permalink to this heading">#</a></h2>
+<span id="big-pic-1"></span><h2><span class="section-number">2.5. </span>The big picture: How do we use probability spaces and distributions?<a class="headerlink" href="#the-big-picture-how-do-we-use-probability-spaces-and-distributions" title="Link to this heading">#</a></h2>
 <p>As we go through this class, you should imagine that you are filling up your toolkit with various special types of probability spaces and distributions. Then, when you’re confronted with some real-world scenario that you’d like to model, you reach into your toolkit and find the correct probability distribution which fits the scenario. The challenge, of course, is to figure out exactly <em>which</em> one works the best!</p>
 <a class="reference internal image-reference" href="../_images/whichone.svg"><img alt="../_images/whichone.svg" class="align-center" src="../_images/whichone.svg" width="65%" /></a>
 <p> </p>
 <p>This is really hard, so do not despair if it’s difficult at first! Professional statisticians and applied mathematicians spend a huge part of their professional lives struggling with this question!</p>
 </section>
 <section id="discrete-and-uniform-probability-measures">
-<span id="discrete-prob"></span><h2><span class="section-number">2.6. </span>Discrete and uniform probability measures<a class="headerlink" href="#discrete-and-uniform-probability-measures" title="Permalink to this heading">#</a></h2>
+<span id="discrete-prob"></span><h2><span class="section-number">2.6. </span>Discrete and uniform probability measures<a class="headerlink" href="#discrete-and-uniform-probability-measures" title="Link to this heading">#</a></h2>
 <p>So, let’s begin filling up our probabilistic toolkit!</p>
 <p>The first types of probability measures that we shall study are the <em>discrete</em> ones. To define them, first we need a definition:</p>
 <div class="proof definition admonition" id="support-def">
@@ -964,7 +972,7 @@ P: \{\text{all events}\} \to [0,1].
 <ol class="arabic">
 <li><p>The <em>support</em> of <span class="math notranslate nohighlight">\(p\)</span> is the set of all points <span class="math notranslate nohighlight">\(s\in S\)</span> where <span class="math notranslate nohighlight">\(p(s)\)</span> is nonzero, i.e., it is the set</p>
 <div class="math notranslate nohighlight" id="equation-supp-eqn">
-<span class="eqno">(2.1)<a class="headerlink" href="#equation-supp-eqn" title="Permalink to this equation">#</a></span>\[ \{s\in S : p(s) \neq 0\}.\]</div>
+<span class="eqno">(2.1)<a class="headerlink" href="#equation-supp-eqn" title="Link to this equation">#</a></span>\[ \{s\in S : p(s) \neq 0\}.\]</div>
 </li>
 <li><p>The function <span class="math notranslate nohighlight">\(p\)</span> is said to have <em>discrete</em> support if its support <a class="reference internal" href="#equation-supp-eqn">(2.1)</a> is either finite or countably infinite.</p></li>
 </ol>
@@ -991,7 +999,7 @@ P: \{\text{all events}\} \to [0,1].
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> be a probability measure on a sample space <span class="math notranslate nohighlight">\(S\)</span>. We shall say <span class="math notranslate nohighlight">\(P\)</span> is <em>discrete</em> if every subset <span class="math notranslate nohighlight">\(A\subset S\)</span> is an event and there is a function <span class="math notranslate nohighlight">\(p:S\to \mathbb{R}\)</span> with discrete support such that</p>
 <div class="math notranslate nohighlight" id="equation-disc-eqn">
-<span class="eqno">(2.2)<a class="headerlink" href="#equation-disc-eqn" title="Permalink to this equation">#</a></span>\[P(A) = \sum_{s\in A} p(s),\]</div>
+<span class="eqno">(2.2)<a class="headerlink" href="#equation-disc-eqn" title="Link to this equation">#</a></span>\[P(A) = \sum_{s\in A} p(s),\]</div>
 <p>for all events <span class="math notranslate nohighlight">\(A\)</span>. In this case, the function <span class="math notranslate nohighlight">\(p\)</span> is called the <em>probability mass function</em> (PMF) of the probability measure <span class="math notranslate nohighlight">\(P\)</span> (or sometimes just the <em>probability function</em>), and <span class="math notranslate nohighlight">\(S\)</span> is called a <em>discrete probability space</em> (when equipped with <span class="math notranslate nohighlight">\(P\)</span>).</p>
 </section>
 </div><p>Intuitively, a probability measure is discrete if the probability is “concentrated” on a discrete set of sample points, and isn’t smeared out continuously over the entire probability space. (The words <em>discrete</em> and <em>continuous</em> are often treated as opposites in mathematics.)</p>
@@ -1064,7 +1072,7 @@ P: \{\text{all events}\} \to [0,1].
 </div>
 </section>
 <section id="probability-histograms">
-<span id="prob-histo"></span><h2><span class="section-number">2.7. </span>Probability histograms<a class="headerlink" href="#probability-histograms" title="Permalink to this heading">#</a></h2>
+<span id="prob-histo"></span><h2><span class="section-number">2.7. </span>Probability histograms<a class="headerlink" href="#probability-histograms" title="Link to this heading">#</a></h2>
 <p>In the previous section, I drew little cartoon pictures to help us conceptualize discrete probability measures and spaces. But, at least when the sample space is the real line <span class="math notranslate nohighlight">\(S=\mathbb{R}\)</span>, it turns out that there is a much more useful way to visualize discrete probability measures using <em>probability histograms</em>.</p>
 <p>To illustrate, let’s take a simple example from the worksheet. On the real line <span class="math notranslate nohighlight">\(S=\mathbb{R}\)</span>, recall that we had a discrete probability measure <span class="math notranslate nohighlight">\(P\)</span> with probability function</p>
 <div class="math notranslate nohighlight">
@@ -1099,7 +1107,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e16701d8664e189fb3caa601bfacc159a1c085312b94a35926cba6c4f11bc9dc.svg" src="../_images/e16701d8664e189fb3caa601bfacc159a1c085312b94a35926cba6c4f11bc9dc.svg" /></figure>
+<img alt="../_images/01818e022cacc79992b9502cdcd52edcff52c1e3e86861b0876dd8b3cb69ab0f.svg" src="../_images/01818e022cacc79992b9502cdcd52edcff52c1e3e86861b0876dd8b3cb69ab0f.svg" /></figure>
 </div>
 </div>
 <p>So, since <span class="math notranslate nohighlight">\(p(1)=0.25\)</span>, you see that there is a rectangle of height <span class="math notranslate nohighlight">\(0.25\)</span> above <span class="math notranslate nohighlight">\(s=1\)</span>. Notice that there are <em>no</em> rectangles above <span class="math notranslate nohighlight">\(s=0\)</span> or any negative integer <span class="math notranslate nohighlight">\(s\)</span>; or, more accurately, the rectangles above these integers have height <span class="math notranslate nohighlight">\(=0\)</span>. Make sure also to notice that none of the rectangles have heights bigger than <span class="math notranslate nohighlight">\(1\)</span>!</p>
@@ -1126,7 +1134,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/f36621ff863fe9f9ada2bd656fc74d2226e585c1d29ae0d5f7cf9aa0170e04f1.svg" src="../_images/f36621ff863fe9f9ada2bd656fc74d2226e585c1d29ae0d5f7cf9aa0170e04f1.svg" /></figure>
+<img alt="../_images/05a5521811111749fdf8634514693790f1ca5170d12018126aa4839dac092945.svg" src="../_images/05a5521811111749fdf8634514693790f1ca5170d12018126aa4839dac092945.svg" /></figure>
 </div>
 </div>
 <p>This is a histogram of the uniform probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with probability function <span class="math notranslate nohighlight">\(p(s)\)</span> with</p>
@@ -1135,7 +1143,7 @@ P: \{\text{all events}\} \to [0,1].
 <p>These probability histograms can really only be drawn when the sample space is <span class="math notranslate nohighlight">\(S=\mathbb{R}\)</span>. Obviously, if the sample space is something more exotic, like <span class="math notranslate nohighlight">\(\mathbb{R}^{35}\)</span>, probability histograms don’t make sense.</p>
 </section>
 <section id="continuous-probability-measures">
-<span id="cont-prob"></span><h2><span class="section-number">2.8. </span>Continuous probability measures<a class="headerlink" href="#continuous-probability-measures" title="Permalink to this heading">#</a></h2>
+<span id="cont-prob"></span><h2><span class="section-number">2.8. </span>Continuous probability measures<a class="headerlink" href="#continuous-probability-measures" title="Link to this heading">#</a></h2>
 <p>Discrete probability measures are the first important type of probability measure that we will study. But there is another type, the so-called <em>continuous probability measures</em>, that will also be of great interest to us.</p>
 <p>To help motivate their definition, let’s suppose that we have a discrete probability measure <span class="math notranslate nohighlight">\(P\)</span> on the real line <span class="math notranslate nohighlight">\(S = \mathbb{R}\)</span>. Since <span class="math notranslate nohighlight">\(P\)</span> is discrete, the intuition is that all the probability is “concentrated” on a discrete set of points along <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>:</p>
 <a class="reference internal image-reference" href="../_images/disccompare.svg"><img alt="../_images/disccompare.svg" class="align-center" src="../_images/disccompare.svg" width="70%" /></a>
@@ -1146,7 +1154,7 @@ P: \{\text{all events}\} \to [0,1].
 <p>How might we do this?</p>
 <p>Recall that the probability mass function <span class="math notranslate nohighlight">\(p(s)\)</span> of a discrete probability measure must sum to <span class="math notranslate nohighlight">\(1\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-sum-eqn">
-<span class="eqno">(2.3)<a class="headerlink" href="#equation-sum-eqn" title="Permalink to this equation">#</a></span>\[\sum_{s\in \mathbb{R}} p(s) =1.\]</div>
+<span class="eqno">(2.3)<a class="headerlink" href="#equation-sum-eqn" title="Link to this equation">#</a></span>\[\sum_{s\in \mathbb{R}} p(s) =1.\]</div>
 <p>But if we attempt to “smear” the probability off the discrete support of <span class="math notranslate nohighlight">\(p(s)\)</span> and onto a continuum, however, we run into the following mathematical fact:</p>
 <blockquote>
 <div><p>If the support of a function <span class="math notranslate nohighlight">\(p:\mathbb{R} \to [0,\infty)\)</span> is <strong>NOT</strong> discrete, then it is <strong>IMPOSSIBLE</strong> for the equation <a class="reference internal" href="#equation-sum-eqn">(2.3)</a> to hold.</p>
@@ -1169,7 +1177,7 @@ P: \{\text{all events}\} \to [0,1].
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(P\)</span> be a probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. We shall say <span class="math notranslate nohighlight">\(P\)</span> is <em>continuous</em> if there is a function <span class="math notranslate nohighlight">\(f:\mathbb{R} \to \mathbb{R}\)</span> such that</p>
 <div class="math notranslate nohighlight" id="equation-cont-eqn">
-<span class="eqno">(2.4)<a class="headerlink" href="#equation-cont-eqn" title="Permalink to this equation">#</a></span>\[P\big( A \big) = \int_A f(s) \ \text{d} s \]</div>
+<span class="eqno">(2.4)<a class="headerlink" href="#equation-cont-eqn" title="Link to this equation">#</a></span>\[P\big( A \big) = \int_A f(s) \ \text{d} s \]</div>
 <p>for all events <span class="math notranslate nohighlight">\(A\subset \mathbb{R}\)</span>. In this case, the function <span class="math notranslate nohighlight">\(f(s)\)</span> is called the <em>probability density function</em> (PDF) of the probability measure <span class="math notranslate nohighlight">\(P\)</span>, and <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> is called a <em>continuous probability space</em> (when equipped with <span class="math notranslate nohighlight">\(P\)</span>).</p>
 </section>
 </div><p>Before we get to examples, I must make several <em>very</em> important remarks and observations. Please take time to carefully read and understand them all!</p>
@@ -1222,7 +1230,7 @@ P: \{\text{all events}\} \to [0,1].
 </div>
 </section>
 <section id="probability-density-graphs-univariate-versions">
-<h2><span class="section-number">2.9. </span>Probability density graphs (univariate versions)<a class="headerlink" href="#probability-density-graphs-univariate-versions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.9. </span>Probability density graphs (univariate versions)<a class="headerlink" href="#probability-density-graphs-univariate-versions" title="Link to this heading">#</a></h2>
 <p>When we discussed <em>discrete</em> probability measures on the sample space <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, we saw that probability histograms provide convenient ways to visualize probability. For <em>continuous</em> probability measures, however, probability histograms no longer make sense (because the probability of every simple event is <span class="math notranslate nohighlight">\(0\)</span>). Instead, we use <em>probability density graphs</em>.</p>
 <p>As an example, let’s take the continuous probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with density</p>
 <div class="math notranslate nohighlight">
@@ -1269,7 +1277,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/81a175d3e014c15083b28606dd657d4c8787c18fe510f2a1cec1262fa672f95f.svg" src="../_images/81a175d3e014c15083b28606dd657d4c8787c18fe510f2a1cec1262fa672f95f.svg" /></figure>
+<img alt="../_images/9b11a0c87b3ee14aa2215191d99bc88113ced8650b34251a111364d996fe6808.svg" src="../_images/9b11a0c87b3ee14aa2215191d99bc88113ced8650b34251a111364d996fe6808.svg" /></figure>
 </div>
 </div>
 <p>Because <span class="math notranslate nohighlight">\(f(s)\)</span> outputs probability <em>densities</em>, and not probabilities themselves, the probability of an event <span class="math notranslate nohighlight">\(A\subset \mathbb{R}\)</span> is the area under the density curve and above <span class="math notranslate nohighlight">\(A\)</span>. For example, the shaded area in the graph above is the following probability:</p>
@@ -1326,7 +1334,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0b380b82c25b7d0879aa46d645f1bb3303c264fc067c69e0e151f39777632cca.svg" src="../_images/0b380b82c25b7d0879aa46d645f1bb3303c264fc067c69e0e151f39777632cca.svg" /></figure>
+<img alt="../_images/e88e1df001bd2eeacaca5c224f7270e1e71576e4532f080811b870d9f2b2ddd8.svg" src="../_images/e88e1df001bd2eeacaca5c224f7270e1e71576e4532f080811b870d9f2b2ddd8.svg" /></figure>
 </div>
 </div>
 <p>The shaded area represents the following probability:</p>
@@ -1334,7 +1342,7 @@ P: \{\text{all events}\} \to [0,1].
 \[P\big( [2,4] \big) = \int_2^4 f(s) \ \text{d} s = \frac{1}{4}.\]</div>
 </section>
 <section id="distribution-and-quantile-functions">
-<span id="dist-quant"></span><h2><span class="section-number">2.10. </span>Distribution and quantile functions<a class="headerlink" href="#distribution-and-quantile-functions" title="Permalink to this heading">#</a></h2>
+<span id="dist-quant"></span><h2><span class="section-number">2.10. </span>Distribution and quantile functions<a class="headerlink" href="#distribution-and-quantile-functions" title="Link to this heading">#</a></h2>
 <p>We have seen that discrete probability measures have their probability mass functions, while continuous probability measures (on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>) have their probability density functions. In this section, we study a type of function called a <em>distribution function</em> that may be associated with <em>any</em> probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, whether the measure is discrete, continuous, or neither.</p>
 <div class="proof definition admonition" id="distribution-function-def">
 <p class="admonition-title"><span class="caption-number">Definition 2.13 </span></p>
@@ -1346,7 +1354,7 @@ P: \{\text{all events}\} \to [0,1].
 <ol class="arabic">
 <li><p>If <span class="math notranslate nohighlight">\(P\)</span> is discrete with probability mass function <span class="math notranslate nohighlight">\(p(s)\)</span>, then</p>
 <div class="math notranslate nohighlight" id="equation-yuy-eqn">
-<span class="eqno">(2.5)<a class="headerlink" href="#equation-yuy-eqn" title="Permalink to this equation">#</a></span>\[ F(s) = \sum_{s^\star \leq s} p(s^\star), \]</div>
+<span class="eqno">(2.5)<a class="headerlink" href="#equation-yuy-eqn" title="Link to this equation">#</a></span>\[ F(s) = \sum_{s^\star \leq s} p(s^\star), \]</div>
 <p>where the sum ranges over all <span class="math notranslate nohighlight">\(s^\star\in \mathbb{R}\)</span> with <span class="math notranslate nohighlight">\(s^\star \leq s\)</span>.</p>
 </li>
 <li><p>If <span class="math notranslate nohighlight">\(P\)</span> is continuous with probability density function <span class="math notranslate nohighlight">\(f(s)\)</span>, then</p>
@@ -1379,7 +1387,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a4cf550886c35cbd2b7607815745559f21f131ad18b80d98930fdb5b3986975d.svg" src="../_images/a4cf550886c35cbd2b7607815745559f21f131ad18b80d98930fdb5b3986975d.svg" /></figure>
+<img alt="../_images/e858cebd0145e7b3c24547d799c4f7f79511a613403d2a9bfc960e2d1e271d61.svg" src="../_images/e858cebd0145e7b3c24547d799c4f7f79511a613403d2a9bfc960e2d1e271d61.svg" /></figure>
 </div>
 </div>
 <p>Now, if <span class="math notranslate nohighlight">\(s\)</span> is a number that is less than <span class="math notranslate nohighlight">\(2\)</span>, then <span class="math notranslate nohighlight">\(F(s)=0\)</span>, simply because there are no <span class="math notranslate nohighlight">\(s^\star\in \mathbb{R}\)</span> less than <span class="math notranslate nohighlight">\(2\)</span> with <span class="math notranslate nohighlight">\(p(s^\star)\neq 0\)</span>; thus, from <a class="reference internal" href="#equation-yuy-eqn">(2.5)</a>, we must have <span class="math notranslate nohighlight">\(F(s)=0\)</span>. However, we <em>do</em> have</p>
@@ -1445,7 +1453,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/cca3cdcb9bccba18c1d3731455dde805152c38f2177483139e991a1f38eea5ef.svg" src="../_images/cca3cdcb9bccba18c1d3731455dde805152c38f2177483139e991a1f38eea5ef.svg" /></figure>
+<img alt="../_images/b291e58ddb74674fdd7d2c4e1fc821a3d8b87c9b95e909eeb9192f688ee72098.svg" src="../_images/b291e58ddb74674fdd7d2c4e1fc821a3d8b87c9b95e909eeb9192f688ee72098.svg" /></figure>
 </div>
 </div>
 <p>Do you see now why <span class="math notranslate nohighlight">\(F(s)\)</span> is sometimes called a <em>cumulative</em> distribution function? According to the dictionary definition, the word ‘cumulative’ means ‘increasing or increased in quantity, degree, or force by successive additions.’ It is the last part—<em>successive additions</em>—which is the reason why <span class="math notranslate nohighlight">\(F(s)\)</span> is called a cumulative distribution function.</p>
@@ -1491,7 +1499,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/9a0735517281c8561b66110698df9467fc32d2ce6ee7eac3f427716833b248be.svg" src="../_images/9a0735517281c8561b66110698df9467fc32d2ce6ee7eac3f427716833b248be.svg" /></figure>
+<img alt="../_images/7a8d69dc8aa79b2ef6dc9deb4cb118252d3bec38ee5525b9f31aaf8125af57f5.svg" src="../_images/7a8d69dc8aa79b2ef6dc9deb4cb118252d3bec38ee5525b9f31aaf8125af57f5.svg" /></figure>
 </div>
 </div>
 <p>Then, by definition, we have</p>
@@ -1534,7 +1542,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/132967f658728ee6a3e1549d89c587a0805b307283fd41d1eb5f2c25a2a925b1.svg" src="../_images/132967f658728ee6a3e1549d89c587a0805b307283fd41d1eb5f2c25a2a925b1.svg" /></figure>
+<img alt="../_images/4e7fd66586f194a17a723c2665d88448c8a1ed87cd72ddfb1e9e99f3908d924d.svg" src="../_images/4e7fd66586f194a17a723c2665d88448c8a1ed87cd72ddfb1e9e99f3908d924d.svg" /></figure>
 </div>
 </div>
 <p>In contrast to the distribution function above, notice that this one is <em>continuous</em>. So, we have noted that the <em>discrete</em> probability measure above has a distribution function which is a step function, while the <em>continuous</em> probability measure above has a distribution function which is itself continuous. These are <em>not</em> coincidences! In fact:</p>
@@ -1621,7 +1629,7 @@ P: \{\text{all events}\} \to [0,1].
 </section>
 </div><p>It is helpful to remember that a distribution function <span class="math notranslate nohighlight">\(F:\mathbb{R} \to [0,1]\)</span> takes real numbers <span class="math notranslate nohighlight">\(s\in \mathbb{R}\)</span> as inputs, and returns probabilities <span class="math notranslate nohighlight">\(p\in[0,1]\)</span> as outputs. On the other hand, a quantile function <span class="math notranslate nohighlight">\(Q:(0,1)\to \mathbb{R}\)</span> goes in the <em>opposite</em> direction: It takes probabilities as <span class="math notranslate nohighlight">\(p\in(0,1)\)</span> as inputs, and returns real numbers <span class="math notranslate nohighlight">\(s\in \mathbb{R}\)</span> as outputs. Thus:</p>
 <div class="math notranslate nohighlight" id="equation-inv-eqn">
-<span class="eqno">(2.6)<a class="headerlink" href="#equation-inv-eqn" title="Permalink to this equation">#</a></span>\[Q(p) = s \quad \text{and} \quad p = F(s).\]</div>
+<span class="eqno">(2.6)<a class="headerlink" href="#equation-inv-eqn" title="Link to this equation">#</a></span>\[Q(p) = s \quad \text{and} \quad p = F(s).\]</div>
 <p>Be careful in interpreting these two equations <em>simultaneously</em>, however, since <span class="math notranslate nohighlight">\(F(s)\)</span> might not be an invertible function! (As an extreme example, <span class="math notranslate nohighlight">\(F(s)\)</span> could be a step function, as we saw above.)</p>
 <p>To illustrate, let’s return to the continuous probability measure <span class="math notranslate nohighlight">\(P\)</span> from above with density</p>
 <div class="math notranslate nohighlight">
@@ -1666,7 +1674,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/1f44a75037d627883fbcd3231f1539ac30c74729b276aca29cb5cc8b589ee70b.svg" src="../_images/1f44a75037d627883fbcd3231f1539ac30c74729b276aca29cb5cc8b589ee70b.svg" /></figure>
+<img alt="../_images/af292c6072d6a9cd44dcfa690512378595b10bafd8bff064ad1e200fa7927071.svg" src="../_images/af292c6072d6a9cd44dcfa690512378595b10bafd8bff064ad1e200fa7927071.svg" /></figure>
 </div>
 </div>
 <p>Remember that probabilities are interpreted as areas under the graph of <span class="math notranslate nohighlight">\(f(s)\)</span>.</p>
@@ -1715,7 +1723,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e0d92756c502e9f7cb92a04384120d75921d0f91faa660ba059b7b482a909701.svg" src="../_images/e0d92756c502e9f7cb92a04384120d75921d0f91faa660ba059b7b482a909701.svg" /></figure>
+<img alt="../_images/aed01b9af15343d4ecf8732581b87b7870ed0264389c462fadba6eb99aaa4217.svg" src="../_images/aed01b9af15343d4ecf8732581b87b7870ed0264389c462fadba6eb99aaa4217.svg" /></figure>
 </div>
 </div>
 <p>From the figure, we see that the median is <span class="math notranslate nohighlight">\(Q(0.5)=2\)</span>.</p>
@@ -1764,7 +1772,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0c11abaed44cd7f4228dc87ec52cb1dcc3a11459873bad3a13abcfeff2eaf97d.svg" src="../_images/0c11abaed44cd7f4228dc87ec52cb1dcc3a11459873bad3a13abcfeff2eaf97d.svg" /></figure>
+<img alt="../_images/80bd0b08b65436a6cb77ef4a9458fabd7f9748b58aaaed0d4b162ccb48c3bbd1.svg" src="../_images/80bd0b08b65436a6cb77ef4a9458fabd7f9748b58aaaed0d4b162ccb48c3bbd1.svg" /></figure>
 </div>
 </div>
 <p>From this figure, we see that <span class="math notranslate nohighlight">\(Q(0.75) = 4\)</span>.</p>
@@ -1786,7 +1794,7 @@ P: \{\text{all events}\} \to [0,1].
 </div>
 </section>
 <section id="bivariate-continuous-probability-measures">
-<span id="bivar-cont-prob"></span><h2><span class="section-number">2.11. </span>Bivariate continuous probability measures<a class="headerlink" href="#bivariate-continuous-probability-measures" title="Permalink to this heading">#</a></h2>
+<span id="bivar-cont-prob"></span><h2><span class="section-number">2.11. </span>Bivariate continuous probability measures<a class="headerlink" href="#bivariate-continuous-probability-measures" title="Link to this heading">#</a></h2>
 <p>Having studied continuous probability measures on the real line <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>, it is now not too much of a leap to imagine the definition of a continuous probability measure on the plane <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>. As a matter of terminology, continuous probability measures on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> are called <em>univariate</em> or <em>single-variable</em>, while continuous probability measures on <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> are called <em>bivariate</em> or <em>two-variable</em>.</p>
 <p>Here’s the definition:</p>
 <div class="proof definition admonition" id="bivariate-continuous-def">
@@ -1834,7 +1842,7 @@ P: \{\text{all events}\} \to [0,1].
 <p>Having seen the definitions of univariate and bivariate continuous probability measures, I bet you will have no trouble imagining the definition of a general multivariate continuous probability measure. For example, in the three-variable case, all integrals become triple integrals, and so forth.</p>
 </section>
 <section id="probability-density-graphs-bivariate-versions">
-<h2><span class="section-number">2.12. </span>Probability density graphs (bivariate versions)<a class="headerlink" href="#probability-density-graphs-bivariate-versions" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.12. </span>Probability density graphs (bivariate versions)<a class="headerlink" href="#probability-density-graphs-bivariate-versions" title="Link to this heading">#</a></h2>
 <p>We may visualize bivariate density functions by first imagining the sample space <span class="math notranslate nohighlight">\(S=\mathbb{R}^2\)</span> as the horizontal coordinate plane in <span class="math notranslate nohighlight">\(3\)</span>-dimensional space <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>. Then, we may draw the graph of a density function <span class="math notranslate nohighlight">\(f(s,t)\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>, just like we learned in (for example) multivariable calculus. But remember, since <span class="math notranslate nohighlight">\(f(s,t)\)</span> is a <em>two</em>-variable real-valued function, its graph is not a <em>curve</em>, but rather a <em>surface</em>. As in the univariate case, these graphs are called <em>probability density graphs</em>.</p>
 <p>Here’s a bivariate density function from the worksheet:</p>
 <div class="math notranslate nohighlight">
@@ -1891,7 +1899,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/7d197d655f5d78892282cd4c769141d5ce874b8527a683cfbd405b3892f07553.svg"><img alt="../_images/7d197d655f5d78892282cd4c769141d5ce874b8527a683cfbd405b3892f07553.svg" src="../_images/7d197d655f5d78892282cd4c769141d5ce874b8527a683cfbd405b3892f07553.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/99f80afd8e7e50bb950e30df41075dd37b8251534141e43a65d982f6abf9368c.svg"><img alt="../_images/99f80afd8e7e50bb950e30df41075dd37b8251534141e43a65d982f6abf9368c.svg" src="../_images/99f80afd8e7e50bb950e30df41075dd37b8251534141e43a65d982f6abf9368c.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1954,7 +1962,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/068ce2c3af7420b1c8aa9a01355d93a6ecb7d1fc7e9e86092354f1315ca13bf6.svg"><img alt="../_images/068ce2c3af7420b1c8aa9a01355d93a6ecb7d1fc7e9e86092354f1315ca13bf6.svg" src="../_images/068ce2c3af7420b1c8aa9a01355d93a6ecb7d1fc7e9e86092354f1315ca13bf6.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/a167957019dcd6427d286ada8f7f88059b24d1c46625fe9cf2678a6e3cbd9167.svg"><img alt="../_images/a167957019dcd6427d286ada8f7f88059b24d1c46625fe9cf2678a6e3cbd9167.svg" src="../_images/a167957019dcd6427d286ada8f7f88059b24d1c46625fe9cf2678a6e3cbd9167.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -2019,6 +2027,7 @@ P: \{\text{all events}\} \to [0,1].
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
@@ -2061,7 +2070,7 @@ By John Myers
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -2085,8 +2094,8 @@ By John Myers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>
