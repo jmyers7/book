@@ -295,7 +295,7 @@ def J(theta):
 # initialize parameters
 parameters = torch.tensor([0.05])
 
-# define SGD parameters
+# choose SGD hyperparameters
 alpha = 0.01
 k = 8
 N = 10
@@ -879,7 +879,7 @@ beta0 = torch.tensor([-10.])
 beta = torch.tensor([3.])
 parameters = {'beta0': beta0, 'beta': beta}
 
-# define SGD parameters
+# choose SGD hyperparameters
 alpha = 0.1
 N = 5
 k = 256
@@ -1092,6 +1092,7 @@ Let's train a logistic regression model on this dataset using the gradient desce
 
 ```{code-cell} ipython3
 :tags: [hide-input]
+:label: train-log-reg
 :mystnb:
 :   figure:
 :       align: center
@@ -1113,7 +1114,7 @@ beta0 = torch.normal(mean=0, std=1e-1, size=(1,))
 beta = torch.normal(mean=0, std=1e-1, size=(2,))
 parameters = {'beta0': beta0, 'beta': beta}
 
-# define SGD parameters
+# choose SGD hyperparameters
 N = 30
 k = 128
 alpha = 1e-1
@@ -1317,7 +1318,7 @@ for i in range(1, 5):
     parameters = parameters | {'weight_' + str(i): weight.squeeze()}
     parameters = parameters | {'bias_' + str(i): bias}
 
-# define SGD parameters
+# choose SGD hyperparameters
 N = 80
 k = 128
 alpha = 0.1
