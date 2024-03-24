@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -378,12 +378,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <p><strong>THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!</strong></p>
-<section class="tex2jax_ignore mathjax_ignore" id="learning">
+  <section class="tex2jax_ignore mathjax_ignore" id="learning">
 <span id="id1"></span><h1><span class="section-number">13. </span>Learning<a class="headerlink" href="#learning" title="Link to this heading">#</a></h1>
 <p>With <a class="reference internal" href="10-info-theory.html#information-theory"><span class="std std-numref">Chapter 10</span></a> on information theory, <a class="reference internal" href="11-optim.html#optim"><span class="std std-numref">Chapter 11</span></a> on optimization, and <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a> on probabilistic graphical models all under our belt, we have covered all the prerequisites needed to finally implement the criterion from <a class="reference internal" href="09-halfway.html#learning-optim"><span class="std std-numref">Section 9.2</span></a> for choosing optimal parameters for our probabilistic graphical models:</p>
 <blockquote>
-<div><p><strong>The Distance Criterion for Parameter Choice.</strong> Given two models within the same family of probabilistic graphical models, choose the model whose <em>distance</em> from the empirical distribution of the data is smaller.</p>
+<div><p><strong>The Distance Criterion for Parameter Choice.</strong> Given two model distributions within the same family of probabilistic models, choose the model distribution whose <em>distance</em> from the empirical distribution of the data is smaller.</p>
 </div></blockquote>
 <p>In more detail, we suppose that we are given a fixed dataset. We then choose a family of probabilistic graphical models that we believe might model the dataset well—possibly one of the families described in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>, or maybe one of those described in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">programming assignments</a> for <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a> or the current chapter. But no matter which family of PGMs that we happen to choose, there will be a proposed model probability distribution <span class="math notranslate nohighlight">\(P_{\btheta}\)</span> that depends on a parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span>; for example, in the case of a <a class="reference internal" href="12-models.html#log-reg-sec"><span class="std std-ref">logistic regression model</span></a>, the (total) parameter vector is given by</p>
 <div class="math notranslate nohighlight">
@@ -611,7 +610,7 @@ x_1,x_2,\ldots,x_{128} \in \{0,1\}
 <span class="c1"># initialize parameters</span>
 <span class="n">parameters</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.05</span><span class="p">])</span>
 
-<span class="c1"># define SGD parameters</span>
+<span class="c1"># choose SGD hyperparameters</span>
 <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.01</span>
 <span class="n">k</span> <span class="o">=</span> <span class="mi">8</span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span>
@@ -646,7 +645,7 @@ x_1,x_2,\ldots,x_{128} \in \{0,1\}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/1a17e324867fc1de96ffcb5301418acb1c33dc0a301c2caeb0d8d33e2a101c67.svg" src="../_images/1a17e324867fc1de96ffcb5301418acb1c33dc0a301c2caeb0d8d33e2a101c67.svg" /></figure>
+<img alt="../_images/2a07ef937804caa6b2eb6244ce7166598439d9aac67de5aa3ae862824fba016c.svg" src="../_images/2a07ef937804caa6b2eb6244ce7166598439d9aac67de5aa3ae862824fba016c.svg" /></figure>
 </div>
 </div>
 <p>The blue curve in the left-hand plot is the graph of the <em>exact</em> cross entropy function <span class="math notranslate nohighlight">\(H_{\hat{P}}(P_\theta)\)</span>. The magenta points—which represent a selection of outputs of the algorithm—do not fall <em>precisely</em> on this graph since they are <em>approximations</em> to the cross entropy, obtained as realizations of the expression on the right-hand side of</p>
@@ -662,7 +661,7 @@ H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} \calI(\theta; x),
 <p class="sidebar-title"></p>
 <p>One should also further distinguish between the cases that the PGM contains hidden (or latent) variables, or whether all variables are visible. We shall only focus on the latter case (so-called <em>fully-observed models</em>) since the training process for models with hidden variables requires a different set of algorithms. (For example, the <a class="reference external" href="https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm">expectation maximation algorithm</a>.)</p>
 </aside>
-<p>Maximum likelihood estimation works for all the probabilistic graphical models that we studied in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>, though there are some variations between the different models. First, we must distinguish between training a model as a <em>generative model</em> versus a <em>discriminative model</em>. Along with every PGM comes the joint distribution over <em>all</em> random variables, and for a generative model, the learning process trains the model with the goal to learn the parameters of the <em>entire</em> joint distribution, while for a discriminative model, the learning process aims at learning the parameters of only a conditional distribution. Of the types of models explicitly studied in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>—linear regression models, logistic regression models, and neural networks—all three are trained as discriminative models, aiming to learn the parameters of the conditional distributions of the response variable <span class="math notranslate nohighlight">\(Y\)</span> given the predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>. On the other hand, both the univariate Bernoulli model in the previous section and the Naive Bayes model—studied in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_12.ipynb">programming assignment</a> for <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>, as well as the <a class="reference internal" href="#"><span class="xref myst">worksheet</span></a> for the current chapter—are trained as generative models.</p>
+<p>Maximum likelihood estimation works for all the probabilistic graphical models that we studied in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>, though there are some variations between the different models. First, we must distinguish between training a model as a <em>generative model</em> versus a <em>discriminative model</em>. Along with every PGM comes the joint distribution over <em>all</em> random variables, and for a generative model, the learning process trains the model with the goal to learn the parameters of the <em>entire</em> joint distribution, while for a discriminative model, the learning process aims at learning the parameters of only a conditional distribution. Of the types of models explicitly studied in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>—linear regression models, logistic regression models, and neural networks—all three are trained as discriminative models, aiming to learn the parameters of the conditional distributions of the response variable <span class="math notranslate nohighlight">\(Y\)</span> given the predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>. On the other hand, both the univariate Bernoulli model in the previous section and the Naive Bayes model—studied in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_12.ipynb">programming assignment</a> for <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>, as well as the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/worksheets/13-learning.pdf">worksheet</a> for the current chapter—are trained as generative models.</p>
 <p>We begin our discussion with the case of generative models, since it is essentially just a recapitulation of our discussion of the univariate Bernoulli model in the previous section. If such a model consists of <span class="math notranslate nohighlight">\(n\)</span> random variables, say <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n\)</span>, then we will write them as an <span class="math notranslate nohighlight">\(n\)</span>-dimensional random vector</p>
 <div class="math notranslate nohighlight">
 \[
@@ -936,10 +935,10 @@ Y \mid \bX  \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu = \bet
 \leftarrow &amp; \bx_m^\intercal &amp; \rightarrow
 \end{bmatrix}, \quad \by = \begin{bmatrix} y_1 \\ \vdots \\ y_m \end{bmatrix}, \quad \btheta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_n \end{bmatrix}
 \end{split}\]</div>
-<p>Provided that the <span class="math notranslate nohighlight">\((n+1) \times (n+1)\)</span> square matrix <span class="math notranslate nohighlight">\(\mathbfcal{X}^T \mathbfcal{X}\)</span> is invertible, maximum likelihood estimates for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span> are given by</p>
+<p>Provided that the <span class="math notranslate nohighlight">\((n+1) \times (n+1)\)</span> square matrix <span class="math notranslate nohighlight">\(\mathbfcal{X}^\intercal \mathbfcal{X}\)</span> is invertible, maximum likelihood estimates for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span> are given by</p>
 <div class="math notranslate nohighlight">
 \[
-\btheta_\text{MLE}^\star = \left(\mathbfcal{X}^T \mathbfcal{X}\right)^{-1}\mathbfcal{X}^T \by.
+\btheta_\text{MLE}^\star = \left(\mathbfcal{X}^\intercal \mathbfcal{X}\right)^{-1}\mathbfcal{X}^\intercal \by.
 \]</div>
 </section>
 </div><div class="proof admonition" id="proof">
@@ -1032,7 +1031,11 @@ J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \fra
 \end{split}\]</div>
 <p>implies <span class="math notranslate nohighlight">\(m \beta_0  + m \beta_1 \bar{x} = m \bar{y}\)</span>, and so <span class="math notranslate nohighlight">\(\beta_0 = \bar{y} - \beta_1 \bar{x}\)</span>. Q.E.D.</p>
 </div>
-<p>To illustrate the concepts, let’s return yet again to the Ames housing dataset (see the description at the beginning of <a class="reference internal" href="12-models.html#lin-reg-sec"><span class="std std-numref">Section 12.3</span></a>). While in principle we may compute the <em>exact</em> MLEs for a linear regression model on this data, it is amusing to approximate them using stochastic gradient descent. To do this, however, we must “standardize” the area and price features for numerical stability, which means that we subtract the empirical means and divide by the standard deviations. When we do so, we get a scatter plot that looks like:</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 2 on the worksheet.</p>
+</div>
+<p>To illustrate the concepts, let’s return yet again to the Ames housing dataset (see the description at the beginning of <a class="reference internal" href="12-models.html#lin-reg-sec"><span class="std std-numref">Section 12.3</span></a>). While in principle we may compute the <em>exact</em> MLEs for a linear regression model on this data, it is amusing to approximate them using stochastic gradient descent (SGD). To do this, however, we must “standardize” the area and price features for numerical stability, which means that we subtract the empirical means and divide by the standard deviations. When we do so, we get a scatter plot that looks like:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1064,15 +1067,15 @@ J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \fra
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/052732877ac7d957b7473b28f7a9ef23eac89e620632772a9dfd247f6cb07924.svg" src="../_images/052732877ac7d957b7473b28f7a9ef23eac89e620632772a9dfd247f6cb07924.svg" /></figure>
+<img alt="../_images/69bc963d34da9d5b5b58e17e441037fd25b7e374ec25fbc4495e2cefa7004b9c.svg" src="../_images/69bc963d34da9d5b5b58e17e441037fd25b7e374ec25fbc4495e2cefa7004b9c.svg" /></figure>
 </div>
 </div>
-<p>Notice that both features are on similar scales. Then, we run the algorithm using the mean squared error function</p>
+<p>Notice that both features are on similar scales. Then, we run the algorithm using the squared error function</p>
 <div class="math notranslate nohighlight">
 \[
-MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \btheta = (\beta_0, \beta),
+SE(\btheta; \ x, y) = (y - \beta_0 - \beta x)^2, \quad \btheta = (\beta_0, \beta),
 \]</div>
-<p>as the objective function:</p>
+<p>as the loss function for SGD:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1096,7 +1099,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 <span class="n">beta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">3.</span><span class="p">])</span>
 <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;beta0&#39;</span><span class="p">:</span> <span class="n">beta0</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">:</span> <span class="n">beta</span><span class="p">}</span>
 
-<span class="c1"># define SGD parameters</span>
+<span class="c1"># choose SGD hyperparameters</span>
 <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">k</span> <span class="o">=</span> <span class="mi">256</span>
@@ -1121,7 +1124,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/f8bf9dd1f552f5595c8bc95942cc71c7edab98f5ce2494c697f33c695785aafe.svg" src="../_images/f8bf9dd1f552f5595c8bc95942cc71c7edab98f5ce2494c697f33c695785aafe.svg" /></figure>
+<img alt="../_images/944bd078f245354653387a0ce64a727bed6e9d63c0b53a4d39efcd1a28813283.svg" src="../_images/944bd078f245354653387a0ce64a727bed6e9d63c0b53a4d39efcd1a28813283.svg" /></figure>
 </div>
 </div>
 <p>Notice that we plotted the logarithm of the MSE—we chose to do this because we purposefully chose initial guesses for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> that were quite far away from the MLEs, creating large values of the MSE in the initial few steps of the algorithm. This lengthens the learning process, giving us a nicer visualization as the regression line moves into place:</p>
@@ -1163,7 +1166,7 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/408e6e92bced24b9293721d0414d351b550f8b96296f132354cd322b7a361150.svg" src="../_images/408e6e92bced24b9293721d0414d351b550f8b96296f132354cd322b7a361150.svg" /></figure>
+<img alt="../_images/392259ddddf02212c8149d0290f8f0a7509ef1210be02b3059f7493cb1d0d991.svg" src="../_images/392259ddddf02212c8149d0290f8f0a7509ef1210be02b3059f7493cb1d0d991.svg" /></figure>
 </div>
 </div>
 </section>
@@ -1177,9 +1180,9 @@ MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \bt
 <p>Consider a logistic regression model with predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>, response variable <span class="math notranslate nohighlight">\(Y\)</span>, and link function at <span class="math notranslate nohighlight">\(Y\)</span> given by</p>
 <div class="math notranslate nohighlight">
 \[
-Y \mid \bX \sim \Ber(\phi) \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx^\intercal \bbeta).
+Y \mid \bX \sim \Ber(\phi) \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx^\intercal \bbeta),
 \]</div>
-<p>Then the model surprisal function is given by</p>
+<p>where <span class="math notranslate nohighlight">\(\sigma\)</span> is the sigmoid function. Then the model surprisal function is given by</p>
 <div class="math notranslate nohighlight">
 \[
 \calI_\text{model}(\btheta) = -y \log{\phi} - (1-y) \log(1-\phi).
@@ -1257,7 +1260,7 @@ x_0 \bx &amp; \cdots &amp; x_n \bx \\
 <p>by <a class="reference internal" href="#likelihood-sur-decompose-disc-thm">Theorem 13.5</a>. Then convexity of <span class="math notranslate nohighlight">\(\calI_\text{data}\)</span> follows from linearity of the “Hessian matrix operation,” along with the observation that a sum of positive semidefinite matrices is positive semidefinite. Q.E.D.</p>
 </div>
 <p>Convexity of the optimization problem opens doors for other algorithms besides gradient descent, like the <a class="reference external" href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton-Raphson algorithm</a>.</p>
-<p>Let’s bring back the dataset used in the <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a> to introduce logistic regression models:</p>
+<p>Let’s bring back the dataset from <a class="reference internal" href="12-models.html#log-reg-sec"><span class="std std-numref">Section 12.4</span></a>:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1296,10 +1299,10 @@ x_0 \bx &amp; \cdots &amp; x_n \bx \\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e5bb39b6d6a84042c197e4c5254681b8f48a39d7ecf2b2a84b2f33093081a551.svg" src="../_images/e5bb39b6d6a84042c197e4c5254681b8f48a39d7ecf2b2a84b2f33093081a551.svg" /></figure>
+<img alt="../_images/5ca24ea5116cff57f34c9d9aefb2e12b5c09185f4078076eca601bfda8a8d167.svg" src="../_images/5ca24ea5116cff57f34c9d9aefb2e12b5c09185f4078076eca601bfda8a8d167.svg" /></figure>
 </div>
 </div>
-<p>Let’s train a logistic regression model on this dataset using the gradient descent algorithm to locate the (global) minimizer of the data surprisal function <span class="math notranslate nohighlight">\(\calI_\text{data}(\beta_0,\bbeta)\)</span>. Running the algorithm for 50 steps results in the following plot of the surprisal function:</p>
+<p>Let’s train a logistic regression model on this dataset using the SGD algorithm to locate the global minimizer of the cross entropy from the model distribution to the empirical distribution. This requires the model surprisal function as the loss function for SGD. Running the algorithm for 30 epochs results in the following plot of cross entropy versus gradient steps:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1334,20 +1337,20 @@ x_0 \bx &amp; \cdots &amp; x_n \bx \\
 
 <span class="c1"># plot SGD</span>
 <span class="n">plot_gd</span><span class="p">(</span><span class="n">gd_output</span><span class="p">,</span>
-         <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-         <span class="n">w</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
-         <span class="n">plot_title_string</span><span class="o">=</span><span class="s1">&#39;SGD for logistic regression model&#39;</span><span class="p">,</span>
-         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;cross entropy&#39;</span><span class="p">,</span>
-         <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-         <span class="n">per_step_label</span><span class="o">=</span><span class="s1">&#39;cross entropy per step&#39;</span><span class="p">,</span>
-         <span class="n">per_epoch_label</span><span class="o">=</span><span class="s1">&#39;mean cross entropy per epoch&#39;</span><span class="p">)</span>
+        <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">w</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+        <span class="n">plot_title_string</span><span class="o">=</span><span class="s1">&#39;SGD for logistic regression model&#39;</span><span class="p">,</span>
+        <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;cross entropy&#39;</span><span class="p">,</span>
+        <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">per_step_label</span><span class="o">=</span><span class="s1">&#39;cross entropy per step&#39;</span><span class="p">,</span>
+        <span class="n">per_epoch_label</span><span class="o">=</span><span class="s1">&#39;mean cross entropy per epoch&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/950e869c499a7784be59ef34ab4def7a5563f8da9efca083cfb344b440164c5c.svg" src="../_images/950e869c499a7784be59ef34ab4def7a5563f8da9efca083cfb344b440164c5c.svg" /></figure>
+<img alt="../_images/e807d26362e13310df8a15ee0d3c9b9d8b58a183625eaee0123a76fe622af4c5.svg" src="../_images/e807d26362e13310df8a15ee0d3c9b9d8b58a183625eaee0123a76fe622af4c5.svg" /></figure>
 </div>
 </div>
 <p>Notice that the curve in this plot is beginning to “plateau,” indicating the algorithm is beginning to converge on the MLE. Since the feature space is <span class="math notranslate nohighlight">\(2\)</span>-dimensional, as we discussed in <a class="reference internal" href="12-models.html#log-reg-sec"><span class="std std-numref">Section 12.4</span></a>, we may check the fit of the model by plotting the decision boundary of the predictor function</p>
@@ -1425,22 +1428,39 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/3cc76e3e3dac46667f8a878e84a7ee890b6a0f3dcd328397c1cefd72d7b2024c.svg" src="../_images/3cc76e3e3dac46667f8a878e84a7ee890b6a0f3dcd328397c1cefd72d7b2024c.svg" /></figure>
+<img alt="../_images/74ae0abf7ea405531163ed96187d93822f4b194c94829faed1d5de3bb633a1fb.svg" src="../_images/74ae0abf7ea405531163ed96187d93822f4b194c94829faed1d5de3bb633a1fb.svg" /></figure>
 </div>
 </div>
 </section>
 <section id="mle-for-neural-networks">
 <span id="mle-nn-sec"></span><h2><span class="section-number">13.5. </span>MLE for neural networks<a class="headerlink" href="#mle-for-neural-networks" title="Link to this heading">#</a></h2>
-<p>In this section, we encounter our third optimization problem of maximum likelihood estimation. These problems have been presented in order of increasing difficulty, beginning with the easiest in <a class="reference internal" href="#mle-lin-reg-sec"><span class="std std-numref">Section 13.3</span></a> where we discovered that the MLEs for linear regression models are obtainable in closed form <em>and</em> that the optimization problem is convex. For logistic regression models, discussed in <a class="reference internal" href="#mle-log-reg-sec"><span class="std std-numref">Section 13.4</span></a>, we lost the ability (in general) to write down closed form solutions for MLEs, but the optimization problem was still convex. Now, in the current section, we lose both of these desirable properties: In general, the optimization problems of maximum likelihood estimation for neural network models have neither closed form solutions nor are they convex.</p>
-<p>Thinking visually, and using intuition and language adapted from low dimensions, we imagine that the graph of a (strictly) convex objective function <span class="math notranslate nohighlight">\(J:\bbr^n \to \bbr\)</span> is a hypersurface embedded in <span class="math notranslate nohighlight">\(\bbr^{n+1}\)</span> with a single “lowest valley” (global minimum). The gradient descent algorithms follow the negative gradient “downhill” until they reach a neighborhood of this global minimizer. But for a nonconvex <span class="math notranslate nohighlight">\(J\)</span>, there might be both local minima and maxima (i.e., local “peaks” and “valleys”), as well as <em>saddle points</em> where the gradient vanishes, but where the Hessian matrix has both negative and positive eigenvalues, resulting in both “upward” and “downward” directional curvatures. This means that it is possible for gradient descent to get “stuck” in a local minimum with relatively high objective value, or that it follows a “downhill” trajectory leading to a saddle point and again gets “stuck” (or at least significantly slowed down). However, intuition suggests at least that local minima are rare in high dimensions since it should require very special circumstances and structure for positivity of <em>all</em> eigenvalues of a Hessian matrix. But saddle points remain a concern.</p>
+<p>In this section, we encounter our third optimization problem of maximum likelihood estimation. These problems have been presented in the chapter in order of increasing difficulty, beginning with the easiest in <a class="reference internal" href="#mle-lin-reg-sec"><span class="std std-numref">Section 13.3</span></a> where we discovered that the MLEs for linear regression models are obtainable in closed form <em>and</em> that the optimization problem is convex. For logistic regression models, discussed in <a class="reference internal" href="#mle-log-reg-sec"><span class="std std-numref">Section 13.4</span></a>, we lost the ability (in general) to write down closed form solutions for MLEs, but the optimization problem was still convex. Now, in the current section, we lose both of these desirable properties: In general, the optimization problems of maximum likelihood estimation for neural network models have neither closed form solutions nor are they convex.</p>
+<p>Thinking visually and using intuition and language adapted from low dimensions, we imagine that the graph of a (strictly) convex objective function <span class="math notranslate nohighlight">\(J:\bbr^n \to \bbr\)</span> is a hypersurface embedded in <span class="math notranslate nohighlight">\(\bbr^{n+1}\)</span> with a single “lowest valley” (global minimum). The gradient descent algorithms follow the negative gradient “downhill” until they reach a neighborhood of this global minimizer. But for a nonconvex <span class="math notranslate nohighlight">\(J\)</span>, there might be both local minima and maxima (i.e., local “peaks” and “valleys”), as well as <em>saddle points</em> where the gradient vanishes, but where the Hessian matrix has both negative and positive eigenvalues, resulting in both “upward” and “downward” directional curvatures. This means that it is possible for gradient descent to get “stuck” in a local minimum with relatively high objective value, or that it follows a “downhill” trajectory leading to a saddle point and again gets “stuck” (or at least significantly slowed down). However, intuition suggests at least that local minima are rare in high dimensions since it should require very special circumstances and structure for positivity of <em>all</em> eigenvalues of a Hessian matrix. But saddle points remain a concern.</p>
 <p>Parameter initialization is also a significant concern for neural network models. With strictly convex objective functions, convergence of gradient descent to the global minimizer is guaranteed beginning from <em>all</em> initial choices for the parameters, at least if the learning rate is chosen appropriately. But for a completely general nonconvex objective function, convergence guarantees do not exist.</p>
 <p>However, the objective functions encountered in training neural network models are <em>not</em> ordinary nonconvex functions—they still retain enough structure that tools and best practices may be developed and utilized to help encourage gradient descent to converge on decent solutions. Our little introduction to neural networks and deep learning in this book is not the place to discuss these in detail—for that, we direct the reader toward specialized treatments given in Chapter 8 of <span id="id3">[<a class="reference internal" href="bib.html#id10" title="I. Goodfellow, Y. Bengio, and A. Courville. Deep learning. MIT Press, 2016.">GBC16</a>]</span>, Chapter 7 in <span id="id4">[<a class="reference internal" href="bib.html#id11" title="M. Hardt and B. Recht. Patterns, predictions, and actions. Foundations of machine learning. Princeton University Press, 2022.">HR22</a>]</span>, and also <a class="reference external" href="https://d2l.ai/chapter_optimization/index.html">here</a>.</p>
-<p>We begin by extracting the surprisal function of a neural network from <a class="reference internal" href="12-models.html#neural-net-pf-def">Definition 12.9</a>:</p>
-<div class="proof theorem admonition" id="theorem-14">
+<p>We begin by extracting the surprisal function of a neural network (with one hidden layer) from <a class="reference internal" href="12-models.html#neural-net-pf-def">Definition 12.9</a>:</p>
+<div class="proof theorem admonition" id="nn-surprisal-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 13.11 </span> (Surprisal functions of neural network models)</p>
 <section class="theorem-content" id="proof-content">
+<p>Consider a neural network model with a predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>, response variable <span class="math notranslate nohighlight">\(Y\)</span>, and link functions given by</p>
+<div class="math notranslate nohighlight" id="equation-two-links-eq">
+<span class="eqno">()<a class="headerlink" href="#equation-two-links-eq" title="Link to this equation">#</a></span>\[
+\phi = \sigma(\ba^\intercal \bw_2 + b_2) \quad \text{and} \quad \ba^\intercal = \rho(\bx^\intercal \mathbf{W}_1 + \bb_1^\intercal),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma\)</span> is the sigmoid function and <span class="math notranslate nohighlight">\(\rho\)</span> the ReLU function. Then the model surprisal function is given by</p>
+<div class="math notranslate nohighlight" id="equation-nn-surprise-eq">
+<span class="eqno">(13.12)<a class="headerlink" href="#equation-nn-surprise-eq" title="Link to this equation">#</a></span>\[
+\calI_\text{model}(\bW_1,\bb_1, \bw_2,b_2) = -y \log{\phi} - (1-y) \log(1-\phi).
+\]</div>
 </section>
-</div><div class="cell tag_hide-input docutils container">
+</div><p>Notice that the expression on the right-hand side of <a class="reference internal" href="#equation-nn-surprise-eq">(13.12)</a> is the same as the expression for the model surprisal function of a logistic regression model given in <a class="reference internal" href="#log-reg-surprisal-thm">Theorem 13.9</a>. The difference between the two expressions manifests in the dependence of <span class="math notranslate nohighlight">\(\phi\)</span> on the parameters of the model: For a logistic regression model, we have the simple dependence</p>
+<div class="math notranslate nohighlight">
+\[
+\phi = \sigma(\beta_0 + \bx^\intercal\bbeta ),
+\]</div>
+<p>while for a neural network model the dependence of <span class="math notranslate nohighlight">\(\phi\)</span> on the parameters is given by the two link functions <a class="reference internal" href="#equation-two-links-eq">()</a>.</p>
+<p>Now, let’s bring back the dataset from <a class="reference internal" href="12-models.html#nn-sec"><span class="std std-numref">Section 12.5</span></a>:</p>
+<div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
 <span class="collapsed">Show code cell source</span>
@@ -1478,9 +1498,10 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e26418a8ecf052cd7560208f5d9877f0919f0cc59d176a4bb3b0b8c276c5816b.svg" src="../_images/e26418a8ecf052cd7560208f5d9877f0919f0cc59d176a4bb3b0b8c276c5816b.svg" /></figure>
+<img alt="../_images/844f81f31d4594ef6c93c6603ce5be4b3dd4d8ea339ef3a3f917d68ca0b083e2.svg" src="../_images/844f81f31d4594ef6c93c6603ce5be4b3dd4d8ea339ef3a3f917d68ca0b083e2.svg" /></figure>
 </div>
 </div>
+<p>We will train a neural network with three hidden layers of widths <span class="math notranslate nohighlight">\(8\)</span>, <span class="math notranslate nohighlight">\(8\)</span>, and <span class="math notranslate nohighlight">\(4\)</span> to predict the classes of the data in the scatter plot. We will run SGD with the data surprisal function as the loss function, so that the objective is to minimize the (conditional) cross entropy from the model distribution to the empirical distribution:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1491,19 +1512,19 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define link function at Y</span>
 <span class="k">def</span> <span class="nf">phi_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
 
-    <span class="c1"># initialize the z-value with x</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">X</span>
+    <span class="c1"># initialize the a-value with x</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">X</span>
 
     <span class="c1"># loop through hidden layers</span>
     <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
         <span class="n">W</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;weight_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">)]</span>
         <span class="n">b</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;bias_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">)]</span>
-        <span class="n">z</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">z</span> <span class="o">@</span> <span class="n">W</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">a</span> <span class="o">@</span> <span class="n">W</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
     
     <span class="c1"># compute link function at output layer</span>
     <span class="n">W</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;weight_4&#39;</span><span class="p">]</span>
     <span class="n">b</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;bias_4&#39;</span><span class="p">]</span>
-    <span class="n">phi</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">z</span> <span class="o">@</span> <span class="n">W</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">a</span> <span class="o">@</span> <span class="n">W</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">phi</span>
 
 <span class="c1"># define the model surprisal function</span>
@@ -1551,9 +1572,15 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/9b939e6b67144199a2f0267f447a454e401c964d7bdd9a78512d2973642f46e5.svg" src="../_images/9b939e6b67144199a2f0267f447a454e401c964d7bdd9a78512d2973642f46e5.svg" /></figure>
+<img alt="../_images/f4809a8ff134d4f34a3b0edff1e4ffe086e04632341a200650aee35ebd2a6112.svg" src="../_images/f4809a8ff134d4f34a3b0edff1e4ffe086e04632341a200650aee35ebd2a6112.svg" /></figure>
 </div>
 </div>
+<p>The algorithm takes almost <span class="math notranslate nohighlight">\(2{,}000\)</span> gradient steps, spread over <span class="math notranslate nohighlight">\(N=80\)</span> epochs with a mini-batch size of <span class="math notranslate nohighlight">\(k=128\)</span> on a dataset of size <span class="math notranslate nohighlight">\(m=3{,}072\)</span>.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 3 on the worksheet.</p>
+</div>
+<p>Just as we did for the logistic regression model in the previous section, it is interesting to watch the decision boundary of the predictor function move into the optimal position as the training process progresses:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1615,7 +1642,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/3859a6b2939ecba31f747594011063c9bac55505f7e2ff2150fcf4c2d979aabe.svg" src="../_images/3859a6b2939ecba31f747594011063c9bac55505f7e2ff2150fcf4c2d979aabe.svg" /></figure>
+<img alt="../_images/76e3d5b51ec3f0d3e901fd3e537b5d8eab8060354ac25bdea7ecabf8da763863.svg" src="../_images/76e3d5b51ec3f0d3e901fd3e537b5d8eab8060354ac25bdea7ecabf8da763863.svg" /></figure>
 </div>
 </div>
 </section>

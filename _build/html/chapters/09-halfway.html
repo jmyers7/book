@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -421,7 +421,7 @@ document.write(`
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2d584d334808635cd821dff7bbf2a123fd3ca8f18dcb571fc51266fe6ac7405f.svg" src="../_images/2d584d334808635cd821dff7bbf2a123fd3ca8f18dcb571fc51266fe6ac7405f.svg" /></figure>
+<img alt="../_images/6b6136da66924f9f4219df565fb13078d821758a664ad13800c3778a7be4f72f.svg" src="../_images/6b6136da66924f9f4219df565fb13078d821758a664ad13800c3778a7be4f72f.svg" /></figure>
 </div>
 </div>
 <p>Perhaps in some ideal <a class="reference external" href="https://en.wikipedia.org/wiki/Clockwork_universe">clockwork universe</a>, there might exist a deterministic model linking these two variables. But presumably such a model would depend on a myriad of “hidden” variables, representing and quantifying absolutely everything in the universe that could possibly affect price and area. The effects would be so complex and complicated to be essentially unintelligible and unknowable, for all practical purposes. In other words, these effects would <em>appear random</em>.</p>
@@ -442,7 +442,7 @@ document.write(`
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a16eaca2b3267a3deb30ba9b3b0d48cfb40399a04db90604124e56399f88e1f9.svg" src="../_images/a16eaca2b3267a3deb30ba9b3b0d48cfb40399a04db90604124e56399f88e1f9.svg" /></figure>
+<img alt="../_images/c18d705c043b86a63d645404d4f5547d30709b88ec6df4bde9e37606c473e680.svg" src="../_images/c18d705c043b86a63d645404d4f5547d30709b88ec6df4bde9e37606c473e680.svg" /></figure>
 </div>
 </div>
 <p>The link between a pair of random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> in a probabilistic model is described not by some equation or functional dependence, but rather by their joint probability distribution:</p>
@@ -467,7 +467,7 @@ document.write(`
 <p> </p>
 <p>That an <em>optimal</em> choice of parameters exists presupposes that there is some criterion through which we judge one set of parameters to be better or more appropriate than another set. Although there are many such criteria, we shall exclusively use the following one in this book:</p>
 <blockquote>
-<div><p><strong>The Distance Criterion for Parameter Choice.</strong> Given two probabilistic models within the same parametric family, choose the model whose <em>distance</em> from the empirical distribution of the data is smaller.</p>
+<div><p><strong>The Distance Criterion for Parameter Choice.</strong> Given two model distributions within the same family of probabilistic models, choose the model distribution whose <em>distance</em> from the empirical distribution of the data is smaller.</p>
 </div></blockquote>
 <p>Of course, in order for this criterion to be operationalized, we need to define precisely what we mean by “distance.” But, remember that a probabilistic model linking two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> (for example) is essentially just a joint probability distribution. If we write <span class="math notranslate nohighlight">\(p(x,y;\theta)\)</span> for the model probability mass function (or density function) depending on the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, and <span class="math notranslate nohighlight">\(\hat{p}(x,y)\)</span> for the empirical mass function, then our criterion proposes that we choose <span class="math notranslate nohighlight">\(\theta\)</span> to minimize the “distance” between these two probability distributions:</p>
 <p> </p>

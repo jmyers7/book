@@ -135,7 +135,7 @@ The kinds of probabilistic models of primary interest in this book occur in para
 
 That an _optimal_ choice of parameters exists presupposes that there is some criterion through which we judge one set of parameters to be better or more appropriate than another set. Although there are many such criteria, we shall exclusively use the following one in this book:
 
-> **The Distance Criterion for Parameter Choice.** Given two probabilistic models within the same parametric family, choose the model whose _distance_ from the empirical distribution of the data is smaller.
+> **The Distance Criterion for Parameter Choice.** Given two model distributions within the same family of probabilistic models, choose the model distribution whose _distance_ from the empirical distribution of the data is smaller.
 
 Of course, in order for this criterion to be operationalized, we need to define precisely what we mean by "distance." But, remember that a probabilistic model linking two random variables $X$ and $Y$ (for example) is essentially just a joint probability distribution. If we write $p(x,y;\theta)$ for the model probability mass function (or density function) depending on the parameter $\theta$, and $\hat{p}(x,y)$ for the empirical mass function, then our criterion proposes that we choose $\theta$ to minimize the "distance" between these two probability distributions:
 
