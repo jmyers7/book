@@ -10,14 +10,12 @@ kernelspec:
   name: python3
 ---
 
-**THIS CHAPTER IS CURRENTLY UNDER CONSTRUCTION!!!**
-
 (learning)=
 # Learning
 
 With {numref}`Chapter %s <information-theory>` on information theory, {numref}`Chapter %s <optim>` on optimization, and {numref}`Chapter %s <prob-models>` on probabilistic graphical models all under our belt, we have covered all the prerequisites needed to finally implement the criterion from {numref}`learning-optim` for choosing optimal parameters for our probabilistic graphical models:
 
-> **The Distance Criterion for Parameter Choice.** Given two models within the same family of probabilistic graphical models, choose the model whose _distance_ from the empirical distribution of the data is smaller.
+> **The Distance Criterion for Parameter Choice.** Given two model distributions within the same family of probabilistic models, choose the model distribution whose _distance_ from the empirical distribution of the data is smaller.
 
 In more detail, we suppose that we are given a fixed dataset. We then choose a family of probabilistic graphical models that we believe might model the dataset well---possibly one of the families described in {numref}`Chapter %s <prob-models>`, or maybe one of those described in the [programming assignments](https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments) for {numref}`Chapter %s <prob-models>` or the current chapter. But no matter which family of PGMs that we happen to choose, there will be a proposed model probability distribution $P_{\btheta}$ that depends on a parameter vector $\btheta$; for example, in the case of a [logistic regression model](log-reg-sec), the (total) parameter vector is given by
 
@@ -353,7 +351,7 @@ where $B$ is a mini-batch of data of size $k=8$. (This was discussed right after
 One should also further distinguish between the cases that the PGM contains hidden (or latent) variables, or whether all variables are visible. We shall only focus on the latter case (so-called _fully-observed models_) since the training process for models with hidden variables requires a different set of algorithms. (For example, the [expectation maximation algorithm](https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm).)
 ```
 
-Maximum likelihood estimation works for all the probabilistic graphical models that we studied in {numref}`Chapter %s <prob-models>`, though there are some variations between the different models. First, we must distinguish between training a model as a _generative model_ versus a _discriminative model_. Along with every PGM comes the joint distribution over _all_ random variables, and for a generative model, the learning process trains the model with the goal to learn the parameters of the _entire_ joint distribution, while for a discriminative model, the learning process aims at learning the parameters of only a conditional distribution. Of the types of models explicitly studied in {numref}`Chapter %s <prob-models>`---linear regression models, logistic regression models, and neural networks---all three are trained as discriminative models, aiming to learn the parameters of the conditional distributions of the response variable $Y$ given the predictor vector $\bX$. On the other hand, both the univariate Bernoulli model in the previous section and the Naive Bayes model---studied in the [programming assignment](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_12.ipynb) for {numref}`Chapter %s <prob-models>`, as well as the [worksheet]() for the current chapter---are trained as generative models.
+Maximum likelihood estimation works for all the probabilistic graphical models that we studied in {numref}`Chapter %s <prob-models>`, though there are some variations between the different models. First, we must distinguish between training a model as a _generative model_ versus a _discriminative model_. Along with every PGM comes the joint distribution over _all_ random variables, and for a generative model, the learning process trains the model with the goal to learn the parameters of the _entire_ joint distribution, while for a discriminative model, the learning process aims at learning the parameters of only a conditional distribution. Of the types of models explicitly studied in {numref}`Chapter %s <prob-models>`---linear regression models, logistic regression models, and neural networks---all three are trained as discriminative models, aiming to learn the parameters of the conditional distributions of the response variable $Y$ given the predictor vector $\bX$. On the other hand, both the univariate Bernoulli model in the previous section and the Naive Bayes model---studied in the [programming assignment](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_12.ipynb) for {numref}`Chapter %s <prob-models>`, as well as the [worksheet](https://github.com/jmyers7/stats-book-materials/blob/main/worksheets/13-learning.pdf) for the current chapter---are trained as generative models.
 
 We begin our discussion with the case of generative models, since it is essentially just a recapitulation of our discussion of the univariate Bernoulli model in the previous section. If such a model consists of $n$ random variables, say $X_1,X_2,\ldots,X_n$, then we will write them as an $n$-dimensional random vector
 
@@ -702,10 +700,10 @@ $$
 \end{bmatrix}, \quad \by = \begin{bmatrix} y_1 \\ \vdots \\ y_m \end{bmatrix}, \quad \btheta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_n \end{bmatrix}
 $$
 
-Provided that the $(n+1) \times (n+1)$ square matrix $\mathbfcal{X}^T \mathbfcal{X}$ is invertible, maximum likelihood estimates for the parameters $\beta_0$ and $\bbeta$ are given by
+Provided that the $(n+1) \times (n+1)$ square matrix $\mathbfcal{X}^\intercal \mathbfcal{X}$ is invertible, maximum likelihood estimates for the parameters $\beta_0$ and $\bbeta$ are given by
 
 $$
-\btheta_\text{MLE}^\star = \left(\mathbfcal{X}^T \mathbfcal{X}\right)^{-1}\mathbfcal{X}^T \by.
+\btheta_\text{MLE}^\star = \left(\mathbfcal{X}^\intercal \mathbfcal{X}\right)^{-1}\mathbfcal{X}^\intercal \by.
 $$
 ```
 
@@ -821,7 +819,13 @@ $$
 implies $m \beta_0  + m \beta_1 \bar{x} = m \bar{y}$, and so $\beta_0 = \bar{y} - \beta_1 \bar{x}$. Q.E.D.
 ```
 
-To illustrate the concepts, let's return yet again to the Ames housing dataset (see the description at the beginning of {numref}`lin-reg-sec`). While in principle we may compute the _exact_ MLEs for a linear regression model on this data, it is amusing to approximate them using stochastic gradient descent. To do this, however, we must "standardize" the area and price features for numerical stability, which means that we subtract the empirical means and divide by the standard deviations. When we do so, we get a scatter plot that looks like:
+```{admonition} Problem Prompt
+
+Do problem 2 on the worksheet.
+```
+
+
+To illustrate the concepts, let's return yet again to the Ames housing dataset (see the description at the beginning of {numref}`lin-reg-sec`). While in principle we may compute the _exact_ MLEs for a linear regression model on this data, it is amusing to approximate them using stochastic gradient descent (SGD). To do this, however, we must "standardize" the area and price features for numerical stability, which means that we subtract the empirical means and divide by the standard deviations. When we do so, we get a scatter plot that looks like:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -849,13 +853,13 @@ X = torch.tensor(data_std[:, 0], dtype=torch.float32)
 y = torch.tensor(data_std[:, 1], dtype=torch.float32)
 ```
 
-Notice that both features are on similar scales. Then, we run the algorithm using the mean squared error function
+Notice that both features are on similar scales. Then, we run the algorithm using the squared error function
 
 $$
-MSE(\btheta) = \frac{1}{m} \sum_{i=1}^m (y_i - \beta_0 - \beta x_i)^2, \quad \btheta = (\beta_0, \beta),
+SE(\btheta; \ x, y) = (y - \beta_0 - \beta x)^2, \quad \btheta = (\beta_0, \beta),
 $$
 
-as the objective function:
+as the loss function for SGD:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -954,10 +958,10 @@ But first, we will extract the formula for the model likelihood function of a lo
 Consider a logistic regression model with predictor vector $\bX$, response variable $Y$, and link function at $Y$ given by
 
 $$
-Y \mid \bX \sim \Ber(\phi) \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx^\intercal \bbeta).
+Y \mid \bX \sim \Ber(\phi) \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx^\intercal \bbeta),
 $$
 
-Then the model surprisal function is given by
+where $\sigma$ is the sigmoid function. Then the model surprisal function is given by
 
 $$
 \calI_\text{model}(\btheta) = -y \log{\phi} - (1-y) \log(1-\phi).
@@ -1053,7 +1057,7 @@ by {prf:ref}`likelihood-sur-decompose-disc-thm`. Then convexity of $\calI_\text{
 
 Convexity of the optimization problem opens doors for other algorithms besides gradient descent, like the [Newton-Raphson algorithm](https://en.wikipedia.org/wiki/Newton%27s_method).
 
-Let's bring back the dataset used in the {numref}`Chapter %s <prob-models>` to introduce logistic regression models:
+Let's bring back the dataset from {numref}`log-reg-sec`:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1088,7 +1092,7 @@ plt.title('data for logistic regression')
 plt.tight_layout()
 ```
 
-Let's train a logistic regression model on this dataset using the gradient descent algorithm to locate the (global) minimizer of the data surprisal function $\calI_\text{data}(\beta_0,\bbeta)$. Running the algorithm for 50 steps results in the following plot of the surprisal function:
+Let's train a logistic regression model on this dataset using the SGD algorithm to locate the global minimizer of the cross entropy from the model distribution to the empirical distribution. This requires the model surprisal function as the loss function for SGD. Running the algorithm for 30 epochs results in the following plot of cross entropy versus gradient steps:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1114,7 +1118,7 @@ beta0 = torch.normal(mean=0, std=1e-1, size=(1,))
 beta = torch.normal(mean=0, std=1e-1, size=(2,))
 parameters = {'beta0': beta0, 'beta': beta}
 
-# choose SGD hyperparameters
+# define SGD parameters
 N = 30
 k = 128
 alpha = 1e-1
@@ -1124,13 +1128,13 @@ gd_output = SGD(L=I_model, X=X, y=y, init_parameters=parameters, lr=alpha, num_e
 
 # plot SGD
 plot_gd(gd_output,
-         h=3,
-         w=6,
-         plot_title_string='SGD for logistic regression model',
-         ylabel='cross entropy',
-         legend=True,
-         per_step_label='cross entropy per step',
-         per_epoch_label='mean cross entropy per epoch')
+        h=3,
+        w=6,
+        plot_title_string='SGD for logistic regression model',
+        ylabel='cross entropy',
+        legend=True,
+        per_step_label='cross entropy per step',
+        per_epoch_label='mean cross entropy per epoch')
 ```
 
 Notice that the curve in this plot is beginning to "plateau," indicating the algorithm is beginning to converge on the MLE. Since the feature space is $2$-dimensional, as we discussed in {numref}`log-reg-sec`, we may check the fit of the model by plotting the decision boundary of the predictor function
@@ -1220,22 +1224,41 @@ plt.tight_layout()
 (mle-nn-sec)=
 ## MLE for neural networks
 
-In this section, we encounter our third optimization problem of maximum likelihood estimation. These problems have been presented in order of increasing difficulty, beginning with the easiest in {numref}`mle-lin-reg-sec` where we discovered that the MLEs for linear regression models are obtainable in closed form _and_ that the optimization problem is convex. For logistic regression models, discussed in {numref}`mle-log-reg-sec`, we lost the ability (in general) to write down closed form solutions for MLEs, but the optimization problem was still convex. Now, in the current section, we lose both of these desirable properties: In general, the optimization problems of maximum likelihood estimation for neural network models have neither closed form solutions nor are they convex.
+In this section, we encounter our third optimization problem of maximum likelihood estimation. These problems have been presented in the chapter in order of increasing difficulty, beginning with the easiest in {numref}`mle-lin-reg-sec` where we discovered that the MLEs for linear regression models are obtainable in closed form _and_ that the optimization problem is convex. For logistic regression models, discussed in {numref}`mle-log-reg-sec`, we lost the ability (in general) to write down closed form solutions for MLEs, but the optimization problem was still convex. Now, in the current section, we lose both of these desirable properties: In general, the optimization problems of maximum likelihood estimation for neural network models have neither closed form solutions nor are they convex.
 
-Thinking visually, and using intuition and language adapted from low dimensions, we imagine that the graph of a (strictly) convex objective function $J:\bbr^n \to \bbr$ is a hypersurface embedded in $\bbr^{n+1}$ with a single "lowest valley" (global minimum). The gradient descent algorithms follow the negative gradient "downhill" until they reach a neighborhood of this global minimizer. But for a nonconvex $J$, there might be both local minima and maxima (i.e., local "peaks" and "valleys"), as well as _saddle points_ where the gradient vanishes, but where the Hessian matrix has both negative and positive eigenvalues, resulting in both "upward" and "downward" directional curvatures. This means that it is possible for gradient descent to get "stuck" in a local minimum with relatively high objective value, or that it follows a "downhill" trajectory leading to a saddle point and again gets "stuck" (or at least significantly slowed down). However, intuition suggests at least that local minima are rare in high dimensions since it should require very special circumstances and structure for positivity of _all_ eigenvalues of a Hessian matrix. But saddle points remain a concern.
+Thinking visually and using intuition and language adapted from low dimensions, we imagine that the graph of a (strictly) convex objective function $J:\bbr^n \to \bbr$ is a hypersurface embedded in $\bbr^{n+1}$ with a single "lowest valley" (global minimum). The gradient descent algorithms follow the negative gradient "downhill" until they reach a neighborhood of this global minimizer. But for a nonconvex $J$, there might be both local minima and maxima (i.e., local "peaks" and "valleys"), as well as _saddle points_ where the gradient vanishes, but where the Hessian matrix has both negative and positive eigenvalues, resulting in both "upward" and "downward" directional curvatures. This means that it is possible for gradient descent to get "stuck" in a local minimum with relatively high objective value, or that it follows a "downhill" trajectory leading to a saddle point and again gets "stuck" (or at least significantly slowed down). However, intuition suggests at least that local minima are rare in high dimensions since it should require very special circumstances and structure for positivity of _all_ eigenvalues of a Hessian matrix. But saddle points remain a concern.
 
 Parameter initialization is also a significant concern for neural network models. With strictly convex objective functions, convergence of gradient descent to the global minimizer is guaranteed beginning from _all_ initial choices for the parameters, at least if the learning rate is chosen appropriately. But for a completely general nonconvex objective function, convergence guarantees do not exist.
 
 However, the objective functions encountered in training neural network models are _not_ ordinary nonconvex functions---they still retain enough structure that tools and best practices may be developed and utilized to help encourage gradient descent to converge on decent solutions. Our little introduction to neural networks and deep learning in this book is not the place to discuss these in detail---for that, we direct the reader toward specialized treatments given in Chapter 8 of {cite}`GBC2016`, Chapter 7 in {cite}`HardtRecht2022`, and also [here](https://d2l.ai/chapter_optimization/index.html).
 
-We begin by extracting the surprisal function of a neural network from {prf:ref}`neural-net-pf-def`:
+We begin by extracting the surprisal function of a neural network (with one hidden layer) from {prf:ref}`neural-net-pf-def`:
 
 ```{prf:theorem} Surprisal functions of neural network models
+:label: nn-surprisal-thm
 
+Consider a neural network model with a predictor vector $\bX$, response variable $Y$, and link functions given by
 
+$$
+\phi = \sigma(\ba^\intercal \bw_2 + b_2) \quad \text{and} \quad \ba^\intercal = \rho(\bx^\intercal \mathbf{W}_1 + \bb_1^\intercal),
+$$ (two-links-eq)
+
+where $\sigma$ is the sigmoid function and $\rho$ the ReLU function. Then the model surprisal function is given by
+
+$$
+\calI_\text{model}(\bW_1,\bb_1, \bw_2,b_2) = -y \log{\phi} - (1-y) \log(1-\phi).
+$$ (nn-surprise-eq)
 ```
 
+Notice that the expression on the right-hand side of {eq}`nn-surprise-eq` is the same as the expression for the model surprisal function of a logistic regression model given in {prf:ref}`log-reg-surprisal-thm`. The difference between the two expressions manifests in the dependence of $\phi$ on the parameters of the model: For a logistic regression model, we have the simple dependence
 
+$$
+\phi = \sigma(\beta_0 + \bx^\intercal\bbeta ),
+$$
+
+while for a neural network model the dependence of $\phi$ on the parameters is given by the two link functions {eq}`two-links-eq`.
+
+Now, let's bring back the dataset from {numref}`nn-sec`:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1270,7 +1293,7 @@ plt.title('data for neural network model')
 plt.tight_layout()
 ```
 
-
+We will train a neural network with three hidden layers of widths $8$, $8$, and $4$ to predict the classes of the data in the scatter plot. We will run SGD with the data surprisal function as the loss function, so that the objective is to minimize the (conditional) cross entropy from the model distribution to the empirical distribution:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -1281,19 +1304,19 @@ plt.tight_layout()
 # define link function at Y
 def phi_link(parameters, X):
 
-    # initialize the z-value with x
-    z = X
+    # initialize the a-value with x
+    a = X
 
     # loop through hidden layers
     for h in range(1, 4):
         W = parameters['weight_' + str(h)]
         b = parameters['bias_' + str(h)]
-        z = F.relu(z @ W + b)
+        a = F.relu(a @ W + b)
     
     # compute link function at output layer
     W = parameters['weight_4']
     b = parameters['bias_4']
-    phi = torch.sigmoid(z @ W + b)
+    phi = torch.sigmoid(a @ W + b)
     return phi
 
 # define the model surprisal function
@@ -1318,7 +1341,7 @@ for i in range(1, 5):
     parameters = parameters | {'weight_' + str(i): weight.squeeze()}
     parameters = parameters | {'bias_' + str(i): bias}
 
-# choose SGD hyperparameters
+# define SGD parameters
 N = 80
 k = 128
 alpha = 0.1
@@ -1337,7 +1360,14 @@ plot_gd(gd_output,
          per_epoch_label='mean cross entropy per epoch')
 ```
 
+The algorithm takes almost $2{,}000$ gradient steps, spread over $N=80$ epochs with a mini-batch size of $k=128$ on a dataset of size $m=3{,}072$.
 
+```{admonition} Problem Prompt
+
+Do problem 3 on the worksheet.
+```
+
+Just as we did for the logistic regression model in the previous section, it is interesting to watch the decision boundary of the predictor function move into the optimal position as the training process progresses:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
