@@ -197,12 +197,11 @@
 <li class="toctree-l1"><a class="reference internal" href="chapters/11-optim.html">11. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/12-models.html">12. Probabilistic graphical models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chapters/13-learning.html">13. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/14-stats-estimators.html">14. Statistics and general parameter estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/15-asymptotic.html">15. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/16-CIs.html">16. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/17-hyp-test.html">17. Hypothesis testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/18-lin-reg.html">18. Linear regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chapters/bib.html">19. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/14-large-sample.html">14. Large sample theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/15-stats-estimators.html">15. Statistics and general parameter estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/16-CIs-hyp-tests.html">16. Confidence intervals and hypothesis testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/17-lin-reg.html">17. More on linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chapters/bib.html">18. Bibliography</a></li>
 </ul>
 
     </div>
@@ -330,10 +329,7 @@ document.write(`
    <a href="#cap-affine-gaussian-thm"><strong>affine-gaussian-thm</strong></a> | 
    <a href="#cap-affine-trans-mutivar-norm-thm"><strong>affine-trans-mutivar-norm-thm</strong></a> | 
    <a href="#cap-batch-gd-def"><strong>batch-gd-def</strong></a> | 
-   <a href="#cap-bayes-estimator-def"><strong>bayes-estimator-def</strong></a> | 
-   <a href="#cap-bayes-estimator-example-thm"><strong>bayes-estimator-example-thm</strong></a> | 
    <a href="#cap-bayes-event-thm"><strong>bayes-event-thm</strong></a> | 
-   <a href="#cap-bayes-risk-def"><strong>bayes-risk-def</strong></a> | 
    <a href="#cap-bayes-rvs-thm"><strong>bayes-rvs-thm</strong></a> | 
    <a href="#cap-bern-bin-thm"><strong>bern-bin-thm</strong></a> | 
    <a href="#cap-bern-mle-thm"><strong>bern-mle-thm</strong></a> | 
@@ -404,7 +400,6 @@ document.write(`
    <a href="#cap-exponential-def"><strong>exponential-def</strong></a> | 
    <a href="#cap-extrema-def"><strong>extrema-def</strong></a> | 
    <a href="#cap-first-semidefinite-def"><strong>first-semidefinite-def</strong></a> | 
-   <a href="#cap-freq-risk-def"><strong>freq-risk-def</strong></a> | 
    <a href="#cap-frequentist-prob"><strong>frequentist-prob</strong></a> | 
    <a href="#cap-ftc-thm"><strong>ftc-thm</strong></a> | 
    <a href="#cap-functional-dep-thm"><strong>functional-dep-thm</strong></a> | 
@@ -453,8 +448,6 @@ document.write(`
    <a href="#cap-log-reg-pf-def"><strong>log-reg-pf-def</strong></a> | 
    <a href="#cap-log-reg-surprisal-grad-thm"><strong>log-reg-surprisal-grad-thm</strong></a> | 
    <a href="#cap-log-reg-surprisal-thm"><strong>log-reg-surprisal-thm</strong></a> | 
-   <a href="#cap-loss-example-def"><strong>loss-example-def</strong></a> | 
-   <a href="#cap-loss-func-def"><strong>loss-func-def</strong></a> | 
    <a href="#cap-lotus-thm"><strong>lotus-thm</strong></a> | 
    <a href="#cap-main-convex-multi-thm"><strong>main-convex-multi-thm</strong></a> | 
    <a href="#cap-main-convex-thm"><strong>main-convex-thm</strong></a> | 
@@ -484,7 +477,6 @@ document.write(`
    <a href="#cap-other-info-thm"><strong>other-info-thm</strong></a> | 
    <a href="#cap-outlier-def"><strong>outlier-def</strong></a> | 
    <a href="#cap-para-model-def"><strong>para-model-def</strong></a> | 
-   <a href="#cap-param-est-def"><strong>param-est-def</strong></a> | 
    <a href="#cap-permutation-def"><strong>permutation-def</strong></a> | 
    <a href="#cap-pgm-def"><strong>pgm-def</strong></a> | 
    <a href="#cap-poisson-def"><strong>poisson-def</strong></a> | 
@@ -595,22 +587,6 @@ document.write(`
        <a href="chapters/11-optim.html#batch-gd-def"><code class="xref">batch-gd-def</code></a> <em>(chapters/11-optim)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-bayes-estimator-def"><td></td><td>
-       <strong>bayes-estimator-def</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/14-stats-estimators.html#bayes-estimator-def"><code class="xref">bayes-estimator-def</code></a> <em>(chapters/14-stats-estimators)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-bayes-estimator-example-thm"><td></td><td>
-       <strong>bayes-estimator-example-thm</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/14-stats-estimators.html#bayes-estimator-example-thm"><code class="xref">bayes-estimator-example-thm</code></a> <em>(chapters/14-stats-estimators)</em></td><td>
-       <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-bayes-event-thm"><td></td><td>
        <strong>bayes-event-thm</strong></td><td></td></tr>
      <tr>
@@ -618,14 +594,6 @@ document.write(`
        <td>
        <a href="chapters/03-rules-of-prob.html#bayes-event-thm"><code class="xref">bayes-event-thm</code></a> <em>(chapters/03-rules-of-prob)</em></td><td>
        <em>theorem</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-bayes-risk-def"><td></td><td>
-       <strong>bayes-risk-def</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/14-stats-estimators.html#bayes-risk-def"><code class="xref">bayes-risk-def</code></a> <em>(chapters/14-stats-estimators)</em></td><td>
-       <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-bayes-rvs-thm"><td></td><td>
        <strong>bayes-rvs-thm</strong></td><td></td></tr>
@@ -1187,14 +1155,6 @@ document.write(`
        <a href="chapters/08-more-prob.html#first-semidefinite-def"><code class="xref">first-semidefinite-def</code></a> <em>(chapters/08-more-prob)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-freq-risk-def"><td></td><td>
-       <strong>freq-risk-def</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/14-stats-estimators.html#freq-risk-def"><code class="xref">freq-risk-def</code></a> <em>(chapters/14-stats-estimators)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-frequentist-prob"><td></td><td>
        <strong>frequentist-prob</strong></td><td></td></tr>
      <tr>
@@ -1272,7 +1232,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/14-stats-estimators.html#gen-para-model-def"><code class="xref">gen-para-model-def</code></a> <em>(chapters/14-stats-estimators)</em></td><td>
+       <a href="chapters/15-stats-estimators.html#gen-para-model-def"><code class="xref">gen-para-model-def</code></a> <em>(chapters/15-stats-estimators)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-geometric-def"><td></td><td>
@@ -1579,22 +1539,6 @@ document.write(`
        <a href="chapters/13-learning.html#log-reg-surprisal-thm"><code class="xref">log-reg-surprisal-thm</code></a> <em>(chapters/13-learning)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-loss-example-def"><td></td><td>
-       <strong>loss-example-def</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/14-stats-estimators.html#loss-example-def"><code class="xref">loss-example-def</code></a> <em>(chapters/14-stats-estimators)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-loss-func-def"><td></td><td>
-       <strong>loss-func-def</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/14-stats-estimators.html#loss-func-def"><code class="xref">loss-func-def</code></a> <em>(chapters/14-stats-estimators)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-lotus-thm"><td></td><td>
        <strong>lotus-thm</strong></td><td></td></tr>
      <tr>
@@ -1824,15 +1768,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/14-stats-estimators.html#para-model-def"><code class="xref">para-model-def</code></a> <em>(chapters/14-stats-estimators)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-param-est-def"><td></td><td>
-       <strong>param-est-def</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/14-stats-estimators.html#param-est-def"><code class="xref">param-est-def</code></a> <em>(chapters/14-stats-estimators)</em></td><td>
+       <a href="chapters/15-stats-estimators.html#para-model-def"><code class="xref">para-model-def</code></a> <em>(chapters/15-stats-estimators)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-permutation-def"><td></td><td>
@@ -2016,7 +1952,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/14-stats-estimators.html#prop-sample-mean-thm"><code class="xref">prop-sample-mean-thm</code></a> <em>(chapters/14-stats-estimators)</em></td><td>
+       <a href="chapters/15-stats-estimators.html#prop-sample-mean-thm"><code class="xref">prop-sample-mean-thm</code></a> <em>(chapters/15-stats-estimators)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-psd-char-thm"><td></td><td>
@@ -2088,7 +2024,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/14-stats-estimators.html#samp-dist-def"><code class="xref">samp-dist-def</code></a> <em>(chapters/14-stats-estimators)</em></td><td>
+       <a href="chapters/15-stats-estimators.html#samp-dist-def"><code class="xref">samp-dist-def</code></a> <em>(chapters/15-stats-estimators)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-sample-mean-var-def"><td></td><td>
@@ -2096,7 +2032,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/14-stats-estimators.html#sample-mean-var-def"><code class="xref">sample-mean-var-def</code></a> <em>(chapters/14-stats-estimators)</em></td><td>
+       <a href="chapters/15-stats-estimators.html#sample-mean-var-def"><code class="xref">sample-mean-var-def</code></a> <em>(chapters/15-stats-estimators)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-second-der-test-thm"><td></td><td>
@@ -2176,7 +2112,7 @@ document.write(`
      <tr>
        <td></td>
        <td>
-       <a href="chapters/14-stats-estimators.html#statistic-def"><code class="xref">statistic-def</code></a> <em>(chapters/14-stats-estimators)</em></td><td>
+       <a href="chapters/15-stats-estimators.html#statistic-def"><code class="xref">statistic-def</code></a> <em>(chapters/15-stats-estimators)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-std-normal-stuff-def"><td></td><td>

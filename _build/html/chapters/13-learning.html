@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -63,7 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/13-learning';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="14. Statistics and general parameter estimation" href="14-stats-estimators.html" />
+    <link rel="next" title="14. Large sample theory" href="14-large-sample.html" />
     <link rel="prev" title="12. Probabilistic graphical models" href="12-models.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -193,12 +193,11 @@
 <li class="toctree-l1"><a class="reference internal" href="11-optim.html">11. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="12-models.html">12. Probabilistic graphical models</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">13. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-stats-estimators.html">14. Statistics and general parameter estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-asymptotic.html">15. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-CIs.html">16. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-hyp-test.html">17. Hypothesis testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18-lin-reg.html">18. Linear regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bib.html">19. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-large-sample.html">14. Large sample theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-stats-estimators.html">15. Statistics and general parameter estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-CIs-hyp-tests.html">16. Confidence intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-lin-reg.html">17. More on linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">18. Bibliography</a></li>
 </ul>
 
     </div>
@@ -645,7 +644,7 @@ x_1,x_2,\ldots,x_{128} \in \{0,1\}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2a07ef937804caa6b2eb6244ce7166598439d9aac67de5aa3ae862824fba016c.svg" src="../_images/2a07ef937804caa6b2eb6244ce7166598439d9aac67de5aa3ae862824fba016c.svg" /></figure>
+<img alt="../_images/a6eafa1ed8c3395e9ca44bfad89b3ed2bbc162cf30e54f279977bed08a942f47.svg" src="../_images/a6eafa1ed8c3395e9ca44bfad89b3ed2bbc162cf30e54f279977bed08a942f47.svg" /></figure>
 </div>
 </div>
 <p>The blue curve in the left-hand plot is the graph of the <em>exact</em> cross entropy function <span class="math notranslate nohighlight">\(H_{\hat{P}}(P_\theta)\)</span>. The magenta points—which represent a selection of outputs of the algorithm—do not fall <em>precisely</em> on this graph since they are <em>approximations</em> to the cross entropy, obtained as realizations of the expression on the right-hand side of</p>
@@ -1067,7 +1066,7 @@ J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \fra
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/69bc963d34da9d5b5b58e17e441037fd25b7e374ec25fbc4495e2cefa7004b9c.svg" src="../_images/69bc963d34da9d5b5b58e17e441037fd25b7e374ec25fbc4495e2cefa7004b9c.svg" /></figure>
+<img alt="../_images/4e9d44f7abd9bf8fdaac622c9f71a3ae1e91fcf76ce606038477e75fb26fef1f.svg" src="../_images/4e9d44f7abd9bf8fdaac622c9f71a3ae1e91fcf76ce606038477e75fb26fef1f.svg" /></figure>
 </div>
 </div>
 <p>Notice that both features are on similar scales. Then, we run the algorithm using the squared error function</p>
@@ -1124,7 +1123,7 @@ SE(\btheta; \ x, y) = (y - \beta_0 - \beta x)^2, \quad \btheta = (\beta_0, \beta
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/944bd078f245354653387a0ce64a727bed6e9d63c0b53a4d39efcd1a28813283.svg" src="../_images/944bd078f245354653387a0ce64a727bed6e9d63c0b53a4d39efcd1a28813283.svg" /></figure>
+<img alt="../_images/c4f2bc0ebd917661e4c22967a5fbca7074aece05c26cfad81f0f08619722516b.svg" src="../_images/c4f2bc0ebd917661e4c22967a5fbca7074aece05c26cfad81f0f08619722516b.svg" /></figure>
 </div>
 </div>
 <p>Notice that we plotted the logarithm of the MSE—we chose to do this because we purposefully chose initial guesses for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> that were quite far away from the MLEs, creating large values of the MSE in the initial few steps of the algorithm. This lengthens the learning process, giving us a nicer visualization as the regression line moves into place:</p>
@@ -1166,7 +1165,7 @@ SE(\btheta; \ x, y) = (y - \beta_0 - \beta x)^2, \quad \btheta = (\beta_0, \beta
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/392259ddddf02212c8149d0290f8f0a7509ef1210be02b3059f7493cb1d0d991.svg" src="../_images/392259ddddf02212c8149d0290f8f0a7509ef1210be02b3059f7493cb1d0d991.svg" /></figure>
+<img alt="../_images/a34d51976354e96cdacc6d3413252be045da2c249a53f492295d0851489dc9d0.svg" src="../_images/a34d51976354e96cdacc6d3413252be045da2c249a53f492295d0851489dc9d0.svg" /></figure>
 </div>
 </div>
 </section>
@@ -1299,7 +1298,7 @@ x_0 \bx &amp; \cdots &amp; x_n \bx \\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/5ca24ea5116cff57f34c9d9aefb2e12b5c09185f4078076eca601bfda8a8d167.svg" src="../_images/5ca24ea5116cff57f34c9d9aefb2e12b5c09185f4078076eca601bfda8a8d167.svg" /></figure>
+<img alt="../_images/17e586284db8046304edd7ea719ab1b349e7ce268d8ae7fb9f72774bcba820bb.svg" src="../_images/17e586284db8046304edd7ea719ab1b349e7ce268d8ae7fb9f72774bcba820bb.svg" /></figure>
 </div>
 </div>
 <p>Let’s train a logistic regression model on this dataset using the SGD algorithm to locate the global minimizer of the cross entropy from the model distribution to the empirical distribution. This requires the model surprisal function as the loss function for SGD. Running the algorithm for 30 epochs results in the following plot of cross entropy versus gradient steps:</p>
@@ -1350,7 +1349,7 @@ x_0 \bx &amp; \cdots &amp; x_n \bx \\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e807d26362e13310df8a15ee0d3c9b9d8b58a183625eaee0123a76fe622af4c5.svg" src="../_images/e807d26362e13310df8a15ee0d3c9b9d8b58a183625eaee0123a76fe622af4c5.svg" /></figure>
+<img alt="../_images/2ebd5e09a149c77f1607d36c4cbda08949bf5c660e35aab9b608d3767f932db3.svg" src="../_images/2ebd5e09a149c77f1607d36c4cbda08949bf5c660e35aab9b608d3767f932db3.svg" /></figure>
 </div>
 </div>
 <p>Notice that the curve in this plot is beginning to “plateau,” indicating the algorithm is beginning to converge on the MLE. Since the feature space is <span class="math notranslate nohighlight">\(2\)</span>-dimensional, as we discussed in <a class="reference internal" href="12-models.html#log-reg-sec"><span class="std std-numref">Section 12.4</span></a>, we may check the fit of the model by plotting the decision boundary of the predictor function</p>
@@ -1428,7 +1427,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/74ae0abf7ea405531163ed96187d93822f4b194c94829faed1d5de3bb633a1fb.svg" src="../_images/74ae0abf7ea405531163ed96187d93822f4b194c94829faed1d5de3bb633a1fb.svg" /></figure>
+<img alt="../_images/6f91417d11602e3cb48dade5e76f73aacfd4ca7abc31dc0989ff4fb45c728170.svg" src="../_images/6f91417d11602e3cb48dade5e76f73aacfd4ca7abc31dc0989ff4fb45c728170.svg" /></figure>
 </div>
 </div>
 </section>
@@ -1444,21 +1443,21 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 <section class="theorem-content" id="proof-content">
 <p>Consider a neural network model with a predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>, response variable <span class="math notranslate nohighlight">\(Y\)</span>, and link functions given by</p>
 <div class="math notranslate nohighlight" id="equation-two-links-eq">
-<span class="eqno">()<a class="headerlink" href="#equation-two-links-eq" title="Link to this equation">#</a></span>\[
+<span class="eqno">(13.12)<a class="headerlink" href="#equation-two-links-eq" title="Link to this equation">#</a></span>\[
 \phi = \sigma(\ba^\intercal \bw_2 + b_2) \quad \text{and} \quad \ba^\intercal = \rho(\bx^\intercal \mathbf{W}_1 + \bb_1^\intercal),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\sigma\)</span> is the sigmoid function and <span class="math notranslate nohighlight">\(\rho\)</span> the ReLU function. Then the model surprisal function is given by</p>
 <div class="math notranslate nohighlight" id="equation-nn-surprise-eq">
-<span class="eqno">(13.12)<a class="headerlink" href="#equation-nn-surprise-eq" title="Link to this equation">#</a></span>\[
+<span class="eqno">(13.13)<a class="headerlink" href="#equation-nn-surprise-eq" title="Link to this equation">#</a></span>\[
 \calI_\text{model}(\bW_1,\bb_1, \bw_2,b_2) = -y \log{\phi} - (1-y) \log(1-\phi).
 \]</div>
 </section>
-</div><p>Notice that the expression on the right-hand side of <a class="reference internal" href="#equation-nn-surprise-eq">(13.12)</a> is the same as the expression for the model surprisal function of a logistic regression model given in <a class="reference internal" href="#log-reg-surprisal-thm">Theorem 13.9</a>. The difference between the two expressions manifests in the dependence of <span class="math notranslate nohighlight">\(\phi\)</span> on the parameters of the model: For a logistic regression model, we have the simple dependence</p>
+</div><p>Notice that the expression on the right-hand side of <a class="reference internal" href="#equation-nn-surprise-eq">(13.13)</a> is the same as the expression for the model surprisal function of a logistic regression model given in <a class="reference internal" href="#log-reg-surprisal-thm">Theorem 13.9</a>. The difference between the two expressions manifests in the dependence of <span class="math notranslate nohighlight">\(\phi\)</span> on the parameters of the model: For a logistic regression model, we have the simple dependence</p>
 <div class="math notranslate nohighlight">
 \[
 \phi = \sigma(\beta_0 + \bx^\intercal\bbeta ),
 \]</div>
-<p>while for a neural network model the dependence of <span class="math notranslate nohighlight">\(\phi\)</span> on the parameters is given by the two link functions <a class="reference internal" href="#equation-two-links-eq">()</a>.</p>
+<p>while for a neural network model the dependence of <span class="math notranslate nohighlight">\(\phi\)</span> on the parameters is given by the two link functions <a class="reference internal" href="#equation-two-links-eq">(13.12)</a>.</p>
 <p>Now, let’s bring back the dataset from <a class="reference internal" href="12-models.html#nn-sec"><span class="std std-numref">Section 12.5</span></a>:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
@@ -1498,7 +1497,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/844f81f31d4594ef6c93c6603ce5be4b3dd4d8ea339ef3a3f917d68ca0b083e2.svg" src="../_images/844f81f31d4594ef6c93c6603ce5be4b3dd4d8ea339ef3a3f917d68ca0b083e2.svg" /></figure>
+<img alt="../_images/2cac4fc2e0ab2dc07668a474340ef4ecd17cff77e988f080146ca5a923e04034.svg" src="../_images/2cac4fc2e0ab2dc07668a474340ef4ecd17cff77e988f080146ca5a923e04034.svg" /></figure>
 </div>
 </div>
 <p>We will train a neural network with three hidden layers of widths <span class="math notranslate nohighlight">\(8\)</span>, <span class="math notranslate nohighlight">\(8\)</span>, and <span class="math notranslate nohighlight">\(4\)</span> to predict the classes of the data in the scatter plot. We will run SGD with the data surprisal function as the loss function, so that the objective is to minimize the (conditional) cross entropy from the model distribution to the empirical distribution:</p>
@@ -1572,7 +1571,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/f4809a8ff134d4f34a3b0edff1e4ffe086e04632341a200650aee35ebd2a6112.svg" src="../_images/f4809a8ff134d4f34a3b0edff1e4ffe086e04632341a200650aee35ebd2a6112.svg" /></figure>
+<img alt="../_images/fed4daf4eaf2670c48272f22e722f0ebfe84cf96fae2ed1c1fd696763696efbd.svg" src="../_images/fed4daf4eaf2670c48272f22e722f0ebfe84cf96fae2ed1c1fd696763696efbd.svg" /></figure>
 </div>
 </div>
 <p>The algorithm takes almost <span class="math notranslate nohighlight">\(2{,}000\)</span> gradient steps, spread over <span class="math notranslate nohighlight">\(N=80\)</span> epochs with a mini-batch size of <span class="math notranslate nohighlight">\(k=128\)</span> on a dataset of size <span class="math notranslate nohighlight">\(m=3{,}072\)</span>.</p>
@@ -1642,7 +1641,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/76e3d5b51ec3f0d3e901fd3e537b5d8eab8060354ac25bdea7ecabf8da763863.svg" src="../_images/76e3d5b51ec3f0d3e901fd3e537b5d8eab8060354ac25bdea7ecabf8da763863.svg" /></figure>
+<img alt="../_images/ab510db29f15d8e0e60cf0f34adce6cb31f39fb84a452181571255c23361cb25.svg" src="../_images/ab510db29f15d8e0e60cf0f34adce6cb31f39fb84a452181571255c23361cb25.svg" /></figure>
 </div>
 </div>
 </section>
@@ -1688,11 +1687,11 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
       </div>
     </a>
     <a class="right-next"
-       href="14-stats-estimators.html"
+       href="14-large-sample.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">14. </span>Statistics and general parameter estimation</p>
+        <p class="prev-next-title"><span class="section-number">14. </span>Large sample theory</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

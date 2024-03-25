@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -193,12 +193,11 @@
 <li class="toctree-l1"><a class="reference internal" href="11-optim.html">11. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="12-models.html">12. Probabilistic graphical models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="13-learning.html">13. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-stats-estimators.html">14. Statistics and general parameter estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-asymptotic.html">15. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-CIs.html">16. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-hyp-test.html">17. Hypothesis testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18-lin-reg.html">18. Linear regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bib.html">19. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-large-sample.html">14. Large sample theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-stats-estimators.html">15. Statistics and general parameter estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-CIs-hyp-tests.html">16. Confidence intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-lin-reg.html">17. More on linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">18. Bibliography</a></li>
 </ul>
 
     </div>
@@ -556,7 +555,7 @@ F(x) = \sum_{x^\star\leq x} p(x^\star) = \frac{\text{number of data points that 
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/5332e19795cdc46345a521cbc72766539b0274adacc7b8198e6935890018d41c.svg"><img alt="../_images/5332e19795cdc46345a521cbc72766539b0274adacc7b8198e6935890018d41c.svg" src="../_images/5332e19795cdc46345a521cbc72766539b0274adacc7b8198e6935890018d41c.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/711a718faf7e57657216fce1ea0217db92e0f8aeaba0ca0fe82acf5f6e746429.svg"><img alt="../_images/711a718faf7e57657216fce1ea0217db92e0f8aeaba0ca0fe82acf5f6e746429.svg" src="../_images/711a718faf7e57657216fce1ea0217db92e0f8aeaba0ca0fe82acf5f6e746429.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -596,7 +595,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/58d1e674817d726b7b268d7dc59ab481141243b51c966e0112c21147e29ff0c6.svg"><img alt="../_images/58d1e674817d726b7b268d7dc59ab481141243b51c966e0112c21147e29ff0c6.svg" src="../_images/58d1e674817d726b7b268d7dc59ab481141243b51c966e0112c21147e29ff0c6.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/a554ba8e9cb450b2ef3c7862b91bb2be6611528932574e5ad0ea899583c584f1.svg"><img alt="../_images/a554ba8e9cb450b2ef3c7862b91bb2be6611528932574e5ad0ea899583c584f1.svg" src="../_images/a554ba8e9cb450b2ef3c7862b91bb2be6611528932574e5ad0ea899583c584f1.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -636,7 +635,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/c3e83544688bbc6efc8a15bbbb4e538d77664be029ae24fd5b68f71b2bc1bb57.svg"><img alt="../_images/c3e83544688bbc6efc8a15bbbb4e538d77664be029ae24fd5b68f71b2bc1bb57.svg" src="../_images/c3e83544688bbc6efc8a15bbbb4e538d77664be029ae24fd5b68f71b2bc1bb57.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/def02003b5ae38ba61da9ecbdb9634a7738b1388a87b1156bfc6e1fc07473261.svg"><img alt="../_images/def02003b5ae38ba61da9ecbdb9634a7738b1388a87b1156bfc6e1fc07473261.svg" src="../_images/def02003b5ae38ba61da9ecbdb9634a7738b1388a87b1156bfc6e1fc07473261.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -681,7 +680,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/bd6035c09126c975968d889e7f32b4f3949541f6975186256e49b83f37c952f1.svg"><img alt="../_images/bd6035c09126c975968d889e7f32b4f3949541f6975186256e49b83f37c952f1.svg" src="../_images/bd6035c09126c975968d889e7f32b4f3949541f6975186256e49b83f37c952f1.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/4375081befbd87a016774c89fde86c48415849f4ccd212b4273476a68f6b1cb8.svg"><img alt="../_images/4375081befbd87a016774c89fde86c48415849f4ccd212b4273476a68f6b1cb8.svg" src="../_images/4375081befbd87a016774c89fde86c48415849f4ccd212b4273476a68f6b1cb8.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -704,7 +703,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/2cc9cd64a528da79f94eefd0c3efd9e2ed702b9b3cf29c9b1f8324126ff65087.svg"><img alt="../_images/2cc9cd64a528da79f94eefd0c3efd9e2ed702b9b3cf29c9b1f8324126ff65087.svg" src="../_images/2cc9cd64a528da79f94eefd0c3efd9e2ed702b9b3cf29c9b1f8324126ff65087.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/1400012018eee97f52e488c8e22fc7e3de4d0163eba3e491382a015faf0888f3.svg"><img alt="../_images/1400012018eee97f52e488c8e22fc7e3de4d0163eba3e491382a015faf0888f3.svg" src="../_images/1400012018eee97f52e488c8e22fc7e3de4d0163eba3e491382a015faf0888f3.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -727,7 +726,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/d28f38e152d47b01aae693b25dcf0d3d6a0dd254fde58e50fce249bb5c420918.svg"><img alt="../_images/d28f38e152d47b01aae693b25dcf0d3d6a0dd254fde58e50fce249bb5c420918.svg" src="../_images/d28f38e152d47b01aae693b25dcf0d3d6a0dd254fde58e50fce249bb5c420918.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/380d1763f35239ab6ea0ddf8a533ef0417f2efd302e33348bdbe24dcd3def2c6.svg"><img alt="../_images/380d1763f35239ab6ea0ddf8a533ef0417f2efd302e33348bdbe24dcd3def2c6.svg" src="../_images/380d1763f35239ab6ea0ddf8a533ef0417f2efd302e33348bdbe24dcd3def2c6.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -760,7 +759,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/30a1642525324e30620e5a47dae8d6620722f747b9afc41c4ccebebe13778bd7.svg"><img alt="../_images/30a1642525324e30620e5a47dae8d6620722f747b9afc41c4ccebebe13778bd7.svg" src="../_images/30a1642525324e30620e5a47dae8d6620722f747b9afc41c4ccebebe13778bd7.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/a6eacdb7650d3c94a25e89e890f9c51a5f5e408027bae95f528a1550a439c216.svg"><img alt="../_images/a6eacdb7650d3c94a25e89e890f9c51a5f5e408027bae95f528a1550a439c216.svg" src="../_images/a6eacdb7650d3c94a25e89e890f9c51a5f5e408027bae95f528a1550a439c216.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -824,7 +823,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ac8cda3444f1a31a682836b7fe283cf495e610fcfff556873f8d34baa92b1d73.svg"><img alt="../_images/ac8cda3444f1a31a682836b7fe283cf495e610fcfff556873f8d34baa92b1d73.svg" src="../_images/ac8cda3444f1a31a682836b7fe283cf495e610fcfff556873f8d34baa92b1d73.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/ff9282ee359151f4e0425258cb40e2ee9276fad9914acab0087597e8912357bc.svg"><img alt="../_images/ff9282ee359151f4e0425258cb40e2ee9276fad9914acab0087597e8912357bc.svg" src="../_images/ff9282ee359151f4e0425258cb40e2ee9276fad9914acab0087597e8912357bc.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -860,7 +859,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/c021d153e87d4cd620a05bf3a5ede43a1a0883035a0dcb128fcbad0e0f906cdb.svg"><img alt="../_images/c021d153e87d4cd620a05bf3a5ede43a1a0883035a0dcb128fcbad0e0f906cdb.svg" src="../_images/c021d153e87d4cd620a05bf3a5ede43a1a0883035a0dcb128fcbad0e0f906cdb.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/9922dc61455a8120f7bebaa453dffce1839ef0ea95809782e3e968d02b07262e.svg"><img alt="../_images/9922dc61455a8120f7bebaa453dffce1839ef0ea95809782e3e968d02b07262e.svg" src="../_images/9922dc61455a8120f7bebaa453dffce1839ef0ea95809782e3e968d02b07262e.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1050,7 +1049,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/9821e6dd33477cb4aebc7b366dcd481ced17ccdc0098fcb8dca44e1b18d12e88.svg"><img alt="../_images/9821e6dd33477cb4aebc7b366dcd481ced17ccdc0098fcb8dca44e1b18d12e88.svg" src="../_images/9821e6dd33477cb4aebc7b366dcd481ced17ccdc0098fcb8dca44e1b18d12e88.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/ade0d57289e135052d3e0b32e29b1461554d85cf0f00b49506daff986166fcf4.svg"><img alt="../_images/ade0d57289e135052d3e0b32e29b1461554d85cf0f00b49506daff986166fcf4.svg" src="../_images/ade0d57289e135052d3e0b32e29b1461554d85cf0f00b49506daff986166fcf4.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1080,7 +1079,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/9e6cddfa92a66e833d9493deb3b581050c6eeaf2fc9c168e2776b15c699bb78c.svg"><img alt="../_images/9e6cddfa92a66e833d9493deb3b581050c6eeaf2fc9c168e2776b15c699bb78c.svg" src="../_images/9e6cddfa92a66e833d9493deb3b581050c6eeaf2fc9c168e2776b15c699bb78c.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/effca3fee48b7fa5265f798a498b7c25c9dadbf2cd6bede9f59b9a97eaa89fcb.svg"><img alt="../_images/effca3fee48b7fa5265f798a498b7c25c9dadbf2cd6bede9f59b9a97eaa89fcb.svg" src="../_images/effca3fee48b7fa5265f798a498b7c25c9dadbf2cd6bede9f59b9a97eaa89fcb.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1130,7 +1129,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/74bb2de494947702fd4e97376dbd91da289a885cd03e2f1b74c266343f890a97.svg"><img alt="../_images/74bb2de494947702fd4e97376dbd91da289a885cd03e2f1b74c266343f890a97.svg" src="../_images/74bb2de494947702fd4e97376dbd91da289a885cd03e2f1b74c266343f890a97.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/f870c72cdcd0272e272bb338c0764d969e701e2d0d267a56cda4be49faa8bf8a.svg"><img alt="../_images/f870c72cdcd0272e272bb338c0764d969e701e2d0d267a56cda4be49faa8bf8a.svg" src="../_images/f870c72cdcd0272e272bb338c0764d969e701e2d0d267a56cda4be49faa8bf8a.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1182,7 +1181,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/adc3638b4d783a69123b61f6f9e9068045f4ef99f501680ece91f3aea7748d34.svg"><img alt="../_images/adc3638b4d783a69123b61f6f9e9068045f4ef99f501680ece91f3aea7748d34.svg" src="../_images/adc3638b4d783a69123b61f6f9e9068045f4ef99f501680ece91f3aea7748d34.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/ea6f88fb5e93cad2961fee1cb16588dc0df5202fc74e5f9707e3d0a44e68a4a5.svg"><img alt="../_images/ea6f88fb5e93cad2961fee1cb16588dc0df5202fc74e5f9707e3d0a44e68a4a5.svg" src="../_images/ea6f88fb5e93cad2961fee1cb16588dc0df5202fc74e5f9707e3d0a44e68a4a5.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1207,7 +1206,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/904b7c7e7417bba06945ac7d9bf1d5bb3b819b08e229487257c82f33f796d4e1.svg"><img alt="../_images/904b7c7e7417bba06945ac7d9bf1d5bb3b819b08e229487257c82f33f796d4e1.svg" src="../_images/904b7c7e7417bba06945ac7d9bf1d5bb3b819b08e229487257c82f33f796d4e1.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/f0467c638b97446bc0ef60112466369f4d8442fa2a865ae230877fcc70e1f788.svg"><img alt="../_images/f0467c638b97446bc0ef60112466369f4d8442fa2a865ae230877fcc70e1f788.svg" src="../_images/f0467c638b97446bc0ef60112466369f4d8442fa2a865ae230877fcc70e1f788.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1233,7 +1232,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/3f98263f156d255c409beac61939fbcc1e2e2849199cb161b5c8009032a82d5e.svg"><img alt="../_images/3f98263f156d255c409beac61939fbcc1e2e2849199cb161b5c8009032a82d5e.svg" src="../_images/3f98263f156d255c409beac61939fbcc1e2e2849199cb161b5c8009032a82d5e.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/ab18fd94b5f8803d5da70f248737f262d8dffd0dcc3a4ec4d86993c1204523eb.svg"><img alt="../_images/ab18fd94b5f8803d5da70f248737f262d8dffd0dcc3a4ec4d86993c1204523eb.svg" src="../_images/ab18fd94b5f8803d5da70f248737f262d8dffd0dcc3a4ec4d86993c1204523eb.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1269,7 +1268,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/49d967cd50d4a2e1d1107d2929eb024033f04bc6dd2ce6f4f2228c42f298df3a.svg"><img alt="../_images/49d967cd50d4a2e1d1107d2929eb024033f04bc6dd2ce6f4f2228c42f298df3a.svg" src="../_images/49d967cd50d4a2e1d1107d2929eb024033f04bc6dd2ce6f4f2228c42f298df3a.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/0c98ea4a04b3d8821a88456b5a0e1f7d3a10f4cc6430e0cf19227ce3cc92e76d.svg"><img alt="../_images/0c98ea4a04b3d8821a88456b5a0e1f7d3a10f4cc6430e0cf19227ce3cc92e76d.svg" src="../_images/0c98ea4a04b3d8821a88456b5a0e1f7d3a10f4cc6430e0cf19227ce3cc92e76d.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1292,7 +1291,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/0e1d00bf48783a16a0b778e17543c3cb9440de351dd4524c813e6373b347f6f5.svg"><img alt="../_images/0e1d00bf48783a16a0b778e17543c3cb9440de351dd4524c813e6373b347f6f5.svg" src="../_images/0e1d00bf48783a16a0b778e17543c3cb9440de351dd4524c813e6373b347f6f5.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/b2782bcd53e445b32c01bb535077bb3a843bab81fc8c82d1a8e8ceabf13d103d.svg"><img alt="../_images/b2782bcd53e445b32c01bb535077bb3a843bab81fc8c82d1a8e8ceabf13d103d.svg" src="../_images/b2782bcd53e445b32c01bb535077bb3a843bab81fc8c82d1a8e8ceabf13d103d.svg" width="100%" /></a>
 </figure>
 </div>
 </div>

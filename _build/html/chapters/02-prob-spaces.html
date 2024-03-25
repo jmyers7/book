@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -193,12 +193,11 @@
 <li class="toctree-l1"><a class="reference internal" href="11-optim.html">11. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="12-models.html">12. Probabilistic graphical models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="13-learning.html">13. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-stats-estimators.html">14. Statistics and general parameter estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-asymptotic.html">15. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-CIs.html">16. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-hyp-test.html">17. Hypothesis testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18-lin-reg.html">18. Linear regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bib.html">19. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-large-sample.html">14. Large sample theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-stats-estimators.html">15. Statistics and general parameter estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-CIs-hyp-tests.html">16. Confidence intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-lin-reg.html">17. More on linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">18. Bibliography</a></li>
 </ul>
 
     </div>
@@ -465,7 +464,7 @@ document.write(`
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/4cc7b65761f2725ebfb0b8c190c31ce05bde9094738a26e3d3104ae4515e8677.svg" src="../_images/4cc7b65761f2725ebfb0b8c190c31ce05bde9094738a26e3d3104ae4515e8677.svg" /></figure>
+<img alt="../_images/7de5f5c07f91ff71eaa820200762ec9918a4e56fde6fa6e1f6b8ef2bc1d32cc0.svg" src="../_images/7de5f5c07f91ff71eaa820200762ec9918a4e56fde6fa6e1f6b8ef2bc1d32cc0.svg" /></figure>
 </div>
 </div>
 <p>Along the horizontal axis you see the values of <span class="math notranslate nohighlight">\(n\)</span>, where <span class="math notranslate nohighlight">\(n\)</span> is the total number of rolls. Along the other axis, you see the values of the relative frequency of <span class="math notranslate nohighlight">\(4\)</span>s. For example, when the computer rolled the die <span class="math notranslate nohighlight">\(n=20\)</span> times, it appears that the relative frequency is almost exactly <span class="math notranslate nohighlight">\(0.2 = 20\%\)</span>. This means that we saw four <span class="math notranslate nohighlight">\(4\)</span>s out of <span class="math notranslate nohighlight">\(20\)</span> total rolls. But do you notice that as the number of rolls <span class="math notranslate nohighlight">\(n\)</span> increases, the relative frequency of <span class="math notranslate nohighlight">\(4\)</span>s appears to stabilize along the red dashed line? Let’s have the computer go even further, rolling the die up to <span class="math notranslate nohighlight">\(n=1000\)</span> times:</p>
@@ -499,7 +498,7 @@ document.write(`
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0d56075d5d39e7b38fb8ed8592062b4a24139edabc5b758ff4fbe5dd5e844feb.svg" src="../_images/0d56075d5d39e7b38fb8ed8592062b4a24139edabc5b758ff4fbe5dd5e844feb.svg" /></figure>
+<img alt="../_images/49531928832cb46ff3a6612e01313c88988df7a2c73ddbec9aaf310ec891e649.svg" src="../_images/49531928832cb46ff3a6612e01313c88988df7a2c73ddbec9aaf310ec891e649.svg" /></figure>
 </div>
 </div>
 <p>Now we can <em>really</em> see that the relative frequency of <span class="math notranslate nohighlight">\(4\)</span>s is approaching the red dashed line. But this line just happens to be at a value of <span class="math notranslate nohighlight">\(1/6 = 0.1\bar{6}\)</span>!</p>
@@ -564,7 +563,7 @@ P(\text{odd}) = \frac{1}{2}.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/d84d93f0422cb7c9b9157eb19fa909443beb167eee9ae6ac4d9ca2738719cddb.svg" src="../_images/d84d93f0422cb7c9b9157eb19fa909443beb167eee9ae6ac4d9ca2738719cddb.svg" /></figure>
+<img alt="../_images/b7216308e6fc3a135faad959bfbfff6f3097ad36e55c6552ce2bb695e3c905ac.svg" src="../_images/b7216308e6fc3a135faad959bfbfff6f3097ad36e55c6552ce2bb695e3c905ac.svg" /></figure>
 </div>
 </div>
 <p>Sure enough, it appears that the relative frequency of rolling an odd is approaching the value <span class="math notranslate nohighlight">\(1/2 = 0.5\)</span>.</p>
@@ -616,7 +615,7 @@ P(\text{$4$ or odd}) =\ ?
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/8467258c9fad1a43fc6f1c96e59ed8fea45fe4d4f2552c01909c9d5db1a48fcd.svg" src="../_images/8467258c9fad1a43fc6f1c96e59ed8fea45fe4d4f2552c01909c9d5db1a48fcd.svg" /></figure>
+<img alt="../_images/c6f97c5d4b5fac76bf13237eff4036ef39be167d6f63d5b9bce76c6a25644f19.svg" src="../_images/c6f97c5d4b5fac76bf13237eff4036ef39be167d6f63d5b9bce76c6a25644f19.svg" /></figure>
 </div>
 </div>
 <p>You can see that the relative frequency of 4s approaches <span class="math notranslate nohighlight">\(1/6=0.1\bar{6}\)</span>, as we already knew, and also that the relative frequency of odds approaches <span class="math notranslate nohighlight">\(1/2=0.5\)</span>. But notice that the relative frequency of the event “4 <em>or</em> odd” appears to approach a number between 0.6 and 0.7, perhaps a bit closer to 0.7 than 0.6.</p>
@@ -1107,7 +1106,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/052ae4aae6676a27561a1062f5b8e79334dd98c454dd53f5e535e19cace68ce3.svg" src="../_images/052ae4aae6676a27561a1062f5b8e79334dd98c454dd53f5e535e19cace68ce3.svg" /></figure>
+<img alt="../_images/8d10181e7354007da2051a67424975285437c13e0c60048d6a7f68cb103a8456.svg" src="../_images/8d10181e7354007da2051a67424975285437c13e0c60048d6a7f68cb103a8456.svg" /></figure>
 </div>
 </div>
 <p>So, since <span class="math notranslate nohighlight">\(p(1)=0.25\)</span>, you see that there is a rectangle of height <span class="math notranslate nohighlight">\(0.25\)</span> above <span class="math notranslate nohighlight">\(s=1\)</span>. Notice that there are <em>no</em> rectangles above <span class="math notranslate nohighlight">\(s=0\)</span> or any negative integer <span class="math notranslate nohighlight">\(s\)</span>; or, more accurately, the rectangles above these integers have height <span class="math notranslate nohighlight">\(=0\)</span>. Make sure also to notice that none of the rectangles have heights bigger than <span class="math notranslate nohighlight">\(1\)</span>!</p>
@@ -1134,7 +1133,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/5f5a0e4433971aa659b700d7c6c1595ac040877abb6788a6a7bd7bcb56f68e8b.svg" src="../_images/5f5a0e4433971aa659b700d7c6c1595ac040877abb6788a6a7bd7bcb56f68e8b.svg" /></figure>
+<img alt="../_images/302b24fe9ec008b46fd313581d386fda59186659eb2b9019b95b3cd9514bde10.svg" src="../_images/302b24fe9ec008b46fd313581d386fda59186659eb2b9019b95b3cd9514bde10.svg" /></figure>
 </div>
 </div>
 <p>This is a histogram of the uniform probability measure on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with probability function <span class="math notranslate nohighlight">\(p(s)\)</span> with</p>
@@ -1277,7 +1276,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a7f63b8bd9444036e8c8e916136cce65d024b1f11a069ad455503df67b63c14b.svg" src="../_images/a7f63b8bd9444036e8c8e916136cce65d024b1f11a069ad455503df67b63c14b.svg" /></figure>
+<img alt="../_images/554b7386005be45274fdf3e98d23d1d0756a36c4125a3b1fe062f3de39956a7b.svg" src="../_images/554b7386005be45274fdf3e98d23d1d0756a36c4125a3b1fe062f3de39956a7b.svg" /></figure>
 </div>
 </div>
 <p>Because <span class="math notranslate nohighlight">\(f(s)\)</span> outputs probability <em>densities</em>, and not probabilities themselves, the probability of an event <span class="math notranslate nohighlight">\(A\subset \mathbb{R}\)</span> is the area under the density curve and above <span class="math notranslate nohighlight">\(A\)</span>. For example, the shaded area in the graph above is the following probability:</p>
@@ -1334,7 +1333,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/8181b6141b6366077363f843f9ddfbf242ff547ad1e05cb671e8fb158a421312.svg" src="../_images/8181b6141b6366077363f843f9ddfbf242ff547ad1e05cb671e8fb158a421312.svg" /></figure>
+<img alt="../_images/46720b821399fba1ab656ecc8fa517983c71b52a2791cebc92345e12df054014.svg" src="../_images/46720b821399fba1ab656ecc8fa517983c71b52a2791cebc92345e12df054014.svg" /></figure>
 </div>
 </div>
 <p>The shaded area represents the following probability:</p>
@@ -1387,7 +1386,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/20a0b1215bb5c9e2c6de8119b24009648f94711120552a46078af8a344439986.svg" src="../_images/20a0b1215bb5c9e2c6de8119b24009648f94711120552a46078af8a344439986.svg" /></figure>
+<img alt="../_images/3b8eaf5aa6f79784000665cb84437fe62bf38c53f17411d9fb0f545a01ea888f.svg" src="../_images/3b8eaf5aa6f79784000665cb84437fe62bf38c53f17411d9fb0f545a01ea888f.svg" /></figure>
 </div>
 </div>
 <p>Now, if <span class="math notranslate nohighlight">\(s\)</span> is a number that is less than <span class="math notranslate nohighlight">\(2\)</span>, then <span class="math notranslate nohighlight">\(F(s)=0\)</span>, simply because there are no <span class="math notranslate nohighlight">\(s^\star\in \mathbb{R}\)</span> less than <span class="math notranslate nohighlight">\(2\)</span> with <span class="math notranslate nohighlight">\(p(s^\star)\neq 0\)</span>; thus, from <a class="reference internal" href="#equation-yuy-eqn">(2.5)</a>, we must have <span class="math notranslate nohighlight">\(F(s)=0\)</span>. However, we <em>do</em> have</p>
@@ -1453,7 +1452,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/8250469d7e91962dedd5b4f90a27c44949874f197e741b69f8aa59f43a00cb73.svg" src="../_images/8250469d7e91962dedd5b4f90a27c44949874f197e741b69f8aa59f43a00cb73.svg" /></figure>
+<img alt="../_images/486185c7a17f7b96be7fac7d0f63234b8db02336e303baadf68d5e9abfc95336.svg" src="../_images/486185c7a17f7b96be7fac7d0f63234b8db02336e303baadf68d5e9abfc95336.svg" /></figure>
 </div>
 </div>
 <p>Do you see now why <span class="math notranslate nohighlight">\(F(s)\)</span> is sometimes called a <em>cumulative</em> distribution function? According to the dictionary definition, the word ‘cumulative’ means ‘increasing or increased in quantity, degree, or force by successive additions.’ It is the last part—<em>successive additions</em>—which is the reason why <span class="math notranslate nohighlight">\(F(s)\)</span> is called a cumulative distribution function.</p>
@@ -1499,7 +1498,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/51cd649b32222bb340372887836b0ecf1e6a7648deae975ab1635156fdd342f1.svg" src="../_images/51cd649b32222bb340372887836b0ecf1e6a7648deae975ab1635156fdd342f1.svg" /></figure>
+<img alt="../_images/1beebe0f4f7872246f5f77f77dfd072d492b3ff9766d631aa26316f2e4f52987.svg" src="../_images/1beebe0f4f7872246f5f77f77dfd072d492b3ff9766d631aa26316f2e4f52987.svg" /></figure>
 </div>
 </div>
 <p>Then, by definition, we have</p>
@@ -1542,7 +1541,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/be90e4feec4c6ad14158647325b247d56615c27e6241e9719ab1b4bee94599ae.svg" src="../_images/be90e4feec4c6ad14158647325b247d56615c27e6241e9719ab1b4bee94599ae.svg" /></figure>
+<img alt="../_images/f443bc99deca3601c6384990d3342d92fe1a98e40c37376abbd7089ef91f0225.svg" src="../_images/f443bc99deca3601c6384990d3342d92fe1a98e40c37376abbd7089ef91f0225.svg" /></figure>
 </div>
 </div>
 <p>In contrast to the distribution function above, notice that this one is <em>continuous</em>. So, we have noted that the <em>discrete</em> probability measure above has a distribution function which is a step function, while the <em>continuous</em> probability measure above has a distribution function which is itself continuous. These are <em>not</em> coincidences! In fact:</p>
@@ -1674,7 +1673,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/15eebe1d9a53912f198c9b8f1ba18e5b1ff04679cb60426c122a04ebdeedd38a.svg" src="../_images/15eebe1d9a53912f198c9b8f1ba18e5b1ff04679cb60426c122a04ebdeedd38a.svg" /></figure>
+<img alt="../_images/51b620317aeb39ddd30b650048e74629c40ac995394d4cce8b90bdccb26b96cb.svg" src="../_images/51b620317aeb39ddd30b650048e74629c40ac995394d4cce8b90bdccb26b96cb.svg" /></figure>
 </div>
 </div>
 <p>Remember that probabilities are interpreted as areas under the graph of <span class="math notranslate nohighlight">\(f(s)\)</span>.</p>
@@ -1723,7 +1722,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/1a526db49fa9b721d74b86aa7da8dbc2a9c1f481f6c1cd89060745c8c7ca575c.svg" src="../_images/1a526db49fa9b721d74b86aa7da8dbc2a9c1f481f6c1cd89060745c8c7ca575c.svg" /></figure>
+<img alt="../_images/9909f8adc417d59abca5ef937229f8055806878d94d7228b94602e159d93714e.svg" src="../_images/9909f8adc417d59abca5ef937229f8055806878d94d7228b94602e159d93714e.svg" /></figure>
 </div>
 </div>
 <p>From the figure, we see that the median is <span class="math notranslate nohighlight">\(Q(0.5)=2\)</span>.</p>
@@ -1772,7 +1771,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a1747687bc76cc5c0bb8603e7a9a0c3e2c80e476efb46ac0d562d025aa6f49e5.svg" src="../_images/a1747687bc76cc5c0bb8603e7a9a0c3e2c80e476efb46ac0d562d025aa6f49e5.svg" /></figure>
+<img alt="../_images/3497f4534136bb42018ae9d5ea6c1737d97ffc3ea6645b0957c9db2d49a188d0.svg" src="../_images/3497f4534136bb42018ae9d5ea6c1737d97ffc3ea6645b0957c9db2d49a188d0.svg" /></figure>
 </div>
 </div>
 <p>From this figure, we see that <span class="math notranslate nohighlight">\(Q(0.75) = 4\)</span>.</p>
@@ -1899,7 +1898,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/165805b5e6ba1ff3b4ed66c1ad315df1f1f9b8e08c616ccc16e39bf8edcddc78.svg"><img alt="../_images/165805b5e6ba1ff3b4ed66c1ad315df1f1f9b8e08c616ccc16e39bf8edcddc78.svg" src="../_images/165805b5e6ba1ff3b4ed66c1ad315df1f1f9b8e08c616ccc16e39bf8edcddc78.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/1eae4e29a93cb728a0478ecef707e064768f332112004f9db626d6ea6535774a.svg"><img alt="../_images/1eae4e29a93cb728a0478ecef707e064768f332112004f9db626d6ea6535774a.svg" src="../_images/1eae4e29a93cb728a0478ecef707e064768f332112004f9db626d6ea6535774a.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1962,7 +1961,7 @@ P: \{\text{all events}\} \to [0,1].
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/7f6a02050c878492f22e3559e050218e1cb94aba3bf30169add2c23fc0751db2.svg"><img alt="../_images/7f6a02050c878492f22e3559e050218e1cb94aba3bf30169add2c23fc0751db2.svg" src="../_images/7f6a02050c878492f22e3559e050218e1cb94aba3bf30169add2c23fc0751db2.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/d5491596a32dfd357d7feb07cb074a0ab51bd9c2c7be930d656d922cd9cd1b35.svg"><img alt="../_images/d5491596a32dfd357d7feb07cb074a0ab51bd9c2c7be930d656d922cd9cd1b35.svg" src="../_images/d5491596a32dfd357d7feb07cb074a0ab51bd9c2c7be930d656d922cd9cd1b35.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
