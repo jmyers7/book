@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -193,12 +193,11 @@
 <li class="toctree-l1"><a class="reference internal" href="11-optim.html">11. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="12-models.html">12. Probabilistic graphical models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="13-learning.html">13. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-stats-estimators.html">14. Statistics and general parameter estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-asymptotic.html">15. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-CIs.html">16. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-hyp-test.html">17. Hypothesis testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18-lin-reg.html">18. Linear regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bib.html">19. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-large-sample.html">14. Large sample theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-stats-estimators.html">15. Statistics and general parameter estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-CIs-hyp-tests.html">16. Confidence intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-lin-reg.html">17. More on linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">18. Bibliography</a></li>
 </ul>
 
     </div>
@@ -425,7 +424,7 @@ I_P(s) \def - \log(p(s)).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/88c8f8a0291d407906dbb7b4d7f3d8e04ba078a77d3bdddad717e6240f03f3b5.svg" src="../_images/88c8f8a0291d407906dbb7b4d7f3d8e04ba078a77d3bdddad717e6240f03f3b5.svg" /></figure>
+<img alt="../_images/91f1918fa2a0ce97ffbd8eb15f9767355740eaee463d5fde192cdc39ab576843.svg" src="../_images/91f1918fa2a0ce97ffbd8eb15f9767355740eaee463d5fde192cdc39ab576843.svg" /></figure>
 </div>
 </div>
 <p>If some outcome is highly likely to occur (large <span class="math notranslate nohighlight">\(p(s)\)</span>), then it is not surprising (small <span class="math notranslate nohighlight">\(I(s)\)</span>). In the other direction, if an outcome <span class="math notranslate nohighlight">\(s\)</span> is highly unlikely to occur (small <span class="math notranslate nohighlight">\(p(s)\)</span>), then it is very surprising (large <span class="math notranslate nohighlight">\(I(s)\)</span>).</p>
@@ -481,7 +480,7 @@ H(P) \def \sum_{s\in S} p(s)I_P(s).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/b3feb714b4f1f06861dc524a34efa5e8b5273f7e0b63576461e015e62be09ae9.svg" src="../_images/b3feb714b4f1f06861dc524a34efa5e8b5273f7e0b63576461e015e62be09ae9.svg" /></figure>
+<img alt="../_images/a83bf7452b2973e4ef853963dde5fdd97738b8ccbf80d5124f5feff0b9137f28.svg" src="../_images/a83bf7452b2973e4ef853963dde5fdd97738b8ccbf80d5124f5feff0b9137f28.svg" /></figure>
 </div>
 </div>
 <p>The fact that these two types of distributions yield the extreme values of entropy helps explain the alternate name <em>uncertainty</em>. Indeed, imagine drawing a random sample from one of these two distributions—which one has the most uncertain outcome? Which one is most certain?</p>
@@ -591,7 +590,7 @@ p(s) = \binom{10}{s} (0.4)^s(0.6)^{10-s} \quad \text{and} \quad q(s) = \binom{10
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/55e8c379012429550f9b1e5bb6432b2a392977aca3223038b767a140b738bb41.svg" src="../_images/55e8c379012429550f9b1e5bb6432b2a392977aca3223038b767a140b738bb41.svg" /></figure>
+<img alt="../_images/d92cd6f0a43ba2cd6fd84a9e68f9d06e7bd536d0c8a3338720526a930b10e6ea.svg" src="../_images/d92cd6f0a43ba2cd6fd84a9e68f9d06e7bd536d0c8a3338720526a930b10e6ea.svg" /></figure>
 </div>
 </div>
 <p>The second row in the figure drives home the point: The absolute relative magnitudes are on such widely different scales that the plot is nearly useless and numerical computations in a machine will likely be unstable.</p>
@@ -670,7 +669,7 @@ D(P\parallel Q) = H_P(Q) - H(P).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/fca11477102843c680c0abf434b56428a19f9764db8c749744c6a98c3dd54d2e.svg" src="../_images/fca11477102843c680c0abf434b56428a19f9764db8c749744c6a98c3dd54d2e.svg" /></figure>
+<img alt="../_images/5193ba20b030ac1a561c5968aa7f32b593501c1a43c43680c306e14b4a72945a.svg" src="../_images/5193ba20b030ac1a561c5968aa7f32b593501c1a43c43680c306e14b4a72945a.svg" /></figure>
 </div>
 </div>
 <p>Note that all <span class="math notranslate nohighlight">\(x\)</span>-values between the endpoints <span class="math notranslate nohighlight">\(x=a\)</span> and <span class="math notranslate nohighlight">\(x=b\)</span> are of the form</p>

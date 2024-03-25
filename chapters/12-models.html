@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -193,12 +193,11 @@
 <li class="toctree-l1"><a class="reference internal" href="11-optim.html">11. Optimization</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">12. Probabilistic graphical models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="13-learning.html">13. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-stats-estimators.html">14. Statistics and general parameter estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-asymptotic.html">15. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-CIs.html">16. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-hyp-test.html">17. Hypothesis testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18-lin-reg.html">18. Linear regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bib.html">19. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-large-sample.html">14. Large sample theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-stats-estimators.html">15. Statistics and general parameter estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-CIs-hyp-tests.html">16. Confidence intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-lin-reg.html">17. More on linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">18. Bibliography</a></li>
 </ul>
 
     </div>
@@ -485,7 +484,7 @@ g: \bbr^n \to \bbr^m, \quad \by = g(\bx),
 \[
 Y \mid \bX \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu \def \beta_0 + \bx^\intercal \bbeta.
 \]</div>
-<p>In fact, this is exactly a <em>linear regression model</em>, which we will see again in <a class="reference internal" href="#lin-reg-sec"><span class="std std-numref">Section 12.3</span></a> below, as well as in <a class="reference internal" href="13-learning.html#learning"><span class="std std-numref">Chapters 13</span></a> and <a class="reference internal" href="18-lin-reg.html#lin-reg"><span class="std std-numref">18</span></a>.</p>
+<p>In fact, this is exactly a <em>linear regression model</em>, which we will see again in <a class="reference internal" href="#lin-reg-sec"><span class="std std-numref">Section 12.3</span></a> below, as well as in <a class="reference internal" href="13-learning.html#learning"><span class="std std-numref">Chapters 13</span></a> and <a class="reference internal" href="17-lin-reg.html#lin-reg"><span class="std std-numref">17</span></a>.</p>
 <p>We shall take a flow of information of the form</p>
 <a class="reference internal image-reference" href="../_images/mixed-1.svg"><img alt="../_images/mixed-1.svg" class="align-center" src="../_images/mixed-1.svg" width="25%" /></a>
 <p> </p>
@@ -612,7 +611,7 @@ Y \mid \bX \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu \def \b
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a18d42522a17c291ea1388eaad41ff7be0eb4f327bd569f8b4458a5dac0510b4.svg" src="../_images/a18d42522a17c291ea1388eaad41ff7be0eb4f327bd569f8b4458a5dac0510b4.svg" /></figure>
+<img alt="../_images/0b1e8b7014cc059b4a16643d035dc86d735de69882e353e6cb615fb99780c80e.svg" src="../_images/0b1e8b7014cc059b4a16643d035dc86d735de69882e353e6cb615fb99780c80e.svg" /></figure>
 </div>
 </div>
 <p>The positively-sloped line is used to visualize the approximate linear relationship <a class="reference internal" href="#equation-approx-linear-eqn">(12.1)</a>. This is a so-called <em>least squares line</em> or <em>regression line</em>; we will learn how to compute them in <a class="reference internal" href="13-learning.html#learning"><span class="std std-numref">Chapter 13</span></a>.</p>
@@ -849,7 +848,7 @@ R_i \mid \bX_i \sim N(0,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/f324516c10550eb02e2a77195f27080e9436b18ffce66474d529b5f2f0fc43cb.svg" src="../_images/f324516c10550eb02e2a77195f27080e9436b18ffce66474d529b5f2f0fc43cb.svg" /></figure>
+<img alt="../_images/10d576f705f693e005f60879a7219027c914629ac40f20f9f0a9bd7a44dc025b.svg" src="../_images/10d576f705f693e005f60879a7219027c914629ac40f20f9f0a9bd7a44dc025b.svg" /></figure>
 </div>
 </div>
 <p>It is evident from this plot that the homoscedasticity assumption is violated since the distributions of the residuals appear to widen as the area variable increases.</p>
@@ -906,7 +905,7 @@ R_i \mid \bX_i \sim N(0,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a5f465d125a8658454b1b378f3525d21830042107f916cf5b98e3602a53d7a0a.svg" src="../_images/a5f465d125a8658454b1b378f3525d21830042107f916cf5b98e3602a53d7a0a.svg" /></figure>
+<img alt="../_images/1eca0a0681893074871545b45ad4b8f7c39e19a7221e4a16389e2499364879cf.svg" src="../_images/1eca0a0681893074871545b45ad4b8f7c39e19a7221e4a16389e2499364879cf.svg" /></figure>
 </div>
 </div>
 <p>For smaller values of area, the distribution of the true prices is narrower compared to the simulated prices, while for larger values of area, the distribution of the true prices is wider.</p>
@@ -965,7 +964,7 @@ R_i \mid \bX_i \sim N(0,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/20c91bf0c974d9d3416ae27a255d068523123cebe3ea4349b81caa15319ad3e8.svg" src="../_images/20c91bf0c974d9d3416ae27a255d068523123cebe3ea4349b81caa15319ad3e8.svg" /></figure>
+<img alt="../_images/e7e95295423416b8b33c011135942bbe2dc52278fdeaa2181fdeed3152d06e82.svg" src="../_images/e7e95295423416b8b33c011135942bbe2dc52278fdeaa2181fdeed3152d06e82.svg" /></figure>
 </div>
 </div>
 <p>The points represent the <span class="math notranslate nohighlight">\(2\)</span>-dimensional predictors</p>
@@ -1002,7 +1001,7 @@ R_i \mid \bX_i \sim N(0,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/29d3bc73c9ae142397ca527497f7159c60deed382852e2449742456fde3eb429.svg" src="../_images/29d3bc73c9ae142397ca527497f7159c60deed382852e2449742456fde3eb429.svg" /></figure>
+<img alt="../_images/6d717352c2c07edd85f7b39e86ad0bf535341ff028294c32bbadb2daf32bd0be.svg" src="../_images/6d717352c2c07edd85f7b39e86ad0bf535341ff028294c32bbadb2daf32bd0be.svg" /></figure>
 </div>
 </div>
 <p>Since the outputs of the sigmoid function land in the open interval <span class="math notranslate nohighlight">\((0,1)\)</span>, we may use it to convert <em>any</em> real number into a <em>probability</em>.</p>
@@ -1146,7 +1145,7 @@ Y \mid \bX \sim \mathcal{B}er(\phi), \quad \text{where} \quad \phi = \sigma(\bet
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/46c427397e3713a8dde7adac341abb0a151f00f9497f7a35c842c51123ca6189.svg" src="../_images/46c427397e3713a8dde7adac341abb0a151f00f9497f7a35c842c51123ca6189.svg" /></figure>
+<img alt="../_images/6e3921e33854fe73e74a2f94d5f58fa1502bf1b38c6398cc43f2df12c9f2b379.svg" src="../_images/6e3921e33854fe73e74a2f94d5f58fa1502bf1b38c6398cc43f2df12c9f2b379.svg" /></figure>
 </div>
 </div>
 <p>To interpret this plot, remember that <span class="math notranslate nohighlight">\(\phi = \sigma( \beta_0 + \bx^\intercal \bbeta )\)</span> is the probability parameter for the class indicator variable <span class="math notranslate nohighlight">\(Y \sim \Ber(\phi)\)</span>, so we should interpret <span class="math notranslate nohighlight">\(\phi\)</span> as the probability that the point <span class="math notranslate nohighlight">\(\bx\)</span> is in class <span class="math notranslate nohighlight">\(1\)</span> (corresponding to <span class="math notranslate nohighlight">\(y=1\)</span>). In the right-hand plot, we have “thresholded” the probability <span class="math notranslate nohighlight">\(\phi\)</span> at <span class="math notranslate nohighlight">\(0.5\)</span>, creating a <em>predictor function</em></p>
@@ -1206,7 +1205,7 @@ h:\bbr^{2} \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/14b470138f13e8c82ba2e34c43e8eba8beb95882ae0f518cf8fcc9f760fd6965.svg" src="../_images/14b470138f13e8c82ba2e34c43e8eba8beb95882ae0f518cf8fcc9f760fd6965.svg" /></figure>
+<img alt="../_images/a3e034d99fe8da42a9506ed6f5f2c18911e6942006244ef130db0ad29b32a481.svg" src="../_images/a3e034d99fe8da42a9506ed6f5f2c18911e6942006244ef130db0ad29b32a481.svg" /></figure>
 </div>
 </div>
 <p>We may apply the ReLU function to vectors <span class="math notranslate nohighlight">\(\bx\in \bbr^{n}\)</span> by “vectorization” (in Pythonic language), which just means that we apply it componentwise:</p>
@@ -1411,7 +1410,7 @@ Y \mid \bX \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \ba_2^\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0e77763eb313eaf803140b48a7fd24b656a76e85b4091ffa79b95bda440e79d0.svg" src="../_images/0e77763eb313eaf803140b48a7fd24b656a76e85b4091ffa79b95bda440e79d0.svg" /></figure>
+<img alt="../_images/dabafee11db855a4ea1c6e1f004dc84b59ccb0000ae8906b26ae3169f2a3b783.svg" src="../_images/dabafee11db855a4ea1c6e1f004dc84b59ccb0000ae8906b26ae3169f2a3b783.svg" /></figure>
 </div>
 </div>
 <p>Trained on the original dataset (without the “blobs”), we saw that a logistic regression model produces a <em>linear</em> decision boundary and thus misclassifies a nontrivial number of data points. In comparison, not only will a neural network produce a nonlinear decision boundary dividing the data in the original dataset, it will also correctly classify the data in the four new “blobs.” Indeed, using the techniques in the <a class="reference internal" href="13-learning.html#learning"><span class="std std-ref">next chapter</span></a>, we trained a neural network on the new dataset with <em>three</em> hidden layers of widths <span class="math notranslate nohighlight">\(8\)</span>, <span class="math notranslate nohighlight">\(8\)</span>, and <span class="math notranslate nohighlight">\(4\)</span>. Then, a contour plot of the function</p>
@@ -1510,7 +1509,7 @@ Y \mid \bX \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \ba_2^\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/b48f2731620d253069344884d6c6b55358a03923bc71621dd512895455aa1c85.svg" src="../_images/b48f2731620d253069344884d6c6b55358a03923bc71621dd512895455aa1c85.svg" /></figure>
+<img alt="../_images/3c5b1695bca8631e04c6675965a276da9900e11763e65bb8206e2069d12a4350.svg" src="../_images/3c5b1695bca8631e04c6675965a276da9900e11763e65bb8206e2069d12a4350.svg" /></figure>
 </div>
 </div>
 <p>Notice that the band of white dividing the original dataset (representing values <span class="math notranslate nohighlight">\(\phi \approx 0.5\)</span>) in the left-hand plot is much narrower compared to the same plot for the logistic regression model. This indicates that the neural network is making much more confident predictions up to its decision boundary (displayed in the right-hand plot) compared to the logistic regression model.</p>
@@ -1579,7 +1578,7 @@ Y \mid \bX \sim \Ber(\phi), \quad \text{where} \quad \phi = \sigma \big( \ba_2^\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2f663245e4ae308b9ee7c41d28047a744807d6663db5efa4e17c31a6c6d851d4.svg" src="../_images/2f663245e4ae308b9ee7c41d28047a744807d6663db5efa4e17c31a6c6d851d4.svg" /></figure>
+<img alt="../_images/80e957f1dbd1d700bf0e4a75a9fc28486393a8ea0c30e935b0a011b7ac69bd3f.svg" src="../_images/80e957f1dbd1d700bf0e4a75a9fc28486393a8ea0c30e935b0a011b7ac69bd3f.svg" /></figure>
 </div>
 </div>
 <p>Specifically, these plots show the contours of the functions</p>
@@ -1636,7 +1635,7 @@ a_{1j} = \rho( \bx^\intercal \bw_{1j} + \bb_{1j}^\intercal ),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/44e6613410d324ecf6445e35c041b621b7d81fcbab1075c43a2504adcf9feee6.svg" src="../_images/44e6613410d324ecf6445e35c041b621b7d81fcbab1075c43a2504adcf9feee6.svg" /></figure>
+<img alt="../_images/9f30426ebc7fbcd06134abceefd8df481cebc398761ea60db60b0ae581fc6295.svg" src="../_images/9f30426ebc7fbcd06134abceefd8df481cebc398761ea60db60b0ae581fc6295.svg" /></figure>
 </div>
 </div>
 <p>These are contour plots of the functions</p>
@@ -1693,7 +1692,7 @@ a_{1j} = \rho( \bx^\intercal \bw_{1j} + \bb_{1j}^\intercal ),
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/17c638c4d7d689415274602a511fe5e0b4133b211220a0f0d5f170849d7c1a78.svg" src="../_images/17c638c4d7d689415274602a511fe5e0b4133b211220a0f0d5f170849d7c1a78.svg" /></figure>
+<img alt="../_images/360f36ca853a11da4c554e67eca5dfa01520e1e99d6fcae28e1f470deb6858ff.svg" src="../_images/360f36ca853a11da4c554e67eca5dfa01520e1e99d6fcae28e1f470deb6858ff.svg" /></figure>
 </div>
 </div>
 <p>These are contour plots of the functions</p>
