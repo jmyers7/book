@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -58,7 +58,7 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Cat": "\\mathcal{C}at", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/06-theory-to-practice';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -193,11 +193,8 @@
 <li class="toctree-l1"><a class="reference internal" href="11-optim.html">11. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="12-models.html">12. Probabilistic graphical models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="13-learning.html">13. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-large-sample.html">14. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-stats-estimators.html">15. Statistics and general parameter estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-CIs-hyp-tests.html">16. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-lin-reg.html">17. More on linear regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bib.html">18. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-stat-infer.html">14. Statistical inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">15. Bibliography</a></li>
 </ul>
 
     </div>
@@ -555,7 +552,7 @@ F(x) = \sum_{x^\star\leq x} p(x^\star) = \frac{\text{number of data points that 
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/711a718faf7e57657216fce1ea0217db92e0f8aeaba0ca0fe82acf5f6e746429.svg"><img alt="../_images/711a718faf7e57657216fce1ea0217db92e0f8aeaba0ca0fe82acf5f6e746429.svg" src="../_images/711a718faf7e57657216fce1ea0217db92e0f8aeaba0ca0fe82acf5f6e746429.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/3952378dbfeef7865ebbfacc00dadcb678f07f8dad3411f12a993c6527761873.svg"><img alt="../_images/3952378dbfeef7865ebbfacc00dadcb678f07f8dad3411f12a993c6527761873.svg" src="../_images/3952378dbfeef7865ebbfacc00dadcb678f07f8dad3411f12a993c6527761873.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -595,7 +592,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/a554ba8e9cb450b2ef3c7862b91bb2be6611528932574e5ad0ea899583c584f1.svg"><img alt="../_images/a554ba8e9cb450b2ef3c7862b91bb2be6611528932574e5ad0ea899583c584f1.svg" src="../_images/a554ba8e9cb450b2ef3c7862b91bb2be6611528932574e5ad0ea899583c584f1.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/b58583650a209f26b6d54ca48d330f949e76601aec2fee61e0fd16a75429a1e6.svg"><img alt="../_images/b58583650a209f26b6d54ca48d330f949e76601aec2fee61e0fd16a75429a1e6.svg" src="../_images/b58583650a209f26b6d54ca48d330f949e76601aec2fee61e0fd16a75429a1e6.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -635,7 +632,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/def02003b5ae38ba61da9ecbdb9634a7738b1388a87b1156bfc6e1fc07473261.svg"><img alt="../_images/def02003b5ae38ba61da9ecbdb9634a7738b1388a87b1156bfc6e1fc07473261.svg" src="../_images/def02003b5ae38ba61da9ecbdb9634a7738b1388a87b1156bfc6e1fc07473261.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/aa2645cc77b37a498943003a1fd11f00c067bd986fa6e370008fa5142bd00b28.svg"><img alt="../_images/aa2645cc77b37a498943003a1fd11f00c067bd986fa6e370008fa5142bd00b28.svg" src="../_images/aa2645cc77b37a498943003a1fd11f00c067bd986fa6e370008fa5142bd00b28.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -680,7 +677,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/4375081befbd87a016774c89fde86c48415849f4ccd212b4273476a68f6b1cb8.svg"><img alt="../_images/4375081befbd87a016774c89fde86c48415849f4ccd212b4273476a68f6b1cb8.svg" src="../_images/4375081befbd87a016774c89fde86c48415849f4ccd212b4273476a68f6b1cb8.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/144c848aa8a79de4c344ba59e0e51a884a58175cf64855e7499ccc8c952eb568.svg"><img alt="../_images/144c848aa8a79de4c344ba59e0e51a884a58175cf64855e7499ccc8c952eb568.svg" src="../_images/144c848aa8a79de4c344ba59e0e51a884a58175cf64855e7499ccc8c952eb568.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -703,7 +700,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/1400012018eee97f52e488c8e22fc7e3de4d0163eba3e491382a015faf0888f3.svg"><img alt="../_images/1400012018eee97f52e488c8e22fc7e3de4d0163eba3e491382a015faf0888f3.svg" src="../_images/1400012018eee97f52e488c8e22fc7e3de4d0163eba3e491382a015faf0888f3.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/393c6ef7c047fbbd1074d033602bcca19b48eed9490d3a35d84d950887f3d44e.svg"><img alt="../_images/393c6ef7c047fbbd1074d033602bcca19b48eed9490d3a35d84d950887f3d44e.svg" src="../_images/393c6ef7c047fbbd1074d033602bcca19b48eed9490d3a35d84d950887f3d44e.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -726,7 +723,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/380d1763f35239ab6ea0ddf8a533ef0417f2efd302e33348bdbe24dcd3def2c6.svg"><img alt="../_images/380d1763f35239ab6ea0ddf8a533ef0417f2efd302e33348bdbe24dcd3def2c6.svg" src="../_images/380d1763f35239ab6ea0ddf8a533ef0417f2efd302e33348bdbe24dcd3def2c6.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/a2291b94cc49df17a10d9c828793b81acabe22a88a3223eaf037936827e67c1d.svg"><img alt="../_images/a2291b94cc49df17a10d9c828793b81acabe22a88a3223eaf037936827e67c1d.svg" src="../_images/a2291b94cc49df17a10d9c828793b81acabe22a88a3223eaf037936827e67c1d.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -759,7 +756,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/a6eacdb7650d3c94a25e89e890f9c51a5f5e408027bae95f528a1550a439c216.svg"><img alt="../_images/a6eacdb7650d3c94a25e89e890f9c51a5f5e408027bae95f528a1550a439c216.svg" src="../_images/a6eacdb7650d3c94a25e89e890f9c51a5f5e408027bae95f528a1550a439c216.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/a4e2954b5bdfd0a95031d5e8e3d37e5dd620f1b068fef3474f4a3bd786430749.svg"><img alt="../_images/a4e2954b5bdfd0a95031d5e8e3d37e5dd620f1b068fef3474f4a3bd786430749.svg" src="../_images/a4e2954b5bdfd0a95031d5e8e3d37e5dd620f1b068fef3474f4a3bd786430749.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -823,7 +820,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ff9282ee359151f4e0425258cb40e2ee9276fad9914acab0087597e8912357bc.svg"><img alt="../_images/ff9282ee359151f4e0425258cb40e2ee9276fad9914acab0087597e8912357bc.svg" src="../_images/ff9282ee359151f4e0425258cb40e2ee9276fad9914acab0087597e8912357bc.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/99e918fd4658286e663055c537b474001405f5f17b2c6dfaa6d553a553f15784.svg"><img alt="../_images/99e918fd4658286e663055c537b474001405f5f17b2c6dfaa6d553a553f15784.svg" src="../_images/99e918fd4658286e663055c537b474001405f5f17b2c6dfaa6d553a553f15784.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -859,7 +856,7 @@ X_1,X_2,\ldots,X_{m} ; \mu,\sigma^2 \sim \mathcal{N}(\mu,\sigma^2).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/9922dc61455a8120f7bebaa453dffce1839ef0ea95809782e3e968d02b07262e.svg"><img alt="../_images/9922dc61455a8120f7bebaa453dffce1839ef0ea95809782e3e968d02b07262e.svg" src="../_images/9922dc61455a8120f7bebaa453dffce1839ef0ea95809782e3e968d02b07262e.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/05bd1448a42913eb6c38f0887abb07b1ca5bdc1d7167d2ea56d11b778f93305b.svg"><img alt="../_images/05bd1448a42913eb6c38f0887abb07b1ca5bdc1d7167d2ea56d11b778f93305b.svg" src="../_images/05bd1448a42913eb6c38f0887abb07b1ca5bdc1d7167d2ea56d11b778f93305b.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1049,7 +1046,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ade0d57289e135052d3e0b32e29b1461554d85cf0f00b49506daff986166fcf4.svg"><img alt="../_images/ade0d57289e135052d3e0b32e29b1461554d85cf0f00b49506daff986166fcf4.svg" src="../_images/ade0d57289e135052d3e0b32e29b1461554d85cf0f00b49506daff986166fcf4.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/7965a3c17e99b66955193163c7ce75c9c081ec5227f1ce04672d81b489ceb13f.svg"><img alt="../_images/7965a3c17e99b66955193163c7ce75c9c081ec5227f1ce04672d81b489ceb13f.svg" src="../_images/7965a3c17e99b66955193163c7ce75c9c081ec5227f1ce04672d81b489ceb13f.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1079,7 +1076,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/effca3fee48b7fa5265f798a498b7c25c9dadbf2cd6bede9f59b9a97eaa89fcb.svg"><img alt="../_images/effca3fee48b7fa5265f798a498b7c25c9dadbf2cd6bede9f59b9a97eaa89fcb.svg" src="../_images/effca3fee48b7fa5265f798a498b7c25c9dadbf2cd6bede9f59b9a97eaa89fcb.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/33d9ef387111b169377645c1635d0cce96d97df39d6456f69b520e4c6d72ad5f.svg"><img alt="../_images/33d9ef387111b169377645c1635d0cce96d97df39d6456f69b520e4c6d72ad5f.svg" src="../_images/33d9ef387111b169377645c1635d0cce96d97df39d6456f69b520e4c6d72ad5f.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1129,7 +1126,7 @@ x_i = Q\left( \frac{i-1/2}{m} \right)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/f870c72cdcd0272e272bb338c0764d969e701e2d0d267a56cda4be49faa8bf8a.svg"><img alt="../_images/f870c72cdcd0272e272bb338c0764d969e701e2d0d267a56cda4be49faa8bf8a.svg" src="../_images/f870c72cdcd0272e272bb338c0764d969e701e2d0d267a56cda4be49faa8bf8a.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/4f2fef9204a65a0fe625c54c251e39e94546cd54a536d2329c05fe5b5040d476.svg"><img alt="../_images/4f2fef9204a65a0fe625c54c251e39e94546cd54a536d2329c05fe5b5040d476.svg" src="../_images/4f2fef9204a65a0fe625c54c251e39e94546cd54a536d2329c05fe5b5040d476.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1181,7 +1178,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ea6f88fb5e93cad2961fee1cb16588dc0df5202fc74e5f9707e3d0a44e68a4a5.svg"><img alt="../_images/ea6f88fb5e93cad2961fee1cb16588dc0df5202fc74e5f9707e3d0a44e68a4a5.svg" src="../_images/ea6f88fb5e93cad2961fee1cb16588dc0df5202fc74e5f9707e3d0a44e68a4a5.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/41d258254fe5e271b675064d663b2601a44a4197017723517eb7f77edc05947f.svg"><img alt="../_images/41d258254fe5e271b675064d663b2601a44a4197017723517eb7f77edc05947f.svg" src="../_images/41d258254fe5e271b675064d663b2601a44a4197017723517eb7f77edc05947f.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1206,7 +1203,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/f0467c638b97446bc0ef60112466369f4d8442fa2a865ae230877fcc70e1f788.svg"><img alt="../_images/f0467c638b97446bc0ef60112466369f4d8442fa2a865ae230877fcc70e1f788.svg" src="../_images/f0467c638b97446bc0ef60112466369f4d8442fa2a865ae230877fcc70e1f788.svg" width="70%" /></a>
+<a class="reference internal image-reference" href="../_images/0ab57364cf049625b5116afdc3e42f466d36bb6d5562100f944438c39ca95d35.svg"><img alt="../_images/0ab57364cf049625b5116afdc3e42f466d36bb6d5562100f944438c39ca95d35.svg" src="../_images/0ab57364cf049625b5116afdc3e42f466d36bb6d5562100f944438c39ca95d35.svg" width="70%" /></a>
 </figure>
 </div>
 </div>
@@ -1232,7 +1229,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/ab18fd94b5f8803d5da70f248737f262d8dffd0dcc3a4ec4d86993c1204523eb.svg"><img alt="../_images/ab18fd94b5f8803d5da70f248737f262d8dffd0dcc3a4ec4d86993c1204523eb.svg" src="../_images/ab18fd94b5f8803d5da70f248737f262d8dffd0dcc3a4ec4d86993c1204523eb.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/d71814d24cdc7278e01dbb06701f8a4bc9677fd32f89de7b68d3946500738ee3.svg"><img alt="../_images/d71814d24cdc7278e01dbb06701f8a4bc9677fd32f89de7b68d3946500738ee3.svg" src="../_images/d71814d24cdc7278e01dbb06701f8a4bc9677fd32f89de7b68d3946500738ee3.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1268,7 +1265,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/0c98ea4a04b3d8821a88456b5a0e1f7d3a10f4cc6430e0cf19227ce3cc92e76d.svg"><img alt="../_images/0c98ea4a04b3d8821a88456b5a0e1f7d3a10f4cc6430e0cf19227ce3cc92e76d.svg" src="../_images/0c98ea4a04b3d8821a88456b5a0e1f7d3a10f4cc6430e0cf19227ce3cc92e76d.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/260f45acfafaf458baa70176f20962270af2a42b8a728b56294de7b9b6b673ab.svg"><img alt="../_images/260f45acfafaf458baa70176f20962270af2a42b8a728b56294de7b9b6b673ab.svg" src="../_images/260f45acfafaf458baa70176f20962270af2a42b8a728b56294de7b9b6b673ab.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
@@ -1291,7 +1288,7 @@ Name: log price, dtype: float64
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<a class="reference internal image-reference" href="../_images/b2782bcd53e445b32c01bb535077bb3a843bab81fc8c82d1a8e8ceabf13d103d.svg"><img alt="../_images/b2782bcd53e445b32c01bb535077bb3a843bab81fc8c82d1a8e8ceabf13d103d.svg" src="../_images/b2782bcd53e445b32c01bb535077bb3a843bab81fc8c82d1a8e8ceabf13d103d.svg" width="100%" /></a>
+<a class="reference internal image-reference" href="../_images/71636cae76dea3f1232c26fef7017b55ebeee6e37855ab6a2b9fc35f86b8bad6.svg"><img alt="../_images/71636cae76dea3f1232c26fef7017b55ebeee6e37855ab6a2b9fc35f86b8bad6.svg" src="../_images/71636cae76dea3f1232c26fef7017b55ebeee6e37855ab6a2b9fc35f86b8bad6.svg" width="100%" /></a>
 </figure>
 </div>
 </div>
