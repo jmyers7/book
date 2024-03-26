@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -58,7 +58,7 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Cat": "\\mathcal{C}at", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/08-more-prob';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -193,11 +193,8 @@
 <li class="toctree-l1"><a class="reference internal" href="11-optim.html">11. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="12-models.html">12. Probabilistic graphical models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="13-learning.html">13. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-large-sample.html">14. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-stats-estimators.html">15. Statistics and general parameter estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-CIs-hyp-tests.html">16. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-lin-reg.html">17. More on linear regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bib.html">18. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-stat-infer.html">14. Statistical inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">15. Bibliography</a></li>
 </ul>
 
     </div>
@@ -910,7 +907,7 @@ g(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/cf1a26eb17605dd044e451f0b6244e4b01bb3bd30a385761e773ff6de101eb76.svg" src="../_images/cf1a26eb17605dd044e451f0b6244e4b01bb3bd30a385761e773ff6de101eb76.svg" /></figure>
+<img alt="../_images/535ca6fcd41d762a033002e081bd0524185a047520916d78f400ceee77343de0.svg" src="../_images/535ca6fcd41d762a033002e081bd0524185a047520916d78f400ceee77343de0.svg" /></figure>
 </div>
 </div>
 <p>The plot looks exactly like we would expect: A bunch of points lying on the graph of the function <span class="math notranslate nohighlight">\(y=g(x)\)</span>. However, very often with real-world data, an <em>exact</em> dependence <span class="math notranslate nohighlight">\(Y = g(X)\)</span> does not truly hold. Instead, the functional relationship is “noisy”, resulting in scatter plots that look like this:</p>
@@ -942,7 +939,7 @@ g(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/555830243abcfc6d9928918c043943fd167c625ec0f769325b782f093e8f3617.svg" src="../_images/555830243abcfc6d9928918c043943fd167c625ec0f769325b782f093e8f3617.svg" /></figure>
+<img alt="../_images/b377592737913698821f8a2948e1c044d6a0f3cf8961a8c3f42650cee102d33f.svg" src="../_images/b377592737913698821f8a2948e1c044d6a0f3cf8961a8c3f42650cee102d33f.svg" /></figure>
 </div>
 </div>
 <p>The “noisy” functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function <span class="math notranslate nohighlight">\(y=g(x)\)</span> for reference. Instead of lying directly on the graph of <span class="math notranslate nohighlight">\(y=g(x)\)</span>, the data is clustered along the graph.</p>
@@ -976,7 +973,7 @@ g(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a23c7066d682e3d9849ca91ede5775f51a1c616abe33b78d809cff3f668059f3.svg" src="../_images/a23c7066d682e3d9849ca91ede5775f51a1c616abe33b78d809cff3f668059f3.svg" /></figure>
+<img alt="../_images/8493ca829973fc5d4b099d5c741a8a87dcd567e2f9b6c1f3ab98829c6b461615.svg" src="../_images/8493ca829973fc5d4b099d5c741a8a87dcd567e2f9b6c1f3ab98829c6b461615.svg" /></figure>
 </div>
 </div>
 <p>Our goal in this section is to uncover ways to <em>quantify</em> or <em>measure</em> the strength of these types of “noisy” linear dependencies between random variables. We will discover that there are two such measures, called <em>covariance</em> and <em>correlation</em>. An alternate measure of more general dependence, called <em>mutual information</em>, will be studied in the next chapter in <a class="reference internal" href="10-info-theory.html#cond-entropy-mutual-info-sec"><span class="std std-numref">Section 10.3</span></a>.</p>
@@ -1038,7 +1035,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/e55ed46e4f5a6885e862349e76466171b556ea58c5967d3dc7c1aac2dc3afc6c.svg" src="../_images/e55ed46e4f5a6885e862349e76466171b556ea58c5967d3dc7c1aac2dc3afc6c.svg" /></figure>
+<img alt="../_images/cfd3edb3853b64c2cb445922aabc8a2b7b17c6d0800013532b7f56271283e605.svg" src="../_images/cfd3edb3853b64c2cb445922aabc8a2b7b17c6d0800013532b7f56271283e605.svg" /></figure>
 </div>
 </div>
 <p>You can see that the dataset has not changed its shape—it has only shifted so that its mean (represented by the magenta dot) is at the origin <span class="math notranslate nohighlight">\((0,0)\)</span>.</p>
@@ -1166,7 +1163,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0ee647f0d3e24a24be051a0207618de49019ec8731f34550771e75c1db758198.svg" src="../_images/0ee647f0d3e24a24be051a0207618de49019ec8731f34550771e75c1db758198.svg" /></figure>
+<img alt="../_images/e19e3409465c18c07b47990e56dff4dcf6fe4c22cc8fffec5af119095448d6f9.svg" src="../_images/e19e3409465c18c07b47990e56dff4dcf6fe4c22cc8fffec5af119095448d6f9.svg" /></figure>
 </div>
 </div>
 <p>The only difference between the two datasets is the axis scales, but the linear relationship between the <span class="math notranslate nohighlight">\(x\)</span>’s and <span class="math notranslate nohighlight">\(y\)</span>’s remains the same. In fact, the scales on the axes differ by a factor of <span class="math notranslate nohighlight">\(10\)</span>, so by <a class="reference internal" href="#bilinear-thm">Theorem 8.14</a>, we have</p>
@@ -1401,7 +1398,7 @@ f(x,y) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/83a581c84cd25ce47342ab83120b527b869355ea2978ea36f3d6dee1baf713b6.svg" src="../_images/83a581c84cd25ce47342ab83120b527b869355ea2978ea36f3d6dee1baf713b6.svg" /></figure>
+<img alt="../_images/83a892f63864ca6dcf1615a7457a85ec50f0ea99744b27355a4a944673f8545d.svg" src="../_images/83a892f63864ca6dcf1615a7457a85ec50f0ea99744b27355a4a944673f8545d.svg" /></figure>
 </div>
 </div>
 <p>Notice that these contours are concentric ellipses centered at the point <span class="math notranslate nohighlight">\((1,1)\in \bbr^2\)</span> with principal axes parallel to the coordinate <span class="math notranslate nohighlight">\(x\)</span>- and <span class="math notranslate nohighlight">\(y\)</span>-axes. In higher dimensions, the isoprobability surfaces are so-called <em>ellipsoids</em>.</p>
@@ -1450,7 +1447,7 @@ f(x_1,\ldots,x_d) = \frac{1}{(2\pi)^{d/2} (\sigma_1^2\cdots \sigma_d^2)^{1/2}} \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/584e77aecc21fcab091f181592be23466a7f94721af1ed832950a9878d8ce340.svg" src="../_images/584e77aecc21fcab091f181592be23466a7f94721af1ed832950a9878d8ce340.svg" /></figure>
+<img alt="../_images/7d5a7461187e91551301e9046d879073e3adaaf2f447113c9aa11c93a418e196.svg" src="../_images/7d5a7461187e91551301e9046d879073e3adaaf2f447113c9aa11c93a418e196.svg" /></figure>
 </div>
 </div>
 <p>The key to uncovering the formula for the density in the general case begins by returning to the formula <a class="reference internal" href="#equation-init-multi-var-norm-eqn">(8.11)</a> and rewriting it using vector and matrix notation. Indeed, notice that if we set</p>
@@ -1546,7 +1543,7 @@ Q(\bx) = c^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/4b43bd66803471f59bd1062ec165d708fffb8fc94d670f1c7c95c72583de96f7.svg" src="../_images/4b43bd66803471f59bd1062ec165d708fffb8fc94d670f1c7c95c72583de96f7.svg" /></figure>
+<img alt="../_images/4018af99cdcb5501362afdb194afb82b3e4cd440064ee18b2df9b31da429308e.svg" src="../_images/4018af99cdcb5501362afdb194afb82b3e4cd440064ee18b2df9b31da429308e.svg" /></figure>
 </div>
 </div>
 <p>Let’s collect our observations in the following theorem, along with a few additional facts:</p>
@@ -1695,7 +1692,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/b2f79f5db3a85e54bf2f5bbcc5399ac4e2a33db833319f326fc9c3dc714cee6a.svg" src="../_images/b2f79f5db3a85e54bf2f5bbcc5399ac4e2a33db833319f326fc9c3dc714cee6a.svg" /></figure>
+<img alt="../_images/8c3c78f3a001d42370413ed47a470f4a01df6fffc3d72bb27fe17f67142f6066.svg" src="../_images/8c3c78f3a001d42370413ed47a470f4a01df6fffc3d72bb27fe17f67142f6066.svg" /></figure>
 </div>
 </div>
 <p>In the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">programming assignment</a> for this chapter, you will actually implement this procedure. For example, I used these methods to simulate <span class="math notranslate nohighlight">\(1{,}000\)</span> random draws from a bivariate normal distribution with positively correlated components and which is taller than it is wide. If I plot these simulated data over top of isoprobability contours, I get this:</p>
@@ -1732,7 +1729,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/d0a9c64b3e6653a41e87df7b0077080215454dd009bb441374e653407da82c8b.svg" src="../_images/d0a9c64b3e6653a41e87df7b0077080215454dd009bb441374e653407da82c8b.svg" /></figure>
+<img alt="../_images/3629a13d01fdb365769cb7d6bc366126b0cf2d0e89daa220020981a4c899c4ee.svg" src="../_images/3629a13d01fdb365769cb7d6bc366126b0cf2d0e89daa220020981a4c899c4ee.svg" /></figure>
 </div>
 </div>
 <p>Let’s finish off this long chapter with an example problem:</p>

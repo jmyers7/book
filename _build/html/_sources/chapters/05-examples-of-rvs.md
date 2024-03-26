@@ -965,7 +965,7 @@ If $X\sim \mathcal{N}(\mu,\sigma^2)$, then $Z = (X-\mu)/\sigma$ has a standard n
 
 As the subtitle of the corollary shows, the process of transforming a normal variable to a standard normal one is called _standardization_. We will use this process constantly later in the course. To prove the corollary, simply note that $Z$ is an affine transformation $aX+b$ with $a=1/\sigma$ and $b=-\mu/\sigma$. Then, the theorem gives $Z\sim \mathcal{N}(a\mu+b,a^2\sigma^2) = \mathcal{N}(0,1)$.
 
-The CDF of a standard normal variable is so important that it gets its own notation described in the next definition. In it, we also define special _critical values_ that will be used later when we discuss [hypothesis tests](hyp-test).
+The CDF of a standard normal variable is so important that it gets its own notation described in the next definition. In it, we also define special _critical values_ that will be used later when we discuss [hypothesis tests](stat-infer).
 
 ```{prf:definition}
 :label: std-normal-stuff-def

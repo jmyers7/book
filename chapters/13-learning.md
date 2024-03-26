@@ -760,7 +760,7 @@ Let the notation be as in {prf:ref}`mle-lin-reg-thm`, but assume that $\bX$ is $
 
 \begin{align*}
 (\beta_1)_\text{MLE}^\star &= \frac{\sum_{i=1}^m \left(x_i - \bar{x} \right)\left( y_i - \bar{y} \right)}{\sum_{i=1}^m \left(x_i - \bar{x} \right)^2}, \\
-(\beta_0)_\text{MLE}^\star &= \bar{y} - \beta_1 \bar{x},
+(\beta_0)_\text{MLE}^\star &= \bar{y} - (\beta_1)_\text{MLE}^\star \bar{x},
 \end{align*}
 
 where $\bar{x} = \frac{1}{m} \sum_{i=1}^m x_i$ and $\bar{y} = \frac{1}{m} \sum_{i=1}^m y_i$ are the empirical means.

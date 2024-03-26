@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -58,12 +58,12 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Cat": "\\mathcal{C}at", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/13-learning';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="14. Large sample theory" href="14-large-sample.html" />
+    <link rel="next" title="14. Statistical inference" href="14-stat-infer.html" />
     <link rel="prev" title="12. Probabilistic graphical models" href="12-models.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -193,11 +193,8 @@
 <li class="toctree-l1"><a class="reference internal" href="11-optim.html">11. Optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="12-models.html">12. Probabilistic graphical models</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">13. Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-large-sample.html">14. Large sample theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-stats-estimators.html">15. Statistics and general parameter estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-CIs-hyp-tests.html">16. Confidence intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-lin-reg.html">17. More on linear regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bib.html">18. Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-stat-infer.html">14. Statistical inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">15. Bibliography</a></li>
 </ul>
 
     </div>
@@ -644,7 +641,7 @@ x_1,x_2,\ldots,x_{128} \in \{0,1\}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a6eafa1ed8c3395e9ca44bfad89b3ed2bbc162cf30e54f279977bed08a942f47.svg" src="../_images/a6eafa1ed8c3395e9ca44bfad89b3ed2bbc162cf30e54f279977bed08a942f47.svg" /></figure>
+<img alt="../_images/62fc1f1f4bb44e8f047daeca521329b99278d43dbce946fb72e82f7e2ed4bea6.svg" src="../_images/62fc1f1f4bb44e8f047daeca521329b99278d43dbce946fb72e82f7e2ed4bea6.svg" /></figure>
 </div>
 </div>
 <p>The blue curve in the left-hand plot is the graph of the <em>exact</em> cross entropy function <span class="math notranslate nohighlight">\(H_{\hat{P}}(P_\theta)\)</span>. The magenta points—which represent a selection of outputs of the algorithm—do not fall <em>precisely</em> on this graph since they are <em>approximations</em> to the cross entropy, obtained as realizations of the expression on the right-hand side of</p>
@@ -983,7 +980,7 @@ J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \fra
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
 (\beta_1)_\text{MLE}^\star &amp;= \frac{\sum_{i=1}^m \left(x_i - \bar{x} \right)\left( y_i - \bar{y} \right)}{\sum_{i=1}^m \left(x_i - \bar{x} \right)^2}, \\
-(\beta_0)_\text{MLE}^\star &amp;= \bar{y} - \beta_1 \bar{x},
+(\beta_0)_\text{MLE}^\star &amp;= \bar{y} - (\beta_1)_\text{MLE}^\star \bar{x},
 \end{align*}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\bar{x} = \frac{1}{m} \sum_{i=1}^m x_i\)</span> and <span class="math notranslate nohighlight">\(\bar{y} = \frac{1}{m} \sum_{i=1}^m y_i\)</span> are the empirical means.</p>
 </section>
@@ -1066,7 +1063,7 @@ J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \fra
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/4e9d44f7abd9bf8fdaac622c9f71a3ae1e91fcf76ce606038477e75fb26fef1f.svg" src="../_images/4e9d44f7abd9bf8fdaac622c9f71a3ae1e91fcf76ce606038477e75fb26fef1f.svg" /></figure>
+<img alt="../_images/93bdacc9726dcc40b5316ebfca4e4111f7e46df4a3ed7cf45425e0696450a6c4.svg" src="../_images/93bdacc9726dcc40b5316ebfca4e4111f7e46df4a3ed7cf45425e0696450a6c4.svg" /></figure>
 </div>
 </div>
 <p>Notice that both features are on similar scales. Then, we run the algorithm using the squared error function</p>
@@ -1123,7 +1120,7 @@ SE(\btheta; \ x, y) = (y - \beta_0 - \beta x)^2, \quad \btheta = (\beta_0, \beta
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c4f2bc0ebd917661e4c22967a5fbca7074aece05c26cfad81f0f08619722516b.svg" src="../_images/c4f2bc0ebd917661e4c22967a5fbca7074aece05c26cfad81f0f08619722516b.svg" /></figure>
+<img alt="../_images/9d0d99954452641d0c4a8bd286e1a21d4d6d699b886ca87080e1780a59a5d1f6.svg" src="../_images/9d0d99954452641d0c4a8bd286e1a21d4d6d699b886ca87080e1780a59a5d1f6.svg" /></figure>
 </div>
 </div>
 <p>Notice that we plotted the logarithm of the MSE—we chose to do this because we purposefully chose initial guesses for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> that were quite far away from the MLEs, creating large values of the MSE in the initial few steps of the algorithm. This lengthens the learning process, giving us a nicer visualization as the regression line moves into place:</p>
@@ -1165,7 +1162,7 @@ SE(\btheta; \ x, y) = (y - \beta_0 - \beta x)^2, \quad \btheta = (\beta_0, \beta
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a34d51976354e96cdacc6d3413252be045da2c249a53f492295d0851489dc9d0.svg" src="../_images/a34d51976354e96cdacc6d3413252be045da2c249a53f492295d0851489dc9d0.svg" /></figure>
+<img alt="../_images/2f0eced8354e78716922ecf42a5438c6e65022c75461e063926100a41001a55c.svg" src="../_images/2f0eced8354e78716922ecf42a5438c6e65022c75461e063926100a41001a55c.svg" /></figure>
 </div>
 </div>
 </section>
@@ -1298,7 +1295,7 @@ x_0 \bx &amp; \cdots &amp; x_n \bx \\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/17e586284db8046304edd7ea719ab1b349e7ce268d8ae7fb9f72774bcba820bb.svg" src="../_images/17e586284db8046304edd7ea719ab1b349e7ce268d8ae7fb9f72774bcba820bb.svg" /></figure>
+<img alt="../_images/385583dec2185945ff8872357f7b77a2afb96764f3015646af8bbe00d1dc810f.svg" src="../_images/385583dec2185945ff8872357f7b77a2afb96764f3015646af8bbe00d1dc810f.svg" /></figure>
 </div>
 </div>
 <p>Let’s train a logistic regression model on this dataset using the SGD algorithm to locate the global minimizer of the cross entropy from the model distribution to the empirical distribution. This requires the model surprisal function as the loss function for SGD. Running the algorithm for 30 epochs results in the following plot of cross entropy versus gradient steps:</p>
@@ -1349,7 +1346,7 @@ x_0 \bx &amp; \cdots &amp; x_n \bx \\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2ebd5e09a149c77f1607d36c4cbda08949bf5c660e35aab9b608d3767f932db3.svg" src="../_images/2ebd5e09a149c77f1607d36c4cbda08949bf5c660e35aab9b608d3767f932db3.svg" /></figure>
+<img alt="../_images/06dce913fc14b565a83f7b9e7fd20094810cca9a5425085913674f82836f3631.svg" src="../_images/06dce913fc14b565a83f7b9e7fd20094810cca9a5425085913674f82836f3631.svg" /></figure>
 </div>
 </div>
 <p>Notice that the curve in this plot is beginning to “plateau,” indicating the algorithm is beginning to converge on the MLE. Since the feature space is <span class="math notranslate nohighlight">\(2\)</span>-dimensional, as we discussed in <a class="reference internal" href="12-models.html#log-reg-sec"><span class="std std-numref">Section 12.4</span></a>, we may check the fit of the model by plotting the decision boundary of the predictor function</p>
@@ -1427,7 +1424,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/6f91417d11602e3cb48dade5e76f73aacfd4ca7abc31dc0989ff4fb45c728170.svg" src="../_images/6f91417d11602e3cb48dade5e76f73aacfd4ca7abc31dc0989ff4fb45c728170.svg" /></figure>
+<img alt="../_images/47767049068f7c8f7a9649aa2ef7ec92b978e81ada9671358192ccb60a50b87e.svg" src="../_images/47767049068f7c8f7a9649aa2ef7ec92b978e81ada9671358192ccb60a50b87e.svg" /></figure>
 </div>
 </div>
 </section>
@@ -1497,7 +1494,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2cac4fc2e0ab2dc07668a474340ef4ecd17cff77e988f080146ca5a923e04034.svg" src="../_images/2cac4fc2e0ab2dc07668a474340ef4ecd17cff77e988f080146ca5a923e04034.svg" /></figure>
+<img alt="../_images/02aab15a7b3b31208a9e3c208984ea3aed4359410bf359251a29c10a991fc8aa.svg" src="../_images/02aab15a7b3b31208a9e3c208984ea3aed4359410bf359251a29c10a991fc8aa.svg" /></figure>
 </div>
 </div>
 <p>We will train a neural network with three hidden layers of widths <span class="math notranslate nohighlight">\(8\)</span>, <span class="math notranslate nohighlight">\(8\)</span>, and <span class="math notranslate nohighlight">\(4\)</span> to predict the classes of the data in the scatter plot. We will run SGD with the data surprisal function as the loss function, so that the objective is to minimize the (conditional) cross entropy from the model distribution to the empirical distribution:</p>
@@ -1571,7 +1568,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/fed4daf4eaf2670c48272f22e722f0ebfe84cf96fae2ed1c1fd696763696efbd.svg" src="../_images/fed4daf4eaf2670c48272f22e722f0ebfe84cf96fae2ed1c1fd696763696efbd.svg" /></figure>
+<img alt="../_images/29d104bcb3ce44ae688b035137131dab88727d43a31c5939c5274f47368ff525.svg" src="../_images/29d104bcb3ce44ae688b035137131dab88727d43a31c5939c5274f47368ff525.svg" /></figure>
 </div>
 </div>
 <p>The algorithm takes almost <span class="math notranslate nohighlight">\(2{,}000\)</span> gradient steps, spread over <span class="math notranslate nohighlight">\(N=80\)</span> epochs with a mini-batch size of <span class="math notranslate nohighlight">\(k=128\)</span> on a dataset of size <span class="math notranslate nohighlight">\(m=3{,}072\)</span>.</p>
@@ -1641,7 +1638,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/ab510db29f15d8e0e60cf0f34adce6cb31f39fb84a452181571255c23361cb25.svg" src="../_images/ab510db29f15d8e0e60cf0f34adce6cb31f39fb84a452181571255c23361cb25.svg" /></figure>
+<img alt="../_images/0b9048271bda57294b367bfb6c57edf6cd00a704ab4170c362ec951746392c07.svg" src="../_images/0b9048271bda57294b367bfb6c57edf6cd00a704ab4170c362ec951746392c07.svg" /></figure>
 </div>
 </div>
 </section>
@@ -1687,11 +1684,11 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
       </div>
     </a>
     <a class="right-next"
-       href="14-large-sample.html"
+       href="14-stat-infer.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">14. </span>Large sample theory</p>
+        <p class="prev-next-title"><span class="section-number">14. </span>Statistical inference</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
