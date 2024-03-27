@@ -579,10 +579,10 @@ $$
 J(\btheta) = E_{(\bx,y) \sim \hat{p}(\bx,y)}\left[ \calI(\btheta; \ y \mid \bx)\right]
 $$
 
-may be replaced with the _squared error_ function $L(\btheta; \ y\mid \bx) = (y-\mu)^2$, and doing so does not alter the solutions to the optimization problem. Moreover, since multiplying a loss function by a positive constant does not change the extremizers, we may modify the squared error function in several ways to best suit the context. For example, sometimes it is convenient to instead take $J(\btheta)$ to be half the _residual sum of squares_:
+may be replaced with the _squared error_ function $L(\btheta; \ y\mid \bx) = (y-\mu)^2$, and doing so does not alter the solutions to the optimization problem. Moreover, since multiplying a loss function by a positive constant does not change the extremizers, we may modify the squared error function in several ways to best suit the context. For example, sometimes it is convenient to instead take $J(\btheta)$ to be half the _error sum of squares_:
 
 $$
-J(\btheta) = RSS(\btheta) /2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2.
+J(\btheta) = SSE(\btheta) /2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2.
 $$
 
 See, for example, {prf:ref}`mle-lin-reg-thm` in the next section.
@@ -708,10 +708,10 @@ $$
 ```
 
 ```{prf:proof}
-As we noted above in the discussion after the proof of {prf:ref}`MSE-min-thm`, the MLE may be obtained as the minimizer of half the residual sum of squares:
+As we noted above in the discussion after the proof of {prf:ref}`MSE-min-thm`, the MLE may be obtained as the minimizer of half the error sum of squares:
 
 $$
-J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \frac{1}{2} \left( \by - \mathbfcal{X}\btheta\right)^\intercal \left( \by - \mathbfcal{X}\btheta\right),
+J(\btheta) \def SSE(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \frac{1}{2} \left( \by - \mathbfcal{X}\btheta\right)^\intercal \left( \by - \mathbfcal{X}\btheta\right),
 $$
 
 where $\mu_i = \bx_i^\intercal \btheta$ for each $i=1,\ldots,m$. Taking the gradient gives
@@ -724,7 +724,7 @@ where $\nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right)$ is the gradient 
 
 $$
 \nabla J(\btheta) =  -\mathbfcal{X}^\intercal \left( \by - \mathbfcal{X}\btheta\right).
-$$ (grad-rss-eq)
+$$ (grad-sse-eq)
 
 Setting the gradient to zero and rearranging gives
 
@@ -740,7 +740,7 @@ $$
 \nabla^2 J(\btheta) = \nabla(\nabla J)(\btheta) =  \mathbfcal{X} \mathbfcal{X}^\intercal
 $$
 
-from {eq}`grad-rss-eq` and {prf:ref}`hess-jac-grad-thm`. But then, given any vector $\bz \in \bbr^{m}$, we have
+from {eq}`grad-sse-eq` and {prf:ref}`hess-jac-grad-thm`. But then, given any vector $\bz \in \bbr^{m}$, we have
 
 $$
 \bz^\intercal \nabla^2 J(\btheta) \bz = \bz^\intercal \mathbfcal{X} \mathbfcal{X}^\intercal \bz = (\mathbfcal{X}^\intercal\bz)^\intercal \mathbfcal{X}^\intercal \bz = |\mathbfcal{X}^\intercal\bz|^2 \geq 0.
@@ -749,7 +749,7 @@ $$
 Thus, the Hessian matrix is indeed positive semidefinite. Q.E.D.
 ```
 
-As we saw in the proof, the maximum likelihood parameter estimates are those that minimize the residual sum of squares $RSS(\btheta)$, which explains why the MLEs are also often called the _ordinary least squares_ (_OLS_) estimates.
+As we saw in the proof, the maximum likelihood parameter estimates are those that minimize the error sum of squares $SSE(\btheta)$, which explains why the MLEs are also often called the _ordinary least squares_ (_OLS_) estimates.
 
 It is worth writing out the MLEs in the case of simple linear regression:
 

@@ -480,7 +480,7 @@ S^2 \def \frac{1}{m-1} \sum_{i=1}^m(X_i - \overline{X})^2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0b37003b2866f1d92e1ceb7c71ac41e38a67242cedf0e4692220af9545bd7d69.svg" src="../_images/0b37003b2866f1d92e1ceb7c71ac41e38a67242cedf0e4692220af9545bd7d69.svg" /></figure>
+<img alt="../_images/4be4d28d5a53380fde24e9b485a825745776be9cefd2fcb606bc78440b07e645.svg" src="../_images/4be4d28d5a53380fde24e9b485a825745776be9cefd2fcb606bc78440b07e645.svg" /></figure>
 </div>
 </div>
 <p>Observe that the sampling distribution on the right-hand side appears to be well approximated by a normal distribution. This is actually a manifestation of the asymptotic behavior of sample means that we alluded to above; indeed, as we will see in <a class="reference internal" href="#large-sample"><span class="std std-numref">Section 14.2</span></a>, the Central Limit Theorem tells us that the sequence <a class="reference internal" href="#equation-seq-means-eqn">(14.1)</a> of sample means converges (in distribution) to a normal distribution as <span class="math notranslate nohighlight">\(m\to \infty\)</span>, provided that the random variables are IID. This is true even though the observed data are definitely <em>not</em> normally distributed. Moreover, the mean of the sampling distribution is approximately <span class="math notranslate nohighlight">\(4.924\)</span>, while the mean of the observed data is approximately <span class="math notranslate nohighlight">\(4.928\)</span>. The fact that these means are nearly equal is a consequence of another theorem in <a class="reference internal" href="#large-sample"><span class="std std-numref">Section 14.2</span></a> called the Law of Large Numbers.</p>
@@ -587,7 +587,12 @@ f(x;\nu) = \frac{\Gamma\left(\frac{\nu+1}{2} \right)}{\Gamma\left( \frac{\nu}{2}
 \[
 (x_1,y_1),(x_2,y_2),\ldots,(x_m,y_m) \in \bbr^2,
 \]</div>
-<p>we saw in <a class="reference internal" href="13-learning.html#mle-simple-lin-reg-cor">Corollary 13.1</a> that the maximum likelihood estimates <span class="math notranslate nohighlight">\(\hat{\beta}_0 \def (\beta_0)_\text{MLE}^\star\)</span> and <span class="math notranslate nohighlight">\(\hat{\beta}_1 \def (\beta_1)_\text{MLE}^\star\)</span> for the “true” bias and slope terms <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span> are</p>
+<p>we saw in <a class="reference internal" href="13-learning.html#mle-simple-lin-reg-cor">Corollary 13.1</a> that the maximum likelihood estimates</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\beta}_0 \def (\beta_0)_\text{MLE}^\star \quad \text{and} \quad \hat{\beta}_1 \def (\beta_1)_\text{MLE}^\star
+\]</div>
+<p>for the “true” bias and slope terms <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span> are</p>
 <div class="math notranslate nohighlight">
 \[
 \hat{\beta}_1 = \frac{\sum_{i=1}^m \left(x_i - \bar{x} \right)\left( y_i - \bar{y} \right)}{\sum_{i=1}^m \left(x_i - \bar{x} \right)^2} \quad \text{and} \quad \hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}.
@@ -597,7 +602,7 @@ f(x;\nu) = \frac{\Gamma\left(\frac{\nu+1}{2} \right)}{\Gamma\left( \frac{\nu}{2}
 \[
 \hat{y}_i = \beta_0 + \beta_1 x_i \quad \text{and} \quad r_i = y_i - \hat{y}_i.
 \]</div>
-<p>These definitions of <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> and <span class="math notranslate nohighlight">\(r_i\)</span> suited our brief analysis in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>. However, in order to obtain their values, we would need to know the “true” values of <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span>. But presumably we don’t know these values! So, our discussion in this section begins with alternate definitions of these quantities based on the MLEs for the bias and slope terms:</p>
+<p>These definitions of <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> and <span class="math notranslate nohighlight">\(r_i\)</span> suited our brief analysis in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>. However, in order to obtain their values, we would need to know the “true” values of <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span>, which we presumably don’t know! So, our discussion in this section begins with alternate definitions of these quantities based on the MLEs for the bias and slope terms:</p>
 <div class="proof definition admonition" id="predict-resid-defn">
 <p class="admonition-title"><span class="caption-number">Definition 14.5 </span></p>
 <section class="definition-content" id="proof-content">
@@ -608,29 +613,24 @@ f(x;\nu) = \frac{\Gamma\left(\frac{\nu+1}{2} \right)}{\Gamma\left( \frac{\nu}{2}
 \]</div>
 <p>for each <span class="math notranslate nohighlight">\(i=1,2,\ldots,m\)</span>.</p>
 </section>
-</div><div class="proof definition admonition" id="slope-estimator-defn">
+</div><div class="proof definition admonition" id="ss-defn">
 <p class="admonition-title"><span class="caption-number">Definition 14.6 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let</p>
+<p>We define</p>
 <div class="math notranslate nohighlight">
 \[
-(X_1,Y_1),(X_2,Y_2),\ldots,(X_m,Y_m)
+RSS = \sum_{i=1}^m (y_i - \hat{y}_i)^2, \quad TSS = \sum_{i=1}^m (y_i - \hat{y})^2, \quad RSE = \sqrt{ \frac{SSE}{n-2}}.
 \]</div>
-<p>be an IID random sample, and suppose values <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> are observed. Then the statistic</p>
+<p>Then also:</p>
 <div class="math notranslate nohighlight">
 \[
-\hat{\beta}_1 = \frac{\sum_{i=1}^m (x_i - \bar{x})(Y_i - \overline{Y})}{S_{xx}}
-\]</div>
-<p>is called the <em>slope estimator</em> of the corresponding linear regression model, where we write</p>
-<div class="math notranslate nohighlight">
-\[
-S_{xx} = \sum_{i=1}^m(x_i - \bar{x})^2.
+R^2 = 1 - \frac{RSS}{TSS}.
 \]</div>
 </section>
 </div><div class="proof theorem admonition" id="slope-estimator-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 14.8 </span></p>
 <section class="theorem-content" id="proof-content">
-<p>Consider a linear regression model with parameters <span class="math notranslate nohighlight">\(\beta_0\)</span>, <span class="math notranslate nohighlight">\(\beta_1\)</span>, and <span class="math notranslate nohighlight">\(\sigma^2\)</span>. Let <span class="math notranslate nohighlight">\(\hat{\beta}_1\)</span> be the slope estimator defined in <a class="reference internal" href="#slope-estimator-defn">Definition 14.6</a>.</p>
+<p>Consider a linear regression model with parameters <span class="math notranslate nohighlight">\(\beta_0\)</span>, <span class="math notranslate nohighlight">\(\beta_1\)</span>, and <span class="math notranslate nohighlight">\(\sigma^2\)</span>. Let <span class="math notranslate nohighlight">\(\hat{\beta}_1\)</span> be the slope estimator defined in <code class="xref prf prf-ref docutils literal notranslate"><span class="pre">slope-estimator-defn</span></code>.</p>
 <ol class="arabic simple">
 <li><p>We have <span class="math notranslate nohighlight">\(E(\hat{\beta}_1) = \beta_1\)</span>.</p></li>
 <li><p>We have <span class="math notranslate nohighlight">\(V(\hat{\beta}_1) = \sigma^2 / S_{xx}\)</span>.</p></li>

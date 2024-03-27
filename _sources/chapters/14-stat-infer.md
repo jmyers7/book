@@ -264,7 +264,13 @@ $$
 (x_1,y_1),(x_2,y_2),\ldots,(x_m,y_m) \in \bbr^2,
 $$
 
-we saw in {prf:ref}`mle-simple-lin-reg-cor` that the maximum likelihood estimates $\hat{\beta}_0 \def (\beta_0)_\text{MLE}^\star$ and $\hat{\beta}_1 \def (\beta_1)_\text{MLE}^\star$ for the "true" bias and slope terms $\beta_0$ and $\beta_1$ are
+we saw in {prf:ref}`mle-simple-lin-reg-cor` that the maximum likelihood estimates
+
+$$
+\hat{\beta}_0 \def (\beta_0)_\text{MLE}^\star \quad \text{and} \quad \hat{\beta}_1 \def (\beta_1)_\text{MLE}^\star
+$$
+
+for the "true" bias and slope terms $\beta_0$ and $\beta_1$ are
 
 $$
 \hat{\beta}_1 = \frac{\sum_{i=1}^m \left(x_i - \bar{x} \right)\left( y_i - \bar{y} \right)}{\sum_{i=1}^m \left(x_i - \bar{x} \right)^2} \quad \text{and} \quad \hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}.
@@ -276,7 +282,7 @@ $$
 \hat{y}_i = \beta_0 + \beta_1 x_i \quad \text{and} \quad r_i = y_i - \hat{y}_i.
 $$
 
-These definitions of $\hat{y}_i$ and $r_i$ suited our brief analysis in {numref}`Chapter %s <prob-models>`. However, in order to obtain their values, we would need to know the "true" values of $\beta_0$ and $\beta_1$. But presumably we don't know these values! So, our discussion in this section begins with alternate definitions of these quantities based on the MLEs for the bias and slope terms:
+These definitions of $\hat{y}_i$ and $r_i$ suited our brief analysis in {numref}`Chapter %s <prob-models>`. However, in order to obtain their values, we would need to know the "true" values of $\beta_0$ and $\beta_1$, which we presumably don't know! So, our discussion in this section begins with alternate definitions of these quantities based on the MLEs for the bias and slope terms:
 
 ```{prf:definition}
 :label: predict-resid-defn
@@ -292,24 +298,18 @@ for each $i=1,2,\ldots,m$.
 
 
 ```{prf:definition}
-:label: slope-estimator-defn
+:label: ss-defn
 
-Let
-
-$$
-(X_1,Y_1),(X_2,Y_2),\ldots,(X_m,Y_m)
-$$
-
-be an IID random sample, and suppose values $x_1,x_2,\ldots,x_m$ are observed. Then the statistic
+We define
 
 $$
-\hat{\beta}_1 = \frac{\sum_{i=1}^m (x_i - \bar{x})(Y_i - \overline{Y})}{S_{xx}}
+RSS = \sum_{i=1}^m (y_i - \hat{y}_i)^2, \quad TSS = \sum_{i=1}^m (y_i - \hat{y})^2, \quad RSE = \sqrt{ \frac{SSE}{n-2}}.
 $$
 
-is called the _slope estimator_ of the corresponding linear regression model, where we write
+Then also:
 
 $$
-S_{xx} = \sum_{i=1}^m(x_i - \bar{x})^2.
+R^2 = 1 - \frac{RSS}{TSS}.
 $$
 ```
 
