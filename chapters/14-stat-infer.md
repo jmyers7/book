@@ -55,16 +55,11 @@ $$
 The corresponding empirical statistics are the _empirical mean_ and _empirical variance_ defined as
 
 $$
-\overline{x} \def \frac{1}{m}(x_1+\cdots+x_m) \quad \text{and} \quad s^2 = \frac{1}{m-1} \sum_{i=1}^m(x_i - \overline{x})^2.
+\overline{x} \def \frac{1}{m}(x_1+\cdots+x_m) \quad \text{and} \quad s^2 \def \frac{1}{m-1} \sum_{i=1}^m(x_i - \overline{x})^2.
 $$
-
 ```
 
-Very often, the component random variables $X_1,X_2,\ldots,X_m$ of the random vector $\bX$ in the definition are assumed to form a random sample, i.e., an IID sequence of random variables. The dimension $m$ is then referred to as the _sample size_. In principle, then, the sample size $m$ can be _any_ positive integer, and so it is often convenient to write $\overline{X}_m$ for the sample mean, explicitly displaying the sample size. This gives us an entire _infinite sequence_ of sample means:
-
-$$
-\overline{X}_1,\overline{X}_2,\ldots,\overline{X}_m, \ldots.
-$$ (seq-means-eqn)
+Very often, the component random variables $X_1,X_2,\ldots,X_m$ of the random vector $\bX$ in the definition are assumed to form a random sample, i.e., an IID sequence of random variables. The dimension $m$ is then referred to as the _sample size_. In principle, then, the sample size $m$ can be _any_ positive integer, and so it is often convenient to write $\overline{X}_m$ for the sample mean, explicitly displaying the sample size. This gives us an entire _infinite sequence_ of sample means, one for each sample size $m$.
 
 Since statistics are random vectors, they have their own probability distributions. These are given special names:
 
@@ -74,9 +69,7 @@ Since statistics are random vectors, they have their own probability distributio
 The probability distribution of a statistic $T$ is called the _sampling distribution_ of $T$.
 ```
 
-The sampling distributions for sample means $\overline{X}_m$ are particularly important, and one of the main goals of {numref}`large-sample` is to study the limiting behavior (or _asymptotic behavior_) of the sampling distributions in the sequence {eq}`seq-means-eqn` as $m\to \infty$.
-
-In general, however, computing the sampling distributions is difficult. But if we actually have _observed_ data $x_1,x_2,\ldots,x_m$, then (as you will explore in the programming assignment) there is a resampling method known as _bootstrapping_ that yields  approximations to sampling distributions. An example is given by the histogram (with KDE) on the right-hand side of the following figure, where a histogram (with KDE) of the empirical distribution of an observed dataset is given on the left-hand side:
+In general, however, computing the sampling distributions is difficult. But if we actually have _observed_ data $x_1,x_2,\ldots,x_m$, then (as you will explore in the programming assignment) there is a resampling method known as _bootstrapping_ that yields approximations to sampling distributions. An example is given by the histogram (with KDE) on the right-hand side of the following figure, where a histogram (with KDE) of the empirical distribution of an observed dataset is given on the left-hand side:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -89,7 +82,7 @@ import scipy as sp
 import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
-import scipy as sp
+import scipy.stats as ss
 import matplotlib_inline.backend_inline
 import matplotlib.colors as clr
 import warnings
@@ -100,7 +93,7 @@ blue = '#486AFB'
 magenta = '#FD46FC'
 
 np.random.seed(42)
-X = sp.stats.gamma(a=5)
+X = ss.gamma(a=5)
 
 sample_size = 100
 resample_size = 1000
@@ -121,11 +114,11 @@ axes[0].set_ylabel('density')
 axes[0].set_title('observed data')
 axes[1].set_xlabel('$x$')
 axes[1].set_ylabel('density')
-axes[1].set_title('bootstrap sampling distribution of sample mean')
+axes[1].set_title('sampling distribution of the mean')
 plt.tight_layout()
 ```
 
-Observe that the sampling distribution on the right-hand side appears to be well approximated by a normal distribution. This is actually a manifestation of the asymptotic behavior of sample means that we alluded to above; indeed, as we will see in {numref}`large-sample`, the Central Limit Theorem tells us that the sequence {eq}`seq-means-eqn` of sample means converges (in distribution) to a normal distribution as $m\to \infty$, provided that the random variables are IID. This is true even though the observed data are definitely _not_ normally distributed. Moreover, the mean of the sampling distribution is approximately $4.924$, while the mean of the observed data is approximately $4.928$. The fact that these means are nearly equal is a consequence of another theorem in {numref}`large-sample` called the Law of Large Numbers.
+Observe that the sampling distribution on the right-hand side appears to be well approximated by a normal distribution. This is actually a manifestation of the Central Limit Theorem (see {prf:ref}`clt-thm`), which says that the sample means $\overline{X}_m$ converge (in distribution) to a normal distribution as $m\to \infty$, provided that the random variables are IID. This is true even though the observed data are definitely _not_ normally distributed.
 
 Let's consider the sample mean a little closer:
 
@@ -147,20 +140,18 @@ Let $X_1,X_2,\ldots,X_m$ be an IID random sample from a distribution with mean $
 
 
 
-(large-sample)=
-## Large sample theory
 
-```{prf:theorem} Central Limit Theorem
-:label: clt-thm
 
-Let $X_1,X_2,\ldots,X_m$ be an IID random sample from a distribution with mean $\mu$ and standard deviation $\sigma$. Then, in the limit as $m\to \infty$, we have
 
-$$
-\lim_{m\to \infty} P \left( \frac{\overline{X} - \mu}{\sigma/\sqrt{m}} \leq z \right) = P(Z \leq z) = \Phi(z),
-$$
 
-where $Z \sim \mathcal{N}(0,1)$.
-```
+
+
+
+
+
+
+
+
 
 
 
@@ -172,41 +163,94 @@ where $Z \sim \mathcal{N}(0,1)$.
 (CIs)=
 ## Confidence intervals
 
+The idea of a _confidence interval_ is best introduced through a simple example. Suppose we have an observed dataset
+
+$$
+x_1,x_2,\ldots,x_m \in \bbr
+$$
+
+that are realized as observations of an IID random sample
+
+$$
+X_1,X_2,\ldots,X_m \sim \mathcal{N}(\mu,\sigma^2).
+$$
+
+In this initial discussion we shall assume that the variance $\sigma^2$ is known, but that the mean $\mu$ is left to be estimated via the observed dataset.
+
+Of course, the empirical mean $\bar{x}$ serves as an estimate for $\mu$. But $\bar{x}$ depends on the dataset, and thus $\bar{x}$ carries variability---a different dataset would yield a different empirical mean $\bar{x}$, and thus a different estimate for $\mu$. To account for this variability, we may want to produce not only a single _point estimate_ for $\mu$, but rather an entire _interval estimate_, i.e., an interval of values that captures the "true" value of $\mu$ with a certain level of confidence. To produce such an interval estimate, we consider the following statistic:
+
 ```{prf:theorem}
 :label: standardized-mean-thm
 
 Let $X_1,X_2,\ldots,X_m$ be an IID random sample from a normal distribution with mean $\mu$ and standard deviation $\sigma$. Then the statistic
 
 $$
-\frac{\overline{X} - \mu}{\sqrt/\sqrt{m}}
+Z = \frac{\overline{X} - \mu}{\sigma/\sqrt{m}}
 $$
 
 has a standard normal distribution. This statistic is called the _standardized mean_.
 ```
 
-```{prf:theorem}
-:label: CI-norm-thm
+The standardized mean is obtained by first subtracting the expected value $\mu = E(\overline{X})$ of the sample mean $\overline{X}$ from itself, and then dividing by the standard error $\sigma_{\overline{X}} = \sigma/\sqrt{m}$. The crucial property of the standardized mean is that its distribution does _not_ depend on the unknown "true" value of $\mu$. Such a statistic is sometimes called a _pivotal quantity_. 
 
-Let $X_1,X_2,\ldots,X_m$ be an IID random sample from a normal distribution with **unknown** mean $\mu$ and **known** standard deviation $\sigma$, and let $\bar{x}$ be the empirical mean computed from an observed random sample. For $\alpha\in [0,1]$, the interval
+Now, suppose that we choose a number $\alpha \in [0,1]$. Since $Z$ is a standard normal variable, we have
+
+$$
+P(-z_{\alpha/2} < Z < z_{\alpha/2}) = 1 - \alpha,
+$$
+
+where $z_{\alpha/2}$ is the critical value defined so that
+
+$$
+\Phi(z_{\alpha/2}) = 1 - \alpha/2,
+$$
+
+where $\Phi$ is the cumulative distribution function of $Z$. But the inequality
+
+$$
+-z_{\alpha/2} < Z < z_{\alpha/2}
+$$
+
+is easily seen to be equivalent to the inequality
+
+$$
+\overline{X} -z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}} < \mu < \overline{X} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}},
+$$ (ci-first-eq)
+
+and so we have
+
+$$
+P\left( \overline{X} -z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}} < \mu < \overline{X} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}} \right) = 1 - \alpha.
+$$ (prob-ci-eq)
+
+Interpreting this equality requires some care. First, we must understand that the mean $\mu$, although it is unknown to us, is assumed _fixed_ and does not vary. The variable quantity in the inequality {eq}`ci-first-eq` is the sample mean $\overline{X}$, _not_ the mean $\mu$. So, when we interpret {eq}`prob-ci-eq` as saying that the probability that $\mu$ lies in the interval
+
+$$
+\left( \overline{X} -z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}}, \overline{X} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}}\right)
+$$ (ci-second-eq)
+
+is $1-\alpha$, we must always remember that it is the interval that is random, not $\mu$!
+
+Substitution of an observation of the sample mean $\overline{X}$ into the interval {eq}`ci-second-eq` produces our first example of a _confidence interval_. Such an observation is nothing but an empirical mean $\bar{x}$ obtained from a dataset.
+
+```{prf:definition}
+:label: CI-norm-defn
+
+Let $X_1,X_2,\ldots,X_m$ be an IID random sample from a normal distribution with **unknown** mean $\mu$ and **known** standard deviation $\sigma$, and let $\bar{x}$ be the empirical mean computed from an observed dataset. For $\alpha\in [0,1]$, the interval
 
 $$
 \left(\bar{x} - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}}, \bar{x} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}} \right)
-$$
+$$ (ci-third-eq)
 
-is a $100(1-\alpha)\%$ confidence interval for the mean $\mu$.
+is called a _$100(1-\alpha)\%$ confidence interval_ for the mean $\mu$.
 ```
 
-```{prf:theorem}
-:label: CI-large-sample-thm
+Again, we must remember that the interval {eq}`ci-third-eq` is but _one_ realization of the random interval {eq}`ci-second-eq`. It is therefore _not_ correct to say that the true value $\mu$ lies in the interval {eq}`ci-third-eq` with probability $1-\alpha$. Rather, a frequentist interpretation of probability would tell us that if we repeatedly sampled the true distribution $\mathcal{N}(\mu,\sigma^2)$ over and over again many times, producing a large number of empirical means $\bar{x}$ and therefore also a large number of confidence intervals {eq}`ci-third-eq`, then approximately $100(1-\alpha)\%$ of the confidence intervals would contain the true value $\mu$.
 
-Let $X_1,X_2,\ldots,X_m$ be an IID random sample from a distribution with **unknown** mean $\mu$ and **known** standard deviation $\sigma$, and let $\bar{x}$ be the empirical mean computed from an observed random sample. For $\alpha\in [0,1]$ and $m$ sufficiently large, the random interval
+In the rest of this section, we shall be interested in generalizing our initial construction of a confidence interval in two ways. First: We would like to have confidence intervals in the (more realistic) scenario when _both_ the mean $\mu$ and variance $\sigma^2$ of the underlying normal distribution are unknown. This will lead us to confidence intervals involving critical values $z_{\alpha/2}$ not drawn from a standard normal distribution, but rather from a new type of distribution called a _$t$-distribution_. Second: We would like to have confidence intervals for data drawn from _any_ distribution, not only normal distributions. But in order to obtain these confidence intervals, we must assume that our observed datasets are large, enabling us to invoke the Central Limit Theorem. And, besides only working for "large" samples, in this case we must also settle for _approximate_ confidence intervals.
 
-$$
-\left(\bar{x} - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}}, \bar{x} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}} \right)
-$$
 
-is approximately a $100(1-\alpha)\%$ confidence interval for the mean $\mu$.
-```
+We begin by considering the first generalization, when we have data drawn from a normal distribution $\mathcal{N}(\mu,\sigma^2)$ with unknown mean and variance.
 
 ```{prf:definition}
 :label: t-dist-defn
@@ -232,7 +276,7 @@ with support $\bbr$.
 Let $X_1,X_2,\ldots,X_m$ be an IID random sample from a normal distribution with mean $\mu$ and standard deviation $\sigma$, and let $\bar{x}$ and $s$ be the empirical mean and standard deviation computed from an observed random sample. Then the statistic
 
 $$
-\frac{\overline{X} - \mu}{s/\sqrt{m}}
+T = \frac{\overline{X} - \mu}{s/\sqrt{m}}
 $$
 
 has a $t_{m-1}$ distribution. This statistic is called the _studentized mean_.
@@ -250,21 +294,81 @@ $$
 is a $100(1-\alpha)\%$ confidence interval for the mean $\mu$.
 ```
 
+```{prf:theorem} Central Limit Theorem
+:label: clt-thm
 
+Let $X_1,X_2,\ldots,X_m$ be an IID random sample from a distribution with mean $\mu$ and standard deviation $\sigma$. Then, in the limit as $m\to \infty$, we have
+
+$$
+\lim_{m\to \infty} P \left( \frac{\overline{X} - \mu}{\sigma/\sqrt{m}} \leq z \right) = P(Z \leq z) = \Phi(z),
+$$
+
+where $Z \sim \mathcal{N}(0,1)$.
+```
+
+
+
+```{prf:theorem}
+:label: CI-large-sample-thm
+
+Let $X_1,X_2,\ldots,X_m$ be an IID random sample from a distribution with **unknown** mean $\mu$ and **known** standard deviation $\sigma$, and let $\bar{x}$ be the empirical mean computed from an observed random sample. For $\alpha\in [0,1]$ and $m$ sufficiently large, the random interval
+
+$$
+\left(\bar{x} - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}}, \bar{x} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}} \right)
+$$
+
+is approximately a $100(1-\alpha)\%$ confidence interval for the mean $\mu$.
+```
 
 
 
 ## Hypothesis tests
 
+
+
+
+
+
+
+
+
 ## Statistical inference in linear regression
 
-Consider a simple linear regression model with parameters $\beta_0$, $\beta_1$, and $\sigma^2$. Given an observed dataset
+We begin our discussion in this section by considering an observed dataset
 
 $$
-(x_1,y_1),(x_2,y_2),\ldots,(x_m,y_m) \in \bbr^2,
+y_1,y_2,\ldots,y_m \in \bbr.
 $$
 
-we saw in {prf:ref}`mle-simple-lin-reg-cor` that the maximum likelihood estimates $\hat{\beta}_0 \def (\beta_0)_\text{MLE}^\star$ and $\hat{\beta}_1 \def (\beta_1)_\text{MLE}^\star$ for the "true" bias and slope terms $\beta_0$ and $\beta_1$ are
+As always, the $y$'s are conceptualized as observed values of a random variable $Y$. The goal of a linear regression model is to "explain" the variability of the $y$'s through a linear relationship to (the observed values of) another random variable $X$, the _explanatory variable_ or the _predictor variable_. In this case, $Y$ is called the _response variable_.
+
+So, we suppose that our $y$'s form part of an observed bivariate dataset
+
+$$
+(x_1,y_1),(x_2,y_2),\ldots,(x_m,y_m) \in \bbr^2.
+$$
+
+A measure of variability of the $y$'s is the empirical variance
+
+$$
+s^2 = \frac{1}{m-1} \sum_{i=1}^m (y_i - \bar{y})^2.
+$$
+
+In our analysis, however, it is convenient to measure the variability via the quantity
+
+$$
+SST \def \sum_{i=1}^m (y_i - \bar{y})^2,
+$$
+
+called the _total sum of squares_. The fundamental insight in this section is that the total sum of squares may be decomposed as a sum of two _other_ sums of squares, one which accounts for the variance "explained" via a linear regression model, and the other that accounts for the residual or "unexplained" variance.
+
+To obtain these other sums of squares, we suppose that our (simple) linear regression model has parameters $\beta_0$, $\beta_1$, and $\sigma^2$. We saw in {prf:ref}`mle-simple-lin-reg-cor` that the maximum likelihood estimates
+
+$$
+\hat{\beta}_0 \def (\beta_0)_\text{MLE}^\star \quad \text{and} \quad \hat{\beta}_1 \def (\beta_1)_\text{MLE}^\star
+$$
+
+for the "true" bias and slope terms $\beta_0$ and $\beta_1$ are
 
 $$
 \hat{\beta}_1 = \frac{\sum_{i=1}^m \left(x_i - \bar{x} \right)\left( y_i - \bar{y} \right)}{\sum_{i=1}^m \left(x_i - \bar{x} \right)^2} \quad \text{and} \quad \hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}.
@@ -276,12 +380,12 @@ $$
 \hat{y}_i = \beta_0 + \beta_1 x_i \quad \text{and} \quad r_i = y_i - \hat{y}_i.
 $$
 
-These definitions of $\hat{y}_i$ and $r_i$ suited our brief analysis in {numref}`Chapter %s <prob-models>`. However, in order to obtain their values, we would need to know the "true" values of $\beta_0$ and $\beta_1$. But presumably we don't know these values! So, our discussion in this section begins with alternate definitions of these quantities based on the MLEs for the bias and slope terms:
+These definitions of $\hat{y}_i$ and $r_i$ suited our brief analysis in {numref}`Chapter %s <prob-models>`. However, in order to obtain their values, we would need to know the "true" values of $\beta_0$ and $\beta_1$, which we presumably don't know! So, our discussion in this section begins with alternate definitions of these quantities based on the MLEs for the bias and slope terms:
 
 ```{prf:definition}
 :label: predict-resid-defn
 
-Letting the notation be as above, we define the *$i$-th predicted value* and *$i$-th residual* to be
+We define the *$i$-th predicted value* and *$i$-th residual* to be
 
 $$
 \hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i \quad \text{and} \quad r_i = y_i - \hat{y}_i,
@@ -290,40 +394,220 @@ $$
 for each $i=1,2,\ldots,m$.
 ```
 
+With these new definitions of predicted and residual values in hand, we now define the two other sums of squares mentioned above:
 
 ```{prf:definition}
-:label: slope-estimator-defn
+:label: ss-defn
 
-Let
-
-$$
-(X_1,Y_1),(X_2,Y_2),\ldots,(X_m,Y_m)
-$$
-
-be an IID random sample, and suppose values $x_1,x_2,\ldots,x_m$ are observed. Then the statistic
+We define
 
 $$
-\hat{\beta}_1 = \frac{\sum_{i=1}^m (x_i - \bar{x})(Y_i - \overline{Y})}{S_{xx}}
+SSE = \sum_{i=1}^m (y_i - \hat{y}_i)^2 \quad \text{and} \quad SSR = \sum_{i=1}^m (\hat{y}_i - \bar{y})^2,
 $$
 
-is called the _slope estimator_ of the corresponding linear regression model, where we write
+called the _error sum of squares_ and _regression sum of squares_.
+```
+
+Using these new sums of squares, we state and prove that the total sum of squares may be decomposed as the error and regression sums of squares. This is called the "ANOVA" identity, which is short for _analysis of variance_.
+
+```{prf:theorem} ANOVA identity for linear regression
+:label: anova-lr-thm
+
+There is an equality $SST = SSE + SSR$.
+```
+
+```{prf:proof}
+
+We begin by noting that
+
+\begin{align*}
+SST &= \sum_{i=1}^m ( y_i - \bar{y})^2 \\
+&= \sum_{i=1}^m \left[ (y_i - \hat{y}_i) + (\hat{y}_i - \bar{y}) \right]^2 \\
+&= SSE + SSR + 2 \sum_{i=1}^m (y_i - \hat{y}_i)(\hat{y}_i - \bar{y}).
+\end{align*}
+
+So, all we need to do is show that $\sum_{i=1}^m (y_i - \hat{y}_i)(\hat{y}_i - \bar{y}) =0$. To do this, we note that
 
 $$
-S_{xx} = \sum_{i=1}^m(x_i - \bar{x})^2.
+\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i \quad \text{and} \quad \hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x},
+$$
+
+and so
+
+$$
+y_i - \hat{y}_i = (y_i - \bar{y}) - \hat{\beta}_1(x_i - \bar{x}) \quad \text{and} \quad \hat{y}_i - \bar{y} = \hat{\beta}_1 (x_i - \bar{x}).
+$$
+
+But then
+
+\begin{align*}
+\sum_{i=1}^m (y_i - \hat{y}_i)(\hat{y}_i - \bar{y}) &= \hat{\beta}_1\sum_{i=1}^m \left[(y_i - \bar{y}) - \hat{\beta}_1(x_i - \bar{x}) \right](x_i - \bar{x}) \\
+&= \hat{\beta}_1\sum_{i=1}^m (y_i - \bar{y})(x_i - \bar{x}) - \hat{\beta}_1^2 \sum_{i=1}^m (x_i - \bar{x})^2\\
+&= \hat{\beta}_1\sum_{i=1}^m (y_i - \bar{y})(x_i - \bar{x}) - \hat{\beta}_1 \sum_{i=1}^m (y_i - \hat{y})(x_i - \bar{x})\\
+&= 0
+\end{align*}
+
+where we used the equality
+
+$$
+\hat{\beta}_1 = \frac{\sum_{i=1}^m (y_i - \bar{y})(x_i - \bar{x})}{\sum_{i=1}^m (x_i - \bar{x})^2}
+$$
+
+in moving from the second to the third line. Q.E.D.
+```
+
+The error sum of squares
+
+$$
+SSE = \sum_{i=1}^m (y_i - \hat{y}_i)^2
+$$
+
+is easily conceptualized as the amount of error accumulated in using the predicted values $\hat{y}_i$ from the linear regression model as proxies for the true values $y_i$. In this sense, the error sum of squares quantifies the variance in the $y$'s that is left "unexplained" by the linear regression model. Since the total sum of squares is the total variance in the $y$'s, the ANOVA identity shows that the regression sum of squares
+
+$$
+SSR = \sum_{i=1}^m (\hat{y}_i - \bar{y})^2
+$$
+
+should quantify the variance in the $y$'s that _is_ "explained" by the model. These considerations motivate the definition of the following quantity, which is the proportion of total variance of the $y$'s that is "explained" by the model:
+
+```{prf:definition}
+:label: coeff-det-defn
+
+The _coefficient of determination_, denoted $R^2$, is given by
+
+$$
+R^2 = \frac{SSR}{SST} = 1 - \frac{SSE}{SST}.
 $$
 ```
+
+Note that $R^2$ always lies between $0$ and $1$, by the ANOVA identity. Values closer to $1$ indicate that a large portion of the total variance in the $y$'s is "explained" by the linear regression model, which means that the regression line should fit the data well. In the other direction, values of $R^2$ close to $0$ should mean that the regression line is a poor fit for the data.
+
+However, as we learned in {numref}`covar-correl-sec`, the correlation coefficient $\rho$ is a measure of the strength of the linear relationship between two random variables $X$ and $Y$. Moreover, given an observed bivariate dataset
+
+$$
+(x_1,y_1),(x_2,y_2),\ldots,(x_m,y_m) \in \bbr^2,
+$$
+
+we learned in a previous [programming assignment](https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_08.ipynb) that the quantity
+
+$$
+r \def \frac{\sum_{i=1}^m (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^m (x_i - \bar{x})^2 \sum_{i=1}^m (y_i - \bar{y})^2}}
+$$
+
+serves as an empirical estimate of $\rho$. The empirical correlation $r$ must lie between $-1$ and $1$, with negative values indicating a linear relationship between the $x$'s and $y$'s with negative slope. Thus, the square $r^2$ must lie between $0$ and $1$, and it measures the strength of _any_ type of linear relationship, whether positive or negative slope. In fact, we have:
 
 ```{prf:theorem}
-:label: slope-estimator-thm
+:label: r-R-thm
 
-Consider a linear regression model with parameters $\beta_0$, $\beta_1$, and $\sigma^2$. Let $\hat{\beta}_1$ be the slope estimator defined in {prf:ref}`slope-estimator-defn`.
-
-1. We have $E(\hat{\beta}_1) = \beta_1$.
-
-2. We have $V(\hat{\beta}_1) = \sigma^2 / S_{xx}$.
-
-3. The sampling distribution of $\hat{\beta}_1$ is normal.
+There is an equality $r^2 = R^2$.
 ```
+
+Before beginning the proof, it will be convenient to introduce some notation. We set:
+
+$$
+s_{xy} = \sum_{i=1}^m (x_i - \bar{x})(y_i - \bar{y}), \quad s_{xx} = \sum_{i=1}^m (x_i - \bar{x})^2, \quad s_{yy} = \sum_{i=1}^m (y_i - \bar{y})^2.
+$$
+
+Then, we have
+
+$$
+\hat{\beta}_1 = \frac{s_{xy}}{s_{xx}}, \quad r = \frac{s_{xy}}{\sqrt{s_{xx} s_{yy}}}, \quad \text{and} \quad SST = s_{yy}.
+$$
+
+With this notation set, we prove the theorem:
+
+```{prf:proof}
+
+First, recall from the proof of {prf:ref}`anova-lr-thm` that $\hat{y}_i - \bar{y} = \hat{\beta}_1(x_i - \bar{x})$. Thus:
+
+$$
+SSR = \sum_{i=1}^m (\hat{y}_i - \bar{y})^2 = \hat{\beta}_1^2 \sum_{i=1}^m(x_i - \bar{x})^2 = \frac{s_{xy}^2}{s_{xx}^2} \cdot s_{xx} = \frac{s^2_{xy}}{s_{xx}}.
+$$
+
+But then
+
+$$
+R^2 = \frac{SSR}{SST} = \frac{s_{xy}^2 / s_{xx}}{s_{yy}} = \frac{s_{xy}^2}{s_{xx}s_{yy}} = r^2,
+$$
+
+as desired. Q.E.D.
+```
+
+We now turn toward inference problems in linear regression centered on the slope coefficient
+
+$$
+\hat{\beta}_1 = \frac{s_{xy}}{s_{xx}} = \frac{\sum_{i=1}^m (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^m (x_i - \bar{x})^2}.
+$$
+
+If we conceptualize the $y$'s as observed values of an IID random sample
+
+$$
+Y_1,Y_2,\ldots,Y_m,
+$$
+
+then we obtain the _slope estimator_, also denoted $\hat{\beta}_1$, by putting
+
+$$
+\hat{\beta}_1 = \frac{\sum_{i=1}^m (x_i - \bar{x})(Y_i - \overline{Y})}{\sum_{i=1}^m (x_i - \bar{x})^2}.
+$$
+
+Likewise, the _bias estimator_, or _intercept estimator_, is given by
+
+$$
+\hat{\beta}_0 = \overline{Y} - \hat{\beta}_1 \bar{x}.
+$$
+
+Our goal over the rest of this section is to compute confidence intervals for the slope coefficient $\beta_1$.
+
+We begin with an estimator of the "true" standard deviation $\sigma$ in our linear regression model:
+
+```{prf:definition}
+:label: rse-defn
+
+For a dataset of size $m$, we define the _residual standard error_ to be the quantity
+
+$$
+s_e = \sqrt{\frac{SSE}{m-2}} = \sqrt{\frac{\sum_{i=1}^m (y_i - \hat{y}_i)^2}{m-2}}.
+$$
+
+Replacing the $y_i$'s with $Y_i$'s yields the esimator
+
+$$
+S_e = \sqrt{\frac{\sum_{i=1}^m (Y_i - \hat{Y}_i)^2}{m-2}} = \sqrt{\frac{\sum_{i=1}^m (Y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)^2}{m-2}}.
+$$
+```
+
+The denominator $m-2$ appears (rather than $m-1$) in order to make the square $S^2_e$ an unbiased estimator of the "true" variance $\sigma^2$ of the linear regression model.
+
+
+```{prf:theorem}
+:label: slope-estimator-prop-thm
+
+1. The slope estimator $\hat{\beta}_1$ is an unbiased estimator of $\beta_1$, i.e.,
+
+    $$
+    E(\hat{\beta}_1) = \beta_1.
+    $$
+
+2. Letting $\sigma$ be the "true" standard deviation of the linear regression model, the standard error of $\hat{\beta}_1$ is
+
+    $$
+    \sigma_{\hat{\beta}_1} = \frac{\sigma}{\sqrt{s_{xx}}}.
+    $$
+
+    Replacing $\sigma$ with its estimate via the residual standard error $s_e$, an estimate of the standard error of $\hat{\beta}_1$ is
+
+    $$
+    \hat{\sigma}_{\hat{\beta}_1} = \frac{s_e}{\sqrt{s_{xx}}}.
+    $$
+```
+
+
+
+
+
+
+
 
 
 

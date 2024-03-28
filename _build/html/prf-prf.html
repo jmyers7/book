@@ -31,9 +31,9 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -321,13 +321,14 @@ document.write(`
 
    <div class="modindex-jumpbox">
    <a href="#cap-CI-large-sample-thm"><strong>CI-large-sample-thm</strong></a> | 
-   <a href="#cap-CI-norm-thm"><strong>CI-norm-thm</strong></a> | 
+   <a href="#cap-CI-norm-defn"><strong>CI-norm-defn</strong></a> | 
    <a href="#cap-KL-and-entropy-thm"><strong>KL-and-entropy-thm</strong></a> | 
    <a href="#cap-KL-def"><strong>KL-def</strong></a> | 
    <a href="#cap-MSE-min-thm"><strong>MSE-min-thm</strong></a> | 
    <a href="#cap-affine-gaussian-thm"><strong>affine-gaussian-thm</strong></a> | 
    <a href="#cap-affine-trans-mutivar-norm-thm"><strong>affine-trans-mutivar-norm-thm</strong></a> | 
    <a href="#cap-anova-defn"><strong>anova-defn</strong></a> | 
+   <a href="#cap-anova-lr-thm"><strong>anova-lr-thm</strong></a> | 
    <a href="#cap-batch-gd-def"><strong>batch-gd-def</strong></a> | 
    <a href="#cap-bayes-event-thm"><strong>bayes-event-thm</strong></a> | 
    <a href="#cap-bayes-rvs-thm"><strong>bayes-rvs-thm</strong></a> | 
@@ -345,6 +346,7 @@ document.write(`
    <a href="#cap-char-normal-thm"><strong>char-normal-thm</strong></a> | 
    <a href="#cap-classical-prob-def"><strong>classical-prob-def</strong></a> | 
    <a href="#cap-clt-thm"><strong>clt-thm</strong></a> | 
+   <a href="#cap-coeff-det-defn"><strong>coeff-det-defn</strong></a> | 
    <a href="#cap-combination-def"><strong>combination-def</strong></a> | 
    <a href="#cap-comm-channel-def"><strong>comm-channel-def</strong></a> | 
    <a href="#cap-components-multivar-norm-thm"><strong>components-multivar-norm-thm</strong></a> | 
@@ -505,10 +507,12 @@ document.write(`
    <a href="#cap-quadratic-conv-thm"><strong>quadratic-conv-thm</strong></a> | 
    <a href="#cap-quantile-function-def"><strong>quantile-function-def</strong></a> | 
    <a href="#cap-quantile-rv-def"><strong>quantile-rv-def</strong></a> | 
+   <a href="#cap-r-R-thm"><strong>r-R-thm</strong></a> | 
    <a href="#cap-random-sample-defn"><strong>random-sample-defn</strong></a> | 
    <a href="#cap-random-sample-vec-defn"><strong>random-sample-vec-defn</strong></a> | 
    <a href="#cap-random-var-def"><strong>random-var-def</strong></a> | 
    <a href="#cap-recur-gamma-thm"><strong>recur-gamma-thm</strong></a> | 
+   <a href="#cap-rse-defn"><strong>rse-defn</strong></a> | 
    <a href="#cap-samp-dist-def"><strong>samp-dist-def</strong></a> | 
    <a href="#cap-sample-mean-var-def"><strong>sample-mean-var-def</strong></a> | 
    <a href="#cap-second-der-test-thm"><strong>second-der-test-thm</strong></a> | 
@@ -518,8 +522,8 @@ document.write(`
    <a href="#cap-shortcut-var-thm"><strong>shortcut-var-thm</strong></a> | 
    <a href="#cap-single-var-gd-alg"><strong>single-var-gd-alg</strong></a> | 
    <a href="#cap-single-variable-gd-alg"><strong>single-variable-gd-alg</strong></a> | 
-   <a href="#cap-slope-estimator-defn"><strong>slope-estimator-defn</strong></a> | 
-   <a href="#cap-slope-estimator-thm"><strong>slope-estimator-thm</strong></a> | 
+   <a href="#cap-slope-estimator-prop-thm"><strong>slope-estimator-prop-thm</strong></a> | 
+   <a href="#cap-ss-defn"><strong>ss-defn</strong></a> | 
    <a href="#cap-standardization-cor"><strong>standardization-cor</strong></a> | 
    <a href="#cap-standardize-multivar-cor"><strong>standardize-multivar-cor</strong></a> | 
    <a href="#cap-standardized-mean-thm"><strong>standardized-mean-thm</strong></a> | 
@@ -554,13 +558,13 @@ document.write(`
        <a href="chapters/14-stat-infer.html#CI-large-sample-thm"><code class="xref">CI-large-sample-thm</code></a> <em>(chapters/14-stat-infer)</em></td><td>
        <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-CI-norm-thm"><td></td><td>
-       <strong>CI-norm-thm</strong></td><td></td></tr>
+     <tr class="cap" id="cap-CI-norm-defn"><td></td><td>
+       <strong>CI-norm-defn</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/14-stat-infer.html#CI-norm-thm"><code class="xref">CI-norm-thm</code></a> <em>(chapters/14-stat-infer)</em></td><td>
-       <em>theorem</em></td></tr>
+       <a href="chapters/14-stat-infer.html#CI-norm-defn"><code class="xref">CI-norm-defn</code></a> <em>(chapters/14-stat-infer)</em></td><td>
+       <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-KL-and-entropy-thm"><td></td><td>
        <strong>KL-and-entropy-thm</strong></td><td></td></tr>
@@ -609,6 +613,14 @@ document.write(`
        <td>
        <a href="chapters/14-stat-infer.html#anova-defn"><code class="xref">anova-defn</code></a> <em>(chapters/14-stat-infer)</em></td><td>
        <em>definition</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-anova-lr-thm"><td></td><td>
+       <strong>anova-lr-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/14-stat-infer.html#anova-lr-thm"><code class="xref">anova-lr-thm</code></a> <em>(chapters/14-stat-infer)</em></td><td>
+       <em>theorem</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-batch-gd-def"><td></td><td>
        <strong>batch-gd-def</strong></td><td></td></tr>
@@ -745,6 +757,14 @@ document.write(`
        <td>
        <a href="chapters/14-stat-infer.html#clt-thm"><code class="xref">clt-thm</code></a> <em>(chapters/14-stat-infer)</em></td><td>
        <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-coeff-det-defn"><td></td><td>
+       <strong>coeff-det-defn</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/14-stat-infer.html#coeff-det-defn"><code class="xref">coeff-det-defn</code></a> <em>(chapters/14-stat-infer)</em></td><td>
+       <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-combination-def"><td></td><td>
        <strong>combination-def</strong></td><td></td></tr>
@@ -2026,6 +2046,14 @@ document.write(`
        <a href="chapters/04-random-variables.html#quantile-rv-def"><code class="xref">quantile-rv-def</code></a> <em>(chapters/04-random-variables)</em></td><td>
        <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-r-R-thm"><td></td><td>
+       <strong>r-R-thm</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/14-stat-infer.html#r-R-thm"><code class="xref">r-R-thm</code></a> <em>(chapters/14-stat-infer)</em></td><td>
+       <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-random-sample-defn"><td></td><td>
        <strong>random-sample-defn</strong></td><td></td></tr>
      <tr>
@@ -2057,6 +2085,14 @@ document.write(`
        <td>
        <a href="chapters/05-examples-of-rvs.html#recur-gamma-thm"><code class="xref">recur-gamma-thm</code></a> <em>(chapters/05-examples-of-rvs)</em></td><td>
        <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-rse-defn"><td></td><td>
+       <strong>rse-defn</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/14-stat-infer.html#rse-defn"><code class="xref">rse-defn</code></a> <em>(chapters/14-stat-infer)</em></td><td>
+       <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-samp-dist-def"><td></td><td>
        <strong>samp-dist-def</strong></td><td></td></tr>
@@ -2130,21 +2166,21 @@ document.write(`
        <a href="chapters/11-optim.html#single-variable-gd-alg"><code class="xref">single-variable-gd-alg</code></a> <em>(chapters/11-optim)</em></td><td>
        <em>algorithm</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-slope-estimator-defn"><td></td><td>
-       <strong>slope-estimator-defn</strong></td><td></td></tr>
+     <tr class="cap" id="cap-slope-estimator-prop-thm"><td></td><td>
+       <strong>slope-estimator-prop-thm</strong></td><td></td></tr>
      <tr>
        <td></td>
        <td>
-       <a href="chapters/14-stat-infer.html#slope-estimator-defn"><code class="xref">slope-estimator-defn</code></a> <em>(chapters/14-stat-infer)</em></td><td>
-       <em>definition</em></td></tr>
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-slope-estimator-thm"><td></td><td>
-       <strong>slope-estimator-thm</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="chapters/14-stat-infer.html#slope-estimator-thm"><code class="xref">slope-estimator-thm</code></a> <em>(chapters/14-stat-infer)</em></td><td>
+       <a href="chapters/14-stat-infer.html#slope-estimator-prop-thm"><code class="xref">slope-estimator-prop-thm</code></a> <em>(chapters/14-stat-infer)</em></td><td>
        <em>theorem</em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-ss-defn"><td></td><td>
+       <strong>ss-defn</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="chapters/14-stat-infer.html#ss-defn"><code class="xref">ss-defn</code></a> <em>(chapters/14-stat-infer)</em></td><td>
+       <em>definition</em></td></tr>
      <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
      <tr class="cap" id="cap-standardization-cor"><td></td><td>
        <strong>standardization-cor</strong></td><td></td></tr>

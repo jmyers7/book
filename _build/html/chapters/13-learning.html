@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -641,7 +641,7 @@ x_1,x_2,\ldots,x_{128} \in \{0,1\}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/62fc1f1f4bb44e8f047daeca521329b99278d43dbce946fb72e82f7e2ed4bea6.svg" src="../_images/62fc1f1f4bb44e8f047daeca521329b99278d43dbce946fb72e82f7e2ed4bea6.svg" /></figure>
+<img alt="../_images/1225e8facdf56c8a378f53244ef739df1e750629fa5fcac359b6ae742b6d6e0d.svg" src="../_images/1225e8facdf56c8a378f53244ef739df1e750629fa5fcac359b6ae742b6d6e0d.svg" /></figure>
 </div>
 </div>
 <p>The blue curve in the left-hand plot is the graph of the <em>exact</em> cross entropy function <span class="math notranslate nohighlight">\(H_{\hat{P}}(P_\theta)\)</span>. The magenta points—which represent a selection of outputs of the algorithm—do not fall <em>precisely</em> on this graph since they are <em>approximations</em> to the cross entropy, obtained as realizations of the expression on the right-hand side of</p>
@@ -848,10 +848,10 @@ MSE(\btheta) \def \frac{1}{m} \sum_{i=1}^m (y_i - \mu_i)^2,
 \[
 J(\btheta) = E_{(\bx,y) \sim \hat{p}(\bx,y)}\left[ \calI(\btheta; \ y \mid \bx)\right]
 \]</div>
-<p>may be replaced with the <em>squared error</em> function <span class="math notranslate nohighlight">\(L(\btheta; \ y\mid \bx) = (y-\mu)^2\)</span>, and doing so does not alter the solutions to the optimization problem. Moreover, since multiplying a loss function by a positive constant does not change the extremizers, we may modify the squared error function in several ways to best suit the context. For example, sometimes it is convenient to instead take <span class="math notranslate nohighlight">\(J(\btheta)\)</span> to be half the <em>residual sum of squares</em>:</p>
+<p>may be replaced with the <em>squared error</em> function <span class="math notranslate nohighlight">\(L(\btheta; \ y\mid \bx) = (y-\mu)^2\)</span>, and doing so does not alter the solutions to the optimization problem. Moreover, since multiplying a loss function by a positive constant does not change the extremizers, we may modify the squared error function in several ways to best suit the context. For example, sometimes it is convenient to instead take <span class="math notranslate nohighlight">\(J(\btheta)\)</span> to be half the <em>error sum of squares</em>:</p>
 <div class="math notranslate nohighlight">
 \[
-J(\btheta) = RSS(\btheta) /2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2.
+J(\btheta) = SSE(\btheta) /2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2.
 \]</div>
 <p>See, for example, <a class="reference internal" href="#mle-lin-reg-thm">Theorem 13.8</a> in the next section.</p>
 <p>Our discussion on the identity of the stochastic objective function <span class="math notranslate nohighlight">\(J(\btheta)\)</span> is summarized in the following chart:</p>
@@ -938,10 +938,10 @@ Y \mid \bX  \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu = \bet
 \]</div>
 </section>
 </div><div class="proof admonition" id="proof">
-<p>Proof. As we noted above in the discussion after the proof of <a class="reference internal" href="#MSE-min-thm">Theorem 13.6</a>, the MLE may be obtained as the minimizer of half the residual sum of squares:</p>
+<p>Proof. As we noted above in the discussion after the proof of <a class="reference internal" href="#MSE-min-thm">Theorem 13.6</a>, the MLE may be obtained as the minimizer of half the error sum of squares:</p>
 <div class="math notranslate nohighlight">
 \[
-J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \frac{1}{2} \left( \by - \mathbfcal{X}\btheta\right)^\intercal \left( \by - \mathbfcal{X}\btheta\right),
+J(\btheta) \def SSE(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \frac{1}{2} \left( \by - \mathbfcal{X}\btheta\right)^\intercal \left( \by - \mathbfcal{X}\btheta\right),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\mu_i = \bx_i^\intercal \btheta\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>. Taking the gradient gives</p>
 <div class="math notranslate nohighlight">
@@ -949,8 +949,8 @@ J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \fra
 \nabla J(\btheta) = \nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right) \left( \by - \mathbfcal{X}\btheta\right),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right)\)</span> is the gradient matrix of the vector-valued function <span class="math notranslate nohighlight">\(\btheta \mapsto \by - \mathbfcal{X} \btheta\)</span>. (Remember our definition of the gradient matrix in <a class="reference internal" href="08-more-prob.html#gradient-mat-def">Definition 8.2</a> is the <em>transpose</em> of the usual Jacobian matrix!). But it is easy to show that <span class="math notranslate nohighlight">\(\nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right) = - \mathbfcal{X}^\intercal\)</span>, and so</p>
-<div class="math notranslate nohighlight" id="equation-grad-rss-eq">
-<span class="eqno">(13.9)<a class="headerlink" href="#equation-grad-rss-eq" title="Link to this equation">#</a></span>\[
+<div class="math notranslate nohighlight" id="equation-grad-sse-eq">
+<span class="eqno">(13.9)<a class="headerlink" href="#equation-grad-sse-eq" title="Link to this equation">#</a></span>\[
 \nabla J(\btheta) =  -\mathbfcal{X}^\intercal \left( \by - \mathbfcal{X}\btheta\right).
 \]</div>
 <p>Setting the gradient to zero and rearranging gives</p>
@@ -964,14 +964,14 @@ J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \fra
 \[
 \nabla^2 J(\btheta) = \nabla(\nabla J)(\btheta) =  \mathbfcal{X} \mathbfcal{X}^\intercal
 \]</div>
-<p>from <a class="reference internal" href="#equation-grad-rss-eq">(13.9)</a> and <a class="reference internal" href="11-optim.html#hess-jac-grad-thm">Theorem 11.1</a>. But then, given any vector <span class="math notranslate nohighlight">\(\bz \in \bbr^{m}\)</span>, we have</p>
+<p>from <a class="reference internal" href="#equation-grad-sse-eq">(13.9)</a> and <a class="reference internal" href="11-optim.html#hess-jac-grad-thm">Theorem 11.1</a>. But then, given any vector <span class="math notranslate nohighlight">\(\bz \in \bbr^{m}\)</span>, we have</p>
 <div class="math notranslate nohighlight">
 \[
 \bz^\intercal \nabla^2 J(\btheta) \bz = \bz^\intercal \mathbfcal{X} \mathbfcal{X}^\intercal \bz = (\mathbfcal{X}^\intercal\bz)^\intercal \mathbfcal{X}^\intercal \bz = |\mathbfcal{X}^\intercal\bz|^2 \geq 0.
 \]</div>
 <p>Thus, the Hessian matrix is indeed positive semidefinite. Q.E.D.</p>
 </div>
-<p>As we saw in the proof, the maximum likelihood parameter estimates are those that minimize the residual sum of squares <span class="math notranslate nohighlight">\(RSS(\btheta)\)</span>, which explains why the MLEs are also often called the <em>ordinary least squares</em> (<em>OLS</em>) estimates.</p>
+<p>As we saw in the proof, the maximum likelihood parameter estimates are those that minimize the error sum of squares <span class="math notranslate nohighlight">\(SSE(\btheta)\)</span>, which explains why the MLEs are also often called the <em>ordinary least squares</em> (<em>OLS</em>) estimates.</p>
 <p>It is worth writing out the MLEs in the case of simple linear regression:</p>
 <div class="proof corollary admonition" id="mle-simple-lin-reg-cor">
 <p class="admonition-title"><span class="caption-number">Corollary 13.1 </span> (MLEs for simple linear regression models with known variance)</p>
@@ -1063,7 +1063,7 @@ J(\btheta) \def RSS(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \fra
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/93bdacc9726dcc40b5316ebfca4e4111f7e46df4a3ed7cf45425e0696450a6c4.svg" src="../_images/93bdacc9726dcc40b5316ebfca4e4111f7e46df4a3ed7cf45425e0696450a6c4.svg" /></figure>
+<img alt="../_images/52b266e2761267b1307fd59d19b4f7cb3817104c17b2ab4f3c0f83a458bb1aa5.svg" src="../_images/52b266e2761267b1307fd59d19b4f7cb3817104c17b2ab4f3c0f83a458bb1aa5.svg" /></figure>
 </div>
 </div>
 <p>Notice that both features are on similar scales. Then, we run the algorithm using the squared error function</p>
@@ -1120,7 +1120,7 @@ SE(\btheta; \ x, y) = (y - \beta_0 - \beta x)^2, \quad \btheta = (\beta_0, \beta
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/9d0d99954452641d0c4a8bd286e1a21d4d6d699b886ca87080e1780a59a5d1f6.svg" src="../_images/9d0d99954452641d0c4a8bd286e1a21d4d6d699b886ca87080e1780a59a5d1f6.svg" /></figure>
+<img alt="../_images/243798e7296337c4d44c0dcdeede12cbcf741b79ef8576e5172b57c482242a76.svg" src="../_images/243798e7296337c4d44c0dcdeede12cbcf741b79ef8576e5172b57c482242a76.svg" /></figure>
 </div>
 </div>
 <p>Notice that we plotted the logarithm of the MSE—we chose to do this because we purposefully chose initial guesses for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> that were quite far away from the MLEs, creating large values of the MSE in the initial few steps of the algorithm. This lengthens the learning process, giving us a nicer visualization as the regression line moves into place:</p>
@@ -1162,7 +1162,7 @@ SE(\btheta; \ x, y) = (y - \beta_0 - \beta x)^2, \quad \btheta = (\beta_0, \beta
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/2f0eced8354e78716922ecf42a5438c6e65022c75461e063926100a41001a55c.svg" src="../_images/2f0eced8354e78716922ecf42a5438c6e65022c75461e063926100a41001a55c.svg" /></figure>
+<img alt="../_images/0c945a09775c8050743200c38f707ee717b03308276a7835ebd96ae99822312f.svg" src="../_images/0c945a09775c8050743200c38f707ee717b03308276a7835ebd96ae99822312f.svg" /></figure>
 </div>
 </div>
 </section>
@@ -1295,7 +1295,7 @@ x_0 \bx &amp; \cdots &amp; x_n \bx \\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/385583dec2185945ff8872357f7b77a2afb96764f3015646af8bbe00d1dc810f.svg" src="../_images/385583dec2185945ff8872357f7b77a2afb96764f3015646af8bbe00d1dc810f.svg" /></figure>
+<img alt="../_images/f48c5626f5e24f9ae2c5d6bfcdfe377e5760c6127530c74cddf331a03eda10ed.svg" src="../_images/f48c5626f5e24f9ae2c5d6bfcdfe377e5760c6127530c74cddf331a03eda10ed.svg" /></figure>
 </div>
 </div>
 <p>Let’s train a logistic regression model on this dataset using the SGD algorithm to locate the global minimizer of the cross entropy from the model distribution to the empirical distribution. This requires the model surprisal function as the loss function for SGD. Running the algorithm for 30 epochs results in the following plot of cross entropy versus gradient steps:</p>
@@ -1346,7 +1346,7 @@ x_0 \bx &amp; \cdots &amp; x_n \bx \\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/06dce913fc14b565a83f7b9e7fd20094810cca9a5425085913674f82836f3631.svg" src="../_images/06dce913fc14b565a83f7b9e7fd20094810cca9a5425085913674f82836f3631.svg" /></figure>
+<img alt="../_images/01cb65472e8da6d9eda289a539555117dcd23a608c0360d0cbb7d7e45d40fe01.svg" src="../_images/01cb65472e8da6d9eda289a539555117dcd23a608c0360d0cbb7d7e45d40fe01.svg" /></figure>
 </div>
 </div>
 <p>Notice that the curve in this plot is beginning to “plateau,” indicating the algorithm is beginning to converge on the MLE. Since the feature space is <span class="math notranslate nohighlight">\(2\)</span>-dimensional, as we discussed in <a class="reference internal" href="12-models.html#log-reg-sec"><span class="std std-numref">Section 12.4</span></a>, we may check the fit of the model by plotting the decision boundary of the predictor function</p>
@@ -1424,7 +1424,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/47767049068f7c8f7a9649aa2ef7ec92b978e81ada9671358192ccb60a50b87e.svg" src="../_images/47767049068f7c8f7a9649aa2ef7ec92b978e81ada9671358192ccb60a50b87e.svg" /></figure>
+<img alt="../_images/0c7e17aaca96ec7468a787ed675116fcd87cb02d9c148c9b94a1029f2b7502e4.svg" src="../_images/0c7e17aaca96ec7468a787ed675116fcd87cb02d9c148c9b94a1029f2b7502e4.svg" /></figure>
 </div>
 </div>
 </section>
@@ -1494,7 +1494,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/02aab15a7b3b31208a9e3c208984ea3aed4359410bf359251a29c10a991fc8aa.svg" src="../_images/02aab15a7b3b31208a9e3c208984ea3aed4359410bf359251a29c10a991fc8aa.svg" /></figure>
+<img alt="../_images/0f05c385f555d1a153a5f4a9a9b373cd230f6eafdb250d475547773b14f94fbd.svg" src="../_images/0f05c385f555d1a153a5f4a9a9b373cd230f6eafdb250d475547773b14f94fbd.svg" /></figure>
 </div>
 </div>
 <p>We will train a neural network with three hidden layers of widths <span class="math notranslate nohighlight">\(8\)</span>, <span class="math notranslate nohighlight">\(8\)</span>, and <span class="math notranslate nohighlight">\(4\)</span> to predict the classes of the data in the scatter plot. We will run SGD with the data surprisal function as the loss function, so that the objective is to minimize the (conditional) cross entropy from the model distribution to the empirical distribution:</p>
@@ -1568,7 +1568,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/29d104bcb3ce44ae688b035137131dab88727d43a31c5939c5274f47368ff525.svg" src="../_images/29d104bcb3ce44ae688b035137131dab88727d43a31c5939c5274f47368ff525.svg" /></figure>
+<img alt="../_images/084dd4da7dffd6b9c08e0efcf4938da8e2167435c549daa729f6f8bc81c39b6c.svg" src="../_images/084dd4da7dffd6b9c08e0efcf4938da8e2167435c549daa729f6f8bc81c39b6c.svg" /></figure>
 </div>
 </div>
 <p>The algorithm takes almost <span class="math notranslate nohighlight">\(2{,}000\)</span> gradient steps, spread over <span class="math notranslate nohighlight">\(N=80\)</span> epochs with a mini-batch size of <span class="math notranslate nohighlight">\(k=128\)</span> on a dataset of size <span class="math notranslate nohighlight">\(m=3{,}072\)</span>.</p>
@@ -1638,7 +1638,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0b9048271bda57294b367bfb6c57edf6cd00a704ab4170c362ec951746392c07.svg" src="../_images/0b9048271bda57294b367bfb6c57edf6cd00a704ab4170c362ec951746392c07.svg" /></figure>
+<img alt="../_images/31e56fb9dcccf646967f9e7ab313873a157bb4036e81c1eeae9e9ae3dd1595b6.svg" src="../_images/31e56fb9dcccf646967f9e7ab313873a157bb4036e81c1eeae9e9ae3dd1595b6.svg" /></figure>
 </div>
 </div>
 </section>

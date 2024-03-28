@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -359,11 +359,10 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistics-and-their-distributions">14.1. Statistics and their distributions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#large-sample-theory">14.2. Large sample theory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-intervals">14.3. Confidence intervals</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-tests">14.4. Hypothesis tests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-inference-in-linear-regression">14.5. Statistical inference in linear regression</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-variance">14.6. Analysis of variance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-intervals">14.2. Confidence intervals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-tests">14.3. Hypothesis tests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-inference-in-linear-regression">14.4. Statistical inference in linear regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-variance">14.5. Analysis of variance</a></li>
 </ul>
             </nav>
         </div>
@@ -412,22 +411,17 @@ S^2 \def \frac{1}{m-1} \sum_{i=1}^m(X_i - \overline{X})^2.
 <p>The corresponding empirical statistics are the <em>empirical mean</em> and <em>empirical variance</em> defined as</p>
 <div class="math notranslate nohighlight">
 \[
-\overline{x} \def \frac{1}{m}(x_1+\cdots+x_m) \quad \text{and} \quad s^2 = \frac{1}{m-1} \sum_{i=1}^m(x_i - \overline{x})^2.
+\overline{x} \def \frac{1}{m}(x_1+\cdots+x_m) \quad \text{and} \quad s^2 \def \frac{1}{m-1} \sum_{i=1}^m(x_i - \overline{x})^2.
 \]</div>
 </section>
-</div><p>Very often, the component random variables <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> of the random vector <span class="math notranslate nohighlight">\(\bX\)</span> in the definition are assumed to form a random sample, i.e., an IID sequence of random variables. The dimension <span class="math notranslate nohighlight">\(m\)</span> is then referred to as the <em>sample size</em>. In principle, then, the sample size <span class="math notranslate nohighlight">\(m\)</span> can be <em>any</em> positive integer, and so it is often convenient to write <span class="math notranslate nohighlight">\(\overline{X}_m\)</span> for the sample mean, explicitly displaying the sample size. This gives us an entire <em>infinite sequence</em> of sample means:</p>
-<div class="math notranslate nohighlight" id="equation-seq-means-eqn">
-<span class="eqno">(14.1)<a class="headerlink" href="#equation-seq-means-eqn" title="Link to this equation">#</a></span>\[
-\overline{X}_1,\overline{X}_2,\ldots,\overline{X}_m, \ldots.
-\]</div>
+</div><p>Very often, the component random variables <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> of the random vector <span class="math notranslate nohighlight">\(\bX\)</span> in the definition are assumed to form a random sample, i.e., an IID sequence of random variables. The dimension <span class="math notranslate nohighlight">\(m\)</span> is then referred to as the <em>sample size</em>. In principle, then, the sample size <span class="math notranslate nohighlight">\(m\)</span> can be <em>any</em> positive integer, and so it is often convenient to write <span class="math notranslate nohighlight">\(\overline{X}_m\)</span> for the sample mean, explicitly displaying the sample size. This gives us an entire <em>infinite sequence</em> of sample means, one for each sample size <span class="math notranslate nohighlight">\(m\)</span>.</p>
 <p>Since statistics are random vectors, they have their own probability distributions. These are given special names:</p>
 <div class="proof definition admonition" id="samp-dist-def">
 <p class="admonition-title"><span class="caption-number">Definition 14.3 </span></p>
 <section class="definition-content" id="proof-content">
 <p>The probability distribution of a statistic <span class="math notranslate nohighlight">\(T\)</span> is called the <em>sampling distribution</em> of <span class="math notranslate nohighlight">\(T\)</span>.</p>
 </section>
-</div><p>The sampling distributions for sample means <span class="math notranslate nohighlight">\(\overline{X}_m\)</span> are particularly important, and one of the main goals of <a class="reference internal" href="#large-sample"><span class="std std-numref">Section 14.2</span></a> is to study the limiting behavior (or <em>asymptotic behavior</em>) of the sampling distributions in the sequence <a class="reference internal" href="#equation-seq-means-eqn">(14.1)</a> as <span class="math notranslate nohighlight">\(m\to \infty\)</span>.</p>
-<p>In general, however, computing the sampling distributions is difficult. But if we actually have <em>observed</em> data <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span>, then (as you will explore in the programming assignment) there is a resampling method known as <em>bootstrapping</em> that yields  approximations to sampling distributions. An example is given by the histogram (with KDE) on the right-hand side of the following figure, where a histogram (with KDE) of the empirical distribution of an observed dataset is given on the left-hand side:</p>
+</div><p>In general, however, computing the sampling distributions is difficult. But if we actually have <em>observed</em> data <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span>, then (as you will explore in the programming assignment) there is a resampling method known as <em>bootstrapping</em> that yields approximations to sampling distributions. An example is given by the histogram (with KDE) on the right-hand side of the following figure, where a histogram (with KDE) of the empirical distribution of an observed dataset is given on the left-hand side:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -440,7 +434,7 @@ S^2 \def \frac{1}{m-1} \sum_{i=1}^m(X_i - \overline{X})^2.
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">ss</span>
 <span class="kn">import</span> <span class="nn">matplotlib_inline.backend_inline</span>
 <span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">clr</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -451,7 +445,7 @@ S^2 \def \frac{1}{m-1} \sum_{i=1}^m(X_i - \overline{X})^2.
 <span class="n">magenta</span> <span class="o">=</span> <span class="s1">&#39;#FD46FC&#39;</span>
 
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="n">sample_size</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">resample_size</span> <span class="o">=</span> <span class="mi">1000</span>
@@ -472,7 +466,7 @@ S^2 \def \frac{1}{m-1} \sum_{i=1}^m(X_i - \overline{X})^2.
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;observed data&#39;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;density&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;bootstrap sampling distribution of sample mean&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;sampling distribution of the mean&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -480,10 +474,10 @@ S^2 \def \frac{1}{m-1} \sum_{i=1}^m(X_i - \overline{X})^2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0b37003b2866f1d92e1ceb7c71ac41e38a67242cedf0e4692220af9545bd7d69.svg" src="../_images/0b37003b2866f1d92e1ceb7c71ac41e38a67242cedf0e4692220af9545bd7d69.svg" /></figure>
+<img alt="../_images/c52863daa42e6d1a67890100b89ac2b133bc93054bd60c472ef24650025680ff.svg" src="../_images/c52863daa42e6d1a67890100b89ac2b133bc93054bd60c472ef24650025680ff.svg" /></figure>
 </div>
 </div>
-<p>Observe that the sampling distribution on the right-hand side appears to be well approximated by a normal distribution. This is actually a manifestation of the asymptotic behavior of sample means that we alluded to above; indeed, as we will see in <a class="reference internal" href="#large-sample"><span class="std std-numref">Section 14.2</span></a>, the Central Limit Theorem tells us that the sequence <a class="reference internal" href="#equation-seq-means-eqn">(14.1)</a> of sample means converges (in distribution) to a normal distribution as <span class="math notranslate nohighlight">\(m\to \infty\)</span>, provided that the random variables are IID. This is true even though the observed data are definitely <em>not</em> normally distributed. Moreover, the mean of the sampling distribution is approximately <span class="math notranslate nohighlight">\(4.924\)</span>, while the mean of the observed data is approximately <span class="math notranslate nohighlight">\(4.928\)</span>. The fact that these means are nearly equal is a consequence of another theorem in <a class="reference internal" href="#large-sample"><span class="std std-numref">Section 14.2</span></a> called the Law of Large Numbers.</p>
+<p>Observe that the sampling distribution on the right-hand side appears to be well approximated by a normal distribution. This is actually a manifestation of the Central Limit Theorem (see <a class="reference internal" href="#clt-thm">Theorem 14.5</a>), which says that the sample means <span class="math notranslate nohighlight">\(\overline{X}_m\)</span> converge (in distribution) to a normal distribution as <span class="math notranslate nohighlight">\(m\to \infty\)</span>, provided that the random variables are IID. This is true even though the observed data are definitely <em>not</em> normally distributed.</p>
 <p>Let’s consider the sample mean a little closer:</p>
 <div class="proof theorem admonition" id="prop-sample-mean-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 14.1 </span> (Properties of the sample mean)</p>
@@ -496,53 +490,78 @@ S^2 \def \frac{1}{m-1} \sum_{i=1}^m(X_i - \overline{X})^2.
 </ol>
 </section>
 </div></section>
-<section id="large-sample-theory">
-<span id="large-sample"></span><h2><span class="section-number">14.2. </span>Large sample theory<a class="headerlink" href="#large-sample-theory" title="Link to this heading">#</a></h2>
-<div class="proof theorem admonition" id="clt-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 14.2 </span> (Central Limit Theorem)</p>
-<section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> be an IID random sample from a distribution with mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>. Then, in the limit as <span class="math notranslate nohighlight">\(m\to \infty\)</span>, we have</p>
+<section id="confidence-intervals">
+<span id="cis"></span><h2><span class="section-number">14.2. </span>Confidence intervals<a class="headerlink" href="#confidence-intervals" title="Link to this heading">#</a></h2>
+<p>The idea of a <em>confidence interval</em> is best introduced through a simple example. Suppose we have an observed dataset</p>
 <div class="math notranslate nohighlight">
 \[
-\lim_{m\to \infty} P \left( \frac{\overline{X} - \mu}{\sigma/\sqrt{m}} \leq z \right) = P(Z \leq z) = \Phi(z),
+x_1,x_2,\ldots,x_m \in \bbr
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(Z \sim \mathcal{N}(0,1)\)</span>.</p>
-</section>
-</div></section>
-<section id="confidence-intervals">
-<span id="cis"></span><h2><span class="section-number">14.3. </span>Confidence intervals<a class="headerlink" href="#confidence-intervals" title="Link to this heading">#</a></h2>
+<p>that are realized as observations of an IID random sample</p>
+<div class="math notranslate nohighlight">
+\[
+X_1,X_2,\ldots,X_m \sim \mathcal{N}(\mu,\sigma^2).
+\]</div>
+<p>In this initial discussion we shall assume that the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> is known, but that the mean <span class="math notranslate nohighlight">\(\mu\)</span> is left to be estimated via the observed dataset.</p>
+<p>Of course, the empirical mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> serves as an estimate for <span class="math notranslate nohighlight">\(\mu\)</span>. But <span class="math notranslate nohighlight">\(\bar{x}\)</span> depends on the dataset, and thus <span class="math notranslate nohighlight">\(\bar{x}\)</span> carries variability—a different dataset would yield a different empirical mean <span class="math notranslate nohighlight">\(\bar{x}\)</span>, and thus a different estimate for <span class="math notranslate nohighlight">\(\mu\)</span>. To account for this variability, we may want to produce not only a single <em>point estimate</em> for <span class="math notranslate nohighlight">\(\mu\)</span>, but rather an entire <em>interval estimate</em>, i.e., an interval of values that captures the “true” value of <span class="math notranslate nohighlight">\(\mu\)</span> with a certain level of confidence. To produce such an interval estimate, we consider the following statistic:</p>
 <div class="proof theorem admonition" id="standardized-mean-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 14.3 </span></p>
+<p class="admonition-title"><span class="caption-number">Theorem 14.2 </span></p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> be an IID random sample from a normal distribution with mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>. Then the statistic</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{\overline{X} - \mu}{\sqrt/\sqrt{m}}
+Z = \frac{\overline{X} - \mu}{\sigma/\sqrt{m}}
 \]</div>
 <p>has a standard normal distribution. This statistic is called the <em>standardized mean</em>.</p>
 </section>
-</div><div class="proof theorem admonition" id="CI-norm-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 14.4 </span></p>
-<section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> be an IID random sample from a normal distribution with <strong>unknown</strong> mean <span class="math notranslate nohighlight">\(\mu\)</span> and <strong>known</strong> standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>, and let <span class="math notranslate nohighlight">\(\bar{x}\)</span> be the empirical mean computed from an observed random sample. For <span class="math notranslate nohighlight">\(\alpha\in [0,1]\)</span>, the interval</p>
+</div><p>The standardized mean is obtained by first subtracting the expected value <span class="math notranslate nohighlight">\(\mu = E(\overline{X})\)</span> of the sample mean <span class="math notranslate nohighlight">\(\overline{X}\)</span> from itself, and then dividing by the standard error <span class="math notranslate nohighlight">\(\sigma_{\overline{X}} = \sigma/\sqrt{m}\)</span>. The crucial property of the standardized mean is that its distribution does <em>not</em> depend on the unknown “true” value of <span class="math notranslate nohighlight">\(\mu\)</span>. Such a statistic is sometimes called a <em>pivotal quantity</em>.</p>
+<p>Now, suppose that we choose a number <span class="math notranslate nohighlight">\(\alpha \in [0,1]\)</span>. Since <span class="math notranslate nohighlight">\(Z\)</span> is a standard normal variable, we have</p>
 <div class="math notranslate nohighlight">
 \[
-\left(\bar{x} - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}}, \bar{x} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}} \right)
+P(-z_{\alpha/2} &lt; Z &lt; z_{\alpha/2}) = 1 - \alpha,
 \]</div>
-<p>is a <span class="math notranslate nohighlight">\(100(1-\alpha)\%\)</span> confidence interval for the mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
-</section>
-</div><div class="proof theorem admonition" id="CI-large-sample-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 14.5 </span></p>
-<section class="theorem-content" id="proof-content">
-<p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> be an IID random sample from a distribution with <strong>unknown</strong> mean <span class="math notranslate nohighlight">\(\mu\)</span> and <strong>known</strong> standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>, and let <span class="math notranslate nohighlight">\(\bar{x}\)</span> be the empirical mean computed from an observed random sample. For <span class="math notranslate nohighlight">\(\alpha\in [0,1]\)</span> and <span class="math notranslate nohighlight">\(m\)</span> sufficiently large, the random interval</p>
+<p>where <span class="math notranslate nohighlight">\(z_{\alpha/2}\)</span> is the critical value defined so that</p>
 <div class="math notranslate nohighlight">
 \[
-\left(\bar{x} - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}}, \bar{x} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}} \right)
+\Phi(z_{\alpha/2}) = 1 - \alpha/2,
 \]</div>
-<p>is approximately a <span class="math notranslate nohighlight">\(100(1-\alpha)\%\)</span> confidence interval for the mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
-</section>
-</div><div class="proof definition admonition" id="t-dist-defn">
+<p>where <span class="math notranslate nohighlight">\(\Phi\)</span> is the cumulative distribution function of <span class="math notranslate nohighlight">\(Z\)</span>. But the inequality</p>
+<div class="math notranslate nohighlight">
+\[
+-z_{\alpha/2} &lt; Z &lt; z_{\alpha/2}
+\]</div>
+<p>is easily seen to be equivalent to the inequality</p>
+<div class="math notranslate nohighlight" id="equation-ci-first-eq">
+<span class="eqno">(14.1)<a class="headerlink" href="#equation-ci-first-eq" title="Link to this equation">#</a></span>\[
+\overline{X} -z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}} &lt; \mu &lt; \overline{X} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}},
+\]</div>
+<p>and so we have</p>
+<div class="math notranslate nohighlight" id="equation-prob-ci-eq">
+<span class="eqno">(14.2)<a class="headerlink" href="#equation-prob-ci-eq" title="Link to this equation">#</a></span>\[
+P\left( \overline{X} -z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}} &lt; \mu &lt; \overline{X} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}} \right) = 1 - \alpha.
+\]</div>
+<p>Interpreting this equality requires some care. First, we must understand that the mean <span class="math notranslate nohighlight">\(\mu\)</span>, although it is unknown to us, is assumed <em>fixed</em> and does not vary. The variable quantity in the inequality <a class="reference internal" href="#equation-ci-first-eq">(14.1)</a> is the sample mean <span class="math notranslate nohighlight">\(\overline{X}\)</span>, <em>not</em> the mean <span class="math notranslate nohighlight">\(\mu\)</span>. So, when we interpret <a class="reference internal" href="#equation-prob-ci-eq">(14.2)</a> as saying that the probability that <span class="math notranslate nohighlight">\(\mu\)</span> lies in the interval</p>
+<div class="math notranslate nohighlight" id="equation-ci-second-eq">
+<span class="eqno">(14.3)<a class="headerlink" href="#equation-ci-second-eq" title="Link to this equation">#</a></span>\[
+\left( \overline{X} -z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}}, \overline{X} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}}\right)
+\]</div>
+<p>is <span class="math notranslate nohighlight">\(1-\alpha\)</span>, we must always remember that it is the interval that is random, not <span class="math notranslate nohighlight">\(\mu\)</span>!</p>
+<p>Substitution of an observation of the sample mean <span class="math notranslate nohighlight">\(\overline{X}\)</span> into the interval <a class="reference internal" href="#equation-ci-second-eq">(14.3)</a> produces our first example of a <em>confidence interval</em>. Such an observation is nothing but an empirical mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> obtained from a dataset.</p>
+<div class="proof definition admonition" id="CI-norm-defn">
 <p class="admonition-title"><span class="caption-number">Definition 14.4 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> be an IID random sample from a normal distribution with <strong>unknown</strong> mean <span class="math notranslate nohighlight">\(\mu\)</span> and <strong>known</strong> standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>, and let <span class="math notranslate nohighlight">\(\bar{x}\)</span> be the empirical mean computed from an observed dataset. For <span class="math notranslate nohighlight">\(\alpha\in [0,1]\)</span>, the interval</p>
+<div class="math notranslate nohighlight" id="equation-ci-third-eq">
+<span class="eqno">(14.4)<a class="headerlink" href="#equation-ci-third-eq" title="Link to this equation">#</a></span>\[
+\left(\bar{x} - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}}, \bar{x} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}} \right)
+\]</div>
+<p>is called a <em><span class="math notranslate nohighlight">\(100(1-\alpha)\%\)</span> confidence interval</em> for the mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
+</section>
+</div><p>Again, we must remember that the interval <a class="reference internal" href="#equation-ci-third-eq">(14.4)</a> is but <em>one</em> realization of the random interval <a class="reference internal" href="#equation-ci-second-eq">(14.3)</a>. It is therefore <em>not</em> correct to say that the true value <span class="math notranslate nohighlight">\(\mu\)</span> lies in the interval <a class="reference internal" href="#equation-ci-third-eq">(14.4)</a> with probability <span class="math notranslate nohighlight">\(1-\alpha\)</span>. Rather, a frequentist interpretation of probability would tell us that if we repeatedly sampled the true distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\sigma^2)\)</span> over and over again many times, producing a large number of empirical means <span class="math notranslate nohighlight">\(\bar{x}\)</span> and therefore also a large number of confidence intervals <a class="reference internal" href="#equation-ci-third-eq">(14.4)</a>, then approximately <span class="math notranslate nohighlight">\(100(1-\alpha)\%\)</span> of the confidence intervals would contain the true value <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
+<p>In the rest of this section, we shall be interested in generalizing our initial construction of a confidence interval in two ways. First: We would like to have confidence intervals in the (more realistic) scenario when <em>both</em> the mean <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> of the underlying normal distribution are unknown. This will lead us to confidence intervals involving critical values <span class="math notranslate nohighlight">\(z_{\alpha/2}\)</span> not drawn from a standard normal distribution, but rather from a new type of distribution called a <em><span class="math notranslate nohighlight">\(t\)</span>-distribution</em>. Second: We would like to have confidence intervals for data drawn from <em>any</em> distribution, not only normal distributions. But in order to obtain these confidence intervals, we must assume that our observed datasets are large, enabling us to invoke the Central Limit Theorem. And, besides only working for “large” samples, in this case we must also settle for <em>approximate</em> confidence intervals.</p>
+<p>We begin by considering the first generalization, when we have data drawn from a normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\sigma^2)\)</span> with unknown mean and variance.</p>
+<div class="proof definition admonition" id="t-dist-defn">
+<p class="admonition-title"><span class="caption-number">Definition 14.5 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(\nu\geq 1\)</span> be an integer. A continuous random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em><span class="math notranslate nohighlight">\(t\)</span>-distribution with <span class="math notranslate nohighlight">\(\nu\)</span> degrees of freedom</em>, denoted</p>
 <div class="math notranslate nohighlight">
@@ -557,17 +576,17 @@ f(x;\nu) = \frac{\Gamma\left(\frac{\nu+1}{2} \right)}{\Gamma\left( \frac{\nu}{2}
 <p>with support <span class="math notranslate nohighlight">\(\bbr\)</span>.</p>
 </section>
 </div><div class="proof theorem admonition" id="student-mean-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 14.6 </span></p>
+<p class="admonition-title"><span class="caption-number">Theorem 14.3 </span></p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> be an IID random sample from a normal distribution with mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>, and let <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\(s\)</span> be the empirical mean and standard deviation computed from an observed random sample. Then the statistic</p>
 <div class="math notranslate nohighlight">
 \[
-\frac{\overline{X} - \mu}{s/\sqrt{m}}
+T = \frac{\overline{X} - \mu}{s/\sqrt{m}}
 \]</div>
 <p>has a <span class="math notranslate nohighlight">\(t_{m-1}\)</span> distribution. This statistic is called the <em>studentized mean</em>.</p>
 </section>
 </div><div class="proof theorem admonition" id="t-CI-thm">
-<p class="admonition-title"><span class="caption-number">Theorem 14.7 </span></p>
+<p class="admonition-title"><span class="caption-number">Theorem 14.4 </span></p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> be an IID random sample from a normal distribution with <strong>unknown</strong> mean <span class="math notranslate nohighlight">\(\mu\)</span> and <strong>unknown</strong> standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>, and let <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\(s\)</span> be the empirical mean and standard deviation computed from an observed random sample. For <span class="math notranslate nohighlight">\(\alpha \in [0,1]\)</span>, the interval</p>
 <div class="math notranslate nohighlight">
@@ -576,18 +595,60 @@ f(x;\nu) = \frac{\Gamma\left(\frac{\nu+1}{2} \right)}{\Gamma\left( \frac{\nu}{2}
 \]</div>
 <p>is a <span class="math notranslate nohighlight">\(100(1-\alpha)\%\)</span> confidence interval for the mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
 </section>
-</div></section>
-<section id="hypothesis-tests">
-<h2><span class="section-number">14.4. </span>Hypothesis tests<a class="headerlink" href="#hypothesis-tests" title="Link to this heading">#</a></h2>
-</section>
-<section id="statistical-inference-in-linear-regression">
-<h2><span class="section-number">14.5. </span>Statistical inference in linear regression<a class="headerlink" href="#statistical-inference-in-linear-regression" title="Link to this heading">#</a></h2>
-<p>Consider a simple linear regression model with parameters <span class="math notranslate nohighlight">\(\beta_0\)</span>, <span class="math notranslate nohighlight">\(\beta_1\)</span>, and <span class="math notranslate nohighlight">\(\sigma^2\)</span>. Given an observed dataset</p>
+</div><div class="proof theorem admonition" id="clt-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 14.5 </span> (Central Limit Theorem)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> be an IID random sample from a distribution with mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>. Then, in the limit as <span class="math notranslate nohighlight">\(m\to \infty\)</span>, we have</p>
 <div class="math notranslate nohighlight">
 \[
-(x_1,y_1),(x_2,y_2),\ldots,(x_m,y_m) \in \bbr^2,
+\lim_{m\to \infty} P \left( \frac{\overline{X} - \mu}{\sigma/\sqrt{m}} \leq z \right) = P(Z \leq z) = \Phi(z),
 \]</div>
-<p>we saw in <a class="reference internal" href="13-learning.html#mle-simple-lin-reg-cor">Corollary 13.1</a> that the maximum likelihood estimates <span class="math notranslate nohighlight">\(\hat{\beta}_0 \def (\beta_0)_\text{MLE}^\star\)</span> and <span class="math notranslate nohighlight">\(\hat{\beta}_1 \def (\beta_1)_\text{MLE}^\star\)</span> for the “true” bias and slope terms <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span> are</p>
+<p>where <span class="math notranslate nohighlight">\(Z \sim \mathcal{N}(0,1)\)</span>.</p>
+</section>
+</div><div class="proof theorem admonition" id="CI-large-sample-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 14.6 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> be an IID random sample from a distribution with <strong>unknown</strong> mean <span class="math notranslate nohighlight">\(\mu\)</span> and <strong>known</strong> standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>, and let <span class="math notranslate nohighlight">\(\bar{x}\)</span> be the empirical mean computed from an observed random sample. For <span class="math notranslate nohighlight">\(\alpha\in [0,1]\)</span> and <span class="math notranslate nohighlight">\(m\)</span> sufficiently large, the random interval</p>
+<div class="math notranslate nohighlight">
+\[
+\left(\bar{x} - z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}}, \bar{x} + z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}} \right)
+\]</div>
+<p>is approximately a <span class="math notranslate nohighlight">\(100(1-\alpha)\%\)</span> confidence interval for the mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
+</section>
+</div></section>
+<section id="hypothesis-tests">
+<h2><span class="section-number">14.3. </span>Hypothesis tests<a class="headerlink" href="#hypothesis-tests" title="Link to this heading">#</a></h2>
+</section>
+<section id="statistical-inference-in-linear-regression">
+<h2><span class="section-number">14.4. </span>Statistical inference in linear regression<a class="headerlink" href="#statistical-inference-in-linear-regression" title="Link to this heading">#</a></h2>
+<p>We begin our discussion in this section by considering an observed dataset</p>
+<div class="math notranslate nohighlight">
+\[
+y_1,y_2,\ldots,y_m \in \bbr.
+\]</div>
+<p>As always, the <span class="math notranslate nohighlight">\(y\)</span>’s are conceptualized as observed values of a random variable <span class="math notranslate nohighlight">\(Y\)</span>. The goal of a linear regression model is to “explain” the variability of the <span class="math notranslate nohighlight">\(y\)</span>’s through a linear relationship to (the observed values of) another random variable <span class="math notranslate nohighlight">\(X\)</span>, the <em>explanatory variable</em> or the <em>predictor variable</em>. In this case, <span class="math notranslate nohighlight">\(Y\)</span> is called the <em>response variable</em>.</p>
+<p>So, we suppose that our <span class="math notranslate nohighlight">\(y\)</span>’s form part of an observed bivariate dataset</p>
+<div class="math notranslate nohighlight">
+\[
+(x_1,y_1),(x_2,y_2),\ldots,(x_m,y_m) \in \bbr^2.
+\]</div>
+<p>A measure of variability of the <span class="math notranslate nohighlight">\(y\)</span>’s is the empirical variance</p>
+<div class="math notranslate nohighlight">
+\[
+s^2 = \frac{1}{m-1} \sum_{i=1}^m (y_i - \bar{y})^2.
+\]</div>
+<p>In our analysis, however, it is convenient to measure the variability via the quantity</p>
+<div class="math notranslate nohighlight">
+\[
+SST \def \sum_{i=1}^m (y_i - \bar{y})^2,
+\]</div>
+<p>called the <em>total sum of squares</em>. The fundamental insight in this section is that the total sum of squares may be decomposed as a sum of two <em>other</em> sums of squares, one which accounts for the variance “explained” via a linear regression model, and the other that accounts for the residual or “unexplained” variance.</p>
+<p>To obtain these other sums of squares, we suppose that our (simple) linear regression model has parameters <span class="math notranslate nohighlight">\(\beta_0\)</span>, <span class="math notranslate nohighlight">\(\beta_1\)</span>, and <span class="math notranslate nohighlight">\(\sigma^2\)</span>. We saw in <a class="reference internal" href="13-learning.html#mle-simple-lin-reg-cor">Corollary 13.1</a> that the maximum likelihood estimates</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\beta}_0 \def (\beta_0)_\text{MLE}^\star \quad \text{and} \quad \hat{\beta}_1 \def (\beta_1)_\text{MLE}^\star
+\]</div>
+<p>for the “true” bias and slope terms <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span> are</p>
 <div class="math notranslate nohighlight">
 \[
 \hat{\beta}_1 = \frac{\sum_{i=1}^m \left(x_i - \bar{x} \right)\left( y_i - \bar{y} \right)}{\sum_{i=1}^m \left(x_i - \bar{x} \right)^2} \quad \text{and} \quad \hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}.
@@ -597,51 +658,193 @@ f(x;\nu) = \frac{\Gamma\left(\frac{\nu+1}{2} \right)}{\Gamma\left( \frac{\nu}{2}
 \[
 \hat{y}_i = \beta_0 + \beta_1 x_i \quad \text{and} \quad r_i = y_i - \hat{y}_i.
 \]</div>
-<p>These definitions of <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> and <span class="math notranslate nohighlight">\(r_i\)</span> suited our brief analysis in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>. However, in order to obtain their values, we would need to know the “true” values of <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span>. But presumably we don’t know these values! So, our discussion in this section begins with alternate definitions of these quantities based on the MLEs for the bias and slope terms:</p>
+<p>These definitions of <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> and <span class="math notranslate nohighlight">\(r_i\)</span> suited our brief analysis in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>. However, in order to obtain their values, we would need to know the “true” values of <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span>, which we presumably don’t know! So, our discussion in this section begins with alternate definitions of these quantities based on the MLEs for the bias and slope terms:</p>
 <div class="proof definition admonition" id="predict-resid-defn">
-<p class="admonition-title"><span class="caption-number">Definition 14.5 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 14.6 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Letting the notation be as above, we define the <em><span class="math notranslate nohighlight">\(i\)</span>-th predicted value</em> and <em><span class="math notranslate nohighlight">\(i\)</span>-th residual</em> to be</p>
+<p>We define the <em><span class="math notranslate nohighlight">\(i\)</span>-th predicted value</em> and <em><span class="math notranslate nohighlight">\(i\)</span>-th residual</em> to be</p>
 <div class="math notranslate nohighlight">
 \[
 \hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i \quad \text{and} \quad r_i = y_i - \hat{y}_i,
 \]</div>
 <p>for each <span class="math notranslate nohighlight">\(i=1,2,\ldots,m\)</span>.</p>
 </section>
-</div><div class="proof definition admonition" id="slope-estimator-defn">
-<p class="admonition-title"><span class="caption-number">Definition 14.6 </span></p>
+</div><p>With these new definitions of predicted and residual values in hand, we now define the two other sums of squares mentioned above:</p>
+<div class="proof definition admonition" id="ss-defn">
+<p class="admonition-title"><span class="caption-number">Definition 14.7 </span></p>
 <section class="definition-content" id="proof-content">
-<p>Let</p>
+<p>We define</p>
 <div class="math notranslate nohighlight">
 \[
-(X_1,Y_1),(X_2,Y_2),\ldots,(X_m,Y_m)
+SSE = \sum_{i=1}^m (y_i - \hat{y}_i)^2 \quad \text{and} \quad SSR = \sum_{i=1}^m (\hat{y}_i - \bar{y})^2,
 \]</div>
-<p>be an IID random sample, and suppose values <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> are observed. Then the statistic</p>
+<p>called the <em>error sum of squares</em> and <em>regression sum of squares</em>.</p>
+</section>
+</div><p>Using these new sums of squares, we state and prove that the total sum of squares may be decomposed as the error and regression sums of squares. This is called the “ANOVA” identity, which is short for <em>analysis of variance</em>.</p>
+<div class="proof theorem admonition" id="anova-lr-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 14.7 </span> (ANOVA identity for linear regression)</p>
+<section class="theorem-content" id="proof-content">
+<p>There is an equality <span class="math notranslate nohighlight">\(SST = SSE + SSR\)</span>.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. We begin by noting that</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+SST &amp;= \sum_{i=1}^m ( y_i - \bar{y})^2 \\
+&amp;= \sum_{i=1}^m \left[ (y_i - \hat{y}_i) + (\hat{y}_i - \bar{y}) \right]^2 \\
+&amp;= SSE + SSR + 2 \sum_{i=1}^m (y_i - \hat{y}_i)(\hat{y}_i - \bar{y}).
+\end{align*}\]</div>
+<p>So, all we need to do is show that <span class="math notranslate nohighlight">\(\sum_{i=1}^m (y_i - \hat{y}_i)(\hat{y}_i - \bar{y}) =0\)</span>. To do this, we note that</p>
 <div class="math notranslate nohighlight">
 \[
-\hat{\beta}_1 = \frac{\sum_{i=1}^m (x_i - \bar{x})(Y_i - \overline{Y})}{S_{xx}}
+\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i \quad \text{and} \quad \hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x},
 \]</div>
-<p>is called the <em>slope estimator</em> of the corresponding linear regression model, where we write</p>
+<p>and so</p>
 <div class="math notranslate nohighlight">
 \[
-S_{xx} = \sum_{i=1}^m(x_i - \bar{x})^2.
+y_i - \hat{y}_i = (y_i - \bar{y}) - \hat{\beta}_1(x_i - \bar{x}) \quad \text{and} \quad \hat{y}_i - \bar{y} = \hat{\beta}_1 (x_i - \bar{x}).
+\]</div>
+<p>But then</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\sum_{i=1}^m (y_i - \hat{y}_i)(\hat{y}_i - \bar{y}) &amp;= \hat{\beta}_1\sum_{i=1}^m \left[(y_i - \bar{y}) - \hat{\beta}_1(x_i - \bar{x}) \right](x_i - \bar{x}) \\
+&amp;= \hat{\beta}_1\sum_{i=1}^m (y_i - \bar{y})(x_i - \bar{x}) - \hat{\beta}_1^2 \sum_{i=1}^m (x_i - \bar{x})^2\\
+&amp;= \hat{\beta}_1\sum_{i=1}^m (y_i - \bar{y})(x_i - \bar{x}) - \hat{\beta}_1 \sum_{i=1}^m (y_i - \hat{y})(x_i - \bar{x})\\
+&amp;= 0
+\end{align*}\]</div>
+<p>where we used the equality</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\beta}_1 = \frac{\sum_{i=1}^m (y_i - \bar{y})(x_i - \bar{x})}{\sum_{i=1}^m (x_i - \bar{x})^2}
+\]</div>
+<p>in moving from the second to the third line. Q.E.D.</p>
+</div>
+<p>The error sum of squares</p>
+<div class="math notranslate nohighlight">
+\[
+SSE = \sum_{i=1}^m (y_i - \hat{y}_i)^2
+\]</div>
+<p>is easily conceptualized as the amount of error accumulated in using the predicted values <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> from the linear regression model as proxies for the true values <span class="math notranslate nohighlight">\(y_i\)</span>. In this sense, the error sum of squares quantifies the variance in the <span class="math notranslate nohighlight">\(y\)</span>’s that is left “unexplained” by the linear regression model. Since the total sum of squares is the total variance in the <span class="math notranslate nohighlight">\(y\)</span>’s, the ANOVA identity shows that the regression sum of squares</p>
+<div class="math notranslate nohighlight">
+\[
+SSR = \sum_{i=1}^m (\hat{y}_i - \bar{y})^2
+\]</div>
+<p>should quantify the variance in the <span class="math notranslate nohighlight">\(y\)</span>’s that <em>is</em> “explained” by the model. These considerations motivate the definition of the following quantity, which is the proportion of total variance of the <span class="math notranslate nohighlight">\(y\)</span>’s that is “explained” by the model:</p>
+<div class="proof definition admonition" id="coeff-det-defn">
+<p class="admonition-title"><span class="caption-number">Definition 14.8 </span></p>
+<section class="definition-content" id="proof-content">
+<p>The <em>coefficient of determination</em>, denoted <span class="math notranslate nohighlight">\(R^2\)</span>, is given by</p>
+<div class="math notranslate nohighlight">
+\[
+R^2 = \frac{SSR}{SST} = 1 - \frac{SSE}{SST}.
 \]</div>
 </section>
-</div><div class="proof theorem admonition" id="slope-estimator-thm">
+</div><p>Note that <span class="math notranslate nohighlight">\(R^2\)</span> always lies between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>, by the ANOVA identity. Values closer to <span class="math notranslate nohighlight">\(1\)</span> indicate that a large portion of the total variance in the <span class="math notranslate nohighlight">\(y\)</span>’s is “explained” by the linear regression model, which means that the regression line should fit the data well. In the other direction, values of <span class="math notranslate nohighlight">\(R^2\)</span> close to <span class="math notranslate nohighlight">\(0\)</span> should mean that the regression line is a poor fit for the data.</p>
+<p>However, as we learned in <a class="reference internal" href="08-more-prob.html#covar-correl-sec"><span class="std std-numref">Section 8.5</span></a>, the correlation coefficient <span class="math notranslate nohighlight">\(\rho\)</span> is a measure of the strength of the linear relationship between two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>. Moreover, given an observed bivariate dataset</p>
+<div class="math notranslate nohighlight">
+\[
+(x_1,y_1),(x_2,y_2),\ldots,(x_m,y_m) \in \bbr^2,
+\]</div>
+<p>we learned in a previous <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_08.ipynb">programming assignment</a> that the quantity</p>
+<div class="math notranslate nohighlight">
+\[
+r \def \frac{\sum_{i=1}^m (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^m (x_i - \bar{x})^2 \sum_{i=1}^m (y_i - \bar{y})^2}}
+\]</div>
+<p>serves as an empirical estimate of <span class="math notranslate nohighlight">\(\rho\)</span>. The empirical correlation <span class="math notranslate nohighlight">\(r\)</span> must lie between <span class="math notranslate nohighlight">\(-1\)</span> and <span class="math notranslate nohighlight">\(1\)</span>, with negative values indicating a linear relationship between the <span class="math notranslate nohighlight">\(x\)</span>’s and <span class="math notranslate nohighlight">\(y\)</span>’s with negative slope. Thus, the square <span class="math notranslate nohighlight">\(r^2\)</span> must lie between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>, and it measures the strength of <em>any</em> type of linear relationship, whether positive or negative slope. In fact, we have:</p>
+<div class="proof theorem admonition" id="r-R-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 14.8 </span></p>
 <section class="theorem-content" id="proof-content">
-<p>Consider a linear regression model with parameters <span class="math notranslate nohighlight">\(\beta_0\)</span>, <span class="math notranslate nohighlight">\(\beta_1\)</span>, and <span class="math notranslate nohighlight">\(\sigma^2\)</span>. Let <span class="math notranslate nohighlight">\(\hat{\beta}_1\)</span> be the slope estimator defined in <a class="reference internal" href="#slope-estimator-defn">Definition 14.6</a>.</p>
-<ol class="arabic simple">
-<li><p>We have <span class="math notranslate nohighlight">\(E(\hat{\beta}_1) = \beta_1\)</span>.</p></li>
-<li><p>We have <span class="math notranslate nohighlight">\(V(\hat{\beta}_1) = \sigma^2 / S_{xx}\)</span>.</p></li>
-<li><p>The sampling distribution of <span class="math notranslate nohighlight">\(\hat{\beta}_1\)</span> is normal.</p></li>
+<p>There is an equality <span class="math notranslate nohighlight">\(r^2 = R^2\)</span>.</p>
+</section>
+</div><p>Before beginning the proof, it will be convenient to introduce some notation. We set:</p>
+<div class="math notranslate nohighlight">
+\[
+s_{xy} = \sum_{i=1}^m (x_i - \bar{x})(y_i - \bar{y}), \quad s_{xx} = \sum_{i=1}^m (x_i - \bar{x})^2, \quad s_{yy} = \sum_{i=1}^m (y_i - \bar{y})^2.
+\]</div>
+<p>Then, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\beta}_1 = \frac{s_{xy}}{s_{xx}}, \quad r = \frac{s_{xy}}{\sqrt{s_{xx} s_{yy}}}, \quad \text{and} \quad SST = s_{yy}.
+\]</div>
+<p>With this notation set, we prove the theorem:</p>
+<div class="proof admonition" id="proof">
+<p>Proof. First, recall from the proof of <a class="reference internal" href="#anova-lr-thm">Theorem 14.7</a> that <span class="math notranslate nohighlight">\(\hat{y}_i - \bar{y} = \hat{\beta}_1(x_i - \bar{x})\)</span>. Thus:</p>
+<div class="math notranslate nohighlight">
+\[
+SSR = \sum_{i=1}^m (\hat{y}_i - \bar{y})^2 = \hat{\beta}_1^2 \sum_{i=1}^m(x_i - \bar{x})^2 = \frac{s_{xy}^2}{s_{xx}^2} \cdot s_{xx} = \frac{s^2_{xy}}{s_{xx}}.
+\]</div>
+<p>But then</p>
+<div class="math notranslate nohighlight">
+\[
+R^2 = \frac{SSR}{SST} = \frac{s_{xy}^2 / s_{xx}}{s_{yy}} = \frac{s_{xy}^2}{s_{xx}s_{yy}} = r^2,
+\]</div>
+<p>as desired. Q.E.D.</p>
+</div>
+<p>We now turn toward inference problems in linear regression centered on the slope coefficient</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\beta}_1 = \frac{s_{xy}}{s_{xx}} = \frac{\sum_{i=1}^m (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^m (x_i - \bar{x})^2}.
+\]</div>
+<p>If we conceptualize the <span class="math notranslate nohighlight">\(y\)</span>’s as observed values of an IID random sample</p>
+<div class="math notranslate nohighlight">
+\[
+Y_1,Y_2,\ldots,Y_m,
+\]</div>
+<p>then we obtain the <em>slope estimator</em>, also denoted <span class="math notranslate nohighlight">\(\hat{\beta}_1\)</span>, by putting</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\beta}_1 = \frac{\sum_{i=1}^m (x_i - \bar{x})(Y_i - \overline{Y})}{\sum_{i=1}^m (x_i - \bar{x})^2}.
+\]</div>
+<p>Likewise, the <em>bias estimator</em>, or <em>intercept estimator</em>, is given by</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\beta}_0 = \overline{Y} - \hat{\beta}_1 \bar{x}.
+\]</div>
+<p>Our goal over the rest of this section is to compute confidence intervals for the slope coefficient <span class="math notranslate nohighlight">\(\beta_1\)</span>.</p>
+<p>We begin with an estimator of the “true” standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> in our linear regression model:</p>
+<div class="proof definition admonition" id="rse-defn">
+<p class="admonition-title"><span class="caption-number">Definition 14.9 </span></p>
+<section class="definition-content" id="proof-content">
+<p>For a dataset of size <span class="math notranslate nohighlight">\(m\)</span>, we define the <em>residual standard error</em> to be the quantity</p>
+<div class="math notranslate nohighlight">
+\[
+s_e = \sqrt{\frac{SSE}{m-2}} = \sqrt{\frac{\sum_{i=1}^m (y_i - \hat{y}_i)^2}{m-2}}.
+\]</div>
+<p>Replacing the <span class="math notranslate nohighlight">\(y_i\)</span>’s with <span class="math notranslate nohighlight">\(Y_i\)</span>’s yields the esimator</p>
+<div class="math notranslate nohighlight">
+\[
+S_e = \sqrt{\frac{\sum_{i=1}^m (Y_i - \hat{Y}_i)^2}{m-2}} = \sqrt{\frac{\sum_{i=1}^m (Y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)^2}{m-2}}.
+\]</div>
+</section>
+</div><p>The denominator <span class="math notranslate nohighlight">\(m-2\)</span> appears (rather than <span class="math notranslate nohighlight">\(m-1\)</span>) in order to make the square <span class="math notranslate nohighlight">\(S^2_e\)</span> an unbiased estimator of the “true” variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> of the linear regression model.</p>
+<div class="proof theorem admonition" id="slope-estimator-prop-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 14.9 </span></p>
+<section class="theorem-content" id="proof-content">
+<ol class="arabic">
+<li><p>The slope estimator <span class="math notranslate nohighlight">\(\hat{\beta}_1\)</span> is an unbiased estimator of <span class="math notranslate nohighlight">\(\beta_1\)</span>, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[
+    E(\hat{\beta}_1) = \beta_1.
+    \]</div>
+</li>
+<li><p>Letting <span class="math notranslate nohighlight">\(\sigma\)</span> be the “true” standard deviation of the linear regression model, the standard error of <span class="math notranslate nohighlight">\(\hat{\beta}_1\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+    \sigma_{\hat{\beta}_1} = \frac{\sigma}{\sqrt{s_{xx}}}.
+    \]</div>
+<p>Replacing <span class="math notranslate nohighlight">\(\sigma\)</span> with its estimate via the residual standard error <span class="math notranslate nohighlight">\(s_e\)</span>, an estimate of the standard error of <span class="math notranslate nohighlight">\(\hat{\beta}_1\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+    \hat{\sigma}_{\hat{\beta}_1} = \frac{s_e}{\sqrt{s_{xx}}}.
+    \]</div>
+</li>
 </ol>
 </section>
 </div></section>
 <section id="analysis-of-variance">
-<h2><span class="section-number">14.6. </span>Analysis of variance<a class="headerlink" href="#analysis-of-variance" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">14.5. </span>Analysis of variance<a class="headerlink" href="#analysis-of-variance" title="Link to this heading">#</a></h2>
 <div class="proof definition admonition" id="categorical-defn">
-<p class="admonition-title"><span class="caption-number">Definition 14.7 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 14.10 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(n\geq 1\)</span> be an integer and let <span class="math notranslate nohighlight">\(\btheta^\intercal =(\theta_1,\ldots,\theta_n)\)</span> be a vector such that <span class="math notranslate nohighlight">\(0\leq \theta_j \leq 1\)</span> for each <span class="math notranslate nohighlight">\(j=1,\ldots,n\)</span> and <span class="math notranslate nohighlight">\(\sum_{j=1}^n \theta_j = 1\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>categorical distribution</em> with parameter <span class="math notranslate nohighlight">\(\btheta\)</span>, denoted</p>
 <div class="math notranslate nohighlight">
@@ -656,7 +859,7 @@ p(x;\btheta) = \theta_x
 <p>if <span class="math notranslate nohighlight">\(x\in \{1,2,\ldots,n\}\)</span>, and <span class="math notranslate nohighlight">\(p(x;\btheta)=0\)</span> otherwise.</p>
 </section>
 </div><div class="proof definition admonition" id="anova-defn">
-<p class="admonition-title"><span class="caption-number">Definition 14.8 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 14.11 </span></p>
 <section class="definition-content" id="proof-content">
 <p>An <em>analysis of variance model</em>, or <em>ANOVA model</em>, is a probabilistic graphical model whose underlying graph is of the form</p>
 <a class="reference internal image-reference" href="../_images/anova.svg"><img alt="../_images/anova.svg" class="align-center" src="../_images/anova.svg" width="25%" /></a>
@@ -742,11 +945,10 @@ Y \mid X \sim \mathcal{N}(\mu,\sigma^2), \quad \text{where} \quad \mu = \mu(x) =
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistics-and-their-distributions">14.1. Statistics and their distributions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#large-sample-theory">14.2. Large sample theory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-intervals">14.3. Confidence intervals</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-tests">14.4. Hypothesis tests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-inference-in-linear-regression">14.5. Statistical inference in linear regression</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-variance">14.6. Analysis of variance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-intervals">14.2. Confidence intervals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-tests">14.3. Hypothesis tests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-inference-in-linear-regression">14.4. Statistical inference in linear regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-variance">14.5. Analysis of variance</a></li>
 </ul>
   </nav></div>
 
