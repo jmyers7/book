@@ -15,7 +15,9 @@ kernelspec:
 (stat-infer)=
 # Statistical inference
 
-## Statistics and their distributions
+## Statistics, estimators, and their distributions
+
+Our story of statistical inference begins by defining exactly what we mean by a _statistic_. The definition we give is very abstract in order to cover all the different cases in which statistics appear. However, as we go through the rest of the chapter, the statistics that we consider will mostly be familiar ones like means, variances, and standard deviations, as well as parameter estimators.
 
 ```{prf:definition}
 :label: statistic-def
@@ -29,13 +31,13 @@ $$
 where $r:\bbr^m \to \bbr$ is a real-valued function. An observed value $t$ of $T$ is called an _observed statistic_ or _empirical statistic_.
 ```
 
-If we conceptualize the components of a random vector $\bX$ as a dataset $X_1,X_2,\ldots,X_m$, then a statistic
+If we conceptualize the components of a random vector $\bX$ as a random sample $X_1,X_2,\ldots,X_m$, then a statistic
 
 $$
 T = r(X_1,X_2,\ldots,X_m)
 $$
 
-is simply a function of the data. Crucially important examples of statistics include those defined as follows:
+is simply a function of the sample. Crucially important examples of statistics (and empirical statistics) include those defined as follows:
 
 ```{prf:definition}
 :label: sample-mean-var-def
@@ -59,7 +61,7 @@ $$
 $$
 ```
 
-Very often, the component random variables $X_1,X_2,\ldots,X_m$ of the random vector $\bX$ in the definition are assumed to form a random sample, i.e., an IID sequence of random variables. The dimension $m$ is then referred to as the _sample size_. In principle, then, the sample size $m$ can be _any_ positive integer, and so it is often convenient to write $\overline{X}_m$ for the sample mean, explicitly displaying the sample size. This gives us an entire _infinite sequence_ of sample means, one for each sample size $m$.
+As we mentioned above, very often the component random variables $X_1,X_2,\ldots,X_m$ of the random vector $\bX$ in the definition are assumed to form a random sample, i.e., an IID sequence of random variables. The dimension $m$ is then referred to as the _sample size_. In principle, then, the sample size $m$ can be _any_ positive integer, and so it is often convenient to write $\overline{X}_m$ for the sample mean, explicitly displaying the sample size. This gives us an entire _infinite sequence_ of sample means, one for each sample size $m$.
 
 Since statistics are random vectors, they have their own probability distributions. These are given special names:
 
@@ -69,7 +71,7 @@ Since statistics are random vectors, they have their own probability distributio
 The probability distribution of a statistic $T$ is called the _sampling distribution_ of $T$.
 ```
 
-In general, however, computing the sampling distributions is difficult. But if we actually have _observed_ data $x_1,x_2,\ldots,x_m$, then (as you will explore in the programming assignment) there is a resampling method known as _bootstrapping_ that yields approximations to sampling distributions. An example is given by the histogram (with KDE) on the right-hand side of the following figure, where a histogram (with KDE) of the empirical distribution of an observed dataset is given on the left-hand side:
+In general, computing the sampling distributions of statistics is difficult. But if we actually have _observed_ data $x_1,x_2,\ldots,x_m$, then (as you will explore in the programming assignment) there is a resampling method known as _bootstrapping_ that yields approximations to sampling distributions. An example is given by the histogram (with KDE) on the right-hand side of the following figure, where a histogram (with KDE) of the empirical distribution of an observed dataset is given on the left-hand side:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
@@ -118,22 +120,73 @@ axes[1].set_title('sampling distribution of the mean')
 plt.tight_layout()
 ```
 
-Observe that the sampling distribution on the right-hand side appears to be well approximated by a normal distribution. This is actually a manifestation of the Central Limit Theorem (see {prf:ref}`clt-thm`), which says that the sample means $\overline{X}_m$ converge (in distribution) to a normal distribution as $m\to \infty$, provided that the random variables are IID. This is true even though the observed data are definitely _not_ normally distributed.
+Observe that the sampling distribution on the right-hand side appears to be well approximated by a normal distribution. This is actually a manifestation of the Central Limit Theorem (see {prf:ref}`clt-thm`), which says that the sample means $\overline{X}_m$ converge (in distribution) to a normal distribution as $m\to \infty$, provided that the random variables are IID. This is true even when the observed data are not normally distributed.
 
-Let's consider the sample mean a little closer:
+Though our definition of a statistic (in {prf:ref}`statistic-def`) is a _completely arbitrary function_ of the data, very often statistics are constructed with a particular "target" in mind. For example, if we suppose that we have an IID random sample
+
+$$
+X_1,X_2,\ldots,X_m
+$$
+
+drawn from a distribution with mean $\mu$ and variance $\sigma^2$, then the sample mean $\overline{X}$ and variance $S^2$ are cooked up as sample-based proxies for $\mu$ and $\sigma^2$. The sample mean and variance are not haphazardly constructed statistics with no clear purpose---rather, they are "aimed" at $\mu$ and $\sigma^2$. When statistics are constructed to serve as estimators for preexisting quantities of interest, they are (naturally) called _estimators_:
+
+```{prf:definition}
+:label: exp-var-estimators-def
+
+Let $X_1,X_2,\ldots,X_m\sim P$ be an IID random sample drawn from some probability distribution $P$, and let $\theta$ be a quantity of interest, possibly (and very often) a parameter of the distribution $P$. A statistic $T = r(X_1,X_2,\ldots,X_m)$ that is intended to serve as an estimator of $\theta$ is called an _estimator_ and is often denoted by $\hat{\theta}$ instead of $T$.
+
+1. The _expected value_ of the estimator is the quantity
+
+    $$
+    \mu_{\hat{\theta}} \def E(\hat{\theta}).
+    $$
+
+    The _bias_ of the estimator is the difference $E(\hat{\theta}) - \theta$. The estimator is said to be _unbiased_ if its bias is $0$.
+
+3. The _variance_ of the estimator is the quantity
+
+    $$
+    \sigma^2_{\hat{\theta}} \def V(\hat{\theta}).
+    $$ 
+
+2. The _standard error_ of the estimator is the quantity
+
+    $$
+    \sigma_{\hat{\theta}} \def \sqrt{\sigma^2_{\hat{\theta}}}.
+    $$
+```
+
+Observed values of estimators are called _estimates_ and, confusingly, they are also often denoted $\hat{\theta}$. So, the single notation $\hat{\theta}$ very often stands for two things, the estimator itself, and its observed values.
+
+As our first example, let's compute the bias and standard error of the sample mean. Note that the sample mean may also be written as $\hat{\mu}$, since it is intended as an estimator of $\mu$.
 
 ```{prf:theorem} Properties of the sample mean
 :label: prop-sample-mean-thm
 
 Let $X_1,X_2,\ldots,X_m$ be an IID random sample from a distribution with mean $\mu$ and standard deviation $\sigma$.
 
-1. The expectation of the sample mean $\overline{X}$ is $\mu$.
-2. The variance of the sample mean $\overline{X}$ is $\sigma^2/m$, and hence its standard deviation is $\sigma/\sqrt{m}$.
+1. The expectation of the sample mean $\overline{X}$ is $\mu$, and thus the sample mean is an unbiased estimator of $\mu$.
+2. The variance of the sample mean $\overline{X}$ is $\sigma^2/m$, and hence its standard error is $\sigma_{\overline{X}} = \sigma/\sqrt{m}$.
 3. If the $X_i$'s are normally distributed, then so too is the sample mean $\overline{X}$.
 ```
 
 
+```{prf:proof}
 
+Each random variable $X_i$ has mean $\mu$. By linearity of expectation, we have
+
+$$
+E(\overline{X}) = \frac{1}{m}E(X_1 + \cdots + X_m) = \frac{1}{m}\left[ E(X_1) + \cdots + E(X_m) \right] = \frac{1}{m} \cdot m \mu = \mu.
+$$
+
+This proves statement (1). For (2), we note that each $X_i$ has variance $\sigma^2$ and that they are independent. But independent random variables are uncorrelated, and so by {prf:ref}`variance-lin-combo-thm` we get
+
+$$
+V(\overline{X}) = \frac{1}{m^2} \sum_{i=1}^m V(X_i) = \frac{1}{m^2} \cdot m \sigma^2 = \frac{\sigma^2}{m}.
+$$
+
+Thus, the standard error is $\sqrt{\sigma^2/m} = \sigma / \sqrt{m}$. This proves statement (2). Statement (3) follows from {prf:ref}`char-normal-thm`. Q.E.D.
+```
 
 
 
@@ -163,19 +216,54 @@ Let $X_1,X_2,\ldots,X_m$ be an IID random sample from a distribution with mean $
 (CIs)=
 ## Confidence intervals
 
-The idea of a _confidence interval_ is best introduced through a simple example. Suppose we have an observed dataset
+Suppose we have constructed an estimator
 
 $$
-x_1,x_2,\ldots,x_m \in \bbr
+\hat{\theta} = r(X_1,X_2,\ldots,X_m)
 $$
 
-that are realized as observations of an IID random sample
+for some quantity of interest $\theta$, as a function of an IID random sample $X_1,X_2,\ldots,X_m \sim P$. If we feed in an observed dataset $x_1,x_2,\ldots,x_m$ to the estimator, then we produce a single-number estimate, or _point estimate_, for theta:
+
+```{image} ../img/point-est.svg
+:width: 65%
+:align: center
+```
+&nbsp;
+
+On the number line, we have marked a point estimate, as well as the "true" value of the quantity $\theta$ to be estimated. Now, the point estimate may prove to be sufficient for our needs, but sometimes we would like an entire _interval estimate_ for $\theta$. Or, said differently, we would like an interval that yields estimates for $\theta$ while also giving some sense of the variability in the estimate. These intervals are called _confidence intervals_:
+
+```{image} ../img/ci.svg
+:width: 65%
+:align: center
+```
+&nbsp;
+
+The end points of the interval will depend on three things:
+
+1. A predetermined _confidence level_ that, in some sense, tells us how likely it is that the interval contains the "true" value $\theta$. As your intuition would suggest, higher confidence levels generally go with wider confidence intervals.
+2. The distribution $P$ from which the random sample $X_1,X_2,\ldots,X_m$ is drawn.
+3. The variability in the estimator $\hat{\theta}$ itself, as measured by its standard error $\sigma_{\hat{\theta}}$.
+
+So, a confidence interval (centered at the point estimate $\hat{\theta}$) often looks like
 
 $$
-X_1,X_2,\ldots,X_m \sim \mathcal{N}(\mu,\sigma^2).
+\left( \hat{\theta} - l \cdot \sigma_{\hat{\theta}} , \hat{\theta} + u \cdot \sigma_{\hat{\theta}}  \right),
 $$
 
-In this initial discussion we shall assume that the variance $\sigma^2$ is known, but that the mean $\mu$ is left to be estimated via the observed dataset.
+where the (positive) numbers $l$ and $u$ depend on both the confidence level of the interval and the underlying data distribution. (In this form, notice that a smaller standard error yields a narrower interval.) The goal of this section is to describe several types of confidence intervals for different types of estimators and underlying distributions $P$.
+
+We begin in the simple case of a normally distributed random sample
+
+$$
+X_1,X_2,\ldots,X_m \sim \mathcal{N}(\mu,\sigma^2)
+$$
+
+with unknown mean $\mu$ and known variance $\sigma^2$. A natural estimator for $\mu$ is the sample mean $\overline{X}$ studied in the previous section. Thus, we aim to construct a confidence interval of the form
+
+$$
+\left( \overline{X} - l \cdot \sigma_{\overline{X}}, \overline{X} + u \cdot \sigma_{\overline{X}} \right) = \left( \overline{X} - l \cdot \frac{\sigma}{\sqrt{m}}, \overline{X} + u \cdot \frac{\sigma}{\sqrt{m}} \right).
+$$
+
 
 Of course, the empirical mean $\bar{x}$ serves as an estimate for $\mu$. But $\bar{x}$ depends on the dataset, and thus $\bar{x}$ carries variability---a different dataset would yield a different empirical mean $\bar{x}$, and thus a different estimate for $\mu$. To account for this variability, we may want to produce not only a single _point estimate_ for $\mu$, but rather an entire _interval estimate_, i.e., an interval of values that captures the "true" value of $\mu$ with a certain level of confidence. To produce such an interval estimate, we consider the following statistic:
 
