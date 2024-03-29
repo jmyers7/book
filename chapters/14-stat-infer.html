@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -358,7 +358,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistics-and-their-distributions">14.1. Statistics and their distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistics-estimators-and-their-distributions">14.1. Statistics, estimators, and their distributions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-intervals">14.2. Confidence intervals</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-tests">14.3. Hypothesis tests</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-inference-in-linear-regression">14.4. Statistical inference in linear regression</a></li>
@@ -377,8 +377,9 @@ document.write(`
   <p><strong>THIS CHAPTER IS UNDER CONSTRUCTION!!!</strong></p>
 <section class="tex2jax_ignore mathjax_ignore" id="statistical-inference">
 <span id="stat-infer"></span><h1><span class="section-number">14. </span>Statistical inference<a class="headerlink" href="#statistical-inference" title="Link to this heading">#</a></h1>
-<section id="statistics-and-their-distributions">
-<h2><span class="section-number">14.1. </span>Statistics and their distributions<a class="headerlink" href="#statistics-and-their-distributions" title="Link to this heading">#</a></h2>
+<section id="statistics-estimators-and-their-distributions">
+<h2><span class="section-number">14.1. </span>Statistics, estimators, and their distributions<a class="headerlink" href="#statistics-estimators-and-their-distributions" title="Link to this heading">#</a></h2>
+<p>Our story of statistical inference begins by defining exactly what we mean by a <em>statistic</em>. The definition we give is very abstract in order to cover all the different cases in which statistics appear. However, as we go through the rest of the chapter, the statistics that we consider will mostly be familiar ones like means, variances, and standard deviations, as well as parameter estimators.</p>
 <div class="proof definition admonition" id="statistic-def">
 <p class="admonition-title"><span class="caption-number">Definition 14.1 </span></p>
 <section class="definition-content" id="proof-content">
@@ -389,12 +390,12 @@ T = r(\bX),
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(r:\bbr^m \to \bbr\)</span> is a real-valued function. An observed value <span class="math notranslate nohighlight">\(t\)</span> of <span class="math notranslate nohighlight">\(T\)</span> is called an <em>observed statistic</em> or <em>empirical statistic</em>.</p>
 </section>
-</div><p>If we conceptualize the components of a random vector <span class="math notranslate nohighlight">\(\bX\)</span> as a dataset <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span>, then a statistic</p>
+</div><p>If we conceptualize the components of a random vector <span class="math notranslate nohighlight">\(\bX\)</span> as a random sample <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span>, then a statistic</p>
 <div class="math notranslate nohighlight">
 \[
 T = r(X_1,X_2,\ldots,X_m)
 \]</div>
-<p>is simply a function of the data. Crucially important examples of statistics include those defined as follows:</p>
+<p>is simply a function of the sample. Crucially important examples of statistics (and empirical statistics) include those defined as follows:</p>
 <div class="proof definition admonition" id="sample-mean-var-def">
 <p class="admonition-title"><span class="caption-number">Definition 14.2 </span></p>
 <section class="definition-content" id="proof-content">
@@ -414,14 +415,14 @@ S^2 \def \frac{1}{m-1} \sum_{i=1}^m(X_i - \overline{X})^2.
 \overline{x} \def \frac{1}{m}(x_1+\cdots+x_m) \quad \text{and} \quad s^2 \def \frac{1}{m-1} \sum_{i=1}^m(x_i - \overline{x})^2.
 \]</div>
 </section>
-</div><p>Very often, the component random variables <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> of the random vector <span class="math notranslate nohighlight">\(\bX\)</span> in the definition are assumed to form a random sample, i.e., an IID sequence of random variables. The dimension <span class="math notranslate nohighlight">\(m\)</span> is then referred to as the <em>sample size</em>. In principle, then, the sample size <span class="math notranslate nohighlight">\(m\)</span> can be <em>any</em> positive integer, and so it is often convenient to write <span class="math notranslate nohighlight">\(\overline{X}_m\)</span> for the sample mean, explicitly displaying the sample size. This gives us an entire <em>infinite sequence</em> of sample means, one for each sample size <span class="math notranslate nohighlight">\(m\)</span>.</p>
+</div><p>As we mentioned above, very often the component random variables <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> of the random vector <span class="math notranslate nohighlight">\(\bX\)</span> in the definition are assumed to form a random sample, i.e., an IID sequence of random variables. The dimension <span class="math notranslate nohighlight">\(m\)</span> is then referred to as the <em>sample size</em>. In principle, then, the sample size <span class="math notranslate nohighlight">\(m\)</span> can be <em>any</em> positive integer, and so it is often convenient to write <span class="math notranslate nohighlight">\(\overline{X}_m\)</span> for the sample mean, explicitly displaying the sample size. This gives us an entire <em>infinite sequence</em> of sample means, one for each sample size <span class="math notranslate nohighlight">\(m\)</span>.</p>
 <p>Since statistics are random vectors, they have their own probability distributions. These are given special names:</p>
 <div class="proof definition admonition" id="samp-dist-def">
 <p class="admonition-title"><span class="caption-number">Definition 14.3 </span></p>
 <section class="definition-content" id="proof-content">
 <p>The probability distribution of a statistic <span class="math notranslate nohighlight">\(T\)</span> is called the <em>sampling distribution</em> of <span class="math notranslate nohighlight">\(T\)</span>.</p>
 </section>
-</div><p>In general, however, computing the sampling distributions is difficult. But if we actually have <em>observed</em> data <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span>, then (as you will explore in the programming assignment) there is a resampling method known as <em>bootstrapping</em> that yields approximations to sampling distributions. An example is given by the histogram (with KDE) on the right-hand side of the following figure, where a histogram (with KDE) of the empirical distribution of an observed dataset is given on the left-hand side:</p>
+</div><p>In general, computing the sampling distributions of statistics is difficult. But if we actually have <em>observed</em> data <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span>, then (as you will explore in the programming assignment) there is a resampling method known as <em>bootstrapping</em> that yields approximations to sampling distributions. An example is given by the histogram (with KDE) on the right-hand side of the following figure, where a histogram (with KDE) of the empirical distribution of an observed dataset is given on the left-hand side:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -474,35 +475,103 @@ S^2 \def \frac{1}{m-1} \sum_{i=1}^m(X_i - \overline{X})^2.
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c52863daa42e6d1a67890100b89ac2b133bc93054bd60c472ef24650025680ff.svg" src="../_images/c52863daa42e6d1a67890100b89ac2b133bc93054bd60c472ef24650025680ff.svg" /></figure>
+<img alt="../_images/418dc91c541f6366971dc312f7518f4990d2829ff32f0bb3c123dafdf04b9912.svg" src="../_images/418dc91c541f6366971dc312f7518f4990d2829ff32f0bb3c123dafdf04b9912.svg" /></figure>
 </div>
 </div>
-<p>Observe that the sampling distribution on the right-hand side appears to be well approximated by a normal distribution. This is actually a manifestation of the Central Limit Theorem (see <a class="reference internal" href="#clt-thm">Theorem 14.5</a>), which says that the sample means <span class="math notranslate nohighlight">\(\overline{X}_m\)</span> converge (in distribution) to a normal distribution as <span class="math notranslate nohighlight">\(m\to \infty\)</span>, provided that the random variables are IID. This is true even though the observed data are definitely <em>not</em> normally distributed.</p>
-<p>Let’s consider the sample mean a little closer:</p>
+<p>Observe that the sampling distribution on the right-hand side appears to be well approximated by a normal distribution. This is actually a manifestation of the Central Limit Theorem (see <a class="reference internal" href="#clt-thm">Theorem 14.5</a>), which says that the sample means <span class="math notranslate nohighlight">\(\overline{X}_m\)</span> converge (in distribution) to a normal distribution as <span class="math notranslate nohighlight">\(m\to \infty\)</span>, provided that the random variables are IID. This is true even when the observed data are not normally distributed.</p>
+<p>Though our definition of a statistic (in <a class="reference internal" href="#statistic-def">Definition 14.1</a>) is a <em>completely arbitrary function</em> of the data, very often statistics are constructed with a particular “target” in mind. For example, if we suppose that we have an IID random sample</p>
+<div class="math notranslate nohighlight">
+\[
+X_1,X_2,\ldots,X_m
+\]</div>
+<p>drawn from a distribution with mean <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>, then the sample mean <span class="math notranslate nohighlight">\(\overline{X}\)</span> and variance <span class="math notranslate nohighlight">\(S^2\)</span> are cooked up as sample-based proxies for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>. The sample mean and variance are not haphazardly constructed statistics with no clear purpose—rather, they are “aimed” at <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>. When statistics are constructed to serve as estimators for preexisting quantities of interest, they are (naturally) called <em>estimators</em>:</p>
+<div class="proof definition admonition" id="exp-var-estimators-def">
+<p class="admonition-title"><span class="caption-number">Definition 14.4 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\sim P\)</span> be an IID random sample drawn from some probability distribution <span class="math notranslate nohighlight">\(P\)</span>, and let <span class="math notranslate nohighlight">\(\theta\)</span> be a quantity of interest, possibly (and very often) a parameter of the distribution <span class="math notranslate nohighlight">\(P\)</span>. A statistic <span class="math notranslate nohighlight">\(T = r(X_1,X_2,\ldots,X_m)\)</span> that is intended to serve as an estimator of <span class="math notranslate nohighlight">\(\theta\)</span> is called an <em>estimator</em> and is often denoted by <span class="math notranslate nohighlight">\(\hat{\theta}\)</span> instead of <span class="math notranslate nohighlight">\(T\)</span>.</p>
+<ol class="arabic">
+<li><p>The <em>expected value</em> of the estimator is the quantity</p>
+<div class="math notranslate nohighlight">
+\[
+    \mu_{\hat{\theta}} \def E(\hat{\theta}).
+    \]</div>
+<p>The <em>bias</em> of the estimator is the difference <span class="math notranslate nohighlight">\(E(\hat{\theta}) - \theta\)</span>. The estimator is said to be <em>unbiased</em> if its bias is <span class="math notranslate nohighlight">\(0\)</span>.</p>
+</li>
+<li><p>The <em>variance</em> of the estimator is the quantity</p>
+<div class="math notranslate nohighlight">
+\[
+    \sigma^2_{\hat{\theta}} \def V(\hat{\theta}).
+    \]</div>
+</li>
+<li><p>The <em>standard error</em> of the estimator is the quantity</p>
+<div class="math notranslate nohighlight">
+\[
+    \sigma_{\hat{\theta}} \def \sqrt{\sigma^2_{\hat{\theta}}}.
+    \]</div>
+</li>
+</ol>
+</section>
+</div><p>Observed values of estimators are called <em>estimates</em> and, confusingly, they are also often denoted <span class="math notranslate nohighlight">\(\hat{\theta}\)</span>. So, the single notation <span class="math notranslate nohighlight">\(\hat{\theta}\)</span> very often stands for two things, the estimator itself, and its observed values.</p>
+<p>As our first example, let’s compute the bias and standard error of the sample mean. Note that the sample mean may also be written as <span class="math notranslate nohighlight">\(\hat{\mu}\)</span>, since it is intended as an estimator of <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
 <div class="proof theorem admonition" id="prop-sample-mean-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 14.1 </span> (Properties of the sample mean)</p>
 <section class="theorem-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> be an IID random sample from a distribution with mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
 <ol class="arabic simple">
-<li><p>The expectation of the sample mean <span class="math notranslate nohighlight">\(\overline{X}\)</span> is <span class="math notranslate nohighlight">\(\mu\)</span>.</p></li>
-<li><p>The variance of the sample mean <span class="math notranslate nohighlight">\(\overline{X}\)</span> is <span class="math notranslate nohighlight">\(\sigma^2/m\)</span>, and hence its standard deviation is <span class="math notranslate nohighlight">\(\sigma/\sqrt{m}\)</span>.</p></li>
+<li><p>The expectation of the sample mean <span class="math notranslate nohighlight">\(\overline{X}\)</span> is <span class="math notranslate nohighlight">\(\mu\)</span>, and thus the sample mean is an unbiased estimator of <span class="math notranslate nohighlight">\(\mu\)</span>.</p></li>
+<li><p>The variance of the sample mean <span class="math notranslate nohighlight">\(\overline{X}\)</span> is <span class="math notranslate nohighlight">\(\sigma^2/m\)</span>, and hence its standard error is <span class="math notranslate nohighlight">\(\sigma_{\overline{X}} = \sigma/\sqrt{m}\)</span>.</p></li>
 <li><p>If the <span class="math notranslate nohighlight">\(X_i\)</span>’s are normally distributed, then so too is the sample mean <span class="math notranslate nohighlight">\(\overline{X}\)</span>.</p></li>
 </ol>
 </section>
-</div></section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. Each random variable <span class="math notranslate nohighlight">\(X_i\)</span> has mean <span class="math notranslate nohighlight">\(\mu\)</span>. By linearity of expectation, we have</p>
+<div class="math notranslate nohighlight">
+\[
+E(\overline{X}) = \frac{1}{m}E(X_1 + \cdots + X_m) = \frac{1}{m}\left[ E(X_1) + \cdots + E(X_m) \right] = \frac{1}{m} \cdot m \mu = \mu.
+\]</div>
+<p>This proves statement (1). For (2), we note that each <span class="math notranslate nohighlight">\(X_i\)</span> has variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> and that they are independent. But independent random variables are uncorrelated, and so by <a class="reference internal" href="08-more-prob.html#variance-lin-combo-thm">Theorem 8.15</a> we get</p>
+<div class="math notranslate nohighlight">
+\[
+V(\overline{X}) = \frac{1}{m^2} \sum_{i=1}^m V(X_i) = \frac{1}{m^2} \cdot m \sigma^2 = \frac{\sigma^2}{m}.
+\]</div>
+<p>Thus, the standard error is <span class="math notranslate nohighlight">\(\sqrt{\sigma^2/m} = \sigma / \sqrt{m}\)</span>. This proves statement (2). Statement (3) follows from <a class="reference internal" href="08-more-prob.html#char-normal-thm">Theorem 8.24</a>. Q.E.D.</p>
+</div>
+</section>
 <section id="confidence-intervals">
 <span id="cis"></span><h2><span class="section-number">14.2. </span>Confidence intervals<a class="headerlink" href="#confidence-intervals" title="Link to this heading">#</a></h2>
-<p>The idea of a <em>confidence interval</em> is best introduced through a simple example. Suppose we have an observed dataset</p>
+<p>Suppose we have constructed an estimator</p>
 <div class="math notranslate nohighlight">
 \[
-x_1,x_2,\ldots,x_m \in \bbr
+\hat{\theta} = r(X_1,X_2,\ldots,X_m)
 \]</div>
-<p>that are realized as observations of an IID random sample</p>
+<p>for some quantity of interest <span class="math notranslate nohighlight">\(\theta\)</span>, as a function of an IID random sample <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m \sim P\)</span>. If we feed in an observed dataset <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m\)</span> to the estimator, then we produce a single-number estimate, or <em>point estimate</em>, for theta:</p>
+<a class="reference internal image-reference" href="../_images/point-est.svg"><img alt="../_images/point-est.svg" class="align-center" src="../_images/point-est.svg" width="65%" /></a>
+<p> </p>
+<p>On the number line, we have marked a point estimate, as well as the “true” value of the quantity <span class="math notranslate nohighlight">\(\theta\)</span> to be estimated. Now, the point estimate may prove to be sufficient for our needs, but sometimes we would like an entire <em>interval estimate</em> for <span class="math notranslate nohighlight">\(\theta\)</span>. Or, said differently, we would like an interval that yields estimates for <span class="math notranslate nohighlight">\(\theta\)</span> while also giving some sense of the variability in the estimate. These intervals are called <em>confidence intervals</em>:</p>
+<a class="reference internal image-reference" href="../_images/ci.svg"><img alt="../_images/ci.svg" class="align-center" src="../_images/ci.svg" width="65%" /></a>
+<p> </p>
+<p>The end points of the interval will depend on three things:</p>
+<ol class="arabic simple">
+<li><p>A predetermined <em>confidence level</em> that, in some sense, tells us how likely it is that the interval contains the “true” value <span class="math notranslate nohighlight">\(\theta\)</span>. As your intuition would suggest, higher confidence levels generally go with wider confidence intervals.</p></li>
+<li><p>The distribution <span class="math notranslate nohighlight">\(P\)</span> from which the random sample <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> is drawn.</p></li>
+<li><p>The variability in the estimator <span class="math notranslate nohighlight">\(\hat{\theta}\)</span> itself, as measured by its standard error <span class="math notranslate nohighlight">\(\sigma_{\hat{\theta}}\)</span>.</p></li>
+</ol>
+<p>So, a confidence interval (centered at the point estimate <span class="math notranslate nohighlight">\(\hat{\theta}\)</span>) often looks like</p>
 <div class="math notranslate nohighlight">
 \[
-X_1,X_2,\ldots,X_m \sim \mathcal{N}(\mu,\sigma^2).
+\left( \hat{\theta} - l \cdot \sigma_{\hat{\theta}} , \hat{\theta} + u \cdot \sigma_{\hat{\theta}}  \right),
 \]</div>
-<p>In this initial discussion we shall assume that the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> is known, but that the mean <span class="math notranslate nohighlight">\(\mu\)</span> is left to be estimated via the observed dataset.</p>
+<p>where the (positive) numbers <span class="math notranslate nohighlight">\(l\)</span> and <span class="math notranslate nohighlight">\(u\)</span> depend on both the confidence level of the interval and the underlying data distribution. (In this form, notice that a smaller standard error yields a narrower interval.) The goal of this section is to describe several types of confidence intervals for different types of estimators and underlying distributions <span class="math notranslate nohighlight">\(P\)</span>.</p>
+<p>We begin in the simple case of a normally distributed random sample</p>
+<div class="math notranslate nohighlight">
+\[
+X_1,X_2,\ldots,X_m \sim \mathcal{N}(\mu,\sigma^2)
+\]</div>
+<p>with unknown mean <span class="math notranslate nohighlight">\(\mu\)</span> and known variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>. A natural estimator for <span class="math notranslate nohighlight">\(\mu\)</span> is the sample mean <span class="math notranslate nohighlight">\(\overline{X}\)</span> studied in the previous section. Thus, we aim to construct a confidence interval of the form</p>
+<div class="math notranslate nohighlight">
+\[
+\left( \overline{X} - l \cdot \sigma_{\overline{X}}, \overline{X} + u \cdot \sigma_{\overline{X}} \right) = \left( \overline{X} - l \cdot \frac{\sigma}{\sqrt{m}}, \overline{X} + u \cdot \frac{\sigma}{\sqrt{m}} \right).
+\]</div>
 <p>Of course, the empirical mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> serves as an estimate for <span class="math notranslate nohighlight">\(\mu\)</span>. But <span class="math notranslate nohighlight">\(\bar{x}\)</span> depends on the dataset, and thus <span class="math notranslate nohighlight">\(\bar{x}\)</span> carries variability—a different dataset would yield a different empirical mean <span class="math notranslate nohighlight">\(\bar{x}\)</span>, and thus a different estimate for <span class="math notranslate nohighlight">\(\mu\)</span>. To account for this variability, we may want to produce not only a single <em>point estimate</em> for <span class="math notranslate nohighlight">\(\mu\)</span>, but rather an entire <em>interval estimate</em>, i.e., an interval of values that captures the “true” value of <span class="math notranslate nohighlight">\(\mu\)</span> with a certain level of confidence. To produce such an interval estimate, we consider the following statistic:</p>
 <div class="proof theorem admonition" id="standardized-mean-thm">
 <p class="admonition-title"><span class="caption-number">Theorem 14.2 </span></p>
@@ -548,7 +617,7 @@ P\left( \overline{X} -z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}} &lt; \mu &lt; \
 <p>is <span class="math notranslate nohighlight">\(1-\alpha\)</span>, we must always remember that it is the interval that is random, not <span class="math notranslate nohighlight">\(\mu\)</span>!</p>
 <p>Substitution of an observation of the sample mean <span class="math notranslate nohighlight">\(\overline{X}\)</span> into the interval <a class="reference internal" href="#equation-ci-second-eq">(14.3)</a> produces our first example of a <em>confidence interval</em>. Such an observation is nothing but an empirical mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> obtained from a dataset.</p>
 <div class="proof definition admonition" id="CI-norm-defn">
-<p class="admonition-title"><span class="caption-number">Definition 14.4 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 14.5 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_m\)</span> be an IID random sample from a normal distribution with <strong>unknown</strong> mean <span class="math notranslate nohighlight">\(\mu\)</span> and <strong>known</strong> standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>, and let <span class="math notranslate nohighlight">\(\bar{x}\)</span> be the empirical mean computed from an observed dataset. For <span class="math notranslate nohighlight">\(\alpha\in [0,1]\)</span>, the interval</p>
 <div class="math notranslate nohighlight" id="equation-ci-third-eq">
@@ -561,7 +630,7 @@ P\left( \overline{X} -z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{m}} &lt; \mu &lt; \
 <p>In the rest of this section, we shall be interested in generalizing our initial construction of a confidence interval in two ways. First: We would like to have confidence intervals in the (more realistic) scenario when <em>both</em> the mean <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> of the underlying normal distribution are unknown. This will lead us to confidence intervals involving critical values <span class="math notranslate nohighlight">\(z_{\alpha/2}\)</span> not drawn from a standard normal distribution, but rather from a new type of distribution called a <em><span class="math notranslate nohighlight">\(t\)</span>-distribution</em>. Second: We would like to have confidence intervals for data drawn from <em>any</em> distribution, not only normal distributions. But in order to obtain these confidence intervals, we must assume that our observed datasets are large, enabling us to invoke the Central Limit Theorem. And, besides only working for “large” samples, in this case we must also settle for <em>approximate</em> confidence intervals.</p>
 <p>We begin by considering the first generalization, when we have data drawn from a normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\mu,\sigma^2)\)</span> with unknown mean and variance.</p>
 <div class="proof definition admonition" id="t-dist-defn">
-<p class="admonition-title"><span class="caption-number">Definition 14.5 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 14.6 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(\nu\geq 1\)</span> be an integer. A continuous random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em><span class="math notranslate nohighlight">\(t\)</span>-distribution with <span class="math notranslate nohighlight">\(\nu\)</span> degrees of freedom</em>, denoted</p>
 <div class="math notranslate nohighlight">
@@ -660,7 +729,7 @@ SST \def \sum_{i=1}^m (y_i - \bar{y})^2,
 \]</div>
 <p>These definitions of <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> and <span class="math notranslate nohighlight">\(r_i\)</span> suited our brief analysis in <a class="reference internal" href="12-models.html#prob-models"><span class="std std-numref">Chapter 12</span></a>. However, in order to obtain their values, we would need to know the “true” values of <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span>, which we presumably don’t know! So, our discussion in this section begins with alternate definitions of these quantities based on the MLEs for the bias and slope terms:</p>
 <div class="proof definition admonition" id="predict-resid-defn">
-<p class="admonition-title"><span class="caption-number">Definition 14.6 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 14.7 </span></p>
 <section class="definition-content" id="proof-content">
 <p>We define the <em><span class="math notranslate nohighlight">\(i\)</span>-th predicted value</em> and <em><span class="math notranslate nohighlight">\(i\)</span>-th residual</em> to be</p>
 <div class="math notranslate nohighlight">
@@ -671,7 +740,7 @@ SST \def \sum_{i=1}^m (y_i - \bar{y})^2,
 </section>
 </div><p>With these new definitions of predicted and residual values in hand, we now define the two other sums of squares mentioned above:</p>
 <div class="proof definition admonition" id="ss-defn">
-<p class="admonition-title"><span class="caption-number">Definition 14.7 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 14.8 </span></p>
 <section class="definition-content" id="proof-content">
 <p>We define</p>
 <div class="math notranslate nohighlight">
@@ -731,7 +800,7 @@ SSR = \sum_{i=1}^m (\hat{y}_i - \bar{y})^2
 \]</div>
 <p>should quantify the variance in the <span class="math notranslate nohighlight">\(y\)</span>’s that <em>is</em> “explained” by the model. These considerations motivate the definition of the following quantity, which is the proportion of total variance of the <span class="math notranslate nohighlight">\(y\)</span>’s that is “explained” by the model:</p>
 <div class="proof definition admonition" id="coeff-det-defn">
-<p class="admonition-title"><span class="caption-number">Definition 14.8 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 14.9 </span></p>
 <section class="definition-content" id="proof-content">
 <p>The <em>coefficient of determination</em>, denoted <span class="math notranslate nohighlight">\(R^2\)</span>, is given by</p>
 <div class="math notranslate nohighlight">
@@ -803,7 +872,7 @@ Y_1,Y_2,\ldots,Y_m,
 <p>Our goal over the rest of this section is to compute confidence intervals for the slope coefficient <span class="math notranslate nohighlight">\(\beta_1\)</span>.</p>
 <p>We begin with an estimator of the “true” standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> in our linear regression model:</p>
 <div class="proof definition admonition" id="rse-defn">
-<p class="admonition-title"><span class="caption-number">Definition 14.9 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 14.10 </span></p>
 <section class="definition-content" id="proof-content">
 <p>For a dataset of size <span class="math notranslate nohighlight">\(m\)</span>, we define the <em>residual standard error</em> to be the quantity</p>
 <div class="math notranslate nohighlight">
@@ -844,7 +913,7 @@ S_e = \sqrt{\frac{\sum_{i=1}^m (Y_i - \hat{Y}_i)^2}{m-2}} = \sqrt{\frac{\sum_{i=
 <section id="analysis-of-variance">
 <h2><span class="section-number">14.5. </span>Analysis of variance<a class="headerlink" href="#analysis-of-variance" title="Link to this heading">#</a></h2>
 <div class="proof definition admonition" id="categorical-defn">
-<p class="admonition-title"><span class="caption-number">Definition 14.10 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 14.11 </span></p>
 <section class="definition-content" id="proof-content">
 <p>Let <span class="math notranslate nohighlight">\(n\geq 1\)</span> be an integer and let <span class="math notranslate nohighlight">\(\btheta^\intercal =(\theta_1,\ldots,\theta_n)\)</span> be a vector such that <span class="math notranslate nohighlight">\(0\leq \theta_j \leq 1\)</span> for each <span class="math notranslate nohighlight">\(j=1,\ldots,n\)</span> and <span class="math notranslate nohighlight">\(\sum_{j=1}^n \theta_j = 1\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>categorical distribution</em> with parameter <span class="math notranslate nohighlight">\(\btheta\)</span>, denoted</p>
 <div class="math notranslate nohighlight">
@@ -859,7 +928,7 @@ p(x;\btheta) = \theta_x
 <p>if <span class="math notranslate nohighlight">\(x\in \{1,2,\ldots,n\}\)</span>, and <span class="math notranslate nohighlight">\(p(x;\btheta)=0\)</span> otherwise.</p>
 </section>
 </div><div class="proof definition admonition" id="anova-defn">
-<p class="admonition-title"><span class="caption-number">Definition 14.11 </span></p>
+<p class="admonition-title"><span class="caption-number">Definition 14.12 </span></p>
 <section class="definition-content" id="proof-content">
 <p>An <em>analysis of variance model</em>, or <em>ANOVA model</em>, is a probabilistic graphical model whose underlying graph is of the form</p>
 <a class="reference internal image-reference" href="../_images/anova.svg"><img alt="../_images/anova.svg" class="align-center" src="../_images/anova.svg" width="25%" /></a>
@@ -944,7 +1013,7 @@ Y \mid X \sim \mathcal{N}(\mu,\sigma^2), \quad \text{where} \quad \mu = \mu(x) =
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistics-and-their-distributions">14.1. Statistics and their distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistics-estimators-and-their-distributions">14.1. Statistics, estimators, and their distributions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-intervals">14.2. Confidence intervals</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-tests">14.3. Hypothesis tests</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-inference-in-linear-regression">14.4. Statistical inference in linear regression</a></li>

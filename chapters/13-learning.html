@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -641,7 +641,7 @@ x_1,x_2,\ldots,x_{128} \in \{0,1\}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/1225e8facdf56c8a378f53244ef739df1e750629fa5fcac359b6ae742b6d6e0d.svg" src="../_images/1225e8facdf56c8a378f53244ef739df1e750629fa5fcac359b6ae742b6d6e0d.svg" /></figure>
+<img alt="../_images/f9f93b8d966d04e1f864fc529cb80b3ce6ba242f76c1e8bc0f8de653a3ba9301.svg" src="../_images/f9f93b8d966d04e1f864fc529cb80b3ce6ba242f76c1e8bc0f8de653a3ba9301.svg" /></figure>
 </div>
 </div>
 <p>The blue curve in the left-hand plot is the graph of the <em>exact</em> cross entropy function <span class="math notranslate nohighlight">\(H_{\hat{P}}(P_\theta)\)</span>. The magenta points—which represent a selection of outputs of the algorithm—do not fall <em>precisely</em> on this graph since they are <em>approximations</em> to the cross entropy, obtained as realizations of the expression on the right-hand side of</p>
@@ -1063,7 +1063,7 @@ J(\btheta) \def SSE(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \fra
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/52b266e2761267b1307fd59d19b4f7cb3817104c17b2ab4f3c0f83a458bb1aa5.svg" src="../_images/52b266e2761267b1307fd59d19b4f7cb3817104c17b2ab4f3c0f83a458bb1aa5.svg" /></figure>
+<img alt="../_images/990afefaba15567a525cc9b1134335918ae194ff43a85859ad8b3426ea4175aa.svg" src="../_images/990afefaba15567a525cc9b1134335918ae194ff43a85859ad8b3426ea4175aa.svg" /></figure>
 </div>
 </div>
 <p>Notice that both features are on similar scales. Then, we run the algorithm using the squared error function</p>
@@ -1120,7 +1120,7 @@ SE(\btheta; \ x, y) = (y - \beta_0 - \beta x)^2, \quad \btheta = (\beta_0, \beta
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/243798e7296337c4d44c0dcdeede12cbcf741b79ef8576e5172b57c482242a76.svg" src="../_images/243798e7296337c4d44c0dcdeede12cbcf741b79ef8576e5172b57c482242a76.svg" /></figure>
+<img alt="../_images/bffa04be2c89b1620dab0d7c9c4e6bf0f8d71d5bbc4ef3c50a63f0a59111129a.svg" src="../_images/bffa04be2c89b1620dab0d7c9c4e6bf0f8d71d5bbc4ef3c50a63f0a59111129a.svg" /></figure>
 </div>
 </div>
 <p>Notice that we plotted the logarithm of the MSE—we chose to do this because we purposefully chose initial guesses for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> that were quite far away from the MLEs, creating large values of the MSE in the initial few steps of the algorithm. This lengthens the learning process, giving us a nicer visualization as the regression line moves into place:</p>
@@ -1162,7 +1162,7 @@ SE(\btheta; \ x, y) = (y - \beta_0 - \beta x)^2, \quad \btheta = (\beta_0, \beta
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0c945a09775c8050743200c38f707ee717b03308276a7835ebd96ae99822312f.svg" src="../_images/0c945a09775c8050743200c38f707ee717b03308276a7835ebd96ae99822312f.svg" /></figure>
+<img alt="../_images/b41f5be027e0dd2503ab810e5b5e3ad441d0db94b316c415de4cf81b8ee2c15b.svg" src="../_images/b41f5be027e0dd2503ab810e5b5e3ad441d0db94b316c415de4cf81b8ee2c15b.svg" /></figure>
 </div>
 </div>
 </section>
@@ -1295,7 +1295,7 @@ x_0 \bx &amp; \cdots &amp; x_n \bx \\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/f48c5626f5e24f9ae2c5d6bfcdfe377e5760c6127530c74cddf331a03eda10ed.svg" src="../_images/f48c5626f5e24f9ae2c5d6bfcdfe377e5760c6127530c74cddf331a03eda10ed.svg" /></figure>
+<img alt="../_images/931d973c278274044abbbf521962155f5ecb24bfd4d28003dc4bba28be3c0157.svg" src="../_images/931d973c278274044abbbf521962155f5ecb24bfd4d28003dc4bba28be3c0157.svg" /></figure>
 </div>
 </div>
 <p>Let’s train a logistic regression model on this dataset using the SGD algorithm to locate the global minimizer of the cross entropy from the model distribution to the empirical distribution. This requires the model surprisal function as the loss function for SGD. Running the algorithm for 30 epochs results in the following plot of cross entropy versus gradient steps:</p>
@@ -1346,7 +1346,7 @@ x_0 \bx &amp; \cdots &amp; x_n \bx \\
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/01cb65472e8da6d9eda289a539555117dcd23a608c0360d0cbb7d7e45d40fe01.svg" src="../_images/01cb65472e8da6d9eda289a539555117dcd23a608c0360d0cbb7d7e45d40fe01.svg" /></figure>
+<img alt="../_images/5107813166ce371100df73f94011dfbf88e67f8278039b0a5e130646ee00d908.svg" src="../_images/5107813166ce371100df73f94011dfbf88e67f8278039b0a5e130646ee00d908.svg" /></figure>
 </div>
 </div>
 <p>Notice that the curve in this plot is beginning to “plateau,” indicating the algorithm is beginning to converge on the MLE. Since the feature space is <span class="math notranslate nohighlight">\(2\)</span>-dimensional, as we discussed in <a class="reference internal" href="12-models.html#log-reg-sec"><span class="std std-numref">Section 12.4</span></a>, we may check the fit of the model by plotting the decision boundary of the predictor function</p>
@@ -1424,7 +1424,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0c7e17aaca96ec7468a787ed675116fcd87cb02d9c148c9b94a1029f2b7502e4.svg" src="../_images/0c7e17aaca96ec7468a787ed675116fcd87cb02d9c148c9b94a1029f2b7502e4.svg" /></figure>
+<img alt="../_images/a6aab7709e16a2eaebfa26ec89951d8861e3c73c122a27382b150f1aacfc19ee.svg" src="../_images/a6aab7709e16a2eaebfa26ec89951d8861e3c73c122a27382b150f1aacfc19ee.svg" /></figure>
 </div>
 </div>
 </section>
@@ -1494,7 +1494,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0f05c385f555d1a153a5f4a9a9b373cd230f6eafdb250d475547773b14f94fbd.svg" src="../_images/0f05c385f555d1a153a5f4a9a9b373cd230f6eafdb250d475547773b14f94fbd.svg" /></figure>
+<img alt="../_images/953c16d37ace95ffd73718db7d4c8fcda625c83970afdef7390e7c4497490a6e.svg" src="../_images/953c16d37ace95ffd73718db7d4c8fcda625c83970afdef7390e7c4497490a6e.svg" /></figure>
 </div>
 </div>
 <p>We will train a neural network with three hidden layers of widths <span class="math notranslate nohighlight">\(8\)</span>, <span class="math notranslate nohighlight">\(8\)</span>, and <span class="math notranslate nohighlight">\(4\)</span> to predict the classes of the data in the scatter plot. We will run SGD with the data surprisal function as the loss function, so that the objective is to minimize the (conditional) cross entropy from the model distribution to the empirical distribution:</p>
@@ -1568,7 +1568,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/084dd4da7dffd6b9c08e0efcf4938da8e2167435c549daa729f6f8bc81c39b6c.svg" src="../_images/084dd4da7dffd6b9c08e0efcf4938da8e2167435c549daa729f6f8bc81c39b6c.svg" /></figure>
+<img alt="../_images/5d95cb3f04bc8a2dc19e19fc207c46c47e2892997c06326ca14e99a5ce263736.svg" src="../_images/5d95cb3f04bc8a2dc19e19fc207c46c47e2892997c06326ca14e99a5ce263736.svg" /></figure>
 </div>
 </div>
 <p>The algorithm takes almost <span class="math notranslate nohighlight">\(2{,}000\)</span> gradient steps, spread over <span class="math notranslate nohighlight">\(N=80\)</span> epochs with a mini-batch size of <span class="math notranslate nohighlight">\(k=128\)</span> on a dataset of size <span class="math notranslate nohighlight">\(m=3{,}072\)</span>.</p>
@@ -1638,7 +1638,7 @@ h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/31e56fb9dcccf646967f9e7ab313873a157bb4036e81c1eeae9e9ae3dd1595b6.svg" src="../_images/31e56fb9dcccf646967f9e7ab313873a157bb4036e81c1eeae9e9ae3dd1595b6.svg" /></figure>
+<img alt="../_images/092fbddb0eea4df5589bf524dd95fb67a22e776357c589222bc1d5a3e58fbb01.svg" src="../_images/092fbddb0eea4df5589bf524dd95fb67a22e776357c589222bc1d5a3e58fbb01.svg" /></figure>
 </div>
 </div>
 </section>
