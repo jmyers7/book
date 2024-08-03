@@ -14,12 +14,6 @@ kernelspec:
 (intro)=
 # Probability Theory with a View Toward Machine Learning
 
-```{image} ./img/wallpaper4.png
-:width: 100%
-:align: center
-```
-&nbsp;
-
 This textbook is the result of my search for a book that combines a mathematically rigorous treatment of probability theory with applications in machine learning and coding in Python: I could not find such a textbook, so I wrote one.
 
 The intended audience for the book is upper-level undergraduate students and first-year graduate students specializing in mathematics, statistics, computer science, and other STEM disciplines that make heavy use of probabilistic concepts and machine learning.
