@@ -1,0 +1,596 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>8. The halfway point: pivoting toward models and data analysis &#8212; Probability Theory with a View Toward Machine Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Cat": "\\mathcal{C}at", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/08-halfway';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9. Information theory" href="09-info-theory.html" />
+    <link rel="prev" title="7. More probability theory" href="07-more-prob.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/prob-ml.png" class="logo__image only-light" alt="Probability Theory with a View Toward Machine Learning - Home"/>
+    <script>document.write(`<img src="../_static/prob-ml.png" class="logo__image only-dark" alt="Probability Theory with a View Toward Machine Learning - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Probability Theory with a View Toward Machine Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-prob-spaces.html">1. Probability spaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-rules-of-prob.html">2. Rules of probability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-random-variables.html">3. Random variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-examples-of-rvs.html">4. Examples of random variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-theory-to-practice.html">5. Connecting theory to practice: a first look at model building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-random-vectors.html">6. Random vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-more-prob.html">7. More probability theory</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. The halfway point: pivoting toward models and data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-info-theory.html">9. Information theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-optim.html">10. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-models.html">11. Probabilistic graphical models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-learning.html">12. Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">13. Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/jmyers7/stats-book-materials" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/08-halfway.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The halfway point: pivoting toward models and data analysis</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-probabilistic-models">8.1. Why probabilistic models?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-and-optimization">8.2. Learning and optimization</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-halfway-point-pivoting-toward-models-and-data-analysis">
+<span id="halfway"></span><h1><span class="section-number">8. </span>The halfway point: pivoting toward models and data analysis<a class="headerlink" href="#the-halfway-point-pivoting-toward-models-and-data-analysis" title="Link to this heading">#</a></h1>
+<p>This chapter marks the beginning of a pivotal shift in the book, moving from our focused exploration of abstract probability theory to practicalities of building and training probabilistic models. Along with this, subsequent chapters construct estimators and statistics and develop their theories, all with the overarching goal of leveraging these newfound tools to discover answers to specific questions or inquiries of particular interest. Most texts on mathematical statistics make a similar transition to similar material that they call <em>inferential statistics</em>—but whatever it might be called, we are all trying to do the same thing: <em>Analyze and learn from data</em>.</p>
+<p>The goal of this brief and purely expository chapter is to set the scene for the subsequent discussion—to help the reader orient themselves and gain a perspective on the big picture. We hope to answer the question: <em>Why are we studying what we’re studying?</em></p>
+<section id="why-probabilistic-models">
+<h2><span class="section-number">8.1. </span>Why probabilistic models?<a class="headerlink" href="#why-probabilistic-models" title="Link to this heading">#</a></h2>
+<p>Models provide context for raw data, and represent our knowledge of the system that produced or generated the data. They are both of theoretical and practical interest since the structures that they reveal might suggest further hypotheses and directions of purely scientific investigation, and also since they often have predictive power.</p>
+<p> </p>
+<a class="reference internal image-reference" href="../_images/prob-model.svg"><img alt="../_images/prob-model.svg" class="align-center" src="../_images/prob-model.svg" width="75%" /></a>
+<p> </p>
+<p>For a practical example, a model trained to discover patterns and correlations on sales data and advertising expenditures for some business enterprise might be queried to predict the increase (or decrease) in sales when advertising resources are shifted from one medium to another, such as from television to social media advertising.</p>
+<p>As we first mentioned in <a class="reference internal" href="05-theory-to-practice.html#theory-to-practice"><span class="std std-numref">Chapter 5</span></a>, the types of models that we study in this book have the (at first) curious property of being <em>probabilistic</em> in nature, rather than of the <em>deterministic</em> kind. A prototypical example of a deterministic model is given by Newton’s Second Law of Motion, which states that the derivative of the momentum <span class="math notranslate nohighlight">\(\bp\)</span> with respect to time <span class="math notranslate nohighlight">\(t\)</span> of a point mass is equal to the force <span class="math notranslate nohighlight">\(\bF\)</span> exerted on the mass. The law expresses a type of “deterministic link” between these three variables:</p>
+<p> </p>
+<a class="reference internal image-reference" href="../_images/newton.svg"><img alt="../_images/newton.svg" class="align-center" src="../_images/newton.svg" width="65%" /></a>
+<p> </p>
+<p>According to the existence and uniqueness theorems for ordinary differential equations, given some initial conditions, Newton’s law may be solved (at least locally) to yield a solution for the momentum <span class="math notranslate nohighlight">\(\bp\)</span> as a function of time <span class="math notranslate nohighlight">\(t\)</span>. In this manner, a subset of the variables completely and uniquely <em>determine</em> the values of the others.</p>
+<p>But there might be situations in which models built on deterministic links between variables do not exist, either due to our ignorance, in the sense that there may exist hidden or latent determining variables that we do not know about, or for more fundamental reasons, as in certain philosophical interpretations of quantum mechanics that assert no deterministic theory exists. A third situation of interest is when a deterministic model <em>does</em> exist in theory, but it is so immensely complicated and complex to render it useless in practice. Another example from physics serves to illustrate this last situation: Assuming standard temperature and pressure, Avogadro’s law tells us that a cube one millimeter on each side contains approximately <span class="math notranslate nohighlight">\(10^{16}\)</span> molecules of an ideal gas. In principle, we might model the movement of each molecule deterministically via Newton’s laws, each molecule requiring six parameters, three for its position and three for its momentum. But then the model of the entire system—the entire cube of gas—is an assemblage of the individual models of each molecule, and in total depends on <em>at least</em> <span class="math notranslate nohighlight">\(6\times 10^{16}\)</span> variables. Clearly, we do not stand to learn much of anything about the system by using such an unwieldy model.</p>
+<p>In the case of the cube of gas, the brilliant move was to give up on deterministic models based on Newton’s mechanical laws applied at the molecular level, and instead to develop parsimonious models linking small numbers of macroscopic variables that are <em>statistical</em> manifestations of the huge number of microscopic ones. This is the birth of thermodynamics and statistical mechanics.</p>
+<p>This thermodynamic example illustrates just one way in which probability and statistics might enter the scientific modeling process, where the model variables in question are statistics that are functions of random quantities. But a more direct entry point for probability theory is to assume that the model variables <em>themselves</em> are random quantities. Take, for example, the area and price variables in the Ames housing dataset that we know well by now, originally appearing in a <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_04.ipynb">previous programming assignment</a> and again in <a class="reference internal" href="06-random-vectors.html#random-vectors"><span class="std std-numref">Chapter 6</span></a>. Recall that it contains data on <span class="math notranslate nohighlight">\(2{,}930\)</span> houses in Ames, Iowa, in the United States—in particular, it includes the area of each house (measured in square feet) and the selling price (measured in thousands of US dollars). A scatter plot of the price versus area variable is given in:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib_inline.backend_inline</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+<span class="n">blue</span> <span class="o">=</span> <span class="s1">&#39;#486AFB&#39;</span>
+<span class="n">magenta</span> <span class="o">=</span> <span class="s1">&#39;#FD46FC&#39;</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/data-3-1.csv&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/ad48949bb09fe861467bcf1633af40c5c89f7c0f7a8acd25e8e6416e7aed1e42.svg" src="../_images/ad48949bb09fe861467bcf1633af40c5c89f7c0f7a8acd25e8e6416e7aed1e42.svg" /></figure>
+</div>
+</div>
+<p>Perhaps in some ideal <a class="reference external" href="https://en.wikipedia.org/wiki/Clockwork_universe">clockwork universe</a>, there might exist a deterministic model linking these two variables. But presumably such a model would depend on a myriad of “hidden” variables, representing and quantifying absolutely everything in the universe that could possibly affect price and area. The effects would be so complex and complicated to be essentially unintelligible and unknowable, for all practical purposes. In other words, these effects would <em>appear random</em>.</p>
+<p>Probabilistic models may thus be considered particular examples of <a class="reference external" href="https://en.wikipedia.org/wiki/Phenomenological_model">phenomenological models</a>, a class of models that seek to describe the <em>empirical</em> and <em>observed</em> links between variables. Such models make no attempt to explain underlying causes or to take account of the exact mechanism through which the variables interact with each other—indeed, probabilistic models are agnostic toward any underlying mechanistic theory that may (or may not) exist. The only assumption that they make is that the randomness in the data has enough regularity to qualify as a form of “structured randomness,” often called <em>stochasticity</em>, that is amenable to the tools and techniques of mathematical probability theory. For example, in the Ames housing dataset above, there is a very clear regularity between the two variables consisting of a strong positive correlation (which you quantified in a <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_08.ipynb">previous programming assignment</a>). This correlation is highlighted by a particular type of probabilistic model called a <em>linear regression model</em> (studied in <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>), which produces a <em>regression line</em> fitting the data as such:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="n">magenta</span><span class="p">},</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">},</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/b141ada3057e800fa41264ba93592177d1e578aa2ee874583943589e4d11c64e.svg" src="../_images/b141ada3057e800fa41264ba93592177d1e578aa2ee874583943589e4d11c64e.svg" /></figure>
+</div>
+</div>
+<p>The link between a pair of random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> in a probabilistic model is described not by some equation or functional dependence, but rather by their joint probability distribution:</p>
+<p> </p>
+<a class="reference internal image-reference" href="../_images/non-newton.svg"><img alt="../_images/non-newton.svg" class="align-center" src="../_images/non-newton.svg" width="65%" /></a>
+<p> </p>
+<p>The joint distribution has a bidirectional character to it, but by conditioning on one variable or the other, the joint distribution transforms into the two conditional distributions that provide <em>directed</em> links between the variables:</p>
+<p> </p>
+<a class="reference internal image-reference" href="../_images/directed.svg"><img alt="../_images/directed.svg" class="align-center" src="../_images/directed.svg" width="65%" /></a>
+<p> </p>
+<p>The major goal of the <a class="reference internal" href="09-info-theory.html"><span class="doc std std-doc">next chapter</span></a> is to study these directed stochastic links in the context of <em>information theory</em>, in which they are called <em>communication channels</em>, the idea being that the conditional distributions are the mechanisms through which the two variables communicate with each other or exert influence. Later, in <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>, we study particular types of probabilistic models in which random (and deterministic) variables are brought together and connected in networks of communication channels. For example, the following is a graphical representation of a feedforward, fully-connected artificial neural network with two hidden layers:</p>
+<p> </p>
+<a class="reference internal image-reference" href="../_images/nn-neuron-02.svg"><img alt="../_images/nn-neuron-02.svg" class="align-center" src="../_images/nn-neuron-02.svg" width="80%" /></a>
+<p> </p>
+<p>The <em>input</em> and <em>output</em> layers consist of random variables <span class="math notranslate nohighlight">\(X_1,X_2,X_3,Y\)</span>, while the “hidden” variables (the <span class="math notranslate nohighlight">\(z\)</span>’s) are deterministic. This network determines a communication channel or stochastic link from the <span class="math notranslate nohighlight">\(X\)</span>’s to <span class="math notranslate nohighlight">\(Y\)</span> given by the conditional probability distribution with mass function <span class="math notranslate nohighlight">\(p(y\mid x_1,x_2,x_3)\)</span>. Given the complexity of the graphical representation, it’s important to remember that the network is essentially just a conditional mass function!</p>
+</section>
+<section id="learning-and-optimization">
+<span id="learning-optim"></span><h2><span class="section-number">8.2. </span>Learning and optimization<a class="headerlink" href="#learning-and-optimization" title="Link to this heading">#</a></h2>
+<p>The kinds of probabilistic models of primary interest in this book occur in parametrized families. The type of data under consideration and the types of questions that the analyst hopes to answer often dictates or suggests which of these families a model should be chosen from. But then, this leaves the analyst with the formidable challenge of choosing optimal parameters for their model:</p>
+<p> </p>
+<a class="reference internal image-reference" href="../_images/which-model.svg"><img alt="../_images/which-model.svg" class="align-center" src="../_images/which-model.svg" width="85%" /></a>
+<p> </p>
+<p>That an <em>optimal</em> choice of parameters exists presupposes that there is some criterion through which we judge one set of parameters to be better or more appropriate than another set. Although there are many such criteria, we shall exclusively use the following one in this book:</p>
+<blockquote>
+<div><p><strong>The Distance Criterion for Parameter Choice.</strong> Given two model distributions within the same family of probabilistic models, choose the model distribution whose <em>distance</em> from the empirical distribution of the data is smaller.</p>
+</div></blockquote>
+<p>Of course, in order for this criterion to be operationalized, we need to define precisely what we mean by “distance.” But, remember that a probabilistic model linking two random variables <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> (for example) is essentially just a joint probability distribution. If we write <span class="math notranslate nohighlight">\(p(x,y;\theta)\)</span> for the model probability mass function (or density function) depending on the parameter <span class="math notranslate nohighlight">\(\theta\)</span>, and <span class="math notranslate nohighlight">\(\hat{p}(x,y)\)</span> for the empirical mass function, then our criterion proposes that we choose <span class="math notranslate nohighlight">\(\theta\)</span> to minimize the “distance” between these two probability distributions:</p>
+<p> </p>
+<a class="reference internal image-reference" href="../_images/prob-distance.svg"><img alt="../_images/prob-distance.svg" class="align-center" src="../_images/prob-distance.svg" width="85%" /></a>
+<p> </p>
+<p>In this way, the Distance Criterion leads to an <em>optimization problem</em>. This both explains and motivates the presence of <a class="reference internal" href="10-optim.html#optim"><span class="std std-numref">Chapter 10</span></a>, which is an entire chapter devoted to gradient-based, iterative optimization algorithms. After studying these algorithms in the abstract, and after accumulating a stock of probabilistic models in <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>, we bring everything together in <a class="reference internal" href="12-learning.html#learning"><span class="std std-numref">Chapter 12</span></a> where we <em>train</em> the models on datasets using the optimization algorithms. As this training process proceeds, we imagine that the model is <em>learning</em> from the data—<em>thus, we have effectively turned learning into optimization.</em></p>
+<p>But what about this “distance” measure? As it turns out, the same mathematical <em>theory of information</em> that we will study in <a class="reference internal" href="09-info-theory.html#information-theory"><span class="std std-numref">Chapter 9</span></a> which provides us the language to talk about the “communication channels” mentioned in the previous section, also gives us our desired distance measure, called the <em>Kullback Leibler (KL) divergence</em> or <em>relative entropy</em>. One must take care in conceptualizing the KL divergence as a “distance,” however, since it does not technically qualify as a true <em>distance</em> in the <a class="reference external" href="https://en.wikipedia.org/wiki/Metric_space#Definition">precise, mathematical sense</a>. In particular, it is <em>directed</em>, which means that the distance from one probability measure to a second might not be the same as the distance from the second to the first!</p>
+<p>Though our viewpoint is assertively information-theoretic, and thus quite different from most books on this subject (at least in statistics, but <em>not</em> machine learning), ultimately the objective of minimizing the KL divergence between the model and empirical distributions is the same as <em>maximum likelihood estimation</em>, a technique that is in nearly every book written on this subject. We will explain the connection in <a class="reference internal" href="12-learning.html#learning"><span class="std std-numref">Chapter 12</span></a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="07-more-prob.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>More probability theory</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="09-info-theory.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Information theory</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-probabilistic-models">8.1. Why probabilistic models?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-and-optimization">8.2. Learning and optimization</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By John Myers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

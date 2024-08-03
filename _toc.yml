@@ -3,18 +3,16 @@ root: intro
 options:
   numbered: true
 chapters:
-- file: chapters/01-preview
-- file: chapters/02-prob-spaces
-- file: chapters/03-rules-of-prob
-- file: chapters/04-random-variables
-- file: chapters/05-examples-of-rvs
-- file: chapters/06-theory-to-practice
-- file: chapters/07-random-vectors
-- file: chapters/08-more-prob
-- file: chapters/09-halfway
-- file: chapters/10-info-theory
-- file: chapters/11-optim
-- file: chapters/12-models
-- file: chapters/13-learning
-- file: chapters/14-stat-infer
+- file: chapters/01-prob-spaces
+- file: chapters/02-rules-of-prob
+- file: chapters/03-random-variables
+- file: chapters/04-examples-of-rvs
+- file: chapters/05-theory-to-practice
+- file: chapters/06-random-vectors
+- file: chapters/07-more-prob
+- file: chapters/08-halfway
+- file: chapters/09-info-theory
+- file: chapters/10-optim
+- file: chapters/11-models
+- file: chapters/12-learning
 - file: chapters/bib

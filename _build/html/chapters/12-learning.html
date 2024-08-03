@@ -1,0 +1,1768 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>12. Learning &#8212; Probability Theory with a View Toward Machine Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Cat": "\\mathcal{C}at", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/12-learning';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="13. Bibliography" href="bib.html" />
+    <link rel="prev" title="11. Probabilistic graphical models" href="11-models.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/prob-ml.png" class="logo__image only-light" alt="Probability Theory with a View Toward Machine Learning - Home"/>
+    <script>document.write(`<img src="../_static/prob-ml.png" class="logo__image only-dark" alt="Probability Theory with a View Toward Machine Learning - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Probability Theory with a View Toward Machine Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-prob-spaces.html">1. Probability spaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-rules-of-prob.html">2. Rules of probability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-random-variables.html">3. Random variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-examples-of-rvs.html">4. Examples of random variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-theory-to-practice.html">5. Connecting theory to practice: a first look at model building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-random-vectors.html">6. Random vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-more-prob.html">7. More probability theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-halfway.html">8. The halfway point: pivoting toward models and data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-info-theory.html">9. Information theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-optim.html">10. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-models.html">11. Probabilistic graphical models</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">12. Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">13. Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/jmyers7/stats-book-materials" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/12-learning.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-first-look-at-likelihood-based-learning-objectives">12.1. A first look at likelihood-based learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-mle">12.2. General MLE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-linear-regression">12.3. MLE for linear regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-logistic-regression">12.4. MLE for logistic regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-neural-networks">12.5. MLE for neural networks</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="learning">
+<span id="id1"></span><h1><span class="section-number">12. </span>Learning<a class="headerlink" href="#learning" title="Link to this heading">#</a></h1>
+<p>With <a class="reference internal" href="09-info-theory.html#information-theory"><span class="std std-numref">Chapter 9</span></a> on information theory, <a class="reference internal" href="10-optim.html#optim"><span class="std std-numref">Chapter 10</span></a> on optimization, and <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a> on probabilistic graphical models all under our belt, we have covered all the prerequisites needed to finally implement the criterion from <a class="reference internal" href="08-halfway.html#learning-optim"><span class="std std-numref">Section 8.2</span></a> for choosing optimal parameters for our probabilistic graphical models:</p>
+<blockquote>
+<div><p><strong>The Distance Criterion for Parameter Choice.</strong> Given two model distributions within the same family of probabilistic models, choose the model distribution whose <em>distance</em> from the empirical distribution of the data is smaller.</p>
+</div></blockquote>
+<p>In more detail, we suppose that we are given a fixed dataset. We then choose a family of probabilistic graphical models that we believe might model the dataset well—possibly one of the families described in <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>, or maybe one of those described in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">programming assignments</a> for <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a> or the current chapter. But no matter which family of PGMs that we happen to choose, there will be a proposed model probability distribution <span class="math notranslate nohighlight">\(P_{\btheta}\)</span> that depends on a parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span>; for example, in the case of a <a class="reference internal" href="11-models.html#log-reg-sec"><span class="std std-ref">logistic regression model</span></a>, the (total) parameter vector is given by</p>
+<div class="math notranslate nohighlight">
+\[
+\btheta = (\beta_0,\bbeta),\quad \beta_0\in \bbr, \ \bbeta \in \bbr^n.
+\]</div>
+<p>According to the Distance Criterion for Parameter Choice stated above, we are to choose the parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span> that minimizes the distance from the model distribution to the empirical distribution of the data. Once more, the following cartoon visually depicts this goal, where <span class="math notranslate nohighlight">\(p(\bx,y;\btheta)\)</span> is the mass function of the proposed model distribution and <span class="math notranslate nohighlight">\(\hat{p}(\bx,y)\)</span> is the mass function of the empirical distribution:</p>
+<a class="reference internal image-reference" href="../_images/prob-distance.svg"><img alt="../_images/prob-distance.svg" class="align-center" src="../_images/prob-distance.svg" width="75%" /></a>
+<p> </p>
+<p>As we now know from our study of <a class="reference internal" href="09-info-theory.html#information-theory"><span class="std std-numref">Chapter 9</span></a>, a natural candidate for the “distance” between two distributions is the KL divergence. So, our implementation of the Distance Criterion requires us to minimize KL divergences thought of as functions of model parameters <span class="math notranslate nohighlight">\(\btheta\)</span>; for this, the iterative, gradient-based algorithms from <a class="reference internal" href="10-optim.html#optim"><span class="std std-numref">Chapter 10</span></a> will prove highly useful.</p>
+<p>However, as we will see beginning in the <a class="reference internal" href="#likelihood-learning-sec"><span class="std std-ref">first section</span></a> of this chapter, this optimization objective may be equivalently reformulated as one of several other optimization objectives. In particular, minimizing the KL divergence from the model distribution to the empirical distribution will turn out to yield the same parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span> as minimizing the cross entropy from the former to the latter. The advantage that the cross entropy formulation carries is that it is a <em>stochastic</em> objective, which opens the door for the powerful stochastic gradient descent algorithm studied in <a class="reference internal" href="10-optim.html#sgd-sec"><span class="std std-numref">Section 10.4</span></a>. But the loss function associated with this stochastic objective is nothing but the <em>surprisal function</em> (in the sense of <a class="reference internal" href="09-info-theory.html#info-content-def">Definition 9.1</a>) thought of as a function of the parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span>, and so our optimization objective may reformulated (again) as seeking the parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span> that minimizes the average surprisal. In turn, the surprisal function is simply the negative logarithm of the probability mass function as a function of <span class="math notranslate nohighlight">\(\btheta\)</span>, which is nothing but the <em>model likelihood function</em> familiar to us from <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>. So, our optimization objective may be reformulated (one more time) as seeking the parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span> that maximizes the average model likelihood. Due to the equivalencies with this last reformulation, all these optimization objectives fall under the heading of <em>likelihood-based learning objectives</em>, and the specific realization of the Distance Criterion for Parameter Choice in terms of these objectives is called <em>maximum likelihood estimation</em> or <em>MLE</em>.</p>
+<p>All of this will be introduced and described concretely in the case of a very simple univariate PGM in the <a class="reference internal" href="#likelihood-learning-sec"><span class="std std-ref">first section</span></a> below. Then, in <a class="reference internal" href="#gen-mle-sec"><span class="std std-numref">Section 12.2</span></a>, we describe MLE for general PGMs, taking care to distinguish between models trained as <em>generative</em> versus <em>discriminative models</em>, with the latter type further separated into those with continuous versus discrete response variables. The remaining three sections in the chapter address the specific cases of MLE for the three types of PGMs studied in <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>: Linear regression models in <a class="reference internal" href="#mle-lin-reg-sec"><span class="std std-numref">Section 12.3</span></a>, logistic regression models in <a class="reference internal" href="#mle-log-reg-sec"><span class="std std-numref">Section 12.4</span></a>, and neural network models in <a class="reference internal" href="#mle-nn-sec"><span class="std std-numref">Section 12.5</span></a>.</p>
+<section id="a-first-look-at-likelihood-based-learning-objectives">
+<span id="likelihood-learning-sec"></span><h2><span class="section-number">12.1. </span>A first look at likelihood-based learning objectives<a class="headerlink" href="#a-first-look-at-likelihood-based-learning-objectives" title="Link to this heading">#</a></h2>
+<p>To help motivate the general likelihood-based learning objectives studied in this chapter, let’s begin with a simple example. Suppose that we have an observed dataset</p>
+<div class="math notranslate nohighlight">
+\[
+x_1,x_2,\ldots,x_m \in \{0,1\}
+\]</div>
+<p>drawn from a random variable <span class="math notranslate nohighlight">\(X \sim \Ber(\theta)\)</span> with unknown parameter <span class="math notranslate nohighlight">\(\theta \in [0,1]\)</span>. This is a very simple example of a probabilistic graphical model whose underlying graph consists of only two nodes, one for the parameter <span class="math notranslate nohighlight">\(\theta\)</span> and one for the (observed) random variable <span class="math notranslate nohighlight">\(X\)</span>:</p>
+<a class="reference internal image-reference" href="../_images/bern-pgm.svg"><img alt="../_images/bern-pgm.svg" class="align-center" src="../_images/bern-pgm.svg" width="18%" /></a>
+<p> </p>
+<p>The probability measure <span class="math notranslate nohighlight">\(P_\theta\)</span> proposed by the model has mass function</p>
+<div class="math notranslate nohighlight" id="equation-bern-model-eq">
+<span class="eqno">(12.1)<a class="headerlink" href="#equation-bern-model-eq" title="Link to this equation">#</a></span>\[
+p(x;\theta) = \theta^x (1-\theta)^{1-x},
+\]</div>
+<p>for <span class="math notranslate nohighlight">\(x\in \{0,1\}\)</span>, while the dataset has its empirical probability measure <span class="math notranslate nohighlight">\(\hat{P}\)</span> with mass function <span class="math notranslate nohighlight">\(\hat{p}(x)\)</span> defined as</p>
+<div class="math notranslate nohighlight" id="equation-bern-empirical-eq">
+<span class="eqno">(12.2)<a class="headerlink" href="#equation-bern-empirical-eq" title="Link to this equation">#</a></span>\[\begin{split}
+\hat{p}(x) = \frac{\text{frequency of $x$ in the dataset}}{m} = \begin{cases}
+\displaystyle\frac{\Sigma x}{m} &amp; : x=1, \\
+\displaystyle\frac{m - \Sigma x}{m} &amp; : x=0,
+\end{cases}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Sigma x \def x_1 + x_2 + \cdots + x_m\)</span>. The goal, of course, is to model the observed dataset with our univariate PGM, but the parameter <span class="math notranslate nohighlight">\(\theta\)</span> is unknown. An “optimal” value for the parameter will minimize the discrepancy (or “distance”) between the two distributions <span class="math notranslate nohighlight">\(\hat{P}\)</span> and <span class="math notranslate nohighlight">\(P_\theta\)</span>. We seek to “learn” this optimal value from the dataset.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Technically, according to <a class="reference internal" href="09-info-theory.html#KL-def">Definition 9.4</a>, in order to discuss the KL divergence we must require that the empirical distribution is absolutely continuous with respect to the model distribution, in the sense that <span class="math notranslate nohighlight">\(p(x;\theta)=0\)</span> implies <span class="math notranslate nohighlight">\(\hat{p}(x)=0\)</span> for all <span class="math notranslate nohighlight">\(x\)</span>. This may create some minor headaches that require addressing special cases in proofs. For an example, see the proof of <a class="reference internal" href="#bern-mle-thm">Theorem 12.2</a> below.</p>
+</aside>
+<p>Of course, by now we know that “distance” means KL divergence, so the goal is to locate the minimizer</p>
+<div class="math notranslate nohighlight">
+\[
+\theta^\star = \argmin_{\theta\in [0,1]} D(\hat{P} \parallel P_\theta).
+\]</div>
+<p>But from <a class="reference internal" href="09-info-theory.html#KL-and-entropy-thm">Theorem 9.1</a>, the KL divergence may be expressed as a difference of two entropies,</p>
+<div class="math notranslate nohighlight">
+\[
+D(\hat{P} \parallel P_\theta) = H_{\hat{P}}(P_\theta) - H(\hat{P}),
+\]</div>
+<p>and since the entropy <span class="math notranslate nohighlight">\(H(\hat{P})\)</span> does not depend on <span class="math notranslate nohighlight">\(\theta\)</span> it may be dropped from the optimization objective, and we see that we are equivalently searching for the minimizer of cross entropy:</p>
+<div class="math notranslate nohighlight">
+\[
+\theta^\star = \argmin_{\theta\in [0,1]} H_{\hat{P}}(P_\theta).
+\]</div>
+<p>Let’s unpack this cross entropy, using <a class="reference internal" href="#equation-bern-model-eq">(12.1)</a> and <a class="reference internal" href="#equation-bern-empirical-eq">(12.2)</a>. By definition, we have</p>
+<div class="math notranslate nohighlight" id="equation-cross-ent-stoch-eq">
+<span class="eqno">(12.3)<a class="headerlink" href="#equation-cross-ent-stoch-eq" title="Link to this equation">#</a></span>\[
+H_{\hat{P}}(P_\theta) = E_{x \sim \hat{p}(x)} \left[ I_{P_\theta}(x) \right],
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+I_{P_\theta}(x) = -\log\left[ p(x;\theta) \right]
+\]</div>
+<p>is the surprisal function (see <a class="reference internal" href="09-info-theory.html#info-content-def">Definition 9.1</a>). Because we want to think of the data as being fixed and the parameter as variable, it will be convenient to define the <em>model surprisal function</em> to be</p>
+<div class="math notranslate nohighlight">
+\[
+\calI(\theta;x) \def -\log\left[ p(x;\theta) \right],
+\]</div>
+<p>with the parameter <span class="math notranslate nohighlight">\(\theta\)</span> written first, similar to our convention regarding likelihood functions in <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>. In fact, if we define the <em>model likelihood function</em> of our univariate Bernoulli model to be</p>
+<div class="math notranslate nohighlight">
+\[
+\calL(\theta;x) \def p(x;\theta),
+\]</div>
+<p>then the model surprisal function is nothing but the negative logarithm of the model likelihood function.</p>
+<p>Now, note that</p>
+<div class="math notranslate nohighlight" id="equation-bern-like-factor-eq">
+<span class="eqno">(12.4)<a class="headerlink" href="#equation-bern-like-factor-eq" title="Link to this equation">#</a></span>\[
+p(x_1,\ldots,x_m; \theta) = \prod_{i=1}^m p(x_i;\theta),
+\]</div>
+<p>since the dataset is assumed drawn from an IID random sample. If we define the left-hand side to be the <em>data likelihood function</em>,</p>
+<div class="math notranslate nohighlight">
+\[
+\calL(\theta;x_1,\ldots,x_m) \def p(x_1,\ldots,x_m; \theta),
+\]</div>
+<p>then we may rewrite <a class="reference internal" href="#equation-bern-like-factor-eq">(12.4)</a> in terms of likelihood functions as</p>
+<div class="math notranslate nohighlight" id="equation-bern-like-factor-2-eq">
+<span class="eqno">(12.5)<a class="headerlink" href="#equation-bern-like-factor-2-eq" title="Link to this equation">#</a></span>\[
+\calL(\theta;x_1,\ldots,x_m) = \prod_{i=1}^m \calL(\theta; x_i).
+\]</div>
+<p>(Notice that this is <em>identical</em> to the factorizations of likelihood functions studied in <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>.) Finally, if we define the <em>data surprisal function</em> to be</p>
+<div class="math notranslate nohighlight">
+\[
+\calI(\theta;x_1,\ldots,x_n) \def - \log\left[ p(x_1,\ldots,x_m; \theta) \right] = - \log\left[ \calL(\theta;x_1,\ldots,x_m)\right],
+\]</div>
+<p>then we may apply the negative logarithm to both sides of <a class="reference internal" href="#equation-bern-like-factor-2-eq">(12.5)</a> to get the fundamental equation</p>
+<div class="math notranslate nohighlight" id="equation-data-model-surprise-bern-eq">
+<span class="eqno">(12.6)<a class="headerlink" href="#equation-data-model-surprise-bern-eq" title="Link to this equation">#</a></span>\[
+\calI(\theta;x_1,\ldots,x_n) = \sum_{i=1}^m \calI(\theta;x_i)
+\]</div>
+<p>expressing the data surprisal function as a sum of model surprisal functions.</p>
+<p>Let’s now bring back the cross entropy expressed above as <a class="reference internal" href="#equation-cross-ent-stoch-eq">(12.3)</a>. Using the model surprisal function, we may write:</p>
+<div class="math notranslate nohighlight">
+\[
+H_{\hat{P}}(P_\theta) = E_{x \sim \hat{p}(x)} \left[ \calI(\theta; x) \right] = \sum_{x\in \bbr} \hat{p}(x) \calI(\theta;x) = \frac{1}{m} \sum_{i=1}^m \calI(\theta;x) = \frac{1}{m} \calI(\theta;x_1,\ldots,x_m).
+\]</div>
+<p>So, putting everything together, we get that</p>
+<div class="math notranslate nohighlight">
+\[
+D(\hat{P} \parallel P_\theta) + H(\hat{P}) = H_{\hat{P}}(P_\theta) = E_{x \sim \hat{p}(x)} \left[ \calI(\theta; x) \right] \propto \calI(\theta; x_1,\ldots,x_m),
+\]</div>
+<p>where the constant of proportionality is the (positive) number <span class="math notranslate nohighlight">\(1/m\)</span>. Moreover, since the negative logarithm function is strictly decreasing, minimizing the data surprisal function with respect to <span class="math notranslate nohighlight">\(\theta\)</span> is equivalent to maximizing the data likelihood function with respect to <span class="math notranslate nohighlight">\(\theta\)</span> (see the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/13-homework.md#problem-1-negative-logarithms-and-optimization">homework</a>). So, if we combine all of our observations into a single theorem, we get:</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>As mentioned in the margin note above, in this theorem we are implicitly restricting our attention to those parameters <span class="math notranslate nohighlight">\(\theta\)</span> for which the empirical distribution <span class="math notranslate nohighlight">\(\hat{P}\)</span> is absolutely continuous with respect to the model distribution <span class="math notranslate nohighlight">\(P_\theta\)</span>.</p>
+</aside>
+<div class="proof theorem admonition" id="equiv-obj-bern-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 12.1 </span> (Equivalent learning objectives for the univariate Bernoulli model)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(x_1,x_2,\ldots,x_m \in \{0,1\}\)</span> be an observed dataset corresponding to a Bernoulli random variable <span class="math notranslate nohighlight">\(X\sim \Ber(\theta)\)</span> with unknown <span class="math notranslate nohighlight">\(\theta\)</span>. Let <span class="math notranslate nohighlight">\(P_\theta\)</span> be the model distribution of <span class="math notranslate nohighlight">\(X\)</span> and let <span class="math notranslate nohighlight">\(\hat{P}\)</span> be the empirical distribution of the dataset. The following optimization objectives are equivalent:</p>
+<ol class="arabic simple">
+<li><p>Minimize the KL divergence <span class="math notranslate nohighlight">\(D(\hat{P} \parallel P_\theta)\)</span> with respect to <span class="math notranslate nohighlight">\(\theta\)</span>.</p></li>
+<li><p>Minimize the cross entropy <span class="math notranslate nohighlight">\(H_{\hat{P}}(P_\theta)\)</span> with respect to <span class="math notranslate nohighlight">\(\theta\)</span>.</p></li>
+<li><p>Minimize the data surprisal function <span class="math notranslate nohighlight">\(\calI(\theta; x_1,\ldots,x_m)\)</span> with respect to <span class="math notranslate nohighlight">\(\theta\)</span>.</p></li>
+<li><p>Maximize the data likelihood function <span class="math notranslate nohighlight">\(\calL(\theta; x_1,\ldots,x_m)\)</span> with respect to <span class="math notranslate nohighlight">\(\theta\)</span>.</p></li>
+</ol>
+</section>
+</div><p>Though these optimization objectives are all equivalent to each other, they have different interpretations, conceptualizations, and advantages:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Minimizing the KL divergence between the empirical and model distributions has an immediate and concrete interpretation as minimizing the “distance” between these two distributions.</p></li>
+<li><p>As a function of <span class="math notranslate nohighlight">\(\theta\)</span>, the cross entropy <span class="math notranslate nohighlight">\(J(\theta) = H_{\hat{P}}(P_\theta)\)</span> may be viewed as a stochastic objective function, since it is exactly the mean of the model surprisal function. This opens the door for applications of the stochastic gradient descent algorithm studied in <a class="reference internal" href="10-optim.html#sgd-sec"><span class="std std-numref">Section 10.4</span></a>.</p></li>
+<li><p>The third optimization objective seeks the model probability distribution according to which the data is <em>least surprising</em>.</p></li>
+<li><p>The fourth optimization objective seeks the model probability distribution according to which the data is <em>most likely</em>.</p></li>
+</ol>
+</div></blockquote>
+<p>Due to the equivalence with the fourth optimization objective, all these optimization objectives are referred to as <em>likelihood-based learning objectives</em>. The optimization process is then called <em>maximum likelihood estimation</em> (<em>MLE</em>), and the value</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\theta^\star_\text{MLE} &amp;\def \argmax_{\theta \in [0,1]} \calL(\theta; x_1,\ldots,x_m) \\
+&amp;= \argmin_{\theta \in [0,1]} \calI(\theta; x_1,\ldots,x_m) \\
+&amp;= \argmin_{\theta \in [0,1]} H_{\hat{P}}(P_\theta) \\
+&amp;= \argmin_{\theta \in [0,1]} D(\hat{P} \parallel P_\theta)
+\end{align*}\]</div>
+<p>is called the <em>maximum likelihood estimate</em> (also <em>MLE</em>). But in actual real-world practice, nobody <em>ever</em> maximizes the likelihood function directly due to numerical instability (and other reasons), and instead one of the other three learning objectives is used.</p>
+<p>It will turn out that a version of <a class="reference internal" href="#equiv-obj-bern-thm">Theorem 12.1</a> holds for all probabilistic graphical models with discrete model distributions, not just our univariate Bernoulli model. But for the Bernoulli model, the MLE may be computed in closed form:</p>
+<div class="proof theorem admonition" id="bern-mle-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 12.2 </span> (MLE for the univariate Bernoulli model)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\( x_1,x_2,\ldots,x_m \in \{0,1\}\)</span> be an observed dataset corresponding to a Bernoulli random variable <span class="math notranslate nohighlight">\(X\sim \Ber(\theta)\)</span> with unknown <span class="math notranslate nohighlight">\(\theta\)</span>. Then the (unique) maximum likelihood estimate <span class="math notranslate nohighlight">\(\theta^\star_\text{MLE}\)</span> is the ratio <span class="math notranslate nohighlight">\( \Sigma x/m\)</span>.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. We first address the special cases that <span class="math notranslate nohighlight">\(\Sigma x =0\)</span> or <span class="math notranslate nohighlight">\(m\)</span>. In the first case, the data likelihood function is given by</p>
+<div class="math notranslate nohighlight">
+\[
+\calL(\theta; x_1,\ldots,x_m ) = \theta^{\Sigma x} (1-\theta)^{m-\Sigma x} = (1-\theta)^m.
+\]</div>
+<p>But the latter expression is maximized at <span class="math notranslate nohighlight">\(\theta^\star=0\)</span>, and so <span class="math notranslate nohighlight">\(\theta^\star_\text{MLE} = \Sigma x/m\)</span>, as claimed. A similar argument shows that if <span class="math notranslate nohighlight">\(\Sigma x = m\)</span>, then the likelihood function is maximized at <span class="math notranslate nohighlight">\(\theta^\star = 1\)</span>, and so <span class="math notranslate nohighlight">\(\theta^\star_\text{MLE} = \Sigma x / m\)</span> again.</p>
+<p>So, we may assume that <span class="math notranslate nohighlight">\(0 &lt; \Sigma x &lt; m\)</span>. In this case, the maximizer of the likelihood function must occur in the open interval <span class="math notranslate nohighlight">\((0,1)\)</span>. Thus, by <a class="reference internal" href="#equiv-obj-bern-thm">Theorem 12.1</a>, the parameter <span class="math notranslate nohighlight">\(\theta^\star_\text{MLE}\)</span> is equivalently the global minimizer of the data surprisal function</p>
+<div class="math notranslate nohighlight">
+\[
+\calI(\theta;x_1,\ldots,x_m ) = -\Sigma x \log{\theta} - (m-\Sigma x) \log{(1-\theta)}.
+\]</div>
+<p>But minimizers of this function can only occur at points <span class="math notranslate nohighlight">\(\theta^\star \in (0,1)\)</span> where</p>
+<div class="math notranslate nohighlight" id="equation-sur-station-eq">
+<span class="eqno">(12.7)<a class="headerlink" href="#equation-sur-station-eq" title="Link to this equation">#</a></span>\[
+\frac{\partial}{\partial \theta}\Bigg|_{\theta = \theta^\star} \calI(\theta; x_1,\ldots,x_m) = 0.
+\]</div>
+<p>But</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \theta} \calI (\theta; x_1,\ldots,x_m) = -\frac{\Sigma x}{\theta} + \frac{m-\Sigma x}{1-\theta},
+\]</div>
+<p>and a little algebra yields the solution <span class="math notranslate nohighlight">\(\theta^\star = \Sigma x/m\)</span> to the stationarity equation <a class="reference internal" href="#equation-sur-station-eq">(12.7)</a>. To confirm that <span class="math notranslate nohighlight">\(\theta^\star = \Sigma x/m\)</span> is a global minimizer over <span class="math notranslate nohighlight">\((0,1)\)</span>, note that the second derivatives of both <span class="math notranslate nohighlight">\(-\log{\theta}\)</span> and <span class="math notranslate nohighlight">\(-\log{(1-\theta)}\)</span> are always positive, and hence the data surprisal function is strictly convex. Thus, <span class="math notranslate nohighlight">\(\theta^\star_\text{MLE} = \Sigma x/m\)</span> must indeed be the (unique) MLE. Q.E.D.</p>
+</div>
+<p>Though the <span class="math notranslate nohighlight">\(\theta^\star_\text{MLE}\)</span> is available in closed form for our univariate Bernoulli model, it is still amusing to search for <span class="math notranslate nohighlight">\(\theta^\star\)</span> by running stochastic gradient descent on the stochastic objective function given by cross entropy:</p>
+<div class="math notranslate nohighlight">
+\[
+J(\theta) \def H_{\hat{P}}(P_\theta) = E_{x\sim \hat{p}(x)} \left[ \calI(\theta;x) \right].
+\]</div>
+<p>To create the following figure, we generated a sequence of <span class="math notranslate nohighlight">\(128\)</span> observations</p>
+<div class="math notranslate nohighlight">
+\[
+x_1,x_2,\ldots,x_{128} \in \{0,1\}
+\]</div>
+<p>with <span class="math notranslate nohighlight">\(\Sigma x = 87\)</span>. Then, a run of mini-batch gradient descent yields the following:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+<span class="kn">from</span> <span class="nn">math_stats_ml.gd</span> <span class="kn">import</span> <span class="n">SGD</span><span class="p">,</span> <span class="n">plot_gd</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">matplotlib_inline.backend_inline</span>
+<span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">clr</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
+<span class="n">matplotlib_inline</span><span class="o">.</span><span class="n">backend_inline</span><span class="o">.</span><span class="n">set_matplotlib_formats</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span>
+<span class="n">blue</span> <span class="o">=</span> <span class="s1">&#39;#486AFB&#39;</span>
+<span class="n">magenta</span> <span class="o">=</span> <span class="s1">&#39;#FD46FC&#39;</span>
+
+<span class="c1"># generate data</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bernoulli</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.65</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="p">))</span>
+
+<span class="c1"># define model surprisal function</span>
+<span class="k">def</span> <span class="nf">I_model</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">X</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">theta</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">J</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="n">X</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">theta</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># initialize parameters</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.05</span><span class="p">])</span>
+
+<span class="c1"># choose SGD hyperparameters</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1"># run SGD</span>
+<span class="n">gd_output</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="n">I_model</span><span class="p">,</span> <span class="n">init_parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+
+<span class="n">epoch_step_nums</span> <span class="o">=</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">epoch_step_nums</span>
+<span class="n">objectives</span> <span class="o">=</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">[</span><span class="n">epoch_step_nums</span><span class="p">]</span>
+<span class="n">running_parameters</span> <span class="o">=</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span>
+<span class="n">running_parameters</span> <span class="o">=</span> <span class="n">running_parameters</span><span class="p">[</span><span class="n">epoch_step_nums</span><span class="p">]</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">apply_along_axis</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">arr</span><span class="o">=</span><span class="n">grid</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">running_parameters</span><span class="p">,</span> <span class="n">objectives</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="s1">&#39;post&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">running_parameters</span><span class="p">,</span> <span class="n">objectives</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">theta$&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;cross entropy&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">)),</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.45</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">epoch_step_nums</span><span class="p">,</span> <span class="n">objectives</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;gradient steps&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;stochastic gradient descent for univariate Bernoulli model</span><span class="se">\n</span><span class="s1">$k=$</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">, $</span><span class="se">\\</span><span class="s1">alpha =$</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s1">, $</span><span class="se">\\</span><span class="s1">beta=$0, $N = $</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/90935daffd1c5fe86cd538d8f8554f8d7d3d0078119e560616a5655dc90693c9.svg" src="../_images/90935daffd1c5fe86cd538d8f8554f8d7d3d0078119e560616a5655dc90693c9.svg" /></figure>
+</div>
+</div>
+<p>The blue curve in the left-hand plot is the graph of the <em>exact</em> cross entropy function <span class="math notranslate nohighlight">\(H_{\hat{P}}(P_\theta)\)</span>. The magenta points—which represent a selection of outputs of the algorithm—do not fall <em>precisely</em> on this graph since they are <em>approximations</em> to the cross entropy, obtained as realizations of the expression on the right-hand side of</p>
+<div class="math notranslate nohighlight">
+\[
+H_{\hat{P}}(P_\theta) \approx \frac{1}{8} \sum_{x\in B} \calI(\theta; x),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(B\)</span> is a mini-batch of data of size <span class="math notranslate nohighlight">\(k=8\)</span>. (This was discussed right after we introduced <a class="reference internal" href="10-optim.html#sgd-alg">Algorithm 10.4</a> in <a class="reference internal" href="10-optim.html#optim"><span class="std std-numref">Chapter 10</span></a>.) On the right-hand size of the figure, we have plotted the (approximate) cross entropy versus gradient steps, a type of plot familiar from <a class="reference internal" href="10-optim.html#optim"><span class="std std-numref">Chapter 10</span></a>. The magenta dots on the two sides of the figure correspond to each other; they represent the (approximate) cross entropies every 16 gradient steps (<span class="math notranslate nohighlight">\(=1\)</span> epoch). Notice that the algorithm appears to be converging to the true value <span class="math notranslate nohighlight">\(\theta^\star_\text{MLE} = 87/128 \approx 0.68\)</span> given by <a class="reference internal" href="#bern-mle-thm">Theorem 12.2</a>.</p>
+</section>
+<section id="general-mle">
+<span id="gen-mle-sec"></span><h2><span class="section-number">12.2. </span>General MLE<a class="headerlink" href="#general-mle" title="Link to this heading">#</a></h2>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>One should also further distinguish between the cases that the PGM contains hidden (or latent) variables, or whether all variables are visible. We shall only focus on the latter case (so-called <em>fully-observed models</em>) since the training process for models with hidden variables requires a different set of algorithms. (For example, the <a class="reference external" href="https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm">expectation maximation algorithm</a>.)</p>
+</aside>
+<p>Maximum likelihood estimation works for all the probabilistic graphical models that we studied in <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>, though there are some variations between the different models. First, we must distinguish between training a model as a <em>generative model</em> versus a <em>discriminative model</em>. Along with every PGM comes the joint distribution over <em>all</em> random variables, and for a generative model, the learning process trains the model with the goal to learn the parameters of the <em>entire</em> joint distribution, while for a discriminative model, the learning process aims at learning the parameters of only a conditional distribution. Of the types of models explicitly studied in <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>—linear regression models, logistic regression models, and neural networks—all three are trained as discriminative models, aiming to learn the parameters of the conditional distributions of the response variable <span class="math notranslate nohighlight">\(Y\)</span> given the predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>. On the other hand, both the univariate Bernoulli model in the previous section and the Naive Bayes model—studied in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_12.ipynb">programming assignment</a> for <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>, as well as the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/worksheets/13-learning.pdf">worksheet</a> for the current chapter—are trained as generative models.</p>
+<p>We begin our discussion with the case of generative models, since it is essentially just a recapitulation of our discussion of the univariate Bernoulli model in the previous section. If such a model consists of <span class="math notranslate nohighlight">\(n\)</span> random variables, say <span class="math notranslate nohighlight">\(X_1,X_2,\ldots,X_n\)</span>, then we will write them as an <span class="math notranslate nohighlight">\(n\)</span>-dimensional random vector</p>
+<div class="math notranslate nohighlight">
+\[
+\bX = (X_1,X_2,\ldots,X_n).
+\]</div>
+<p>For simplicity, we will assume that <span class="math notranslate nohighlight">\(\bX\)</span> is discrete, so that if <span class="math notranslate nohighlight">\(\btheta\)</span> is the parameter vector for the model, we have a joint mass function <span class="math notranslate nohighlight">\(p(\bx;\btheta)\)</span>. Then the same definitions given in the previous section for the univariate Bernoulli model apply here:</p>
+<div class="proof definition admonition" id="gen-model-functions-def">
+<p class="admonition-title"><span class="caption-number">Definition 12.1 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Consider a PGM trained as a generative model containing the random variables <span class="math notranslate nohighlight">\(\bX = (X_1,X_2,\ldots,X_n)\)</span>, and let <span class="math notranslate nohighlight">\(\btheta\)</span> be the parameter vector.</p>
+<ol class="arabic">
+<li><p>For fixed <span class="math notranslate nohighlight">\(\bx\in \bbr^n\)</span>, the <em>model likelihood function</em> is given by</p>
+<div class="math notranslate nohighlight">
+\[
+    \calL(\btheta;\bx) \def p(\bx; \btheta),
+    \]</div>
+<p>thought of as a function of <span class="math notranslate nohighlight">\(\btheta\)</span>. The <em>model surprisal function</em> is given by</p>
+<div class="math notranslate nohighlight">
+\[
+    \calI(\btheta;\bx) \def -\log \left[ \calL(\btheta;\bx) \right] = -\log \left[p(\bx; \btheta) \right],
+    \]</div>
+<p>also thought of as a function of <span class="math notranslate nohighlight">\(\btheta\)</span>.</p>
+</li>
+<li><p>For a fixed, observed dataset <span class="math notranslate nohighlight">\(\bx_1,\bx_2,\ldots,\bx_m\in \bbr^n\)</span>, the <em>data likelihood function</em> is given by</p>
+<div class="math notranslate nohighlight">
+\[
+    \calL(\btheta;\bx_1,\ldots,\bx_m) \def p(\bx_1,\ldots,\bx_m; \btheta),
+    \]</div>
+<p>thought of as a function of <span class="math notranslate nohighlight">\(\btheta\)</span>. The <em>data surprisal function</em> is given by</p>
+<div class="math notranslate nohighlight">
+\[
+    \calI(\btheta;\bx_1,\ldots,\bx_m) \def -\log \left[ \calL(\btheta;\bx_1,\ldots,\bx_m) \right] = -\log \left[p(\bx_1,\ldots,\bx_m; \btheta) \right],
+    \]</div>
+<p>also thought of as a function of <span class="math notranslate nohighlight">\(\btheta\)</span>.</p>
+</li>
+</ol>
+</section>
+</div><p>Sometimes, if mentioning the specific observation <span class="math notranslate nohighlight">\(\bx\)</span> or the observed dataset <span class="math notranslate nohighlight">\(\bx_1,\bx_2,\ldots,\bx_m\)</span> is not important, we will write the functions in the definition as</p>
+<div class="math notranslate nohighlight">
+\[
+\calL_\text{model}(\btheta), \quad \calI_\text{model}(\btheta), \quad \calL_\text{data}(\btheta), \quad \calI_\text{data}(\btheta).
+\]</div>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 1 on the worksheet.</p>
+</div>
+<p>Since observed datasets are assumed to be observations of IID random samples, we have:</p>
+<div class="proof theorem admonition" id="likelihood-sur-decompose-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 12.3 </span> (Data likelihood/surprisal <span class="math notranslate nohighlight">\(=\)</span> product/sum of model likelihood/surprisal)</p>
+<section class="theorem-content" id="proof-content">
+<p>Consider a PGM trained as a generative model containing the random variables <span class="math notranslate nohighlight">\(\bX = (X_1,X_2,\ldots,X_n)\)</span>, and let <span class="math notranslate nohighlight">\(\btheta\)</span> be the parameter vector. If</p>
+<div class="math notranslate nohighlight">
+\[
+\bx_1,\bx_2,\ldots,\bx_m\in \bbr^n
+\]</div>
+<p>is an observed dataset, then we have</p>
+<div class="math notranslate nohighlight">
+\[
+\calL_\text{data}(\btheta) = \prod_{i=1}^m \calL(\btheta; \bx_i) \quad \text{and} \quad \calI_\text{data}(\btheta) = \sum_{i=1}^m \calI(\btheta; \bx_i).
+\]</div>
+</section>
+</div><p>Now, we state a version of <a class="reference internal" href="#equiv-obj-bern-thm">Theorem 12.1</a> that holds for generative models:</p>
+<div class="proof theorem admonition" id="equiv-obj-gen-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 12.4 </span> (Equivalent learning objectives for generative PGMs)</p>
+<section class="theorem-content" id="proof-content">
+<p>Consider a PGM trained as a generative model containing the random variables <span class="math notranslate nohighlight">\(\bX = (X_1,X_2,\ldots,X_n)\)</span>, and let <span class="math notranslate nohighlight">\(\btheta\)</span> be the parameter vector. Let</p>
+<div class="math notranslate nohighlight">
+\[
+\bx_1,\bx_2,\ldots,\bx_m \in \bbr^n
+\]</div>
+<p>be an observed dataset, let <span class="math notranslate nohighlight">\(P_\btheta\)</span> be the model joint probability distribution, and let <span class="math notranslate nohighlight">\(\hat{P}\)</span> be the empirical distribution of the dataset. The following optimization objectives are equivalent:</p>
+<ol class="arabic simple">
+<li><p>Minimize the KL divergence <span class="math notranslate nohighlight">\(D(\hat{P} \parallel P_\btheta)\)</span> with respect to <span class="math notranslate nohighlight">\(\btheta\)</span>.</p></li>
+<li><p>Minimize the cross entropy <span class="math notranslate nohighlight">\(H_{\hat{P}}(P_\btheta)\)</span> with respect to <span class="math notranslate nohighlight">\(\btheta\)</span>.</p></li>
+<li><p>Minimize the data surprisal function <span class="math notranslate nohighlight">\(\calI(\btheta; \bx_1,\ldots,\bx_m)\)</span> with respect to <span class="math notranslate nohighlight">\(\btheta\)</span>.</p></li>
+<li><p>Maximize the data likelihood function <span class="math notranslate nohighlight">\(\calL(\btheta; \bx_1,\ldots,\bx_m)\)</span> with respect to <span class="math notranslate nohighlight">\(\btheta\)</span>.</p></li>
+</ol>
+</section>
+</div><p>The proof of the equivalence of these training objectives is the same as the proof in the special case of the univariate Bernoulli model in the previous section. The optimization process which seeks a solution to these (equivalent) optimization problems is called <em>maximum likelihood estimatation</em> (<em>MLE</em>), and any solution is called a <em>maximum likelihood estimate</em> (also <em>MLE</em>) and is denoted <span class="math notranslate nohighlight">\(\btheta_\text{MLE}^\star\)</span>.</p>
+<p>We now turn toward discriminative models, which include all those models explicitly studied in <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>. In this case, we must further distinguish between the models with discrete response variable <span class="math notranslate nohighlight">\(Y\)</span> versus a continuous one. Linear regression models are examples of the latter type, while we also briefly encountered an example of a neural network model with continuous <span class="math notranslate nohighlight">\(Y\)</span> in the worksheet to <a class="reference internal" href="11-models.html#prob-models"><span class="std std-numref">Chapter 11</span></a>. For both of these models, the response variable <span class="math notranslate nohighlight">\(Y\)</span> was actually <em>normally</em> distributed (conditionally), so this will be the only case of continuous <span class="math notranslate nohighlight">\(Y\)</span> that we consider in this book.</p>
+<div class="proof definition admonition" id="disc-model-functions-def">
+<p class="admonition-title"><span class="caption-number">Definition 12.2 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Consider a PGM trained as a discriminative model with predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>, response variable <span class="math notranslate nohighlight">\(Y\)</span>, and parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span>.</p>
+<ol class="arabic">
+<li><p>For fixed <span class="math notranslate nohighlight">\(\bx\in \bbr^n\)</span>, the <em>model likelihood function</em> is given either by</p>
+<div class="math notranslate nohighlight">
+\[
+    \calL(\btheta; \ y\mid \bx) \def p(y\mid \bx;\  \btheta) \quad \text{or} \quad \calL(\btheta; \ y\mid \bx) \def f(y\mid \bx;\  \btheta),
+    \]</div>
+<p>depending on whether <span class="math notranslate nohighlight">\(Y\)</span> is (conditionally) discrete or continuous. The model likelihood function is thought of as a function of <span class="math notranslate nohighlight">\(\btheta\)</span>. The <em>model surprisal function</em> is given by</p>
+<div class="math notranslate nohighlight">
+\[
+    \calI(\btheta; \ y\mid \bx) \def -\log \left[ \calL(y\mid \btheta; \ \bx) \right],
+    \]</div>
+<p>also thought of as a function of <span class="math notranslate nohighlight">\(\btheta\)</span>.</p>
+</li>
+<li><p>For a fixed, observed dataset</p>
+<div class="math notranslate nohighlight">
+\[
+    (\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m)\in \bbr^n \times \bbr,
+    \]</div>
+<p>the <em>data likelihood function</em> is given either by</p>
+<div class="math notranslate nohighlight">
+\[
+    \calL(\btheta; \ y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m) \def p(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \btheta)
+    \]</div>
+<p>or</p>
+<div class="math notranslate nohighlight">
+\[
+    \calL(\btheta; \ y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m) \def f(y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m; \ \btheta)
+    \]</div>
+<p>depending on whether <span class="math notranslate nohighlight">\(Y\)</span> is (conditionally) discrete or continuous. The data likelihood function is thought of as a function of <span class="math notranslate nohighlight">\(\btheta\)</span>. The <em>data surprisal function</em> is given by</p>
+<div class="math notranslate nohighlight">
+\[
+    \calI(\btheta;\ y\mid \bx_1,\ldots,\bx_m) \def -\log \left[ \calL(\btheta; \ y\mid \bx_1,\ldots,\bx_m) \right],
+    \]</div>
+<p>also thought of as a function of <span class="math notranslate nohighlight">\(\btheta\)</span>.</p>
+</li>
+</ol>
+</section>
+</div><p>As with generative models, if mentioning the specific observation or the observed dataset is not important, we will write the functions in the definition as</p>
+<div class="math notranslate nohighlight">
+\[
+\calL_\text{model}(\btheta), \quad \calI_\text{model}(\btheta), \quad \calL_\text{data}(\btheta), \quad \calI_\text{data}(\btheta).
+\]</div>
+<p>From independence, we also get the analog of <a class="reference internal" href="#likelihood-sur-decompose-thm">Theorem 12.3</a>:</p>
+<div class="proof theorem admonition" id="likelihood-sur-decompose-disc-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 12.5 </span> (Data likelihood/surprisal <span class="math notranslate nohighlight">\(=\)</span> product/sum of model likelihood/surprisal)</p>
+<section class="theorem-content" id="proof-content">
+<p>Consider a PGM trained as a discriminative model with predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>, response variable <span class="math notranslate nohighlight">\(Y\)</span>, and parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span>. If</p>
+<div class="math notranslate nohighlight">
+\[
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m)\in \bbr^n \times \bbr
+\]</div>
+<p>is an observed dataset, then we have</p>
+<div class="math notranslate nohighlight">
+\[
+\calL_\text{data}(\btheta) = \prod_{i=1}^m \calL(\btheta; \ y_i \mid \bx_i) \quad \text{and} \quad \calI_\text{data}(\btheta) = \sum_{i=1}^m \calI(\btheta; \ y_i \mid \bx_i).
+\]</div>
+</section>
+</div><p>Just as for generative models, for discriminative models we have the stochastic objective function</p>
+<div class="math notranslate nohighlight">
+\[
+J(\btheta) \def E_{(\bx, y) \sim \hat{p}(\bx, y)} \left[ \calI(\btheta; \ y \mid \bx) \right] = \frac{1}{m} \sum_{i=1}^m \calI(\btheta; \ y_i \mid \bx_i),
+\]</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>For reasons of space and time, we did not study <em>conditional</em> information-theoretic measures in <a class="reference internal" href="09-info-theory.html#information-theory"><span class="std std-numref">Chapter 9</span></a>. For a discussion of these quantities, see <span id="id2">[<a class="reference internal" href="bib.html#id17" title="T. M. Cover and J. A. Thomas. Elements of information theory. John Wiley &amp; Sons, Inc., second edition, 2006.">CT06</a>]</span>.</p>
+</aside>
+<p>where <span class="math notranslate nohighlight">\(\hat{p}(\bx,y)\)</span> is the empirical joint mass function of an observed dataset. For generative models, this function was exactly the cross entropy from the empirical distribution to the model distribution—but for discriminative models, it has a different interpretation. In the case that <span class="math notranslate nohighlight">\(Y\)</span> is discrete, it is actually a type of <em>conditional</em> cross entropy, and minimizing this objective is the same as minimizing the <em>conditional</em> KL divergence. In the case that <span class="math notranslate nohighlight">\(Y\)</span> is conditionally normal, the objective <span class="math notranslate nohighlight">\(J(\btheta)\)</span> “is” the <em>mean squared error</em> (or <em>MSE</em>), which we first encountered in the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/programming-assignments/assignment_12.ipynb">programming assignment</a> for the previous chapter. We say that it “is” the MSE, with quotation marks, because it’s not <em>quite</em> equal to the MSE on the nose—this is explained precisely in the following result:</p>
+<div class="proof theorem admonition" id="MSE-min-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 12.6 </span> (Mean squared error as a stochastic objective function)</p>
+<section class="theorem-content" id="proof-content">
+<p>Consider a PGM trained as a discriminative model with predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>, response variable <span class="math notranslate nohighlight">\(Y\)</span>, parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span>, and let</p>
+<div class="math notranslate nohighlight">
+\[
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^n \times \bbr
+\]</div>
+<p>be an observed dataset with empirical joint mass function <span class="math notranslate nohighlight">\(\hat{p}(\bx,y)\)</span>. Suppose also that the conditional distribution of <span class="math notranslate nohighlight">\(Y\)</span> given <span class="math notranslate nohighlight">\(\bX\)</span> is normal, with <em>fixed</em> variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>, and that the mean <span class="math notranslate nohighlight">\(\mu = \mu(\btheta,\bx)\)</span> of the distribution is given by the link function at <span class="math notranslate nohighlight">\(Y\)</span>. Then the minimizers of the stochastic objective function</p>
+<div class="math notranslate nohighlight">
+\[
+E_{(\bx, y) \sim \hat{p}(\bx, y)} \left[ \calI(\btheta; \ y \mid \bx) \right] = \frac{1}{m} \sum_{i=1}^m \calI(\btheta; \ y_i \mid \bx_i)
+\]</div>
+<p>are the same as the minimizers of the mean squared error</p>
+<div class="math notranslate nohighlight">
+\[
+MSE(\btheta) \def \frac{1}{m} \sum_{i=1}^m (y_i - \mu_i)^2,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu_i = \mu(\btheta,\bx_i)\)</span>.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. The proof begins with a simple computation:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\calI(\btheta; \ y_i \mid \bx_i) &amp;= - \log \left\{ \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left[- \frac{1}{2\sigma^2} (y_i - \mu_i)^2 \right] \right\} \\
+&amp;= \frac{1}{2} \log{\left(2\pi \sigma^2\right)} + \frac{1}{2\sigma^2} (y_i - \mu_i)^2.
+\end{align*}\]</div>
+<p>Then</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{m} \sum_{i=1}^m \calI(\btheta; \ y_i \mid \bx_i) = \frac{1}{2}\log\left(2\pi \sigma^2\right) + \frac{1}{2m\sigma^2} \sum_{i=1}^m (y_i - \mu_i)^2.
+\]</div>
+<p>Assuming that the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> is <em>fixed</em>, we immediately see that minimizing the left-hand side with respect to <span class="math notranslate nohighlight">\(\btheta\)</span> is the same as minimizing the MSE. Q.E.D.</p>
+</div>
+<p>In the case addressed by the theorem, we see that the loss function of the stochastic objective function</p>
+<div class="math notranslate nohighlight">
+\[
+J(\btheta) = E_{(\bx,y) \sim \hat{p}(\bx,y)}\left[ \calI(\btheta; \ y \mid \bx)\right]
+\]</div>
+<p>may be replaced with the <em>squared error</em> function <span class="math notranslate nohighlight">\(L(\btheta; \ y\mid \bx) = (y-\mu)^2\)</span>, and doing so does not alter the solutions to the optimization problem. Moreover, since multiplying a loss function by a positive constant does not change the extremizers, we may modify the squared error function in several ways to best suit the context. For example, sometimes it is convenient to instead take <span class="math notranslate nohighlight">\(J(\btheta)\)</span> to be half the <em>error sum of squares</em>:</p>
+<div class="math notranslate nohighlight">
+\[
+J(\btheta) = SSE(\btheta) /2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2.
+\]</div>
+<p>See, for example, <a class="reference internal" href="#mle-lin-reg-thm">Theorem 12.8</a> in the next section.</p>
+<p>Our discussion on the identity of the stochastic objective function <span class="math notranslate nohighlight">\(J(\btheta)\)</span> is summarized in the following chart:</p>
+<a class="reference internal image-reference" href="../_images/flow-training.svg"><img alt="../_images/flow-training.svg" class="align-center" src="../_images/flow-training.svg" width="100%" /></a>
+<p> </p>
+<p>Along the bottom of the figure, we’ve listed the loss functions <span class="math notranslate nohighlight">\(L\)</span> of the stochastic objective functions <span class="math notranslate nohighlight">\(J\)</span>.</p>
+<p>We may now state the following theorem, which is a version of <a class="reference internal" href="#equiv-obj-gen-thm">Theorem 12.4</a> for discriminative models:</p>
+<div class="proof theorem admonition" id="equiv-obj-disc-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 12.7 </span> (Equivalent learning objectives for discriminative PGMs)</p>
+<section class="theorem-content" id="proof-content">
+<p>Consider a PGM trained as a discriminative model with predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>, response variable <span class="math notranslate nohighlight">\(Y\)</span>, and parameter vector <span class="math notranslate nohighlight">\(\btheta\)</span>. Let</p>
+<div class="math notranslate nohighlight">
+\[
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^n \times \bbr
+\]</div>
+<p>be an observed dataset, with empirical joint mass function <span class="math notranslate nohighlight">\(\hat{p}(\bx,y)\)</span>. The following optimization objectives are equivalent:</p>
+<ol class="arabic">
+<li><p>Minimize the stochastic objective function</p>
+<div class="math notranslate nohighlight">
+\[
+    J(\btheta) \def E_{(\bx, y) \sim \hat{p}(\bx, y)} \left[ \calI(\btheta; \ y \mid \bx) \right] = \frac{1}{m} \sum_{i=1}^m \calI(\btheta; \ y_i \mid \bx_i)
+    \]</div>
+<p>with respect to <span class="math notranslate nohighlight">\(\btheta\)</span>.</p>
+</li>
+<li><p>Minimize the data surprisal function <span class="math notranslate nohighlight">\(\calI(\btheta; \ y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m)\)</span> with respect to <span class="math notranslate nohighlight">\(\btheta\)</span>.</p></li>
+<li><p>Maximize the data likelihood function <span class="math notranslate nohighlight">\(\calL(\btheta; \ y_1,\ldots,y_m \mid \bx_1,\ldots,\bx_m)\)</span> with respect to <span class="math notranslate nohighlight">\(\btheta\)</span>.</p></li>
+</ol>
+</section>
+</div><p>Just as for generative models, the optimization process which seeks a solution to these (equivalent) optimization problems is called <em>maximum likelihood estimation</em> (<em>MLE</em>), and any solution is called a <em>maximum likelihood estimate</em> (also <em>MLE</em>) and is denoted <span class="math notranslate nohighlight">\(\btheta_\text{MLE}^\star\)</span>.</p>
+</section>
+<section id="mle-for-linear-regression">
+<span id="mle-lin-reg-sec"></span><h2><span class="section-number">12.3. </span>MLE for linear regression<a class="headerlink" href="#mle-for-linear-regression" title="Link to this heading">#</a></h2>
+<p>Having studied maximum likelihood estimation in general, we now turn toward specific examples, beginning with linear regression models. These are trained as discriminative models with a response variable <span class="math notranslate nohighlight">\(Y\)</span> which is (conditionally) normal. If we assume that the variance parameter <span class="math notranslate nohighlight">\(\sigma^2\)</span> is <em>fixed</em>, then the underlying graph of the model is of the form</p>
+<p> </p>
+<a class="reference internal image-reference" href="../_images/log-reg-00.svg"><img alt="../_images/log-reg-00.svg" class="align-center" src="../_images/log-reg-00.svg" width="35%" /></a>
+<p> </p>
+<p>where <span class="math notranslate nohighlight">\(\beta_0 \in \bbr\)</span> and <span class="math notranslate nohighlight">\(\bbeta \in \mathbb{R}^{n}\)</span> are the only parameters. The link function at <span class="math notranslate nohighlight">\(Y\)</span> is still given by</p>
+<div class="math notranslate nohighlight">
+\[
+Y \mid \bX  \sim \mathcal{N}(\mu, \sigma^2), \quad \text{where} \quad \mu = \beta_0 + \bx^\intercal \bbeta.
+\]</div>
+<p>For these models, it turns out MLEs are obtainable in closed form. To derive these expressions, it will be convenient to rewrite the link function <span class="math notranslate nohighlight">\(\mu = \beta_0 + \bx^\intercal \bbeta\)</span> as</p>
+<div class="math notranslate nohighlight" id="equation-mod-link-eq">
+<span class="eqno">(12.8)<a class="headerlink" href="#equation-mod-link-eq" title="Link to this equation">#</a></span>\[
+\mu = \bx^\intercal \btheta,
+\]</div>
+<p>where we append an extra coordinate <span class="math notranslate nohighlight">\(x_0=1\)</span> to the feature vector <span class="math notranslate nohighlight">\(\bx\)</span> and write</p>
+<div class="math notranslate nohighlight">
+\[
+\bx^\intercal = (x_0,x_1,\ldots,x_n) = (1,x_1,\ldots,x_n).
+\]</div>
+<p>We may then combine the bias term <span class="math notranslate nohighlight">\(\beta_0\)</span> and the weight vector <span class="math notranslate nohighlight">\(\bbeta\)</span> into a single <span class="math notranslate nohighlight">\((n+1)\)</span>-dimensional parameter vector</p>
+<div class="math notranslate nohighlight">
+\[
+\btheta^\intercal = (\beta_0,\bbeta) = (\beta_0,\beta_1,\ldots,\beta_n),
+\]</div>
+<p>so that the link function is indeed given by the simple expression <a class="reference internal" href="#equation-mod-link-eq">(12.8)</a>.</p>
+<div class="proof theorem admonition" id="mle-lin-reg-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 12.8 </span> (MLEs for linear regression models with known variance)</p>
+<section class="theorem-content" id="proof-content">
+<p>Consider a linear regression model with <em>fixed</em> variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>, and let</p>
+<div class="math notranslate nohighlight">
+\[
+(\bx_1,y_1),(\bx_2,y_2),\ldots,(\bx_m,y_m) \in \bbr^n \times \bbr
+\]</div>
+<p>be an observed dataset. Supposing</p>
+<div class="math notranslate nohighlight">
+\[
+\bx_i^\intercal= (x_{0i}, x_{i1},\ldots,x_{in}) = (1, x_{i1},\ldots,x_{in})
+\]</div>
+<p>for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>, let</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbfcal{X} = \begin{bmatrix}
+\leftarrow &amp; \bx_1^\intercal &amp; \rightarrow \\
+\vdots &amp; \vdots &amp; \vdots \\
+\leftarrow &amp; \bx_m^\intercal &amp; \rightarrow
+\end{bmatrix}, \quad \by = \begin{bmatrix} y_1 \\ \vdots \\ y_m \end{bmatrix}, \quad \btheta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_n \end{bmatrix}
+\end{split}\]</div>
+<p>Provided that the <span class="math notranslate nohighlight">\((n+1) \times (n+1)\)</span> square matrix <span class="math notranslate nohighlight">\(\mathbfcal{X}^\intercal \mathbfcal{X}\)</span> is invertible, maximum likelihood estimates for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\bbeta\)</span> are given by</p>
+<div class="math notranslate nohighlight">
+\[
+\btheta_\text{MLE}^\star = \left(\mathbfcal{X}^\intercal \mathbfcal{X}\right)^{-1}\mathbfcal{X}^\intercal \by.
+\]</div>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. As we noted above in the discussion after the proof of <a class="reference internal" href="#MSE-min-thm">Theorem 12.6</a>, the MLE may be obtained as the minimizer of half the error sum of squares:</p>
+<div class="math notranslate nohighlight">
+\[
+J(\btheta) \def SSE(\btheta)/2 = \frac{1}{2} \sum_{i=1}^m (y_i - \mu_i)^2 = \frac{1}{2} \left( \by - \mathbfcal{X}\btheta\right)^\intercal \left( \by - \mathbfcal{X}\btheta\right),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu_i = \bx_i^\intercal \btheta\)</span> for each <span class="math notranslate nohighlight">\(i=1,\ldots,m\)</span>. Taking the gradient gives</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla J(\btheta) = \nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right) \left( \by - \mathbfcal{X}\btheta\right),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right)\)</span> is the gradient matrix of the vector-valued function <span class="math notranslate nohighlight">\(\btheta \mapsto \by - \mathbfcal{X} \btheta\)</span>. (Remember our definition of the gradient matrix in <a class="reference internal" href="07-more-prob.html#gradient-mat-def">Definition 7.2</a> is the <em>transpose</em> of the usual Jacobian matrix!). But it is easy to show that <span class="math notranslate nohighlight">\(\nabla_\btheta \left(\by - \mathbfcal{X}\btheta \right) = - \mathbfcal{X}^\intercal\)</span>, and so</p>
+<div class="math notranslate nohighlight" id="equation-grad-sse-eq">
+<span class="eqno">(12.9)<a class="headerlink" href="#equation-grad-sse-eq" title="Link to this equation">#</a></span>\[
+\nabla J(\btheta) =  -\mathbfcal{X}^\intercal \left( \by - \mathbfcal{X}\btheta\right).
+\]</div>
+<p>Setting the gradient to zero and rearranging gives</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbfcal{X}^\intercal \mathbfcal{X} \btheta = \mathbfcal{X}^\intercal \by,
+\]</div>
+<p>from which the desired equation follows.</p>
+<p>The only thing that is left to prove is that we have actually obtained a global minimizer. But this follows from convexity of the objective function <span class="math notranslate nohighlight">\(J(\btheta)\)</span>, which we may demonstrate by showing the Hessian matrix <span class="math notranslate nohighlight">\(\nabla^2 J(\btheta)\)</span> is positive semidefinite (see <a class="reference internal" href="10-optim.html#main-convex-multi-thm">Theorem 10.8</a>). To do this, note that</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla^2 J(\btheta) = \nabla(\nabla J)(\btheta) =  \mathbfcal{X} \mathbfcal{X}^\intercal
+\]</div>
+<p>from <a class="reference internal" href="#equation-grad-sse-eq">(12.9)</a> and <a class="reference internal" href="10-optim.html#hess-jac-grad-thm">Theorem 10.1</a>. But then, given any vector <span class="math notranslate nohighlight">\(\bz \in \bbr^{m}\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\bz^\intercal \nabla^2 J(\btheta) \bz = \bz^\intercal \mathbfcal{X} \mathbfcal{X}^\intercal \bz = (\mathbfcal{X}^\intercal\bz)^\intercal \mathbfcal{X}^\intercal \bz = |\mathbfcal{X}^\intercal\bz|^2 \geq 0.
+\]</div>
+<p>Thus, the Hessian matrix is indeed positive semidefinite. Q.E.D.</p>
+</div>
+<p>As we saw in the proof, the maximum likelihood parameter estimates are those that minimize the error sum of squares <span class="math notranslate nohighlight">\(SSE(\btheta)\)</span>, which explains why the MLEs are also often called the <em>ordinary least squares</em> (<em>OLS</em>) estimates.</p>
+<p>It is worth writing out the MLEs in the case of simple linear regression:</p>
+<div class="proof corollary admonition" id="mle-simple-lin-reg-cor">
+<p class="admonition-title"><span class="caption-number">Corollary 12.1 </span> (MLEs for simple linear regression models with known variance)</p>
+<section class="corollary-content" id="proof-content">
+<p>Let the notation be as in <a class="reference internal" href="#mle-lin-reg-thm">Theorem 12.8</a>, but assume that <span class="math notranslate nohighlight">\(\bX\)</span> is <span class="math notranslate nohighlight">\(1\)</span>-dimensional, equal to a random variable <span class="math notranslate nohighlight">\(X\)</span>. Then MLEs for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span> are given by</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+(\beta_1)_\text{MLE}^\star &amp;= \frac{\sum_{i=1}^m \left(x_i - \bar{x} \right)\left( y_i - \bar{y} \right)}{\sum_{i=1}^m \left(x_i - \bar{x} \right)^2}, \\
+(\beta_0)_\text{MLE}^\star &amp;= \bar{y} - (\beta_1)_\text{MLE}^\star \bar{x},
+\end{align*}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bar{x} = \frac{1}{m} \sum_{i=1}^m x_i\)</span> and <span class="math notranslate nohighlight">\(\bar{y} = \frac{1}{m} \sum_{i=1}^m y_i\)</span> are the empirical means.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. First note that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbfcal{X}^\intercal \mathbfcal{X} = \begin{bmatrix} m &amp; m \bar{x} \\ m \bar{x} &amp; \sum_{i=1}^m x_i^2 \end{bmatrix}.
+\end{split}\]</div>
+<p>Assuming this matrix has nonzero determinant, we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left(\mathbfcal{X}^\intercal \mathbfcal{X} \right)^{-1} = \frac{1}{m \sum_{i=1}^m x_i^2 - m^2 \bar{x}^2} \begin{bmatrix} \sum_{i=1}^m x_i^2 &amp; -m \bar{x} \\ -m \bar{x} &amp; m \end{bmatrix}.
+\end{split}\]</div>
+<p>But</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbfcal{X}^\intercal \by = \begin{bmatrix} m \bar{y} \\ \sum_{i=1}^m x_i y_i \end{bmatrix},
+\end{split}\]</div>
+<p>and so from</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \btheta =  \left(\mathbfcal{X}^\intercal \mathbfcal{X}\right)^{-1}\mathbfcal{X}^\intercal \by
+\end{split}\]</div>
+<p>we conclude</p>
+<div class="math notranslate nohighlight">
+\[
+\beta_1 = \frac{\sum_{i=1}^m x_i y_i -m \bar{x}\bar{y} }{ \sum_{i=1}^m x_i^2 - m \bar{x}^2}.
+\]</div>
+<p>But as you may easily check, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^m x_i y_i -m \bar{x}\bar{y}  = \sum_{i=1}^m \left(x_i - \bar{x} \right)\left( y_i - \bar{y} \right)
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^m x_i^2 - m \bar{x}^2 = \sum_{i=1}^m \left(x_i - \bar{x} \right)^2,
+\]</div>
+<p>from which the desired equation for <span class="math notranslate nohighlight">\(\beta_1\)</span> follows. To obtain the equation for <span class="math notranslate nohighlight">\(\beta_0\)</span>, note that the equation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbfcal{X}^\intercal \mathbfcal{X} \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix} = \mathbfcal{X}^\intercal \by 
+\end{split}\]</div>
+<p>implies <span class="math notranslate nohighlight">\(m \beta_0  + m \beta_1 \bar{x} = m \bar{y}\)</span>, and so <span class="math notranslate nohighlight">\(\beta_0 = \bar{y} - \beta_1 \bar{x}\)</span>. Q.E.D.</p>
+</div>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 2 on the worksheet.</p>
+</div>
+<p>To illustrate the concepts, let’s return yet again to the Ames housing dataset (see the description at the beginning of <a class="reference internal" href="11-models.html#lin-reg-sec"><span class="std std-numref">Section 11.3</span></a>). While in principle we may compute the <em>exact</em> MLEs for a linear regression model on this data, it is amusing to approximate them using stochastic gradient descent (SGD). To do this, however, we must “standardize” the area and price features for numerical stability, which means that we subtract the empirical means and divide by the standard deviations. When we do so, we get a scatter plot that looks like:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="c1"># import data</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/data-3-1.csv&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">])</span>
+
+<span class="n">ss</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">data_std</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data_std</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">data_std</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;standardized area&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;standardized price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;data for linear regression&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">data_std</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">data_std</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/70c454faee99fbc87706cb8206387ffedfa987cd12bdf3aa6492cb2d8f5fd6b2.svg" src="../_images/70c454faee99fbc87706cb8206387ffedfa987cd12bdf3aa6492cb2d8f5fd6b2.svg" /></figure>
+</div>
+</div>
+<p>Notice that both features are on similar scales. Then, we run the algorithm using the squared error function</p>
+<div class="math notranslate nohighlight">
+\[
+SE(\btheta; \ x, y) = (y - \beta_0 - \beta x)^2, \quad \btheta = (\beta_0, \beta),
+\]</div>
+<p>as the loss function for SGD:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define link function at Y</span>
+<span class="k">def</span> <span class="nf">mu_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="n">beta0</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;beta0&#39;</span><span class="p">]</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">beta0</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">X</span>
+
+<span class="c1"># define the squared error loss function</span>
+<span class="k">def</span> <span class="nf">SE</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">mu_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="c1"># initialize parameters</span>
+<span class="n">beta0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="o">-</span><span class="mf">10.</span><span class="p">])</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">3.</span><span class="p">])</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;beta0&#39;</span><span class="p">:</span> <span class="n">beta0</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">:</span> <span class="n">beta</span><span class="p">}</span>
+
+<span class="c1"># choose SGD hyperparameters</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">256</span>
+
+<span class="c1"># run SGD</span>
+<span class="n">gd_output</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="n">SE</span><span class="p">,</span> <span class="n">init_parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># plot SGD output</span>
+<span class="n">plot_gd</span><span class="p">(</span><span class="n">gd_output</span><span class="p">,</span>
+         <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;log MSE&#39;</span><span class="p">,</span>
+         <span class="n">plot_title_string</span><span class="o">=</span><span class="s1">&#39;SGD for linear regression&#39;</span><span class="p">,</span>
+         <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+         <span class="n">per_step_label</span><span class="o">=</span><span class="s1">&#39;log MSE per step&#39;</span><span class="p">,</span>
+         <span class="n">per_epoch_label</span><span class="o">=</span><span class="s1">&#39;log mean MSE per epoch&#39;</span><span class="p">,</span>
+         <span class="n">per_epoch_color</span><span class="o">=</span><span class="n">magenta</span><span class="p">,</span>
+         <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+         <span class="n">per_step_alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/2fe18b1aaa671d8590ec6684051da0e714fc9f42655ac36dbf91ee7b7cdd14e3.svg" src="../_images/2fe18b1aaa671d8590ec6684051da0e714fc9f42655ac36dbf91ee7b7cdd14e3.svg" /></figure>
+</div>
+</div>
+<p>Notice that we plotted the logarithm of the MSE—we chose to do this because we purposefully chose initial guesses for the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> that were quite far away from the MLEs, creating large values of the MSE in the initial few steps of the algorithm. This lengthens the learning process, giving us a nicer visualization as the regression line moves into place:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">epoch_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">gd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">):</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">parameter</span><span class="p">[</span><span class="n">epoch</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+    <span class="c1"># plot the objective function</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gd_output</span><span class="o">.</span><span class="n">grad_steps</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">gd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;log MSE per step&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">gd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">[</span><span class="n">epoch</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="n">blue</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;current step&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gd_output</span><span class="o">.</span><span class="n">epoch_step_nums</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">gd_output</span><span class="o">.</span><span class="n">per_epoch_objectives</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;log mean MSE per epoch&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;gradient steps&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;log MSE&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data_std</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">data_std</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">mu_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">grid</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">magenta</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;stochastic gradient descent for linear regression</span><span class="se">\n</span><span class="s1">$</span><span class="se">\\</span><span class="s1">alpha=$</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s1">, $</span><span class="se">\\</span><span class="s1">beta=$0, $k=$</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">, $N=$</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/8f511c88ae4b464ab047cde88bf5543799c1f0fe43555b9a4b150e72de7f50be.svg" src="../_images/8f511c88ae4b464ab047cde88bf5543799c1f0fe43555b9a4b150e72de7f50be.svg" /></figure>
+</div>
+</div>
+</section>
+<section id="mle-for-logistic-regression">
+<span id="mle-log-reg-sec"></span><h2><span class="section-number">12.4. </span>MLE for logistic regression<a class="headerlink" href="#mle-for-logistic-regression" title="Link to this heading">#</a></h2>
+<p>Let’s now turn toward the training process for logistic regression models via maximum likelihood estimation. In contrast to linear regression models, the MLEs are not obtainable in closed form in general, and thus we must apply the optimization algorithms studied in <a class="reference internal" href="10-optim.html#optim"><span class="std std-numref">Chapter 10</span></a>. However, not all good properties are lost, because it turns out that the objective functions in these optimization problems are convex. Our main goal in this section is to establish this fundamental fact.</p>
+<p>But first, we will extract the formula for the model likelihood function of a logistic regression model from <a class="reference internal" href="11-models.html#log-reg-data-pf-thm">Theorem 11.2</a> and apply the negative logarithm function to get:</p>
+<div class="proof theorem admonition" id="log-reg-surprisal-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 12.9 </span> (Surprisal functions of logistic regression models)</p>
+<section class="theorem-content" id="proof-content">
+<p>Consider a logistic regression model with predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>, response variable <span class="math notranslate nohighlight">\(Y\)</span>, and link function at <span class="math notranslate nohighlight">\(Y\)</span> given by</p>
+<div class="math notranslate nohighlight">
+\[
+Y \mid \bX \sim \Ber(\phi) \quad \text{where} \quad \phi = \sigma(\beta_0 + \bx^\intercal \bbeta),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma\)</span> is the sigmoid function. Then the model surprisal function is given by</p>
+<div class="math notranslate nohighlight">
+\[
+\calI_\text{model}(\btheta) = -y \log{\phi} - (1-y) \log(1-\phi).
+\]</div>
+</section>
+</div><p>To establish convexity of the MLE problem for logistic regression models, we need to have formulas for the gradient vector and Hessian matrix of the data surprisal function. To obtain these formulas, it will be convenient to adopt the notation described at the beginning of the previous section regarding the addition of an extra coordinate <span class="math notranslate nohighlight">\(x_0=1\)</span> to a feature vector <span class="math notranslate nohighlight">\(\bx\in \bbr^n\)</span> to create</p>
+<div class="math notranslate nohighlight" id="equation-new-x-eq">
+<span class="eqno">(12.10)<a class="headerlink" href="#equation-new-x-eq" title="Link to this equation">#</a></span>\[
+\bx^\intercal = (x_0,x_1,\ldots,x_n) = (1,x_1,\ldots,x_n).
+\]</div>
+<p>Then the link function in a logistic regression model may be written as <span class="math notranslate nohighlight">\(\phi = \sigma(\bx^\intercal \btheta)\)</span>, where</p>
+<div class="math notranslate nohighlight" id="equation-new-theta-eq">
+<span class="eqno">(12.11)<a class="headerlink" href="#equation-new-theta-eq" title="Link to this equation">#</a></span>\[
+\btheta^\intercal = (\beta_0,\bbeta) = (\beta_0,\beta_1,\ldots,\beta_n)
+\]</div>
+<p>We now compute the gradient and Hessian:</p>
+<div class="proof theorem admonition" id="log-reg-surprisal-grad-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 12.10 </span> (Gradient vectors and Hessian matrices for logistic regression models)</p>
+<section class="theorem-content" id="proof-content">
+<p>Consider a logistic regression model with predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>, response variable <span class="math notranslate nohighlight">\(Y\)</span>, and link function at <span class="math notranslate nohighlight">\(Y\)</span> given by</p>
+<div class="math notranslate nohighlight">
+\[
+Y \mid \bX \sim \Ber(\phi) \quad \text{where} \quad \phi = \sigma(\bx^\intercal \btheta),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bx\)</span> and <span class="math notranslate nohighlight">\(\btheta\)</span> are given by <a class="reference internal" href="#equation-new-x-eq">(12.10)</a> and <a class="reference internal" href="#equation-new-theta-eq">(12.11)</a> above. Then the gradient vector and Hessian matrix of the model surprisal function are given by</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla \calI_\text{model}(\btheta) = (\phi -y)\bx \quad \text{and} \quad \nabla^2 \calI_\text{model}(\btheta) = \phi(1-\phi) \bx \bx^\intercal.
+\]</div>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. For the gradient vector, we compute</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\nabla \calI &amp;= \left(-\frac{y}{\phi}  + \frac{1-y}{1-\phi}\right) \nabla \phi \\
+&amp;= \left(-\frac{y}{\phi}  + \frac{1-y}{1-\phi}\right) \phi(1-\phi) \bx \\
+&amp;= (\phi - y) \bx
+\end{align*}\]</div>
+<p>where the equality <span class="math notranslate nohighlight">\(\nabla \phi = \phi(1-\phi)\bx\)</span> follows from <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/blob/main/homework/12-homework.md#problem-8-the-derivative-of-the-sigmoid-function">this</a> homework problem and the chain rule. Then, for the Hessian matrix, we compute:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\nabla^2 \calI&amp;= \nabla\left( \nabla \calI \right) \\
+&amp;= \nabla (\phi \bx) \\
+&amp;= \begin{bmatrix}
+\uparrow &amp; \cdots &amp; \uparrow \\
+x_0 \nabla(\phi) &amp; \cdots &amp; x_n \nabla(\phi) \\
+\downarrow &amp; \cdots &amp; \downarrow 
+\end{bmatrix} \\
+&amp;= \phi(1-\phi)  \begin{bmatrix}
+\uparrow &amp; \cdots &amp; \uparrow \\
+x_0 \bx &amp; \cdots &amp; x_n \bx \\
+\downarrow &amp; \cdots &amp; \downarrow
+\end{bmatrix} \\
+&amp;= \phi(1-\phi) \bx \bx^\intercal,
+\end{align*}\]</div>
+<p>where we used <a class="reference internal" href="10-optim.html#hess-jac-grad-thm">Theorem 10.1</a> in the first equality. Q.E.D.</p>
+</div>
+<p>An immediate corollary is convexity of the optimization problem:</p>
+<div class="proof corollary admonition" id="log-reg-convex-cor">
+<p class="admonition-title"><span class="caption-number">Corollary 12.2 </span> (Logistic regression models <span class="math notranslate nohighlight">\(\Rightarrow\)</span> convex optimization problems)</p>
+<section class="corollary-content" id="proof-content">
+<p>Both the model and data surprisal functions of a logistic regression model are convex.</p>
+</section>
+</div><div class="proof admonition" id="proof">
+<p>Proof. Letting <span class="math notranslate nohighlight">\(\bz\in \bbr^{n+1}\)</span> be an arbitrary vector, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\bz^\intercal \nabla^2 \calI_\text{model}(\btheta) \bz = \phi(1-\phi) \bz^\intercal \bx \bx^\intercal \bz = \phi(1-\phi) (\bx^\intercal \bz)^\intercal \bx^\intercal \bz = \phi(1-\phi) |\bx^\intercal \bz|^2 \geq 0,
+\]</div>
+<p>since <span class="math notranslate nohighlight">\(\phi \in (0,1)\)</span>. This shows the Hessian matrix of the model surprisal function is positive semidefinite, and thus by <a class="reference internal" href="10-optim.html#main-convex-multi-thm">Theorem 10.8</a>, it is convex. For the data surprisal function, we note that</p>
+<div class="math notranslate nohighlight">
+\[
+\calI_\text{data}(\btheta) = \sum_{i=1}^m \calI_\text{model}(\btheta; \ y_i \mid \bx_i)
+\]</div>
+<p>by <a class="reference internal" href="#likelihood-sur-decompose-disc-thm">Theorem 12.5</a>. Then convexity of <span class="math notranslate nohighlight">\(\calI_\text{data}\)</span> follows from linearity of the “Hessian matrix operation,” along with the observation that a sum of positive semidefinite matrices is positive semidefinite. Q.E.D.</p>
+</div>
+<p>Convexity of the optimization problem opens doors for other algorithms besides gradient descent, like the <a class="reference external" href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton-Raphson algorithm</a>.</p>
+<p>Let’s bring back the dataset from <a class="reference internal" href="11-models.html#log-reg-sec"><span class="std std-numref">Section 11.4</span></a>:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch12-book-data-01.csv&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c1"># convert the data to numpy arrays</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="s1">&#39;x_2&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<span class="c1"># convert the data to torch tensors</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="c1"># plot the data</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;x_2&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+
+<span class="c1"># change the default seaborn legend</span>
+<span class="n">g</span><span class="o">.</span><span class="n">legend_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">new_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;class 0&#39;</span><span class="p">,</span> <span class="s1">&#39;class 1&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">legend_</span><span class="o">.</span><span class="n">texts</span><span class="p">,</span> <span class="n">new_labels</span><span class="p">):</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;data for logistic regression&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/2b8f2aece7d982d719a233128b130f38e27002f596e82e6a3c4d14b364fd5a8d.svg" src="../_images/2b8f2aece7d982d719a233128b130f38e27002f596e82e6a3c4d14b364fd5a8d.svg" /></figure>
+</div>
+</div>
+<p>Let’s train a logistic regression model on this dataset using the SGD algorithm to locate the global minimizer of the cross entropy from the model distribution to the empirical distribution. This requires the model surprisal function as the loss function for SGD. Running the algorithm for 30 epochs results in the following plot of cross entropy versus gradient steps:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define link function at Y</span>
+<span class="k">def</span> <span class="nf">phi_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="n">beta0</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;beta0&#39;</span><span class="p">]</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">beta0</span> <span class="o">+</span> <span class="n">X</span> <span class="o">@</span> <span class="n">beta</span><span class="p">)</span>
+
+<span class="c1"># define the model surprisal function</span>
+<span class="k">def</span> <span class="nf">I_model</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">phi_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">y</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">phi</span><span class="p">)</span>
+
+<span class="c1"># initialize parameters</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">beta0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mf">1e-1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,))</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mf">1e-1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,))</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;beta0&#39;</span><span class="p">:</span> <span class="n">beta0</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">:</span> <span class="n">beta</span><span class="p">}</span>
+
+<span class="c1"># define SGD parameters</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">1e-1</span>
+
+<span class="c1"># run SGD</span>
+<span class="n">gd_output</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="n">I_model</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">init_parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+
+<span class="c1"># plot SGD</span>
+<span class="n">plot_gd</span><span class="p">(</span><span class="n">gd_output</span><span class="p">,</span>
+        <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">w</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+        <span class="n">plot_title_string</span><span class="o">=</span><span class="s1">&#39;SGD for logistic regression model&#39;</span><span class="p">,</span>
+        <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;cross entropy&#39;</span><span class="p">,</span>
+        <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">per_step_label</span><span class="o">=</span><span class="s1">&#39;cross entropy per step&#39;</span><span class="p">,</span>
+        <span class="n">per_epoch_label</span><span class="o">=</span><span class="s1">&#39;mean cross entropy per epoch&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/41d4a92c5b6192c0fe88b3691d21a283b300b3757fa2dfa35ce6c5c14da9892b.svg" src="../_images/41d4a92c5b6192c0fe88b3691d21a283b300b3757fa2dfa35ce6c5c14da9892b.svg" /></figure>
+</div>
+</div>
+<p>Notice that the curve in this plot is beginning to “plateau,” indicating the algorithm is beginning to converge on the MLE. Since the feature space is <span class="math notranslate nohighlight">\(2\)</span>-dimensional, as we discussed in <a class="reference internal" href="11-models.html#log-reg-sec"><span class="std std-numref">Section 11.4</span></a>, we may check the fit of the model by plotting the decision boundary of the predictor function</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+h:\bbr^2 \to \{0,1\}, \quad h(\bx) = \begin{cases}
+0 &amp; : \phi = \sigma(\beta_0 + \bx^\intercal \bbeta) &lt; 0.5, \\
+1 &amp; : \phi = \sigma(\beta_0 + \bx^\intercal \bbeta) \geq 0.5.
+\end{cases}
+\end{split}\]</div>
+<p>It is interesting to watch this decision boundary move into the optimal position as the training process progresses:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the predictor</span>
+<span class="k">def</span> <span class="nf">predictor</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">phi_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">phi</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+
+<span class="c1"># define grid for contour plot</span>
+<span class="n">resolution</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">x1_grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">resolution</span><span class="p">)</span>
+<span class="n">x2_grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">resolution</span><span class="p">)</span>
+<span class="n">x1_grid</span><span class="p">,</span> <span class="n">x2_grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x1_grid</span><span class="p">,</span> <span class="n">x2_grid</span><span class="p">)</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">x1_grid</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">resolution</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span> <span class="n">x2_grid</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">resolution</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))))</span>
+
+<span class="c1"># define colormap for the contour plots</span>
+<span class="n">desat_blue</span> <span class="o">=</span> <span class="s1">&#39;#7F93FF&#39;</span>
+<span class="n">desat_magenta</span> <span class="o">=</span> <span class="s1">&#39;#FF7CFE&#39;</span>
+<span class="n">binary_cmap</span> <span class="o">=</span> <span class="n">clr</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;binary&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="n">desat_blue</span><span class="p">,</span> <span class="n">desat_magenta</span><span class="p">],</span> <span class="n">N</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">epoch_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">gd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">running_parameters</span> <span class="o">=</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">parameters</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">):</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">[</span><span class="n">epoch</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">running_parameters</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    
+    <span class="c1"># plot the objective function</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gd_output</span><span class="o">.</span><span class="n">grad_steps</span><span class="p">,</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;cross entropy per step&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">[</span><span class="n">epoch</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">blue</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;current step&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gd_output</span><span class="o">.</span><span class="n">epoch_step_nums</span><span class="p">,</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">per_epoch_objectives</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mean cross entropy per epoch&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;gradient steps&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;cross entropy&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="c1"># apply the fitted model to the grid</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">predictor</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+
+    <span class="c1"># plot the decision boundary and colors</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">resolution</span><span class="p">,</span> <span class="n">resolution</span><span class="p">))</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1_grid</span><span class="p">,</span> <span class="n">x2_grid</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">binary_cmap</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+
+    <span class="c1"># plot the data</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;x_2&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># change the default seaborn legend</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">legend_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">new_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;class 0&#39;</span><span class="p">,</span> <span class="s1">&#39;class 1&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">legend_</span><span class="o">.</span><span class="n">texts</span><span class="p">,</span> <span class="n">new_labels</span><span class="p">):</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;stochastic gradient descent for logistic regression</span><span class="se">\n</span><span class="s1">$</span><span class="se">\\</span><span class="s1">alpha=$</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s1">, $</span><span class="se">\\</span><span class="s1">beta=$0, $N=$</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/a905e2a1686ca48044b2726c03197d546b2309e228a09c3ac7caf72dc715f503.svg" src="../_images/a905e2a1686ca48044b2726c03197d546b2309e228a09c3ac7caf72dc715f503.svg" /></figure>
+</div>
+</div>
+</section>
+<section id="mle-for-neural-networks">
+<span id="mle-nn-sec"></span><h2><span class="section-number">12.5. </span>MLE for neural networks<a class="headerlink" href="#mle-for-neural-networks" title="Link to this heading">#</a></h2>
+<p>In this section, we encounter our third optimization problem of maximum likelihood estimation. These problems have been presented in the chapter in order of increasing difficulty, beginning with the easiest in <a class="reference internal" href="#mle-lin-reg-sec"><span class="std std-numref">Section 12.3</span></a> where we discovered that the MLEs for linear regression models are obtainable in closed form <em>and</em> that the optimization problem is convex. For logistic regression models, discussed in <a class="reference internal" href="#mle-log-reg-sec"><span class="std std-numref">Section 12.4</span></a>, we lost the ability (in general) to write down closed form solutions for MLEs, but the optimization problem was still convex. Now, in the current section, we lose both of these desirable properties: In general, the optimization problems of maximum likelihood estimation for neural network models have neither closed form solutions nor are they convex.</p>
+<p>Thinking visually and using intuition and language adapted from low dimensions, we imagine that the graph of a (strictly) convex objective function <span class="math notranslate nohighlight">\(J:\bbr^n \to \bbr\)</span> is a hypersurface embedded in <span class="math notranslate nohighlight">\(\bbr^{n+1}\)</span> with a single “lowest valley” (global minimum). The gradient descent algorithms follow the negative gradient “downhill” until they reach a neighborhood of this global minimizer. But for a nonconvex <span class="math notranslate nohighlight">\(J\)</span>, there might be both local minima and maxima (i.e., local “peaks” and “valleys”), as well as <em>saddle points</em> where the gradient vanishes, but where the Hessian matrix has both negative and positive eigenvalues, resulting in both “upward” and “downward” directional curvatures. This means that it is possible for gradient descent to get “stuck” in a local minimum with relatively high objective value, or that it follows a “downhill” trajectory leading to a saddle point and again gets “stuck” (or at least significantly slowed down). However, intuition suggests at least that local minima are rare in high dimensions since it should require very special circumstances and structure for positivity of <em>all</em> eigenvalues of a Hessian matrix. But saddle points remain a concern.</p>
+<p>Parameter initialization is also a significant concern for neural network models. With strictly convex objective functions, convergence of gradient descent to the global minimizer is guaranteed beginning from <em>all</em> initial choices for the parameters, at least if the learning rate is chosen appropriately. But for a completely general nonconvex objective function, convergence guarantees do not exist.</p>
+<p>However, the objective functions encountered in training neural network models are <em>not</em> ordinary nonconvex functions—they still retain enough structure that tools and best practices may be developed and utilized to help encourage gradient descent to converge on decent solutions. Our little introduction to neural networks and deep learning in this book is not the place to discuss these in detail—for that, we direct the reader toward specialized treatments given in Chapter 8 of <span id="id3">[<a class="reference internal" href="bib.html#id10" title="I. Goodfellow, Y. Bengio, and A. Courville. Deep learning. MIT Press, 2016.">GBC16</a>]</span>, Chapter 7 in <span id="id4">[<a class="reference internal" href="bib.html#id11" title="M. Hardt and B. Recht. Patterns, predictions, and actions. Foundations of machine learning. Princeton University Press, 2022.">HR22</a>]</span>, and also <a class="reference external" href="https://d2l.ai/chapter_optimization/index.html">here</a>.</p>
+<p>We begin by extracting the surprisal function of a neural network (with one hidden layer) from <a class="reference internal" href="11-models.html#neural-net-pf-def">Definition 11.9</a>:</p>
+<div class="proof theorem admonition" id="nn-surprisal-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 12.11 </span> (Surprisal functions of neural network models)</p>
+<section class="theorem-content" id="proof-content">
+<p>Consider a neural network model with a predictor vector <span class="math notranslate nohighlight">\(\bX\)</span>, response variable <span class="math notranslate nohighlight">\(Y\)</span>, and link functions given by</p>
+<div class="math notranslate nohighlight" id="equation-two-links-eq">
+<span class="eqno">(12.12)<a class="headerlink" href="#equation-two-links-eq" title="Link to this equation">#</a></span>\[
+\phi = \sigma(\ba^\intercal \bw_2 + b_2) \quad \text{and} \quad \ba^\intercal = \rho(\bx^\intercal \mathbf{W}_1 + \bb_1^\intercal),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma\)</span> is the sigmoid function and <span class="math notranslate nohighlight">\(\rho\)</span> the ReLU function. Then the model surprisal function is given by</p>
+<div class="math notranslate nohighlight" id="equation-nn-surprise-eq">
+<span class="eqno">(12.13)<a class="headerlink" href="#equation-nn-surprise-eq" title="Link to this equation">#</a></span>\[
+\calI_\text{model}(\bW_1,\bb_1, \bw_2,b_2) = -y \log{\phi} - (1-y) \log(1-\phi).
+\]</div>
+</section>
+</div><p>Notice that the expression on the right-hand side of <a class="reference internal" href="#equation-nn-surprise-eq">(12.13)</a> is the same as the expression for the model surprisal function of a logistic regression model given in <a class="reference internal" href="#log-reg-surprisal-thm">Theorem 12.9</a>. The difference between the two expressions manifests in the dependence of <span class="math notranslate nohighlight">\(\phi\)</span> on the parameters of the model: For a logistic regression model, we have the simple dependence</p>
+<div class="math notranslate nohighlight">
+\[
+\phi = \sigma(\beta_0 + \bx^\intercal\bbeta ),
+\]</div>
+<p>while for a neural network model the dependence of <span class="math notranslate nohighlight">\(\phi\)</span> on the parameters is given by the two link functions <a class="reference internal" href="#equation-two-links-eq">(12.12)</a>.</p>
+<p>Now, let’s bring back the dataset from <a class="reference internal" href="11-models.html#nn-sec"><span class="std std-numref">Section 11.5</span></a>:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/jmyers7/stats-book-materials/main/data/ch12-book-data-02.csv&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c1"># convert the data to numpy arrays</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="s1">&#39;x_2&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<span class="c1"># convert the data to torch tensors</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="c1"># plot the data</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;x_2&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+
+<span class="c1"># change the default seaborn legend</span>
+<span class="n">g</span><span class="o">.</span><span class="n">legend_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">new_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;class 0&#39;</span><span class="p">,</span> <span class="s1">&#39;class 1&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">legend_</span><span class="o">.</span><span class="n">texts</span><span class="p">,</span> <span class="n">new_labels</span><span class="p">):</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;data for neural network model&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/5d2d8cbaf15a5de3e4782e89ca6bc3a3053e9876fdf5a25bfabc27a2b3d3fa8a.svg" src="../_images/5d2d8cbaf15a5de3e4782e89ca6bc3a3053e9876fdf5a25bfabc27a2b3d3fa8a.svg" /></figure>
+</div>
+</div>
+<p>We will train a neural network with three hidden layers of widths <span class="math notranslate nohighlight">\(8\)</span>, <span class="math notranslate nohighlight">\(8\)</span>, and <span class="math notranslate nohighlight">\(4\)</span> to predict the classes of the data in the scatter plot. We will run SGD with the data surprisal function as the loss function, so that the objective is to minimize the (conditional) cross entropy from the model distribution to the empirical distribution:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define link function at Y</span>
+<span class="k">def</span> <span class="nf">phi_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+
+    <span class="c1"># initialize the a-value with x</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">X</span>
+
+    <span class="c1"># loop through hidden layers</span>
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;weight_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">)]</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;bias_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">)]</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">a</span> <span class="o">@</span> <span class="n">W</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+    
+    <span class="c1"># compute link function at output layer</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;weight_4&#39;</span><span class="p">]</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;bias_4&#39;</span><span class="p">]</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">a</span> <span class="o">@</span> <span class="n">W</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">phi</span>
+
+<span class="c1"># define the model surprisal function</span>
+<span class="k">def</span> <span class="nf">I_model</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">phi_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">y</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">phi</span><span class="p">)</span>
+
+<span class="c1"># define the network architecture</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># width of first hidden layer</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># width of second hidden layer</span>
+<span class="n">p3</span> <span class="o">=</span> <span class="mi">4</span> <span class="c1"># width of third hidden layer</span>
+<span class="n">widths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># initialize parameters</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+    <span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">widths</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">widths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">bias</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">widths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">uniform_</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="n">a</span><span class="o">=-</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="n">widths</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="n">widths</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">uniform_</span><span class="p">(</span><span class="n">bias</span><span class="p">,</span> <span class="n">a</span><span class="o">=-</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="n">widths</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="n">widths</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span> <span class="o">|</span> <span class="p">{</span><span class="s1">&#39;weight_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="n">weight</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()}</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span> <span class="o">|</span> <span class="p">{</span><span class="s1">&#39;bias_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="n">bias</span><span class="p">}</span>
+
+<span class="c1"># define SGD parameters</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="c1"># run SGD</span>
+<span class="n">gd_output</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="n">I_model</span><span class="p">,</span> <span class="n">init_parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># plot SGD</span>
+<span class="n">plot_gd</span><span class="p">(</span><span class="n">gd_output</span><span class="p">,</span>
+         <span class="n">h</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+         <span class="n">w</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+         <span class="n">plot_title_string</span><span class="o">=</span><span class="s1">&#39;SGD for neural network model&#39;</span><span class="p">,</span>
+         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;cross entropy&#39;</span><span class="p">,</span>
+         <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+         <span class="n">per_step_label</span><span class="o">=</span><span class="s1">&#39;cross entropy per step&#39;</span><span class="p">,</span>
+         <span class="n">per_epoch_label</span><span class="o">=</span><span class="s1">&#39;mean cross entropy per epoch&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/4213cdf5416c6e629efd6a3df799479a822c11cae0a32dd1cf0461720e5afd5c.svg" src="../_images/4213cdf5416c6e629efd6a3df799479a822c11cae0a32dd1cf0461720e5afd5c.svg" /></figure>
+</div>
+</div>
+<p>The algorithm takes almost <span class="math notranslate nohighlight">\(2{,}000\)</span> gradient steps, spread over <span class="math notranslate nohighlight">\(N=80\)</span> epochs with a mini-batch size of <span class="math notranslate nohighlight">\(k=128\)</span> on a dataset of size <span class="math notranslate nohighlight">\(m=3{,}072\)</span>.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 3 on the worksheet.</p>
+</div>
+<p>Just as we did for the logistic regression model in the previous section, it is interesting to watch the decision boundary of the predictor function move into the optimal position as the training process progresses:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the predictor</span>
+<span class="k">def</span> <span class="nf">predictor</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">phi_link</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">phi</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+
+<span class="c1"># get the grid for the contour plot</span>
+<span class="n">resolution</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">x1_grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.75</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="n">resolution</span><span class="p">)</span>
+<span class="n">x2_grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">resolution</span><span class="p">)</span>
+<span class="n">x1_grid</span><span class="p">,</span> <span class="n">x2_grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x1_grid</span><span class="p">,</span> <span class="n">x2_grid</span><span class="p">)</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">x1_grid</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">resolution</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span> <span class="n">x2_grid</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">resolution</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))))</span>
+
+<span class="n">epoch_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">750</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">gd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">running_parameters</span> <span class="o">=</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">parameters</span>
+
+<span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">):</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">[</span><span class="n">epoch</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">running_parameters</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    
+    <span class="c1"># plot the objective function</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gd_output</span><span class="o">.</span><span class="n">grad_steps</span><span class="p">,</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;cross entropy per step&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">epoch_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">per_step_objectives</span><span class="p">[</span><span class="n">epoch</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">blue</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;current step&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gd_output</span><span class="o">.</span><span class="n">epoch_step_nums</span><span class="p">,</span> <span class="n">gd_output</span><span class="o">.</span><span class="n">per_epoch_objectives</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;mean cross entropy per epoch&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;gradient steps&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;cross entropy&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="c1"># apply the fitted model to the grid</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">predictor</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+
+    <span class="c1"># plot the decision boundary and colors</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">resolution</span><span class="p">,</span> <span class="n">resolution</span><span class="p">))</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1_grid</span><span class="p">,</span> <span class="n">x2_grid</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">binary_cmap</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+
+    <span class="c1"># plot the data</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x_1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;x_2&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># change the default seaborn legend</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">legend_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">new_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;class 0&#39;</span><span class="p">,</span> <span class="s1">&#39;class 1&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">legend_</span><span class="o">.</span><span class="n">texts</span><span class="p">,</span> <span class="n">new_labels</span><span class="p">):</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;stochastic gradient descent for neural network model</span><span class="se">\n</span><span class="s1">$</span><span class="se">\\</span><span class="s1">alpha=$</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s1">, $</span><span class="se">\\</span><span class="s1">beta=$0, $k=$</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">, $N=$</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<img alt="../_images/5500f308ccebba83ce4069113544c3cb2acea6c29815f8ca3b9c3b3cfde08cb2.svg" src="../_images/5500f308ccebba83ce4069113544c3cb2acea6c29815f8ca3b9c3b3cfde08cb2.svg" /></figure>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="11-models.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>Probabilistic graphical models</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="bib.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">13. </span>Bibliography</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-first-look-at-likelihood-based-learning-objectives">12.1. A first look at likelihood-based learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-mle">12.2. General MLE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-linear-regression">12.3. MLE for linear regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-logistic-regression">12.4. MLE for logistic regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mle-for-neural-networks">12.5. MLE for neural networks</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By John Myers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

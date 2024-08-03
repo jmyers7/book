@@ -12,7 +12,7 @@ kernelspec:
 ---
 
 (intro)=
-# Mathematical Statistics with a View Toward Machine Learning
+# Probability Theory with a View Toward Machine Learning
 
 ```{image} ./img/wallpaper4.png
 :width: 100%
@@ -20,13 +20,13 @@ kernelspec:
 ```
 &nbsp;
 
-This textbook is the result of my search for a book that combines a mathematically rigorous treatment of probability and statistics with applications in machine learning and coding in Python: I could not find such a textbook, so I wrote one. (Or, depending on when you are reading this, I am in the _process_ of writing one.)
+This textbook is the result of my search for a book that combines a mathematically rigorous treatment of probability theory with applications in machine learning and coding in Python: I could not find such a textbook, so I wrote one.
 
-The intended audience is upper-level undergraduate students majoring in mathematics, statistics, computer science, and other STEM disciplines that make heavy use of statistical concepts and techniques.
+The intended audience for the book is upper-level undergraduate students and first-year graduate students specializing in mathematics, statistics, computer science, and other STEM disciplines that make heavy use of probabilistic concepts and machine learning.
 
-* On the mathematical side, I assume that the reader has completed the calculus sequence typical at most US universities, up to and including multi-variable calculus. We also make good use of linear algebra in the middle chapters. The reader should know the basics of vectors, matrices, determinants, and eigenvalues and eigenvectors. Other concepts from linear algebra will be introduced when they are needed.
+* On the mathematical side, I assume that the reader has completed the calculus sequence typical at most US universities, up to and including multi-variable calculus. I also make good use of linear algebra in the middle chapters. The reader should know the basics of vectors, matrices, determinants, and eigenvalues and eigenvectors. Other concepts from linear algebra will be introduced when they are needed.
 
-* On the programming side, I assume that the reader knows only the basics of Python and writing code in Jupyter notebooks. Nothing advanced is needed---just a familiarity with the fundamental data structures in the language, as well as basic logic, control flow, and functions. The big libraries (e.g., NumPy, pandas, matplotlib, seaborn, SciPy, PyTorch, scikit-learn, statsmodels, _etc_.) will be introduced throughout the course.
+* On the programming side, I assume that the reader knows only the basics of Python and writing code in Jupyter notebooks. Nothing advanced is needed---just a familiarity with the fundamental data structures in the language, as well as basic logic, control flow, and functions. The big libraries (e.g., NumPy, pandas, matplotlib, seaborn, SciPy, PyTorch, scikit-learn, _etc_.) will be introduced throughout the course.
 
 ## How to use this book
 
@@ -62,18 +62,17 @@ print('Hello, world!')
 
 * However, I believe the task of learning the mathematical theory _and_ its computer implementation is made more difficult if both are attempted to be learned _simultaneously_. Therefore, the textbook itself does not explain the Python implementations; rather, these are left to the programming assignments in the Jupyter notebooks contained in the GitHub repository. These notebooks contain ample guidance in the markdown cells, which is also supplemented by in-class demonstrations during which I introduce the programming assignments.
 
-## References and further reading
+## A description of the content matter
 
-Besides the text itself, much of the intellectual effort in this endeavor has been directed toward the programming assignments which are all developed and written from scratch. Therefore, in order to expedite writing, I have had to borrow significantly from other textbooks for the worksheet problems. These other texts include those written by:
+The first four chapters of the book cover the basics of abstract probability theory. Through real-world datasets and their associated empirical distributions, the fifth chapter provides a respite from the deluge of theory in the early chapters and marks the first time in the book that probabilistic models are introduced. The sixth and seventh chapters tie up some probabilistic loose ends.
 
-* {cite:ts}`DeGrootSchervish2014`,
-* {cite:ts}`Dekking2005`,
-* {cite:ts}`Devore2021`,
-* {cite:ts}`Rice2006`,
-* {cite:ts}`Wackerly2014`, and
-* {cite:ts}`Wasserman2004`.
+Except for the Python code and (perhaps) my special emphasis on mathematical rigor, there is not much that differentiates the first seven chapters of this book from other texts on probability theory. But, beginning with the eighth chapter, probability theory moves to a supporting role while probabilistic models become the main objects of study. The novelty in my treatment is that these models are studied from the perspective of a (mathematically inclined) machine learning engineer, rather than from a statistician's perspective. This difference in perspective accounts for the ninth chapter on information theory, where the reader will find treatments of Shannon entropy and information, along with the fundamental concept of Kullback-Leibler divergence.
 
-Depending on my future time commitments and motivation, I might return and compose more original worksheet problems. But that won't happen any time soon. In any case, I highly recommend each of these texts and their problem banks for further study.
+The overarching goal of the tenth chapter is a description of the foundational gradient descent algorithms, including the stochastic version. The treatment does not shy away from mathematical details and thus it might be the most difficult chapter in the book. The reader can expect to thoroughly exercise their understanding of multivariable calculus and linear algebra. (This being said, when I taught this chapter to a real class I skipped many technical details.)
+
+The eleventh chapter describes a trio of the most basic families of probabilistic models encountered in machine learning: Linear and logistic regression models, as well as (fully-connected, feedforward) neural networks. Mixture models and Naive Bayes models appear in the homework and programming assignment for this chapter. All these models are presented in the context of probabilistic **graphical** models (PGMs)---the expert reader who knows something of PGMs from other textbooks will recognize that there are some differences in my definitions and terminology. Beware!
+
+Finally, in the culminating twelfth chapter of the book, we get down to the business of training PGMs. The main theoretical result of the chapter is a proof of the equivalence of four training objectives: (1) Minimizing Kullback-Leibler divergence, (2) minimizing cross entropy, (3) minimizing surprisal, (4) maximizing likelihood. Following this result, the reader will see concrete examples of how these training objectives can be attacked via the gradient descent algorithms introduced earlier in the book. In the programming assignment for the chapter, the reader will try their hand at training a Naive Bayes model to classify spam emails.
 
 ---
 

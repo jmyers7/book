@@ -1,0 +1,1699 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4. Examples of random variables &#8212; Probability Theory with a View Toward Machine Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"argmax": "\\operatorname*{argmax}", "argmin": "\\operatorname*{argmin}", "MSE": "\\operatorname*{MSE}", "MAE": "\\operatorname*{MAE}", "Ber": "\\mathcal{B}er", "Cat": "\\mathcal{C}at", "Beta": "\\mathcal{B}eta", "Bin": "\\mathcal{B}in", "def": "\\stackrel{\\text{def}}{=}", "balpha": "\\boldsymbol\\alpha", "bbeta": "\\boldsymbol\\beta", "bdelta": "\\boldsymbol\\delta", "bmu": "\\boldsymbol\\mu", "bfeta": "\\boldsymbol\\eta", "btheta": "\\boldsymbol\\theta", "bpi": "\\boldsymbol\\pi", "bTheta": "\\boldsymbol\\Theta", "bSigma": "\\boldsymbol\\Sigma", "dev": "\\varepsilon", "bbr": "\\mathbb{R}", "ba": "\\mathbf{a}", "bb": "\\mathbf{b}", "bc": "\\mathbf{c}", "bd": "\\mathbf{d}", "be": "\\mathbf{e}", "bf": "\\mathbf{f}", "bg": "\\mathbf{g}", "bp": "\\mathbf{p}", "br": "\\mathbf{r}", "bs": "\\mathbf{s}", "bu": "\\mathbf{u}", "bv": "\\mathbf{v}", "bw": "\\mathbf{w}", "bx": "\\mathbf{x}", "by": "\\mathbf{y}", "bz": "\\mathbf{z}", "bA": "\\mathbf{A}", "bB": "\\mathbf{B}", "bE": "\\mathbf{E}", "bF": "\\mathbf{F}", "bD": "\\mathbf{D}", "bH": "\\mathbf{H}", "bI": "\\mathbf{I}", "bK": "\\mathbf{K}", "bS": "\\mathbf{S}", "bP": "\\mathbf{P}", "bQ": "\\mathbf{Q}", "bW": "\\mathbf{W}", "bX": "\\mathbf{X}", "bY": "\\mathbf{Y}", "bZ": "\\mathbf{Z}", "calJ": "\\mathcal{J}", "calH": "\\mathcal{H}", "calI": "\\mathcal{I}", "calL": "\\mathcal{L}", "calN": "\\mathcal{N}", "calP": "\\mathcal{P}", "calS": "\\mathcal{S}", "Jac": "\\operatorname{Jac}", "thetaMLE": "\\widehat{\\theta}_{\\text{MLE}}", "bthetaMLE": "\\widehat{\\btheta}_{\\text{MLE}}", "thetaMAP": "\\widehat{\\theta}_{\\text{MAP}}", "bthetaMAP": "\\widehat{\\btheta}_{\\text{MAP}}", "hattheta": "\\widehat{\\theta}", "hatbtheta": "\\widehat{\\btheta}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/04-examples-of-rvs';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5. Connecting theory to practice: a first look at model building" href="05-theory-to-practice.html" />
+    <link rel="prev" title="3. Random variables" href="03-random-variables.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/prob-ml.png" class="logo__image only-light" alt="Probability Theory with a View Toward Machine Learning - Home"/>
+    <script>document.write(`<img src="../_static/prob-ml.png" class="logo__image only-dark" alt="Probability Theory with a View Toward Machine Learning - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Probability Theory with a View Toward Machine Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-prob-spaces.html">1. Probability spaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-rules-of-prob.html">2. Rules of probability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-random-variables.html">3. Random variables</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Examples of random variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-theory-to-practice.html">5. Connecting theory to practice: a first look at model building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-random-vectors.html">6. Random vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-more-prob.html">7. More probability theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-halfway.html">8. The halfway point: pivoting toward models and data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-info-theory.html">9. Information theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-optim.html">10. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-models.html">11. Probabilistic graphical models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-learning.html">12. Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bib.html">13. Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/jmyers7/stats-book-materials" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/04-examples-of-rvs.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Examples of random variables</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bernoulli-distributions">4.1. Bernoulli distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binomial-distributions">4.2. Binomial distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-distributions">4.3. Geometric distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypergeometric-distributions">4.4. Hypergeometric distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#poisson-distributions">4.5. Poisson distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-distributions">4.6. Normal distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-distributions">4.7. Exponential distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gamma-distributions">4.8. Gamma distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beta-distributions">4.9. Beta distributions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="examples-of-random-variables">
+<span id="examples"></span><h1><span class="section-number">4. </span>Examples of random variables<a class="headerlink" href="#examples-of-random-variables" title="Link to this heading">#</a></h1>
+<p>I want to begin by returning to a discussion we had in the chapter on <a class="reference internal" href="01-prob-spaces.html#big-pic-1"><span class="std std-ref">probability spaces</span></a>.</p>
+<p>One of the goals of applied mathematics is to use mathematical models to represent real-world scenarios. Of course, no real-world scenario comes packaged together with a preferred mathematical model. Nature or the Universe doesn’t somehow tell you which model to use—rather, it is up to <em>you</em> to choose what you believe is the most appropriate model.</p>
+<p>Making a good choice requires lots of experience and theoretical knowledge, but it also requires you to have a wide knowledge of the various models that are out there. So, as you go along in your studies, you’ll want to build up a library of models that you know a lot about, so that when you’re confronted with a new scenario out in the real world, the chances are high that you know the perfect model. Think of it as “filling your toolkit.”</p>
+<p>In this section, we will begin studying different families of probability distributions for discrete and continuous random variables. Think of these distributions as <em>probabilistic (or statistical) mathematical models</em> that you would be able to use later on, if you ever need them:</p>
+<a class="reference internal image-reference" href="../_images/whichone.svg"><img alt="../_images/whichone.svg" class="align-center" src="../_images/whichone.svg" width="65%" /></a>
+<p> </p>
+<p>Notice that I referred to these probability distributions as belonging to <em>families</em>. Indeed, each of the types of distributions that we will study in this chapter contain <em>infinitely many</em> individual probability distributions. What distinguishes the distributions amongst each other in each family are different <em>parameter</em> settings. For example, we will learn that there is an individual <em>Bernoulli probability distribution</em> for each real number <span class="math notranslate nohighlight">\(p\)</span> between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span> (inclusive). In technical jargon, we would therefore say that the Bernoulli distributions are <em>parametrized</em> by <span class="math notranslate nohighlight">\(p\)</span>.</p>
+<p>Families of probability distributions may need more than one parameter in order to be completely specified. For example, as we will see, <em>hypergeometric distributions</em> actually require <em>three</em> parameters.</p>
+<p>So, if you’re confronted with a real-world scenario, and you decide to model it using one of the types of distributions that we learn about in this chapter, you would then <em>also</em> need to choose the correct parameter setting within your chosen type. Determining (or estimating) the correct parameters is often done with the aid of data, and this process is one of the central topics of <em>inferential statistics</em> that we will study in much more detail in later chapters.</p>
+<hr class="docutils" />
+<p>In this chapter, (most of) the descriptions of the families of probability distributions will follow the same pattern:</p>
+<ol class="arabic simple">
+<li><p>I will begin by defining the distributions in abstract, purely mathematical terms. This includes a description of the parameters of the distributions as well as formulas for the probability mass and density functions.</p></li>
+<li><p>I will show you several plots of probability mass and density functions, to help convey how different parameter settings affect the shapes of the distributions.</p></li>
+<li><p>I will describe an archetypical real-world scenario in which the family of distributions naturally arises. These scenarios will help explain the abstract definitions.</p></li>
+<li><p>I will give you formulas for the expectations and variances.</p></li>
+<li><p>Interspersed between the first four steps are various comments, remarks, and miscellaneous facts, as well as Problem Prompts pointing to the worksheet.</p></li>
+</ol>
+<p>As you read through the sections below, you will notice that the probability spaces <span class="math notranslate nohighlight">\(S\)</span> that serve as the domains of random variables <span class="math notranslate nohighlight">\(X:S\to \mathbb{R}\)</span> have all but disappeared. They haven’t completely gone away, of course, since whenever we talk about random variables they are there lurking in the background. But this is typical of a course at this level—the probability spaces recede, and random variables take their place as the main objects of study.</p>
+<p>Just three more items before we begin:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ol class="arabic simple">
+<li><p>All the distributions below will be defined via their probability mass and density functions. However, I will <em>not</em> prove that these alleged mass and density functions actually <em>are</em> valid mass and density functions by showing they sum and integrate to <span class="math notranslate nohighlight">\(1\)</span>, are non-negative, <em>etc</em>. I will leave these tasks to the reader to carry out on their own, or to look up in appropriate references.</p></li>
+<li><p>Though the list of distributions in this chapter is long, it is not exhaustive! We will meet other types of distributions later, like the <span class="math notranslate nohighlight">\(\chi^2\)</span>, <span class="math notranslate nohighlight">\(t\)</span>, and <span class="math notranslate nohighlight">\(F\)</span> distributions. And beyond this course, there are lots and <em>lots</em> more distributions out there—take a look at all the distributions <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/stats.html#probability-distributions">implemented</a> in SciPy, for example!</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(X:S\to \mathbb{R}\)</span> is either a discrete or continuous random variable with mass function <span class="math notranslate nohighlight">\(p(x)\)</span> or density function <span class="math notranslate nohighlight">\(f(x)\)</span>, then we shall define the <em>support</em> of <span class="math notranslate nohighlight">\(X\)</span> to be the support of either <span class="math notranslate nohighlight">\(p(x)\)</span> or <span class="math notranslate nohighlight">\(f(x)\)</span> (whichever is applicable). This is technically an incorrect usage of terminology, since the support of <span class="math notranslate nohighlight">\(X\)</span> is already defined as the (closure of the) set of those sample points <span class="math notranslate nohighlight">\(s\in S\)</span> such that <span class="math notranslate nohighlight">\(X(s)\neq 0\)</span>. However, this usage coincides with common usage in the statistical literature.</p></li>
+</ol>
+</div>
+<section id="bernoulli-distributions">
+<h2><span class="section-number">4.1. </span>Bernoulli distributions<a class="headerlink" href="#bernoulli-distributions" title="Link to this heading">#</a></h2>
+<p>Our first family of distributions are certainly the simplest. But don’t let their simplicity fool you—we will see soon enough that they are <em>very</em> important, since they sometimes occur as the “building blocks” of more complicated and complex distributions!</p>
+<div class="proof definition admonition" id="bernoulli-def">
+<p class="admonition-title"><span class="caption-number">Definition 4.1 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\theta\)</span> be a real number with <span class="math notranslate nohighlight">\(0\leq \theta \leq 1\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>Bernoulli distribution</em> with parameter <span class="math notranslate nohighlight">\(\theta\)</span>, denoted</p>
+<div class="math notranslate nohighlight" id="equation-dist-eqn">
+<span class="eqno">(4.1)<a class="headerlink" href="#equation-dist-eqn" title="Link to this equation">#</a></span>\[
+X \sim \mathcal{B}er(\theta),
+\]</div>
+<p>if its probability mass function is given by</p>
+<div class="math notranslate nohighlight" id="equation-bern-eqn">
+<span class="eqno">(4.2)<a class="headerlink" href="#equation-bern-eqn" title="Link to this equation">#</a></span>\[
+p(x;\theta) = \theta^x(1-\theta)^{1-x}.
+\]</div>
+<p>with support <span class="math notranslate nohighlight">\(\{0,1\}\)</span>.</p>
+</section>
+</div><p>The notation <a class="reference internal" href="#equation-dist-eqn">(4.1)</a> is shorthand for: “The random variable <span class="math notranslate nohighlight">\(X\)</span> has a Bernoulli distribution with parameter <span class="math notranslate nohighlight">\(\theta\)</span>.” The symbol “<span class="math notranslate nohighlight">\(\sim\)</span>” simply means “is distributed as.” The “thing” <span class="math notranslate nohighlight">\(\mathcal{B}er(\theta)\)</span> doesn’t really have any sort of existence of its own outside this notation, though sometimes people treat it as if it were the probability mass function, or the distribution function, or whatever. In any case, this is incredibly helpful notation and can be used in many ways to shorten the amount that we need to write.</p>
+<p>The outputs of a Bernoulli random variable consist of just two values, <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. For that reason, Bernoulli random variables might also be called <em>binary</em> random variables.</p>
+<p>Since <span class="math notranslate nohighlight">\(x\)</span> can be only <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>, this means that the formula <a class="reference internal" href="#equation-bern-eqn">(4.2)</a> for the probability mass function could equally be re-written as</p>
+<div class="math notranslate nohighlight" id="equation-bern2-eqn">
+<span class="eqno">(4.3)<a class="headerlink" href="#equation-bern2-eqn" title="Link to this equation">#</a></span>\[\begin{split}
+p(x;\theta) = \begin{cases} \theta &amp; : x=1, \\ 1-\theta &amp; : x=0.\end{cases}
+\end{split}\]</div>
+<p>Therefore, a random variable <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(\theta)\)</span> outputs the value <span class="math notranslate nohighlight">\(1\)</span> with probability <span class="math notranslate nohighlight">\(\theta\)</span>, and the value <span class="math notranslate nohighlight">\(0\)</span> with probability <span class="math notranslate nohighlight">\(1-\theta\)</span>. Using this fact, I bet you would have no problem drawing probability histograms for various settings for <span class="math notranslate nohighlight">\(\theta\)</span>. Here’s what you would get:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span> 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+<span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;../aux-files/custom_style_light.mplstyle&#39;</span><span class="p">)</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">600</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.50</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">]]</span>
+<span class="n">support</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">bernoulli</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">theta</span><span class="p">)</span>
+    
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">support</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\theta=</span><span class="si">{</span><span class="n">theta</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PMF of a random variable $X\sim \mathcal</span><span class="si">{B}</span><span class="s1">er(\theta)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/4f0c70e10e461e45a6e116c322b29d776c329d8f8dfbd1053a9b02025c2766a8.png"><img alt="../_images/4f0c70e10e461e45a6e116c322b29d776c329d8f8dfbd1053a9b02025c2766a8.png" src="../_images/4f0c70e10e461e45a6e116c322b29d776c329d8f8dfbd1053a9b02025c2766a8.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>Notice that different values of the parameter <span class="math notranslate nohighlight">\(\theta\)</span> fundamentally alter the <em>shape</em> of the distribution. For this reason, the parameter <span class="math notranslate nohighlight">\(\theta\)</span> is often called the <em>shape parameter</em> for Bernoulli distributions.</p>
+<p>In what sort of real-world scenario would Bernoulli random variables naturally occur? Here’s one:</p>
+<div class="admonition-an-archetypical-bernoulli-scenario admonition">
+<p class="admonition-title">An archetypical Bernoulli scenario</p>
+<p><strong>Q</strong>: Suppose that a coin is flipped once and <span class="math notranslate nohighlight">\(X\)</span> is the number of heads obtained. Suppose further that we allow for the possibility that the coin is <em>loaded</em>, so that it lands heads with probability <span class="math notranslate nohighlight">\(\theta\)</span> (which may not be <span class="math notranslate nohighlight">\(0.5\)</span>!). What is the distribution of the random variable <span class="math notranslate nohighlight">\(X\)</span>?</p>
+<p><strong>A</strong>: <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(\theta)\)</span>.</p>
+</div>
+<p>It’s pretty obvious that <span class="math notranslate nohighlight">\(X\)</span> is distributed as a Bernoulli random variable, right? After all, since <span class="math notranslate nohighlight">\(X\)</span> is the number of heads obtained after <em>one</em> flip, there are only two options: <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>. Moreover, they are <em>telling us</em> that <span class="math notranslate nohighlight">\(X=1\)</span> occurs with probability <span class="math notranslate nohighlight">\(\theta\)</span>, and therefore <span class="math notranslate nohighlight">\(X=0\)</span> must occur with whatever probability is “left over,” which is exactly <span class="math notranslate nohighlight">\(1-\theta\)</span>. So, the probability function of <span class="math notranslate nohighlight">\(X\)</span> must be <a class="reference internal" href="#equation-bern2-eqn">(4.3)</a>, which means <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(\theta)\)</span> by definition.</p>
+<p>Clearly, any scenario which results in a binary outcome with fixed probabilities may be modeled using a Bernoulli random variable. We will explore a few such scenarios in the worksheet problems when we get to the Problem Prompt below. But first, let’s state the expectations and variances of Bernoulli variables:</p>
+<div class="proof theorem admonition" id="exp-var-bernoulli-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 4.1 </span> (Expectations and variances of Bernoulli variables)</p>
+<section class="theorem-content" id="proof-content">
+<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(\theta)\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+E(X) = \theta \quad \text{and} \quad V(X) = \theta (1-\theta). 
+\]</div>
+</section>
+</div><p>The proofs of these equalities are mere trivialities: For the expectation, we have</p>
+<div class="math notranslate nohighlight">
+\[
+E(X) = 0\cdot(1-\theta) + 1\cdot \theta = \theta,
+\]</div>
+<p>while for the variance we have</p>
+<div class="math notranslate nohighlight">
+\[
+V(X) = E(X^2) - E(X)^2 = 0^2 \cdot (1-\theta) + 1^2 \cdot \theta - \theta^2 = \theta (1-\theta).
+\]</div>
+<p>Notice, in particular, that the mean of a variable <span class="math notranslate nohighlight">\(X\sim \mathcal{B}er(\theta)\)</span> is the parameter <span class="math notranslate nohighlight">\(\theta\)</span>. So, it is accurate to say that Bernoulli random variables are parametrized by their means. We will see that this is <em>also</em> true for a few other families of random variables besides the Bernoulli random variables.</p>
+</section>
+<section id="binomial-distributions">
+<h2><span class="section-number">4.2. </span>Binomial distributions<a class="headerlink" href="#binomial-distributions" title="Link to this heading">#</a></h2>
+<p>Next come distributions whose probability mass functions look a lot like the probability functions of Bernoulli random variables.</p>
+<div class="proof definition admonition" id="binomial-def">
+<p class="admonition-title"><span class="caption-number">Definition 4.2 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(n\geq 0\)</span> be an integer and let <span class="math notranslate nohighlight">\(\theta\)</span> be a real number with <span class="math notranslate nohighlight">\(0\leq \theta \leq 1\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>binomial distribution</em> with parameters <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span>, denoted</p>
+<div class="math notranslate nohighlight">
+\[
+X \sim \mathcal{B}in(n,\theta),
+\]</div>
+<p>if its probability mass function is given by</p>
+<div class="math notranslate nohighlight">
+\[
+p(x;n,\theta) = \binom{n}{x}\theta^x (1-\theta)^{n-x}
+\]</div>
+<p>with support <span class="math notranslate nohighlight">\(\{0,1,\ldots,n\}\)</span>.</p>
+</section>
+</div><p>Notice that these distributions require <em>two</em> parameters to describe them. Notice also that a random variable <span class="math notranslate nohighlight">\(X \sim \mathcal{B}in(1,\theta)\)</span> is nothing but a Bernoulli random variable! Thus, technically, the class of binomial random variables includes the class of Bernoulli ones.</p>
+<p>Here are some probability histograms, for various settings of the parameters:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="p">[[(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)],</span> <span class="p">[(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)]]</span>
+<span class="n">support</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">theta</span><span class="p">)</span>
+    
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">support</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">support</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">$, $\theta=</span><span class="si">{</span><span class="n">theta</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PMF of a random variable $X\sim \mathcal</span><span class="si">{B}</span><span class="s1">er(\theta)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/ce51db95bf31334af85245d7c28d6faf53a10402a75b09c00563fd7a1f4aacaf.png"><img alt="../_images/ce51db95bf31334af85245d7c28d6faf53a10402a75b09c00563fd7a1f4aacaf.png" src="../_images/ce51db95bf31334af85245d7c28d6faf53a10402a75b09c00563fd7a1f4aacaf.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>Increasing the <span class="math notranslate nohighlight">\(n\)</span> parameter increases the size of the support of <span class="math notranslate nohighlight">\(X\sim \mathcal{B}in(n,\theta)\)</span>, which generally spreads out the distribution (increases its variance). Larger values of <span class="math notranslate nohighlight">\(\theta\)</span> tend to push the mean of <span class="math notranslate nohighlight">\(X\)</span> toward the larger numbers in its support. Both <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span> are called <em>shape parameters</em> of the binomial distributions.</p>
+<div class="admonition-an-archetypical-binomial-scenario admonition">
+<p class="admonition-title">An archetypical binomial scenario</p>
+<p><strong>Q</strong>: Suppose that a coin is flipped <span class="math notranslate nohighlight">\(n\)</span> times and that each flip is independent of the others. Suppose further that we allow for the possibility that the coin is <em>loaded</em>, so that it lands heads with probability <span class="math notranslate nohighlight">\(\theta\)</span> (which may not be <span class="math notranslate nohighlight">\(0.5\)</span>!). If <span class="math notranslate nohighlight">\(X\)</span> is the number of heads obtained, what is the distribution of the random variable <span class="math notranslate nohighlight">\(X\)</span>?</p>
+<p><strong>A</strong>: <span class="math notranslate nohighlight">\(X\sim \mathcal{B}in(n,\theta)\)</span>.</p>
+</div>
+<p>The sample space <span class="math notranslate nohighlight">\(S\)</span> on which <span class="math notranslate nohighlight">\(X\)</span> is defined consists of all <span class="math notranslate nohighlight">\(n\)</span>-tuples of the form</p>
+<div class="math notranslate nohighlight" id="equation-tuple-eqn">
+<span class="eqno">(4.4)<a class="headerlink" href="#equation-tuple-eqn" title="Link to this equation">#</a></span>\[
+(H, T, H, H, T, \ldots, H, T),
+\]</div>
+<p>which represent the result after flipping the coin <span class="math notranslate nohighlight">\(n\)</span> times. If there are <span class="math notranslate nohighlight">\(x\)</span> heads in this <span class="math notranslate nohighlight">\(n\)</span>-tuple, then the probability of obtaining this particular sequence is</p>
+<div class="math notranslate nohighlight">
+\[
+P(\text{the particular sequence above}) = \theta^x(1-\theta)^{n-x}.
+\]</div>
+<p>Indeed, this follows from the Product Rule for Probability, since the flips are independent of each other, and we obtain <span class="math notranslate nohighlight">\(H\)</span> with probability <span class="math notranslate nohighlight">\(\theta\)</span> and <span class="math notranslate nohighlight">\(T\)</span> with probability <span class="math notranslate nohighlight">\(1-\theta\)</span>. It follows that</p>
+<div class="math notranslate nohighlight">
+\[
+P(X=x) = m \theta^x(1-\theta)^{n-x},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(m\)</span> is the total number of <span class="math notranslate nohighlight">\(n\)</span>-tuples <a class="reference internal" href="#equation-tuple-eqn">(4.4)</a> with <span class="math notranslate nohighlight">\(x\)</span> heads. To compute <span class="math notranslate nohighlight">\(m\)</span>, we simply note that an <span class="math notranslate nohighlight">\(n\)</span>-tuple <a class="reference internal" href="#equation-tuple-eqn">(4.4)</a> with <span class="math notranslate nohighlight">\(x\)</span> heads is uniquely specified by the (left-to-right) positions of the <span class="math notranslate nohighlight">\(H\)</span>’s. For example, in <a class="reference internal" href="#equation-tuple-eqn">(4.4)</a>, an <span class="math notranslate nohighlight">\(H\)</span> occupies positions <span class="math notranslate nohighlight">\(1\)</span>, <span class="math notranslate nohighlight">\(3\)</span>, <span class="math notranslate nohighlight">\(4\)</span>, and so on. So, to specify an <span class="math notranslate nohighlight">\(n\)</span>-tuple, from all possible <span class="math notranslate nohighlight">\(n\)</span> positions we need to choose <span class="math notranslate nohighlight">\(x\)</span> of them for the <span class="math notranslate nohighlight">\(H\)</span>’s. But there are exactly <span class="math notranslate nohighlight">\(\binom{n}{x}\)</span> many ways to make these choices, and hence <span class="math notranslate nohighlight">\(m = \binom{n}{x}\)</span>, which is what we wanted to prove. Thus, <span class="math notranslate nohighlight">\(X\)</span> is indeed a <span class="math notranslate nohighlight">\(\mathcal{B}in(n,p)\)</span> random variable.</p>
+<p>Beyond just flipping coins, binomial random variables may be used to model any scenario which consists of a finite sequence of repetitions of some scenario with independent binary outcomes with fixed probabilities. Such scenarios are even called <em>binomial experiments</em> in many textbooks. We will explore additional scenarios in the Problem Prompt below.</p>
+<p>Let’s now give the expectations and variances of binomial variables:</p>
+<div class="proof theorem admonition" id="exp-var-binomial-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 4.2 </span> (Expectations and variances of binomial variables)</p>
+<section class="theorem-content" id="proof-content">
+<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{B}in(n,\theta)\)</span>, then</p>
+<div class="math notranslate nohighlight" id="equation-bin-exp-eqn">
+<span class="eqno">(4.5)<a class="headerlink" href="#equation-bin-exp-eqn" title="Link to this equation">#</a></span>\[
+E(X) = n\theta \quad \text{and} \quad V(X) = n\theta (1-\theta). 
+\]</div>
+</section>
+</div><p>One can derive these expressions directly from the definitions of expectations and variances, but the computations are a little tedious; see Section 3.4 in <span id="id1">[<a class="reference internal" href="bib.html#id4" title="D. Wackerly, W. Mendenhall, and R. L. Scheaffer. Mathematical statistics with applications. Cengage Learning, 2014.">WMS14</a>]</span>, for example. But they may also be obtained with a little more ease by using gadgets called <em>moment generating functions</em>, which we will explore <a class="reference internal" href="07-more-prob.html#mgf"><span class="std std-ref">later</span></a>. Thus, we will postpone the derivations until then.</p>
+<p>From <a class="reference internal" href="#equation-bin-exp-eqn">(4.5)</a>, you can see that <span class="math notranslate nohighlight">\(E(X)\)</span> is jointly proportional to <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span>, so that increasing one (while holding the other fixed) increases the mean. The variance <span class="math notranslate nohighlight">\(V(X)\)</span> is <em>also</em> proportional to <span class="math notranslate nohighlight">\(n\)</span>, so that increasing <span class="math notranslate nohighlight">\(n\)</span> (while holding <span class="math notranslate nohighlight">\(\theta\)</span> fixed) also increases the spread of the distribution. These are confirmations of what we saw in the probability histograms above.</p>
+<p>Before moving on to the Problem Prompt, I want to give a useful result that we will use in a later section: Under certain circumstances, Bernoulli random variables may be used to “build” binomial random variables. These “certain circumstances” reach a bit beyond the theory that we currently know, since they refer to <a class="reference internal" href="06-random-vectors.html#independence"><span class="std std-ref"><em>independence</em></span></a> of random variables, which is a topic we haven’t discussed yet. This latter concept, in turn, relies upon <a class="reference internal" href="06-random-vectors.html#random-vectors"><span class="std std-ref"><em>joint distributions</em></span></a>, which we also haven’t talked about yet. Nevertheless, these concepts are used so lightly that I believe the gist of the proof remains intelligible.</p>
+<p>This being said, if you want to skip the proof and take the result on faith, that’s fine with me. Just be aware that <em>independence</em> of random variables will return in full force a little later on. In fact, this will be our first encounter with a so-called <em>independent and identically distributed</em> (IID) sequence of random variables, which will be <em>very</em> important in <a class="reference internal" href="05-theory-to-practice.html#theory-to-practice"><span class="std std-ref">future sections</span></a>.</p>
+<div class="proof theorem admonition" id="bern-bin-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 4.3 </span> (Binomial variables as sums of Bernoulli variables)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(Y_1,Y_2,\ldots,Y_n\)</span> be a sequence of independent Bernoulli variables, all with the same distribution <span class="math notranslate nohighlight">\(\mathcal{B}er(\theta)\)</span>. Then the random variable</p>
+<div class="math notranslate nohighlight">
+\[
+X = Y_1 + Y_2 + \cdots + Y_n
+\]</div>
+<p>is a <span class="math notranslate nohighlight">\(\mathcal{B}in(n,\theta)\)</span> random variable.</p>
+</section>
+</div><p>To prove that <span class="math notranslate nohighlight">\(X \sim \mathcal{B}in(n,\theta)\)</span>, we need to prove that</p>
+<div class="math notranslate nohighlight">
+\[
+P(X=x) = \binom{n}{x} \theta^x (1-\theta)^{n-x}, \quad \text{for } x=0,1,\ldots,n.
+\]</div>
+<p>However, we have</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(X=x) &amp;= P(Y_1 + \cdots + Y_n = x) \\
+&amp;= \sum_{y_1+\cdots + y_n=x} P(Y_1=y_1, Y_2=y_2, \ldots , Y_n = y_n),
+\end{align*}\]</div>
+<p>where the sum runs over all numbers <span class="math notranslate nohighlight">\(y_1,\ldots,y_n\)</span> such that <span class="math notranslate nohighlight">\(0\leq y_1,\ldots,y_n\leq 1\)</span> and <span class="math notranslate nohighlight">\(y_1+\cdots + y_n = x\)</span>. The commas in the joint probability</p>
+<div class="math notranslate nohighlight" id="equation-joint-eqn">
+<span class="eqno">(4.6)<a class="headerlink" href="#equation-joint-eqn" title="Link to this equation">#</a></span>\[
+P(Y_1=y_1, Y_2=y_2, \ldots , Y_n = y_n)
+\]</div>
+<p>represent the word “and,” so that this is the probability that</p>
+<div class="math notranslate nohighlight">
+\[
+Y_1 = y_1, \quad \textbf{and} \quad Y_2 = y_2, \quad \textbf{and} \quad \textit{etc}.
+\]</div>
+<p>Now, since the Bernoulli variables <span class="math notranslate nohighlight">\(Y_k\)</span> are independent, the probability <a class="reference internal" href="#equation-joint-eqn">(4.6)</a> factors as</p>
+<div class="math notranslate nohighlight">
+\[
+P(Y_1=y_1, Y_2=y_2, \ldots , Y_n = y_n) = P(Y_1=y_1)P(Y_2=y_2) \cdots P(Y_n=y_n).
+\]</div>
+<p>But each <span class="math notranslate nohighlight">\(Y_k\sim \mathcal{B}er(\theta)\)</span>, so that, returning to <span class="math notranslate nohighlight">\(P(X=x)\)</span>, we get:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(X=x) &amp;= \sum_{y_1+\cdots + y_n=x} \theta^{y_1}(1-\theta)^{1-y_1} \theta^{y_2}(1-\theta)^{1-y_2} \cdots \theta^{y_n} (1-\theta)^{1-y_n} \\
+&amp;= \sum_{y_1+\cdots + y_n=x} \theta^x(1-\theta)^{n-x}.
+\end{align*}\]</div>
+<p>But, given an integer <span class="math notranslate nohighlight">\(x\)</span> with <span class="math notranslate nohighlight">\(0\leq x\leq n\)</span>, how many ways can we write <span class="math notranslate nohighlight">\(x=y_1+\cdots + y_n\)</span> where each <span class="math notranslate nohighlight">\(y_k\)</span> is either <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>? Exactly <span class="math notranslate nohighlight">\(\binom{n}{x}\)</span> many ways! Thus, we have</p>
+<div class="math notranslate nohighlight">
+\[
+P(X=x) = \binom{n}{y} \theta^x (1-\theta)^{n-x},
+\]</div>
+<p>as desired.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problems 1 and 2 on the worksheet.</p>
+</div>
+</section>
+<section id="geometric-distributions">
+<h2><span class="section-number">4.3. </span>Geometric distributions<a class="headerlink" href="#geometric-distributions" title="Link to this heading">#</a></h2>
+<p>The supports of Bernoulli and binomial random variables are finite. Now, we turn our attention toward a class of random variables with countably infinite supports:</p>
+<div class="proof definition admonition" id="geometric-def">
+<p class="admonition-title"><span class="caption-number">Definition 4.3 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\theta\)</span> be a real number with <span class="math notranslate nohighlight">\(0\leq \theta \leq 1\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>geometric distribution</em> with parameter <span class="math notranslate nohighlight">\(\theta\)</span>, denoted</p>
+<div class="math notranslate nohighlight">
+\[
+X \sim \mathcal{G}eo(\theta),
+\]</div>
+<p>if its probability mass function is given by</p>
+<div class="math notranslate nohighlight">
+\[
+p(x;\theta) = \theta (1-\theta)^{x-1}.
+\]</div>
+<p>with support <span class="math notranslate nohighlight">\(\{1,2,\ldots\}\)</span>.</p>
+</section>
+</div><p>So, we’re back to distributions that are parametrized by a single parameter. For different settings of <span class="math notranslate nohighlight">\(\theta\)</span>, here are some probability histograms:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">]]</span>
+<span class="n">support</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">geom</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">theta</span><span class="p">)</span>
+    
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">support</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">support</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\theta=</span><span class="si">{</span><span class="n">theta</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PMF of a random variable $X\sim \mathcal</span><span class="si">{G}</span><span class="s1">eo(\theta)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/9ac86ff18f2df55a76298535c2265b1b2c1faf3f1f6f416b65db17dc34b8863a.png"><img alt="../_images/9ac86ff18f2df55a76298535c2265b1b2c1faf3f1f6f416b65db17dc34b8863a.png" src="../_images/9ac86ff18f2df55a76298535c2265b1b2c1faf3f1f6f416b65db17dc34b8863a.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>It appears that increasing <span class="math notranslate nohighlight">\(\theta\)</span> decreases both the mean and the variance of the distribution. This will be confirmed below when we uncover formulas for <span class="math notranslate nohighlight">\(E(X)\)</span> and <span class="math notranslate nohighlight">\(V(X)\)</span> when <span class="math notranslate nohighlight">\(X\sim \mathcal{G}eo(\theta)\)</span>. The parameter <span class="math notranslate nohighlight">\(\theta\)</span> is the <em>shape parameter</em> of the geometric distributions.</p>
+<p>Just like the scenarios for Bernoulli and binomial random variables in the previous two sections, our archetypical scenario for a geometric random variable will also involve coin flips. But pay close attention, because the random variable <em>doesn’t</em> count the number of heads any longer!</p>
+<div class="admonition-an-archetypical-geometric-scenario admonition">
+<p class="admonition-title">An archetypical geometric scenario</p>
+<p><strong>Q</strong>: Suppose that a coin is flipped until heads is obtained. Suppose further that each flip is independent of the others, and that we allow for the possibility that the coin is <em>loaded</em>, so that it lands heads with probability <span class="math notranslate nohighlight">\(\theta\)</span> (which may not be <span class="math notranslate nohighlight">\(0.5\)</span>!). If <span class="math notranslate nohighlight">\(X\)</span> is the number of flips it takes to obtain a head, what is the distribution of the random variable <span class="math notranslate nohighlight">\(X\)</span>?</p>
+<p><strong>A</strong>: <span class="math notranslate nohighlight">\(X\sim \mathcal{G}eo(\theta)\)</span>.</p>
+</div>
+<p>The sample space <span class="math notranslate nohighlight">\(S\)</span> on which <span class="math notranslate nohighlight">\(X\)</span> is defined consists of all sequences of the form</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+&amp;(H), \\
+&amp;(T,H), \\
+&amp;(T, T, H), \\
+&amp;(T,T,T,H), \\
+&amp;\textit{etc}.
+\end{align*}\]</div>
+<p>The probability to obtain the first sequence is <span class="math notranslate nohighlight">\(\theta\)</span>; by independence, the probability to obtain the second is <span class="math notranslate nohighlight">\(\theta(1-\theta)\)</span>; the probability for the third is <span class="math notranslate nohighlight">\(\theta(1-\theta)^2\)</span>; and the probability for the fourth is <span class="math notranslate nohighlight">\(\theta(1-\theta)^3\)</span>. Do you see the pattern? If <span class="math notranslate nohighlight">\(x\)</span> is the number of flips it takes to obtain a head, then we clearly have</p>
+<div class="math notranslate nohighlight">
+\[
+P(X=x) = \theta (1-\theta)^{x-1},
+\]</div>
+<p>so that <span class="math notranslate nohighlight">\(X\sim \mathcal{G}eo(\theta)\)</span>.</p>
+<p>Like Bernoulli and binomial random variables, geometric random variables do not <em>only</em> apply in scenarios that involve coin flips. Indeed, the coin flips in our archetypical scenario can represent the binary outcomes of any scenario, as long as they are independent (when performed one after another) and have fixed probabilities.</p>
+<div class="proof theorem admonition" id="exp-var-geometric-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 4.4 </span> (Expectations and variances of geometric variables)</p>
+<section class="theorem-content" id="proof-content">
+<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{G}eo(\theta)\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+E(X) = \frac{1}{\theta} \quad \text{and} \quad V(X) = \frac{1-\theta}{\theta^2}. 
+\]</div>
+</section>
+</div><p>We will not prove these formulas here. See, for example, Theorem 3.8 in <span id="id2">[<a class="reference internal" href="bib.html#id4" title="D. Wackerly, W. Mendenhall, and R. L. Scheaffer. Mathematical statistics with applications. Cengage Learning, 2014.">WMS14</a>]</span>.</p>
+<p>Notice that our intuition outlined above regarding the effect of <span class="math notranslate nohighlight">\(p\)</span> on the shape of the distributions is confirmed by these formulas: Increasing <span class="math notranslate nohighlight">\(p\)</span> decreases both the mean and the variance of <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problems 3 and 4 on the worksheet.</p>
+</div>
+</section>
+<section id="hypergeometric-distributions">
+<h2><span class="section-number">4.4. </span>Hypergeometric distributions<a class="headerlink" href="#hypergeometric-distributions" title="Link to this heading">#</a></h2>
+<p>The distributions in this section definitely have the most complicated expressions so far for their probability functions (they require <em>three</em> parameters!), but as we will see in our archetypical scenario, these distributions arise quite naturally.</p>
+<div class="proof definition admonition" id="hypergeometric-def">
+<p class="admonition-title"><span class="caption-number">Definition 4.4 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(M\geq 0\)</span> be an integer, and let <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(N\)</span> be integers with <span class="math notranslate nohighlight">\(0\leq n,N\leq M\)</span>. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>hypergeometric distribution</em> with parameters <span class="math notranslate nohighlight">\(M\)</span>, <span class="math notranslate nohighlight">\(n\)</span>, and <span class="math notranslate nohighlight">\(N\)</span>, denoted</p>
+<div class="amsmath math notranslate nohighlight" id="equation-10b8f79d-6cc2-4bf7-9cf8-4668a4bfc969">
+<span class="eqno">(4.7)<a class="headerlink" href="#equation-10b8f79d-6cc2-4bf7-9cf8-4668a4bfc969" title="Permalink to this equation">#</a></span>\[\begin{equation}\notag
+Y \sim \mathcal{HG}eo(M,n,N),
+\end{equation}\]</div>
+<p>if its probability mass function is given by</p>
+<div class="math notranslate nohighlight">
+\[
+p(x; M,n,N) = \frac{\binom{n}{x}\binom{M-n}{N-x}}{\binom{M}{N}}.
+\]</div>
+<p>with support all <span class="math notranslate nohighlight">\(x\)</span> such that</p>
+<div class="math notranslate nohighlight" id="equation-range-eqn">
+<span class="eqno">(4.8)<a class="headerlink" href="#equation-range-eqn" title="Link to this equation">#</a></span>\[
+0 \leq x \leq n \quad \text{and} \quad 0 \leq N-x \leq M-n.
+\]</div>
+</section>
+</div><p>These distributions have quite curious names—what exactly does <em>hypergeometric</em> mean? <a href="https://stats.stackexchange.com/a/90611">Here’s</a> an enlightening explanation.</p>
+<p>Here are some probability histograms for a hypergeometrically distributed random variable, for various settings of the parameters:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="p">[[(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">40</span><span class="p">)],</span> <span class="p">[(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">40</span><span class="p">)]]</span>
+<span class="n">support</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">41</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">hypergeom</span><span class="p">(</span><span class="n">M</span><span class="o">=</span><span class="n">M</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+    
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">support</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;$M=</span><span class="si">{</span><span class="n">M</span><span class="si">}</span><span class="s1">$, $n=</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">$, $N=</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PMF of a random variable $X\sim \mathcal</span><span class="si">{HG}</span><span class="s1">eo(M,n,N)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/1bed47494f457779351041a6bc914431337dffea244914ad7c13abafb9650395.png"><img alt="../_images/1bed47494f457779351041a6bc914431337dffea244914ad7c13abafb9650395.png" src="../_images/1bed47494f457779351041a6bc914431337dffea244914ad7c13abafb9650395.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>Comparing the distributions in rows, it appears that larger values of the <span class="math notranslate nohighlight">\(N\)</span> parameter increase the mean. Comparing the distributions in columns, it appears that increasing the value of the <span class="math notranslate nohighlight">\(n\)</span> parameter does the same, i.e., increases the mean. All three of the parameters, <span class="math notranslate nohighlight">\(M\)</span>, <span class="math notranslate nohighlight">\(n\)</span>, and <span class="math notranslate nohighlight">\(N\)</span>, are called the <em>shape parameters</em> of the hypergeometric distributions.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be aware that the pattern <span class="math notranslate nohighlight">\((M,n,N)\)</span> and choice of letters for the parameters of hypergeometric distributions is <strong>not</strong> standardized accross all references. The parameters I have chosen here matches the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.hypergeom.html">SciPy implementation</a> of hypergeometric random variables.</p>
+<p>Here are some of the other parameter choices for the references mentioned in the bibliography:</p>
+<ul>
+<li><p><span id="id3">DeGroot and Schervish [<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span> use parameters <span class="math notranslate nohighlight">\((A,B,n)\)</span>. To translate to our parameters, take</p>
+<div class="math notranslate nohighlight">
+\[
+    (M,n,N) = (A+B, A, n).
+    \]</div>
+</li>
+<li><p><span id="id4">Dekking, Kraaikamp, Lopuhaä, and Meester [<a class="reference internal" href="bib.html#id3" title="F. M. Dekking, C. Kraaikamp, H. P. Lopuhaä, and L. E. Meester. A modern introduction to probability and statistics. Springer Texts in Statistics. Springer-Verlag London, Ltd., London, 2005.">DKLopuhaaM05</a>]</span> use parameters <span class="math notranslate nohighlight">\((m,N,r)\)</span>. To translate to our parameters, take</p>
+<div class="math notranslate nohighlight">
+\[
+    (M,n,N) = (N, m, r).
+    \]</div>
+</li>
+<li><p><span id="id5">Devore, Berk, and Carlton [<a class="reference internal" href="bib.html#id6" title="J. L. Devore, K. N. Berk, and M. A. Carlton. Modern mathematical statistics with applications. Springer Texts in Statistics. Springer, Cham, third edition, 2021.">DBC21</a>]</span> use parameters <span class="math notranslate nohighlight">\((n, M,N)\)</span>. To translate to our parameters, take</p>
+<div class="math notranslate nohighlight">
+\[
+    (M,n,N) = (N, M, n).
+    \]</div>
+</li>
+<li><p><span id="id6">Wackerly, Mendenhall, and Scheaffer [<a class="reference internal" href="bib.html#id4" title="D. Wackerly, W. Mendenhall, and R. L. Scheaffer. Mathematical statistics with applications. Cengage Learning, 2014.">WMS14</a>]</span> use parameters <span class="math notranslate nohighlight">\((r, N, n)\)</span>. To translate to our parameters, take</p>
+<div class="math notranslate nohighlight">
+\[
+    (M,n,N) = (N,r,n).
+    \]</div>
+</li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Hypergeometric_distribution#">Wikipedia</a> uses parameters <span class="math notranslate nohighlight">\((N,K,n)\)</span>. To translate to our parameters, take</p>
+<div class="math notranslate nohighlight">
+\[
+    (M,n,N) = (N, K, n).
+    \]</div>
+</li>
+</ul>
+</div>
+<p>Now, in what type of crazy scenario would something as complex and complicated as a hypergeometric distribution occur? Actually, such scenarios aren’t crazy at all!</p>
+<div class="admonition-an-archetypical-hypergeometric-scenario admonition">
+<p class="admonition-title">An archetypical hypergeometric scenario</p>
+<p><strong>Q</strong>: Suppose we have a collection of <span class="math notranslate nohighlight">\(M\)</span> balls in an urn, with <span class="math notranslate nohighlight">\(n\)</span> of them red, and the remaining <span class="math notranslate nohighlight">\(M-n\)</span> black. Let <span class="math notranslate nohighlight">\(X\)</span> denote the number of red balls in a given random selection of <span class="math notranslate nohighlight">\(N\)</span> balls from the urn. What is the distribution of the random variable <span class="math notranslate nohighlight">\(X\)</span>?</p>
+<p><strong>A</strong>: <span class="math notranslate nohighlight">\(X\sim \mathcal{HG}eo(M,n,N)\)</span>.</p>
+</div>
+<p>Here’s the justification. Since the selection is <em>random</em>, any selection is just as likely as any other, so</p>
+<div class="math notranslate nohighlight">
+\[
+P(\text{single selection of $N$ balls}) = \frac{1}{\binom{M}{N}},
+\]</div>
+<p>because there are exactly <span class="math notranslate nohighlight">\(\binom{M}{N}\)</span> ways to choose <span class="math notranslate nohighlight">\(N\)</span> balls from a total of <span class="math notranslate nohighlight">\(M\)</span>. It then follows that</p>
+<div class="math notranslate nohighlight" id="equation-almost-eqn">
+<span class="eqno">(4.9)<a class="headerlink" href="#equation-almost-eqn" title="Link to this equation">#</a></span>\[
+P(X=x) = \frac{k}{\binom{M}{N}},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(k\)</span> is the number of ways to choose <span class="math notranslate nohighlight">\(N\)</span> balls from the urn, with <span class="math notranslate nohighlight">\(x\)</span> of them red, and the remaining <span class="math notranslate nohighlight">\(N-x\)</span> black. So, our goal is to compute <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p>Well, if there are <span class="math notranslate nohighlight">\(n\)</span> red balls, how many ways are there to choose <span class="math notranslate nohighlight">\(x\)</span> of them? Exactly <span class="math notranslate nohighlight">\(\binom{n}{x}\)</span> ways. And once these <span class="math notranslate nohighlight">\(x\)</span> red balls are chosen, we would then need to choose <span class="math notranslate nohighlight">\(N-x\)</span> black balls, of which there are exactly <span class="math notranslate nohighlight">\(\binom{M-n}{N-x}\)</span> ways since there are <span class="math notranslate nohighlight">\(M-n\)</span> black balls. So, by the Product Rule for Counting, we have</p>
+<div class="math notranslate nohighlight">
+\[
+k = \binom{n}{x} \binom{M-n}{N-x}.
+\]</div>
+<p>Therefore, from <a class="reference internal" href="#equation-almost-eqn">(4.9)</a> we get that</p>
+<div class="math notranslate nohighlight">
+\[
+P(X=x) = \frac{\binom{n}{x} \binom{M-n}{N-x}}{\binom{M}{N}},
+\]</div>
+<p>which is exactly what we wanted to show.</p>
+<p>With this new knowledge, notice that the support <a class="reference internal" href="#equation-range-eqn">(4.8)</a> now makes complete sense, since</p>
+<div class="math notranslate nohighlight">
+\[
+0 \leq x \leq n
+\]</div>
+<p>says that you cannot have more red balls in your selection than the total number <span class="math notranslate nohighlight">\(n\)</span> of red balls, while likewise</p>
+<div class="math notranslate nohighlight">
+\[
+0 \leq N-x \leq M-n
+\]</div>
+<p>says that you cannot have more black balls in your selection than the total number <span class="math notranslate nohighlight">\(M-n\)</span> of black balls.</p>
+<p>Now, hold on to your hats, because here come the formulas for the expectations and variances of hypergeometric random variables:</p>
+<div class="proof theorem admonition" id="exp-var-hypergeometric-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 4.5 </span> (Expectations and variances of hypergeometric variables)</p>
+<section class="theorem-content" id="proof-content">
+<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{HG}eo(M,n,N)\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+E(X) = \frac{Nn}{M} \quad \text{and} \quad V(X) = \left(\frac{M-N}{M-1}\right) \cdot N \cdot \frac{n}{M} \left(1- \frac{n}{M} \right).
+\]</div>
+</section>
+</div><p>We will not attempt to derive these formulas. If you want to see one possible derivation, wait until we talk about <a class="reference internal" href="07-more-prob.html#linear-exp-thm">Theorem 7.3</a> and <a class="reference internal" href="07-more-prob.html#bilinear-thm">Theorem 7.14</a>, and then have a look at Example 5.19 in <span id="id7">[<a class="reference internal" href="bib.html#id6" title="J. L. Devore, K. N. Berk, and M. A. Carlton. Modern mathematical statistics with applications. Springer Texts in Statistics. Springer, Cham, third edition, 2021.">DBC21</a>]</span>.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problems 5 and 6 on the worksheet.</p>
+</div>
+</section>
+<section id="poisson-distributions">
+<h2><span class="section-number">4.5. </span>Poisson distributions<a class="headerlink" href="#poisson-distributions" title="Link to this heading">#</a></h2>
+<p>We’ve reached the last of our discrete distributions, before we move onto continuous ones.</p>
+<div class="proof definition admonition" id="poisson-def">
+<p class="admonition-title"><span class="caption-number">Definition 4.5 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\mu&gt;0\)</span> be a real number. A discrete random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>Poisson distribution</em> with parameter <span class="math notranslate nohighlight">\(\mu\)</span>, denoted</p>
+<div class="math notranslate nohighlight">
+\[
+X \sim \mathcal{P}ois(\mu),
+\]</div>
+<p>if its probability mass function is given by</p>
+<div class="math notranslate nohighlight">
+\[
+p(x;\mu) = \frac{\mu^x}{x!}e^{-\mu}
+\]</div>
+<p>with support <span class="math notranslate nohighlight">\(\{0,1,2,\ldots\}\)</span>.</p>
+</section>
+</div><p>In some references, the parameter <span class="math notranslate nohighlight">\(\mu\)</span> is called <span class="math notranslate nohighlight">\(\lambda\)</span> instead. But this clashes with the usage of <span class="math notranslate nohighlight">\(\lambda\)</span> as a “rate” or “intensity” parameter for <em>Poisson processes</em>, which we will talk about <a class="reference internal" href="#exp-scenario"><span class="std std-ref">below</span></a>. In any case, no matter what you call it, the effect of the parameter on the shape of the distributions is clear:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span>
+<span class="n">support</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">)</span>
+    
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">support</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;$\mu = </span><span class="si">{</span><span class="n">mu</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PMF of a random variable $X\sim \mathcal</span><span class="si">{P}</span><span class="s1">ois(\mu)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/877e3454ea75f2a8f7039dc51cc32fe82c0e862faaf7c306ccb00fd52cbd9659.png"><img alt="../_images/877e3454ea75f2a8f7039dc51cc32fe82c0e862faaf7c306ccb00fd52cbd9659.png" src="../_images/877e3454ea75f2a8f7039dc51cc32fe82c0e862faaf7c306ccb00fd52cbd9659.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>Increasing the parameter <span class="math notranslate nohighlight">\(\mu\)</span> appears to both increase the mean and variance of the distribution. We will see that this really is the case below when we compute <span class="math notranslate nohighlight">\(E(X)\)</span> and <span class="math notranslate nohighlight">\(V(X)\)</span>. The parameter <span class="math notranslate nohighlight">\(\mu\)</span> is a <em>shape parameter</em>.</p>
+<p>The archetypical scenarios for Bernoulli, binomial, and geometric random variables involved coin flips, which model different types of repeated scenario with binary and independent outcomes. The archetypical scenario for hypergeometric variables involved selecting balls from an urn. The justifications that each of these scenarios could be modeled by the claimed distributions relied essentially on basic combinatorics. But, as you are about to see, the justification that our archetypical Poisson scenario really <em>can</em> be modeled by a Poisson random variable is of a very different flavor.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>My description of this particular scenario, as well as the continuations below (<a class="reference internal" href="#exp-scenario"><span class="std std-ref">here</span></a> and <a class="reference internal" href="#gamma-scenario"><span class="std std-ref">here</span></a>) follows the extremely well-written Chapter 12 in <span id="id8">[<a class="reference internal" href="bib.html#id3" title="F. M. Dekking, C. Kraaikamp, H. P. Lopuhaä, and L. E. Meester. A modern introduction to probability and statistics. Springer Texts in Statistics. Springer-Verlag London, Ltd., London, 2005.">DKLopuhaaM05</a>]</span>.</p>
+</aside>
+<div class="admonition-an-archetypical-poisson-scenario admonition" id="poisson-scenario">
+<p class="admonition-title">An archetypical Poisson scenario</p>
+<p><strong>Q</strong>: Over a span of <span class="math notranslate nohighlight">\(t\)</span> hours, let <span class="math notranslate nohighlight">\(X\)</span> denote the number of emails that arrive in your inbox. Assuming that the emails arrive at random and independently of each other, and that the mean rate at which they arrive is <span class="math notranslate nohighlight">\(\lambda\)</span> (measured in units of reciprocal hours, or hour<span class="math notranslate nohighlight">\(^{-1}\)</span>), what is the distribution of the random variable <span class="math notranslate nohighlight">\(X\)</span>?</p>
+<p><strong>A</strong>: <span class="math notranslate nohighlight">\(X\sim \mathcal{P}ois(\lambda t)\)</span>.</p>
+</div>
+<p>Before proving that <span class="math notranslate nohighlight">\(X\)</span> has the claimed distribution, it is worth commenting on the units of the rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span>. Indeed, you might have expected its units to be</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\text{email}}{\text{hour}} \quad \text{rather than} \quad \frac{1}{\text{hour}}.
+\]</div>
+<p>In fact, in a textbook problem, the rate <em>would</em> often be given with the former units, rather than the latter. But as you will see below, this is inconsistent with the fact that <span class="math notranslate nohighlight">\(X\)</span> models <a class="reference external" href="https://en.wikipedia.org/wiki/Count_data"><em>counting data</em></a> which are <a class="reference external" href="https://en.wikipedia.org/wiki/Dimensionless_quantity#Integers">dimensionless quantities</a>.</p>
+<p>Now, to show that <span class="math notranslate nohighlight">\(X\)</span> has a Poisson distribution, we begin by first deriving an <em>approximation</em> for the distribution of <span class="math notranslate nohighlight">\(X\)</span>. To do this, we imagine that the time interval begins at time <span class="math notranslate nohighlight">\(=0\)</span> and we visualize the arrivals of emails as marks along the interval <span class="math notranslate nohighlight">\([0,t]\)</span>:</p>
+<a class="reference internal image-reference" href="../_images/pois1.svg"><img alt="../_images/pois1.svg" class="align-center" src="../_images/pois1.svg" width="70%" /></a>
+<p> </p>
+<p>The trick now is to chop the time interval <span class="math notranslate nohighlight">\([0,t]\)</span> into small enough subintervals that no more than one email arrives in any given subinterval:</p>
+<a class="reference internal image-reference" href="../_images/pois2.svg"><img alt="../_images/pois2.svg" class="align-center" src="../_images/pois2.svg" width="70%" /></a>
+<p> </p>
+<p>Suppose that there are <span class="math notranslate nohighlight">\(n\)</span> subintervals, each of equal length <span class="math notranslate nohighlight">\(\Delta t = t/n\)</span>:</p>
+<a class="reference internal image-reference" href="../_images/pois3.svg"><img alt="../_images/pois3.svg" class="align-center" src="../_images/pois3.svg" width="70%" /></a>
+<p> </p>
+<p>Now, we let <span class="math notranslate nohighlight">\(Y_k\)</span> be the number of emails that arrive in the <span class="math notranslate nohighlight">\(k\)</span>-th subinterval, for each <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>. By construction, we have that <span class="math notranslate nohighlight">\(Y_k=0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>, and thus each <span class="math notranslate nohighlight">\(Y_k\)</span> is a Bernoulli random variable, parametrized by some parameter <span class="math notranslate nohighlight">\(\theta_k\)</span>. But what is <span class="math notranslate nohighlight">\(\theta_k\)</span>?</p>
+<p>To answer this, recall that we are told the mean rate at which the emails arrive is <span class="math notranslate nohighlight">\(\lambda\)</span> (measured in reciprocal hours). Therefore, since the length of each of the subintervals is <span class="math notranslate nohighlight">\(\Delta t\)</span>, we would expect, on average, that exactly</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Notice that in order for the product <span class="math notranslate nohighlight">\(\lambda \cdot \Delta t\)</span> to represent a probability, which is a dimensionless quantity, the rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span> must be measured in reciprocal hours!</p>
+</aside>
+<div class="math notranslate nohighlight">
+\[
+\lambda \cdot \Delta t = \frac{\lambda t}{n}
+\]</div>
+<p>emails arrive in the <span class="math notranslate nohighlight">\(k\)</span>-th subinterval. But we know that <span class="math notranslate nohighlight">\(E(Y_k) = \theta_k\)</span> because <span class="math notranslate nohighlight">\(Y_k\)</span> is Bernoulli, and this implies that <span class="math notranslate nohighlight">\(\theta_k = \lambda t/n\)</span>. Thus <span class="math notranslate nohighlight">\(Y_k \sim \mathcal{B}er(\lambda t/n)\)</span>, for each <span class="math notranslate nohighlight">\(k=1,2,\ldots,n\)</span>.</p>
+<p>We now bring this all back to <span class="math notranslate nohighlight">\(X\)</span>. As long as <span class="math notranslate nohighlight">\(n\)</span> is large enough (so that <span class="math notranslate nohighlight">\(\Delta t\)</span> is small), we should have</p>
+<div class="math notranslate nohighlight" id="equation-approx-eqn">
+<span class="eqno">(4.10)<a class="headerlink" href="#equation-approx-eqn" title="Link to this equation">#</a></span>\[
+X \approx Y_1 + Y_2 + \cdots + Y_n.
+\]</div>
+<p>It is natural to assume that the Bernoulli random variables on the right-hand side are independent, which means—as we saw <a class="reference internal" href="#bern-bin-thm">above</a>—that <span class="math notranslate nohighlight">\(X\)</span> is distributed <em>approximately</em> as <span class="math notranslate nohighlight">\(\mathcal{B}in(n,\lambda t/n)\)</span>. Moreover, it is natural to believe that the approximation <a class="reference internal" href="#equation-approx-eqn">(4.10)</a> gets better and better the larger <span class="math notranslate nohighlight">\(n\)</span> is, and that it becomes an <em>equality</em> in the limit as <span class="math notranslate nohighlight">\(n\to \infty\)</span>.</p>
+<p>But a <span class="math notranslate nohighlight">\(\mathcal{B}in(n,\lambda t/n)\)</span> random variable has probability mass function</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+p(x) &amp;= \binom{n}{x} \left( \frac{\lambda t}{n} \right)^x \left(1 - \frac{\lambda t}{n} \right)^{n-x} \\
+&amp;= \left[ \binom{n}{x} \cdot \frac{1}{n^x}\right] \cdot (\lambda t)^x \cdot \left(1 - \frac{\lambda t}{n} \right)^{n} \left(1 - \frac{\lambda t}{n} \right)^{-x}.
+\end{align*}\]</div>
+<p>Note that</p>
+<div class="math notranslate nohighlight">
+\[
+\lim_{n\to \infty} \binom{n}{x} \cdot \frac{1}{n^x} = \lim_{n\to \infty} \frac{n}{n}\cdot \frac{n-1}{n} \cdots  \frac{n-x+1}{n} \cdot \frac{1}{x!} = \frac{1}{x!}
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+\lim_{n\to \infty} \left(1 - \frac{\lambda t}{n} \right)^{n} = e^{-\lambda t},
+\]</div>
+<p>as well as</p>
+<div class="math notranslate nohighlight">
+\[
+\lim_{n\to \infty} \left(1 - \frac{\lambda t}{n} \right)^{-x} = 1.
+\]</div>
+<p>Thus, taking the limit <span class="math notranslate nohighlight">\(n\to \infty\)</span> in the expression for <span class="math notranslate nohighlight">\(p(x)\)</span> above gives</p>
+<div class="math notranslate nohighlight">
+\[
+\lim_{n\to \infty} p(x) = \frac{(\lambda t)^x}{x!} e^{-\lambda t},
+\]</div>
+<p>and so from <a class="reference internal" href="#equation-approx-eqn">(4.10)</a> we conclude that <span class="math notranslate nohighlight">\(X\sim \mathcal{P}ois(\lambda t)\)</span>.</p>
+<p>We will carry this email scenario over to our discussions below of archetypical scenarios for <a class="reference internal" href="#exp-scenario"><span class="std std-ref">exponential</span></a> and <a class="reference internal" href="#gamma-scenario"><span class="std std-ref">gamma random variables</span></a>, so make sure you understand the argument just given. Here’s a preview of what we will learn:</p>
+<div class="admonition-a-trio-of-related-random-variables admonition">
+<p class="admonition-title">A trio of related random variables</p>
+<ol class="arabic simple">
+<li><p><em>Poisson variables</em> model the <em>counts</em> of random and independent events occurring over time.</p></li>
+<li><p><em>Exponential variables</em> model the <em>interarrival times</em> between random and independent events (i.e., the times between events).</p></li>
+<li><p><em>Gamma variables</em> model the times of occurences of random and independent events.</p></li>
+</ol>
+</div>
+<p>In fact, these variables not only model random and independent events occurring over <em>time</em>, but also over <em>space</em> and other continuous dimensions. We will see examples of this in the Problem Prompt <a class="reference internal" href="#pois-pp"><span class="std std-ref">below</span></a>. But first, let’s show that the name of the parameter <span class="math notranslate nohighlight">\(\mu\)</span> is well-chosen; that it is, in fact, the mean of the distribution.</p>
+<div class="proof theorem admonition" id="exp-var-poisson-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 4.6 </span> (Expectations and variances of Poisson variables)</p>
+<section class="theorem-content" id="proof-content">
+<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{P}ois(\mu)\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+E(X) = \mu \quad \text{and} \quad V(X) = \mu.
+\]</div>
+</section>
+</div><p>First, let’s establish the formula for the expectation:</p>
+<div class="math notranslate nohighlight">
+\[
+E(X) = \sum_{x=1}^\infty x \frac{\mu^x}{x!}e^{-\mu} = \mu\sum_{x=1}^\infty \frac{\mu^{x-1}}{(x-1)!}e^{-\mu} = \mu \sum_{x=0}^\infty \frac{\mu^x}{x!}e^{-\mu} = \mu,
+\]</div>
+<p>since <span class="math notranslate nohighlight">\(\sum_{x=0}^\infty \mu^xe^{-\mu}/x!=1\)</span>. (Why?) Deriving the formula for the variance begins with a trick using the <a class="reference internal" href="03-random-variables.html#lotus-thm">LotUS</a>:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+E\left( X(X-1) \right) &amp;= \sum_{x=2}^\infty x(x-1) \frac{\mu^x}{x!}e^{-\mu} \\
+&amp;= \mu^2 \sum_{x=2}^\infty \frac{\mu^{x-2}}{(x-2)!} e^{-\mu} \\
+&amp;= \mu^2 \sum_{x=0}^\infty \frac{\mu^x}{x!} e^{-\mu} \\
+&amp;= \mu^2.
+\end{align*}\]</div>
+<p>Then, using <a class="reference internal" href="03-random-variables.html#weak-linear-thm">&quot;weak&quot; linearity</a> of expectations, we get:</p>
+<div class="math notranslate nohighlight">
+\[
+E(X^2) = E(X^2 - X) + \mu = E\left(X(X-1) \right) + \mu = \mu^2 + \mu.
+\]</div>
+<p>Combining this with the <a class="reference internal" href="03-random-variables.html#shortcut-var-thm">&quot;shortcut formula&quot;</a> for variance gives</p>
+<div class="math notranslate nohighlight">
+\[
+V(X) = E(X^2) - \mu^2 = \mu,
+\]</div>
+<p>as desired.</p>
+<div class="admonition-problem-prompt admonition" id="pois-pp">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problems 7-9 on the worksheet.</p>
+</div>
+</section>
+<section id="normal-distributions">
+<span id="norm-univariate-sec"></span><h2><span class="section-number">4.6. </span>Normal distributions<a class="headerlink" href="#normal-distributions" title="Link to this heading">#</a></h2>
+<p>The distributions studied in this section are often said to be the most important in probability and statistics. This is primarily due to their ubiquity, occurring in all sorts of varied applications and scenarios. Indeed, these distributions will be with us constantly throughout the rest of the course. These are also the first distributions that we study in this chapter that are continuous, rather than discrete.</p>
+<div class="proof definition admonition" id="gaussian-def">
+<p class="admonition-title"><span class="caption-number">Definition 4.6 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> be real numbers with <span class="math notranslate nohighlight">\(\sigma&gt;0\)</span>. A continuous random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>normal distribution</em> (or <em>Gaussian distribution</em>) with parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>, denoted</p>
+<div class="math notranslate nohighlight">
+\[
+X \sim \mathcal{N}(\mu,\sigma^2),
+\]</div>
+<p>if its probability density function is given by</p>
+<div class="math notranslate nohighlight">
+\[
+f(x;\mu,\sigma) = \frac{1}{\sigma \sqrt{2\pi}} \exp \left[ - \frac{1}{2} \left( \frac{x-\mu}{\sigma} \right)^2 \right]
+\]</div>
+<p>with support <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>.</p>
+<p>If <span class="math notranslate nohighlight">\(\mu=0\)</span> and <span class="math notranslate nohighlight">\(\sigma=1\)</span>, then <span class="math notranslate nohighlight">\(X\)</span> is called a <em>standard normal variable</em> (or <em>standard Gaussian variable</em>) and is often represented as <span class="math notranslate nohighlight">\(Z\)</span>.</p>
+</section>
+</div><p>As the choice of letters suggest, the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> turn out to be the mean and standard deviation of <span class="math notranslate nohighlight">\(X\)</span>. The graphs of normal density curves are the familiar “bell curves,” and altering <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> have exactly the effect that you would expect:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="p">[[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)],</span> <span class="p">[(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]]</span>
+<span class="n">support</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+    
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">support</span><span class="p">))</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;$\mu=</span><span class="si">{</span><span class="n">mu</span><span class="si">}</span><span class="s1">$, $\sigma=</span><span class="si">{</span><span class="n">sigma</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PDF of a random variable $X\sim \mathcal</span><span class="si">{N}</span><span class="s1">(\mu,\sigma^2)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/2e8777aec5c1031fa524751f494b26620b59a01e89a7df5391835fafe8917b8a.png"><img alt="../_images/2e8777aec5c1031fa524751f494b26620b59a01e89a7df5391835fafe8917b8a.png" src="../_images/2e8777aec5c1031fa524751f494b26620b59a01e89a7df5391835fafe8917b8a.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>Notice that the parameters of the distribution in the upper-left are <span class="math notranslate nohighlight">\((\mu,\sigma) = (0, 1)\)</span>, so the displayed density is the <em>standard</em> normal one. It is a <a class="reference internal" href="#standardization-cor">corollary</a> of the next general result that <em>every</em> normally distributed variable may be transformed into a <em>standard</em> normal variable via an affine transformation.</p>
+<div class="proof theorem admonition" id="affine-gaussian-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 4.7 </span> (Affine transformations of normal variables)</p>
+<section class="theorem-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(X\sim \mathcal{N}(\mu,\sigma^2)\)</span> and <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> be two constants with <span class="math notranslate nohighlight">\(a\neq 0\)</span>. Then <span class="math notranslate nohighlight">\(Y = aX+b\)</span> is a normal random variable with <span class="math notranslate nohighlight">\(\mu_Y = a\mu + b\)</span> and <span class="math notranslate nohighlight">\(\sigma_Y = |a|\sigma\)</span>.</p>
+</section>
+</div><p>The proof is a special case of a general result for affine transformations that we will study <a class="reference internal" href="07-more-prob.html#fun-rvs"><span class="std std-ref">later</span></a>, but the computations are simple enough that we can describe them now. The idea is to compute the probability <span class="math notranslate nohighlight">\(P(u \leq Y \leq v)\)</span> for real numbers <span class="math notranslate nohighlight">\(u&lt;v\)</span>, and to show that <span class="math notranslate nohighlight">\(Y\)</span> has the desired PDF. We will to this in the special case that <span class="math notranslate nohighlight">\(a&gt;0\)</span>. So, we compute</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(u \leq Y \leq v) &amp;= P\left((u-b)/a \leq X \leq (v-b)/a\right) \\
+&amp;= \int_{(v-b)/a}^{(u-b)/a} \frac{1}{\sigma \sqrt{2\pi}} \exp \left[ - \frac{1}{2} \left( \frac{x-\mu}{\sigma}\right)^2 \right] \ \text{d}x \\
+&amp;= \int_u^v \frac{1}{a\sigma \sqrt{2\pi}} \exp \left[ -\frac{1}{2} \left( \frac{y-(a\mu+b)}{a\sigma}\right)^2\right]  \ \text{d}y,
+\end{align*}\]</div>
+<p>where we made the substitution <span class="math notranslate nohighlight">\(y=ax+b\)</span> in passing from the first integral to the second. But the integrand in the second integral is exactly the PDF of a <span class="math notranslate nohighlight">\(\mathcal{N}(a\mu+b, a^2\sigma^2)\)</span> distribution, which is what we wanted to show.</p>
+<p>Now, let me show you how this result may be used to transform normal variables into standard normal ones:</p>
+<div class="proof corollary admonition" id="standardization-cor">
+<p class="admonition-title"><span class="caption-number">Corollary 4.1 </span> (Standardization of normal variables)</p>
+<section class="corollary-content" id="proof-content">
+<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{N}(\mu,\sigma^2)\)</span>, then <span class="math notranslate nohighlight">\(Z = (X-\mu)/\sigma\)</span> has a standard normal distribution.</p>
+</section>
+</div><p>As the subtitle of the corollary shows, the process of transforming a normal variable to a standard normal one is called <em>standardization</em>. We will use this process constantly later in the course. To prove the corollary, simply note that <span class="math notranslate nohighlight">\(Z\)</span> is an affine transformation <span class="math notranslate nohighlight">\(aX+b\)</span> with <span class="math notranslate nohighlight">\(a=1/\sigma\)</span> and <span class="math notranslate nohighlight">\(b=-\mu/\sigma\)</span>. Then, the theorem gives <span class="math notranslate nohighlight">\(Z\sim \mathcal{N}(a\mu+b,a^2\sigma^2) = \mathcal{N}(0,1)\)</span>.</p>
+<p>The CDF of a standard normal variable is so important that it gets its own notation described in the next definition:</p>
+<div class="proof definition admonition" id="std-normal-stuff-def">
+<p class="admonition-title"><span class="caption-number">Definition 4.7 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(Z\sim \mathcal{N}(0,1)\)</span> be a standard normal random variable.</p>
+<ul>
+<li><p>The probability density function of <span class="math notranslate nohighlight">\(Z\)</span> is denoted <span class="math notranslate nohighlight">\(\phi(z)\)</span>.</p></li>
+<li><p>The cumulative distribution function of <span class="math notranslate nohighlight">\(Z\)</span> is denoted <span class="math notranslate nohighlight">\(\Phi(z)\)</span>.</p></li>
+<li><p>For each real number <span class="math notranslate nohighlight">\(\alpha\)</span>, we define <span class="math notranslate nohighlight">\(z_\alpha\)</span> to be the number for which the area under the density curve of <span class="math notranslate nohighlight">\(Z\)</span> to the <em>right</em> is exactly <span class="math notranslate nohighlight">\(\alpha\)</span>. In other words, we have</p>
+<div class="math notranslate nohighlight">
+\[
+    z_\alpha = \Phi^{-1}(1-\alpha).
+    \]</div>
+<p>The number <span class="math notranslate nohighlight">\(z_\alpha\)</span> is called a <em>critical value</em>.</p>
+</li>
+</ul>
+</section>
+</div><p>For example, the critical value <span class="math notranslate nohighlight">\(z_{0.25}\)</span> marks the location along the <span class="math notranslate nohighlight">\(z\)</span>-axis for which the shaded area in the following figure is equal to <span class="math notranslate nohighlight">\(\alpha=0.25\)</span>:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Z</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>
+<span class="n">support</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.25</span>
+<span class="n">z_alpha</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span>
+<span class="n">short_support</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">z_alpha</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">support</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">short_support</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">short_support</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FD46FC&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">z_alpha</span> <span class="o">-</span> <span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.012</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$z_</span><span class="si">{0.25}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FD46FC&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$z$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/b42cfe5e3c3cb7131abfbda6b5e72aa68cb85aff3501086b8be730fcb3fe868e.png"><img alt="../_images/b42cfe5e3c3cb7131abfbda6b5e72aa68cb85aff3501086b8be730fcb3fe868e.png" src="../_images/b42cfe5e3c3cb7131abfbda6b5e72aa68cb85aff3501086b8be730fcb3fe868e.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>Can you see where the critical value <span class="math notranslate nohighlight">\(z_{0.5}\)</span> would be? Since the standard normal density curve is symmetric about the origin, we must have <span class="math notranslate nohighlight">\(z_{0.5}=0\)</span> since exactly half the area lies to the right of the origin.</p>
+<p>Now, let’s formally state that the parameters of the normal distributions really are the means and standard deviations:</p>
+<div class="proof theorem admonition" id="exp-var-gaussian-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 4.8 </span> (Expectations and variances of normal variables)</p>
+<section class="theorem-content" id="proof-content">
+<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{N}(\mu,\sigma^2)\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+E(X) = \mu \quad \text{and} \quad V(X) = \sigma^2.
+\]</div>
+</section>
+</div><p>We will derive these formulas later in the worksheet problems to <a class="reference internal" href="07-more-prob.html#mgf"><span class="std std-numref">Section 7.4</span></a>.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problems 10-13 on the worksheet.</p>
+</div>
+</section>
+<section id="exponential-distributions">
+<h2><span class="section-number">4.7. </span>Exponential distributions<a class="headerlink" href="#exponential-distributions" title="Link to this heading">#</a></h2>
+<p>The next family of distributions is strongly related to the discrete Poisson variables that we saw above, as well as to the <em>gamma distributions</em> in the next section.</p>
+<div class="proof definition admonition" id="exponential-def">
+<p class="admonition-title"><span class="caption-number">Definition 4.8 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\lambda&gt;0\)</span> be a real number. A continuous random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have an <em>exponential distribution</em> with parameter <span class="math notranslate nohighlight">\(\lambda\)</span>, denoted</p>
+<div class="math notranslate nohighlight">
+\[
+X \sim \mathcal{E}xp(\lambda),
+\]</div>
+<p>if its probability density function is given by</p>
+<div class="math notranslate nohighlight">
+\[
+f(x;\lambda) = \lambda e^{-\lambda x}
+\]</div>
+<p>with support <span class="math notranslate nohighlight">\((0,\infty)\)</span>.</p>
+</section>
+</div><p>The effect of the parameter is clear on the graph of the density function:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span>
+<span class="n">support</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">expon</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="n">l</span><span class="p">)</span>
+    
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">support</span><span class="p">))</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;$\lambda=</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PDF of a random variable $X\sim \mathcal</span><span class="si">{E}</span><span class="s1">xp(\lambda)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/7fc18598b192239296ee0f30ee2cc6ad4955057eba64cb1122238ca408f1a52f.png"><img alt="../_images/7fc18598b192239296ee0f30ee2cc6ad4955057eba64cb1122238ca408f1a52f.png" src="../_images/7fc18598b192239296ee0f30ee2cc6ad4955057eba64cb1122238ca408f1a52f.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>If you examined the Python code that I wrote to produce these figures, you’ll notice that <span class="math notranslate nohighlight">\(\lambda\)</span> is <em>not</em> a shape parameter in SciPy’s implementation of an exponential variable. Rather, SciPy uses the reciprocal <span class="math notranslate nohighlight">\(\beta = 1/\lambda\)</span> as a <code class="docutils literal notranslate"><span class="pre">scale</span></code> parameter.</p>
+<p>The parameter <span class="math notranslate nohighlight">\(\lambda\)</span> is often referred to as a <em>rate</em> or <em>intensity parameter</em>. The reason for this name is made clear in the following archetypical scenario which is a continuation of the archetypical Poisson scenario described <a class="reference internal" href="#poisson-scenario"><span class="std std-ref">above</span></a>.</p>
+<div class="admonition-an-archetypical-exponential-scenario-email-scenario-continued admonition" id="exp-scenario">
+<p class="admonition-title">An archetypical exponential scenario (email scenario continued)</p>
+<p><strong>Q</strong>: Let <span class="math notranslate nohighlight">\(T_1,T_2,\ldots\)</span> be the arrival times of the emails in your inbox, and suppose that they arrive at a mean rate <span class="math notranslate nohighlight">\(\lambda\)</span> (measured in reciprocal hours). We set <span class="math notranslate nohighlight">\(I_1 = T_1\)</span>, the time of <em>first arrival</em>, and for each <span class="math notranslate nohighlight">\(k=2,3,\ldots\)</span> the differences</p>
+<div class="math notranslate nohighlight">
+\[
+I_k = T_k - T_{k-1}
+\]</div>
+<p>are called <em>interarrival times</em>.</p>
+<p>What are the distributions of the random variables <span class="math notranslate nohighlight">\(I_1,I_2,\ldots\)</span>?</p>
+<p><strong>A</strong>: <span class="math notranslate nohighlight">\(I_k\sim \mathcal{E}xp(\lambda)\)</span> for all <span class="math notranslate nohighlight">\(k=1,2,\ldots\)</span>.</p>
+</div>
+<p>We shall first show that <span class="math notranslate nohighlight">\(I_1 \sim \mathcal{E}xp(\lambda)\)</span> by proving that it has the CDF of an <span class="math notranslate nohighlight">\(\mathcal{E}xp(\lambda)\)</span> distribution:</p>
+<div class="math notranslate nohighlight" id="equation-cdf-exp-eqn">
+<span class="eqno">(4.11)<a class="headerlink" href="#equation-cdf-exp-eqn" title="Link to this equation">#</a></span>\[
+F(t) = \int_0^t \lambda e^{-\lambda x} \ \text{d}x = 1 - e^{-\lambda t}.
+\]</div>
+<p>To do this, notice that</p>
+<div class="math notranslate nohighlight">
+\[
+P(I_1 \leq t) = 1 - P(I_1 &gt; t) = 1 - P\left( \text{no emails arrive in $[0,t]$} \right).
+\]</div>
+<p>However, we already know that the number of emails that arrive in a given time interval of length <span class="math notranslate nohighlight">\(t\)</span> is modeled by a <span class="math notranslate nohighlight">\(\mathcal{P}ois(\lambda t)\)</span> random variable, and so</p>
+<div class="math notranslate nohighlight">
+\[
+P\left( \text{no emails arrive in $[0,t]$} \right) = \frac{(\lambda t)^0}{0!}e^{-\lambda t} = e^{-\lambda t}.
+\]</div>
+<p>But then</p>
+<div class="math notranslate nohighlight">
+\[
+P(I_1 \leq t) = 1- e^{-\lambda t} = F(t),
+\]</div>
+<p>from which it follows that <span class="math notranslate nohighlight">\(I_1 \sim \mathcal{E}xp(\lambda)\)</span>.</p>
+<p>We now show that <span class="math notranslate nohighlight">\(I_k\sim \mathcal{E}xp(\lambda)\)</span> (for all <span class="math notranslate nohighlight">\(k\geq 2\)</span>) via the same method as above by proving it has CDF given by <a class="reference internal" href="#equation-cdf-exp-eqn">(4.11)</a>. To do this, note that</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+P(I_k &gt;t | T_{k-1} = s ) &amp;= P\left( \text{no emails arrive in $(s,s+t]$} \mid T_{k-1} = s \right) \\
+&amp;= P\left( \text{no emails arrive in $(s,s+t]$} \right) \\
+&amp;= e^{-\lambda t}
+\end{align*}\]</div>
+<p>for <span class="math notranslate nohighlight">\(s,t&gt; 0\)</span>. The second equality follows from independence of the arrival times <span class="math notranslate nohighlight">\(T_1,T_2,\ldots\)</span>; indeed, the arrival time of an email should have no influence on whether an email arrives in a subsequent time interval. The third equality follows from the fact (again) that the number of emails that arrive in a time interval of length <span class="math notranslate nohighlight">\(t\)</span> is a <span class="math notranslate nohighlight">\(\mathcal{P}ois(\lambda t)\)</span> random variable. But independence considerations also suggest that</p>
+<div class="math notranslate nohighlight">
+\[
+P(I_k &gt;t) = P(I_k &gt;t | T_{k-1} = s )
+\]</div>
+<p>and hence</p>
+<div class="math notranslate nohighlight">
+\[
+P(I_k \leq t) = 1- P(I_k&gt;t) = 1 - e^{-\lambda t} = F(t)
+\]</div>
+<p>for all <span class="math notranslate nohighlight">\(t&gt;0\)</span>. Thus, <span class="math notranslate nohighlight">\(I_k \sim \mathcal{E}xp(\lambda)\)</span>, which completes the (plausibility) proof.</p>
+<p>Now, before moving onto some example problems, let’s state the means and variances of exponential variables:</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>If <span class="math notranslate nohighlight">\(I_k\)</span> denotes the <span class="math notranslate nohighlight">\(k\)</span>-th arrival time in our archetypical exponential scenario, then in order for the equation <span class="math notranslate nohighlight">\(E(I_k) = 1/\lambda\)</span> to be dimensionally correct, the rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span> <em>must</em> be measured in reciprocal hours.</p>
+</aside>
+<div class="proof theorem admonition" id="exp-var-exponential-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 4.9 </span> (Expectations and variances of exponential variables)</p>
+<section class="theorem-content" id="proof-content">
+<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{E}xp(\lambda)\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+E(X) = \frac{1}{\lambda} \quad \text{and} \quad V(X) = \frac{1}{\lambda^2}.
+\]</div>
+</section>
+</div><p>We will not prove these formulas here, since they will follow from the observation that every exponential variable is a <a class="reference internal" href="#gam-defn">gamma variable</a> and <a class="reference internal" href="#gam-exp-thm">Theorem 4.11</a>.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 14 on the worksheet.</p>
+</div>
+</section>
+<section id="gamma-distributions">
+<h2><span class="section-number">4.8. </span>Gamma distributions<a class="headerlink" href="#gamma-distributions" title="Link to this heading">#</a></h2>
+<p>Normal distributions are symmetric about their means and therefore cannot model datasets that are <em>skew</em> (i.e., non-symmetric). It is therefore of interest to have in one’s toolkit a family of skew distributions; such a family is described in this section.</p>
+<p>These distributions derive their name from the <a class="reference external" href="https://en.wikipedia.org/wiki/Gamma_function">gamma functions</a></p>
+<div class="math notranslate nohighlight" id="equation-gam-func-eqn">
+<span class="eqno">(4.12)<a class="headerlink" href="#equation-gam-func-eqn" title="Link to this equation">#</a></span>\[
+\Gamma(\alpha) \stackrel{\text{def}}{=} \int_0^\infty x^{\alpha-1} e^{-x} \ \text{d} x \quad (\alpha&gt;0)
+\]</div>
+<p>that appear in their PDFs.</p>
+<div class="proof definition admonition" id="gam-defn">
+<p class="admonition-title"><span class="caption-number">Definition 4.9 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\alpha,\beta&gt;0\)</span> be real numbers. A continuous random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>gamma distribution</em> with parameters <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>, denoted</p>
+<div class="math notranslate nohighlight">
+\[
+X \sim \mathcal{G}am(\alpha,\beta),
+\]</div>
+<p>if its probability density function is given by</p>
+<div class="math notranslate nohighlight" id="equation-gamma-pdf-eqn">
+<span class="eqno">(4.13)<a class="headerlink" href="#equation-gamma-pdf-eqn" title="Link to this equation">#</a></span>\[
+f(x;\alpha,\beta) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}.
+\]</div>
+<p>with support <span class="math notranslate nohighlight">\((0,\infty)\)</span>.</p>
+</section>
+</div><p>How should one understand the formula <a class="reference internal" href="#equation-gamma-pdf-eqn">(4.13)</a> for the PDFs of gamma distributions, given that it involves the somewhat intimidating gamma function <a class="reference internal" href="#equation-gam-func-eqn">(4.12)</a>? Here’s my advice: Don’t worry about the leading factor <span class="math notranslate nohighlight">\(\beta^\alpha/\Gamma(\alpha)\)</span> in <a class="reference internal" href="#equation-gamma-pdf-eqn">(4.13)</a>, and only pay attention to the “important” factor <span class="math notranslate nohighlight">\(x^{\alpha-1}e^{-\beta x}\)</span>. This advice is justified based on the observation that the factor <span class="math notranslate nohighlight">\(\beta^\alpha/\Gamma(\alpha)\)</span> does <em>not</em> involve the variable <span class="math notranslate nohighlight">\(x\)</span>, and is therefore a constant. In fact, it is quite common to see the PDF of a gamma distribution represented as</p>
+<div class="math notranslate nohighlight" id="equation-prop-gam-eqn">
+<span class="eqno">(4.14)<a class="headerlink" href="#equation-prop-gam-eqn" title="Link to this equation">#</a></span>\[
+f(x;\alpha,\beta) \propto x^{\alpha-1} e^{-\beta x},
+\]</div>
+<p>where the symbol “<span class="math notranslate nohighlight">\(\propto\)</span>” means “proportional to.” By writing <a class="reference internal" href="#equation-prop-gam-eqn">(4.14)</a>, we are signaling that the only important part of the PDF is the factor <span class="math notranslate nohighlight">\(x^{\alpha-1} e^{-\beta x}\)</span>.</p>
+<p>One should understand the factor <span class="math notranslate nohighlight">\(\beta^\alpha/\Gamma(\alpha)\)</span> as a normalization factor then ensures that the PDF integrates to <span class="math notranslate nohighlight">\(1\)</span>. Indeed, note that</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{0}^\infty x^{\alpha-1} e^{-\beta x} \ \text{d}x = \frac{1}{\beta^\alpha} \int_0^\infty u^{\alpha-1} e^{-u} \ \text{d}u = \frac{\Gamma(\alpha)}{\beta^\alpha},
+\]</div>
+<p>where we’ve made the substitution <span class="math notranslate nohighlight">\(u=\beta x\)</span> in the first equality. Thus, if we want the expression <span class="math notranslate nohighlight">\(x^{\alpha-1} e^{-\beta x}\)</span> to integate to <span class="math notranslate nohighlight">\(1\)</span> over the support <span class="math notranslate nohighlight">\((0,\infty)\)</span>, then we had better multiply it by the normalizing factor <span class="math notranslate nohighlight">\(\beta^\alpha / \Gamma(\alpha)\)</span>.</p>
+<p>The PDFs look like the following, for various settings of the parameters.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="p">[[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)],</span> <span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]]</span>
+<span class="n">support</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">b</span><span class="p">)</span>
+    
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">support</span><span class="p">))</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s1">$, $\beta=</span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PDF of a random variable $X\sim \mathcal</span><span class="si">{G}</span><span class="s1">am(\alpha,\beta)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/89d17668f473daa1990ca0f91c223c9d1e57b63a6e9af6b835c004fb748a85df.png"><img alt="../_images/89d17668f473daa1990ca0f91c223c9d1e57b63a6e9af6b835c004fb748a85df.png" src="../_images/89d17668f473daa1990ca0f91c223c9d1e57b63a6e9af6b835c004fb748a85df.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>Notice that these distributions are definitely skew, i.e., non-symmetric.</p>
+<p>If you inspect the Python code that I wrote to produce these figures, you’ll notice that SciPy’s implementation of gamma variables takes <span class="math notranslate nohighlight">\(\alpha\)</span> as a <em>shape parameter</em> called <code class="docutils literal notranslate"><span class="pre">a</span></code>, while it takes the reciprocal <span class="math notranslate nohighlight">\(1/\beta\)</span> as a <em>scale parameter</em> called <code class="docutils literal notranslate"><span class="pre">scale</span></code>. The parameter <span class="math notranslate nohighlight">\(\beta\)</span> is then called a <em>rate parameter</em>.</p>
+<p>I have decided to present the exponential distributions <em>first</em>, and <em>then</em> the gamma distributions. This might seem a bit backwards since the former are actually special types of the latter. Indeed, by comparing PDFs, we see that</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{E}xp(\lambda) = \mathcal{G}am(1,\lambda).
+\]</div>
+<p>However, I wanted us to be familiar with exponential variables so that the following scenario makes sense. (It would be worth reviewing the <a class="reference internal" href="#poisson-scenario"><span class="std std-ref">Poisson</span></a> and <a class="reference internal" href="#exp-scenario"><span class="std std-ref">exponential scenarios</span></a> before proceeding!)</p>
+<div class="admonition-an-archetypical-gamma-scenario-email-scenario-continued-again admonition" id="gamma-scenario">
+<p class="admonition-title">An archetypical gamma scenario (email scenario continued, again)</p>
+<p><strong>Q</strong>: Remember that <span class="math notranslate nohighlight">\(T_k\)</span> (for <span class="math notranslate nohighlight">\(k=1,2,\ldots\)</span>) denotes the (random) arrival time of the <span class="math notranslate nohighlight">\(k\)</span>-th email in your inbox, and that the mean rate at which they arrive is <span class="math notranslate nohighlight">\(\lambda\)</span> (measured in reciprocal hours). What are the distributions of the random variables <span class="math notranslate nohighlight">\(T_k\)</span>?</p>
+<p><strong>A</strong>: We have <span class="math notranslate nohighlight">\(T_k \sim \mathcal{G}am(k,\lambda)\)</span> for all <span class="math notranslate nohighlight">\(k=1,2,\ldots\)</span>.</p>
+</div>
+<p>The justification follows from the fact that</p>
+<div class="math notranslate nohighlight">
+\[
+T_k = T_1 + (T_2 - T_1) + \cdots + (T_k - T_{k-1}) = I_1 + I_2 + \cdots + I_k,
+\]</div>
+<p>and that the <span class="math notranslate nohighlight">\(I_k\)</span>’s are independent <span class="math notranslate nohighlight">\(\mathcal{E}xp(\lambda)\)</span> random variables. As we will see <a class="reference internal" href="07-more-prob.html#mgf"><span class="std std-ref">later</span></a>, it is a general fact that the sum of <span class="math notranslate nohighlight">\(k\)</span> independent <span class="math notranslate nohighlight">\(\mathcal{E}xp(\lambda)\)</span> variables is a <span class="math notranslate nohighlight">\(\mathcal{G}am(k,\lambda)\)</span> variable, which implies the desired result.</p>
+<p>It is instructive to inspect the densities of the first few <span class="math notranslate nohighlight">\(T_k\)</span>’s:</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cycler</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#486afb&#39;</span><span class="p">,</span> <span class="s1">&#39;#db48d2&#39;</span><span class="p">,</span> <span class="s1">&#39;#ff3b90&#39;</span><span class="p">,</span> <span class="s1">&#39;#ff6d4d&#39;</span><span class="p">,</span> <span class="s1">&#39;#ffa600&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="n">prop_cycle</span><span class="o">=</span><span class="n">cycler</span><span class="p">)</span>
+
+<span class="n">support</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">l</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="n">l</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">support</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">rf</span><span class="s1">&#39;$T_</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$t$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/c328b97f385538788aa8bb371d92c3a7d13d18b1b33b9c851a28b311fef921ae.png"><img alt="../_images/c328b97f385538788aa8bb371d92c3a7d13d18b1b33b9c851a28b311fef921ae.png" src="../_images/c328b97f385538788aa8bb371d92c3a7d13d18b1b33b9c851a28b311fef921ae.png" style="width: 70%;" /></a>
+</figure>
+</div>
+</div>
+<p>Notice that the majority of the “mass” of the distributions move further to the right as <span class="math notranslate nohighlight">\(k\)</span> increases. This makes sense, as we would expect that the mean arrival time of the <span class="math notranslate nohighlight">\((k+1)\)</span>-st email is greater than the mean arrival time of the <span class="math notranslate nohighlight">\(k\)</span>-th one.</p>
+<p>To make this idea precise, it would be helpful to have a formula for the mean of a gamma variable. To derive such a formula, we will need the following convenient property of the gamma functions <a class="reference internal" href="#equation-gam-func-eqn">(4.12)</a>:</p>
+<div class="proof theorem admonition" id="recur-gamma-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 4.10 </span></p>
+<section class="theorem-content" id="proof-content">
+<p>If <span class="math notranslate nohighlight">\(\alpha&gt;1\)</span>, then <span class="math notranslate nohighlight">\(\Gamma(\alpha) = (\alpha-1)\Gamma(\alpha-1)\)</span>.</p>
+</section>
+</div><p>The proof is an integration by parts applied to the definition <a class="reference internal" href="#equation-gam-func-eqn">(4.12)</a> with <span class="math notranslate nohighlight">\(u = x^{\alpha-1}\)</span> and <span class="math notranslate nohighlight">\(dv = e^{-x} \ \text{d}x\)</span>. Then:</p>
+<div class="math notranslate nohighlight">
+\[
+\Gamma(\alpha) = -x^{\alpha-1}e^{-x} \big|_0^{\infty} + (\alpha-1) \int_0^{\infty} x^{\alpha-2}e^{-x} \ \text{d}x = (\alpha-1)\Gamma(\alpha-1).
+\]</div>
+<p>Now:</p>
+<div class="proof theorem admonition" id="gam-exp-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 4.11 </span> (Expectations and variances of gamma variables)</p>
+<section class="theorem-content" id="proof-content">
+<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{G}am(\alpha,\beta)\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+E(X) = \frac{\alpha}{\beta} \quad \text{and} \quad V(X) = \frac{\alpha}{\beta^2}.
+\]</div>
+</section>
+</div><p>For the proof, let <span class="math notranslate nohighlight">\(k\geq 1\)</span> be any integer. Then:</p>
+<div class="math notranslate nohighlight">
+\[
+E(X^k) = \frac{\beta^\alpha}{\Gamma(\alpha)} \int_0^\infty x^k \cdot x^{\alpha-1} e^{-\beta x} \ \text{d}x = \frac{\beta^\alpha}{\Gamma(\alpha)} \int_0^\infty x^{\alpha + k -1} e^{-\beta x} \ \text{d} x.
+\]</div>
+<p>But the second integral is equal to <span class="math notranslate nohighlight">\(\Gamma(\alpha+k)/\beta^{\alpha+k}\)</span> since it is precisely the integral that appears in the density of a <span class="math notranslate nohighlight">\(\Gamma(\alpha+k,\beta)\)</span> distribution. Thus,</p>
+<div class="math notranslate nohighlight">
+\[
+E(X^k) = \frac{\beta^\alpha}{\Gamma(\alpha)} \cdot \frac{\Gamma(\alpha+k)}{\beta^{\alpha+k}} = \frac{\Gamma(\alpha+k)}{\beta^k \Gamma(\alpha)}.
+\]</div>
+<p>In particular, if we take <span class="math notranslate nohighlight">\(k=1\)</span> and use <a class="reference internal" href="#recur-gamma-thm">Theorem 4.10</a>, we get <span class="math notranslate nohighlight">\(E(X) = \alpha/\beta\)</span>, as desired. If we take <span class="math notranslate nohighlight">\(k=2\)</span> and use <a class="reference internal" href="#recur-gamma-thm">Theorem 4.10</a> twice, we get</p>
+<div class="math notranslate nohighlight">
+\[
+E(X^2) = \frac{\Gamma(\alpha+2)}{\beta^2\Gamma(\alpha)} = \frac{(\alpha+1)\alpha}{\beta^2}.
+\]</div>
+<p>Then,</p>
+<div class="math notranslate nohighlight">
+\[
+V(X) = E(X^2) - E(X)^2 = \frac{(\alpha+1)\alpha}{\beta^2} - \frac{\alpha^2}{\beta^2} = \frac{\alpha}{\beta^2},
+\]</div>
+<p>which is what we wanted to prove.</p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 15 on the worksheet.</p>
+</div>
+</section>
+<section id="beta-distributions">
+<h2><span class="section-number">4.9. </span>Beta distributions<a class="headerlink" href="#beta-distributions" title="Link to this heading">#</a></h2>
+<p>All the continuous random variables studied so far have unbounded supports. However, the next type of random variables have their supports inside the open interval <span class="math notranslate nohighlight">\((0,1)\)</span> which makes them particularly useful for modeling proportions and probabilities. They are parametrized by <span class="math notranslate nohighlight">\(\alpha\)</span>’s and <span class="math notranslate nohighlight">\(\beta\)</span>’s just like the gamma variables, and they also have gamma functions in their PDF’s.</p>
+<div class="proof definition admonition" id="beta-def">
+<p class="admonition-title"><span class="caption-number">Definition 4.10 </span></p>
+<section class="definition-content" id="proof-content">
+<p>Let <span class="math notranslate nohighlight">\(\alpha,\beta&gt;0\)</span> be real numbers. A continuous random variable <span class="math notranslate nohighlight">\(X\)</span> is said to have a <em>beta distribution</em> with parameters <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>, denoted</p>
+<div class="math notranslate nohighlight">
+\[
+X \sim \mathcal{B}eta(\alpha,\beta),
+\]</div>
+<p>if its probability density function is given by</p>
+<div class="math notranslate nohighlight">
+\[
+f(x;\alpha,\beta) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1} (1-x)^{\beta-1}.
+\]</div>
+<p>with support <span class="math notranslate nohighlight">\((0,1)\)</span>.</p>
+</section>
+</div><aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>It is perhaps unfortunate that the random variable <em>itself</em> is called a <em>beta variable</em>, while <span class="math notranslate nohighlight">\(\beta\)</span> is also one of the parameters. This has ramifications when attempting to use SciPy’s implementation of beta variables since the SciPy function is called <code class="docutils literal notranslate"><span class="pre">beta</span></code>. This means that you cannot use <code class="docutils literal notranslate"><span class="pre">beta</span></code> as a variable name for parameters!</p>
+</aside>
+<p>Just like the densities of gamma variables, the leading factor <span class="math notranslate nohighlight">\(\Gamma(\alpha+\beta)/(\Gamma(\alpha)\Gamma(\beta))\)</span> is only there to ensure that the PDF integrates to <span class="math notranslate nohighlight">\(1\)</span>. Notice that it is independent of the variable <span class="math notranslate nohighlight">\(x\)</span>, and thus we may write</p>
+<div class="math notranslate nohighlight">
+\[
+f(x;\alpha,\beta) \propto x^{\alpha-1} (1-x)^{\beta-1},
+\]</div>
+<p>highlighting only the “important” part of the density.</p>
+<p>For <span class="math notranslate nohighlight">\(\alpha,\beta&gt;1\)</span>, notice that the density function <span class="math notranslate nohighlight">\(f(x;\alpha,\beta)\)</span> has zeros at <span class="math notranslate nohighlight">\(x=0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. Moreover, if <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are integers greater than <span class="math notranslate nohighlight">\(1\)</span>, then the powers <span class="math notranslate nohighlight">\(\alpha-1\)</span> and <span class="math notranslate nohighlight">\(\beta-1\)</span> in <span class="math notranslate nohighlight">\(f(x;\alpha,\beta)\)</span> play the role of <em>multiplicities</em> of these zeros. Thus, holding one of <span class="math notranslate nohighlight">\(\alpha\)</span> or <span class="math notranslate nohighlight">\(\beta\)</span> fixed while increasing the other one has the effect of “flattening” the density curve toward the zero whose multiplicity is increasing. You can see this “flattening” effect by comparing the plots vertically in the first two rows of the following figure; the last two rows show the density curves for fractional values of <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>, and for values less than <span class="math notranslate nohighlight">\(1\)</span>.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="p">[[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)],</span> <span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)],</span> <span class="p">[(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)],</span> <span class="p">[(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">2.75</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)]]</span>
+<span class="n">support</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+    
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">support</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">support</span><span class="p">))</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;probability density&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;$\alpha=</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s1">$, $\beta=</span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;PDF of a random variable $X\sim \mathcal</span><span class="si">{B}</span><span class="s1">eta(\alpha,\beta)$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/2de9e89f5017af81d87bf135b4eb3e214e064753fa17d4d634c3740ce30d34a8.png"><img alt="../_images/2de9e89f5017af81d87bf135b4eb3e214e064753fa17d4d634c3740ce30d34a8.png" src="../_images/2de9e89f5017af81d87bf135b4eb3e214e064753fa17d4d634c3740ce30d34a8.png" style="width: 100%;" /></a>
+</figure>
+</div>
+</div>
+<p>Notice that if either <span class="math notranslate nohighlight">\(\alpha&lt;1\)</span> or <span class="math notranslate nohighlight">\(\beta&lt;1\)</span>, then the density curve has a vertical asymptote at the corresponding <span class="math notranslate nohighlight">\(x=0\)</span> or <span class="math notranslate nohighlight">\(x=1\)</span>.</p>
+<div class="proof theorem admonition" id="exp-beta-thm">
+<p class="admonition-title"><span class="caption-number">Theorem 4.12 </span> (Expectations and variances of beta variables)</p>
+<section class="theorem-content" id="proof-content">
+<p>If <span class="math notranslate nohighlight">\(X\sim \mathcal{B}eta(\alpha,\beta)\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+E(X) = \frac{\alpha}{\alpha+\beta} \quad \text{and} \quad V(X) = \frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}.
+\]</div>
+</section>
+</div><p>These formulas may be derived using computations very similar to those for deriving the means and variances of gamma variables in <a class="reference internal" href="#gam-exp-thm">Theorem 4.11</a>. I suggest that you try to derive them on your own; if you have trouble, take a look at Theorem 5.8.3 in <span id="id9">[<a class="reference internal" href="bib.html#id7" title="M. H. DeGroot and M. J. Schervish. Probability and statistics. Volume 563. Pearson Education London, UK, 2014.">DS14</a>]</span></p>
+<div class="admonition-problem-prompt admonition">
+<p class="admonition-title">Problem Prompt</p>
+<p>Do problem 16 on the worksheet.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03-random-variables.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Random variables</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="05-theory-to-practice.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Connecting theory to practice: a first look at model building</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bernoulli-distributions">4.1. Bernoulli distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binomial-distributions">4.2. Binomial distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-distributions">4.3. Geometric distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypergeometric-distributions">4.4. Hypergeometric distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#poisson-distributions">4.5. Poisson distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-distributions">4.6. Normal distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-distributions">4.7. Exponential distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gamma-distributions">4.8. Gamma distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beta-distributions">4.9. Beta distributions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By John Myers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
