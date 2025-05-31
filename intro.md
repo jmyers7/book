@@ -72,4 +72,4 @@ Finally, in the culminating twelfth chapter of the book, we get down to the busi
 
 Even if nobody but myself uses the _entire_ book in their classroom or for self study, I hope at least some of its content proves to be useful to somebody somewhere! If you _do_ use something, I would appreciate a link back to this webpage or a citation of some sort. I would also appreciate any feedback, comments and suggestions that you might have!
 
---- john myers, ph.d. \ [johnmyersmath.com](https://www.johnmyersmath.com/) \ [mml.johnmyersmath.com](https://mml.johnmyersmath.com/) \ <a href = "mailto: jmmyers25@gmail.com">email</a>
+--- john myers, ph.d. \ [johnmyersmath.com](https://www.johnmyersmath.com/) \ <a href = "mailto: jmmyers25@gmail.com">email</a>

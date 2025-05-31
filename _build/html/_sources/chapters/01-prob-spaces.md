@@ -79,7 +79,7 @@ $$
 
 The plain number of $4$s rolled is just called the *frequency*; but when you divide that frequency by the total number of rolls, you are computing a _relative frequency_ since the frequency of $4$s turns into a number measured _relative_ to the total number of rolls.
 
-If the total number of rolls is large, what might you expect the relative frequency to tend toward? To answer this, let's have a computer do the rolling for us! Here are the results:
+If the total number of rolls is large, what might you expect the relative frequency to tend toward? To answer this, let's have a computer do the rolling for us. Here are the results:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
