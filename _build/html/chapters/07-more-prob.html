@@ -32,9 +32,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="../_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -905,7 +905,7 @@ g(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a2dcaa25a5952f12ac71f1ce7acdcf8ad6c219be6f364c6d8debe616c2bd3cbb.svg" src="../_images/a2dcaa25a5952f12ac71f1ce7acdcf8ad6c219be6f364c6d8debe616c2bd3cbb.svg" /></figure>
+<img alt="../_images/747040f1aa650286a49b4e907c30af2fcc656271fad41ce237768c8ea010312a.svg" src="../_images/747040f1aa650286a49b4e907c30af2fcc656271fad41ce237768c8ea010312a.svg" /></figure>
 </div>
 </div>
 <p>The plot looks exactly like we would expect: A bunch of points lying on the graph of the function <span class="math notranslate nohighlight">\(y=g(x)\)</span>. However, very often with real-world data, an <em>exact</em> dependence <span class="math notranslate nohighlight">\(Y = g(X)\)</span> does not truly hold. Instead, the functional relationship is “noisy”, resulting in scatter plots that look like this:</p>
@@ -937,7 +937,7 @@ g(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/0609722b32a12a3c38469b40675ba159f36515cc0ae67f74cbb33abfe00e06d3.svg" src="../_images/0609722b32a12a3c38469b40675ba159f36515cc0ae67f74cbb33abfe00e06d3.svg" /></figure>
+<img alt="../_images/0701ec39bf820beb242ef35db6fea1f4038339f56e8a86be45d8f0c6b3c113c8.svg" src="../_images/0701ec39bf820beb242ef35db6fea1f4038339f56e8a86be45d8f0c6b3c113c8.svg" /></figure>
 </div>
 </div>
 <p>The “noisy” functional relationship is drawn in the left-hand plot, while on the right-hand plot I have superimposed the graph of the function <span class="math notranslate nohighlight">\(y=g(x)\)</span> for reference. Instead of lying directly on the graph of <span class="math notranslate nohighlight">\(y=g(x)\)</span>, the data is clustered along the graph.</p>
@@ -971,7 +971,7 @@ g(x) = x(x-1)(x-2)
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/33f90cf18c4f28628849a78f9c52a2db73fcfa1b17cd6a19b4e5fe79b6b37959.svg" src="../_images/33f90cf18c4f28628849a78f9c52a2db73fcfa1b17cd6a19b4e5fe79b6b37959.svg" /></figure>
+<img alt="../_images/00df27eb8e70aebe326021790ed81083546a8ba46184d46b6e95b6ce55ff18c7.svg" src="../_images/00df27eb8e70aebe326021790ed81083546a8ba46184d46b6e95b6ce55ff18c7.svg" /></figure>
 </div>
 </div>
 <p>Our goal in this section is to uncover ways to <em>quantify</em> or <em>measure</em> the strength of these types of “noisy” linear dependencies between random variables. We will discover that there are two such measures, called <em>covariance</em> and <em>correlation</em>. An alternate measure of more general dependence, called <em>mutual information</em>, will be studied in the next chapter in <a class="reference internal" href="09-info-theory.html#cond-entropy-mutual-info-sec"><span class="std std-numref">Section 9.3</span></a>.</p>
@@ -1033,7 +1033,7 @@ E(X - \mu_X) = E(X) - E(\mu_X) = 0,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/cfd8e2da333df7c418591f80cb5ebc8a76d2c866caaa8775aad1b214494ab0b4.svg" src="../_images/cfd8e2da333df7c418591f80cb5ebc8a76d2c866caaa8775aad1b214494ab0b4.svg" /></figure>
+<img alt="../_images/55856d2d2ad79649ae05349c06ad2fa5da7cfad04f3d9254ec32cc2892776dd0.svg" src="../_images/55856d2d2ad79649ae05349c06ad2fa5da7cfad04f3d9254ec32cc2892776dd0.svg" /></figure>
 </div>
 </div>
 <p>You can see that the dataset has not changed its shape—it has only shifted so that its mean (represented by the magenta dot) is at the origin <span class="math notranslate nohighlight">\((0,0)\)</span>.</p>
@@ -1161,7 +1161,7 @@ V(a_1X_1 + \cdots + a_m X_m) = \sum_{i=1}^m a_i^2 V(X_i).
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/4f507b97eee29dcb71cef4910cb75e754ec7b75314b07be4a6ff044006260a3b.svg" src="../_images/4f507b97eee29dcb71cef4910cb75e754ec7b75314b07be4a6ff044006260a3b.svg" /></figure>
+<img alt="../_images/c65dd9b24669d711b8b4dc95764807d0a4585acf9106580ea7257a89e83473ab.svg" src="../_images/c65dd9b24669d711b8b4dc95764807d0a4585acf9106580ea7257a89e83473ab.svg" /></figure>
 </div>
 </div>
 <p>The only difference between the two datasets is the axis scales, but the linear relationship between the <span class="math notranslate nohighlight">\(x\)</span>’s and <span class="math notranslate nohighlight">\(y\)</span>’s remains the same. In fact, the scales on the axes differ by a factor of <span class="math notranslate nohighlight">\(10\)</span>, so by <a class="reference internal" href="#bilinear-thm">Theorem 7.14</a>, we have</p>
@@ -1396,7 +1396,7 @@ f(x,y) = \begin{cases}
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/a7e91f5e3a5b56d4e095dcffaaa5ecaf951643a25542b8e5732a92842f764ec9.svg" src="../_images/a7e91f5e3a5b56d4e095dcffaaa5ecaf951643a25542b8e5732a92842f764ec9.svg" /></figure>
+<img alt="../_images/e955bf9c3b5237c93b268b9617e2d52680cd7747b9d435ecfad27aedc5071ed9.svg" src="../_images/e955bf9c3b5237c93b268b9617e2d52680cd7747b9d435ecfad27aedc5071ed9.svg" /></figure>
 </div>
 </div>
 <p>Notice that these contours are concentric ellipses centered at the point <span class="math notranslate nohighlight">\((1,1)\in \bbr^2\)</span> with principal axes parallel to the coordinate <span class="math notranslate nohighlight">\(x\)</span>- and <span class="math notranslate nohighlight">\(y\)</span>-axes. In higher dimensions, the isoprobability surfaces are so-called <em>ellipsoids</em>.</p>
@@ -1445,7 +1445,7 @@ f(x_1,\ldots,x_d) = \frac{1}{(2\pi)^{d/2} (\sigma_1^2\cdots \sigma_d^2)^{1/2}} \
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/c00845cd594ed8d13ff3d8e712a329f3cbeb082769654076bd3bbd3bee95305e.svg" src="../_images/c00845cd594ed8d13ff3d8e712a329f3cbeb082769654076bd3bbd3bee95305e.svg" /></figure>
+<img alt="../_images/fde2135e66cab8f5d0a82e1d6a1ad51e20a51bf0ad6de2a9232a538ae800e12e.svg" src="../_images/fde2135e66cab8f5d0a82e1d6a1ad51e20a51bf0ad6de2a9232a538ae800e12e.svg" /></figure>
 </div>
 </div>
 <p>The key to uncovering the formula for the density in the general case begins by returning to the formula <a class="reference internal" href="#equation-init-multi-var-norm-eqn">(7.11)</a> and rewriting it using vector and matrix notation. Indeed, notice that if we set</p>
@@ -1541,7 +1541,7 @@ Q(\bx) = c^2,
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/d07cb1e06cdb5434da20c1e987f36a3e259214ed7feed43d94b5abd0aaa0e587.svg" src="../_images/d07cb1e06cdb5434da20c1e987f36a3e259214ed7feed43d94b5abd0aaa0e587.svg" /></figure>
+<img alt="../_images/83b6aa8c83b47c43f78b1201a0c1278a525fd22ccfb02d84a67ba22ac6997329.svg" src="../_images/83b6aa8c83b47c43f78b1201a0c1278a525fd22ccfb02d84a67ba22ac6997329.svg" /></figure>
 </div>
 </div>
 <p>Let’s collect our observations in the following theorem, along with a few additional facts:</p>
@@ -1690,7 +1690,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/9b64aa5c519f64df73a5026608f565bc33f24d6ab9e08139fa5be3fc43ee62fc.svg" src="../_images/9b64aa5c519f64df73a5026608f565bc33f24d6ab9e08139fa5be3fc43ee62fc.svg" /></figure>
+<img alt="../_images/a4e845971e9337512a5a4b049813b4a5b439c93a8a7f186a9393fddc28285f95.svg" src="../_images/a4e845971e9337512a5a4b049813b4a5b439c93a8a7f186a9393fddc28285f95.svg" /></figure>
 </div>
 </div>
 <p>In the <a class="reference external" href="https://github.com/jmyers7/stats-book-materials/tree/main/programming-assignments">programming assignment</a> for this chapter, you will actually implement this procedure. For example, I used these methods to simulate <span class="math notranslate nohighlight">\(1{,}000\)</span> random draws from a bivariate normal distribution with positively correlated components and which is taller than it is wide. If I plot these simulated data over top of isoprobability contours, I get this:</p>
@@ -1727,7 +1727,7 @@ a_1 X_1 + \cdots + a_d X_d, \quad a_1,\ldots,a_d \in \bbr
 </details>
 <div class="cell_output docutils container">
 <figure class="align-center">
-<img alt="../_images/93907505691474e6ca93a07b6b8e3d7acc56330494965bd2c6a3d6a88dab77c3.svg" src="../_images/93907505691474e6ca93a07b6b8e3d7acc56330494965bd2c6a3d6a88dab77c3.svg" /></figure>
+<img alt="../_images/d516fc25dd5db3af1a5262c28c23d451fc0028a83156a810895e5ff5c72bc7ef.svg" src="../_images/d516fc25dd5db3af1a5262c28c23d451fc0028a83156a810895e5ff5c72bc7ef.svg" /></figure>
 </div>
 </div>
 <p>Let’s finish off this long chapter with an example problem:</p>
